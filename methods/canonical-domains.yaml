@@ -1,0 +1,310 @@
+# Humboldt Canonical Domain Set
+# This is the live instance of M-002. Updated as domains are added, refined, or rotated out.
+# Schema: each domain has focus, canonical_examples, known_laws, law_type, fertility, and notes.
+# last_updated: 2026-05-20
+
+domains:
+
+  - name: Cryptography
+    focus: Public-key cryptography (PKC)
+    status: active
+    added: "2026-05-20"
+    law_type: mathematical_necessity
+    canonical_exemplar: "RSA trapdoor function; elliptic curve discrete logarithm"
+    canonical_examples:
+      - name: "RSA / Public-Key Infrastructure"
+        why: >
+          Extreme hardness asymmetry: verification (encrypt with public key,
+          decrypt with private key) is computationally trivial; forgery (derive
+          private key from public key) is computationally infeasible under current
+          assumptions. The asymmetry is not just large but qualitative — different
+          complexity classes. Anchors L-002 (Hardness Asymmetry).
+      - name: "TLS handshake protocol"
+        why: >
+          Layered coordination protocol with explicit trust hierarchy (certificate
+          authority chain), session key negotiation, and graceful degradation.
+          Models how protocols can be simultaneously hard (the math) and soft
+          (the CA regime, which is highly capturable).
+      - name: "Zero-knowledge proofs"
+        why: >
+          Protocols where verification requires no information transfer beyond
+          the fact of correctness. Extreme separation of verification from
+          knowledge. Generative for thinking about protocols that separate
+          'proof that X' from 'knowledge of X'.
+    known_laws:
+      - "Trapdoor one-way function asymmetry (mathematical)"
+      - "Kerckhoffs's principle: a system should be secure even if everything
+         about the system, except the key, is public knowledge"
+      - "Shannon's maxim: the enemy knows the system (design for worst-case adversary)"
+    failure_modes:
+      - "CA capture: the hardness of the math is undermined by the softness of
+         the trust infrastructure above it. The hardest cryptographic protocol
+         is only as hard as its weakest CA."
+      - "Side-channel attacks: the protocol is hard, but its implementation leaks
+         information through timing, power consumption, etc. Mechanism ≠ implementation."
+      - "Key management: cryptographic hardness is defeated by poor key hygiene."
+    fertility: high
+    fertility_notes: >
+      Consistently generative. The CA capture failure mode alone has produced
+      multiple productive analogies (hard protocol / soft enforcement layer).
+      The hardness asymmetry is the sharpest example of L-002 and anchors
+      cross-domain comparisons. ZKPs are an underexplored source of protocol
+      law candidates.
+
+  - name: Urban Built Environments
+    focus: Scaling laws and traffic behaviors
+    status: active
+    added: "2026-05-20"
+    law_type: statistical_regularity
+    canonical_exemplar: "Zipf's law for city sizes; Braess's paradox in traffic"
+    canonical_examples:
+      - name: "Zipf's law / urban scaling laws"
+        why: >
+          City size distributions follow a power law across orders of magnitude,
+          independent of country, era, or planning regime. A statistical regularity
+          that emerges from agent interaction without anyone designing it. Highly
+          generative for thinking about what kinds of protocol-system properties
+          are emergent (designed by no one) vs. designed (intended by someone).
+      - name: "Braess's paradox"
+        why: >
+          Adding capacity to a traffic network can reduce overall throughput.
+          A formal demonstration that locally rational behavior (each driver
+          choosing the fastest route) produces globally suboptimal outcomes when
+          network structure changes. Protocol-theoretic meaning: interventions
+          that improve local protocol efficiency can degrade system performance.
+          This is a constraint result, not just an anecdote.
+      - name: "Induced demand"
+        why: >
+          New road capacity generates new traffic, often returning congestion to
+          prior levels. A regularity with strong empirical support. Models the
+          general phenomenon of protocol-capacity expansions that are absorbed
+          by increased utilization rather than reducing friction.
+      - name: "Pedestrian flow and spontaneous lane formation"
+        why: >
+          Pedestrians in opposing flows spontaneously self-organize into lanes
+          without any explicit protocol. A pure emergent protocol. Useful for
+          thinking about the boundary between informal coordination norms and
+          explicit protocol design.
+    known_laws:
+      - "Zipf's law (rank-size rule for cities)"
+      - "Kleiber's law (metabolic rate scales as mass^0.75) — analogy source for
+         urban metabolism scaling"
+      - "Braess's paradox (formal)"
+      - "Induced demand (empirical regularity)"
+      - "Marchetti's constant (humans consistently spend ~1 hour/day in transit,
+         regardless of transport technology — the 'travel time budget')"
+    failure_modes:
+      - "Urban scaling laws break down at city boundaries and at very small
+         city sizes — the power law has a floor."
+      - "Braess's paradox is highly network-topology-dependent; not all
+         capacity additions create it."
+    fertility: high
+    fertility_notes: >
+      Marchetti's constant is underexplored as a source of protocol law
+      analogies — the idea that humans have a fixed 'budget' for certain
+      kinds of coordination overhead is potentially generalizable.
+      Braess's paradox is the sharpest example of counterintuitive protocol
+      intervention effects and should be checked against all candidate laws
+      involving capacity or simplification.
+
+  - name: Supply Chains
+    focus: Bottleneck phenomena and buffer dynamics
+    status: active
+    added: "2026-05-20"
+    law_type: systems_dynamics
+    canonical_exemplar: "Bullwhip effect; Theory of Constraints"
+    canonical_examples:
+      - name: "Bullwhip effect"
+        why: >
+          Small fluctuations in end-consumer demand amplify as they propagate
+          up the supply chain, producing large swings in manufacturer orders.
+          The amplification is caused by information latency and local
+          optimization at each node — each actor rationally buffers against
+          uncertainty, collectively creating the instability they're trying
+          to hedge against. A clean example of a protocol law about how
+          information degradation propagates through multi-layer systems.
+      - name: "Theory of Constraints (Goldratt)"
+        why: >
+          System throughput is determined by its bottleneck. Any improvement
+          not at the bottleneck does not improve throughput. Has the structure
+          of a constraint theorem: total throughput ≤ bottleneck capacity.
+          Also: fixing the bottleneck moves it elsewhere — there is always
+          a bottleneck. Relevant to H-001 (coordination cost conservation).
+      - name: "Just-in-time vs. buffer management"
+        why: >
+          JIT eliminates buffers for efficiency; buffer management accepts
+          some waste for resilience. These are not merely operational
+          preferences but reflect a fundamental tradeoff: buffer capacity
+          and response latency cannot both be minimized simultaneously.
+          Potential CAP-like constraint: efficiency, resilience, latency
+          — choose two.
+      - name: "Last-mile logistics"
+        why: >
+          The final delivery segment consistently dominates cost and complexity
+          despite being the shortest. Disproportionate difficulty at the
+          protocol/infrastructure interface. Generative for thinking about
+          where protocol friction concentrates in multi-layer systems.
+    known_laws:
+      - "Theory of Constraints: throughput ≤ bottleneck capacity (Goldratt)"
+      - "Bullwhip effect: demand signal amplification under information latency"
+      - "Little's Law: average items in system = arrival rate × average time in system"
+    failure_modes:
+      - "Theory of Constraints assumes a single bottleneck; complex systems
+         often have multiple interacting constraints."
+      - "Bullwhip effect magnitude is highly sensitive to the specific
+         information-sharing regime in the chain."
+    fertility: high
+    fertility_notes: >
+      The JIT/buffer tradeoff is underformalized and may yield a CAP-like
+      constraint theorem for supply chain protocols. The connection between
+      Theory of Constraints (there is always a bottleneck) and H-001
+      (coordination cost is conserved) is worth investigating directly.
+      Last-mile cost concentration is a potential universal regularity
+      about multi-layer protocol systems.
+
+  - name: Political Governance Systems
+    focus: Capture, enclosure, and decentralization dynamics
+    status: active
+    added: "2026-05-20"
+    law_type: game_theoretic_equilibrium
+    canonical_exemplar: "Regulatory capture (Stigler); commons enclosure (Ostrom)"
+    canonical_examples:
+      - name: "Regulatory capture"
+        why: >
+          Regulatory agencies created to constrain an industry tend, over time,
+          to be dominated by the industry they regulate. A game-theoretic
+          regularity: the regulated industry has concentrated interests and
+          invests heavily in influence; diffuse public interests are not well
+          organized. The protocol (regulation) is captured by the party it
+          was designed to constrain. Highly generative for thinking about
+          capture as a universal failure mode of enforcement protocols.
+      - name: "Commons enclosure"
+        why: >
+          Ostrom's work on commons governance — the conditions under which
+          shared resource protocols succeed vs. fail (Hardin's 'tragedy of the
+          commons' is the failure mode, Ostrom's design principles are the
+          success conditions). The most rigorous empirical study of what makes
+          informal coordination protocols durable. Directly relevant to
+          understanding what 'works' in protocol design at the social level.
+      - name: "Constitutional entrenchment"
+        why: >
+          Constitutional provisions are deliberately made hard to modify (high
+          amendment thresholds). This is an explicit protocol for meta-protocol
+          stability — a protocol governing how the protocol can change. The
+          design of amendment procedures is itself a protocol design problem
+          with documented cross-national variation and outcomes.
+      - name: "Gerrymandering and boundary manipulation"
+        why: >
+          The protocol for electoral district boundary-setting is capturable
+          in ways that invert its purpose. The mechanism: the protocol specifies
+          a procedure (draw districts) but not a unique solution, creating
+          a large optimization surface. Any protocol that specifies a procedure
+          without a unique solution is vulnerable to this class of capture.
+    known_laws:
+      - "Stigler's Law of regulatory capture: regulatory agencies come to serve
+         the industries they regulate"
+      - "Iron law of oligarchy (Michels): all organizations eventually become
+         oligarchies, including democratic ones"
+      - "Ostrom's design principles for robust commons governance (8 principles)"
+    failure_modes:
+      - "Ostrom's design principles are empirically derived and domain-specific;
+         their generalization to non-commons settings is contested."
+      - "Regulatory capture is not universal — some regulatory agencies maintain
+         independence over long periods. The conditions for capture resistance
+         are underspecified."
+    fertility: high
+    fertility_notes: >
+      Capture is probably a universal failure mode of enforcement protocols,
+      not just regulatory ones. Worth investigating whether there is a
+      general 'capture theorem' — conditions under which any enforcement
+      protocol will eventually be captured by the regulated party.
+      The Ostrom design principles are the closest thing in the social
+      sciences to an evidence-based protocol design specification;
+      should be analyzed for generalizable protocol laws.
+
+  - name: Decentralized Systems
+    focus: CAP theorem and consensus protocol tradeoffs
+    status: active
+    added: "2026-05-20"
+    law_type: impossibility_theorem
+    canonical_exemplar: "CAP theorem (Brewer/Gilbert-Lynch); FLP impossibility"
+    canonical_examples:
+      - name: "CAP theorem"
+        why: >
+          In any distributed system, at most two of {Consistency, Availability,
+          Partition Tolerance} can be guaranteed simultaneously. The quality
+          benchmark for what a protocol law should look like: formally statable,
+          identifies a fundamental tradeoff, provably constraining, applies
+          across a class, has known scope. Every candidate law should be
+          evaluated against this standard.
+      - name: "FLP impossibility"
+        why: >
+          In an asynchronous system with even one faulty process, no deterministic
+          consensus protocol can guarantee termination. An impossibility result
+          that constrains the entire design space of distributed consensus.
+          Harder and more fundamental than CAP. Shows that some protocol
+          properties are provably unachievable, not just difficult.
+      - name: "Byzantine fault tolerance"
+        why: >
+          A system can tolerate Byzantine (arbitrarily malicious) failures only
+          if fewer than 1/3 of nodes are faulty. A constraint theorem with
+          explicit adversarial model. The adversarial model (Byzantine vs.
+          crash-only) is a variable in protocol design with formal consequences —
+          choosing your adversary model is a protocol design choice.
+      - name: "Blockchain consensus (Nakamoto, PBFT, etc.)"
+        why: >
+          Practical implementations of consensus under Byzantine conditions.
+          Each makes different tradeoffs against the CAP and FLP constraints.
+          Bitcoin's probabilistic finality vs. PBFT's deterministic finality
+          vs. Ethereum's PoS — each embodies a different point in the
+          tradeoff space. Good for studying how protocol designers navigate
+          formal constraints.
+    known_laws:
+      - "CAP theorem (Brewer 2000, formally proved Gilbert & Lynch 2002)"
+      - "FLP impossibility (Fischer, Lynch, Paterson 1985)"
+      - "Byzantine fault tolerance bound: f < n/3 for BFT consensus"
+      - "PACELC extension of CAP: even without partitions, tradeoff between
+         latency and consistency remains"
+    failure_modes:
+      - "CAP theorem applies to specific formal conditions; real systems are
+         often 'mostly consistent' or 'mostly available' rather than at a
+         hard boundary. The theorem is cleaner than practice."
+      - "FLP assumes pure asynchrony; randomized protocols and timing
+         assumptions escape it. The impossibility has a backdoor."
+    fertility: high
+    fertility_notes: >
+      The CAP theorem as a quality template is the most important use of
+      this domain. Every candidate law should be asked: can this be stated
+      with CAP-like precision? The PACELC extension (tradeoff persists
+      even without partitions) is a model for how to extend and refine
+      a formal law without abandoning its structure.
+      FLP is underused as an analogy source — the idea that a single
+      faulty actor can prevent consensus termination has rich analogues
+      in governance and social protocols.
+
+# Candidate domains for future addition
+# (not yet canonical — need more investigation to confirm fertility)
+candidate_additions:
+  - name: "Immunology / biological immune protocols"
+    reason: >
+      Self/non-self discrimination protocols, tolerance mechanisms, autoimmune
+      failure modes. May yield laws about verification protocols under
+      adversarial evolution. The arms race between pathogen evasion and
+      immune recognition is a continuous evolutionary protocol conflict.
+    fertility_signal: "L-002 (hardness asymmetry) analogy already noted in law file"
+
+  - name: "Marine navigation and shipping law"
+    reason: >
+      International shipping operates on multi-century protocols (COLREGS,
+      maritime salvage law, flag state authority) with remarkable durability
+      and explicit adversarial modeling. May be fertile for ossification and
+      capture laws.
+    fertility_signal: weak — noted but not yet tested
+
+  - name: "Jazz improvisation and musical form"
+    reason: >
+      Structured improvisation protocols (chord changes, rhythm section roles,
+      turn-taking, call-and-response) that are highly formalized within an
+      informality context. May be fertile for thinking about protocol hardness
+      in creative coordination.
+    fertility_signal: weak — speculative
