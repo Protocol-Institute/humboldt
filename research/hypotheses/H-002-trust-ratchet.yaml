@@ -1,0 +1,47 @@
+id: "H-002"
+question: "Does trust in safety-critical protocols accumulate as a function of age and stability rather than technical correctness, creating a systematic bias toward under-updating?"
+motivation: >
+  Produced by M-001 (Random Links): pairing coal mine safety protocol history
+  with blockchain base-layer ossification revealed a possible mechanism distinct
+  from L-001's coordination-cost account. Both domains treat protocol stability
+  itself as trust-generating. The hypothesis is that in systems where catastrophic
+  failure has been observed historically, the protocol's track record of survival
+  becomes the primary evidence of its reliability — independent of its technical
+  design. This creates a ratchet: each period of unchanged survival raises the
+  cost of modification by converting proven-survival evidence into an
+  untested-alternative hypothesis.
+candidate_law_statement: >
+  In systems where catastrophic protocol failure has occurred historically,
+  trust in the protocol accumulates as a function of age and stability, not
+  technical correctness. Modification cost therefore rises with protocol age
+  independently of whether a proposed modification is technically superior,
+  because modification resets the accumulated survival-evidence that constitutes
+  the protocol's trust substrate.
+related_laws:
+  - L-001  # coordinates with coordination-cost ossification; this is a second
+           # independent mechanism producing the same observed behavior
+  - L-003  # formalization ratchet — formalized protocols may accumulate trust faster
+type: lifecycle  # possibly also hardness
+retrieval_queries:
+  - "safety protocol trust age stability conservatism"
+  - "protocol modification resistance after historical failure"
+  - "institutional trust inertia proven track record"
+  - "aviation NTSB update mechanism evidence-based medicine guideline update"
+  - "why do experts resist changing protocols that work"
+adversarial_domain: >
+  Medical protocols update regularly via RCT/systematic review pipeline without
+  trust erosion. Refinement: the trust ratchet may apply specifically when the
+  protocol IS the only trust substrate — no separate, trusted update mechanism
+  above the protocol level. Aviation and medicine both have institutionalized
+  update processes that are themselves stable and trusted. Investigate whether
+  the law holds only in domains lacking such a meta-protocol for updates.
+status: active
+producing_technique: M-001
+opened: "2026-05-20"
+notes: >
+  If confirmed, this law has an important corollary: the way to make safety-critical
+  protocols updatable is not to argue for a better protocol but to first establish
+  a trusted update mechanism (the meta-protocol). The meta-protocol must itself
+  accumulate survival-evidence before individual protocols can be updated through it
+  without trust destruction. Implies a sequencing: first build trusted update
+  infrastructure, then use it to update object-level protocols.
