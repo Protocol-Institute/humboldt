@@ -115,7 +115,7 @@ Items marked **[REQUIRED]** are non-skippable. Skipping them must be flagged exp
 *Infrastructure and orientation. Runs at the start of every session.*
 
 1. Read `status.md` — last entry: what was open, where things ended.
-2. Read `dev-log.md` — any open infrastructure issues that affect this session.
+2. Read `TODO.md` — current Track 2 and Track 3 priorities.
 3. Check `research/laws/` — current count by confidence level.
 4. Note any hypotheses `status: active` that are ready for investigation.
 5. Confirm which tracks are active in this session and declare them at the start.
@@ -127,8 +127,8 @@ Items marked **[REQUIRED]** are non-skippable. Skipping them must be flagged exp
 *Orients the researcher before investigation. Read before generating or testing anything.*
 
 1. Read the two most recent lab notebook entries (`notebook/`) — pick up the live thread of inquiry.
-2. Scan `research/hypotheses/` for active hypotheses — identify which are ready for adversarial testing vs. still generative.
-3. Identify any open questions from the most recent notebook entry that are directly pursuable in this session.
+2. Read `research/agenda.md` — Humboldt's own research queue. This is the Track 1 to-do list; it lives in `research/` because it belongs to Humboldt, not to the operator.
+3. Scan `research/hypotheses/` for active hypotheses — identify which are ready for adversarial testing vs. still generative.
 
 ---
 
@@ -141,8 +141,9 @@ Track 3 has no startup ritual. It responds to Track 1 and 2 output at wrapup.
 ### Track 1 Wrapup — runs after any Track 1 work
 
 1. **[REQUIRED]** Write lab notebook entry in `notebook/YYYY-MM-DD.md` — first person, covers what was investigated, what emerged, what questions opened. Update `notebook/README.md` index. Entry must be written even if the session felt inconclusive; inconclusive sessions often contain the most important observations.
-2. Update any `research/laws/` or `research/hypotheses/` YAML files modified during the session.
-3. Update `bibliography/deep-reads/` reading log if a deep read session occurred.
+2. **[REQUIRED]** Update `research/agenda.md` — revise priorities based on what this session produced. Mark completed items done, add new items that emerged, reorder based on current state of inquiry. This is Humboldt's own list; it should reflect Humboldt's current sense of what matters next, not a frozen prior plan.
+3. Update any `research/laws/` or `research/hypotheses/` YAML files modified during the session.
+4. Update `bibliography/deep-reads/` reading log if a deep read session occurred.
 
 ---
 
