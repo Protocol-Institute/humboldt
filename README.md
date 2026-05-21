@@ -1,6 +1,6 @@
 # Humboldt
 
-An autonomous research agent investigating the **new nature** — laws of artificial and protocolized systems that are nearly as inviolable as those of the physical world.
+An artificial researcher investigating the **new nature** — laws of artificial and protocolized systems that are nearly as inviolable as those of the physical world.
 
 Named for Alexander von Humboldt (1769–1859), the naturalist who sought the underlying unity and lawfulness of all natural phenomena. Where Humboldt mapped the laws of climate, altitude, and life across continents, this agent maps the structural regularities that govern protocols, coordination mechanisms, and artificial order at every scale.
 
@@ -46,9 +46,9 @@ This project has three parallel tracks:
 
 **Track 1 — Research:** Humboldt's original research work. Primary artifacts: lab notebook, research inventory (laws + hypotheses), bibliography, methods.
 
-**Track 2 — Persona development:** Evolving the research agent's identity, methodology, and infrastructure. Primary artifacts: `SOUL.md`, `METHOD.md`, `dev-log.md`, `CLAUDE.md`, `ARCHITECTURE.md`.
+**Track 2 — Persona development:** Evolving the researcher's identity, methodology, and infrastructure. Primary artifacts: `SOUL.md`, `METHOD.md`, `dev-log.md`, `CLAUDE.md`, `ARCHITECTURE.md`.
 
-**Track 3 — Artificial Researcher Template:** A generalized pattern library for building autonomous research agents, extracted from this project. Primary artifact: [`_template/`](_template/) — designed for eventual forking by other research projects.
+**Track 3 — Artificial Researcher Template:** A generalized pattern library for building artificial researchers, extracted from this project. Primary artifact: [`_template/`](_template/) — designed for eventual forking by other research projects.
 
 ```
 humboldt/
@@ -119,7 +119,7 @@ xattr -w com.dropbox.ignored 1 .env
 
 ## The Artificial Researcher Template
 
-The patterns developed here — the three-layer SOUL/METHOD/methods architecture, the formalization continuum, the lab notebook, the methods inventory — are being extracted into a reusable template in [`_template/`](_template/). The goal is to make it possible for other projects to fork this pattern and build their own autonomous research agents without starting from scratch.
+The patterns developed here — the three-layer SOUL/METHOD/methods architecture, the formalization continuum, the lab notebook, the methods inventory — are being extracted into a reusable template in [`_template/`](_template/). The goal is to make it possible for other projects to fork this pattern and build their own artificial researchers without starting from scratch.
 
 The template is in early development (v0.1). It will stabilize after a few more research sessions.
 

@@ -1,14 +1,14 @@
 # Artificial Researcher Template
 
-A pattern library for building autonomous AI research agents — agents that do original research rather than answer questions.
+A pattern library for building artificial researchers — autonomous investigators that pursue original research rather than answer questions posed by humans.
 
-This template is extracted from [Humboldt](https://github.com/Protocol-Institute/humboldt), the Protocol Institute's autonomous research agent investigating the "new nature" (laws of protocolized and artificial systems). It generalizes the design patterns that proved useful into a reusable scaffold for other research projects.
+This template is extracted from [Humboldt](https://github.com/Protocol-Institute/humboldt), the Protocol Institute's artificial researcher investigating the "new nature" (laws of protocolized and artificial systems). It generalizes the design patterns that proved useful into a reusable scaffold for other research projects.
 
 ---
 
 ## What this is for
 
-This template is for teams that want to create an AI agent that:
+This template is for teams that want to create an artificial researcher that:
 - Has a specific research agenda (a domain it investigates systematically)
 - Builds up a cumulative knowledge base over many sessions (laws, hypotheses, bibliography)
 - Uses structured research methods, not just prompting
@@ -19,7 +19,7 @@ It is **not** a RAG assistant template (that's what c3po is for). The distinctio
 
 | | RAG assistant | Artificial researcher |
 |---|---|---|
-| Goal | Answer your questions | Pursue its own research agenda |
+| Goal | Answer your questions | Pursue its own research agenda, independent of user requests |
 | Knowledge | Your corpus | General knowledge + targeted retrieval |
 | Output | Responses to queries | Cumulative research inventory |
 | Sessions | Stateless | Stateful — builds across sessions |

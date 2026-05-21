@@ -3,7 +3,7 @@
 > **Environment rules, keys & safety policies:** see [Code/CLAUDE.md](../../CLAUDE.md) — read before starting work.
 > **PI key registry & security policy:** see [`../admin/keys.md`](../admin/keys.md) and [`../admin/security.md`](../admin/security.md). Do not register PI keys in `Code/.env.keys`.
 
-Autonomous research agent for the Protocol Institute. Investigates the **new nature** — laws of protocolized and artificial systems. See `README.md` for the research agenda; `SOUL.md` for the agent's identity; `ARCHITECTURE.md` for the system design.
+Humboldt is the Protocol Institute's artificial researcher — an independent investigator of the **new nature**, laws of protocolized and artificial systems. See `README.md` for the research agenda; `SOUL.md` for the researcher's identity; `ARCHITECTURE.md` for the system design.
 
 ---
 

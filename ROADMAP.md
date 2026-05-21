@@ -2,7 +2,7 @@
 
 ## Phase 1 — Core Research Loop (current)
 
-**Goal:** Working CLI agent that can investigate a topic, retrieve corpus evidence, and produce structured law candidates.
+**Goal:** Working CLI tool that enables Humboldt to investigate a topic, retrieve corpus evidence, and produce structured law candidates.
 
 - [ ] `agent/retrieval.py` — Voyage embed + Pinecone query, Mode A (direct)
 - [ ] `agent/synthesizer.py` — Claude Sonnet integration with prompt caching

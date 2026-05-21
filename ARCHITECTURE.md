@@ -2,9 +2,9 @@
 
 ## Overview
 
-Humboldt is a CLI research agent that runs locally. It is not a web service. It produces structured research artifacts (YAML law files, hypothesis notes, theory drafts) committed to git alongside the code.
+Humboldt is an artificial researcher that runs as a local CLI tool. It is not a web service or query-response system. It produces structured research artifacts (YAML law files, hypothesis notes, theory drafts) committed to git across sessions.
 
-Unlike c3po (which is a query-response system for human users), Humboldt is an investigator that runs multi-step research sessions, accumulates findings across sessions, and maintains a versioned inventory of its conclusions.
+Unlike c3po (which answers human queries), Humboldt pursues its own research agenda — running multi-step investigations, accumulating findings across sessions, and maintaining a versioned inventory of its conclusions.
 
 ---
 
