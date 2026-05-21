@@ -6,6 +6,57 @@ Most recent entry first.
 
 ---
 
+## 2026-05-20 (session 2) — Public launch + ritual definition
+
+**Session goals:** complete project housekeeping; publish the project; define operational structure.
+
+### Publication
+- Repo made public (`Protocol-Institute/humboldt`)
+- Org README (`.github/profile/README.md`) updated — Humboldt listed with description and notebook link
+- PI website: `humboldt.html` (project page), `humboldt-notebook.html` (lab notebook, first entry), `projects.html` (Initiatives listing entry with both links)
+- Terminology sweep across all files: "artificial researcher" replaces "research agent" / "autonomous agent" everywhere. Key distinction: Humboldt is driven by its own research interests, not by user requests.
+
+### Three-track structure
+- Track 1 (Humboldt's research), Track 2 (operator/persona), Track 3 (template) formally defined
+- `notebook/` created with first entry (2026-05-20.md) — first person, Track 1 wrapup artifact
+- `dev-log.md` created (this file) — Track 2 wrapup artifact
+- `_template/` created — Track 3 primary artifact, v0.1
+
+### Session rituals
+- Full ritual spec written into CLAUDE.md — startup and wrapup for all three tracks
+- Track 2 is enforcer: must produce wrapup checklist report before session closes
+- `[REQUIRED]` designation for non-skippable items: lab notebook entry (T1) and dev-log entry (T2)
+
+### To-do structure
+- `research/agenda.md` — Humboldt's own queue, first person, lives in `research/` as a research artifact, updated at T1 wrapup [REQUIRED]
+- `TODO.md` — operator queue, T2 and T3 only; Humboldt's layer cleanly separated
+
+### Open issues updated
+- Discord presence mechanism elevated to highest T2 priority
+- SOUL.md corpus-boundary fix and METHOD.md creation remain high priority
+
+---
+
+## Open Issues (Track 2)
+
+| Priority | Issue | Notes |
+|----------|-------|-------|
+| High | Discord presence mechanism for #new-nature channel | Auth, participation policy, input→inventory flow — see TODO.md |
+| High | Fix SOUL.md corpus-boundary problem | Humboldt must reason from general knowledge freely; "NOT IN CORPUS" is never a research result |
+| High | Create METHOD.md | SOUL = who; METHOD = how; methods/ = specific procedures |
+| Medium | Update SOUL.md "Current Research State" section | Keep live at session start/end |
+| Low | Periodic literature survey mechanism | Scheduled investigative move from current inventory state |
+
+## Open Issues (Track 3)
+
+| Priority | Issue | Notes |
+|----------|-------|-------|
+| Medium | Copy M-001, M-002, M-003 to `_template/methods/` in generic form | Strip PI specifics; add parameterization notes |
+| Medium | Write `_template/CLAUDE-template.md` | Generic Claude Code setup for AR projects |
+| Low | Extract as separate repo when stable | After 5+ sessions and external review |
+
+---
+
 ## 2026-05-20 — Project initialized + methodology scaffolding
 
 **Session goals:** seed the project; design the research persona; define core techniques; begin first deep read.

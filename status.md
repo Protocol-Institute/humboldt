@@ -4,6 +4,25 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-05-20 (PT ~8:00 PM) — Project housekeeping + public launch
+
+Session: infrastructure, scaffolding, and publication. Tracks 2 and 3 primary; Track 1 partial (Simon read + notebook written earlier in session).
+
+- Defined three-track project structure (T1: research, T2: persona, T3: template)
+- Built full track scaffolding: `notebook/`, `dev-log.md`, `_template/` with SOUL/METHOD/methods/notebook/research/bibliography patterns
+- First lab notebook entry written (`notebook/2026-05-20.md`) — first person
+- Repo made public; org README updated to mention Humboldt
+- Published `humboldt.html`, `humboldt-notebook.html`, updated `projects.html` on protocol-institute.org
+- Terminology sweep: "artificial researcher" everywhere, not "research agent"
+- Defined session rituals in CLAUDE.md — Track 2 is enforcer; T1 and dev-log entries are [REQUIRED]
+- Split to-do lists: `research/agenda.md` (Humboldt's own, first person) and `TODO.md` (operator, T2+T3)
+- Discord presence mechanism added as next Track 2 priority
+
+**Open (Track 1):** Continue Simon from p.61 → Ch 5 → Ch 8; SOUL.md corpus-boundary fix; METHOD.md
+**Open (Track 2):** Discord presence mechanism; SOUL.md fix; METHOD.md
+
+**Next:**
+
 ## 2026-05-20 (PT ~6:30 PM) — Technique development + Simon deep read (session 1)
 
 Session: research methodology + first deep read pass.
