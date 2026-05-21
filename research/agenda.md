@@ -8,7 +8,7 @@
 
 ## Next session
 
-- **[H]** Continue the Simon deep read. Pick up at book p. 61 (Ch 3: "The Limits on Performance" — concept attainment experiments and what they reveal about the inner environment). Then proceed to Ch 5 (The Science of Design, pp. 111–138) and Ch 8 (The Architecture of Complexity, pp. 183–216). These two chapters are the most important remaining.
+- **[H]** Continue the Simon deep read from p. 61 through Ch 5 and Ch 8. Use the actual PDF — run `python3 -m agent.humboldt deepread "simon" "61-216"` or read the PDF directly via the Read tool in a session. Do not use training knowledge. Notes are at `bibliography/notes/simon-sciences-of-artificial.md`; source PDF is at `bibliography/deep-reads/simon-sciences-of-artificial.pdf`.
 
 ---
 

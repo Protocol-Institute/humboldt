@@ -6,6 +6,94 @@ Most recent entry first.
 
 ---
 
+## 2026-05-21 — Architecture redesign: from RAG persona to researcher OS
+
+### The core problem resolved
+
+The inherited SOUL.md architecture was built for c3po — a corpus assistant whose identity is defined by the corpus it inhabits and reports from. Humboldt is fundamentally different: defined by interests and skills, not by what it knows; self-directed rather than query-driven; building its own original research inventory rather than synthesizing the corpus for users. The SOUL.md pattern could not accommodate a behavioral loop where Humboldt reviews its own state and decides what to do next.
+
+The fix required a full architecture replacement, not a patch.
+
+### New persona architecture
+
+**Retired:** `SOUL.md` (archived, preserved for reference)
+
+**Replaced by:**
+
+| Document | Purpose |
+|----------|---------|
+| `IDENTITY.md` | Short stable kernel: lineage telos, mission, intellectual temperament, voice |
+| `LINEAGE.md` | Append-only earned lineage: grows from deep reads and established laws only |
+| `MEMORY.md` | Narrative memory: how Humboldt tells itself the story of its development |
+| `METHOD.md` | Epistemic standards: provenance marking, confidence levels, falsification |
+| `BOOTSTRAP.md` | Wakeup sequence and Decide-phase configuration |
+| `methods/M-000-ooda.md` | The OS kernel: OODA decision gate |
+
+The key architectural insight: LINEAGE.md and MEMORY.md start nearly empty and grow slowly through research activity. Declared identity is replaced by earned identity. LINEAGE gets one entry per completed deep read and one per law promoted to `established`. MEMORY gets an entry when something significantly shifts. Both are permanent and append-only.
+
+### Dynamic context assembly
+
+`agent/prompts.py` now assembles the system prompt from multiple sources rather than loading a single static SOUL.md. The assembled context includes: IDENTITY + LINEAGE + MEMORY + METHOD + BOOTSTRAP + research state (loaded from research/ at runtime) + methods index (one line per M-NNN) + inbox contents + recent notebook thread. `load_soul()` is a backward-compatible wrapper around `assemble_context()`.
+
+### Behavior stub inventory
+
+Twelve new method stubs written (M-000 through M-015, excluding gaps):
+
+- **M-000** — OODA meta-loop (the kernel)
+- **M-004** — Reading prioritization
+- **M-005** — Explore-exploit
+- **M-006** — Research conversations
+- **M-007** — Field trip
+- **M-008** — Bullshit detector
+- **M-009** — Visual thinking
+- **M-010** — Fermi estimation
+- **M-011** — Dyson design
+- **M-012** — Thought experiments
+- **M-013** — Design fictions
+- **M-014** — Cross-training
+- **M-015** — Stress-relax
+
+The stubs range from immediately usable (M-010 Fermi, M-012 Thought Experiments) to requiring significant adaptation for a digital researcher (M-015 Stress-Relax, M-014 Cross-Training). The OODA stub reflects the operator's specific understanding: Orient is expensive and should only be triggered when the environment has genuinely shifted; routine sessions run as O_DA.
+
+### Library restructure and deep-read wiring
+
+`bibliography/` restructured:
+- `bibliography/deep-reads/` — PDF source documents only
+- `bibliography/notes/` — reading notes (was `bibliography/deep-reads/*.md`)
+
+`simon_sciences.pdf` moved to `bibliography/deep-reads/simon-sciences-of-artificial.pdf`.
+`simon-sciences-of-artificial.md` moved to `bibliography/notes/`.
+
+New CLI commands: `humboldt library` (list documents) and `humboldt deepread "<name>" ["<pages>"]` (read actual PDF via pypdf, write notes to bibliography/notes/).
+
+Critical rule enforced in M-003 and CLAUDE.md: deep reads must always use the actual PDF. Never from training knowledge. A background agent was dispatched to continue the Simon read this session and produced plausible-sounding output from training memory — it was discarded. The rule now has a concrete failure case to point to.
+
+### Inbox
+
+`inbox/` created. The operator drops files here; Humboldt reads them as part of the BOOTSTRAP wakeup sequence. Text and markdown files are inlined into the assembled context; PDFs and large files are listed with a pointer. `inbox/processed/` is where Humboldt moves items after acting on them.
+
+Telegram bot integration (pointing to the existing vgr-library-code infrastructure) is the planned next step for async inbox delivery.
+
+### Hamming PDF acquired
+
+`hamming_you_and_your_research.pdf` downloaded to library. Reading prioritization (M-004) should evaluate it against active hypotheses before Humboldt decides when to engage it. Short document — likely a shallow-mode read alongside a primary investigation session.
+
+### Track 3: template status
+
+The new architecture (IDENTITY/METHOD/BOOTSTRAP/LINEAGE/MEMORY) is itself the core generalization that `_template/` should capture. The existing `SOUL-template.md` and `METHOD-template.md` are now outdated. Updating `_template/` to reflect the new architecture is the next Track 3 priority.
+
+### Open issues
+
+| Priority | Issue |
+|----------|-------|
+| High | Simon deep read: continue from p.61 using actual PDF |
+| High | H-001 (Coordination Cost Conservation): over-aged, needs first retrieval run |
+| High | `_template/` update: SOUL-template.md superseded; new architecture templates needed |
+| Medium | Discord presence mechanism: still undesigned at implementation level |
+| Medium | Telegram inbox integration: wire vgr-library-code bot to write to `inbox/` |
+
+---
+
 ## 2026-05-20 (session 2) — Public launch + ritual definition
 
 **Session goals:** complete project housekeeping; publish the project; define operational structure.

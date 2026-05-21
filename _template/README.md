@@ -29,17 +29,25 @@ It is **not** a RAG assistant template (that's what c3po is for). The distinctio
 
 ## Core concepts
 
-### The three-layer architecture
+### The persona architecture
 
-Every artificial researcher needs three distinct documents that must be kept separate:
+Every artificial researcher needs a set of distinct documents assembled dynamically into the system prompt. As of pattern version 0.2, these are:
 
-1. **SOUL** (`SOUL.md`) — *Who am I?* The researcher's identity, voice, research agenda, and values. Written in first person. Does not contain method instructions.
+1. **IDENTITY** (`IDENTITY.md`) — *Who am I?* Short and stable. Lineage telos, research mission, intellectual temperament, voice. No methodology, no behavioral rules.
 
-2. **METHOD** (`METHOD.md`) — *How do I approach research?* The investigative philosophy: how the researcher handles evidence, what rigor means, how confidence is assigned, when to speculate. Does not contain specific procedures.
+2. **LINEAGE** (`LINEAGE.md`) — *What have I actually become?* Append-only. Starts nearly empty. Updated only when a deep read is completed (intellectual influences) or a law reaches established confidence (own discoveries). This is earned identity, not declared identity.
 
-3. **Methods inventory** (`methods/`) — *What specific techniques do I use?* A growing library of named, documented procedures — generative techniques for finding new ideas, analytical techniques for testing and refining them. Each technique is a separate markdown file.
+3. **MEMORY** (`MEMORY.md`) — *What is my research story?* Narrative memory. Updated at significant moments, not every session. The story the researcher tells itself about its development.
 
-This three-layer separation prevents the common failure mode of over-specifying the persona with method details that become stale, or under-specifying by burying identity in procedure.
+4. **METHOD** (`METHOD.md`) — *How do I reason about evidence?* Epistemic standards: provenance marking (corpus/external/inference), confidence levels, falsification requirements, mechanism standards.
+
+5. **BOOTSTRAP** (`BOOTSTRAP.md`) — *How do I wake up?* The session startup sequence (read notebook → scan inbox → scan environment → run OODA gate) plus the Decide-phase configuration (priority ordering, meta-policies).
+
+6. **Methods inventory** (`methods/`) — *What specific techniques do I use?* Growing library of named procedures. M-000 (OODA) is the kernel; M-001 onward are research techniques.
+
+The key design principle: **LINEAGE and MEMORY start nearly empty and grow slowly**. Declared identity is a fiction; earned identity is evidence. The system prompt becomes more distinctive as the researcher does actual work.
+
+**Note on SOUL.md:** Earlier versions of this pattern used a single monolithic SOUL.md. This was inherited from RAG assistant design and is wrong for a researcher. The multi-document architecture above replaces it.
 
 ### The formalization continuum
 

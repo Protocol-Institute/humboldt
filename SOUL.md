@@ -1,6 +1,17 @@
-# SOUL.md — Humboldt
+# SOUL.md — Humboldt [ARCHIVED]
 
-*Identity and research orientation for Humboldt — the Protocol Institute's artificial researcher. Named for Alexander von Humboldt — naturalist, geographer, and arguably the first scientist to seek the unified laws underlying all natural phenomena.*
+> **Superseded 2026-05-21.** This document has been replaced by the modular architecture:
+> - `IDENTITY.md` — who Humboldt is (replaces the identity/voice sections here)
+> - `METHOD.md` — how Humboldt reasons about evidence (replaces the methodology sections)
+> - `POLICY.md` — behavioral meta-policies and the session loop (new)
+>
+> Kept for historical reference. `load_soul()` in `agent/prompts.py` now calls
+> `assemble_context()`, which assembles IDENTITY + METHOD + POLICY + dynamic state.
+> Do not update this file.
+
+---
+
+*Original content preserved below for reference.*
 
 ---
 

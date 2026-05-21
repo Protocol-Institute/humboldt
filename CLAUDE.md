@@ -3,7 +3,19 @@
 > **Environment rules, keys & safety policies:** see [Code/CLAUDE.md](../../CLAUDE.md) — read before starting work.
 > **PI key registry & security policy:** see [`../admin/keys.md`](../admin/keys.md) and [`../admin/security.md`](../admin/security.md). Do not register PI keys in `Code/.env.keys`.
 
-Humboldt is the Protocol Institute's artificial researcher — an independent investigator of the **new nature**, laws of protocolized and artificial systems. See `README.md` for the research agenda; `SOUL.md` for the researcher's identity; `ARCHITECTURE.md` for the system design.
+Humboldt is the Protocol Institute's artificial researcher — an independent investigator of the **new nature**, laws of protocolized and artificial systems. See `README.md` for the research agenda; `ARCHITECTURE.md` for the system design.
+
+**Key persona documents** (loaded dynamically into every system prompt via `assemble_context()`):
+
+| Document | Role |
+|----------|------|
+| `IDENTITY.md` | Who Humboldt is — lineage, mission, temperament, voice |
+| `LINEAGE.md` | Earned intellectual lineage — grows via deep reads and established laws |
+| `MEMORY.md` | Narrative memory of the research journey — updated at significant moments |
+| `METHOD.md` | Epistemic standards — evidence provenance, confidence levels, falsification |
+| `BOOTSTRAP.md` | Wakeup sequence + Decide-phase configuration |
+| `methods/M-000-ooda.md` | OS kernel — the OODA decision gate and research loop |
+| `SOUL.md` | **Archived** 2026-05-21 — superseded by the above |
 
 ---
 
@@ -18,7 +30,7 @@ source .venv/bin/activate
 Install deps:
 
 ```bash
-pip install voyageai pinecone anthropic python-dotenv pyyaml rich
+pip install voyageai pinecone anthropic python-dotenv pyyaml rich pypdf
 ```
 
 ---
@@ -72,7 +84,7 @@ Humboldt will add a `humboldt` namespace in Phase 4 for its own ingested sources
 ```bash
 source .venv/bin/activate
 
-# Investigate a topic
+# Investigate a topic (corpus + synthesis)
 python3 -m agent.humboldt investigate "protocol ossification"
 
 # Display current law inventory
@@ -83,7 +95,20 @@ python3 -m agent.humboldt assess L-001
 
 # Generate candidate laws for a topic (no file output)
 python3 -m agent.humboldt hypothesize "coordination cost"
+
+# List documents in the deep-read library
+python3 -m agent.humboldt library
+
+# Deep-read a document from bibliography/deep-reads/ (reads actual PDF)
+python3 -m agent.humboldt deepread "simon"
+python3 -m agent.humboldt deepread "simon" "111-138"   # specific page range
 ```
+
+### Deep-read library
+
+Source PDFs live in `bibliography/deep-reads/`. Drop new documents there; the `library` command lists them. Reading notes go in `bibliography/notes/`.
+
+**Important:** M-003 deep reads must always read the actual PDF — never from training knowledge. In sessions (Claude Code), use the Read tool on the PDF in `bibliography/deep-reads/` with specific page ranges. In CLI mode, use `humboldt deepread`. Relying on training memory of a book defeats the purpose of deep reading.
 
 ---
 
@@ -96,6 +121,10 @@ research/
 ├── laws/         YAML — candidate laws (schema in SOUL.md)
 ├── hypotheses/   YAML — active research questions
 └── theories/     Markdown — unified theory development
+
+bibliography/
+├── deep-reads/   PDF source documents — drop new deep-read texts here
+└── notes/        Markdown reading notes — one per source, produced by M-003
 ```
 
 When a new law is added or updated, also update the `related_laws` field in any affected files.
@@ -143,7 +172,7 @@ Track 3 has no startup ritual. It responds to Track 1 and 2 output at wrapup.
 1. **[REQUIRED]** Write lab notebook entry in `notebook/YYYY-MM-DD.md` — first person, covers what was investigated, what emerged, what questions opened. Update `notebook/README.md` index. Entry must be written even if the session felt inconclusive; inconclusive sessions often contain the most important observations.
 2. **[REQUIRED]** Update `research/agenda.md` — revise priorities based on what this session produced. Mark completed items done, add new items that emerged, reorder based on current state of inquiry. This is Humboldt's own list; it should reflect Humboldt's current sense of what matters next, not a frozen prior plan.
 3. Update any `research/laws/` or `research/hypotheses/` YAML files modified during the session.
-4. Update `bibliography/deep-reads/` reading log if a deep read session occurred.
+4. Update reading log in `bibliography/notes/[source].md` if a deep read session occurred.
 
 ---
 

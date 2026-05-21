@@ -4,6 +4,28 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-05-21 — Architecture redesign + behavior stub inventory
+
+Session: Track 2 primary; Track 1 attempted (Simon background agent discarded — used training knowledge, not PDF); Track 3 active.
+
+- **Persona architecture redesigned:** SOUL.md archived; replaced by IDENTITY.md + METHOD.md + BOOTSTRAP.md + LINEAGE.md + MEMORY.md
+- **BOOTSTRAP.md:** wakeup sequence (read notebook → scan inbox → scan Discord → check inventory → M-000 gate)
+- **M-000 (OODA kernel):** if-then gate between routine O_DA and shallow/deep re-orientation; replaces old behavioral loop
+- **Behavior stubs written:** M-004 (reading prioritization) through M-015 (stress-relax); M-000 (OODA meta-loop)
+- **Library restructure:** `bibliography/deep-reads/` = PDFs; `bibliography/notes/` = reading notes. `deepread` and `library` CLI commands added. pypdf installed.
+- **Inbox created:** `inbox/` — operator drops items here; scanned at wakeup
+- **Hamming PDF downloaded:** `hamming_you_and_your_research.pdf` added to library
+- **LINEAGE.md + MEMORY.md:** append-only identity artifacts; LINEAGE updated on deep read completion and law establishment; MEMORY updated at significant research moments
+- **`assemble_context()`:** dynamic system prompt assembly replacing static SOUL.md load
+- **Simon deep read:** background agent discarded (training knowledge); notes stay at p.60; next read from actual PDF
+- **Track 1:** no research progress this session
+
+**Open:**
+- Simon deep read: continue from p.61 using `humboldt deepread "simon" "61-216"` or Read tool on actual PDF
+- H-001 (Coordination Cost Conservation): over-aged — needs first retrieval run, highest priority
+- Discord presence mechanism: still unimplemented
+- _template/: needs update to reflect new IDENTITY/METHOD/BOOTSTRAP/LINEAGE/MEMORY architecture
+
 ## 2026-05-20 (PT ~8:00 PM) — Project housekeeping + public launch
 
 Session: infrastructure, scaffolding, and publication. Tracks 2 and 3 primary; Track 1 partial (Simon read + notebook written earlier in session).

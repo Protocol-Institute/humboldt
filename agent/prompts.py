@@ -1,13 +1,201 @@
-"""Research prompt templates and SOUL.md loader."""
+"""Research context assembly and prompt templates."""
 
-import os
+import datetime
 from pathlib import Path
 
-_SOUL_PATH = Path(__file__).parent.parent / "SOUL.md"
+_ROOT = Path(__file__).parent.parent
+_IDENTITY_PATH = _ROOT / "IDENTITY.md"
+_LINEAGE_PATH = _ROOT / "LINEAGE.md"
+_MEMORY_PATH = _ROOT / "MEMORY.md"
+_METHOD_PATH = _ROOT / "METHOD.md"
+_POLICY_PATH = _ROOT / "BOOTSTRAP.md"
+_SOUL_PATH = _ROOT / "SOUL.md"          # archived; kept for reference
+_METHODS_DIR = _ROOT / "methods"
+_RESEARCH_DIR = _ROOT / "research"
+_NOTEBOOK_DIR = _ROOT / "notebook"
+_LIBRARY_DIR = _ROOT / "bibliography" / "deep-reads"
+_NOTES_DIR = _ROOT / "bibliography" / "notes"
+_INBOX_DIR = _ROOT / "inbox"
+
+
+def _methods_index() -> str:
+    """One-line summary of each available technique."""
+    lines = []
+    for f in sorted(_METHODS_DIR.glob("M-*.md")):
+        text = f.read_text()
+        # Extract Purpose line
+        purpose = ""
+        for line in text.splitlines():
+            if line.startswith("**Purpose:**"):
+                purpose = line.replace("**Purpose:**", "").strip()
+                break
+        name = f.stem  # e.g. M-001-random-links
+        lines.append(f"  {name}: {purpose}")
+    return "\n".join(lines) if lines else "  (no methods defined)"
+
+
+def _research_state() -> str:
+    """Current inventory summary loaded from research/ files."""
+    import yaml
+
+    laws_dir = _RESEARCH_DIR / "laws"
+    hyp_dir = _RESEARCH_DIR / "hypotheses"
+
+    # Laws by confidence
+    conf_counts: dict[str, int] = {}
+    for f in sorted(laws_dir.glob("*.yaml")):
+        try:
+            law = yaml.safe_load(f.read_text())
+            c = law.get("confidence", "speculative")
+            conf_counts[c] = conf_counts.get(c, 0) + 1
+        except Exception:
+            pass
+    total = sum(conf_counts.values())
+    conf_str = ", ".join(f"{v} {k}" for k, v in conf_counts.items()) if conf_counts else "none"
+    laws_line = f"Laws: {total} ({conf_str})"
+
+    # Active hypotheses
+    active = []
+    for f in sorted(hyp_dir.glob("*.yaml")):
+        try:
+            h = yaml.safe_load(f.read_text())
+            if h.get("status") == "active":
+                active.append(f"{h.get('id', f.stem)} — {h.get('name', '')}")
+        except Exception:
+            pass
+    hyp_line = "Active hypotheses: " + ("; ".join(active) if active else "none")
+
+    # Library
+    pdfs = sorted(_LIBRARY_DIR.glob("*.pdf"))
+    lib_parts = []
+    for p in pdfs:
+        has_notes = (_NOTES_DIR / f"{p.stem}.md").exists()
+        lib_parts.append(p.stem + (" [notes]" if has_notes else " [unread]"))
+    lib_line = "Library: " + (", ".join(lib_parts) if lib_parts else "empty")
+
+    return "\n".join([laws_line, hyp_line, lib_line])
+
+
+def _inbox_scan() -> str:
+    """List unprocessed inbox items with their content (short files) or names (large)."""
+    items = [f for f in sorted(_INBOX_DIR.iterdir())
+             if f.is_file() and f.name != "README.md" and f.parent.name != "processed"]
+    if not items:
+        return "(inbox empty)"
+    parts = []
+    for f in items:
+        if f.suffix in (".md", ".txt") and f.stat().st_size < 4000:
+            parts.append(f"[{f.name}]\n{f.read_text().strip()}")
+        else:
+            parts.append(f"[{f.name}] ({f.suffix} file, {f.stat().st_size // 1024}KB — read directly if relevant)")
+    return "\n\n".join(parts)
+
+
+def _recent_notebook() -> str:
+    """Return the most recent notebook entry, truncated."""
+    entries = sorted(_NOTEBOOK_DIR.glob("????-??-??.md"), reverse=True)
+    if not entries:
+        return "(no notebook entries yet)"
+    text = entries[0].read_text()
+    # Return up to ~600 chars — enough to establish the live thread
+    if len(text) > 600:
+        text = text[:600].rsplit("\n", 1)[0] + "\n…(truncated)"
+    return f"[{entries[0].stem}]\n{text}"
+
+
+def assemble_context() -> str:
+    """
+    Assemble the full research context from modular documents.
+    This replaces the old monolithic SOUL.md load.
+    """
+    identity = _IDENTITY_PATH.read_text() if _IDENTITY_PATH.exists() else ""
+    lineage = _LINEAGE_PATH.read_text() if _LINEAGE_PATH.exists() else ""
+    memory = _MEMORY_PATH.read_text() if _MEMORY_PATH.exists() else ""
+    method = _METHOD_PATH.read_text() if _METHOD_PATH.exists() else ""
+    policy = _POLICY_PATH.read_text() if _POLICY_PATH.exists() else ""
+
+    return f"""{identity}
+
+---
+
+{lineage}
+
+---
+
+{memory}
+
+---
+
+{method}
+
+---
+
+{policy}
+
+---
+
+## Current Research State
+
+{_research_state()}
+
+## Inbox
+
+{_inbox_scan()}
+
+## Methods Available
+
+{_methods_index()}
+
+## Recent Notebook
+
+{_recent_notebook()}
+"""
+
 
 def load_soul() -> str:
-    return _SOUL_PATH.read_text()
+    """Backward-compatible wrapper — returns assembled context."""
+    return assemble_context()
 
+
+def list_library() -> list[Path]:
+    """Return PDF paths available in the deep-read library."""
+    return sorted(_LIBRARY_DIR.glob("*.pdf"))
+
+
+def notes_path(doc_stem: str) -> Path:
+    return _NOTES_DIR / f"{doc_stem}.md"
+
+
+DEEP_READ_SYSTEM = """\
+{soul}
+
+---
+
+You are operating in DEEP READ mode.
+
+You are reading extracted text from an actual document in Humboldt's library. The text
+below was read directly from the source PDF. Do NOT draw on prior knowledge of this work —
+reason only from the text provided. If the text is incomplete (partial page range), say so
+explicitly and mark open sections as awaiting further reading.
+
+Your task is to produce or update a structured deep-read synthesis following M-003 format.
+For each section, work only from what the text actually says:
+
+1. **Structural map** — what is the argument structure of the text you read?
+2. **Conceptual vocabulary** — key terms with Humboldt-specific definitions
+3. **Analytical moves** — named, transferable procedures this author uses
+4. **Protocol-theoretic moments** — where the text bears most directly on new nature research
+5. **Candidate laws generated** — regularities asserted or implied, with status notes
+6. **Open questions** — live research questions the text raises for Humboldt
+
+Write in Humboldt's analytical voice: first-person investigator, committed but precise,
+explicit about evidence quality. Mark provenance on all claims:
+- [text, p.N] — directly in the source
+- [inference] — your synthesis from what the text says
+- [external] — knowledge outside this document (use sparingly; flag it)
+
+Output the synthesis as markdown following the M-003 deep-read entry format.
+"""
 
 HYPOTHESIS_SYSTEM = """\
 {soul}
@@ -123,6 +311,16 @@ def evidence_prompt(soul: str, law_statement: str, chunks: list[dict]) -> tuple[
 def theorize_prompt(soul: str, inventory: str) -> tuple[str, str]:
     system = THEORIZE_SYSTEM.format(soul=soul)
     user = f"Current law inventory:\n\n{inventory}"
+    return system, user
+
+
+def deep_read_prompt(soul: str, doc_title: str, page_range: str, text: str) -> tuple[str, str]:
+    system = DEEP_READ_SYSTEM.format(soul=soul)
+    user = (
+        f"Document: {doc_title}\n"
+        f"Pages read: {page_range}\n\n"
+        f"--- EXTRACTED TEXT ---\n\n{text}"
+    )
     return system, user
 
 

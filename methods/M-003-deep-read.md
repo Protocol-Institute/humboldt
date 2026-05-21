@@ -3,7 +3,8 @@
 **Type:** Analytical (situating + tradition-building)
 **Purpose:** Fully internalize the intellectual structure of an exceptional source — not to extract facts but to absorb a way of thinking
 **Maturity:** Active (first defined 2026-05-20)
-**Bibliography entry produced:** one entry in `bibliography/deep-reads/`
+**Source documents:** `bibliography/deep-reads/` — PDFs only; drop new sources here
+**Reading notes:** `bibliography/notes/` — one `.md` per source, written by this technique
 
 ---
 
@@ -66,7 +67,30 @@ Read the full text. Annotate for:
 4. Identify **tradition membership** — what school of thought does this text belong to? Who are the precursors, contemporaries, and successors? Which of those are worth adding to the personal bibliography?
 5. Write the **deep-read synthesis** — the full bibliography entry documenting all of the above.
 
-### Phase 4: Active Integration (ongoing)
+### Phase 4: Lineage Update [REQUIRED on completion]
+
+When the full text has been read and the synthesis written, update `LINEAGE.md`.
+This is the step that converts reading into intellectual lineage. It happens once per
+source, after the read is complete — not during, not after partial reads.
+
+Write two entries:
+
+**Intellectual Influences section** (2–4 sentences, first person):
+How did this source change how you think? Not what it says — what it did to you.
+What analytical habit did you acquire? What vocabulary are you now saturated with?
+What can you now see that you couldn't see before? If the answer is "nothing changed,"
+the source was not worth a deep read; note that and don't add it.
+
+**Traditions Located In section** (if applicable):
+Does this source locate you in a named intellectual tradition? If yes, name it, name
+the key figures, and say in one sentence what being in that tradition commits you to.
+If the source doesn't locate you in a tradition (it's too idiosyncratic, or you're
+already in its tradition), skip this entry.
+
+These entries are permanent and append-only. They are the record of how Humboldt's
+intellectual identity actually formed, not how it was declared.
+
+### Phase 5: Active Integration (ongoing)
 
 The deep-read text is not finished when the synthesis is written. Active integration continues:
 - When using the Random Links technique (M-001), the deep-read texts are the first analogy reservoir to consult
@@ -76,9 +100,19 @@ The deep-read text is not finished when the synthesis is written. Active integra
 
 ---
 
-## Output Format: Deep-Read Bibliography Entry
+## Source and Notes Conventions
 
-Stored in `bibliography/deep-reads/[author-short-title].md`. Full markdown, not YAML — this is a discursive document, not a structured record.
+**Source documents** go in `bibliography/deep-reads/` as PDFs. Filename: `[author-short-title].pdf`. Drop new sources here; the `humboldt library` command will find them.
+
+**Reading notes** go in `bibliography/notes/[author-short-title].md`. These are written by this technique and updated with each reading session.
+
+**Critical rule:** Always read the actual source document — never rely on training knowledge about the text. In CLI mode, use `humboldt deepread "<name>"` which reads the PDF directly. In session mode (Claude Code), use the Read tool on the PDF in `bibliography/deep-reads/` passing specific pages. If the document is not in the library, get it first before beginning the read.
+
+The reason: training knowledge of a text produces plausible-sounding synthesis that bypasses the actual reasoning process — exactly what deep reading is meant to develop. Epistemic hygiene requires engaging the actual text.
+
+## Output Format: Deep-Read Notes Entry
+
+Stored in `bibliography/notes/[author-short-title].md`. Full markdown, not YAML — this is a discursive document, not a structured record.
 
 Required sections:
 1. **Bibliographic information** (author, title, edition, year, publisher)
@@ -96,9 +130,9 @@ Required sections:
 
 ## Current Deep-Read Set
 
-| Text | Author | Status | Entry |
-|------|--------|--------|-------|
-| The Sciences of the Artificial (3rd ed.) | Herbert Simon | in progress — through Ch 3 p. 60; Ch 5 + Ch 8 remaining | `bibliography/deep-reads/simon-sciences-of-artificial.md` |
+| Text | Author | PDF | Notes | Status |
+|------|--------|-----|-------|--------|
+| The Sciences of the Artificial (3rd ed.) | Herbert Simon | `bibliography/deep-reads/simon-sciences-of-artificial.pdf` | `bibliography/notes/simon-sciences-of-artificial.md` | in progress — through Ch 3 p. 60; Ch 5 + Ch 8 remaining |
 
 ---
 

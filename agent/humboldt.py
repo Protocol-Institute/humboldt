@@ -28,6 +28,8 @@ LAWS_DIR = RESEARCH_DIR / "laws"
 HYPOTHESES_DIR = RESEARCH_DIR / "hypotheses"
 THEORIES_DIR = RESEARCH_DIR / "theories"
 DATA_DIR = Path(__file__).parent.parent / "data" / "sessions"
+LIBRARY_DIR = Path(__file__).parent.parent / "bibliography" / "deep-reads"
+NOTES_DIR = Path(__file__).parent.parent / "bibliography" / "notes"
 
 
 def _load_inventory() -> str:
@@ -127,6 +129,102 @@ def cmd_assess(law_id: str, namespaces: list[str] = ret.NS_ALL):
     synth.synthesize_streaming(system, user)
 
 
+def cmd_deepread(doc_name: str, page_range: str = None):
+    """
+    Deep-read a document from bibliography/deep-reads/.
+
+    Reads the actual PDF — never relies on training knowledge.
+    Writes or updates reading notes in bibliography/notes/<doc>.md.
+
+    Usage:
+        humboldt deepread "simon"           # full document
+        humboldt deepread "simon" "60-138"  # page range (1-indexed)
+    """
+    import pypdf
+
+    # Find the PDF
+    matches = sorted(LIBRARY_DIR.glob(f"*{doc_name}*.pdf"))
+    if not matches:
+        available = [p.name for p in sorted(LIBRARY_DIR.glob("*.pdf"))]
+        print(f"No document matching '{doc_name}' in library.")
+        if available:
+            print(f"Available: {', '.join(available)}")
+        return
+
+    pdf_path = matches[0]
+    doc_stem = pdf_path.stem
+    print(f"\n=== HUMBOLDT: Deep reading '{pdf_path.name}' ===\n")
+
+    # Parse page range (1-indexed, inclusive)
+    reader = pypdf.PdfReader(str(pdf_path))
+    total = len(reader.pages)
+    if page_range:
+        parts = page_range.split("-")
+        start = max(0, int(parts[0]) - 1)
+        end = min(total, int(parts[1]) if len(parts) > 1 else total)
+        range_label = f"pp. {start+1}–{end} of {total}"
+    else:
+        start, end = 0, total
+        range_label = f"full document ({total} pages)"
+
+    # Extract text
+    print(f"Extracting text ({range_label})...")
+    pages_text = []
+    for i in range(start, end):
+        text = reader.pages[i].extract_text() or ""
+        if text.strip():
+            pages_text.append(f"[p.{i+1}]\n{text}")
+    extracted = "\n\n".join(pages_text)
+
+    if not extracted.strip():
+        print("No text extracted — PDF may be image-based or encrypted.")
+        return
+
+    print(f"Extracted {len(extracted):,} characters from {len(pages_text)} pages.\n")
+
+    # Synthesize
+    soul = prompts.load_soul()
+    doc_title = doc_stem.replace("-", " ").title()
+    system, user = prompts.deep_read_prompt(soul, doc_title, range_label, extracted)
+
+    print("Synthesizing deep-read notes...\n")
+    output = synth.synthesize_streaming(system, user)
+
+    # Write or append notes
+    NOTES_DIR.mkdir(parents=True, exist_ok=True)
+    notes_file = NOTES_DIR / f"{doc_stem}.md"
+    if notes_file.exists():
+        existing = notes_file.read_text()
+        # Append new reading session under a separator
+        notes_file.write_text(
+            existing.rstrip() + f"\n\n---\n\n## Reading session: {range_label}\n\n{output}\n"
+        )
+        print(f"\nNotes appended to: {notes_file}")
+    else:
+        notes_file.write_text(
+            f"# Deep Read Notes: {doc_title}\n\n"
+            f"*Source: `bibliography/deep-reads/{pdf_path.name}`*\n\n"
+            f"---\n\n## Reading session: {range_label}\n\n{output}\n"
+        )
+        print(f"\nNotes written to: {notes_file}")
+
+    print("Next: review notes, promote candidate laws to research/hypotheses/")
+
+
+def cmd_library():
+    """List documents available in the deep-read library."""
+    pdfs = sorted(LIBRARY_DIR.glob("*.pdf"))
+    if not pdfs:
+        print(f"Library is empty. Add PDFs to {LIBRARY_DIR}")
+        return
+    print(f"\n=== HUMBOLDT Library — {len(pdfs)} document(s) ===\n")
+    for pdf in pdfs:
+        notes_file = NOTES_DIR / f"{pdf.stem}.md"
+        status = "notes exist" if notes_file.exists() else "no notes yet"
+        print(f"  {pdf.name}  [{status}]")
+    print()
+
+
 def cmd_theorize():
     """Scan inventory for unification opportunities."""
     soul = prompts.load_soul()
@@ -174,11 +272,14 @@ def cmd_inventory():
 
 USAGE = """
 Usage:
-  python3 -m agent.humboldt investigate "<topic>"   # open-ended investigation
-  python3 -m agent.humboldt hypothesize "<topic>"   # propose candidate laws (no files)
-  python3 -m agent.humboldt assess <law-id>         # gather evidence for a law
-  python3 -m agent.humboldt theorize                # find unification opportunities
-  python3 -m agent.humboldt inventory               # show current law inventory
+  python3 -m agent.humboldt investigate "<topic>"        # open-ended investigation
+  python3 -m agent.humboldt hypothesize "<topic>"        # propose candidate laws (no files)
+  python3 -m agent.humboldt assess <law-id>              # gather evidence for a law
+  python3 -m agent.humboldt theorize                     # find unification opportunities
+  python3 -m agent.humboldt inventory                    # show current law inventory
+  python3 -m agent.humboldt library                      # list deep-read library
+  python3 -m agent.humboldt deepread "<name>"            # deep-read full document
+  python3 -m agent.humboldt deepread "<name>" "<p1-p2>"  # deep-read page range
 """
 
 
@@ -210,6 +311,15 @@ def main():
         cmd_theorize()
     elif cmd == "inventory":
         cmd_inventory()
+    elif cmd == "library":
+        cmd_library()
+    elif cmd == "deepread":
+        if not rest:
+            print("Usage: humboldt deepread \"<doc-name>\" [\"<page-range>\"]")
+            sys.exit(1)
+        doc = rest[0]
+        pages = rest[1] if len(rest) > 1 else None
+        cmd_deepread(doc, pages)
     else:
         print(f"Unknown command: {cmd}")
         print(USAGE)

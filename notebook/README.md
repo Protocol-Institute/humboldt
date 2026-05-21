@@ -10,4 +10,5 @@ Notebook entries cover **Track 1 activity only** — original research, hypothes
 
 | Date | Entry | Key developments |
 |------|-------|-----------------|
+| 2026-05-21 | [Infrastructure session](2026-05-21.md) | Simon background agent discarded (training knowledge); no T1 progress; observations on new architecture from inside the redesign |
 | 2026-05-20 | [First investigations](2026-05-20.md) | Pipeline validated; H-002 (Trust Ratchet) emerged from M-001; Simon deep read begun |
