@@ -102,29 +102,86 @@ When a new law is added or updated, also update the `related_laws` field in any 
 
 ---
 
-## At Session Start
+## Session Rituals
 
-1. Read `status.md` — review the last entry for open questions and where the previous session ended.
-2. Check `research/laws/` — count current laws by confidence level.
-3. Note any hypotheses marked `status: active` that are ready for investigation.
+Sessions touch one or more tracks. Track 2 startup always runs. Tracks 1 and 3 startup/wrapup run only when that track is active in the session. **Track 2 is the enforcer at wrapup: it must explicitly report on the wrapup checklist for every active track before the session closes.**
+
+Items marked **[REQUIRED]** are non-skippable. Skipping them must be flagged explicitly and justified.
 
 ---
 
-## After Each Session
+### Track 2 Startup — always runs first
 
-**Documentation (always):**
-1. `status.md` — add a dated log entry with PT start–end times and a one-line summary.
-2. `CLAUDE.md` — update namespace vector counts if the c3po index has grown since last session.
+*Infrastructure and orientation. Runs at the start of every session.*
 
-**Research artifacts:**
-3. `git add research/` — commit updated laws, hypotheses, theories.
-4. `data/sessions/` is gitignored — session logs stay local.
+1. Read `status.md` — last entry: what was open, where things ended.
+2. Read `dev-log.md` — any open infrastructure issues that affect this session.
+3. Check `research/laws/` — current count by confidence level.
+4. Note any hypotheses `status: active` that are ready for investigation.
+5. Confirm which tracks are active in this session and declare them at the start.
 
-**Keys/env (if changed):**
-5. New env vars: update `.env.template`; add to `../.env.keys`; add a row to `../admin/keys.md`.
+---
 
-**Repo:**
-6. `git commit` and `git push`.
+### Track 1 Startup — runs when Track 1 work is planned
 
-**Memory:**
-7. Update Claude memory (`/Users/Venkat/.claude/projects/.../memory/`) — save anything non-obvious about research findings or pipeline decisions.
+*Orients the researcher before investigation. Read before generating or testing anything.*
+
+1. Read the two most recent lab notebook entries (`notebook/`) — pick up the live thread of inquiry.
+2. Scan `research/hypotheses/` for active hypotheses — identify which are ready for adversarial testing vs. still generative.
+3. Identify any open questions from the most recent notebook entry that are directly pursuable in this session.
+
+---
+
+### Track 3 Startup — none
+
+Track 3 has no startup ritual. It responds to Track 1 and 2 output at wrapup.
+
+---
+
+### Track 1 Wrapup — runs after any Track 1 work
+
+1. **[REQUIRED]** Write lab notebook entry in `notebook/YYYY-MM-DD.md` — first person, covers what was investigated, what emerged, what questions opened. Update `notebook/README.md` index. Entry must be written even if the session felt inconclusive; inconclusive sessions often contain the most important observations.
+2. Update any `research/laws/` or `research/hypotheses/` YAML files modified during the session.
+3. Update `bibliography/deep-reads/` reading log if a deep read session occurred.
+
+---
+
+### Track 2 Wrapup — always runs last, enforces all other tracks
+
+*The enforcer. Track 2 closes the session and verifies all active tracks completed their wrapup.*
+
+1. Update `status.md` — dated entry, one-line summary, open items.
+2. Update `CLAUDE.md` if: namespace vector counts changed, new CLI commands added, new keys added, or ritual definitions changed.
+3. Commit all changed files — `research/`, `notebook/`, `bibliography/`, `methods/`, `_template/`, any modified docs.
+4. Push to `origin main`.
+5. **[REQUIRED]** Write `dev-log.md` entry — covers Track 2 and Track 3 activity: infrastructure changes, persona decisions, open issues updated. Even a short entry is required; silence is not.
+6. Update Claude memory at `/Users/Venkat/.claude/projects/-Users-Venkat-Dropbox-Code-protocol-institute/memory/` — anything non-obvious about research findings, design decisions, or pipeline changes.
+7. **[REQUIRED]** Report the wrapup checklist explicitly:
+
+```
+SESSION WRAPUP REPORT
+─────────────────────
+Active tracks this session: [T1 / T2 / T3]
+
+Track 1: [✓ lab notebook written | SKIPPED — reason: ___]
+Track 2: [✓ dev-log written | SKIPPED — reason: ___]
+         [✓ status.md updated]
+         [✓ committed and pushed]
+Track 3: [✓ template scan completed | no material changes | SKIPPED — reason: ___]
+```
+
+---
+
+### Track 3 Wrapup — runs after Track 1 and 2 wrapup, when either was active
+
+*Scans session output for patterns that should generalize into the template.*
+
+1. Review Track 1 wrapup output (new techniques, new method applications, notebook observations about research process) — does any of it represent a generalizable pattern not yet in `_template/`?
+2. Review Track 2 wrapup output (persona decisions, SOUL/METHOD changes, ritual refinements) — does any of it update the template's recommended patterns?
+3. If material changes found: update the relevant file(s) in `_template/`. If no material changes: note "no template updates" in the Track 3 line of the wrapup report.
+
+---
+
+### Keys/env (any track, if changed)
+
+New env vars: update `.env.template`; add to `../.env.keys`; add row to `../admin/keys.md`.
