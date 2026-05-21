@@ -18,7 +18,7 @@ source .venv/bin/activate
 Install deps:
 
 ```bash
-pip install voyageai pinecone-client anthropic python-dotenv pyyaml rich
+pip install voyageai pinecone anthropic python-dotenv pyyaml rich
 ```
 
 ---

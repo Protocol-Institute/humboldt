@@ -2,13 +2,21 @@
 
 An autonomous research agent investigating the **new nature** — laws of artificial and protocolized systems that are nearly as inviolable as those of the physical world.
 
-Named for Alexander von Humboldt (1769–1859), the naturalist who sought to discover the underlying unity and lawfulness of all natural phenomena. Where Humboldt mapped the laws of climate, altitude, and life across continents, this agent maps the structural regularities that govern protocols, coordination mechanisms, and artificial order at every scale.
+Named for Alexander von Humboldt (1769–1859), the naturalist who sought the underlying unity and lawfulness of all natural phenomena. Where Humboldt mapped the laws of climate, altitude, and life across continents, this agent maps the structural regularities that govern protocols, coordination mechanisms, and artificial order at every scale.
+
+---
+
+## Follow the research
+
+**[Lab Notebook →](notebook/)** — Humboldt's field notes, updated after each research session. Written in first person. A record of what was investigated, what emerged, and what questions remain open.
+
+The most recent entry: **[2026-05-20](notebook/2026-05-20.md)** — First investigations; Trust Ratchet hypothesis emerged; Simon deep read begun.
 
 ---
 
 ## The Research Program
 
-Protocols and protocolized systems — from TCP/IP to parliamentary procedure, from financial settlement to social media feed algorithms — are not arbitrary. They exhibit deep structural regularities: tendencies, constraints, and failure modes that recur across domains and levels of formalization. Some of these regularities are strong enough to be called laws.
+Protocols and protocolized systems — from TCP/IP to parliamentary procedure, from financial settlement to social media algorithms — are not arbitrary. They exhibit deep structural regularities: tendencies, constraints, and failure modes that recur across domains and levels of formalization. Some of these regularities are strong enough to be called laws.
 
 **New nature** is the study of these laws. It asks:
 
@@ -17,12 +25,48 @@ Protocols and protocolized systems — from TCP/IP to parliamentary procedure, f
 - Are there unified principles that explain why protocols harden, fail, ossify, adapt, or proliferate?
 - What is the protocol-theoretic analog of thermodynamics, or of natural selection?
 
-Humboldt investigates these questions by:
+---
 
-1. **Querying the Protocol Institute's research corpus** (via the c3po index) for evidence, examples, and prior theorization
-2. **Generating and stress-testing hypotheses** about candidate laws
-3. **Building a structured inventory** of proposed laws with evidence, counterexamples, and confidence levels
-4. **Seeking unifying theories** that subsume multiple candidate laws under a common framework
+## Current Research Inventory
+
+| Type | Count | Examples |
+|------|-------|---------|
+| Candidate laws | 5 | L-001 (Ossification), L-002 (Hardness Asymmetry), L-004 (Metric Capture) |
+| Active hypotheses | 2 | H-001 (Coordination Cost Conservation), H-002 (Trust Ratchet) |
+| Techniques | 3 | M-001 (Random Links), M-002 (Canonical Domains), M-003 (Deep Read) |
+| Deep reads | 1 in progress | Simon, *The Sciences of the Artificial* (1996) |
+
+Full inventory: [`research/laws/`](research/laws/), [`research/hypotheses/`](research/hypotheses/)
+
+---
+
+## Project Structure
+
+This project has three parallel tracks:
+
+**Track 1 — Research:** Humboldt's original research work. Primary artifacts: lab notebook, research inventory (laws + hypotheses), bibliography, methods.
+
+**Track 2 — Persona development:** Evolving the research agent's identity, methodology, and infrastructure. Primary artifacts: `SOUL.md`, `METHOD.md`, `dev-log.md`, `CLAUDE.md`, `ARCHITECTURE.md`.
+
+**Track 3 — Artificial Researcher Template:** A generalized pattern library for building autonomous research agents, extracted from this project. Primary artifact: [`_template/`](_template/) — designed for eventual forking by other research projects.
+
+```
+humboldt/
+├── notebook/          Track 1: Lab notebook (published, first-person)
+├── research/          Track 1: Laws, hypotheses, theories (YAML + markdown)
+│   ├── laws/
+│   ├── hypotheses/
+│   └── theories/
+├── bibliography/      Track 1: Curated references and deep-read entries
+│   └── deep-reads/
+├── methods/           Track 1+2: Technique inventory
+├── agent/             Track 2: Python agent code
+├── SOUL.md            Track 2: Researcher identity and agenda
+├── ARCHITECTURE.md    Track 2: System design
+├── ROADMAP.md         Track 2: Phase plan
+├── dev-log.md         Track 2: Development and persona evolution log
+└── _template/         Track 3: Artificial researcher pattern library
+```
 
 ---
 
@@ -32,44 +76,12 @@ Humboldt draws on the Protocol Institute's research library via the c3po Pinecon
 
 | Namespace | Contents |
 |-----------|----------|
-| `pdfs` | ~82 academic papers and working papers from the Summer of Protocols |
+| `pdfs` | ~82 academic papers from the Summer of Protocols |
 | `substack` | ~200 issues of Protocolized magazine |
 | `videos` | Talks, lectures, and presentations |
 | `bibliography` | Curated references |
 | `discord` + `discord_links` | Protocol Institute community discourse |
 | `sig` | Special Interest Group discussions |
-
-Direct Pinecone access (primary) and c3po Worker API (secondary) are both supported.
-
----
-
-## Architecture
-
-```
-┌──────────────────────────────────────────────────────────────────────┐
-│  RESEARCH AGENT (humboldt.py)                                        │
-│                                                                      │
-│  topic / hypothesis ──► retrieval.py ──► c3po Pinecone index        │
-│                              │         (voyage-3 embeddings)         │
-│                              ▼                                       │
-│                       ranked corpus excerpts                         │
-│                              │                                       │
-│                              ▼                                       │
-│                     synthesizer.py ──► Claude (Sonnet)               │
-│                              │         with SOUL.md persona          │
-│                              ▼                                       │
-│                      research output:                                │
-│                        - structured law candidates (YAML)            │
-│                        - evidence summaries                          │
-│                        - cross-law connections                       │
-│                        - unified theory sketches                     │
-└──────────────────────────────────────────────────────────────────────┘
-                              │
-                  research/ inventory (git-tracked)
-                    laws/        — candidate laws with evidence
-                    hypotheses/  — active research questions
-                    theories/    — unified theory development
-```
 
 ---
 
@@ -77,11 +89,10 @@ Direct Pinecone access (primary) and c3po Worker API (secondary) are both suppor
 
 | Component | Technology |
 |-----------|-----------|
-| Language | Python 3.14 (`/opt/homebrew/bin/python3`) |
+| Language | Python 3.14 |
 | Embeddings | Voyage AI `voyage-3` (shared with c3po) |
 | Vector DB | Pinecone `c3po` index (shared with c3po) |
 | LLM | Claude Sonnet 4.6 via Anthropic API |
-| Output format | YAML (human-readable, git-diffable) |
 | Interface | CLI (`python3 -m agent.humboldt`) |
 
 ---
@@ -91,7 +102,7 @@ Direct Pinecone access (primary) and c3po Worker API (secondary) are both suppor
 ```bash
 /opt/homebrew/bin/python3 -m venv .venv
 source .venv/bin/activate
-pip install voyageai pinecone-client anthropic python-dotenv pyyaml rich
+pip install voyageai pinecone anthropic python-dotenv pyyaml rich
 
 cp .env.template .env
 # Fill values from ../protocol-institute/.env.keys
@@ -100,6 +111,18 @@ xattr -w com.dropbox.ignored 1 .env
 
 ---
 
-## Project Status
+## Relationship to c3po
 
-See `status.md` for the activity log.
+[C3PO](https://github.com/Protocol-Institute/c3po) is a RAG research *assistant* — it answers your questions using the Protocol Institute corpus. Humboldt is a research *agent* — it pursues its own research agenda using that same corpus as one of several resources. C3PO is stateless; Humboldt is cumulative. They share a Pinecone index but have different purposes.
+
+---
+
+## The Artificial Researcher Template
+
+The patterns developed here — the three-layer SOUL/METHOD/methods architecture, the formalization continuum, the lab notebook, the methods inventory — are being extracted into a reusable template in [`_template/`](_template/). The goal is to make it possible for other projects to fork this pattern and build their own autonomous research agents without starting from scratch.
+
+The template is in early development (v0.1). It will stabilize after a few more research sessions.
+
+---
+
+*Project status: [`status.md`](status.md) — [`dev-log.md`](dev-log.md)*

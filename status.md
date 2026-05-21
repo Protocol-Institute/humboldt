@@ -4,6 +4,27 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-05-20 (PT ~6:30 PM) — Technique development + Simon deep read (session 1)
+
+Session: research methodology + first deep read pass.
+
+- Ran first investigation ("protocol ossification") — validated full pipeline
+- Identified corpus-boundary problem in SOUL.md (agent writes "NOT IN CORPUS" instead of reasoning from general knowledge) — flagged in persona_design_notes.md, not yet fixed
+- Defined M-001 (Random Links), M-002 (Canonical Domains), M-003 (Deep Read) — technique inventory now at 3
+- Added canonical-domains.yaml: 5 active domains (Cryptography, Urban, Supply Chains, Political Governance, Decentralized Systems)
+- H-001 (Coordination Cost Conservation), H-002 (Trust Ratchet) added as active hypotheses
+- L-001 through L-005 seed laws committed
+- Simon deep read (M-003) begun — read through book p. 60 (Ch 1 complete, Ch 2 complete, Ch 3 begun)
+- Created `bibliography/deep-reads/simon-sciences-of-artificial.md` — in-progress notes with 4 candidate laws, 5 open questions, analytical moves A–F
+
+**Open:**
+- SOUL.md corpus-boundary fix (highest priority)
+- Simon deep read: next session pick up at book p. 61 (Ch 3 continued), then Ch 5 (pp. 111–138) and Ch 8 (pp. 183–216)
+- METHOD.md (separate methodology from persona identity)
+- Commit all pending work (laws, hypotheses, methods, deep-read entry)
+
+**Next:**
+
 ## 2026-05-20 (PT ~5:00 PM) — Project initialized
 
 Session: project scaffolding only, no research runs yet.
