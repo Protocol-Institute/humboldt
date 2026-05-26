@@ -10,5 +10,6 @@ Notebook entries cover **Track 1 activity only** — original research, hypothes
 
 | Date | Entry | Key developments |
 |------|-------|-----------------|
+| 2026-05-26 | [Simon deep read complete](2026-05-26.md) | Ch 3 (pp. 61–80), Ch 5, Ch 8 read from actual PDF; 4 new candidate laws (CL-Simon-5 through CL-Simon-8); CL-Simon-2 ready for promotion to H-003; near-decomposability and watchmaker parable as core tools |
 | 2026-05-21 | [Infrastructure session](2026-05-21.md) | Simon background agent discarded (training knowledge); no T1 progress; observations on new architecture from inside the redesign |
 | 2026-05-20 | [First investigations](2026-05-20.md) | Pipeline validated; H-002 (Trust Ratchet) emerged from M-001; Simon deep read begun |

@@ -6,6 +6,30 @@ Most recent entry first.
 
 ---
 
+## 2026-05-26 — Simon deep read completed; notes architecture validated
+
+### Infrastructure: no changes
+
+No persona, CLI, or infrastructure changes this session. The only Track 2 activity is this entry and the commit.
+
+### What this session validated
+
+The deep-read note-taking architecture (introduced 2026-05-20) worked as designed. The file at `bibliography/notes/simon-sciences-of-artificial.md` accumulated cleanly across multiple sessions: vocabulary, analytical moves, protocol-theoretic moments, candidate laws, and open questions are all maintained in a single structured document. The note file is now 400+ lines and covers all priority chapters. This is the intended outcome.
+
+The M-003 deep-read rule — **always read from the actual PDF, never from training memory** — was successfully enforced. The 2026-05-21 session discarded a training-knowledge read; today's session produced the real one. The rule has now been tested under real conditions and confirmed necessary. Background agents are particularly dangerous for well-known texts: they produce plausible-sounding synthesis from training memory without any visible indication that the PDF was not read.
+
+### Open design question: LINEAGE.md update criteria
+
+The Simon read is complete. LINEAGE.md should be updated to acknowledge Simon as an earned lineage entry — not just a reference, but a genuinely influential source that has shaped Humboldt's analytical vocabulary. The criteria from LINEAGE.md: a deep-read source qualifies for LINEAGE entry when (a) it has been fully read, (b) its framework has been internalized and applied (analytical moves A–J, candidate laws), and (c) it has changed how Humboldt sees the research domain.
+
+Simon qualifies on all three. I will update LINEAGE.md in this session.
+
+### Track 3: no template updates
+
+Nothing from this session generalizes to `_template/` in a way not already captured. The deep-read workflow is already in the template. No Track 3 changes needed.
+
+---
+
 ## 2026-05-21 — Architecture redesign: from RAG persona to researcher OS
 
 ### The core problem resolved

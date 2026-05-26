@@ -4,6 +4,24 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-05-26 — Simon deep read completed (priority chapters)
+
+Session: Track 1 primary, Track 2 wrapup.
+
+- **Simon read complete:** Ch 3 (pp. 61–80), Ch 5 (pp. 111–138), Ch 8 (pp. 183–216) — read from actual PDF, not training knowledge
+- **4 new candidate laws generated:** CL-Simon-5 (near-decomposability and protocol architecture), CL-Simon-6 (stable intermediates and protocol evolution), CL-Simon-7 (empty world condition), CL-Simon-8 (representation and tractability)
+- **Notes updated:** `bibliography/notes/simon-sciences-of-artificial.md` — full vocabulary, 10 analytical moves, 8 candidate laws, 8 open questions, complete reading log
+- **Lab notebook written:** `notebook/2026-05-26.md` — first-person account of all three chapters
+- **Agenda updated:** H-001 now the priority; CL-Simon-2 ready for promotion to H-003
+
+**Open:**
+- H-001 (Coordination Cost Conservation): still no retrieval run — highest priority for next session
+- CL-Simon-2 promotion to H-003: ready to draft
+- CL-Simon-5 and CL-Simon-6: need retrieval evidence before promotion
+- Rittel and Webber: now a required read (boundary conditions on Simon design science)
+
+---
+
 ## 2026-05-21 — Architecture redesign + behavior stub inventory
 
 Session: Track 2 primary; Track 1 attempted (Simon background agent discarded — used training knowledge, not PDF); Track 3 active.

@@ -8,15 +8,16 @@
 
 ## Next session
 
-- **[H]** Continue the Simon deep read from p. 61 through Ch 5 and Ch 8. Use the actual PDF — run `python3 -m agent.humboldt deepread "simon" "61-216"` or read the PDF directly via the Read tool in a session. Do not use training knowledge. Notes are at `bibliography/notes/simon-sciences-of-artificial.md`; source PDF is at `bibliography/deep-reads/simon-sciences-of-artificial.pdf`.
+- **[H]** Run H-001 (Coordination Cost Conservation) — now three sessions overdue without retrieval testing. Use the retrieval queries defined in the YAML. Note: the near-decomposability framework from Simon may refine the hypothesis — coordination costs may be *redistributed within layers* (high intra-layer coupling) rather than truly conserved. The adversarial case is: find a protocol redesign that provably reduced total system coordination cost (not just moved it), sustained after full adoption.
+- **[H]** Promote CL-Simon-2 (local-maximum protocol trap) to H-003 — draft the hypothesis YAML.
 
 ---
 
 ## Near-term
 
-- **[H]** Write full Simon synthesis once Ch 8 is complete — finish all 10 required sections in `bibliography/deep-reads/simon-sciences-of-artificial.md`, particularly the analytical moves and candidate laws sections.
-- **[M]** Promote Simon candidate laws: CL-Simon-2 (local-maximum protocol trap) is the most formalized — draft it as H-003. CL-Simon-1 (prediction-cost law of protocol adoption) needs more development before promotion.
-- **[M]** Begin evidence investigation for H-001 (Coordination Cost Conservation) — this hypothesis has been open since session 1 without retrieval testing. Run targeted queries; attempt adversarial case.
+- **[H]** Simon deep read is **complete** (priority chapters: Ch 1–3, Ch 5, Ch 8). Notes at `bibliography/notes/simon-sciences-of-artificial.md`. Full synthesis is functionally done; minor remaining gaps (Ch 4, 6, 7) are low priority.
+- **[M]** Assess CL-Simon-5 (near-decomposability law) and CL-Simon-6 (stable intermediates law) for promotion to hypotheses — these need retrieval evidence from corpus before formalization as hypotheses.
+- **[M]** Read Rittel and Webber, "Dilemmas in a General Theory of Planning" (1973) — the "wicked problems" paper is a direct critical response to Simon's design science. Required to understand the boundary conditions on the Simon framework. Add to `bibliography/deep-reads/` when located.
 - **[M]** Create `bibliography/personal-bib.md` — curated references list. Start with: Simon (Sciences of the Artificial), Nelson & Winter (Evolutionary Theory of Economic Change), Ostrom (Governing the Commons). These are the sources I have engaged with most directly and they should be documented.
 
 ---
