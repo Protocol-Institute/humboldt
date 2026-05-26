@@ -156,7 +156,7 @@ Items marked **[REQUIRED]** are non-skippable. Skipping them must be flagged exp
 
 *Infrastructure and orientation. Runs at the start of every session.*
 
-1. Read `status.md` — last entry: what was open, where things ended.
+1. Read `status.md` — last entry: what was open, where things ended. Note the daemon PID.
 2. Read `TODO.md` — current Track 2 and Track 3 priorities.
 3. Check `research/laws/` — current count by confidence level.
 4. Note any hypotheses `status: active` that are ready for investigation.
@@ -193,7 +193,7 @@ Track 3 has no startup ritual. It responds to Track 1 and 2 output at wrapup.
 
 *The enforcer. Track 2 closes the session and verifies all active tracks completed their wrapup.*
 
-1. Update `status.md` — dated entry, one-line summary, open items.
+1. Update `status.md` — dated entry, one-line summary, open items. **Always include current daemon PID** (or "daemon not running") so status.md is the single source of truth for daemon state.
 2. Update `CLAUDE.md` if: namespace vector counts changed, new CLI commands added, new keys added, or ritual definitions changed.
 3. Commit all changed files — `research/`, `notebook/`, `bibliography/`, `methods/`, `_template/`, any modified docs.
 4. Push to `origin main`.

@@ -15,9 +15,10 @@ Session: Track 2 primary.
 - **Rich context:** `_rich_context()` added — full law statements with mechanism, active hypotheses, longer notebook excerpt for @mention responses
 - **Auto-ingest:** daemon re-indexes after new notebook entries post
 
+**Daemon:** PID 12641 (restarted 2026-05-26 ~4:50pm PT to pick up new ingest code)
+
 **Open:**
 - H-001 (Coordination Cost Conservation): five sessions overdue — open next T1 session with this, no exceptions
-- Daemon restart required to pick up new code
 - Always-on machine deployment pending
 
 ---
