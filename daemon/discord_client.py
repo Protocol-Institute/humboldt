@@ -57,6 +57,54 @@ class HumboldtBot(discord.Client):
 
     async def on_ready(self):
         logger.info(f"Humboldt online: {self.user} (id {self.user.id})")
+        self.loop.create_task(self._scan_missed_mentions())
+
+    async def _scan_missed_mentions(self):
+        """Respond to @mentions that arrived in #new-nature while the bot was offline."""
+        await self.wait_until_ready()
+        state = st.load()
+        last_msg_id = state.get("last_new_nature_message_id")
+        if not last_msg_id:
+            return
+
+        channel = self.get_channel(self.new_nature_id)
+        if not channel:
+            return
+
+        missed = []
+        async for msg in channel.history(limit=100, after=discord.Object(id=int(last_msg_id))):
+            if msg.author != self.user and self.user in msg.mentions:
+                missed.append(msg)
+
+        if not missed:
+            return
+
+        logger.info(f"Responding to {len(missed)} missed @mention(s)")
+        for msg in reversed(missed):
+            content = msg.content.replace(f"<@{self.user.id}>", "").strip()
+            if not content:
+                continue
+            history = []
+            async for ctx in channel.history(limit=9, before=msg):
+                history.insert(0, {"author": ctx.author.name, "content": ctx.content[:300]})
+            chunks = []
+            try:
+                from agent import retrieval as ret
+                chunks = await self.loop.run_in_executor(
+                    None, lambda: ret.multi_retrieve([content], namespaces=ret.NS_BROAD, top_k_each=5)
+                )
+            except Exception:
+                pass
+            try:
+                response = await presence.generate_mention_response(
+                    username=msg.author.name,
+                    message=content,
+                    context_messages=history,
+                    corpus_chunks=chunks,
+                )
+                await msg.reply(f"*(catching up from while I was offline)*\n{response}")
+            except Exception as e:
+                logger.error(f"Missed mention response failed: {e}")
 
     async def on_message(self, message: discord.Message):
         if message.author == self.user:
@@ -147,7 +195,7 @@ class HumboldtBot(discord.Client):
         if not channel:
             return
 
-        kwargs: dict = {"limit": 25}
+        kwargs: dict = {"limit": 100}
         if last_msg_id:
             kwargs["after"] = discord.Object(id=int(last_msg_id))
 

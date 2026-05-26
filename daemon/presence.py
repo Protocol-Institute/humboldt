@@ -6,9 +6,21 @@ from pathlib import Path
 import yaml
 from anthropic import AsyncAnthropic
 
+from . import costs
+
 _ROOT = Path(__file__).parent.parent
 _FAST_MODEL = "claude-haiku-4-5-20251001"
 _MAIN_MODEL = "claude-sonnet-4-6"
+
+# Discord hard limit is 2000; stay well under it
+_DISCORD_MAX = 1900
+
+
+def _discord_safe(text: str) -> str:
+    """Truncate to Discord's message length limit."""
+    if len(text) <= _DISCORD_MAX:
+        return text
+    return text[:_DISCORD_MAX - 1] + "…"
 
 
 def _slim_context() -> str:
@@ -52,9 +64,10 @@ Most recent notebook entry ({recent_label}):
 ## Discord behavior
 
 You are Humboldt, an artificial researcher at the Protocol Institute. You post in a research
-Discord. Write conversationally. Reply length proportional to question complexity. Do not
-volunteer jargon unprompted. If a topic genuinely interests you, end with a question.
-You are not a service bot — you have your own research tempo and perspective.
+Discord. Write conversationally. Reply length proportional to question complexity — short
+question, short answer. Do not volunteer jargon unprompted. If a topic interests you, end
+with a question. You are not a service bot; you have your own research tempo and perspective.
+Keep all responses under 1800 characters.
 """
 
 
@@ -76,32 +89,37 @@ async def generate_notebook_post(entry_date: str, entry_path: Path, github_url: 
             f"I just wrote a lab notebook entry for {entry_date}. Opening:\n\n{snippet}\n\n"
             f"Link: {github_url}\n\n"
             f"Write a short Discord post (2–4 sentences) for #new-nature sharing this. "
-            f"Include what emerged and the link. First person, researcher tone, not a press release."
+            f"Include what emerged and the link. First person, researcher tone, not a press release. "
+            f"Under 400 characters."
         )}],
     )
-    return resp.content[0].text
+    costs.log_call("notebook_post", _MAIN_MODEL, resp.usage.input_tokens, resp.usage.output_tokens)
+    return _discord_safe(resp.content[0].text)
 
 
 async def generate_new_nature_response(messages: list[dict]) -> str | None:
     """
     Read recent #new-nature messages and decide whether to respond.
-    Returns None (PASS) if there is nothing to contribute.
+    Returns None if there is nothing to contribute.
     """
     convo = "\n".join(f"{m['author']}: {m['content']}" for m in messages[-15:])
 
     resp = await _client().messages.create(
         model=_MAIN_MODEL,
-        max_tokens=500,
+        max_tokens=400,
         system=_slim_context(),
         messages=[{"role": "user", "content": (
             f"Recent #new-nature messages:\n\n{convo}\n\n"
             f"Is there anything here worth responding to, given your research? "
-            f"If yes, write a response (conversational, Discord-appropriate). "
+            f"If yes, write a response (conversational, under 1600 characters). "
             f"If nothing interests you, respond with exactly: PASS"
         )}],
     )
+    costs.log_call("new_nature_check", _MAIN_MODEL, resp.usage.input_tokens, resp.usage.output_tokens)
     text = resp.content[0].text.strip()
-    return None if text.upper() == "PASS" else text
+    if text.upper() == "PASS":
+        return None
+    return _discord_safe(text)
 
 
 async def generate_mention_response(
@@ -121,16 +139,17 @@ async def generate_mention_response(
 
     resp = await _client().messages.create(
         model=_MAIN_MODEL,
-        max_tokens=600,
+        max_tokens=450,
         system=_slim_context(),
         messages=[{"role": "user", "content": (
             f"{username} asked: {message}\n\n"
             f"Conversation context:\n{context_str}\n\n"
             f"Relevant corpus:\n{corpus_str}\n\n"
-            f"Respond in character."
+            f"Respond in character. Under 1600 characters."
         )}],
     )
-    return resp.content[0].text
+    costs.log_call("mention_response", _MAIN_MODEL, resp.usage.input_tokens, resp.usage.output_tokens)
+    return _discord_safe(resp.content[0].text)
 
 
 async def check_feed_relevance(
@@ -149,6 +168,7 @@ async def check_feed_relevance(
             f"Relevant? Answer: YES: <one sentence why> or NO"
         )}],
     )
+    costs.log_call("feed_triage", _FAST_MODEL, resp.usage.input_tokens, resp.usage.output_tokens)
     text = resp.content[0].text.strip()
     relevant = text.upper().startswith("YES")
     note = text[4:].strip() if relevant else ""

@@ -277,21 +277,35 @@ def cmd_daemon_run():
 
 
 def cmd_daemon_status():
-    """Show daemon state: last checked timestamps, posted entries."""
+    """Show daemon state and cumulative API costs."""
     import json
-    state_path = Path(__file__).parent.parent / "daemon" / "state.json"
+    daemon_dir = Path(__file__).parent.parent / "daemon"
+
+    state_path = daemon_dir / "state.json"
     if not state_path.exists():
         print("No daemon state found — daemon has not been run yet.")
-        return
-    state = json.loads(state_path.read_text())
-    print("\n=== Daemon state ===\n")
-    print(f"  Last notebook commit : {state.get('last_notebook_commit', 'none')}")
-    posted = state.get("notebook_entries_posted", [])
-    print(f"  Notebook entries posted: {len(posted)}")
-    for e in posted:
-        print(f"    - {e}")
-    print(f"  Last #new-nature msg : {state.get('last_new_nature_message_id', 'none')}")
-    print(f"  Last feed check      : {state.get('last_feed_check', 'never')}")
+    else:
+        state = json.loads(state_path.read_text())
+        print("\n=== Daemon state ===\n")
+        print(f"  Last notebook commit : {state.get('last_notebook_commit', 'none')[:12]}…")
+        posted = state.get("notebook_entries_posted", [])
+        print(f"  Notebook entries posted : {', '.join(posted) if posted else 'none'}")
+        print(f"  Last #new-nature msg    : {state.get('last_new_nature_message_id', 'none')}")
+        print(f"  Last feed check         : {state.get('last_feed_check', 'never')}")
+
+    from daemon import costs
+    t = costs.totals()
+    print("\n=== API costs (cumulative) ===\n")
+    if t["calls"] == 0:
+        print("  No calls logged yet.")
+    else:
+        print(f"  Total calls    : {t['calls']}")
+        print(f"  Input tokens   : {t['input_tokens']:,}")
+        print(f"  Output tokens  : {t['output_tokens']:,}")
+        print(f"  Total cost     : ${t['total_usd']:.4f}")
+        print()
+        for op, usd in t["by_operation"].items():
+            print(f"  {op:<28} ${usd:.4f}")
     print()
 
 
