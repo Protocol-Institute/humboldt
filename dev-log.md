@@ -6,6 +6,55 @@ Most recent entry first.
 
 ---
 
+## 2026-05-26 (session 3) — Daemon layer built and deployed
+
+### Infrastructure changes
+
+**New: `daemon/` package** — full async daemon layer:
+- `discord_client.py` — `HumboldtBot(discord.Client)` with three `ext.tasks` loops: notebook watcher (30 min), #new-nature presence check (30 min, active hours gated), feed monitor (12h)
+- `presence.py` — Claude-powered content generation with slim context; `AsyncAnthropic`; `_discord_safe()` truncation at 1900 chars
+- `notebook_watcher.py` — `git log` based detection of new notebook entries since last-seen commit
+- `feed_monitor.py` — `feedparser` RSS polling + `inbox/` saving
+- `state.py` — persistent `state.json` (gitignored, machine-local)
+- `costs.py` — per-call cost logging to `costs.jsonl`; `totals()` by operation
+- `config.yaml` — intervals, active hours, feed sources (operator-editable)
+
+**CLI additions:** `daemon run`, `daemon status` (shows state + cost totals), `discord post [--draft]`
+
+**Fixes during session:**
+- Discord 2000-char limit: `_discord_safe()` + reduced `max_tokens` + explicit prompt instructions
+- Cost logging: every Claude call logs to `costs.jsonl`; `daemon status` shows cumulative spend
+- Missed @mention catchup: `_scan_missed_mentions()` runs on `on_ready`, responds to any @mentions in #new-nature since last check
+- Active hours gate: `_within_active_hours()` checks Pacific time before each new-nature check; configurable in `config.yaml`
+- #new-nature history limit: 25 → 100 messages
+
+**Dependencies added:** `discord.py>=2.3`, `feedparser`
+
+**Gitignored:** `daemon/state.json`, `daemon/costs.jsonl`, `daemon/daemon.log`
+
+### Deployment
+
+Bot running live on PI Discord as `humboldt#5503`. First @mention responses verified working. Daemon started with `nohup`, detached from terminal, PID tracked. Bot token and channel/guild IDs registered in `../.env.keys` and `../admin/keys.md`.
+
+### First session costs
+
+Two Claude calls at session start: $0.0086 (new-nature check) + $0.0079 (mention response) = $0.0165 total.
+
+### Track 3: no template changes
+
+The daemon pattern is PI-specific (Discord server, Pinecone index, active hours in Pacific). The general pattern of a daemon layer for an artificial researcher is worth capturing in `_template/` eventually, but too early — needs more sessions to know what generalizes.
+
+### Open issues updated
+
+| Priority | Issue |
+|----------|-------|
+| High | H-001 (Coordination Cost Conservation): four sessions overdue |
+| Medium | Daemon needs manual restart after code changes — `--reload` dev mode deferred |
+| Medium | Thread support: `task_new_nature` doesn't scan threads; @mention required |
+| Low | Always-on machine deployment: systemd unit file, `git pull` on schedule |
+
+---
+
 ## 2026-05-26 (session 2) — Hamming deep read completed
 
 ### Infrastructure: no changes

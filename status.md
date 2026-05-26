@@ -4,6 +4,23 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-05-26 (session 3) — Daemon layer built; Discord presence live
+
+Session: Track 2 primary, Track 1 notebook update.
+
+- **Daemon built:** `daemon/` package with Discord bot, notebook watcher, feed monitor, cost logging
+- **Discord live:** `humboldt#5503` connected to PI server; @mentions responding; active hours 8am–11pm Pacific
+- **First costs logged:** $0.0165 for two Claude calls
+- **Fixes:** Discord 2000-char limit, missed @mention catchup on startup, 30-min check interval with active hours gate
+- **Notebook updated:** "Going Online" section added to 2026-05-26.md
+
+**Open:**
+- H-001: four sessions overdue — must open next T1 session with this
+- Daemon restart required after code changes (--reload deferred)
+- Always-on machine deployment pending
+
+---
+
 ## 2026-05-26 (session 2) — Hamming deep read completed
 
 Session: Track 1 primary, Track 2 wrapup.
