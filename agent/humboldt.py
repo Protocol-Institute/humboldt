@@ -270,6 +270,74 @@ def cmd_inventory():
             print()
 
 
+def cmd_daemon_run():
+    """Start the Humboldt daemon (Discord bot + scheduled tasks)."""
+    from daemon.runner import run
+    run()
+
+
+def cmd_daemon_status():
+    """Show daemon state: last checked timestamps, posted entries."""
+    import json
+    state_path = Path(__file__).parent.parent / "daemon" / "state.json"
+    if not state_path.exists():
+        print("No daemon state found — daemon has not been run yet.")
+        return
+    state = json.loads(state_path.read_text())
+    print("\n=== Daemon state ===\n")
+    print(f"  Last notebook commit : {state.get('last_notebook_commit', 'none')}")
+    posted = state.get("notebook_entries_posted", [])
+    print(f"  Notebook entries posted: {len(posted)}")
+    for e in posted:
+        print(f"    - {e}")
+    print(f"  Last #new-nature msg : {state.get('last_new_nature_message_id', 'none')}")
+    print(f"  Last feed check      : {state.get('last_feed_check', 'never')}")
+    print()
+
+
+async def _discord_post_async(draft: bool):
+    """Generate and optionally post the most recent notebook entry."""
+    from daemon import presence
+    from daemon.notebook_watcher import get_new_notebook_entries
+
+    entries = get_new_notebook_entries(None)
+    if not entries:
+        print("No notebook entries found.")
+        return
+
+    entry = entries[0]
+    print(f"Generating post for notebook entry: {entry['date']}")
+    post = await presence.generate_notebook_post(
+        entry["date"], entry["path"], entry["github_url"]
+    )
+
+    if draft:
+        print("\n─── DRAFT ───────────────────────────────")
+        print(post)
+        print("─────────────────────────────────────────\n")
+        return
+
+    import json
+    import urllib.request
+    channel_id = os.environ["DISCORD_NEW_NATURE_CHANNEL_ID"]
+    token = os.environ["DISCORD_BOT_TOKEN"]
+    data = json.dumps({"content": post}).encode()
+    req = urllib.request.Request(
+        f"https://discord.com/api/v10/channels/{channel_id}/messages",
+        data=data,
+        headers={"Authorization": f"Bot {token}", "Content-Type": "application/json"},
+        method="POST",
+    )
+    with urllib.request.urlopen(req) as resp:
+        print(f"Posted to #new-nature (HTTP {resp.status})")
+
+
+def cmd_discord_post(draft: bool = False):
+    """Manually generate and post a notebook announcement to #new-nature."""
+    import asyncio
+    asyncio.run(_discord_post_async(draft))
+
+
 USAGE = """
 Usage:
   python3 -m agent.humboldt investigate "<topic>"        # open-ended investigation
@@ -280,6 +348,10 @@ Usage:
   python3 -m agent.humboldt library                      # list deep-read library
   python3 -m agent.humboldt deepread "<name>"            # deep-read full document
   python3 -m agent.humboldt deepread "<name>" "<p1-p2>"  # deep-read page range
+  python3 -m agent.humboldt daemon run                   # start daemon (Discord + feeds)
+  python3 -m agent.humboldt daemon status                # show daemon state
+  python3 -m agent.humboldt discord post                 # post latest notebook entry to Discord
+  python3 -m agent.humboldt discord post --draft         # preview post without sending
 """
 
 
@@ -320,6 +392,23 @@ def main():
         doc = rest[0]
         pages = rest[1] if len(rest) > 1 else None
         cmd_deepread(doc, pages)
+    elif cmd == "daemon":
+        subcmd = rest[0] if rest else "run"
+        if subcmd == "run":
+            cmd_daemon_run()
+        elif subcmd == "status":
+            cmd_daemon_status()
+        else:
+            print(f"Unknown daemon subcommand: {subcmd}")
+            sys.exit(1)
+    elif cmd == "discord":
+        subcmd = rest[0] if rest else ""
+        if subcmd == "post":
+            draft = "--draft" in rest
+            cmd_discord_post(draft=draft)
+        else:
+            print(f"Unknown discord subcommand: {subcmd}")
+            sys.exit(1)
     else:
         print(f"Unknown command: {cmd}")
         print(USAGE)

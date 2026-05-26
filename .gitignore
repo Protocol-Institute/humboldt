@@ -1,5 +1,6 @@
 .env
 .venv/
+daemon/state.json
 data/
 __pycache__/
 *.pyc

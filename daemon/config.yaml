@@ -1,0 +1,18 @@
+# Humboldt Daemon Configuration
+# Edit intervals and feed sources here without touching code.
+
+discord:
+  new_nature_check_hours: 4     # how often to read #new-nature and decide whether to respond
+  notebook_check_minutes: 30    # how often to check git log for new notebook entries
+
+feeds:
+  check_hours: 12               # how often to poll all feeds
+  sources:
+    - name: "arxiv cs.GT (Game Theory)"
+      url: "https://arxiv.org/rss/cs.GT"
+    - name: "arxiv cs.MA (Multi-Agent Systems)"
+      url: "https://arxiv.org/rss/cs.MA"
+    - name: "arxiv cs.CY (Computers and Society)"
+      url: "https://arxiv.org/rss/cs.CY"
+    - name: "arxiv econ.GN (General Economics)"
+      url: "https://arxiv.org/rss/econ.GN"

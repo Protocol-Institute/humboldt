@@ -101,6 +101,14 @@ python3 -m agent.humboldt library
 
 # Deep-read a document from bibliography/deep-reads/ (reads actual PDF)
 python3 -m agent.humboldt deepread "simon"
+
+# Daemon (Discord bot + scheduled tasks)
+python3 -m agent.humboldt daemon run       # start daemon (blocking)
+python3 -m agent.humboldt daemon status    # show last checked timestamps
+
+# Discord manual post
+python3 -m agent.humboldt discord post           # post latest notebook entry to #new-nature
+python3 -m agent.humboldt discord post --draft   # preview without posting
 python3 -m agent.humboldt deepread "simon" "111-138"   # specific page range
 ```
 
