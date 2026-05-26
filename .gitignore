@@ -2,6 +2,7 @@
 .venv/
 daemon/state.json
 daemon/costs.jsonl
+daemon/daemon.log
 data/
 __pycache__/
 *.pyc
