@@ -5,6 +5,7 @@ import logging
 import os
 from datetime import datetime, timezone
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 import discord
 import yaml
@@ -185,10 +186,25 @@ class HumboldtBot(discord.Client):
     async def before_task_notebook(self):
         await self.wait_until_ready()
 
+    def _within_active_hours(self) -> bool:
+        """Return True if current Pacific time is within configured active hours."""
+        ah = self.config.get("discord", {}).get("active_hours", {})
+        tz_name = ah.get("timezone", "America/Los_Angeles")
+        start = ah.get("start", 8)
+        end = ah.get("end", 23)
+        now = datetime.now(ZoneInfo(tz_name))
+        active = start <= now.hour < end
+        if not active:
+            logger.info(f"Outside active hours ({now.strftime('%H:%M %Z')}), skipping")
+        return active
+
     # ── #new-nature presence ─────────────────────────────────────────────────
 
-    @tasks.loop(hours=4)
+    @tasks.loop(minutes=30)
     async def task_new_nature(self):
+        if not self._within_active_hours():
+            return
+
         state = st.load()
         last_msg_id = state.get("last_new_nature_message_id")
         channel = self.get_channel(self.new_nature_id)

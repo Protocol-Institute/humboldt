@@ -2,8 +2,12 @@
 # Edit intervals and feed sources here without touching code.
 
 discord:
-  new_nature_check_hours: 4     # how often to read #new-nature and decide whether to respond
+  new_nature_check_minutes: 30  # how often to check #new-nature for things worth responding to
   notebook_check_minutes: 30    # how often to check git log for new notebook entries
+  active_hours:
+    start: 8    # 8am Pacific — won't check #new-nature before this
+    end: 23     # 11pm Pacific — won't check #new-nature after this
+    timezone: "America/Los_Angeles"
 
 feeds:
   check_hours: 12               # how often to poll all feeds
