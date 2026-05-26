@@ -6,6 +6,52 @@ Most recent entry first.
 
 ---
 
+## 2026-05-26 (session 4) — Humboldt namespace: augmented self-retrieval
+
+### Infrastructure changes
+
+**New: `agent/ingest.py`** — ingestion module for Humboldt's own documents:
+- `_notebook_chunks()` — splits `notebook/*.md` by `##` headers; augments embed text with `"Lab Notebook YYYY-MM-DD — Section Title"` prefix
+- `_notes_chunks()` — splits `bibliography/notes/*.md` by `##` headers; augments with book title
+- `_law_chunks()` — embeds each `research/laws/*.yaml` in full (statement + mechanism + domains); no chunking, laws are small
+- `_hypothesis_chunks()` — embeds each `research/hypotheses/*.yaml` in full (question + motivation)
+- `ingest_all()` — batches and upserts to `humboldt` Pinecone namespace; deterministic IDs so re-runs update in place
+- 61 vectors indexed on first run: 30 notebook, 24 notes, 5 law, 2 hypothesis
+
+**Updated: `agent/retrieval.py`** — added `NS_HUMBOLDT = ["humboldt"]` and `NS_BROAD_PLUS` (PI corpus + humboldt namespace)
+
+**Updated: `agent/humboldt.py`** — added `cmd_ingest()` and `ingest` CLI command
+
+**Updated: `daemon/discord_client.py`**:
+- `on_message` and `_scan_missed_mentions` now use `NS_BROAD_PLUS` — @mention responses draw from both PI corpus and Humboldt's own notebook/notes/laws
+- `task_notebook` calls `ingest_all()` in executor after posting new entries, keeping namespace current
+
+**Updated: `daemon/presence.py`**:
+- `_rich_context()` — new full-depth context for @mention responses: IDENTITY + LINEAGE (truncated) + full law statements with mechanism + active hypothesis questions + longer notebook excerpt
+- `_slim_context()` — unchanged, still used for notebook posts and new_nature triage
+- `generate_mention_response()` now uses `_rich_context()` and separates retrieved chunks into "from own work" vs "from PI corpus" in the prompt, with `max_tokens` raised to 500
+
+### Retrieval quality check
+
+Test queries confirm correct retrieval:
+- "coordination cost conservation" → H-001 hypothesis at 0.561, L-001 at 0.434, relevant notebook sections
+- "near decomposability Simon stable intermediates" → notebook "What Ch 8 Revealed" at 0.409, Simon notes at 0.404
+
+### Track 3: generalization candidate
+
+The ingest pattern (augmented chunk text with document title + section prefix) is the key design decision that makes retrieval results self-identifying in Claude prompts. This is worth capturing in `_template/` as the recommended approach for any AR project that ingests its own work. Not updating the template this session — one more session to see if the retrieval quality justifies the pattern.
+
+### Open issues updated
+
+| Priority | Issue |
+|----------|-------|
+| High | H-001 (Coordination Cost Conservation): now four sessions overdue — must open next T1 session with this |
+| Medium | Daemon needs manual restart after code changes |
+| Low | `_template/` update: ingest pattern worth capturing |
+| Low | Always-on machine deployment |
+
+---
+
 ## 2026-05-26 (session 3) — Daemon layer built and deployed
 
 ### Infrastructure changes

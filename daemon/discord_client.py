@@ -92,7 +92,7 @@ class HumboldtBot(discord.Client):
             try:
                 from agent import retrieval as ret
                 chunks = await self.loop.run_in_executor(
-                    None, lambda: ret.multi_retrieve([content], namespaces=ret.NS_BROAD, top_k_each=5)
+                    None, lambda: ret.multi_retrieve([content], namespaces=ret.NS_BROAD_PLUS, top_k_each=5)
                 )
             except Exception:
                 pass
@@ -128,7 +128,7 @@ class HumboldtBot(discord.Client):
             from agent import retrieval as ret
             loop = asyncio.get_event_loop()
             chunks = await loop.run_in_executor(
-                None, lambda: ret.multi_retrieve([content], namespaces=ret.NS_BROAD, top_k_each=5)
+                None, lambda: ret.multi_retrieve([content], namespaces=ret.NS_BROAD_PLUS, top_k_each=5)
             )
         except Exception as e:
             logger.warning(f"Retrieval skipped: {e}")
@@ -181,6 +181,15 @@ class HumboldtBot(discord.Client):
         state["last_notebook_commit"] = head
         state["notebook_entries_posted"] = list(posted)
         st.save(state)
+
+        if new_entries:
+            # Re-ingest after new notebook entries so humboldt namespace stays current
+            try:
+                from agent.ingest import ingest_all
+                await self.loop.run_in_executor(None, lambda: ingest_all(verbose=False))
+                logger.info("humboldt namespace re-indexed after notebook update")
+            except Exception as e:
+                logger.warning(f"Post-notebook ingest failed: {e}")
 
     @task_notebook.before_loop
     async def before_task_notebook(self):

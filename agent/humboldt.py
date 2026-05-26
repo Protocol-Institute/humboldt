@@ -270,6 +270,12 @@ def cmd_inventory():
             print()
 
 
+def cmd_ingest():
+    """Ingest Humboldt's own documents into the humboldt Pinecone namespace."""
+    from agent.ingest import ingest_all
+    ingest_all(verbose=True)
+
+
 def cmd_daemon_run():
     """Start the Humboldt daemon (Discord bot + scheduled tasks)."""
     from daemon.runner import run
@@ -362,6 +368,7 @@ Usage:
   python3 -m agent.humboldt library                      # list deep-read library
   python3 -m agent.humboldt deepread "<name>"            # deep-read full document
   python3 -m agent.humboldt deepread "<name>" "<p1-p2>"  # deep-read page range
+  python3 -m agent.humboldt ingest                       # embed notebook/notes/laws → Pinecone humboldt ns
   python3 -m agent.humboldt daemon run                   # start daemon (Discord + feeds)
   python3 -m agent.humboldt daemon status                # show daemon state
   python3 -m agent.humboldt discord post                 # post latest notebook entry to Discord
@@ -406,6 +413,8 @@ def main():
         doc = rest[0]
         pages = rest[1] if len(rest) > 1 else None
         cmd_deepread(doc, pages)
+    elif cmd == "ingest":
+        cmd_ingest()
     elif cmd == "daemon":
         subcmd = rest[0] if rest else "run"
         if subcmd == "run":

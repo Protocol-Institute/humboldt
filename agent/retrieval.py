@@ -15,6 +15,9 @@ NS_FORMAL = ["pdfs", "bibliography"]
 NS_BROAD   = ["pdfs", "substack", "videos", "bibliography", "discord_links", "sig"]
 NS_COMMUNITY = ["discord", "discord_links", "sig"]
 NS_ALL = ["pdfs", "substack", "videos", "bibliography", "discord", "discord_links", "sig"]
+NS_HUMBOLDT = ["humboldt"]
+# PI corpus + Humboldt's own notebook/notes/laws — use for Discord responses
+NS_BROAD_PLUS = ["pdfs", "substack", "videos", "bibliography", "discord_links", "sig", "humboldt"]
 
 
 def _voyage_client() -> voyageai.Client:

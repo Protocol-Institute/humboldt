@@ -65,7 +65,7 @@ Humboldt uses the existing c3po index (read-only in Phase 1):
 - Dimensions: 1024 (voyage-3)
 - Metric: cosine
 
-Namespaces (as of 2026-05-20):
+Namespaces (as of 2026-05-20 for PI corpus; 2026-05-26 for humboldt):
 - `pdfs`: 766 vectors — Summer of Protocols papers
 - `substack`: 1,040 vectors — Protocolized magazine
 - `videos`: 2,940 vectors — talks and lectures
@@ -74,8 +74,9 @@ Namespaces (as of 2026-05-20):
 - `discord_links`: 6,722 vectors — enriched Discord links
 - `sig`: 4,689 vectors — SIG channel discussions
 - `transcripts`: 4 vectors (grows with use)
+- `humboldt`: 61 vectors (2026-05-26) — Humboldt's own notebook, reading notes, laws, hypotheses
 
-Humboldt will add a `humboldt` namespace in Phase 4 for its own ingested sources. Do not write to c3po namespaces.
+Do not write to c3po namespaces. Humboldt's own work goes to the `humboldt` namespace via `humboldt ingest`.
 
 ---
 
@@ -101,6 +102,10 @@ python3 -m agent.humboldt library
 
 # Deep-read a document from bibliography/deep-reads/ (reads actual PDF)
 python3 -m agent.humboldt deepread "simon"
+
+# Ingest Humboldt's own documents → humboldt Pinecone namespace
+# Run after each session that adds notebook entries, notes, or laws
+python3 -m agent.humboldt ingest
 
 # Daemon (Discord bot + scheduled tasks)
 python3 -m agent.humboldt daemon run       # start daemon (blocking)

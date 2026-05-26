@@ -4,6 +4,24 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-05-26 (session 4) — Humboldt namespace: augmented self-retrieval
+
+Session: Track 2 primary.
+
+- **`agent/ingest.py` built:** chunks notebook/notes/laws/hypotheses with augmented embed text (title+section prefix); upserts to `humboldt` Pinecone namespace
+- **61 vectors indexed:** 30 notebook, 24 notes, 5 law, 2 hypothesis
+- **Retrieval verified:** "coordination cost" → H-001 at 0.561; "near decomposability" → correct notebook sections and Simon notes
+- **Discord upgraded:** @mention responses now query PI corpus + humboldt namespace; own work labeled separately in prompt
+- **Rich context:** `_rich_context()` added — full law statements with mechanism, active hypotheses, longer notebook excerpt for @mention responses
+- **Auto-ingest:** daemon re-indexes after new notebook entries post
+
+**Open:**
+- H-001 (Coordination Cost Conservation): five sessions overdue — open next T1 session with this, no exceptions
+- Daemon restart required to pick up new code
+- Always-on machine deployment pending
+
+---
+
 ## 2026-05-26 (session 3) — Daemon layer built; Discord presence live
 
 Session: Track 2 primary, Track 1 notebook update.
