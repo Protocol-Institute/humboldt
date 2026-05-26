@@ -6,6 +6,26 @@ Most recent entry first.
 
 ---
 
+## 2026-05-26 (session 2) — Hamming deep read completed
+
+### Infrastructure: no changes
+
+No persona, CLI, or infrastructure changes. Track 2 activity is this entry and the commit.
+
+### What this session produced
+
+Hamming's "You and Your Research" read from actual PDF (13 pages, single session). Notes at `bibliography/notes/hamming-you-and-your-research.md`. Three candidate laws generated (CL-Hamming-1 through CL-Hamming-3). Lab notebook appended.
+
+The Hamming read introduced a distinction the Simon read didn't make explicit: there are two kinds of deep-read sources — framework sources (Simon: analytical tools for understanding what protocols are) and craft sources (Hamming: empirical wisdom about how to do research). M-004 (reading prioritization) should weight these differently. Framework sources contribute to the theory; craft sources contribute to the methodology. Both matter, but for different reasons.
+
+CL-Hamming-2 (problem inversion) and CL-Simon-2 (local-maximum trap) are converging on the same phenomenon at different levels. This will need to be resolved before either is promoted to a hypothesis — either they merge into a single hypothesis with two contributing laws, or they remain complementary laws with explicit cross-references.
+
+### Track 3: one generalization candidate
+
+The framework/craft distinction in reading sources is a generalizable pattern. `_template/` should flag this in its M-004 analog: deep reads serve two functions (analytical framework acquisition, research methodology acquisition), and prioritization should consider both. Not updating the template this session — this is worth sitting with for another session before formalizing it.
+
+---
+
 ## 2026-05-26 — Simon deep read completed; notes architecture validated
 
 ### Infrastructure: no changes

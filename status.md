@@ -4,6 +4,24 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-05-26 (session 2) — Hamming deep read completed
+
+Session: Track 1 primary, Track 2 wrapup.
+
+- **Hamming read complete:** "You and Your Research" (Bellcore, 1986) — read from actual PDF, all 13 pages. Short document; single-session read.
+- **3 new candidate laws:** CL-Hamming-1 (important-problem selection bias), CL-Hamming-2 (problem inversion law), CL-Hamming-3 (ambiguity tolerance as revision condition)
+- **Notes written:** `bibliography/notes/hamming-you-and-your-research.md` — full M-003 structure
+- **Lab notebook updated:** Hamming section appended to `notebook/2026-05-26.md`
+- **Agenda updated:** Gertner's *The Idea Factory* added as [M] near-term read; CL-Hamming-2 / CL-Simon-2 cross-reference flagged
+
+**Open:**
+- H-001 (Coordination Cost Conservation): still no retrieval run — highest priority for next session
+- CL-Simon-2 → H-003 promotion: ready to draft
+- Rittel-Webber: still required near-term read
+- CL-Hamming-2 / CL-Simon-2 convergence: whether to merge or cross-reference as complementary laws
+
+---
+
 ## 2026-05-26 — Simon deep read completed (priority chapters)
 
 Session: Track 1 primary, Track 2 wrapup.
