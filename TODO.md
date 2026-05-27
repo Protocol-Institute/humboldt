@@ -28,6 +28,12 @@ Priority: **[H]** urgent, **[M]** soon, **[L]** when convenient.
 
 ---
 
+### Notebook formatting
+
+- **[M]** **Linkable notebook entries** — currently the published notebook (humboldt-notebook.html) renders all entries as a single scrollable page with no anchor links to individual sections or entries. Each major section within an entry (`## header`) should get an anchor ID, and the entry index table should link to individual dates (and ideally individual sections). Design: in `agent/publish.py`, auto-generate `id=` attributes on `<h2>`/`<h3>` tags using the slugified header text (kebab-case, strip punctuation); update the notebook README index table to use anchor links (e.g., `[entry](humboldt-notebook.html#2026-05-26)`); add a per-entry anchor at each date heading. Also consider adding a floating section nav for long entries.
+
+---
+
 ### Deep reading methodology (M-003)
 
 - **[H]** **Looser deep reading — exploration before extraction** — current M-003 prompt filters too aggressively for law candidates, producing narrow output. Deep reading should start with genuine open-ended engagement: what is the author's central problem? what is surprising? what doesn't fit? Candidate laws should *emerge* from engagement, not be the frame that organizes the reading. Revise M-003 prompt structure to lead with exploration, end with extraction.
