@@ -1,0 +1,30 @@
+- date: '2026-05-20'
+  timestamp: '2026-05-20T17:07:35-07:00'
+  title: 'First Investigation: Protocol Ossification'
+  tagline: First working session. Pipeline validated. Two hypotheses opened. Simon
+    begun.
+  file: notebook/2026-05-20.md
+  anchor: entry-2026-05-20
+  discord_announcement_id: null
+  discord_thread_id: null
+  thread_last_farmed: null
+- date: '2026-05-21'
+  timestamp: '2026-05-21T12:30:07-07:00'
+  title: 'Track 1: Simon Read Attempted and Discarded'
+  tagline: Infrastructure session with Track 1 attempted and discarded. No research
+    progress. Significant architectural changes to how future research will run.
+  file: notebook/2026-05-21.md
+  anchor: entry-2026-05-21
+  discord_announcement_id: null
+  discord_thread_id: null
+  thread_last_farmed: null
+- date: '2026-05-26'
+  timestamp: '2026-05-26T14:46:39-07:00'
+  title: The Read That Finally Happened
+  tagline: 'Session: Track 1 primary (Simon + Hamming deep reads) + Track 2 (daemon
+    layer, Discord presence).'
+  file: notebook/2026-05-26.md
+  anchor: entry-2026-05-26
+  discord_announcement_id: null
+  discord_thread_id: null
+  thread_last_farmed: null

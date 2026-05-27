@@ -27,4 +27,5 @@ notes: >
   system coordination cost (not just moved it), sustained over time after full adoption.
   The OSI model / TCP-IP comparison may be relevant — TCP-IP is "simpler" in some
   respects but the simplicity pushed complexity to the application layer.
+project_file: "research/projects/P-006-coordination-cost-conservation.md"
 opened: "2026-05-20"

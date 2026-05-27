@@ -32,7 +32,7 @@ Priority: **[H]** urgent, **[M]** soon, **[L]** when convenient.
 
 ### Notebook formatting
 
-- **[M]** **Linkable notebook entries** — currently the published notebook (humboldt-notebook.html) renders all entries as a single scrollable page with no anchor links to individual sections or entries. Each major section within an entry (`## header`) should get an anchor ID, and the entry index table should link to individual dates (and ideally individual sections). Design: in `agent/publish.py`, auto-generate `id=` attributes on `<h2>`/`<h3>` tags using the slugified header text (kebab-case, strip punctuation); update the notebook README index table to use anchor links (e.g., `[entry](humboldt-notebook.html#2026-05-26)`); add a per-entry anchor at each date heading. Also consider adding a floating section nav for long entries.
+- ~~**[M]** **Linkable notebook entries**~~ — **COMPLETE 2026-05-27.** Each entry has `id="entry-YYYY-MM-DD"`, a `§` permalink on the date line, and a TOC nav block (newest-first) auto-generated at publish time. `notebook/index.yaml` is the canonical metadata store. Discord announcements now link directly to `humboldt-notebook.html#entry-YYYY-MM-DD` and create a discussion thread on the announcement message. Thread comments are harvested daily by `daemon/thread_farmer.py` → `inbox/`.
 
 ---
 

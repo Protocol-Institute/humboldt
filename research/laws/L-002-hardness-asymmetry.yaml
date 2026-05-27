@@ -35,4 +35,5 @@ notes: >
   The novel contribution here is framing hardness as a ratio (verification/circumvention)
   rather than an absolute property, and noting that the ratio can be engineered.
   The "inverted hardness" case (legal harassment) is underexplored in the PI corpus.
+project_file: "research/projects/P-002-hardness-asymmetry.md"
 registered: "2026-05-20"

@@ -195,24 +195,32 @@ def _client() -> AsyncAnthropic:
     return AsyncAnthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
 
 
-async def generate_notebook_post(entry_date: str, entry_path: Path, github_url: str) -> str:
+async def generate_notebook_post(
+    entry_date: str,
+    entry_path: Path,
+    github_url: str,
+    entry_url: str | None = None,
+) -> str:
     """Generate a #new-nature post announcing a new notebook entry."""
     entry_text = entry_path.read_text() if entry_path.exists() else ""
     paragraphs = [p.strip() for p in entry_text.split("\n\n") if p.strip() and not p.startswith("#")]
     snippet = paragraphs[0][:500] if paragraphs else "(no content)"
 
-    # Prefer the public notebook page URL over the raw GitHub file link
-    config_path = Path(__file__).parent / "config.yaml"
-    notebook_url = github_url
-    if config_path.exists():
-        try:
-            config = yaml.safe_load(config_path.read_text()) or {}
-            for r in config.get("public_presence", {}).get("resources", []):
-                if "notebook" in r.get("name", "").lower():
-                    notebook_url = r["url"]
-                    break
-        except Exception:
-            pass
+    # Use entry_url (direct anchor) if provided, else look up public notebook URL
+    if entry_url:
+        notebook_url = entry_url
+    else:
+        config_path = Path(__file__).parent / "config.yaml"
+        notebook_url = github_url
+        if config_path.exists():
+            try:
+                config = yaml.safe_load(config_path.read_text()) or {}
+                for r in config.get("public_presence", {}).get("resources", []):
+                    if "notebook" in r.get("name", "").lower():
+                        notebook_url = r["url"]
+                        break
+            except Exception:
+                pass
 
     resp = await _client().messages.create(
         model=_MAIN_MODEL,

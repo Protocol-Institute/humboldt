@@ -488,7 +488,7 @@ def cmd_publish(dry_run: bool = False):
     from agent.publish import publish
     n = publish(dry_run=dry_run, verbose=True)
     if n and not dry_run:
-        print(f"Published {n} entry(ies) — Netlify will deploy automatically.")
+        print(f"Published {len(n)} entry(ies) — GitHub Pages will deploy automatically.")
 
 
 def cmd_references_list(unsorted_only: bool = False):

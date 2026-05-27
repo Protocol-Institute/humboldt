@@ -35,6 +35,7 @@ adversarial_domain: >
   above the protocol level. Aviation and medicine both have institutionalized
   update processes that are themselves stable and trusted. Investigate whether
   the law holds only in domains lacking such a meta-protocol for updates.
+project_file: "research/projects/P-007-trust-ratchet.md"
 status: active
 producing_technique: M-001
 opened: "2026-05-20"

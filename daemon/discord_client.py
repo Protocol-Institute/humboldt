@@ -411,11 +411,33 @@ class HumboldtBot(discord.Client):
                 continue
             logger.info(f"Posting notebook entry {entry['date']}")
             try:
+                from agent import notebook_index as nbi
+                entry_url = nbi.entry_url(entry["date"])
                 post = await presence.generate_notebook_post(
-                    entry["date"], entry["path"], entry["github_url"]
+                    entry["date"], entry["path"], entry["github_url"],
+                    entry_url=entry_url,
                 )
+                announcement_id: str | None = None
+                thread_id: str | None = None
                 if channel:
-                    await channel.send(post)
+                    msg = await channel.send(post)
+                    announcement_id = str(msg.id)
+                    # Create a discussion thread on the announcement
+                    try:
+                        thread = await msg.create_thread(
+                            name=f"Discussion: {entry['date']}",
+                            auto_archive_duration=10080,  # 7 days
+                        )
+                        thread_id = str(thread.id)
+                        logger.info(f"Created discussion thread for {entry['date']}: {thread_id}")
+                    except Exception as te:
+                        logger.warning(f"Thread creation failed for {entry['date']}: {te}")
+                # Persist announcement and thread IDs in index.yaml
+                nbi.upsert_entry(
+                    entry["date"],
+                    discord_announcement_id=announcement_id,
+                    discord_thread_id=thread_id,
+                )
                 posted.add(entry["date"])
             except Exception as e:
                 logger.error(f"Failed to post notebook entry: {e}")
@@ -437,9 +459,9 @@ class HumboldtBot(discord.Client):
             # Publish new notebook entries to the PI website
             try:
                 from agent.publish import publish
-                n_published = await self.loop.run_in_executor(None, publish)
-                if n_published:
-                    logger.info(f"Published {n_published} notebook entry(ies) to website")
+                published_entries = await self.loop.run_in_executor(None, publish)
+                if published_entries:
+                    logger.info(f"Published {len(published_entries)} notebook entry(ies) to website")
             except Exception as e:
                 logger.warning(f"Post-notebook publish failed: {e}")
 
@@ -670,6 +692,15 @@ class HumboldtBot(discord.Client):
         except Exception as e:
             logger.error(f"Conversation review failed: {e}")
             return
+
+        # Harvest new thread comments → inbox/ for reorientation context
+        try:
+            from . import thread_farmer as tf
+            n_harvested = await tf.run_harvest(self)
+            if n_harvested:
+                logger.info(f"Thread farmer: harvested {n_harvested} comment(s) from notebook threads")
+        except Exception as e:
+            logger.warning(f"Thread harvest failed: {e}")
 
         from datetime import date
         state["last_conversation_review"] = date.today().isoformat()
