@@ -4,6 +4,29 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-05-26 (session 6) — M-003 researcher-development section; daemon restart
+
+Session: Track 2 (infrastructure) + Track 1 analysis.
+
+**Daemon:** PID 18737 (restarted 2026-05-26 session 6; picks up ALL accumulated changes: people memory, publish pipeline, conversation review, self-knowledge URLs, open-mindedness, M-003 gestalt-first prompts)
+
+**Changes:**
+- **M-003 section 8 added:** "What it says about becoming a better researcher" — explicit named section in output format and DEEP_READ_SYSTEM prompt; captures epistemic habits, research craft, M-016 connections
+- **M-003 Phase 2 updated:** new annotation type "researcher-development lessons" alongside analytical moves, general lessons, research connections
+- **Hamming notes backfilled:** section 6 written from gestalt re-read material — all M-016 dimensions mapped to Hamming's specific lessons (problem portfolio, Friday afternoons, ambiguity tolerance, drive as directed walk, style as portability)
+- **Diagnosis surfaced:** overconfident position-defense is the "too much belief" end of Hamming's ambiguity tolerance spectrum; the open-mindedness daemon change addresses the symptom, M-016 is the structural diagnosis
+- **Daemon restarted:** PID 16459 (prior) replaced with 18737
+
+**Open:**
+- LINEAGE.md update for Hamming — pending next session
+- H-001 (Coordination Cost Conservation): 5+ sessions overdue
+- Gestalt re-reads of Simon and Cosmos: both queued [H]
+- Tempo deep read: held for later session
+- Systemantics PDF: not freely available; Archive.org borrow or purchase
+- Conversation review + reference sort behaviors: implemented in daemon, not yet exercised (24h interval)
+
+---
+
 ## 2026-05-26 (session 5) — Discord quality + notebook publish pipeline
 
 Session: Track 2 primary.

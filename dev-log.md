@@ -6,6 +6,28 @@ Most recent entry first.
 
 ---
 
+## 2026-05-26 (session 6) — M-003 researcher-development section
+
+**Track 2 (persona/methodology):**
+
+Session began with user question: "Deep reads should also pick up on knowledge about going better researcher. Is there any of that in the notes?" The answer: yes, but it wasn't structured anywhere.
+
+**Analysis of existing notes:**
+- Hamming (gestalt re-read, complete): the *entire talk* is researcher-development material. Problem selection bias; drive as directed walk; 10-20 problem portfolio; Friday afternoons as Orient practice; ambiguity tolerance as the un-teachable prerequisite; problem inversion as local-optima escape; style as the portable core. All of this was in the gestalt re-read but had no named section.
+- Simon (law-hunting only): researcher-development content exists structurally — satisficing as attention allocation model, bounded rationality as a description of the researcher's own situation, the ant's path as a caution against over-attributing to the researcher's mind — but was missed in the law-hunting pass. Will surface in gestalt re-read.
+- Cosmos (law-hunting, partial): Humboldt's epistemological method is inherently researcher-development — graduated confidence, critique of observation without synthesis, the warning that accumulating disconnected facts without synthesis reinforces the conviction that there's no law. Also missed.
+
+**What changed:**
+- **M-003 output format:** section 8 "What it says about becoming a better researcher" added between "nature of things" and "research connections"; total sections now 12. Section 8 explicitly connects to M-016 dimensions. For texts primarily about research practice, this is now the most important section.
+- **M-003 Phase 2:** "researcher-development lessons" added as an annotation category in close reading, alongside general lessons and research connections.
+- **prompts.py DEEP_READ_SYSTEM:** section 6 added (same content as M-003 section 8); sections renumbered 6-9 → 7-10. The section is explicit about M-016 connection and notes that technical texts may have thin content here.
+- **Hamming notes:** section 6 backfilled from existing gestalt re-read material. Covers all six M-016 maturity dimensions via Hamming's specific vocabulary. Key diagnostic: Humboldt's overconfident position-defense is the "too much belief" end of Hamming's ambiguity tolerance spectrum — not a behavioral tic but a structural failure of the middle state that productive revision requires.
+- **Daemon restarted:** PID 18737. Picks up all changes from sessions 5-6: people memory, publish pipeline, conversation review, self-knowledge URLs, open-mindedness, M-003 gestalt-first prompts.
+
+**Track 3 (template):** The addition of section 8 to M-003 is a potential template change — any future artificial researcher should have this section in their deep read format from the start. No template update yet; defer until pattern is exercised and stabilized across multiple reads.
+
+---
+
 ## 2026-05-26 (session 5) — Discord quality + notebook publish pipeline
 
 ### Infrastructure changes
