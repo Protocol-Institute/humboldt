@@ -274,9 +274,8 @@ class HumboldtBot(discord.Client):
             )
 
         thread_title, body = _parse_thread_response(response)
+        body = _resolve_mentions(body, name_to_id)
         if thread_title:
-            # Opening a new thread: resolve @mentions so participants get notified
-            body = _resolve_mentions(body, name_to_id)
             try:
                 thread = await message.create_thread(
                     name=thread_title,
@@ -591,12 +590,8 @@ class HumboldtBot(discord.Client):
 
         if response_text and channel:
             thread_title, body = _parse_thread_response(response_text)
-
-            # Real @pings only for new threads or when re-engaging after a long gap
+            body = _resolve_mentions(body, name_to_id)
             long_gap = last_bot_age > 30 * 60
-            if thread_title or long_gap:
-                body = _resolve_mentions(body, name_to_id)
-                logger.debug(f"Mention resolution applied (thread={bool(thread_title)}, long_gap={long_gap})")
 
             # Only thread if the anchor message is recent enough to be meaningful
             anchor_age = (
