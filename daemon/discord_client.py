@@ -50,6 +50,7 @@ from . import notebook_watcher as nw
 from . import feed_monitor as fm
 from . import presence
 from . import capture as cap
+from . import people as ppl
 
 logger = logging.getLogger("humboldt.discord")
 _ROOT = Path(__file__).parent.parent
@@ -173,12 +174,16 @@ class HumboldtBot(discord.Client):
         except Exception as e:
             logger.warning(f"Retrieval skipped: {e}")
 
+        # Fetch person context (None for first-time interactions)
+        person_context = ppl.get_person_context(message.author.name)
+
         async with message.channel.typing():
             response = await presence.generate_mention_response(
                 username=message.author.name,
                 message=content,
                 context_messages=history,
                 corpus_chunks=chunks,
+                person_context=person_context,
             )
 
         thread_title, body = _parse_thread_response(response)
@@ -201,9 +206,91 @@ class HumboldtBot(discord.Client):
         else:
             await message.reply(body)
 
+        # Record this interaction and check notebook threshold (non-blocking)
+        asyncio.create_task(
+            self._record_interaction_and_check(
+                username=message.author.name,
+                user_id=str(message.author.id),
+                message_snippet=content,
+                channel=f"#{message.channel.name}",
+            )
+        )
+
         # Capture ideas/links from the conversation after replying (non-blocking)
         capture_messages = history + [{"author": message.author.name, "content": content}]
         asyncio.create_task(cap.run_capture(capture_messages, f"#{message.channel.name}"))
+
+    # ── People memory ────────────────────────────────────────────────────────
+
+    async def _record_interaction_and_check(
+        self,
+        username: str,
+        user_id: str,
+        message_snippet: str,
+        channel: str,
+    ) -> None:
+        """
+        Record a direct @mention interaction, then write a notebook entry if the
+        person has crossed the recurring-interlocutor threshold.
+        """
+        person = await self.loop.run_in_executor(
+            None,
+            lambda: ppl.record_interaction(username, user_id, message_snippet, channel),
+        )
+        if ppl.needs_notebook_entry(username):
+            logger.info(f"Writing person notebook entry for @{username}")
+            try:
+                entry_text = await presence.generate_person_notebook_entry(username, person)
+                await self._append_person_to_notebook(username, entry_text)
+                await self.loop.run_in_executor(
+                    None, lambda: ppl.mark_notebook_entry_written(username)
+                )
+            except Exception as e:
+                logger.error(f"Person notebook entry failed for @{username}: {e}")
+
+    async def _append_person_to_notebook(self, username: str, entry_text: str) -> None:
+        """Append a person-as-research-conversation entry to today's notebook file."""
+        import datetime
+        today = datetime.date.today().isoformat()
+        nb_path = _ROOT / "notebook" / f"{today}.md"
+
+        section = (
+            f"\n\n---\n\n"
+            f"## Research conversation: @{username}\n\n"
+            f"{entry_text}\n"
+        )
+
+        if nb_path.exists():
+            existing = nb_path.read_text()
+            nb_path.write_text(existing.rstrip() + section)
+        else:
+            nb_path.write_text(
+                f"# Lab Notebook — {today}\n\n"
+                f"*Ongoing research conversations.*\n"
+                + section
+            )
+
+        logger.info(f"Person notebook entry appended: {nb_path.name} (@{username})")
+
+        # Commit the updated notebook entry
+        import subprocess
+        try:
+            subprocess.run(
+                ["git", "add", str(nb_path)],
+                cwd=_ROOT, check=True, capture_output=True,
+            )
+            subprocess.run(
+                ["git", "commit", "-m",
+                 f"Notebook: research conversation entry for @{username}\n\n"
+                 f"Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>"],
+                cwd=_ROOT, check=True, capture_output=True,
+            )
+            subprocess.run(
+                ["git", "push", "origin", "main"],
+                cwd=_ROOT, check=True, capture_output=True,
+            )
+        except subprocess.CalledProcessError as e:
+            logger.warning(f"Person notebook commit failed: {e.stderr.decode()}")
 
     # ── Notebook watcher ─────────────────────────────────────────────────────
 

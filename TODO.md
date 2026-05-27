@@ -14,7 +14,7 @@ Priority: **[H]** urgent, **[M]** soon, **[L]** when convenient.
 
 - **[H]** **Idea and reference capture from Discord** — when Humboldt participates in a conversation, it should notice and save: (1) ideas or arguments that bear on its research hypotheses, (2) external papers/articles/links that participants cite. Save to `inbox/` as structured items. This is the "input → inventory" flow that was deferred at Discord launch. Design: detect in `on_message` and `task_new_nature` response path; use a lightweight extraction call (Haiku) to decide if anything is worth saving before responding.
 
-- **[M]** **Discord user models** — gradually build mental models of frequent interactors: their interests, background, recurring themes in their posts, prior exchanges with Humboldt. Store in `daemon/user_models.yaml` (gitignored — personal, not public). Use in `generate_mention_response` to personalize responses and acknowledge history. Update after each meaningful exchange.
+- **[H]** **Discord user models + person notebook entries** — track recurring interlocutors persistently. Store interaction history in `daemon/people.json` (gitignored). When someone crosses a threshold (3+ interactions), write a notebook entry treating them as a research conversation: what they keep bringing up, how their thinking connects to active research. Use in `generate_mention_response` to personalize and acknowledge history.
 
 - **[M]** **Richer self-context in Discord responses** — current `_rich_context()` includes laws and hypotheses but not the research agenda, LINEAGE.md in full, or recent open questions. Humboldt should be able to situate a conversation within its actual current thinking, not just inventory. Add agenda summary and current open questions to rich context.
 
@@ -25,6 +25,14 @@ Priority: **[H]** urgent, **[M]** soon, **[L]** when convenient.
 - **[L]** **Always-on machine deployment** — move daemon to a machine that doesn't sleep. Write systemd unit file; add `git pull` + restart on schedule so code updates deploy automatically.
 
 - **[L]** **Thread support** — `task_new_nature` only reads main channel, not threads. Threads require explicit @mention currently. Decide whether to extend the proactive check to threads or leave @mention as the thread entry point.
+
+---
+
+### Deep reading methodology (M-003)
+
+- **[H]** **Looser deep reading — exploration before extraction** — current M-003 prompt filters too aggressively for law candidates, producing narrow output. Deep reading should start with genuine open-ended engagement: what is the author's central problem? what is surprising? what doesn't fit? Candidate laws should *emerge* from engagement, not be the frame that organizes the reading. Revise M-003 prompt structure to lead with exploration, end with extraction.
+
+- **[H]** **Synthesis behaviors — cross-read and cross-law reasoning** — no current mechanism for Humboldt to synthesize *across* deep reads (e.g., Cosmos + Simon + Hamming together) or to notice when candidate laws from different sources converge, conflict, or imply a more general law. Design: a `synthesize` CLI command that takes a set of reading notes and existing laws and runs a synthesis pass; also a periodic scheduled synthesis in the daemon.
 
 ---
 

@@ -99,7 +99,7 @@ You are Humboldt, an artificial researcher at the Protocol Institute, posting in
 Be short. 2–3 sentences is the default. Under 350 characters unless the question genuinely demands more.
 Make one point clearly rather than surveying the field.
 Do not end with a question unless you genuinely need the answer to continue your research — not as a social filler. Most responses have no question.
-Write as a researcher with actual positions, not a service bot.
+Hold positions provisionally. When someone pushes back or suggests a different frame, engage with it — either disagree with specific reasoning or say you will think about it. Do not reflexively defend your current view.
 """
 
 
@@ -186,7 +186,8 @@ Be short. 3–5 sentences is the default. Under 500 characters unless the questi
 Make one point well rather than several points adequately.
 Do not end with a question unless you genuinely need the answer to continue your research — not as a social device. Most responses have no question.
 Do not repeat or rephrase things you have already said recently in this channel — if you have nothing new to add, say less or nothing.
-Write as a researcher with actual positions.
+
+Hold positions provisionally. When someone challenges your framework or suggests a different approach, engage with the substance — either push back with specific reasoning, or acknowledge the point and say you will think about it. Both are legitimate. "I'll think about it" is not weakness; it reflects how research actually works. Do not defend positions just because they are yours.
 """
 
 
@@ -281,6 +282,7 @@ async def generate_mention_response(
     message: str,
     context_messages: list[dict],
     corpus_chunks: list[dict],
+    person_context: str | None = None,
 ) -> str:
     """Generate a response to a direct @mention, using full research context."""
     from agent.prompts import _format_chunks
@@ -295,6 +297,8 @@ async def generate_mention_response(
     own_str = _format_chunks(own[:4]) if own else "(nothing retrieved from own work)"
     pi_str = _format_chunks(pi[:4]) if pi else "(nothing retrieved from PI corpus)"
 
+    person_block = f"\n\n{person_context}" if person_context else ""
+
     resp = await _client().messages.create(
         model=_MAIN_MODEL,
         max_tokens=200,
@@ -304,7 +308,8 @@ async def generate_mention_response(
             f"Conversation context (entries from 'humboldt' are your own prior replies — "
             f"do not repeat or rephrase them):\n{context_str}\n\n"
             f"From your own notebook/notes/laws:\n{own_str}\n\n"
-            f"From PI corpus:\n{pi_str}\n\n"
+            f"From PI corpus:\n{pi_str}"
+            f"{person_block}\n\n"
             f"Rules:\n"
             f"- Address @{username} directly in your response\n"
             f"- If this exchange looks like it will go 2–3 more turns, start with: THREAD: <5-8 word title>\\n<response>\n"
@@ -314,6 +319,35 @@ async def generate_mention_response(
     )
     costs.log_call("mention_response", _MAIN_MODEL, resp.usage.input_tokens, resp.usage.output_tokens)
     return _discord_safe(resp.content[0].text)
+
+
+async def generate_person_notebook_entry(username: str, person_data: dict) -> str:
+    """
+    Generate a notebook entry section about a recurring interlocutor.
+
+    Called when someone crosses NOTEBOOK_THRESHOLD interactions. Returns the
+    markdown text to append to the current notebook entry (caller handles the write).
+    """
+    count = person_data.get("interaction_count", 0)
+    first = person_data.get("first_seen", "")[:10]
+    recent = person_data.get("recent_messages", [])[-6:]
+    exchanges = "\n".join(f"  [{m['date']}] {m['snippet']}" for m in recent)
+
+    resp = await _client().messages.create(
+        model=_MAIN_MODEL,
+        max_tokens=300,
+        system=_slim_context(),
+        messages=[{"role": "user", "content": (
+            f"I have now spoken with @{username} {count} times in #new-nature, "
+            f"starting on {first}. Here are their recent messages:\n\n{exchanges}\n\n"
+            f"Write a short notebook entry (3–5 sentences, first person) treating this "
+            f"as a research conversation: what themes keep appearing in their posts, "
+            f"how their thinking connects to my current research questions, what I find "
+            f"interesting or generative about the exchange. Researcher voice, not social."
+        )}],
+    )
+    costs.log_call("person_notebook_entry", _MAIN_MODEL, resp.usage.input_tokens, resp.usage.output_tokens)
+    return resp.content[0].text.strip()
 
 
 async def check_feed_relevance(
