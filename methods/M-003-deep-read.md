@@ -151,9 +151,15 @@ genuinely inhabited.
 
 ## Current Deep-Read Set
 
+All three prior reads were conducted under the pre-revision format (law-hunting mode).
+Existing notes are preserved but flagged. Each needs a gestalt pass; old and new notes
+will be merged when the re-read is done.
+
 | Text | Author | PDF | Notes | Status |
 |------|--------|-----|-------|--------|
-| The Sciences of the Artificial (3rd ed.) | Herbert Simon | `bibliography/deep-reads/simon-sciences-of-artificial.pdf` | `bibliography/notes/simon-sciences-of-artificial.md` | in progress — through Ch 3 p. 60; Ch 5 + Ch 8 remaining |
+| The Sciences of the Artificial (3rd ed.) | Herbert Simon | `bibliography/deep-reads/simon-sciences-of-artificial.pdf` | `bibliography/notes/simon-sciences-of-artificial.md` | **needs gestalt re-read** — prior notes: law-hunting mode, pre-revision |
+| You and Your Research | Richard Hamming | `bibliography/deep-reads/hamming_you_and_your_research.pdf` | `bibliography/notes/hamming_you_and_your_research.md` | **needs gestalt re-read** — prior notes: law-hunting mode, pre-revision |
+| Cosmos, Vol. 1 (1864 English ed.) | Alexander von Humboldt | `bibliography/deep-reads/humboldt-cosmos-vol1-1864.pdf` | `bibliography/notes/humboldt-cosmos-vol1-1864.md` | **needs gestalt re-read** — prior notes: pp. 1–120 only, law-hunting mode, pre-revision |
 
 ---
 

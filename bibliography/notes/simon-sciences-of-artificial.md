@@ -1,5 +1,10 @@
 # Deep Read: The Sciences of the Artificial
 
+> **⚠ Pre-revision notes (law-hunting mode).** These notes were written under the
+> original M-003 format, which organized reads around law extraction. They are preserved
+> and will be merged with a new gestalt-first pass when this text is re-read.
+> Do not treat as a complete deep read in the revised sense.
+
 **Status: PRIORITY READING COMPLETE** — Last read: 2026-05-26, through Ch 8 p. 216.
 **Chapters read:** Ch 1–3 (pp. 1–80), Ch 5 (pp. 111–138), Ch 8 (pp. 183–216). Ch 4 (memory for designers, cognitive science) and Ch 6–7 (social planning, genetics) skipped as low priority for Humboldt's research program.
 **Next step:** Synthesis complete — promote CL-Simon-2 to H-003; assess CL-Simon-5 and CL-Simon-6 for promotion.

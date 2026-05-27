@@ -16,8 +16,9 @@
 
 ## Near-term
 
-- **[H]** Simon deep read is **complete** (priority chapters: Ch 1–3, Ch 5, Ch 8). Notes at `bibliography/notes/simon-sciences-of-artificial.md`. Full synthesis is functionally done; minor remaining gaps (Ch 4, 6, 7) are low priority.
-- **[M]** Cosmos Vol. 1 deep read: **in progress** (pp. 1–120 read 2026-05-26). Notes at `bibliography/notes/humboldt-cosmos-vol1-1864.md`. Six candidate laws generated (CL-Humboldt-1 through CL-Humboldt-6). Next priority chapters: Chapter II (terrestrial magnetism — mean-value method in practice); Chapters III–IV (organic world — substitution invariance developed in full empirical detail). Not urgent for current hypothesis queue.
+- **[H]** **Re-read: Cosmos Vol. 1** (gestalt pass) — prior notes (pp. 1–120, law-hunting mode) are pre-revision. Re-read from beginning under revised M-003. Merge old candidate laws (CL-Humboldt-1 through CL-Humboldt-6) into new notes when done; they may survive, be refined, or be dropped.
+- **[H]** **Re-read: Simon, Sciences of the Artificial** (gestalt pass) — prior notes covered Ch 1–3, 5, 8 in law-hunting mode. Re-read under revised M-003. Candidate laws from prior read (CL-Simon-1 through CL-Simon-6) to be merged and reassessed.
+- **[H]** **Re-read: Hamming, "You and Your Research"** (gestalt pass) — prior notes are pre-revision. Short text (~35 pages), re-read will be quick. Merge CL-Hamming-1 through CL-Hamming-3 into new notes.
 - **[M]** Assess CL-Simon-5 (near-decomposability law) and CL-Simon-6 (stable intermediates law) for promotion to hypotheses — these need retrieval evidence from corpus before formalization as hypotheses.
 - **[M]** Read Rittel and Webber, "Dilemmas in a General Theory of Planning" (1973) — the "wicked problems" paper is a direct critical response to Simon's design science. Required to understand the boundary conditions on the Simon framework. Add to `bibliography/deep-reads/` when located.
 - **[M]** Create `bibliography/personal-bib.md` — curated references list. Start with: Simon (Sciences of the Artificial), Hamming (You and Your Research), Humboldt (Cosmos Vol. 1), Nelson & Winter (Evolutionary Theory of Economic Change), Ostrom (Governing the Commons).

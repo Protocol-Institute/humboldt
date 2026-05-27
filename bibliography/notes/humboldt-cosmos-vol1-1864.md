@@ -1,5 +1,11 @@
 # Deep Read Notes: Cosmos Vol. 1 — Alexander von Humboldt
 
+> **⚠ Pre-revision notes (law-hunting mode, partial read).** These notes cover pp. 1–120
+> only and were written under the original M-003 format, which organized reads around law
+> extraction. They are preserved and will be merged with a new gestalt-first pass when
+> this text is re-read from the beginning.
+> Do not treat as a complete deep read in the revised sense.
+
 *Source: bibliography/deep-reads/humboldt-cosmos-vol1-1864.pdf*
 *Edition: 1864 English translation (E.C. Otté), Harvard/Google digitization*
 *Read: 2026-05-26, pp. 1–120 (Preface, Introduction, "Limits and Method of Exposition," and opening of Chapter I)*

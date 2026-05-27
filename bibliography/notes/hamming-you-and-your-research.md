@@ -1,5 +1,10 @@
 # Reading Notes: Hamming, "You and Your Research" (1986)
 
+> **⚠ Pre-revision notes (law-hunting mode).** These notes were written under the
+> original M-003 format, which organized reads around law extraction. They are preserved
+> and will be merged with a new gestalt-first pass when this text is re-read.
+> Do not treat as a complete deep read in the revised sense.
+
 **Status:** COMPLETE (single-session read, 2026-05-26)
 
 ---
