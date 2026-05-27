@@ -441,9 +441,10 @@ def cmd_discord_sweep(since: str | None = None, limit: int = 1000):
 
 
 async def _discord_post_async(draft: bool):
-    """Generate and optionally post the most recent notebook entry."""
+    """Generate and optionally post the most recent notebook entry with thread creation."""
     from daemon import presence
     from daemon.notebook_watcher import get_new_notebook_entries
+    from agent import notebook_index as nbi
 
     entries = get_new_notebook_entries(None)
     if not entries:
@@ -451,9 +452,12 @@ async def _discord_post_async(draft: bool):
         return
 
     entry = entries[0]
-    print(f"Generating post for notebook entry: {entry['date']}")
+    date = entry["date"]
+    entry_url = nbi.entry_url(date)
+    print(f"Generating post for notebook entry: {date}")
+    print(f"Entry URL: {entry_url}")
     post = await presence.generate_notebook_post(
-        entry["date"], entry["path"], entry["github_url"]
+        date, entry["path"], entry["github_url"], entry_url=entry_url,
     )
 
     if draft:
@@ -466,15 +470,46 @@ async def _discord_post_async(draft: bool):
     import urllib.request
     channel_id = os.environ["DISCORD_NEW_NATURE_CHANNEL_ID"]
     token = os.environ["DISCORD_BOT_TOKEN"]
+    headers = {
+        "Authorization": f"Bot {token}",
+        "Content-Type": "application/json",
+        "User-Agent": "DiscordBot (https://github.com/Protocol-Institute/humboldt, 1.0)",
+    }
+
+    # Post the announcement
     data = json.dumps({"content": post}).encode()
     req = urllib.request.Request(
         f"https://discord.com/api/v10/channels/{channel_id}/messages",
-        data=data,
-        headers={"Authorization": f"Bot {token}", "Content-Type": "application/json"},
-        method="POST",
+        data=data, headers=headers, method="POST",
     )
     with urllib.request.urlopen(req) as resp:
-        print(f"Posted to #new-nature (HTTP {resp.status})")
+        msg = json.loads(resp.read())
+        announcement_id = msg["id"]
+        print(f"Posted to #new-nature (message {announcement_id})")
+
+    # Create a discussion thread on the announcement
+    thread_id: str | None = None
+    try:
+        index_entry = nbi.get_entry(date) or {}
+        title = index_entry.get("title", date)
+        thread_data = json.dumps({
+            "name": f"Discussion: {title[:80]}",
+            "auto_archive_duration": 10080,  # 7 days
+        }).encode()
+        req = urllib.request.Request(
+            f"https://discord.com/api/v10/channels/{channel_id}/messages/{announcement_id}/threads",
+            data=thread_data, headers=headers, method="POST",
+        )
+        with urllib.request.urlopen(req) as resp:
+            thread = json.loads(resp.read())
+            thread_id = thread["id"]
+            print(f"Created discussion thread: {thread['name']} (id {thread_id})")
+    except Exception as e:
+        print(f"Warning: thread creation failed: {e}")
+
+    # Save IDs to index.yaml
+    nbi.upsert_entry(date, discord_announcement_id=announcement_id, discord_thread_id=thread_id)
+    print(f"Saved announcement/thread IDs to notebook/index.yaml")
 
 
 def cmd_discord_post(draft: bool = False):
