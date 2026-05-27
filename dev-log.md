@@ -6,6 +6,36 @@ Most recent entry first.
 
 ---
 
+## 2026-05-27 (session 7) — Notebook publish loop complete
+
+**Track 2 (infrastructure):**
+
+Completed the notebook → Discord → thread → harvest pipeline that was half-built at end of session 6. All four components now wired end-to-end.
+
+**`notebook/index.yaml` + `agent/notebook_index.py`:**
+New canonical metadata module. `index.yaml` is the single source of truth for entry titles, taglines, git-sourced timestamps, Discord announcement/thread IDs, and `thread_last_farmed` timestamps. `build_from_git()` bootstrapped the three existing entries from git history. All downstream consumers (publish, discord_client, thread_farmer) read/write through this module.
+
+**`agent/publish.py` rewrite:**
+The key design decisions: entries get `id="entry-YYYY-MM-DD"` (not slugified section text — dates are stable; section headers change); `§` permalink on the date line (muted grey, turns teal on hover) rather than a floating section nav (simpler, no JS); TOC is newest-first (reading order matches reverse-chronological discovery). The `_add_missing_ids()` migration runs idempotently on every publish, so the existing three entries picked up IDs and permalinks on first run. `publish()` returns `list[dict]` (not `int`) — richer return allows callers to drive downstream actions without re-reading state.
+
+**`daemon/thread_farmer.py`:**
+Harvests Discord thread comments → `inbox/` for reorientation context at next session start. Key design: uses Discord snowflake arithmetic to paginate from `thread_last_farmed` rather than fetching all history; filters bot messages; writes structured markdown with source metadata; updates `thread_last_farmed` even if zero messages (marks the baseline). Wired into `task_conversation_review` (daily). 
+
+**`daemon/discord_client.py` `task_notebook`:**
+Now uses `nbi.entry_url()` for direct anchor links in announcements; creates a 7-day auto-archive discussion thread on each announcement message; saves `discord_announcement_id` + `discord_thread_id` to index.yaml for the thread farmer to use later.
+
+**Website:**
+`humboldt-notebook.html` now has TOC (three entries, newest-first), entry IDs, and `§` permalinks. Pushed to GitHub Pages. Netlify references removed throughout (site migrated to GitHub Pages).
+
+**Design decisions not taken:**
+- Slugified section anchors within entries (e.g., `#entry-2026-05-20-first-investigation`): section headers change too easily; date-level linking is stable and sufficient for Discord sharing
+- Floating section nav: requires JS, adds complexity; `§` permalink per entry is lighter and handles the primary use case (linking to a specific session from Discord)
+
+**Open track 3:**
+Thread farmer pattern (harvest external conversation → structured inbox → session reorientation) is a generalizable design worth adding to `_template/`. Not done this session.
+
+---
+
 ## 2026-05-26 (session 6) — M-003 researcher-development section
 
 **Track 2 (persona/methodology):**

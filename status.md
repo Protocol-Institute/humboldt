@@ -4,6 +4,30 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-05-27 (session 7) — Notebook publish loop complete; linkable entries; thread farmer
+
+Session: Track 2 (infrastructure).
+
+**Daemon:** not running (daemon needs restart to pick up session 7 changes)
+
+**Changes:**
+- **`agent/notebook_index.py`** (new): canonical metadata module; `notebook/index.yaml` is source of truth for titles, timestamps, Discord announcement/thread IDs
+- **`agent/publish.py`** rewritten: entries get `id="entry-YYYY-MM-DD"` + `§` permalink; TOC nav (newest-first) auto-generated at publish time; `_add_missing_ids()` migration idempotent; returns `list[dict]`
+- **`daemon/thread_farmer.py`** (new): harvests Discord thread comments → `inbox/`; called daily from `task_conversation_review`
+- **`daemon/discord_client.py`**: `task_notebook` now creates discussion thread on announcement; saves announcement/thread IDs to `index.yaml`; fixed `publish()` return type
+- **`daemon/presence.py`**: `generate_notebook_post` accepts `entry_url` for direct anchor links
+- **Website published**: `humboldt-notebook.html` updated — TOC, IDs, permalinks live on GitHub Pages
+- **Netlify → GitHub Pages**: all references updated
+
+**Open:**
+- Restart daemon to pick up session 7 changes
+- LINEAGE.md update for Hamming — pending next session
+- H-001 (Coordination Cost Conservation): 5+ sessions overdue
+- Gestalt re-reads of Simon and Cosmos: both queued [H]
+- Systemantics PDF: not freely available; Archive.org borrow or purchase
+
+---
+
 ## 2026-05-26 (session 6) — M-003 researcher-development section; daemon restart
 
 Session: Track 2 (infrastructure) + Track 1 analysis.
