@@ -195,6 +195,8 @@ def _client() -> AsyncAnthropic:
     return AsyncAnthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
 
 
+
+
 async def generate_notebook_post(
     entry_date: str,
     entry_path: Path,
@@ -222,6 +224,7 @@ async def generate_notebook_post(
             except Exception:
                 pass
 
+    costs.check_budget()
     resp = await _client().messages.create(
         model=_MAIN_MODEL,
         max_tokens=300,
@@ -261,6 +264,7 @@ async def generate_new_nature_response(
             + "\n---\n".join(p[:250] for p in recent_bot_posts[-5:])
         )
 
+    costs.check_budget()
     resp = await _client().messages.create(
         model=_MAIN_MODEL,
         max_tokens=150,
@@ -307,6 +311,7 @@ async def generate_mention_response(
 
     person_block = f"\n\n{person_context}" if person_context else ""
 
+    costs.check_budget()
     resp = await _client().messages.create(
         model=_MAIN_MODEL,
         max_tokens=200,
@@ -341,6 +346,7 @@ async def generate_person_notebook_entry(username: str, person_data: dict) -> st
     recent = person_data.get("recent_messages", [])[-6:]
     exchanges = "\n".join(f"  [{m['date']}] {m['snippet']}" for m in recent)
 
+    costs.check_budget()
     resp = await _client().messages.create(
         model=_MAIN_MODEL,
         max_tokens=300,
@@ -364,6 +370,7 @@ async def check_feed_relevance(
     """Quick triage: is this feed item relevant to active hypotheses?"""
     hyp_str = "\n".join(f"- {h}" for h in hypotheses) if hypotheses else "(none)"
 
+    costs.check_budget()
     resp = await _client().messages.create(
         model=_FAST_MODEL,
         max_tokens=80,

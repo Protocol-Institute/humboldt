@@ -53,6 +53,7 @@ from . import presence
 from . import capture as cap
 from . import people as ppl
 from . import conversation_review as cr
+from .costs import BudgetExceeded
 
 logger = logging.getLogger("humboldt.discord")
 _ROOT = Path(__file__).parent.parent
@@ -264,14 +265,19 @@ class HumboldtBot(discord.Client):
         # Fetch person context (None for first-time interactions)
         person_context = ppl.get_person_context(message.author.name)
 
-        async with message.channel.typing():
-            response = await presence.generate_mention_response(
-                username=message.author.name,
-                message=content,
-                context_messages=history,
-                corpus_chunks=chunks,
-                person_context=person_context,
-            )
+        try:
+            async with message.channel.typing():
+                response = await presence.generate_mention_response(
+                    username=message.author.name,
+                    message=content,
+                    context_messages=history,
+                    corpus_chunks=chunks,
+                    person_context=person_context,
+                )
+        except BudgetExceeded as e:
+            logger.warning(f"Budget exceeded — skipping @mention response: {e}")
+            await message.reply("I've hit my daily API budget and am offline until midnight. Back tomorrow.")
+            return
 
         thread_title, body = _parse_thread_response(response)
         body = _resolve_mentions(body, name_to_id)

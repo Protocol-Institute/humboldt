@@ -79,6 +79,7 @@ async def generate_notebook_synthesis(messages: list[dict], date_range: str) -> 
     convo = "\n".join(f"{m['author']}: {m['content'][:300]}" for m in messages[-60:])
     context = _load_slim_context()
 
+    costs.check_budget()
     resp = await AsyncAnthropic(api_key=os.environ["ANTHROPIC_API_KEY"]).messages.create(
         model=_MAIN_MODEL,
         max_tokens=400,

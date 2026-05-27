@@ -1,4 +1,4 @@
-"""API cost tracking for the daemon. Appends to costs.jsonl (gitignored)."""
+"""API cost tracking and daily budget enforcement for the daemon."""
 
 import json
 from datetime import datetime, timezone
@@ -28,6 +28,60 @@ def log_call(operation: str, model: str, input_tokens: int, output_tokens: int) 
     with open(_COSTS_PATH, "a") as f:
         f.write(json.dumps(record) + "\n")
     return cost
+
+
+class BudgetExceeded(Exception):
+    """Raised when today's API spend has reached the configured daily limit."""
+    pass
+
+
+def today_usd() -> float:
+    """Sum API costs recorded today (local calendar date)."""
+    if not _COSTS_PATH.exists():
+        return 0.0
+    today_local = datetime.now().strftime("%Y-%m-%d")  # local time date boundary
+    total = 0.0
+    with open(_COSTS_PATH) as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                r = json.loads(line)
+                # Records are UTC; convert to local date for midnight-reset semantics
+                ts_local = datetime.fromisoformat(r["ts"]).astimezone().strftime("%Y-%m-%d")
+                if ts_local == today_local:
+                    total += r.get("usd", 0.0)
+            except Exception:
+                pass
+    return round(total, 6)
+
+
+def configured_limit() -> float:
+    """Read daily_limit_usd from daemon/config.yaml (default $5)."""
+    config_path = Path(__file__).parent / "config.yaml"
+    if config_path.exists():
+        try:
+            import yaml
+            config = yaml.safe_load(config_path.read_text()) or {}
+            return float(config.get("budget", {}).get("daily_limit_usd", 5.0))
+        except Exception:
+            pass
+    return 5.0
+
+
+def check_budget(limit_usd: float | None = None) -> None:
+    """
+    Raise BudgetExceeded if today's spending has reached the daily limit.
+
+    Reads the limit from config.yaml if limit_usd is not provided.
+    Call this before every Claude API invocation. Resets at local midnight.
+    """
+    if limit_usd is None:
+        limit_usd = configured_limit()
+    spent = today_usd()
+    if spent >= limit_usd:
+        raise BudgetExceeded(f"${spent:.4f} spent today (limit ${limit_usd:.2f})")
 
 
 def totals() -> dict:

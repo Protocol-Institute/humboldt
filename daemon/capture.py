@@ -133,6 +133,7 @@ Rules:
 
 Return only valid JSON — no markdown fences, no commentary."""
 
+    costs.check_budget()
     client = AsyncAnthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
     try:
         resp = await client.messages.create(
