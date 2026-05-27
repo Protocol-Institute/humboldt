@@ -546,6 +546,11 @@ class HumboldtBot(discord.Client):
         async for msg in channel.history(**kwargs):
             latest_id = str(msg.id)
             if msg.author != self.user:
+                # @mentions are handled exclusively by on_message; skipping them here
+                # prevents a duplicate post when on_message creates a thread and the tick
+                # fires before the cursor has advanced past that message.
+                if self.user in msg.mentions:
+                    continue
                 if latest_human_msg is None:
                     latest_human_msg = msg  # first seen = newest (history is reverse-chron)
                 name_to_id[msg.author.name] = str(msg.author.id)
@@ -607,10 +612,18 @@ class HumboldtBot(discord.Client):
                     await thread.send(body)
                     logger.info(f"Opened thread: '{thread_title}'")
                 except discord.Forbidden:
+                    # No thread permission: fall back to a plain channel post
                     logger.warning("No thread permission — posting to channel instead")
                     await channel.send(body)
+                except discord.HTTPException as e:
+                    # 160004 = thread already exists on this message; drop silently
+                    if e.code == 160004:
+                        logger.info(f"Thread already exists on anchor message — skipping")
+                    else:
+                        logger.error(f"Thread creation failed (HTTP {e.status} code={e.code}): {e.text}")
+                        await channel.send(body)
                 except Exception as e:
-                    logger.error(f"Thread creation failed: {e}")
+                    logger.error(f"Thread creation failed unexpectedly: {e}")
                     await channel.send(body)
             else:
                 if thread_title:
