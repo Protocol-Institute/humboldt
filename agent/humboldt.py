@@ -282,10 +282,34 @@ def cmd_daemon_run():
     run()
 
 
+def cmd_daemon_restart():
+    """Send SIGUSR1 to the running daemon to trigger a graceful hot-reload."""
+    import signal as _signal
+    daemon_dir = Path(__file__).parent.parent / "daemon"
+    pid_file = daemon_dir / "daemon.pid"
+    if not pid_file.exists():
+        print("No daemon.pid found — daemon does not appear to be running.")
+        print("Start it with: python3 -m agent.humboldt daemon run")
+        sys.exit(1)
+    pid = int(pid_file.read_text().strip())
+    try:
+        os.kill(pid, _signal.SIGUSR1)
+        print(f"SIGUSR1 sent to daemon PID {pid} — reloading with updated code.")
+    except ProcessLookupError:
+        print(f"PID {pid} not found — daemon may have crashed. Remove daemon.pid and restart.")
+        sys.exit(1)
+
+
 def cmd_daemon_status():
     """Show daemon state and cumulative API costs."""
     import json
     daemon_dir = Path(__file__).parent.parent / "daemon"
+
+    pid_file = daemon_dir / "daemon.pid"
+    if pid_file.exists():
+        print(f"\nDaemon PID: {pid_file.read_text().strip()} (running)")
+    else:
+        print("\nDaemon PID: not running (no daemon.pid)")
 
     state_path = daemon_dir / "state.json"
     if not state_path.exists():
@@ -293,11 +317,14 @@ def cmd_daemon_status():
     else:
         state = json.loads(state_path.read_text())
         print("\n=== Daemon state ===\n")
-        print(f"  Last notebook commit : {state.get('last_notebook_commit', 'none')[:12]}…")
+        print(f"  Last startup         : {state.get('last_startup', 'unknown')}")
+        print(f"  Last clean shutdown  : {state.get('last_clean_shutdown', 'never (crash?)')}")
+        print(f"  Last notebook commit : {(state.get('last_notebook_commit') or 'none')[:12]}…")
         posted = state.get("notebook_entries_posted", [])
         print(f"  Notebook entries posted : {', '.join(posted) if posted else 'none'}")
         print(f"  Last #new-nature msg    : {state.get('last_new_nature_message_id', 'none')}")
         print(f"  Last feed check         : {state.get('last_feed_check', 'never')}")
+        print(f"  Responded mention IDs   : {len(state.get('responded_mention_ids', []))} tracked")
 
     from daemon import costs
     t = costs.totals()
@@ -495,7 +522,8 @@ Usage:
   python3 -m agent.humboldt deepread "<name>" "<p1-p2>"  # deep-read page range
   python3 -m agent.humboldt ingest                       # embed notebook/notes/laws → Pinecone humboldt ns
   python3 -m agent.humboldt daemon run                   # start daemon (Discord + feeds)
-  python3 -m agent.humboldt daemon status                # show daemon state
+  python3 -m agent.humboldt daemon restart               # hot-reload daemon (SIGUSR1, preserves state)
+  python3 -m agent.humboldt daemon status                # show daemon state + PID
   python3 -m agent.humboldt discord post                 # post latest notebook entry to Discord
   python3 -m agent.humboldt discord post --draft         # preview post without sending
   python3 -m agent.humboldt discord sweep                # capture sweep: full #new-nature history
@@ -556,6 +584,8 @@ def main():
             cmd_daemon_run()
         elif subcmd == "status":
             cmd_daemon_status()
+        elif subcmd == "restart":
+            cmd_daemon_restart()
         else:
             print(f"Unknown daemon subcommand: {subcmd}")
             sys.exit(1)

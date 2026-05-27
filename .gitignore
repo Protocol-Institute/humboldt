@@ -4,6 +4,7 @@ daemon/state.json
 daemon/costs.jsonl
 daemon/daemon.log
 daemon/people.json
+daemon/daemon.pid
 data/
 __pycache__/
 *.pyc

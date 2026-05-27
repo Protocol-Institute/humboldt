@@ -2,6 +2,7 @@
 
 import logging
 import os
+import sys
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -22,3 +23,8 @@ def run():
         raise RuntimeError("DISCORD_BOT_TOKEN not set — copy from .env.keys to .env")
     bot = HumboldtBot()
     bot.run(token, log_handler=None)
+    # If close() was called because of a reload request (!reload DM or SIGUSR1),
+    # replace the current process with a fresh one.  State is already saved.
+    if bot.reload_requested:
+        logging.getLogger("humboldt.runner").info("Reloading daemon process with updated code")
+        os.execv(sys.executable, [sys.executable, "-m", "agent.humboldt", "daemon", "run"])

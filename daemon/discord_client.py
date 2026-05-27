@@ -42,6 +42,7 @@ def _resolve_mentions(text: str, name_to_id: dict[str, str]) -> str:
     return re.sub(r"@([\w._-]+)", replace, text)
 
 import discord
+import signal
 import yaml
 from discord.ext import tasks
 
@@ -87,16 +88,48 @@ class HumboldtBot(discord.Client):
         self.guild_id = int(os.environ["DISCORD_GUILD_ID"])
         self.new_nature_id = int(os.environ["DISCORD_NEW_NATURE_CHANNEL_ID"])
         self.operator_id = int(os.environ["DISCORD_OPERATOR_USER_ID"])
+        self.reload_requested = False  # set before close() to trigger os.execv in runner
 
     async def setup_hook(self):
         self.task_notebook.start()
         self.task_feeds.start()
         self.task_conversation_review.start()
+        # SIGUSR1 triggers a graceful hot-reload: saves state, then re-execs
+        self.loop.add_signal_handler(signal.SIGUSR1, self._schedule_reload)
         # new-nature uses a manual loop for adaptive check intervals
         self.loop.create_task(self._new_nature_loop())
 
+    def _schedule_reload(self) -> None:
+        asyncio.create_task(self._graceful_reload(notify_operator=False))
+
+    async def _graceful_reload(self, notify_operator: bool = True) -> None:
+        logger.info("Graceful reload initiated")
+        if notify_operator:
+            try:
+                operator = await self.fetch_user(self.operator_id)
+                await operator.send("Reloading with updated code — back in a moment.")
+            except Exception:
+                pass
+        self.reload_requested = True
+        await self.close()  # triggers our close() override which saves clean-shutdown marker
+
+    async def close(self) -> None:
+        state = st.load()
+        state["last_clean_shutdown"] = datetime.now(timezone.utc).isoformat()
+        st.save(state)
+        pid_file = Path(__file__).parent / "daemon.pid"
+        pid_file.unlink(missing_ok=True)
+        logger.info("Clean shutdown recorded")
+        await super().close()
+
     async def on_ready(self):
         logger.info(f"Humboldt online: {self.user} (id {self.user.id})")
+        state = st.load()
+        state["last_startup"] = datetime.now(timezone.utc).isoformat()
+        # Write PID file so `daemon restart` can find us
+        pid_file = Path(__file__).parent / "daemon.pid"
+        pid_file.write_text(str(os.getpid()))
+        st.save(state)
         self.loop.create_task(self._scan_missed_mentions())
 
     async def _scan_missed_mentions(self):
@@ -111,15 +144,36 @@ class HumboldtBot(discord.Client):
         if not channel:
             return
 
+        # Determine whether this is a brief code-update restart (< 5 min offline).
+        # If so, skip the "catching up" prefix — we weren't really away.
+        brief_restart = False
+        last_shutdown_str = state.get("last_clean_shutdown")
+        last_startup_str = state.get("last_startup")
+        if last_shutdown_str and last_startup_str:
+            shutdown_dt = datetime.fromisoformat(last_shutdown_str)
+            startup_dt = datetime.fromisoformat(last_startup_str)
+            offline_seconds = (startup_dt - shutdown_dt).total_seconds()
+            brief_restart = 0 < offline_seconds < 300  # < 5 minutes = code-update restart
+
+        responded_ids: set[str] = set(state.get("responded_mention_ids", []))
+
         missed = []
+        latest_id: str | None = None
         async for msg in channel.history(limit=100, after=discord.Object(id=int(last_msg_id))):
+            latest_id = str(msg.id)
             if msg.author != self.user and self.user in msg.mentions:
-                missed.append(msg)
+                if str(msg.id) not in responded_ids:
+                    missed.append(msg)
+
+        # Advance the cursor past everything we just scanned, including bot messages
+        if latest_id:
+            state["last_new_nature_message_id"] = latest_id
+            st.save(state)
 
         if not missed:
             return
 
-        logger.info(f"Responding to {len(missed)} missed @mention(s)")
+        logger.info(f"Responding to {len(missed)} missed @mention(s) (brief_restart={brief_restart})")
         for msg in reversed(missed):
             content = msg.content.replace(f"<@{self.user.id}>", "").strip()
             if not content:
@@ -144,13 +198,44 @@ class HumboldtBot(discord.Client):
                     context_messages=history,
                     corpus_chunks=chunks,
                 )
-                await msg.reply(f"*(catching up from while I was offline)*\n{response}")
+                prefix = "" if brief_restart else "*(catching up from while I was offline)*\n"
+                await msg.reply(f"{prefix}{response}")
+                # Mark as responded so a subsequent restart doesn't re-process it
+                state = st.load()
+                st.record_responded_mention(state, str(msg.id))
+                st.save(state)
             except Exception as e:
                 logger.error(f"Missed mention response failed: {e}")
+
+    async def _handle_operator_dm(self, message: discord.Message) -> None:
+        """Handle control commands sent as DMs from the operator."""
+        cmd = message.content.strip().lower()
+        if cmd == "!reload":
+            await message.channel.send("Reloading with updated code — back in a moment.")
+            await self._graceful_reload(notify_operator=False)
+        elif cmd == "!status":
+            state = st.load()
+            last_startup = state.get("last_startup", "unknown")
+            last_shutdown = state.get("last_clean_shutdown", "never")
+            await message.channel.send(
+                f"Online since: {last_startup}\n"
+                f"Last clean shutdown: {last_shutdown}\n"
+                f"Last #new-nature msg ID: {state.get('last_new_nature_message_id', 'none')}\n"
+                f"Responded mention IDs tracked: {len(state.get('responded_mention_ids', []))}"
+            )
+        else:
+            await message.channel.send(f"Unknown command `{cmd}`. Available: `!reload`, `!status`.")
 
     async def on_message(self, message: discord.Message):
         if message.author == self.user:
             return
+
+        # DMs from the operator: control commands
+        if isinstance(message.channel, discord.DMChannel):
+            if message.author.id == self.operator_id:
+                await self._handle_operator_dm(message)
+            return
+
         if self.user not in message.mentions:
             return
 
@@ -207,6 +292,14 @@ class HumboldtBot(discord.Client):
                 await message.reply(body)
         else:
             await message.reply(body)
+
+        # Advance the message cursor and mark this mention as responded to.
+        # This prevents _scan_missed_mentions from re-processing it on restart.
+        cursor_state = st.load()
+        if str(message.id) > (cursor_state.get("last_new_nature_message_id") or "0"):
+            cursor_state["last_new_nature_message_id"] = str(message.id)
+        st.record_responded_mention(cursor_state, str(message.id))
+        st.save(cursor_state)
 
         # Record this interaction and check notebook threshold (non-blocking)
         asyncio.create_task(
@@ -615,15 +708,29 @@ class HumboldtBot(discord.Client):
         st.save(state)
 
         if saved_titles:
-            try:
-                operator = await self.fetch_user(self.operator_id)
-                titles_str = "\n".join(f"- {t[:80]}" for t in saved_titles[:5])
-                suffix = f"\n…and {len(saved_titles) - 5} more" if len(saved_titles) > 5 else ""
-                await operator.send(
-                    f"Humboldt inbox: {len(saved_titles)} new item(s) from feeds:\n{titles_str}{suffix}"
-                )
-            except Exception as e:
-                logger.warning(f"Operator DM failed: {e}")
+            # Suppress DMs if we just restarted quickly (code-update restart < 5 min offline).
+            # Items are still saved to inbox; the DM is just noise during active development.
+            suppress_dm = False
+            current_state = st.load()
+            last_shutdown_str = current_state.get("last_clean_shutdown")
+            last_startup_str = current_state.get("last_startup")
+            if last_shutdown_str and last_startup_str:
+                shutdown_dt = datetime.fromisoformat(last_shutdown_str)
+                startup_dt = datetime.fromisoformat(last_startup_str)
+                offline_seconds = (startup_dt - shutdown_dt).total_seconds()
+                suppress_dm = 0 < offline_seconds < 300
+            if suppress_dm:
+                logger.info(f"Feed DM suppressed (brief restart): {len(saved_titles)} item(s) in inbox")
+            else:
+                try:
+                    operator = await self.fetch_user(self.operator_id)
+                    titles_str = "\n".join(f"- {t[:80]}" for t in saved_titles[:5])
+                    suffix = f"\n…and {len(saved_titles) - 5} more" if len(saved_titles) > 5 else ""
+                    await operator.send(
+                        f"Humboldt inbox: {len(saved_titles)} new item(s) from feeds:\n{titles_str}{suffix}"
+                    )
+                except Exception as e:
+                    logger.warning(f"Operator DM failed: {e}")
 
     @task_feeds.before_loop
     async def before_task_feeds(self):

@@ -12,6 +12,8 @@ Priority: **[H]** urgent, **[M]** soon, **[L]** when convenient.
 
 - **[H]** **Conversation style tuning** — review actual #new-nature transcripts and identify what's off. Current symptoms: likely too formal / too long / too eager. Tune `_slim_context()` and `_rich_context()` prompts based on observed output. May require a dedicated prompt-tuning session with real examples.
 
+- ~~**[H]** **Graceful shutdown + restart**~~ — **COMPLETE 2026-05-27.** `responded_mention_ids` prevents duplicate @mention responses across restarts; `last_clean_shutdown` / `last_startup` markers enable brief-restart detection; `close()` override saves clean-shutdown marker; `daemon restart` CLI sends SIGUSR1 for hot-reload; DM `!reload` from operator triggers same; feed DMs suppressed on restarts < 5 min offline; `daemon.pid` file tracks live PID.
+
 - **[H]** **Idea and reference capture from Discord** — when Humboldt participates in a conversation, it should notice and save: (1) ideas or arguments that bear on its research hypotheses, (2) external papers/articles/links that participants cite. Save to `inbox/` as structured items. This is the "input → inventory" flow that was deferred at Discord launch. Design: detect in `on_message` and `task_new_nature` response path; use a lightweight extraction call (Haiku) to decide if anything is worth saving before responding.
 
 - **[H]** **Discord user models + person notebook entries** — track recurring interlocutors persistently. Store interaction history in `daemon/people.json` (gitignored). When someone crosses a threshold (3+ interactions), write a notebook entry treating them as a research conversation: what they keep bringing up, how their thinking connects to active research. Use in `generate_mention_response` to personalize and acknowledge history.
@@ -31,6 +33,16 @@ Priority: **[H]** urgent, **[M]** soon, **[L]** when convenient.
 ### Notebook formatting
 
 - **[M]** **Linkable notebook entries** — currently the published notebook (humboldt-notebook.html) renders all entries as a single scrollable page with no anchor links to individual sections or entries. Each major section within an entry (`## header`) should get an anchor ID, and the entry index table should link to individual dates (and ideally individual sections). Design: in `agent/publish.py`, auto-generate `id=` attributes on `<h2>`/`<h3>` tags using the slugified header text (kebab-case, strip punctuation); update the notebook README index table to use anchor links (e.g., `[entry](humboldt-notebook.html#2026-05-26)`); add a per-entry anchor at each date heading. Also consider adding a floating section nav for long entries.
+
+---
+
+### Research time management (M-017)
+
+- **[H]** **Wire M-017 secondary orientation fork into BOOTSTRAP.md** — M-017 defines a phase-position check ("what arc phase is this research thread in?") that should sit below the primary Bootstrap orientation. Add the reorientation question and phase vocabulary to `BOOTSTRAP.md` so Humboldt applies arc-position diagnosis before selecting session behavior. The specific question and its position in the Bootstrap sequence needs operator design.
+
+- **[M]** **Promote Tempo candidate laws to hypothesis/law YAMLs** — CL-Rao-1 (Narrative Displacement), CL-Rao-2 (Doctrine Lock-In), CL-Rao-3 (Temporal Misalignment Failure) are in `bibliography/notes/rao-tempo.md` section 10. Review and decide which warrant promotion to `research/laws/` or `research/hypotheses/`.
+
+- **[M]** **LINEAGE.md update for Tempo** — M-003 Phase 4 required after first read complete. Operator step.
 
 ---
 

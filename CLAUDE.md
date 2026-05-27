@@ -109,7 +109,8 @@ python3 -m agent.humboldt ingest
 
 # Daemon (Discord bot + scheduled tasks)
 python3 -m agent.humboldt daemon run       # start daemon (blocking)
-python3 -m agent.humboldt daemon status    # show last checked timestamps
+python3 -m agent.humboldt daemon restart   # hot-reload after code changes (SIGUSR1, preserves state)
+python3 -m agent.humboldt daemon status    # show PID + last checked timestamps
 
 # Discord manual post
 python3 -m agent.humboldt discord post           # post latest notebook entry to #new-nature
@@ -141,14 +142,32 @@ Source PDFs live in `bibliography/deep-reads/`. Drop new documents there; the `l
 
 ```
 research/
-├── laws/         YAML — candidate laws (schema in SOUL.md)
-├── hypotheses/   YAML — active research questions
+├── projects/     Markdown — living arc documents (one per inquiry, phase-gated)
+│                 Templates: _template-discovered.md, _template-imported.md
+│                 P-001 Ossification (retro), P-002 Hardness Asymmetry (retro)
+│                 P-003 Formalization Ratchet (valley), P-004 Goodhart import (valley)
+│                 P-005 Gall import (valley), P-006 Coordination Cost (valley)
+│                 P-007 Trust Ratchet (valley)
+├── laws/         YAML — publication artifacts for completed heavy lifts
+│                 Schema: id, name, statement, type, confidence, domains,
+│                 related_laws, mechanism, falsification_conditions,
+│                 counterexamples, evidence, notes, project_file, registered
+├── hypotheses/   YAML — lightweight index pointing to project files (being phased out)
+│                 Hypothesis tracking has moved to project files (sensemaking section)
 └── theories/     Markdown — unified theory development
 
 bibliography/
 ├── deep-reads/   PDF source documents — drop new deep-read texts here
+│                 READING-HINTS.md — reading hints index (required before any deep read)
 └── notes/        Markdown reading notes — one per source, produced by M-003
 ```
+
+**Project file conventions:**
+- New inquiry arc → use `_template-discovered.md` if originated here; `_template-imported.md` if importing a named law
+- Phase field tracks current arc position (M-017 vocabulary): `exploration | sensemaking | valley | heavy_lift | retrospective`
+- Law YAMLs are created at the separation event (end of heavy lift) — not before
+- Hypothesis YAMLs (H-00x) are legacy; new hypotheses live in project file sensemaking sections
+- "Imported regularities" (L-004 Goodhart, L-005 Gall) enter at valley phase — sensemaking done elsewhere
 
 When a new law is added or updated, also update the `related_laws` field in any affected files.
 
