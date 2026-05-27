@@ -6,6 +6,22 @@ Most recent entry first.
 
 ---
 
+## 2026-05-27 (session 7 addendum) — Circuit breaker + discord post fixes
+
+**Track 2 (infrastructure):**
+
+**Circuit breaker (`daemon/costs.py` + all call sites):**
+Added `today_usd()`, `BudgetExceeded` exception, `check_budget()`, and `configured_limit()` to `costs.py`. Every Claude API call site (5 in `presence.py`, 1 in `conversation_review.py`, 1 in `capture.py`) now calls `costs.check_budget()` before invoking the model. If today's local-date spend ≥ the configured limit ($5), `BudgetExceeded` is raised. The date boundary is local midnight — `datetime.now().strftime("%Y-%m-%d")` — so the reset is automatic with no explicit mechanism needed. UTC timestamps in costs.jsonl are converted to local time for the comparison.
+
+For `@mention` responses (`on_message`), `BudgetExceeded` is caught specifically and sends a hardcoded canned reply ("I've hit my daily API budget and am offline until midnight. Back tomorrow.") — no model call needed, so the reply is free. All other task paths (feeds, new-nature ticking, conversation review, capture) silently skip via existing `try/except` blocks.
+
+Limit configurable in `daemon/config.yaml` under `budget.daily_limit_usd`.
+
+**`discord post` CLI (`agent/humboldt.py`):**
+Updated `_discord_post_async` to: pass `entry_url` (anchor-linked URL) to `generate_notebook_post`; create a discussion thread on the announcement message via Discord REST API; save announcement/thread IDs to `notebook/index.yaml`. Fixed missing `User-Agent` header — Discord's Cloudflare layer was returning 403 without it.
+
+---
+
 ## 2026-05-27 (session 7) — Notebook publish loop complete
 
 **Track 2 (infrastructure):**

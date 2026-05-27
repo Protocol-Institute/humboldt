@@ -19,8 +19,13 @@ Session: Track 2 (infrastructure).
 - **Website published**: `humboldt-notebook.html` updated — TOC, IDs, permalinks live on GitHub Pages
 - **Netlify → GitHub Pages**: all references updated
 
+**Changes (addendum — circuit breaker and discord post fix):**
+- **Circuit breaker**: `costs.check_budget()` added to all 7 Claude call sites; raises `BudgetExceeded` at $5/day (configurable in `config.yaml`); resets at local midnight; `on_message` sends canned reply when over budget
+- **`discord post` CLI**: now includes `entry_url` (direct anchor link), creates discussion thread via REST API, saves IDs to `index.yaml`; User-Agent header fix for Cloudflare/Discord
+- Entry 2026-05-26 posted to Discord with discussion thread
+
 **Open:**
-- Restart daemon to pick up session 7 changes
+- Restart daemon to pick up session 7 changes (all of them: publish loop, thread farmer, circuit breaker, User-Agent fix)
 - LINEAGE.md update for Hamming — pending next session
 - H-001 (Coordination Cost Conservation): 5+ sessions overdue
 - Gestalt re-reads of Simon and Cosmos: both queued [H]
