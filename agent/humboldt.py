@@ -315,6 +315,104 @@ def cmd_daemon_status():
     print()
 
 
+async def _discord_sweep_async(since: str | None, limit: int):
+    """
+    Sweep historical #new-nature messages through the capture system.
+
+    Fetches messages via Discord REST API (no gateway connection needed),
+    working backwards from most recent. Stops at --since DATE or --limit.
+    """
+    import asyncio
+    import sys
+    import urllib.request
+    from datetime import datetime, timezone
+    from daemon import capture as cap
+
+    channel_id = os.environ["DISCORD_NEW_NATURE_CHANNEL_ID"]
+    token = os.environ["DISCORD_BOT_TOKEN"]
+
+    _UA = (
+        f"DiscordBot (https://github.com/Rapptz/discord.py, 2.3.2) "
+        f"Python/{sys.version_info.major}.{sys.version_info.minor}"
+    )
+
+    def rest_get(path: str):
+        req = urllib.request.Request(
+            f"https://discord.com/api/v10{path}",
+            headers={"Authorization": f"Bot {token}", "User-Agent": _UA},
+        )
+        with urllib.request.urlopen(req) as resp:
+            return json.loads(resp.read())
+
+    # Resolve bot user ID to filter self-messages
+    me = rest_get("/users/@me")
+    bot_id = me["id"]
+    print(f"Bot: {me['username']}#{me.get('discriminator', '0')} (id {bot_id})")
+
+    # Parse --since date (interpret as UTC midnight)
+    since_dt: datetime | None = None
+    if since:
+        since_dt = datetime.fromisoformat(since).replace(tzinfo=timezone.utc)
+
+    total_scanned = 0
+    total_captured = 0
+    batch_num = 0
+    before: str | None = None
+    stop = False
+
+    print(f"Sweeping #new-nature{f' since {since}' if since else ' (full history)'}...")
+    print(f"Limit: {limit} messages\n")
+
+    while not stop and total_scanned < limit:
+        url = f"/channels/{channel_id}/messages?limit=100"
+        if before:
+            url += f"&before={before}"
+
+        batch_raw = rest_get(url)
+        if not batch_raw:
+            break
+
+        # Filter and normalise messages; stop at date boundary
+        messages = []
+        for msg in batch_raw:
+            if msg["author"]["id"] == bot_id:
+                continue
+            ts = datetime.fromisoformat(msg["timestamp"].replace("Z", "+00:00"))
+            if since_dt and ts < since_dt:
+                stop = True
+                break
+            messages.append({
+                "author": msg["author"]["username"],
+                "content": msg["content"][:400],
+            })
+
+        total_scanned += len(batch_raw)
+        batch_num += 1
+
+        if messages:
+            n = await cap.run_capture(messages, "#new-nature")
+            total_captured += n
+            print(f"  Batch {batch_num:>3} ({len(messages):>3} msgs) → {n} captured  [{total_scanned} scanned, {total_captured} saved]")
+        else:
+            print(f"  Batch {batch_num:>3} ({len(batch_raw):>3} msgs, all filtered)")
+
+        if len(batch_raw) < 100:
+            break
+
+        # Paginate: use the ID of the oldest message in this batch
+        before = batch_raw[-1]["id"]
+        # Respect Discord rate limits (~50 req/s; 100ms is well within limits)
+        await asyncio.sleep(0.2)
+
+    print(f"\nSweep complete: {total_scanned} messages scanned, {total_captured} items saved to inbox/")
+
+
+def cmd_discord_sweep(since: str | None = None, limit: int = 1000):
+    """Run a catch-up capture sweep over historical #new-nature messages."""
+    import asyncio
+    asyncio.run(_discord_sweep_async(since, limit))
+
+
 async def _discord_post_async(draft: bool):
     """Generate and optionally post the most recent notebook entry."""
     from daemon import presence
@@ -358,6 +456,14 @@ def cmd_discord_post(draft: bool = False):
     asyncio.run(_discord_post_async(draft))
 
 
+def cmd_publish(dry_run: bool = False):
+    """Render notebook entries to the PI website and push."""
+    from agent.publish import publish
+    n = publish(dry_run=dry_run, verbose=True)
+    if n and not dry_run:
+        print(f"Published {n} entry(ies) — Netlify will deploy automatically.")
+
+
 USAGE = """
 Usage:
   python3 -m agent.humboldt investigate "<topic>"        # open-ended investigation
@@ -373,6 +479,11 @@ Usage:
   python3 -m agent.humboldt daemon status                # show daemon state
   python3 -m agent.humboldt discord post                 # post latest notebook entry to Discord
   python3 -m agent.humboldt discord post --draft         # preview post without sending
+  python3 -m agent.humboldt discord sweep                # capture sweep: full #new-nature history
+  python3 -m agent.humboldt discord sweep --since DATE   # sweep since YYYY-MM-DD (UTC)
+  python3 -m agent.humboldt discord sweep --limit N      # cap at N messages (default 1000)
+  python3 -m agent.humboldt publish                      # render notebook → website + push
+  python3 -m agent.humboldt publish --dry-run            # preview rendering, no git ops
 """
 
 
@@ -424,11 +535,28 @@ def main():
         else:
             print(f"Unknown daemon subcommand: {subcmd}")
             sys.exit(1)
+    elif cmd == "publish":
+        dry_run = "--dry-run" in rest
+        cmd_publish(dry_run=dry_run)
     elif cmd == "discord":
         subcmd = rest[0] if rest else ""
         if subcmd == "post":
             draft = "--draft" in rest
             cmd_discord_post(draft=draft)
+        elif subcmd == "sweep":
+            since = None
+            limit = 1000
+            i = 1
+            while i < len(rest):
+                if rest[i] == "--since" and i + 1 < len(rest):
+                    since = rest[i + 1]
+                    i += 2
+                elif rest[i] == "--limit" and i + 1 < len(rest):
+                    limit = int(rest[i + 1])
+                    i += 2
+                else:
+                    i += 1
+            cmd_discord_sweep(since=since, limit=limit)
         else:
             print(f"Unknown discord subcommand: {subcmd}")
             sys.exit(1)

@@ -9,6 +9,7 @@ _DEFAULTS: dict = {
     "last_notebook_commit": None,
     "notebook_entries_posted": [],
     "last_new_nature_message_id": None,
+    "last_new_nature_activity": None,   # ISO timestamp of last human message seen
     "last_feed_check": None,
 }
 

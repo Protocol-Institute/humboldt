@@ -1,6 +1,6 @@
 """RSS/Atom feed polling and inbox saving."""
 
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from time import mktime
 
@@ -21,7 +21,7 @@ def fetch_new_items(feed_url: str, since: datetime | None) -> list[dict]:
         published = None
         if getattr(entry, "published_parsed", None):
             try:
-                published = datetime.fromtimestamp(mktime(entry.published_parsed))
+                published = datetime.fromtimestamp(mktime(entry.published_parsed), tz=timezone.utc)
             except Exception:
                 pass
 

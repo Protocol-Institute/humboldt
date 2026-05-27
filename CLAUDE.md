@@ -30,7 +30,7 @@ source .venv/bin/activate
 Install deps:
 
 ```bash
-pip install voyageai pinecone anthropic python-dotenv pyyaml rich pypdf
+pip install voyageai pinecone anthropic python-dotenv pyyaml rich pypdf markdown
 ```
 
 ---
@@ -115,6 +115,16 @@ python3 -m agent.humboldt daemon status    # show last checked timestamps
 python3 -m agent.humboldt discord post           # post latest notebook entry to #new-nature
 python3 -m agent.humboldt discord post --draft   # preview without posting
 python3 -m agent.humboldt deepread "simon" "111-138"   # specific page range
+
+# Discord catch-up sweep (captures ideas/links from historical #new-nature messages)
+python3 -m agent.humboldt discord sweep
+python3 -m agent.humboldt discord sweep --since 2026-05-01  # since a date (UTC)
+python3 -m agent.humboldt discord sweep --limit 500          # cap at N messages
+
+# Publish notebook entries to the PI website (humboldt-notebook.html → git push)
+# The daemon runs this automatically after each new notebook entry is detected.
+python3 -m agent.humboldt publish               # render + push to website repo
+python3 -m agent.humboldt publish --dry-run     # preview rendering, no git ops
 ```
 
 ### Deep-read library

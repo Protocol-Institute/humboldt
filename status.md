@@ -4,6 +4,31 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-05-26 (session 5) — Discord quality + notebook publish pipeline
+
+Session: Track 2 primary.
+
+- **`daemon/capture.py` built:** idea/link extraction from Discord conversations via Haiku; saves to `inbox/` with dedup; runs parallel to presence check
+- **`discord sweep` command:** catch-up REST sweep over historical #new-nature messages; works around Cloudflare with proper User-Agent header
+- **Discord style tightened:** 2-3 sentences, ≤350 chars; no generic questions; no repetition across recent posts; `recent_bot_posts` passed as "do not repeat" context
+- **Adaptive polling:** `_new_nature_loop()` replaces `@tasks.loop`; exponential backoff from last activity (90s → 3min → 8min → 20min → 30min)
+- **Thread support:** `THREAD: <title>` prefix protocol; `_parse_thread_response()` + `discord.create_thread()`; falls back gracefully
+- **Real @mentions:** `_resolve_mentions()` applies on new threads or long gap (>30min since last bot post)
+- **`agent/publish.py` built:** renders notebook markdown → HTML with python-markdown; inserts into humboldt-notebook.html by entry markers; git push to website repo
+- **Publish wired into daemon:** `task_notebook` runs `publish()` in executor after ingest — fully automatic on new notebook entries
+- **`humboldt publish [--dry-run]`** CLI command added
+- **2026-05-21 and 2026-05-26 entries manually published** to website (commit `09d357e`; Netlify deployed)
+- **Bugs fixed:** feed timezone crash, Cloudflare 403 on REST, JSON truncation in capture
+
+**Daemon:** PID 16459 (running as of 2026-05-26 session 5; needs restart to pick up discord_client.py changes)
+
+**Open:**
+- H-001 (Coordination Cost Conservation): still overdue — open next T1 session with this
+- Restart daemon to pick up publish + capture + style changes
+- Always-on machine deployment pending
+
+---
+
 ## 2026-05-26 (session 4) — Humboldt namespace: augmented self-retrieval
 
 Session: Track 2 primary.

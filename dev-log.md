@@ -6,6 +6,61 @@ Most recent entry first.
 
 ---
 
+## 2026-05-26 (session 5) — Discord quality + notebook publish pipeline
+
+### Infrastructure changes
+
+**New: `daemon/capture.py`** — Discord idea/link capture system:
+- `extract_captures()` — Haiku call to extract ideas and external links from conversation messages relevant to active hypotheses/laws
+- `save_capture()` — deduplicates (in-session URL set + file scan) and writes `inbox/discord-{type}-{date}-{time}-{slug}.md`
+- `run_capture()` — chunks messages in groups of 15 before calling extract_captures; returns count saved
+- max_tokens=1500 (raised from 800 to fix JSON truncation on large batches)
+
+**New: `agent/publish.py`** — lab notebook → website publishing pipeline:
+- `render_entry()` — converts `notebook/YYYY-MM-DD.md` to HTML using python-markdown; extracts tagline, title (first `##` heading or `<!-- title: ... -->` override); wraps in `<!-- ENTRY: date -->` markers
+- `publish()` — diffs existing HTML by entry markers, inserts new entries chronologically, git add/commit/push to `../website` repo
+- `_convert_body()` — demotes h2→h3, adds indentation, strips `<hr>` rules
+- Used `markdown` library (version 3.10.2); add to `pip install` list
+
+**Updated: `agent/humboldt.py`**:
+- Added `cmd_publish(dry_run)` and `publish [--dry-run]` CLI command
+- Added `discord sweep [--since DATE] [--limit N]` CLI command (catch-up capture sweep)
+- Updated USAGE string
+
+**Updated: `daemon/discord_client.py`**:
+- `task_notebook` now runs `publish()` in executor after re-ingest — new notebook entries automatically appear on website
+- `_new_nature_loop()` replaces `@tasks.loop` for adaptive interval checking (exponential backoff from last activity)
+- `_next_check_interval()` — <4min→90s, <12min→3min, <30min→8min, <90min→20min, else 30min
+- `_bot_post_context()` — single history scan returning (recent_bot_posts, last_post_age_seconds)
+- `_parse_thread_response()` / `_resolve_mentions()` — THREAD: prefix protocol for thread creation; @username→<@user_id> on long gap or new thread
+- Capture runs in parallel with presence check via `asyncio.gather()`
+
+**Updated: `daemon/presence.py`**:
+- Style tightened: 2-3 sentences, ≤350 chars; "do not end with a question unless you need the answer for research"
+- `generate_new_nature_response()` — added `recent_bot_posts` ("do not repeat these"), participants list, THREAD: prefix instruction; max_tokens=150
+- `generate_mention_response()` — added `@username` direct address, THREAD: prefix; max_tokens=200
+
+**Updated: `daemon/state.py`** — added `last_new_nature_activity` field (ISO timestamp of last human message seen)
+
+**Updated: `daemon/feed_monitor.py`** — fixed timezone bug: `datetime.fromtimestamp(mktime(...))` → `datetime.fromtimestamp(mktime(...), tz=timezone.utc)`
+
+**Updated: `CLAUDE.md`** — added `markdown` to pip install; documented `publish` and `discord sweep` CLI commands
+
+### Website
+
+- 2026-05-21 and 2026-05-26 notebook entries manually published to `Protocol-Institute/website` (commit `09d357e`)
+- Netlify auto-deployed; entries now live at humboldt-notebook.html
+- Future entries will be published automatically by the daemon's `task_notebook`
+
+### Errors resolved this session
+
+- `ANTHROPIC_API_KEY` KeyError in smoke test → env not loaded; fixed with `set -a && source .env && set +a`
+- JSON truncation in capture (`max_tokens=800` too small for 26 msgs) → raised to 1500, added chunk_size=15
+- Cloudflare 403 on Discord REST calls → added `User-Agent: DiscordBot (...)` header
+- Feed timezone crash (`naive vs aware` comparison) → added `tz=timezone.utc` in feed_monitor.py
+
+---
+
 ## 2026-05-26 (session 4) — Humboldt namespace: augmented self-retrieval
 
 ### Infrastructure changes

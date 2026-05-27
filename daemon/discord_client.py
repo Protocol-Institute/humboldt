@@ -7,6 +7,40 @@ from datetime import datetime, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
+# Max age for a message to be eligible as a thread anchor (seconds)
+_THREAD_ANCHOR_MAX_AGE = 15 * 60  # 15 minutes
+
+
+def _parse_thread_response(text: str) -> tuple[str | None, str]:
+    """
+    Parse optional THREAD: prefix from model output.
+
+    Returns (thread_title, response_body).
+    thread_title is None for a normal channel post.
+    """
+    if text.startswith("THREAD:"):
+        first_line, _, rest = text.partition("\n")
+        title = first_line[7:].strip()[:90]
+        body = rest.strip()
+        if title and body:
+            return title, body
+    return None, text
+
+
+def _resolve_mentions(text: str, name_to_id: dict[str, str]) -> str:
+    """
+    Replace @username with <@user_id> for real Discord pings.
+
+    Only replaces names that appear in name_to_id; unknown @-words are left as-is.
+    """
+    import re
+
+    def replace(m: re.Match) -> str:
+        uid = name_to_id.get(m.group(1))
+        return f"<@{uid}>" if uid else m.group(0)
+
+    return re.sub(r"@([\w._-]+)", replace, text)
+
 import discord
 import yaml
 from discord.ext import tasks
@@ -15,6 +49,7 @@ from . import state as st
 from . import notebook_watcher as nw
 from . import feed_monitor as fm
 from . import presence
+from . import capture as cap
 
 logger = logging.getLogger("humboldt.discord")
 _ROOT = Path(__file__).parent.parent
@@ -53,8 +88,9 @@ class HumboldtBot(discord.Client):
 
     async def setup_hook(self):
         self.task_notebook.start()
-        self.task_new_nature.start()
         self.task_feeds.start()
+        # new-nature uses a manual loop for adaptive check intervals
+        self.loop.create_task(self._new_nature_loop())
 
     async def on_ready(self):
         logger.info(f"Humboldt online: {self.user} (id {self.user.id})")
@@ -86,8 +122,10 @@ class HumboldtBot(discord.Client):
             if not content:
                 continue
             history = []
+            name_to_id: dict[str, str] = {msg.author.name: str(msg.author.id)}
             async for ctx in channel.history(limit=9, before=msg):
                 history.insert(0, {"author": ctx.author.name, "content": ctx.content[:300]})
+                name_to_id[ctx.author.name] = str(ctx.author.id)
             chunks = []
             try:
                 from agent import retrieval as ret
@@ -120,8 +158,10 @@ class HumboldtBot(discord.Client):
         logger.info(f"@mention from {message.author.name}: {content[:80]}")
 
         history = []
+        name_to_id: dict[str, str] = {message.author.name: str(message.author.id)}
         async for msg in message.channel.history(limit=9, before=message):
             history.insert(0, {"author": msg.author.name, "content": msg.content[:300]})
+            name_to_id[msg.author.name] = str(msg.author.id)
 
         chunks = []
         try:
@@ -141,7 +181,29 @@ class HumboldtBot(discord.Client):
                 corpus_chunks=chunks,
             )
 
-        await message.reply(response)
+        thread_title, body = _parse_thread_response(response)
+        if thread_title:
+            # Opening a new thread: resolve @mentions so participants get notified
+            body = _resolve_mentions(body, name_to_id)
+            try:
+                thread = await message.create_thread(
+                    name=thread_title,
+                    auto_archive_duration=1440,
+                )
+                await thread.send(body)
+                logger.info(f"Opened thread from @mention: '{thread_title}'")
+            except discord.Forbidden:
+                logger.warning("No thread permission, falling back to reply")
+                await message.reply(body)
+            except Exception as e:
+                logger.error(f"Thread creation failed: {e}")
+                await message.reply(body)
+        else:
+            await message.reply(body)
+
+        # Capture ideas/links from the conversation after replying (non-blocking)
+        capture_messages = history + [{"author": message.author.name, "content": content}]
+        asyncio.create_task(cap.run_capture(capture_messages, f"#{message.channel.name}"))
 
     # ── Notebook watcher ─────────────────────────────────────────────────────
 
@@ -191,9 +253,38 @@ class HumboldtBot(discord.Client):
             except Exception as e:
                 logger.warning(f"Post-notebook ingest failed: {e}")
 
+            # Publish new notebook entries to the PI website
+            try:
+                from agent.publish import publish
+                n_published = await self.loop.run_in_executor(None, publish)
+                if n_published:
+                    logger.info(f"Published {n_published} notebook entry(ies) to website")
+            except Exception as e:
+                logger.warning(f"Post-notebook publish failed: {e}")
+
     @task_notebook.before_loop
     async def before_task_notebook(self):
         await self.wait_until_ready()
+
+    async def _bot_post_context(self, n: int = 5) -> tuple[list[str], float]:
+        """
+        Single history scan returning:
+          - recent_posts: last n bot messages, oldest first (for repetition avoidance)
+          - last_post_age: seconds since most recent bot post (inf if none)
+        """
+        channel = self.get_channel(self.new_nature_id)
+        if not channel:
+            return [], float("inf")
+        posts: list[str] = []
+        last_age = float("inf")
+        async for msg in channel.history(limit=80):
+            if msg.author == self.user:
+                if not posts:  # first seen = most recent
+                    last_age = (datetime.now(timezone.utc) - msg.created_at).total_seconds()
+                posts.append(msg.content[:400])
+                if len(posts) >= n:
+                    break
+        return list(reversed(posts)), last_age
 
     def _within_active_hours(self) -> bool:
         """Return True if current Pacific time is within configured active hours."""
@@ -207,10 +298,51 @@ class HumboldtBot(discord.Client):
             logger.info(f"Outside active hours ({now.strftime('%H:%M %Z')}), skipping")
         return active
 
-    # ── #new-nature presence ─────────────────────────────────────────────────
+    # ── #new-nature presence (adaptive-interval manual loop) ─────────────────
 
-    @tasks.loop(minutes=30)
-    async def task_new_nature(self):
+    def _next_check_interval(self) -> int:
+        """
+        Return seconds until next #new-nature tick.
+
+        Exponential back-off from last human message activity:
+          < 4 min  → check in 90 s
+          < 12 min → check in 3 min
+          < 30 min → check in 8 min
+          < 90 min → check in 20 min
+          ≥ 90 min → check in 30 min  (steady state / no activity)
+        """
+        state = st.load()
+        last_ts = state.get("last_new_nature_activity")
+        if not last_ts:
+            return 30 * 60
+
+        last = datetime.fromisoformat(last_ts)
+        age = (datetime.now(timezone.utc) - last).total_seconds()
+
+        if age < 4 * 60:
+            return 90
+        if age < 12 * 60:
+            return 3 * 60
+        if age < 30 * 60:
+            return 8 * 60
+        if age < 90 * 60:
+            return 20 * 60
+        return 30 * 60
+
+    async def _new_nature_loop(self):
+        """Manual loop — calls _new_nature_tick() then sleeps for the adaptive interval."""
+        await self.wait_until_ready()
+        while not self.is_closed():
+            try:
+                await self._new_nature_tick()
+            except Exception as e:
+                logger.error(f"new-nature tick error: {e}")
+            interval = self._next_check_interval()
+            logger.debug(f"Next #new-nature check in {interval}s")
+            await asyncio.sleep(interval)
+
+    async def _new_nature_tick(self):
+        """Single #new-nature check: read new messages, maybe respond, maybe capture."""
         if not self._within_active_hours():
             return
 
@@ -224,33 +356,87 @@ class HumboldtBot(discord.Client):
         if last_msg_id:
             kwargs["after"] = discord.Object(id=int(last_msg_id))
 
-        messages = []
-        latest_id = None
-        async for msg in channel.history(**kwargs):
-            if msg.author != self.user:
-                messages.append({"author": msg.author.name, "content": msg.content[:400]})
-            latest_id = str(msg.id)
+        messages: list[dict] = []
+        latest_id: str | None = None
+        latest_human_msg: discord.Message | None = None  # most recent non-bot msg (for threading)
+        name_to_id: dict[str, str] = {}
 
+        async for msg in channel.history(**kwargs):
+            latest_id = str(msg.id)
+            if msg.author != self.user:
+                if latest_human_msg is None:
+                    latest_human_msg = msg  # first seen = newest (history is reverse-chron)
+                name_to_id[msg.author.name] = str(msg.author.id)
+                messages.append({"author": msg.author.name, "content": msg.content[:400]})
+
+        # Update state: advance message cursor; record activity time if humans posted
         if latest_id:
             state["last_new_nature_message_id"] = latest_id
+            if messages:
+                state["last_new_nature_activity"] = datetime.now(timezone.utc).isoformat()
             st.save(state)
 
         if not messages:
             return
 
-        messages.reverse()
+        messages.reverse()  # chronological order for the prompt
         logger.info(f"Checking {len(messages)} new #new-nature messages")
 
-        try:
-            response = await presence.generate_new_nature_response(messages)
-            if response and channel:
-                await channel.send(response)
-        except Exception as e:
-            logger.error(f"new-nature response error: {e}")
+        recent_bot_posts, last_bot_age = await self._bot_post_context(n=5)
 
-    @task_new_nature.before_loop
-    async def before_task_new_nature(self):
-        await self.wait_until_ready()
+        # Run presence check and capture in parallel
+        try:
+            response_text, n_captured = await asyncio.gather(
+                presence.generate_new_nature_response(messages, recent_bot_posts=recent_bot_posts),
+                cap.run_capture(messages, "#new-nature"),
+                return_exceptions=True,
+            )
+        except Exception as e:
+            logger.error(f"new-nature gather error: {e}")
+            return
+
+        if isinstance(response_text, Exception):
+            logger.error(f"new-nature response error: {response_text}")
+            response_text = None
+        if isinstance(n_captured, Exception):
+            logger.warning(f"new-nature capture error: {n_captured}")
+            n_captured = 0
+
+        if response_text and channel:
+            thread_title, body = _parse_thread_response(response_text)
+
+            # Real @pings only for new threads or when re-engaging after a long gap
+            long_gap = last_bot_age > 30 * 60
+            if thread_title or long_gap:
+                body = _resolve_mentions(body, name_to_id)
+                logger.debug(f"Mention resolution applied (thread={bool(thread_title)}, long_gap={long_gap})")
+
+            # Only thread if the anchor message is recent enough to be meaningful
+            anchor_age = (
+                (datetime.now(timezone.utc) - latest_human_msg.created_at).total_seconds()
+                if latest_human_msg else float("inf")
+            )
+            if thread_title and latest_human_msg and anchor_age < _THREAD_ANCHOR_MAX_AGE:
+                try:
+                    thread = await latest_human_msg.create_thread(
+                        name=thread_title,
+                        auto_archive_duration=1440,
+                    )
+                    await thread.send(body)
+                    logger.info(f"Opened thread: '{thread_title}'")
+                except discord.Forbidden:
+                    logger.warning("No thread permission — posting to channel instead")
+                    await channel.send(body)
+                except Exception as e:
+                    logger.error(f"Thread creation failed: {e}")
+                    await channel.send(body)
+            else:
+                if thread_title:
+                    logger.debug(f"Thread '{thread_title}' skipped — anchor too old ({anchor_age:.0f}s)")
+                await channel.send(body)
+
+        if n_captured:
+            logger.info(f"Captured {n_captured} item(s) from #new-nature")
 
     # ── Feed monitor ─────────────────────────────────────────────────────────
 
