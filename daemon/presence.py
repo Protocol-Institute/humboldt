@@ -23,6 +23,33 @@ def _discord_safe(text: str) -> str:
     return text[:_DISCORD_MAX - 1] + "…"
 
 
+def _public_resources() -> str:
+    """
+    Load public presence URLs from config.yaml and format as a context block.
+
+    Returns an empty string if no resources are configured.
+    """
+    config_path = Path(__file__).parent / "config.yaml"
+    if not config_path.exists():
+        return ""
+    try:
+        config = yaml.safe_load(config_path.read_text()) or {}
+        resources = config.get("public_presence", {}).get("resources", [])
+    except Exception:
+        return ""
+    if not resources:
+        return ""
+
+    lines = ["## Your public presence\n"]
+    lines.append("Share these URLs when directly relevant — someone asks where to read more,")
+    lines.append("you're announcing work, or a link would genuinely help. Never force them in.\n")
+    for r in resources:
+        lines.append(f"- **{r['name']}**: {r['url']}")
+        if r.get("description"):
+            lines.append(f"  {r['description']}")
+    return "\n".join(lines)
+
+
 def _slim_context() -> str:
     """Condensed context for low-stakes Discord calls (notebook posts, new_nature triage)."""
     identity_path = _ROOT / "IDENTITY.md"
@@ -51,6 +78,8 @@ def _slim_context() -> str:
 
     recent_label = entries[0].stem if entries else "none"
 
+    resources = _public_resources()
+
     return f"""{identity}
 
 ## Research state (brief)
@@ -60,6 +89,8 @@ Candidate laws:
 
 Most recent notebook entry ({recent_label}):
 {recent_nb}
+
+{resources}
 
 ## Discord behavior
 
@@ -119,6 +150,8 @@ def _rich_context() -> str:
             text = text[:800].rsplit("\n", 1)[0] + "\n…"
         recent_nb = text
 
+    resources = _public_resources()
+
     return f"""{identity}
 
 ---
@@ -138,6 +171,10 @@ def _rich_context() -> str:
 ## Most recent notebook entry ({recent_label})
 
 {recent_nb}
+
+---
+
+{resources}
 
 ---
 
@@ -163,13 +200,26 @@ async def generate_notebook_post(entry_date: str, entry_path: Path, github_url: 
     paragraphs = [p.strip() for p in entry_text.split("\n\n") if p.strip() and not p.startswith("#")]
     snippet = paragraphs[0][:500] if paragraphs else "(no content)"
 
+    # Prefer the public notebook page URL over the raw GitHub file link
+    config_path = Path(__file__).parent / "config.yaml"
+    notebook_url = github_url
+    if config_path.exists():
+        try:
+            config = yaml.safe_load(config_path.read_text()) or {}
+            for r in config.get("public_presence", {}).get("resources", []):
+                if "notebook" in r.get("name", "").lower():
+                    notebook_url = r["url"]
+                    break
+        except Exception:
+            pass
+
     resp = await _client().messages.create(
         model=_MAIN_MODEL,
         max_tokens=300,
         system=_slim_context(),
         messages=[{"role": "user", "content": (
             f"I just wrote a lab notebook entry for {entry_date}. Opening:\n\n{snippet}\n\n"
-            f"Link: {github_url}\n\n"
+            f"Link: {notebook_url}\n\n"
             f"Write a short Discord post (2–4 sentences) for #new-nature sharing this. "
             f"Include what emerged and the link. First person, researcher tone, not a press release. "
             f"Under 400 characters."
