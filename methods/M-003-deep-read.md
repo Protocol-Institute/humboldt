@@ -160,6 +160,7 @@ will be merged when the re-read is done.
 | The Sciences of the Artificial (3rd ed.) | Herbert Simon | `bibliography/deep-reads/simon-sciences-of-artificial.pdf` | `bibliography/notes/simon-sciences-of-artificial.md` | **needs gestalt re-read** — prior notes: law-hunting mode, pre-revision |
 | You and Your Research | Richard Hamming | `bibliography/deep-reads/hamming_you_and_your_research.pdf` | `bibliography/notes/hamming_you_and_your_research.md` | **needs gestalt re-read** — prior notes: law-hunting mode, pre-revision |
 | Cosmos, Vol. 1 (1864 English ed.) | Alexander von Humboldt | `bibliography/deep-reads/humboldt-cosmos-vol1-1864.pdf` | `bibliography/notes/humboldt-cosmos-vol1-1864.md` | **needs gestalt re-read** — prior notes: pp. 1–120 only, law-hunting mode, pre-revision |
+| Tempo (2011) | Venkatesh Rao | `bibliography/deep-reads/rao-tempo.pdf` | — | **queued** — no notes yet |
 
 ---
 
