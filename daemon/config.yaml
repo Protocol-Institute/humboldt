@@ -23,6 +23,9 @@ public_presence:
       url: "https://github.com/Protocol-Institute/humboldt"
       description: "Laws, hypotheses, reading notes, and full research inventory"
 
+conversation_review:
+  check_hours: 24               # how often to run the review pass (default: daily)
+
 feeds:
   check_hours: 12               # how often to poll all feeds
   sources:

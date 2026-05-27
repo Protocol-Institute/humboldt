@@ -464,6 +464,25 @@ def cmd_publish(dry_run: bool = False):
         print(f"Published {n} entry(ies) — Netlify will deploy automatically.")
 
 
+def cmd_references_list(unsorted_only: bool = False):
+    """Display the reference list grouped by status."""
+    from agent.references import cmd_list
+    cmd_list(unsorted_only=unsorted_only)
+
+
+def cmd_references_sort(dry_run: bool = False):
+    """Classify unsorted references into read / deep_read / discard."""
+    from agent.references import sort_references
+    sort_references(dry_run=dry_run, verbose=True)
+
+
+def cmd_references_promote():
+    """Manually promote all inbox link captures to the reference list."""
+    from agent.references import promote_inbox_links
+    n = promote_inbox_links(verbose=True)
+    print(f"\n{n} reference(s) added from inbox.")
+
+
 USAGE = """
 Usage:
   python3 -m agent.humboldt investigate "<topic>"        # open-ended investigation
@@ -484,6 +503,11 @@ Usage:
   python3 -m agent.humboldt discord sweep --limit N      # cap at N messages (default 1000)
   python3 -m agent.humboldt publish                      # render notebook → website + push
   python3 -m agent.humboldt publish --dry-run            # preview rendering, no git ops
+  python3 -m agent.humboldt references list              # show reference list by status
+  python3 -m agent.humboldt references list --unsorted   # show only unsorted
+  python3 -m agent.humboldt references sort              # classify unsorted → read/deep_read/discard
+  python3 -m agent.humboldt references sort --dry-run    # preview sort decisions, no writes
+  python3 -m agent.humboldt references promote           # manually promote inbox links → reference list
 """
 
 
@@ -538,6 +562,19 @@ def main():
     elif cmd == "publish":
         dry_run = "--dry-run" in rest
         cmd_publish(dry_run=dry_run)
+    elif cmd == "references":
+        subcmd = rest[0] if rest else "list"
+        if subcmd == "list":
+            unsorted_only = "--unsorted" in rest
+            cmd_references_list(unsorted_only=unsorted_only)
+        elif subcmd == "sort":
+            dry_run = "--dry-run" in rest
+            cmd_references_sort(dry_run=dry_run)
+        elif subcmd == "promote":
+            cmd_references_promote()
+        else:
+            print(f"Unknown references subcommand: {subcmd}")
+            sys.exit(1)
     elif cmd == "discord":
         subcmd = rest[0] if rest else ""
         if subcmd == "post":

@@ -2,7 +2,13 @@
 
 **Type:** Meta (controls when and how deeply Humboldt reads)
 **Purpose:** Decide what to read next from the library, and whether to read shallowly or deeply
-**Maturity:** Stub — heuristics to be developed from practice
+**Maturity:** Partially implemented — heuristics defined; reference pipeline live as of 2026-05-26
+
+**Implementation:**
+- `daemon/conversation_review.py` — daily pass: synthesizes Discord ideas → notebook section; promotes inbox links → `bibliography/references.yaml`
+- `agent/references.py` — sorts unsorted references into read / deep_read / discard (with logged reason)
+- `bibliography/references.yaml` — the growing curated reference list
+- CLI: `humboldt references list / sort / promote`
 **Triggers:** Any time the library contains unread documents; also at Track 1 session start when choosing what to work on
 
 ---

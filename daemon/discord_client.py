@@ -51,6 +51,7 @@ from . import feed_monitor as fm
 from . import presence
 from . import capture as cap
 from . import people as ppl
+from . import conversation_review as cr
 
 logger = logging.getLogger("humboldt.discord")
 _ROOT = Path(__file__).parent.parent
@@ -90,6 +91,7 @@ class HumboldtBot(discord.Client):
     async def setup_hook(self):
         self.task_notebook.start()
         self.task_feeds.start()
+        self.task_conversation_review.start()
         # new-nature uses a manual loop for adaptive check intervals
         self.loop.create_task(self._new_nature_loop())
 
@@ -524,6 +526,57 @@ class HumboldtBot(discord.Client):
 
         if n_captured:
             logger.info(f"Captured {n_captured} item(s) from #new-nature")
+
+    # ── Conversation review ───────────────────────────────────────────────────
+
+    @tasks.loop(hours=24)
+    async def task_conversation_review(self):
+        """
+        Daily pass: synthesize ideas from recent Discord into notebook +
+        promote inbox link captures to bibliography/references.yaml.
+        """
+        state = st.load()
+        last_review = state.get("last_conversation_review")
+
+        # On first run, record the date and skip (no history to review yet)
+        if last_review is None:
+            from datetime import date
+            state["last_conversation_review"] = date.today().isoformat()
+            st.save(state)
+            logger.info("Conversation review initialized")
+            return
+
+        channel = self.get_channel(self.new_nature_id)
+        messages: list[dict] = []
+
+        if channel:
+            # Fetch all messages since last review (up to 200)
+            async for msg in channel.history(limit=200):
+                if msg.author != self.user:
+                    messages.append({
+                        "author": msg.author.name,
+                        "content": msg.content[:400],
+                    })
+            messages.reverse()  # chronological order
+
+        try:
+            result = await cr.run_review(messages, last_review_date=last_review)
+            logger.info(
+                f"Conversation review done: "
+                f"notebook={'yes' if result['notebook_written'] else 'no'}, "
+                f"refs_added={result['references_added']}"
+            )
+        except Exception as e:
+            logger.error(f"Conversation review failed: {e}")
+            return
+
+        from datetime import date
+        state["last_conversation_review"] = date.today().isoformat()
+        st.save(state)
+
+    @task_conversation_review.before_loop
+    async def before_task_conversation_review(self):
+        await self.wait_until_ready()
 
     # ── Feed monitor ─────────────────────────────────────────────────────────
 

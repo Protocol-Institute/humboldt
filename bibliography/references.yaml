@@ -1,0 +1,20 @@
+# Humboldt Reference List
+# Maintained by daemon/conversation_review.py and agent/references.py.
+# Do not edit URLs or IDs manually — use `humboldt references sort` to classify.
+#
+# Status values:
+#   unsorted    — added, not yet classified
+#   read        — worth a light scan; not a deep-read candidate
+#   deep_read   — queued for M-003; meets ≥3 selection criteria
+#   discard     — rejected; sort_reason required
+#
+# Discard reasons:
+#   bullshit        — low epistemic quality, hype, unfounded claims
+#   irrelevant      — no connection to the research agenda
+#   duplicate       — already covered by an existing reference
+#   superseded      — older version; a better source exists
+#   too-thin        — interesting but not enough substance
+#   paywalled       — inaccessible and not worth pursuing
+#   already-known   — adds no new information to what is already held
+
+references: []

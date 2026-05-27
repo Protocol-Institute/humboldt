@@ -11,6 +11,7 @@ _DEFAULTS: dict = {
     "last_new_nature_message_id": None,
     "last_new_nature_activity": None,   # ISO timestamp of last human message seen
     "last_feed_check": None,
+    "last_conversation_review": None,   # YYYY-MM-DD of last review pass
 }
 
 
