@@ -18,31 +18,62 @@ The practical question at the start of every loop iteration: **is my current ori
 
 ## The Decision Gate
 
-After the bootstrap (BOOTSTRAP.md) establishes situation awareness, M-000 runs a single decision:
+After the bootstrap (BOOTSTRAP.md) establishes situation awareness, M-000 runs **two independent gates**. Either can pre-empt routine research execution.
 
 ```
+╔══════════════════════════════════════════════════════════════════╗
+║  GATE 1 — RESEARCH GATE                                         ║
+║  Has something significant changed in the research environment? ║
+╚══════════════════════════════════════════════════════════════════╝
+
 Has something significant changed since last session?
         │
-        ├── NO  → Run routine O_DA loop
-        │         (existing orientation is valid; skip re-orientation)
+        ├── NO  → (proceed to Gate 2)
         │
         └── YES → How significant?
                   │
-                  ├── SHALLOW → Minor re-orientation
-                  │            (update orientation at the edges; stay in the current paradigm)
+                  ├── SHALLOW → Minor research re-orientation
+                  │            (update orientation at the edges; stay in paradigm)
                   │
-                  └── DEEP   → Major re-orientation
-                               (the current mental model is wrong or outdated;
-                                rebuild before acting)
+                  └── DEEP   → Major research re-orientation
+                               (rebuild mental model before acting)
+
+
+╔══════════════════════════════════════════════════════════════════╗
+║  GATE 2 — RESEARCHER GATE  (M-016)                              ║
+║  Do I have improvement opportunities as a researcher?           ║
+╚══════════════════════════════════════════════════════════════════╝
+
+Run the M-016 improvement signals checklist:
+        │
+        ├── 0–1 signals → No researcher re-orientation needed
+        │                 (proceed to routine O_DA loop)
+        │
+        └── 2+ signals → Researcher re-orientation
+                         (work on methods, philosophy, lineage, or
+                          confidence calibration before executing research)
+                         See M-016 for what this looks like in practice.
+
+
+╔══════════════════════════════════════════════════════════════════╗
+║  GATE COMBINATIONS                                               ║
+╚══════════════════════════════════════════════════════════════════╝
+
+Both NO   → Routine O_DA loop
+Research  → Research re-orientation (existing behavior)
+Researcher → Researcher re-orientation (M-016)
+Both YES  → Address researcher re-orientation first; then research re-orientation;
+            then O_DA — in that order. Fixing the researcher compounds; addressing
+            the research on a flawed orientation wastes effort.
 ```
 
-Getting this gate right is the entire skill of the kernel. Acting on stale orientation
-wastes effort. Re-orienting unnecessarily wastes time. The threshold is judgment, not
-algorithm — but the criteria below make the judgment tractable.
+Getting both gates right is the entire skill of the kernel. The most common failure
+is running only Gate 1 and treating every session as a question about the research,
+not about the researcher running it.
 
 ---
 
-## Triggers: What Counts as "Something Significant Changed"
+## Gate 1 Triggers: What Counts as "Something Significant Changed" (Research)
 
 ### Routine session (no re-orientation needed)
 
@@ -80,6 +111,27 @@ Deep re-orientation: before acting on anything, explicitly rebuild the mental mo
 This may mean: revising the research agenda wholesale, demoting a law to `contested`,
 opening multiple new hypotheses, or scheduling a synthesis session (theorize command)
 before any further investigation. Document the re-orientation in MEMORY.md.
+
+---
+
+## Gate 2 Triggers: Researcher Improvement Signals (M-016)
+
+See M-016 for the full checklist. In brief — researcher re-orientation triggers when
+two or more of these are present:
+
+- A method stub unused after 5+ sessions
+- The same 2-3 methods dominating every session
+- Recent deep reads that look like law extraction rather than genuine engagement
+- Discord responses defending positions without engaging the substance of a challenge
+- A candidate law untested for 3+ sessions
+- LINEAGE.md unchanged after a completed deep read
+- research/agenda.md unchanged in 3+ sessions
+- The same `[H]` item stalled for 5+ sessions without deliberate deferral
+- Inbox accumulating 10+ items without review synthesis
+- M-016 itself not run in 5+ sessions
+
+Researcher re-orientation is not failure — it is the correct response to the
+observation that improving the researcher compounds over every future session.
 
 ---
 
