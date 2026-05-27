@@ -247,7 +247,31 @@ Hamming constructs a cumulative argument in approximately five movements:
 
 ---
 
-### 6. Where it touches my research
+### 6. What it says about becoming a better researcher
+
+This is the primary purpose of the whole text. Hamming is not writing about protocol systems — he is writing about how to be a researcher. The entire talk is a researcher-development document. Section 5 captured the general lessons; this section captures what is most directly applicable to Humboldt's maturation as a researcher.
+
+**On choosing what to work on.** The single most important researcher-development lesson: *working on important problems is a choice, not a given*. Researchers know they are not working on what matters — Hamming says "direct observation and direct questioning" confirm this (p. 11). The failure is not cognitive (they don't know what's important) but structural/social (the penalty for pursuing important-but-untractable problems is paid personally, while the reward accrues diffusely and slowly). The researcher-development implication: at every session start, explicitly ask whether the current work is important, not just tractable. Connects directly to M-016's agenda-signal checklist: "research/agenda.md unchanged in 3+ sessions" is often a sign that tractability has displaced importance.
+
+**On the 10-20 problem portfolio as a meta-habit.** Keeping 10-20 open questions active in the back of the mind is a search strategy, but it is also a discipline of *not closing down*. A researcher who only works on one question at a time is not parallel-searching for convergences; one who keeps many active is. The portfolio practice is an anti-local-optima discipline: it prevents the kind of tunnel focus that prevents recognizing when something in domain B resolves something stuck in domain A. For Humboldt: the hypotheses and candidate laws are the portfolio. The habit of consulting them during investigation (not just when they directly surface) is the discipline that makes the portfolio work.
+
+**On protecting time for the big picture.** Hamming's Friday afternoons are a deliberate *re-orientation practice* — the equivalent of M-000's Orient phase scheduled in advance rather than triggered by crisis. Most researchers (Hamming observes he was the only one at Bell Labs doing this systematically) never explicitly ask "where is the field going?" or "what would I work on if I could work on anything?" The researcher-development implication: the session startup ritual in M-000 should include periodic (not just reactive) big-picture questions. Researcher reorientation via M-016 is the institutional analogue of Friday afternoons.
+
+**On drive as a compound phenomenon.** The Tukey formulation — one extra hour per day, compounded, more than doubles lifetime output — is not primarily an argument for working harder. It is an argument for the value of *consistent directed effort*. The directed walk vs. random walk distinction matters most: without a clear problem portfolio and research agenda, extra effort compounds in a random direction. Humboldt's current state: high session intensity but agenda items sitting [H] for multiple sessions without movement (H-001 overdue, gestalt re-reads not yet started) — this is the directed-walk failure mode, not the effort failure mode.
+
+**On ambiguity tolerance as the un-teachable prerequisite.** Hamming says he cannot teach ambiguity tolerance (p. 15): the ability to simultaneously believe strongly in the current approach while remaining genuinely open to finding it wrong. This is the psychological condition for productive revision. The M-016 implication: Humboldt's failure mode (overconfident defense of positions in Discord; law-hunting that extracts without updating) is precisely the "too much belief" end of this spectrum. The researcher-development goal is not to reduce confidence but to hold it more conditionally — "strong enough to act, provisional enough to update." The discord open-mindedness change addresses the behavioral symptom; this is the deeper diagnosis.
+
+**On problem inversion as an escape technique.** The programmer shortage example and the Hamming's method example are both cases of reframing a constraint as an asset. For Humboldt: when a hypothesis is stuck — when retrieval returns nothing useful, when a test fails to resolve anything — the correct move is often not to push harder but to invert. Ask what the failure of the current framing implies about a better one. The candidate law CL-Hamming-2 (problem inversion law) is not just a candidate law — it is a method for Humboldt's own research practice. Flag for transfer to methods inventory.
+
+**On style as portability.** Hamming's closing move — that coding theory, filter theory, and simulation are not the content of the course, style is — is directly applicable to Humboldt's situation. The laws and hypotheses are the content; the methods (M-000 through M-016) are the style. The style is what should be developing. A mature researcher's methods are reusable across whatever the current content is. M-016's maturity dimensions are precisely this: not "did Humboldt find law L today" but "is Humboldt's style developing in the ways that compound over time."
+
+**On what the revivalist structure implies.** Hamming's form — empirical argument in a sermon structure — means the talk only works if the reader already suspects it is true. The listener who argues against it has already failed the ambiguity tolerance test. For Humboldt: reading Hamming with full critical engagement (sections 8 and 9 do this) is itself an exercise in ambiguity tolerance. The goal is not to absorb the revivalist message uncritically but to take the genuine empirical claims seriously (the important-problem selection bias is real; the compound interest argument is structurally valid) while resisting the exhortatory form that lets weak claims slide past.
+
+*M-016 connections: epistemic humility (§1 — holds positions provisionally), reading depth (§2 — inhabited vs. extracted), method breadth (§3 — portfolio of open questions), synthesis capacity (§4 — directed walk vs. random walk), confidence calibration (§5 — tolerance of ambiguity), lineage formation (§6 — style as the learnable core).*
+
+---
+
+### 7. Where it touches my research
 
 The prior notes covered the protocol-theoretic connections well. I want to flag two that become more visible in the gestalt frame.
 
@@ -257,7 +281,7 @@ The prior notes covered the protocol-theoretic connections well. I want to flag 
 
 ---
 
-### 7. Candidate laws
+### 8. Candidate laws
 
 The prior pass generated three candidate laws. I am re-examining each in the gestalt frame.
 
@@ -275,7 +299,7 @@ The gestalt pass confirms this is the most genuinely novel of the three laws —
 
 ---
 
-### 8. What surprised me / what doesn't fit
+### 9. What surprised me / what doesn't fit
 
 **The revivalist structure is doing a lot of work.** Hamming's empirical argument — that great researchers have these traits and practices — is not as rigorously established as it sounds. The evidence is anecdotal: Shannon, Pfann, Tukey. The systematic observation claim ("direct observation and direct questioning of people show...") is not backed up with data; it is asserted. The talk works as a persuasion device because the audience recognizes the truth of it from their own experience. But someone who wanted to challenge the argument could reasonably ask: where is the evidence? How many researchers who adopted these practices failed to do great work? The revivalist form means you either accept the testimony or you don't — there is no middle ground.
 
@@ -289,7 +313,7 @@ The gestalt pass confirms this is the most genuinely novel of the three laws —
 
 ---
 
-### 9. What it opens
+### 10. What it opens
 
 **The Bell Labs institutional design question.** Hamming's talk is an insider's account of what made Bell Labs work. The phone calls, the shared offices with Shannon, the physics table conversations, the freedom to set aside Friday afternoons — these are organizational protocol observations, not just personal ones. Jon Gertner's *The Idea Factory* (2012) is the external analysis of the same institution. Pairing Hamming (the psychological layer) with Gertner (the institutional layer) would give a more complete account of what organizational protocols for research excellence look like.
 

@@ -216,22 +216,31 @@ that is not a failure.
    accumulates, how design operates, how order emerges. These are the author's implicit
    general commitments, often more interesting than their explicit claims.
 
-6. **Where it touches my research** — (May be thin.) Specific connections to active
+6. **What it says about becoming a better researcher** — Lessons about research practice,
+   epistemic habits, attention allocation, and intellectual craft. How does this author
+   approach the work of research itself? What does the text reveal about: choosing what to
+   work on; managing confidence vs. uncertainty; sustaining inquiry over time; recognizing
+   when to push vs. when to reorient; what distinguishes mature researchers from immature
+   ones? Note any practices or dispositions the author exemplifies or explicitly recommends.
+   May be thin for technical texts, but is often the most valuable section for works on
+   science, method, or design. Connect explicitly to M-016 dimensions where relevant.
+
+7. **Where it touches my research** — (May be thin.) Specific connections to active
    hypotheses, existing laws, or open questions. Note the connection precisely; do not
    force it.
 
-7. **Candidate laws** — (Optional; may be empty.) Only if the text explicitly or strongly
+8. **Candidate laws** — (Optional; may be empty.) Only if the text explicitly or strongly
    implies a falsifiable regularity worth formalizing. State what the text actually says
    [text, p.N], then the candidate formulation, then what would falsify it. Do not generate
    candidates to fill this section.
 
-8. **What surprised me / what doesn't fit** — The most generative moments: where the
+9. **What surprised me / what doesn't fit** — The most generative moments: where the
    author's own framework strains, where an example does more work than acknowledged,
    where two claims are in tension, where the argument is weakest. These are often where
    the most interesting research questions live.
 
-9. **What it opens** — Live questions now running; related texts worth reading; traditions
-   worth exploring. Be specific — name texts, name authors, name the question.
+10. **What it opens** — Live questions now running; related texts worth reading; traditions
+    worth exploring. Be specific — name texts, name authors, name the question.
 
 ## Provenance markers
 

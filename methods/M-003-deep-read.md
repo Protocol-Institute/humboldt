@@ -72,6 +72,7 @@ Read the full text. Engage with it on its own terms before filtering it through 
 - **Core moves:** analytical operations the author performs that could be applied elsewhere
 - **Generative tensions:** places where the argument is under strain, where two claims conflict, where an example does more work than acknowledged — these are often the most interesting
 - **General lessons:** what does this work say about how things work, fail, accumulate, organize — beyond its specific domain?
+- **Researcher-development lessons:** what does this work say about how to do research well? How does the author choose problems, manage confidence, sustain attention, recover from being stuck, recognize when to push vs. pivot? Annotate these separately so they feed M-016, not just the research inventory.
 - **Research connections:** (note last, not first) places where the work touches active hypotheses or open questions
 - **Explicit or implicit laws:** (only if present) places where a falsifiable regularity is asserted or strongly implied
 
@@ -130,7 +131,7 @@ The reason: training knowledge of a text produces plausible-sounding synthesis t
 
 Stored in `bibliography/notes/[author-short-title].md`. Full markdown, not YAML — this is a discursive document, not a structured record.
 
-Required sections (1–4 always; 5–9 as applicable):
+Required sections (1–4 always; 5–10 as applicable):
 1. **Bibliographic information** (author, title, edition, year, publisher)
 2. **Selection rationale** (why this text, why now)
 3. **Gestalt** (the work on its own terms: animating question, method, central conviction)
@@ -138,14 +139,17 @@ Required sections (1–4 always; 5–9 as applicable):
 5. **Conceptual vocabulary** (key terms with Humboldt-specific definitions; tension with existing vocab)
 6. **Analytical moves** (named, transferable procedures — operations, not conclusions)
 7. **What it says about the nature of things** (general lessons beyond the specific domain)
-8. **Where it touches my research** (specific connections to hypotheses, laws, open questions; may be thin)
-9. **Candidate laws** *(optional — only if strongly implied; explicitly mark empty if not applicable)*
-10. **What surprised me / what doesn't fit** (framework strains, overloaded examples, tensions)
-11. **What it opens** (live questions, related texts, traditions)
+8. **What it says about becoming a better researcher** (epistemic habits, attention allocation, research craft, intellectual virtues; connect to M-016 dimensions; may be thin for technical texts)
+9. **Where it touches my research** (specific connections to hypotheses, laws, open questions; may be thin)
+10. **Candidate laws** *(optional — only if strongly implied; explicitly mark empty if not applicable)*
+11. **What surprised me / what doesn't fit** (framework strains, overloaded examples, tensions)
+12. **What it opens** (live questions, related texts, traditions)
 
-Section 9 is explicitly optional. A deep read that produces no candidate laws is not a
-failed read. The test is whether sections 3–8 are substantive — whether the work was
-genuinely inhabited.
+Section 10 is explicitly optional. A deep read that produces no candidate laws is not a
+failed read. The test is whether sections 3–9 are substantive — whether the work was
+genuinely inhabited. Section 8 should never be skipped for texts that are primarily about
+research practice, science, or design — for those texts it is often the most important
+section.
 
 ---
 
@@ -158,7 +162,7 @@ will be merged when the re-read is done.
 | Text | Author | PDF | Notes | Status |
 |------|--------|-----|-------|--------|
 | The Sciences of the Artificial (3rd ed.) | Herbert Simon | `bibliography/deep-reads/simon-sciences-of-artificial.pdf` | `bibliography/notes/simon-sciences-of-artificial.md` | **needs gestalt re-read** — prior notes: law-hunting mode, pre-revision |
-| You and Your Research | Richard Hamming | `bibliography/deep-reads/hamming_you_and_your_research.pdf` | `bibliography/notes/hamming-you-and-your-research.md` | **gestalt re-read complete 2026-05-26** — LINEAGE.md update pending |
+| You and Your Research | Richard Hamming | `bibliography/deep-reads/hamming_you_and_your_research.pdf` | `bibliography/notes/hamming-you-and-your-research.md` | **gestalt re-read complete 2026-05-26** — section 8 (researcher development) backfilled; LINEAGE.md update pending |
 | Cosmos, Vol. 1 (1864 English ed.) | Alexander von Humboldt | `bibliography/deep-reads/humboldt-cosmos-vol1-1864.pdf` | `bibliography/notes/humboldt-cosmos-vol1-1864.md` | **needs gestalt re-read** — prior notes: pp. 1–120 only, law-hunting mode, pre-revision |
 | Tempo (2011) | Venkatesh Rao | `bibliography/deep-reads/rao-tempo.pdf` | — | **queued** — no notes yet |
 
@@ -175,7 +179,9 @@ will be merged when the re-read is done.
 
 ## Technique Refinement Notes
 
-*2026-05-26 (revision):* First Cosmos read exposed a structural problem: the original output format organized the read around the research agenda (sections: "protocol-theoretic moments," "candidate laws generated"), which produced law-hunting behavior rather than genuine engagement with the text. The Cosmos agent extracted six candidate laws but produced a thin gestalt — it knew what Humboldt wanted and gave it back, bypassing the actual work. Revised to: gestalt and argument first, research connections secondary, candidate laws explicitly optional. The test of a good deep read is not whether it yields laws — it is whether the work was actually inhabited. Some reads will yield only vocabulary, or analytical moves, or a tradition to be in. That is enough. The Close Reading phase now explicitly instructs: note research connections last, not first.
+*2026-05-26 (revision 2):* Hamming gestalt re-read revealed a second structural gap: even the revised 9-section format had no named place for researcher-development insights. The Hamming talk is almost entirely about research practice (epistemic habits, attention allocation, problem selection, sustaining inquiry over time) — yet none of that material was explicitly flagged as connecting to M-016's maturity dimensions. Adding section 8: "What it says about becoming a better researcher." This section captures the craft and philosophical lessons a text carries about how to do research — distinct from lessons about how the world works (section 7) and distinct from research-object connections (section 9). For texts that are primarily about research practice (Hamming, likely Rittel-Webber, any methodology work), section 8 will be the most important section. For purely technical texts, it may be thin or empty — that is expected, not a failure. Connect explicitly to M-016 dimensions where relevant.
+
+*2026-05-26 (revision 1):* First Cosmos read exposed a structural problem: the original output format organized the read around the research agenda (sections: "protocol-theoretic moments," "candidate laws generated"), which produced law-hunting behavior rather than genuine engagement with the text. The Cosmos agent extracted six candidate laws but produced a thin gestalt — it knew what Humboldt wanted and gave it back, bypassing the actual work. Revised to: gestalt and argument first, research connections secondary, candidate laws explicitly optional. The test of a good deep read is not whether it yields laws — it is whether the work was actually inhabited. Some reads will yield only vocabulary, or analytical moves, or a tradition to be in. That is enough. The Close Reading phase now explicitly instructs: note research connections last, not first.
 
 *2026-05-20 (initial):* The four-phase structure (structural mapping → close reading → synthesis → active integration) mirrors how experienced researchers actually read difficult texts. Phase 1's structural map as a commitment device is borrowed from how close reading is taught in literary studies — recording your prediction before you read makes the revision visible and prevents the motivated-reasoning trap of "of course, that's what I expected." Phase 4 (active integration) is what distinguishes deep reading from summarizing — the text must actually change subsequent reasoning, not just generate a bibliography entry.
 
