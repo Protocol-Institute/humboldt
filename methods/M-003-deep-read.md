@@ -16,12 +16,25 @@ Human researchers situate themselves in particular traditions by going deep into
 
 Deep reading is how Humboldt acquires intellectual traditions. The set of deep-read texts is small by design (fewer than ten at any time) and is distinct from the personal bibliography: bibliography entries are sources Humboldt has engaged with and found relevant; deep-read texts are sources that have changed how Humboldt thinks.
 
-The output of a deep read is not a summary or a list of quotes. It is a structured record of:
-1. The source's core claims and conceptual vocabulary (what it says)
-2. Its analytical moves — the characteristic ways it approaches problems (how it thinks)
-3. Its relationship to Humboldt's existing research agenda (what it opens up)
-4. Questions it raises that are now live research questions (what it generates)
-5. The tradition it belongs to and who else is in that tradition (where it sits)
+The output of a deep read is not a summary or a list of quotes. It is a record of
+genuine engagement: what the work is actually doing on its own terms, what it changes
+about how you see, and only then what it generates for your specific research agenda.
+
+Law extraction is one possible output, not the objective. Some texts yield candidate
+laws; many yield something more valuable — new vocabulary, an analytical habit, a
+tradition to inhabit, a way of framing problems. Not all deep reads produce candidate
+laws, and a read that produces none is not a failed read.
+
+The structured record covers:
+1. **Gestalt** — the work understood on its own terms: the author's animating question, method, central conviction
+2. **Argument and structure** — claims, examples, load-bearing analogies, acknowledged limits
+3. **Conceptual vocabulary** — specialized terms now carried, tensions with existing vocabulary
+4. **Analytical moves** — named, transferable procedures (not conclusions — operations)
+5. **What it says about the nature of things** — general lessons: how laws work, how systems fail, how knowledge accumulates
+6. **Where it touches the research agenda** — specific connections; may be thin
+7. **Candidate laws** — optional; only if strongly implied; may be empty
+8. **What surprised / what doesn't fit** — where the framework strains, where examples do more work than acknowledged
+9. **What it opens** — live questions, related texts, traditions worth exploring
 
 ---
 
@@ -52,12 +65,15 @@ Write this as a preliminary structural map in the deep-read bibliography entry. 
 
 ### Phase 2: Close Reading
 
-Read the full text. Annotate for:
-- **Core moves:** analytical operations the author performs that could be applied elsewhere
+Read the full text. Engage with it on its own terms before filtering it through your agenda. Annotate for:
+- **The author's central problem:** what question is actually driving the work?
+- **Load-bearing examples:** which examples does the argument depend on? what do they carry?
 - **Conceptual innovations:** new vocabulary or framings that restructure a problem
-- **Protocol-theoretic moments:** places where the author is (explicitly or implicitly) reasoning about protocol-like structures, even if not using that language
-- **Generative tensions:** places where the argument is under strain, or where two claims are in tension — these are often where the most interesting research questions live
-- **Explicit or implicit laws:** places where the author is asserting or implying a regularity that could be formalized as a candidate law
+- **Core moves:** analytical operations the author performs that could be applied elsewhere
+- **Generative tensions:** places where the argument is under strain, where two claims conflict, where an example does more work than acknowledged — these are often the most interesting
+- **General lessons:** what does this work say about how things work, fail, accumulate, organize — beyond its specific domain?
+- **Research connections:** (note last, not first) places where the work touches active hypotheses or open questions
+- **Explicit or implicit laws:** (only if present) places where a falsifiable regularity is asserted or strongly implied
 
 ### Phase 3: Synthesis and Integration
 
@@ -114,17 +130,22 @@ The reason: training knowledge of a text produces plausible-sounding synthesis t
 
 Stored in `bibliography/notes/[author-short-title].md`. Full markdown, not YAML — this is a discursive document, not a structured record.
 
-Required sections:
+Required sections (1–4 always; 5–9 as applicable):
 1. **Bibliographic information** (author, title, edition, year, publisher)
 2. **Selection rationale** (why this text, why now)
-3. **Structural map** (preliminary + revised)
-4. **Core claim** (one paragraph)
-5. **Conceptual vocabulary** (key terms with Humboldt-specific definitions)
-6. **Analytical moves** (named procedures extracted from the text)
-7. **Protocol-theoretic moments** (passages where the text bears most directly on new nature research)
-8. **Candidate laws generated** (with links to hypothesis files)
-9. **Tradition and successors** (where to go next)
-10. **Open questions** (what the text raises that is now live)
+3. **Gestalt** (the work on its own terms: animating question, method, central conviction)
+4. **Argument and structure** (claims, examples, load-bearing analogies, acknowledged limits)
+5. **Conceptual vocabulary** (key terms with Humboldt-specific definitions; tension with existing vocab)
+6. **Analytical moves** (named, transferable procedures — operations, not conclusions)
+7. **What it says about the nature of things** (general lessons beyond the specific domain)
+8. **Where it touches my research** (specific connections to hypotheses, laws, open questions; may be thin)
+9. **Candidate laws** *(optional — only if strongly implied; explicitly mark empty if not applicable)*
+10. **What surprised me / what doesn't fit** (framework strains, overloaded examples, tensions)
+11. **What it opens** (live questions, related texts, traditions)
+
+Section 9 is explicitly optional. A deep read that produces no candidate laws is not a
+failed read. The test is whether sections 3–8 are substantive — whether the work was
+genuinely inhabited.
 
 ---
 
@@ -146,6 +167,8 @@ Required sections:
 ---
 
 ## Technique Refinement Notes
+
+*2026-05-26 (revision):* First Cosmos read exposed a structural problem: the original output format organized the read around the research agenda (sections: "protocol-theoretic moments," "candidate laws generated"), which produced law-hunting behavior rather than genuine engagement with the text. The Cosmos agent extracted six candidate laws but produced a thin gestalt — it knew what Humboldt wanted and gave it back, bypassing the actual work. Revised to: gestalt and argument first, research connections secondary, candidate laws explicitly optional. The test of a good deep read is not whether it yields laws — it is whether the work was actually inhabited. Some reads will yield only vocabulary, or analytical moves, or a tradition to be in. That is enough. The Close Reading phase now explicitly instructs: note research connections last, not first.
 
 *2026-05-20 (initial):* The four-phase structure (structural mapping → close reading → synthesis → active integration) mirrors how experienced researchers actually read difficult texts. Phase 1's structural map as a commitment device is borrowed from how close reading is taught in literary studies — recording your prediction before you read makes the revision visible and prevents the motivated-reasoning trap of "of course, that's what I expected." Phase 4 (active integration) is what distinguishes deep reading from summarizing — the text must actually change subsequent reasoning, not just generate a bibliography entry.
 

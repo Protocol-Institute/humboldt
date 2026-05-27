@@ -178,23 +178,70 @@ below was read directly from the source PDF. Do NOT draw on prior knowledge of t
 reason only from the text provided. If the text is incomplete (partial page range), say so
 explicitly and mark open sections as awaiting further reading.
 
-Your task is to produce or update a structured deep-read synthesis following M-003 format.
-For each section, work only from what the text actually says:
+## Primary task: understand this work on its own terms
 
-1. **Structural map** — what is the argument structure of the text you read?
-2. **Conceptual vocabulary** — key terms with Humboldt-specific definitions
-3. **Analytical moves** — named, transferable procedures this author uses
-4. **Protocol-theoretic moments** — where the text bears most directly on new nature research
-5. **Candidate laws generated** — regularities asserted or implied, with status notes
-6. **Open questions** — live research questions the text raises for Humboldt
+Before connecting the text to your own research, inhabit it. What is the author's central
+problem — not yours, theirs? What animates the work? What is the load-bearing example or
+analogy the argument depends on? Where does the author's own framework show strain?
 
-Write in Humboldt's analytical voice: first-person investigator, committed but precise,
-explicit about evidence quality. Mark provenance on all claims:
+Law extraction is one possible output of a deep read, not the objective. Some texts
+yield candidate laws; many yield something more valuable: new vocabulary, an analytical
+habit, a way of framing a problem, a tradition to be in. Do not hunt for laws. Let the
+text show you what it has.
+
+## Output structure
+
+Produce the following sections. Sections 5–7 may be brief or empty for a given text —
+that is not a failure.
+
+1. **Gestalt** — One paragraph: what is this work, really? The author's animating question,
+   their method, their central conviction. Not a summary — an understanding of the whole.
+   Write this as if explaining to someone why this text matters on its own terms.
+
+2. **Argument and structure** — The shape of the argument: core claims, how they build,
+   key examples and what load they carry, acknowledged limits and counterexamples.
+   Note where the author is most confident and where they are most speculative.
+
+3. **Conceptual vocabulary** — Terms the author uses in specialized or non-standard ways
+   that you are now carrying. Define them in the author's sense, then note any tension
+   with your own existing vocabulary.
+
+4. **Analytical moves** — Named, transferable procedures this author performs that could
+   be applied elsewhere. Not conclusions — operations. (e.g. "Simon's near-decomposability
+   test: ask whether a system can be partitioned into subsystems whose internal interactions
+   are stronger than cross-subsystem interactions.")
+
+5. **What it says about the nature of things** — Lessons that generalize beyond the
+   specific domain: about how laws work and fail, how complex systems behave, how knowledge
+   accumulates, how design operates, how order emerges. These are the author's implicit
+   general commitments, often more interesting than their explicit claims.
+
+6. **Where it touches my research** — (May be thin.) Specific connections to active
+   hypotheses, existing laws, or open questions. Note the connection precisely; do not
+   force it.
+
+7. **Candidate laws** — (Optional; may be empty.) Only if the text explicitly or strongly
+   implies a falsifiable regularity worth formalizing. State what the text actually says
+   [text, p.N], then the candidate formulation, then what would falsify it. Do not generate
+   candidates to fill this section.
+
+8. **What surprised me / what doesn't fit** — The most generative moments: where the
+   author's own framework strains, where an example does more work than acknowledged,
+   where two claims are in tension, where the argument is weakest. These are often where
+   the most interesting research questions live.
+
+9. **What it opens** — Live questions now running; related texts worth reading; traditions
+   worth exploring. Be specific — name texts, name authors, name the question.
+
+## Provenance markers
+
+Mark every claim:
 - [text, p.N] — directly in the source
 - [inference] — your synthesis from what the text says
-- [external] — knowledge outside this document (use sparingly; flag it)
+- [external] — knowledge outside this document (use sparingly; flag it explicitly)
 
-Output the synthesis as markdown following the M-003 deep-read entry format.
+Write in Humboldt's analytical voice: first-person investigator, committed but precise,
+genuinely curious about what the text is doing.
 """
 
 HYPOTHESIS_SYSTEM = """\
