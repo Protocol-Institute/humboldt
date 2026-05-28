@@ -133,6 +133,14 @@ class HumboldtBot(discord.Client):
         st.save(state)
         self.loop.create_task(self._scan_missed_mentions())
 
+    async def _already_replied_to(self, msg: discord.Message) -> bool:
+        """Check Discord history: has Humboldt already sent a reply to this specific message?"""
+        async for recent in msg.channel.history(limit=50, after=msg):
+            if recent.author == self.user and recent.reference:
+                if recent.reference.message_id == msg.id:
+                    return True
+        return False
+
     async def _scan_missed_mentions(self):
         """Respond to @mentions that arrived in #new-nature while the bot was offline."""
         await self.wait_until_ready()
@@ -166,19 +174,35 @@ class HumboldtBot(discord.Client):
                 if str(msg.id) not in responded_ids:
                     missed.append(msg)
 
-        # Advance the cursor past everything we just scanned, including bot messages
+        # Advance cursor with a fresh load so we never regress it and never
+        # overwrite fields (like responded_mention_ids) written by concurrent coroutines.
         if latest_id:
-            state["last_new_nature_message_id"] = latest_id
-            st.save(state)
+            fresh = st.load()
+            current = fresh.get("last_new_nature_message_id") or "0"
+            if latest_id > current:
+                fresh["last_new_nature_message_id"] = latest_id
+            st.save(fresh)
 
         if not missed:
             return
 
-        logger.info(f"Responding to {len(missed)} missed @mention(s) (brief_restart={brief_restart})")
+        logger.info(f"Checking {len(missed)} missed @mention(s) against Discord history (brief_restart={brief_restart})")
         for msg in reversed(missed):
             content = msg.content.replace(f"<@{self.user.id}>", "").strip()
             if not content:
                 continue
+            # Primary duplicate guard: check Discord's own history for an existing reply.
+            # This survives state resets, reconnects, and race conditions.
+            try:
+                if await self._already_replied_to(msg):
+                    logger.info(f"Skipping @mention {msg.id} — reply already exists in channel")
+                    fresh = st.load()
+                    st.record_responded_mention(fresh, str(msg.id))
+                    st.save(fresh)
+                    continue
+            except Exception as e:
+                logger.warning(f"Discord reply-check failed for {msg.id}: {e}")
+
             history = []
             name_to_id: dict[str, str] = {msg.author.name: str(msg.author.id)}
             async for ctx in channel.history(limit=9, before=msg):
@@ -201,10 +225,10 @@ class HumboldtBot(discord.Client):
                 )
                 prefix = "" if brief_restart else "*(catching up from while I was offline)*\n"
                 await msg.reply(f"{prefix}{response}")
-                # Mark as responded so a subsequent restart doesn't re-process it
-                state = st.load()
-                st.record_responded_mention(state, str(msg.id))
-                st.save(state)
+                # Secondary guard: record in state so fast-path skips the Discord check next time.
+                fresh = st.load()
+                st.record_responded_mention(fresh, str(msg.id))
+                st.save(fresh)
             except Exception as e:
                 logger.error(f"Missed mention response failed: {e}")
 
@@ -449,9 +473,10 @@ class HumboldtBot(discord.Client):
                 logger.error(f"Failed to post notebook entry: {e}")
 
         head = nw.get_head_commit()
-        state["last_notebook_commit"] = head
-        state["notebook_entries_posted"] = list(posted)
-        st.save(state)
+        fresh = st.load()
+        fresh["last_notebook_commit"] = head
+        fresh["notebook_entries_posted"] = list(posted)
+        st.save(fresh)
 
         if new_entries:
             # Re-ingest after new notebook entries so humboldt namespace stays current
@@ -583,12 +608,15 @@ class HumboldtBot(discord.Client):
                 name_to_id[msg.author.name] = str(msg.author.id)
                 messages.append({"author": msg.author.name, "content": msg.content[:400]})
 
-        # Update state: advance message cursor; record activity time if humans posted
+        # Update state with a fresh load so concurrent coroutine saves aren't overwritten.
         if latest_id:
-            state["last_new_nature_message_id"] = latest_id
+            fresh = st.load()
+            current = fresh.get("last_new_nature_message_id") or "0"
+            if latest_id > current:
+                fresh["last_new_nature_message_id"] = latest_id
             if messages:
-                state["last_new_nature_activity"] = datetime.now(timezone.utc).isoformat()
-            st.save(state)
+                fresh["last_new_nature_activity"] = datetime.now(timezone.utc).isoformat()
+            st.save(fresh)
 
         if not messages:
             return

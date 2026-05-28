@@ -4,6 +4,32 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-05-28 (session 8) — Duplicate @mention fix: Discord-idempotent catchup
+
+Session: Track 2 (infrastructure).
+
+**Daemon:** PID 38203 (restarted 2026-05-28; picks up all session 7 and session 8 changes)
+
+**Bug:** Humboldt was spamming repeated responses to the same @mentions each time the Discord connection reconnected (Mac sleeping, network hiccup, etc.). Root cause: two race conditions in state saves.
+
+**Race 1 — `responded_mention_ids` overwritten:** `_new_nature_tick` and `_scan_missed_mentions` both do `state = st.load()` at function start, then `st.save(state)` much later (after multiple awaits). The stale copy each holds doesn't include fields written by the other coroutine in the interim. Every `_new_nature_tick` save was wiping out `responded_mention_ids` set by `_scan_missed_mentions`.
+
+**Race 2 — cursor regression:** same pattern meant the cursor could be saved backwards (older value overwriting newer) when saves interleaved.
+
+**Fix:**
+- `_already_replied_to(msg)` — new helper that checks Discord's own message history for an existing Humboldt reply (via `message.reference`). Discord is the truth; no local state needed.
+- `_scan_missed_mentions` — now calls `_already_replied_to()` before responding; skips if reply exists. Cursor advance and all saves switched to fresh `st.load()` + only-advance pattern.
+- `_new_nature_tick` — cursor save switched to fresh `st.load()` + only-advance pattern.
+- `task_notebook` — final state save switched to fresh `st.load()`.
+
+**Open:**
+- LINEAGE.md update for Hamming — pending next session
+- H-001 (Coordination Cost Conservation): overdue
+- Gestalt re-reads of Simon and Cosmos: queued [H]
+- Systemantics PDF: not freely available
+
+---
+
 ## 2026-05-27 (session 7) — Notebook publish loop complete; linkable entries; thread farmer
 
 Session: Track 2 (infrastructure).

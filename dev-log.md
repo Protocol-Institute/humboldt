@@ -6,6 +6,36 @@ Most recent entry first.
 
 ---
 
+## 2026-05-28 (session 8) — Duplicate @mention bug fixed; Discord-idempotent catchup
+
+**Track 2 (infrastructure):**
+
+**Bug diagnosed:** Humboldt was responding 3–5 times to the same @mention messages each time the Discord connection dropped and reconnected (Mac sleep/wake, network hiccup). All responses carried the "catching up from while I was offline" prefix, confirming the source was `_scan_missed_mentions` firing on every `on_ready` event.
+
+**Root cause — two race conditions in `discord_client.py`:**
+
+1. **Stale-state overwrite:** Both `_new_nature_tick` and `_scan_missed_mentions` do `state = st.load()` at function start, then `st.save(state)` many awaits later. In between, the other coroutine may have written new fields (notably `responded_mention_ids`). The stale save overwrites them with the loaded defaults (`[]`). Every `_new_nature_tick` cycle was wiping out the `responded_mention_ids` that `_scan_missed_mentions` had just saved, so on the next reconnect the IDs appeared untracked and were reprocessed.
+
+2. **Cursor regression:** Same stale-save pattern meant the cursor (`last_new_nature_message_id`) could be written backwards — a later save could advance it to an older value if the coroutine's initial load captured a stale cursor.
+
+**Fix — three changes to `discord_client.py`:**
+
+- `_already_replied_to(msg)` — new helper method. Scans up to 50 messages after `msg` in the channel; returns True if any message is from Humboldt with `reference.message_id == msg.id`. Uses Discord's own history as the authoritative source of truth. Survives state resets, process crashes, and race conditions.
+
+- `_scan_missed_mentions` refactored:
+  - Before responding to a missed @mention, calls `_already_replied_to()`. If Discord shows a reply already exists, skips the mention and records it in `responded_mention_ids` (secondary cache); continues.
+  - Cursor advance and all `st.save()` calls switched to fresh `st.load()` + only-advance pattern (compare new value against current before writing, never regress).
+
+- `_new_nature_tick`: cursor save switched to fresh `st.load()` + only-advance pattern.
+
+- `task_notebook`: final state save switched to fresh `st.load()`.
+
+**Design note:** `responded_mention_ids` remains as a fast-path cache (avoids a Discord API call on repeated reconnects for the same message). Discord history is the primary guard. The combination is belt-and-suspenders.
+
+**Daemon restarted:** PID 38203. Verified clean startup — no spurious catchup responses on first `on_ready`.
+
+---
+
 ## 2026-05-27 (session 7 addendum) — Circuit breaker + discord post fixes
 
 **Track 2 (infrastructure):**
