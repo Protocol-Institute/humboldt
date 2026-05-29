@@ -32,8 +32,14 @@ def get_new_notebook_entries(since_commit: str | None) -> list[dict]:
             continue
         if len(line) == 40 and all(c in "0123456789abcdef" for c in line):
             current_commit = line
-        elif line.startswith("notebook/") and line.endswith(".md") and "README" not in line:
+        elif (line.startswith("notebook/") and line.endswith(".md")
+              and "README" not in line and "/people/" not in line):
             stem = Path(line).stem
+            # Only date-format entries (YYYY-MM-DD) are posted to Discord.
+            # Person profiles (notebook/people/) are private and excluded above;
+            # top-level non-date files are skipped here as a second guard.
+            if not (len(stem) == 10 and stem[4] == "-" and stem[7] == "-"):
+                continue
             path = _ROOT / line
             entries.append({
                 "commit": current_commit,
