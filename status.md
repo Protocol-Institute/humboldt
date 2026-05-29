@@ -4,6 +4,35 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-05-29 (session 11) — Inbox processing scaffolding complete; inbox clear
+
+Session: Track 2 (infrastructure) + Track 1 (inbox clearing).
+
+**Daemon:** PID 11597 (launchd, running; no code changes this session)
+
+**Completed (Track 2):** Full inbox processing pipeline built in this session:
+- `agent/triage.py` (extended): `triage-discord` command for discord-ideas + links; `discard | shallow` only (removed `deep` category — defer to escalation in shallow-read)
+- `agent/shallow_read.py` (new): type-aware prompts (feed/idea/link), escalation criteria, deletes source files after read; triggers person notebook entries on threshold crossing
+- `agent/inbox.py` (new): `archive-discards`, `cleanup` (30-day retention), `inbox status` commands
+- `agent/person_notebook.py` (new): Haiku-generated person notebook entries at threshold (3 useful contributions OR 3 interactions)
+- `daemon/people.py` (extended): contribution tracking, trust model, dual-signal threshold, `record_contributions_for_authors`, `mark_person_notebook_entry_written`
+- `daemon/discord_client.py` (updated): uses `needs_person_notebook_entry()` (dual-signal) instead of interaction-count only
+- `agent/humboldt.py` (updated): `triage-discord`, `inbox status/archive-discards/cleanup`, `people [handle]` commands added
+- Ran both triage-feed (57 items) and triage-discord (62 items) — 72 shallow-reads written, 44 items archived to `inbox/processed/`
+- Person notebook entries written: `_vgr`, `boredgargoyle`, `4umd`
+- Committed prior session work (98dc049)
+
+**Completed (Track 1):** Inbox clearing session — 1 thread comment from @4umd; discarded (no research content). Notebook entry written: reflexivity and L-003 applied to research methodology. Inbox now clear.
+
+**Open (next session):**
+- H-001 (Coordination Cost Conservation): NOW FIVE SESSIONS OVERDUE — first move next T1 session, no exceptions
+- LINEAGE.md updates for 4 completed deep reads (Simon, Cosmos, Hamming, Tempo) — operator step [H]
+- CL-Simon-2 → H-003; CL-Gestalt-1 / CL-Gestalt-2 → hypothesis YAMLs
+- Ingest run (humboldt ingest) — 72 shallow-reads + 3 person notebook entries not yet embedded
+- CLAUDE.md update for new commands (triage-discord, inbox, people)
+
+---
+
 ## 2026-05-28 (session 10) — Inbox triage pipeline complete; gestalt re-reads committed
 
 Session: Track 2 (infrastructure). Context continuation from session 9.

@@ -6,6 +6,37 @@ Most recent entry first.
 
 ---
 
+## 2026-05-29 (session 11) — Inbox processing pipeline complete; inbox clear
+
+**Track 2 (infrastructure) + Track 1 (inbox clearing).**
+
+**Inbox processing pipeline — full build:**
+
+Continued from session 10 context. The pipeline now handles the full lifecycle from inbox to archive/delete:
+
+- `agent/triage.py` (extended): Added `triage-discord` command for discord-idea and discord-link inbox items. Prompt uses a higher discard bar appropriate for pre-filtered community submissions. Triage output is now 2-category only (`discard | shallow`) — the `deep` category was removed so that depth decisions are made by Humboldt during reading, not at triage. Legacy `deep` items in old reports are bucketed into shallow.
+- `agent/shallow_read.py` (new): Type-aware prompt dispatch — feed (evaluate as paper with escalation criteria), idea (always store-only; ideas escalate by becoming candidate laws), link (inference from description only, URL not fetched). Escalation criteria applied strictly. Source files deleted after shallow-read note is written. Triggers person notebook entry generation when contribution threshold crossed.
+- `agent/inbox.py` (new): `archive-discards` (move DISCARD items to `inbox/processed/` with YYYY-MM-DD prefix, record discard contributions in people model), `cleanup` (delete processed items older than 30 days), `inbox status` (composition summary).
+- `agent/person_notebook.py` (new): Haiku-generated person notebook entries. Loads full contribution history and law context. Writes to `notebook/people/{handle}.md`; appends with date header if file exists. Called by `shallow_read` (contribution threshold) and `discord_client` (interaction threshold).
+- `daemon/people.py` (extended): `record_contribution()` returns True when useful_contributions just crossed NOTEBOOK_THRESHOLD=3. `record_contributions_for_authors()` parses comma-separated author strings. `needs_person_notebook_entry()` uses dual-signal trigger: useful_contributions >= 3 OR interaction_count >= 3. `mark_person_notebook_entry_written()`. `trust_score()`, `contribution_summary()`, `person_contribution_detail()` for inspection.
+- `daemon/discord_client.py` (updated): `_record_interaction_and_check()` now uses `needs_person_notebook_entry()` (dual-signal) instead of `needs_notebook_entry()` (interaction count only).
+- `agent/humboldt.py` (updated): CLI dispatch for `triage-discord`, `inbox status/archive-discards/cleanup`, `people [handle]`.
+
+**Pipeline runs completed:**
+- `triage-feed` against 57 feed items → 1 escalation (Short-Term Gain, Long-Term Fragility)
+- `triage-discord` against 62 discord items → 6 escalations
+- `shallow-read` against both triage reports → 72 notes written to `bibliography/shallow-reads/`
+- Person notebook entries triggered and written: `_vgr`, `boredgargoyle`, `4umd`
+- Trust model bootstrapped via one-time script (shallow-read ran before people model was wired in)
+
+**Track 1 (inbox clearing):** 1 thread comment (44 words, no research content) discarded. Notebook entry written about reflexivity — the L-003 dynamic applied to research methodology. Notebook README index updated with 2026-05-28 and 2026-05-29 entries (both were missing).
+
+**Pending infrastructure:**
+- `humboldt ingest` — 72 shallow-reads + 3 person notebook entries not yet embedded to Pinecone humboldt namespace
+- CLAUDE.md update for new commands (triage-discord, inbox, people)
+
+---
+
 ## 2026-05-28 (session 9) — launchd relaunch; gestalt deep reads; inbox triage pipeline
 
 **Track 2 (infrastructure).**

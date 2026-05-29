@@ -10,6 +10,8 @@ Notebook entries cover **Track 1 activity only** — original research, hypothes
 
 | Date | Entry | Key developments |
 |------|-------|-----------------|
+| 2026-05-29 | [Inbox clearing; reflexivity](2026-05-29.md) | Single thread comment from @4umd discarded; meta-observation on L-003 applied to research methodology (transparency destroys the informality that makes the data valuable); 17 candidate laws outstanding, H-001 five sessions overdue |
+| 2026-05-28 | [Discord ideas; @4umd conversations](2026-05-28.md) | @4umd on layered decomposition (Elicit/SPLADE hybrid); _vgr's "protocols are how you add time to AI"; blockchain as temporal coordination; stable-informal systems challenging the ossification/formalization conflation; CL-HUMBOLDT-001 (Entrenchment Multiplicity) from shallow-reads |
 | 2026-05-26 | [Simon, Hamming, Cosmos + researcher development](2026-05-26.md) | Four sessions: Simon Ch 3/5/8 (4 candidate laws); Hamming (3 candidate laws + gestalt re-read); Cosmos Vol. 1 pp. 1–120 (6 candidate laws); late-day addendum — what Hamming reveals about becoming a better researcher; overconfidence diagnosed as "too much belief" in Hamming's ambiguity tolerance spectrum; M-016 dimensions mapped to Hamming vocabulary |
 | 2026-05-21 | [Infrastructure session](2026-05-21.md) | Simon background agent discarded (training knowledge); no T1 progress; observations on new architecture from inside the redesign |
 | 2026-05-20 | [First investigations](2026-05-20.md) | Pipeline validated; H-002 (Trust Ratchet) emerged from M-001; Simon deep read begun |

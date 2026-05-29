@@ -74,7 +74,7 @@ Namespaces (as of 2026-05-20 for PI corpus; 2026-05-26 for humboldt):
 - `discord_links`: 6,722 vectors — enriched Discord links
 - `sig`: 4,689 vectors — SIG channel discussions
 - `transcripts`: 4 vectors (grows with use)
-- `humboldt`: ~99 vectors (2026-05-28) — Humboldt's own notebook, reading notes, shallow reads, laws, hypotheses, inbox ideas
+- `humboldt`: ~99 vectors (2026-05-28; ~170 after pending ingest) — Humboldt's own notebook, reading notes, shallow reads, laws, hypotheses, inbox ideas
 
 Do not write to c3po namespaces. Humboldt's own work goes to the `humboldt` namespace via `humboldt ingest`.
 
@@ -118,6 +118,21 @@ python3 -m agent.humboldt triage-feed --output inbox/triage-YYYY-MM-DD.md
 # Output: bibliography/shallow-reads/YYYY-MM-DD-{title-slug}.md (idempotent)
 python3 -m agent.humboldt shallow-read --from-triage inbox/triage-YYYY-MM-DD.md
 python3 -m agent.humboldt shallow-read --from-triage inbox/triage-YYYY-MM-DD.md --dry-run
+
+# Triage inbox/discord-*.md items (ideas + links from Discord)
+# Produces a discard / shallow report (uses Haiku, higher discard bar than feed triage)
+python3 -m agent.humboldt triage-discord
+python3 -m agent.humboldt triage-discord --output inbox/triage-discord-YYYY-MM-DD.md
+
+# Inbox lifecycle management
+python3 -m agent.humboldt inbox status                    # show inbox composition + processed count
+python3 -m agent.humboldt inbox archive-discards --from-triage inbox/triage-YYYY-MM-DD.md
+                                                          # move DISCARD items → inbox/processed/
+python3 -m agent.humboldt inbox cleanup                   # delete processed items older than 30 days
+
+# People / trust model
+python3 -m agent.humboldt people                         # contribution summary, sorted by trust
+python3 -m agent.humboldt people @handle                 # detail for one contributor
 
 # Daemon (Discord bot + scheduled tasks)
 python3 -m agent.humboldt daemon run       # start daemon (blocking)
