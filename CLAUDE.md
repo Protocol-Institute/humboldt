@@ -109,9 +109,15 @@ python3 -m agent.humboldt deepread "simon"
 python3 -m agent.humboldt ingest
 
 # Triage inbox/feed-*.md items against current laws and hypotheses
-# Produces a ranked discard / shallow / deep report (uses Haiku)
+# Produces a discard / shallow report (uses Haiku); depth decisions deferred to shallow-read
 python3 -m agent.humboldt triage-feed
 python3 -m agent.humboldt triage-feed --output inbox/triage-YYYY-MM-DD.md
+
+# Shallow-read all non-discard items from a triage report (uses Haiku)
+# Humboldt writes a synthesis note and decides: store-only or escalate-to-deep
+# Output: bibliography/shallow-reads/YYYY-MM-DD-{title-slug}.md (idempotent)
+python3 -m agent.humboldt shallow-read --from-triage inbox/triage-YYYY-MM-DD.md
+python3 -m agent.humboldt shallow-read --from-triage inbox/triage-YYYY-MM-DD.md --dry-run
 
 # Daemon (Discord bot + scheduled tasks)
 python3 -m agent.humboldt daemon run       # start daemon (blocking)

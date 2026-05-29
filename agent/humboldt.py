@@ -282,6 +282,12 @@ def cmd_triage_feed(output: str | None = None):
     triage_feed(output_path=output)
 
 
+def cmd_shallow_read(triage_path: str, dry_run: bool = False):
+    """Shallow-read all non-discard items from a triage report."""
+    from agent.shallow_read import shallow_read
+    shallow_read(triage_path=triage_path, dry_run=dry_run)
+
+
 def cmd_daemon_run():
     """Start the Humboldt daemon (Discord bot + scheduled tasks)."""
     from daemon.runner import run
@@ -561,8 +567,10 @@ Usage:
   python3 -m agent.humboldt library                      # list deep-read library
   python3 -m agent.humboldt deepread "<name>"            # deep-read full document
   python3 -m agent.humboldt deepread "<name>" "<p1-p2>"  # deep-read page range
-  python3 -m agent.humboldt triage-feed                  # score inbox feed items → discard/shallow/deep report
+  python3 -m agent.humboldt triage-feed                  # score inbox feed items → discard/shallow report
   python3 -m agent.humboldt triage-feed --output FILE    # write triage report to file
+  python3 -m agent.humboldt shallow-read --from-triage FILE   # shallow-read all non-discard items from triage report
+  python3 -m agent.humboldt shallow-read --from-triage FILE --dry-run  # preview, no writes
   python3 -m agent.humboldt ingest                       # embed notebook/notes/laws/ideas/shallow-reads → Pinecone humboldt ns
   python3 -m agent.humboldt daemon run                   # start daemon (Discord + feeds)
   python3 -m agent.humboldt daemon restart               # hot-reload daemon (SIGUSR1, preserves state)
@@ -626,6 +634,17 @@ def main():
             if idx + 1 < len(rest):
                 output = rest[idx + 1]
         cmd_triage_feed(output=output)
+    elif cmd == "shallow-read":
+        triage_path = None
+        dry_run = "--dry-run" in rest
+        if "--from-triage" in rest:
+            idx = rest.index("--from-triage")
+            if idx + 1 < len(rest):
+                triage_path = rest[idx + 1]
+        if not triage_path:
+            print("Usage: humboldt shallow-read --from-triage <report-path>")
+            sys.exit(1)
+        cmd_shallow_read(triage_path=triage_path, dry_run=dry_run)
     elif cmd == "ingest":
         cmd_ingest()
     elif cmd == "daemon":

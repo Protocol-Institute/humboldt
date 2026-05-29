@@ -102,10 +102,9 @@ def _triage_batch(
 For each paper below, output EXACTLY one line:
 [N] DECISION | CONNECTION | RATIONALE
 
-- DECISION: discard | shallow | deep
+- DECISION: discard | shallow
   discard = not meaningfully relevant to any law or hypothesis
-  shallow = relevant — worth a 1-paragraph synthesis note
-  deep = exceptional primary source warranting full M-003 deep read (very rare)
+  shallow = relevant — worth a synthesis note (all relevant papers go here; depth decisions happen during reading)
 - CONNECTION: law/hypothesis IDs most relevant, e.g. "H-001, L-003" (or "none")
 - RATIONALE: one sentence, max 15 words
 
@@ -144,16 +143,17 @@ Output only the numbered lines."""
 
 def _build_report(all_results: list[dict], n_items: int) -> str:
     today = date.today().isoformat()
-    by = {"deep": [], "shallow": [], "discard": []}
+    by = {"shallow": [], "discard": []}
     for r in all_results:
-        by.setdefault(r["decision"], []).append(r)
+        bucket = r["decision"] if r["decision"] in by else "shallow"
+        by[bucket].append(r)
 
-    counts = f"{len(by['deep'])} deep, {len(by['shallow'])} shallow, {len(by['discard'])} discard"
+    counts = f"{len(by['shallow'])} shallow, {len(by['discard'])} discard"
     lines = [
         f"# Feed Triage Report — {today}",
         f"\n{n_items} items triaged: {counts}\n",
     ]
-    for decision, label in [("deep", "DEEP READ"), ("shallow", "SHALLOW READ"), ("discard", "DISCARD")]:
+    for decision, label in [("shallow", "SHALLOW READ"), ("discard", "DISCARD")]:
         group = by.get(decision, [])
         if not group:
             continue

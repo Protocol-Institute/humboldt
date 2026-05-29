@@ -2,7 +2,7 @@
 
 Template for `bibliography/shallow-reads/*.md`. Copy and fill in — delete template comments.
 
-Naming convention: `{author-slug}-{title-slug}.md` (e.g., `jones-protocol-ossification-2023.md`)
+Naming convention: `YYYY-MM-DD-{title-slug}.md` (e.g., `2026-05-29-jones-protocol-ossification.md`)
 
 Files starting with `_` are skipped by the ingest pipeline.
 
@@ -13,8 +13,9 @@ Files starting with `_` are skipped by the ingest pipeline.
 
 **Source:** {full bibliographic reference — author, title, venue/publisher, year, URL if web}
 **Date read:** {YYYY-MM-DD}
-**Triage decision:** shallow
 **Connected to:** {law/hypothesis IDs, e.g. "L-001, H-002" or "none"}
+**Escalation:** {store-only | escalate-to-deep}
+**Escalation rationale:** {one sentence if escalating; leave blank if store-only}
 
 ## What this is
 
@@ -34,5 +35,5 @@ confirm, challenge, or open? What patterns does it instantiate?}
 ## Candidate laws or signals
 
 {Optional. If the work contains a pattern worth tracking as a candidate law, note it here.
-Format: "CL-{Source}-N: {one-sentence statement}". Leave blank if none.}
+Format: "CL-{Source}-N: {one-sentence statement}". Write "none" if nothing stands out.}
 ```
