@@ -4,6 +4,23 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-05-28 (session 9) — launchd relaunch: daemon survives reboots
+
+Session: Track 2 (infrastructure).
+
+**Daemon:** PID 11597 (launched via launchd 2026-05-28; survives reboots and crashes)
+
+**Change:** Created `~/Library/LaunchAgents/org.protocol-institute.humboldt.plist` modeled on c3po's pattern — `KeepAlive: true`, `RunAtLoad: true`, `ThrottleInterval: 30`, explicit PATH/HOME, venv python, logs to `~/Library/Logs/humboldt/`. Loaded and verified: daemon connected to Discord gateway and ran startup tasks on first launch.
+
+**Log files:** `~/Library/Logs/humboldt/daemon.log` (stdout) and `daemon.err` (stderr — where discord.py logs).
+
+**Open:**
+- LINEAGE.md update for Hamming — still pending
+- H-001 (Coordination Cost Conservation): overdue
+- Gestalt re-reads of Simon and Cosmos: queued [H]
+
+---
+
 ## 2026-05-28 (session 8) — Duplicate @mention fix: Discord-idempotent catchup
 
 Session: Track 2 (infrastructure).
