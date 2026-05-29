@@ -380,13 +380,19 @@ def shallow_read(triage_path: str, dry_run: bool = False) -> None:
         author = inbox.get("author", "")
         if author:
             from daemon import people as ppl
-            ppl.record_contributions_for_authors(
+            from agent.person_notebook import generate_person_notebook_entry
+            crossed = ppl.record_contributions_for_authors(
                 author_string=author,
                 decision="shallow",
                 item_type=inbox.get("item_type", "unknown"),
                 title=title,
                 connection=item.get("connection", ""),
             )
+            for handle in crossed:
+                print(f"    → person threshold crossed: @{handle} — generating notebook entry…")
+                out = generate_person_notebook_entry(handle)
+                if out:
+                    print(f"    → written: {out}")
 
         # Delete source inbox file — content is safely in the shallow-read note
         src = _ROOT / "inbox" / item["file"]

@@ -354,21 +354,24 @@ class HumboldtBot(discord.Client):
         channel: str,
     ) -> None:
         """
-        Record a direct @mention interaction, then write a notebook entry if the
-        person has crossed the recurring-interlocutor threshold.
+        Record a direct @mention interaction, then write a person notebook entry
+        if either signal threshold is crossed: interaction count OR useful
+        contribution count >= NOTEBOOK_THRESHOLD. Engaging with Humboldt at all
+        is high-value signal, so interactions alone suffice to trigger the entry.
         """
-        person = await self.loop.run_in_executor(
+        await self.loop.run_in_executor(
             None,
             lambda: ppl.record_interaction(username, user_id, message_snippet, channel),
         )
-        if ppl.needs_notebook_entry(username):
-            logger.info(f"Writing person notebook entry for @{username}")
+        if ppl.needs_person_notebook_entry(username):
+            logger.info(f"Writing person notebook entry for @{username} (threshold crossed)")
             try:
-                entry_text = await presence.generate_person_notebook_entry(username, person)
-                await self._append_person_to_notebook(username, entry_text)
-                await self.loop.run_in_executor(
-                    None, lambda: ppl.mark_notebook_entry_written(username)
+                from agent.person_notebook import generate_person_notebook_entry
+                out = await self.loop.run_in_executor(
+                    None, lambda: generate_person_notebook_entry(username)
                 )
+                if out:
+                    logger.info(f"Person notebook entry written: {out}")
             except Exception as e:
                 logger.error(f"Person notebook entry failed for @{username}: {e}")
 

@@ -49,7 +49,9 @@ def record_interaction(
     """
     Record one interaction with a Discord user.
 
-    Returns the updated person record (useful for callers checking thresholds).
+    Returns the updated person record. Engaging with Humboldt at all is
+    high-value signal — interaction_count crossing NOTEBOOK_THRESHOLD also
+    triggers a person notebook entry (see needs_person_notebook_entry).
     """
     data = load()
     now = datetime.now(timezone.utc).isoformat()
@@ -57,23 +59,31 @@ def record_interaction(
     if username not in data:
         data[username] = {
             "user_id": user_id,
-            "first_seen": now,
-            "last_seen": now,
+            "first_seen": now[:10],
+            "last_seen": now[:10],
             "interaction_count": 0,
             "channels": [],
             "recent_messages": [],
             "notebook_entry_written": False,
+            "useful_contributions": 0,
+            "discarded_contributions": 0,
+            "contribution_history": [],
+            "person_notebook_entry_written": False,
         }
 
     person = data[username]
-    person["user_id"] = user_id  # update in case snowflake changed (unlikely but safe)
-    person["last_seen"] = now
+    person.setdefault("person_notebook_entry_written", False)
+    person.setdefault("useful_contributions", 0)
+    person.setdefault("discarded_contributions", 0)
+    person.setdefault("contribution_history", [])
+
+    person["user_id"] = user_id
+    person["last_seen"] = now[:10]
     person["interaction_count"] += 1
 
     if channel not in person["channels"]:
         person["channels"].append(channel)
 
-    # Keep rolling window of last 10 message snippets for context injection
     person["recent_messages"].append({
         "date": now[:10],
         "channel": channel,
@@ -115,7 +125,7 @@ def get_person_context(username: str) -> str | None:
 
 
 def needs_notebook_entry(username: str) -> bool:
-    """True if this person has hit the threshold and no notebook entry has been written yet."""
+    """True if interaction count has hit threshold and no notebook entry written yet."""
     data = load()
     person = data.get(username)
     if not person:
@@ -126,8 +136,27 @@ def needs_notebook_entry(username: str) -> bool:
     )
 
 
+def needs_person_notebook_entry(username: str) -> bool:
+    """
+    True if this person warrants a notebook entry based on either signal:
+    - useful_contributions >= NOTEBOOK_THRESHOLD, or
+    - interaction_count >= NOTEBOOK_THRESHOLD (engaging with Humboldt is high-value signal)
+    ...and no person notebook entry has been written yet.
+    """
+    data = load()
+    person = data.get(username)
+    if not person:
+        return False
+    if person.get("person_notebook_entry_written", False):
+        return False
+    return (
+        person.get("useful_contributions", 0) >= NOTEBOOK_THRESHOLD
+        or person.get("interaction_count", 0) >= NOTEBOOK_THRESHOLD
+    )
+
+
 def mark_notebook_entry_written(username: str) -> None:
-    """Call after writing a notebook entry for this person."""
+    """Call after writing a (interaction-based) notebook entry for this person."""
     data = load()
     if username in data:
         data[username]["notebook_entry_written"] = True
@@ -150,10 +179,15 @@ def record_contribution(
     title: str,
     connection: str = "",
     contribution_date: str | None = None,
-) -> None:
+) -> bool:
+    """
+    Record one contribution. Returns True if this call just crossed the
+    notebook-entry threshold (useful_contributions went from N-1 to N where
+    N == NOTEBOOK_THRESHOLD), so the caller can trigger entry generation.
+    """
     handle = handle.strip().lstrip("@")
     if handle.lower() in _SKIP_HANDLES:
-        return
+        return False
 
     data = load()
     today = contribution_date or date.today().isoformat()
@@ -170,16 +204,17 @@ def record_contribution(
             "useful_contributions": 0,
             "discarded_contributions": 0,
             "contribution_history": [],
+            "person_notebook_entry_written": False,
         }
 
     person = data[handle]
     person["last_seen"] = today
-
-    # Initialise contribution fields on existing records that predate this feature
     person.setdefault("useful_contributions", 0)
     person.setdefault("discarded_contributions", 0)
     person.setdefault("contribution_history", [])
+    person.setdefault("person_notebook_entry_written", False)
 
+    before = person["useful_contributions"]
     if decision == "shallow":
         person["useful_contributions"] += 1
     elif decision == "discard":
@@ -195,6 +230,16 @@ def record_contribution(
 
     save(data)
 
+    # Signal threshold crossing: just hit NOTEBOOK_THRESHOLD useful contributions
+    # and entry not yet written
+    just_crossed = (
+        decision == "shallow"
+        and before < NOTEBOOK_THRESHOLD
+        and person["useful_contributions"] >= NOTEBOOK_THRESHOLD
+        and not person["person_notebook_entry_written"]
+    )
+    return just_crossed
+
 
 def record_contributions_for_authors(
     author_string: str,
@@ -203,17 +248,33 @@ def record_contributions_for_authors(
     title: str,
     connection: str = "",
     contribution_date: str | None = None,
-) -> None:
-    """Parse a comma-separated author string and record for each author."""
+) -> list[str]:
+    """
+    Parse a comma-separated author string and record for each author.
+    Returns list of handles that just crossed the notebook-entry threshold.
+    """
+    crossed = []
     for handle in author_string.split(","):
-        record_contribution(
-            handle=handle.strip(),
+        handle = handle.strip()
+        if record_contribution(
+            handle=handle,
             decision=decision,
             item_type=item_type,
             title=title,
             connection=connection,
             contribution_date=contribution_date,
-        )
+        ):
+            crossed.append(handle)
+    return crossed
+
+
+def mark_person_notebook_entry_written(handle: str) -> None:
+    """Call after writing a person notebook entry for this handle."""
+    data = load()
+    handle = handle.strip().lstrip("@")
+    if handle in data:
+        data[handle]["person_notebook_entry_written"] = True
+        save(data)
 
 
 def trust_score(person: dict) -> int:
