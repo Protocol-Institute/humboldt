@@ -25,7 +25,7 @@ import yaml
 
 _ROOT = Path(__file__).parent.parent
 _INDEX_PATH = _ROOT / "notebook" / "index.yaml"
-_NOTEBOOK_URL_BASE = "https://protocol-institute.org/humboldt-notebook.html"
+_NOTEBOOK_URL_BASE = "https://protocol-institute.org/humboldt-notebook/"
 
 
 # ── URL helpers ───────────────────────────────────────────────────────────────

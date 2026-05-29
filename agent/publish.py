@@ -35,7 +35,7 @@ _NOTEBOOK_DIR = _ROOT / "notebook"
 
 # Path to the PI website repo (sibling directory)
 _WEBSITE_REPO = _ROOT.parent / "website"
-_NOTEBOOK_HTML = _WEBSITE_REPO / "humboldt-notebook.html"
+_NOTEBOOK_HTML = _WEBSITE_REPO / "humboldt-notebook" / "index.html"
 
 # Markers
 _ENTRY_MARKER_FMT = "<!-- ENTRY: {date} -->"
