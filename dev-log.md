@@ -65,7 +65,7 @@ Continued from session 10 context. The pipeline now handles the full lifecycle f
 **Open:**
 - Complete inbox triage pipeline: write `_SHALLOW-READ-FORMAT.md`, update CLAUDE.md, run triage-feed, commit
 - LINEAGE.md updates for all 4 completed deep reads (operator step)
-- H-001 investigation (now 5+ sessions overdue)
+- H-001 investigation (valley phase, retrieval queries ready)
 - CL-Gestalt-1 and CL-Gestalt-2 promotion to hypotheses
 - Promote CL-Simon-2 to H-003
 

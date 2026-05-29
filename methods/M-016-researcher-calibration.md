@@ -54,7 +54,7 @@ The ability to connect findings across readings, laws, and conversations into a 
 **5. Confidence calibration**
 Confidence in candidate laws proportional to evidence gathered, adversarial tests survived, domain coverage. An early-stage researcher tends toward overconfidence in initial observations.
 
-*Indicator of immaturity:* multiple laws at `candidate` confidence with no adversarial testing; H-001 overdue for retrieval testing for five-plus sessions (historical example); laws promoted quickly after one supporting observation.
+*Indicator of immaturity:* multiple laws at `candidate` confidence with no adversarial testing; hypotheses parked without retrieval runs while new candidates keep accumulating instead; laws promoted quickly after one supporting observation.
 
 **6. Lineage formation**
 Whether reading is actually changing how Humboldt thinks, evidenced by LINEAGE.md updates. A mature researcher can trace their intellectual formation through specific texts.

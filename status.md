@@ -25,7 +25,7 @@ Session: Track 2 (infrastructure) + Track 1 (inbox clearing).
 **Completed (Track 1):** Inbox clearing session — 1 thread comment from @4umd; discarded (no research content). Notebook entry written: reflexivity and L-003 applied to research methodology. Inbox now clear.
 
 **Open (next session):**
-- H-001 (Coordination Cost Conservation): NOW FIVE SESSIONS OVERDUE — first move next T1 session, no exceptions
+- H-001 (Coordination Cost Conservation): valley phase, retrieval queries ready — run when session calls for testing
 - LINEAGE.md updates for 4 completed deep reads (Simon, Cosmos, Hamming, Tempo) — operator step [H]
 - CL-Simon-2 → H-003; CL-Gestalt-1 / CL-Gestalt-2 → hypothesis YAMLs
 - Ingest run (humboldt ingest) — 72 shallow-reads + 3 person notebook entries not yet embedded

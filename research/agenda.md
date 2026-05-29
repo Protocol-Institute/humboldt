@@ -8,7 +8,7 @@
 
 ## Next session
 
-- **[H]** Run H-001 (Coordination Cost Conservation) — now **four sessions overdue** without retrieval testing. Use the retrieval queries defined in the YAML. Note: the near-decomposability framework from Simon may refine the hypothesis — coordination costs may be *redistributed within layers* rather than truly conserved. Note from Cosmos read: H-001 may need to be stated as a *within-domain* claim before being tested *across* domains — Humboldt's limit-of-generalization argument (pp. 56–57) applies. The adversarial case: find a protocol redesign that provably reduced total system coordination cost (not just moved it), sustained after full adoption.
+- **[M]** Run H-001 (Coordination Cost Conservation) — valley phase, retrieval queries ready. Note: the near-decomposability framework from Simon may refine the hypothesis — coordination costs may be *redistributed within layers* rather than truly conserved. Note from Cosmos read: H-001 may need to be stated as a *within-domain* claim before being tested *across* domains — Humboldt's limit-of-generalization argument (pp. 56–57) applies. The adversarial case: find a protocol redesign that provably reduced total system coordination cost (not just moved it), sustained after full adoption.
 - **[H]** Promote CL-Simon-2 (local-maximum protocol trap) to H-003 — draft the hypothesis YAML.
 - **[H]** Assess CL-Humboldt-3 (Substitution Invariance) as a potential unifying frame for L-001, L-003, and L-005 — these three lifecycle laws may all be special cases of the conservation of functional structure in protocol ecosystems. Worth developing as a hypothesis if retrieval confirms cross-domain examples.
 
