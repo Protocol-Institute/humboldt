@@ -4,6 +4,26 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-05-28 (session 10) — Inbox triage pipeline complete; gestalt re-reads committed
+
+Session: Track 2 (infrastructure). Context continuation from session 9.
+
+**Daemon:** PID 11597 (launchd, running; no changes this session)
+
+**Completed:** Inbox triage pipeline — `agent/triage.py` (new), `agent/ingest.py` (extended with shallow_read + inbox_idea chunk types), `agent/humboldt.py` (triage-feed command wired in), `bibliography/shallow-reads/_SHALLOW-READ-FORMAT.md` (template), `CLAUDE.md` (updated commands + namespace count + bibliography inventory). Committed and pushed (5dd83d2).
+
+**Prior session deliverables confirmed committed:** Simon gestalt re-read (ff36159), Cosmos gestalt re-read, READING-HINTS.md updates, launchd plist, M-003 updates.
+
+**Open (next session):**
+- Run `humboldt triage-feed --output inbox/triage-2026-05-28.md` against 57 feed items — deferred
+- LINEAGE.md updates for all 4 completed deep reads (Simon, Cosmos, Hamming, Tempo) — operator step [H]
+- H-001 (Coordination Cost Conservation): overdue
+- CL-Gestalt-1 / CL-Gestalt-2 → promote to hypothesis YAMLs
+- CL-Simon-2 → promote to H-003
+- Discourse style tuning [H]
+
+---
+
 ## 2026-05-28 (session 9) — launchd relaunch: daemon survives reboots
 
 Session: Track 2 (infrastructure).
