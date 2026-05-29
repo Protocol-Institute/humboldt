@@ -8,6 +8,26 @@ Priority: **[H]** urgent, **[M]** soon, **[L]** when convenient.
 
 ## Track 2 — Persona and Infrastructure
 
+### Autonomous research daemon — NEXT SESSION [H]
+
+Full implementation plan at `plans/autonomous-research-daemon.md`. Build in this order:
+
+**Phase 1 — Infrastructure + dry run:**
+- `daemon/research_expenses.py` + `daemon/research-expenses.jsonl`
+- `daemon/escalation-queue.json` (gitignored)
+- `methods/M-018-opportunistic-investigation.md`
+- `daemon/research_tick.py` skeleton (orient + decide + dry-run act/close)
+- Wire `task_research_tick` into `discord_client.py` (dry-run mode)
+- Add `research-tick --dry-run` + `research-expenses` CLI commands
+
+**Phase 2 — Live execution:** hypothesis_retrieval + escalation_precursor + notebook/git/Discord
+
+**Phase 3:** opportunistic (M-018) + sensemaking_synthesis
+
+**Phase 4 (future):** deep read daemon
+
+---
+
 ### Discord presence quality (next cluster)
 
 - **[H]** **Conversation style tuning** — review actual #new-nature transcripts and identify what's off. Current symptoms: likely too formal / too long / too eager. Tune `_slim_context()` and `_rich_context()` prompts based on observed output. May require a dedicated prompt-tuning session with real examples.
