@@ -294,6 +294,33 @@ def cmd_shallow_read(triage_path: str, dry_run: bool = False):
     shallow_read(triage_path=triage_path, dry_run=dry_run)
 
 
+def cmd_inbox_status():
+    """Show unprocessed inbox composition."""
+    from agent.inbox import status
+    status()
+
+
+def cmd_inbox_archive_discards(report_path: str):
+    """Archive discard items from a triage report → inbox/processed/; update people model."""
+    from agent.inbox import archive_discards
+    archive_discards(report_path=report_path)
+
+
+def cmd_inbox_cleanup():
+    """Delete inbox/processed/ items older than 30 days."""
+    from agent.inbox import cleanup
+    cleanup()
+
+
+def cmd_people(handle: str | None = None):
+    """Show contribution trust model for all collaborators, or detail for one."""
+    from daemon.people import contribution_summary, person_contribution_detail
+    if handle:
+        print(person_contribution_detail(handle))
+    else:
+        print(contribution_summary())
+
+
 def cmd_daemon_run():
     """Start the Humboldt daemon (Discord bot + scheduled tasks)."""
     from daemon.runner import run
@@ -577,8 +604,13 @@ Usage:
   python3 -m agent.humboldt triage-feed --output FILE    # write triage report to file
   python3 -m agent.humboldt triage-discord               # score inbox discord items (ideas+links) → report
   python3 -m agent.humboldt triage-discord --output FILE # write discord triage report to file
-  python3 -m agent.humboldt shallow-read --from-triage FILE   # shallow-read all non-discard items from triage report
+  python3 -m agent.humboldt shallow-read --from-triage FILE   # shallow-read all non-discard items; deletes source files
   python3 -m agent.humboldt shallow-read --from-triage FILE --dry-run  # preview, no writes
+  python3 -m agent.humboldt inbox status                      # show unprocessed inbox composition
+  python3 -m agent.humboldt inbox archive-discards --from-triage FILE  # move discards → processed/; update people model
+  python3 -m agent.humboldt inbox cleanup                     # delete processed/ items older than 30 days
+  python3 -m agent.humboldt people                            # show contribution trust model for all collaborators
+  python3 -m agent.humboldt people <handle>                   # detail for one collaborator
   python3 -m agent.humboldt ingest                       # embed notebook/notes/laws/ideas/shallow-reads → Pinecone humboldt ns
   python3 -m agent.humboldt daemon run                   # start daemon (Discord + feeds)
   python3 -m agent.humboldt daemon restart               # hot-reload daemon (SIGUSR1, preserves state)
@@ -660,6 +692,28 @@ def main():
             print("Usage: humboldt shallow-read --from-triage <report-path>")
             sys.exit(1)
         cmd_shallow_read(triage_path=triage_path, dry_run=dry_run)
+    elif cmd == "inbox":
+        subcmd = rest[0] if rest else "status"
+        if subcmd == "status":
+            cmd_inbox_status()
+        elif subcmd == "archive-discards":
+            report_path = None
+            if "--from-triage" in rest:
+                idx = rest.index("--from-triage")
+                if idx + 1 < len(rest):
+                    report_path = rest[idx + 1]
+            if not report_path:
+                print("Usage: humboldt inbox archive-discards --from-triage <report-path>")
+                sys.exit(1)
+            cmd_inbox_archive_discards(report_path=report_path)
+        elif subcmd == "cleanup":
+            cmd_inbox_cleanup()
+        else:
+            print(f"Unknown inbox subcommand: {subcmd}")
+            sys.exit(1)
+    elif cmd == "people":
+        handle = rest[0] if rest else None
+        cmd_people(handle=handle)
     elif cmd == "ingest":
         cmd_ingest()
     elif cmd == "daemon":
