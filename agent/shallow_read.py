@@ -100,11 +100,19 @@ def _read_inbox_item(filename: str) -> dict:
     url_m = re.search(r"\*\*URL:\*\*\s*(.+)$", text, re.MULTILINE)
     source_m = re.search(r"\*\*Source:\*\*\s*(.+)$", text, re.MULTILINE)
     summary_m = re.search(r"## Summary\s*\n(.+?)(?=\n##|\Z)", text, re.DOTALL)
+    type_m = re.search(r"\*\*Type:\*\*\s*(.+)$", text, re.MULTILINE)
+    relevance_m = re.search(r"\*\*Relevance:\*\*\s*(.+)$", text, re.MULTILINE)
+    hypothesis_m = re.search(r"\*\*Hypothesis:\*\*\s*(.+)$", text, re.MULTILINE)
+    author_m = re.search(r"\*\*Author:\*\*\s*(.+)$", text, re.MULTILINE)
     return {
         "title": title_m.group(1).strip() if title_m else filename,
         "url": url_m.group(1).strip() if url_m else "",
         "source": source_m.group(1).strip() if source_m else "",
         "summary": summary_m.group(1).strip()[:600] if summary_m else "",
+        "item_type": type_m.group(1).strip() if type_m else "feed",
+        "relevance": relevance_m.group(1).strip() if relevance_m else "",
+        "hypothesis": hypothesis_m.group(1).strip() if hypothesis_m else "",
+        "author": author_m.group(1).strip() if author_m else "",
     }
 
 
@@ -119,6 +127,15 @@ def _output_filename(title: str) -> str:
 
 
 def _make_prompt(item: dict, inbox: dict, context: str) -> str:
+    item_type = inbox.get("item_type", "feed")
+    if item_type == "idea":
+        return _make_idea_prompt(item, inbox, context)
+    if item_type == "link":
+        return _make_link_prompt(item, inbox, context)
+    return _make_feed_prompt(item, inbox, context)
+
+
+def _make_feed_prompt(item: dict, inbox: dict, context: str) -> str:
     title = inbox.get("title") or item["title"]
     source = inbox.get("source", "")
     url = inbox.get("url") or item["url"]
@@ -172,6 +189,118 @@ Write a shallow read note in EXACTLY this format:
 ## Candidate laws or signals
 
 [If this work suggests a pattern worth tracking as a candidate law, note it as "CL-Source-N: statement". Write "none" if nothing stands out.]"""
+
+
+def _make_idea_prompt(item: dict, inbox: dict, context: str) -> str:
+    title = inbox.get("title") or item["title"]
+    # Strip leading "Idea: " prefix if present
+    idea_text = re.sub(r"^Idea:\s*", "", title, flags=re.IGNORECASE)
+    relevance = inbox.get("relevance", "")
+    hypothesis = inbox.get("hypothesis", "")
+    author = inbox.get("author", "")
+    source = inbox.get("source", "Discord")
+    connection = item.get("connection") or hypothesis or "none"
+
+    return f"""You are Humboldt, an artificial researcher investigating laws of protocolized and artificial systems — the "new nature."
+
+A collaborator has surfaced an idea in a research discussion. Engage with it as a research claim: evaluate its relationship to the current law/hypothesis inventory, identify what it opens or challenges, and decide whether it warrants a candidate law or hypothesis note.
+
+ESCALATION: always store-only for ideas (ideas escalate by becoming candidate laws/hypotheses, not by triggering M-003 deep reads).
+
+CURRENT RESEARCH CONTEXT:
+{context}
+
+IDEA (from {author or 'unknown'} via {source}):
+{idea_text}
+
+Relevance annotation: {relevance}
+Connected hypothesis: {hypothesis or 'none annotated'}
+Triage note: {item.get('connection', connection)} — {item.get('rationale', '')}
+
+Write a shallow read note in EXACTLY this format:
+
+# Idea: {idea_text[:80]}
+
+**Source:** {source}{f' (by {author})' if author else ''}
+**Date read:** {date.today().isoformat()}
+**Connected to:** {connection}
+**Escalation:** store-only
+**Escalation rationale:**
+
+## What this is
+
+[1 sentence: what claim or pattern this idea proposes.]
+
+## What I took from it
+
+[1–2 paragraphs: how this idea connects to or challenges the current inventory. Is it a genuine addition, a restatement of something already captured, or a useful refinement? What does it open?]
+
+## Research connections
+
+[bullet per relevant law or hypothesis: "- **ID:** one sentence on the connection"]
+
+## Candidate laws or signals
+
+[If this idea contains a pattern worth promoting to a candidate law or hypothesis, state it. Format: "CL-Source-N: statement". Write "none" if it is already covered or not yet ripe.]"""
+
+
+def _make_link_prompt(item: dict, inbox: dict, context: str) -> str:
+    title = inbox.get("title") or item["title"]
+    # Strip leading "Link: " prefix if present
+    link_desc = re.sub(r"^Link:\s*", "", title, flags=re.IGNORECASE)
+    url = inbox.get("url") or item["url"]
+    relevance = inbox.get("relevance", "")
+    hypothesis = inbox.get("hypothesis", "")
+    author = inbox.get("author", "")
+    source = inbox.get("source", "Discord")
+    connection = item.get("connection") or hypothesis or "none"
+
+    return f"""You are Humboldt, an artificial researcher investigating laws of protocolized and artificial systems — the "new nature."
+
+A collaborator has shared an external link. You have only the title description and relevance annotation — the full document has not been fetched. Write a synthesis note based on what can be inferred, and decide whether this warrants a full M-003 deep read.
+
+ESCALATION CRITERIA for links — apply strictly:
+- The linked work is a sustained primary argument (book, long essay, foundational paper) not just a case study or news article
+- The relevance annotation indicates it directly challenges or grounds a current law or hypothesis in a non-obvious way
+- The link is to a primary source, not a secondary commentary or reference to Humboldt's own work
+
+CURRENT RESEARCH CONTEXT:
+{context}
+
+LINK (shared by {author or 'unknown'} via {source}):
+Description: {link_desc}
+URL: {url}
+Relevance annotation: {relevance}
+Triage note: {item.get('connection', connection)} — {item.get('rationale', '')}
+
+Note: the full document was not fetched. Base the note on the description and relevance annotation.
+
+Write a shallow read note in EXACTLY this format:
+
+# Link: {link_desc[:80]}
+
+**Source:** {source}{f' (shared by {author})' if author else ''}
+**URL:** {url}
+**Date read:** {date.today().isoformat()}
+**Connected to:** {connection}
+**Escalation:** [store-only OR escalate-to-deep]
+**Escalation rationale:** [one sentence if escalating; leave blank if store-only]
+
+## What this is
+
+[1–2 sentences: type of resource (essay/paper/book/post), apparent main argument, primary domain. Acknowledge the inference from description only.]
+
+## What I took from it
+
+[1–2 paragraphs: based on description and relevance annotation, what does this likely contribute to the new nature agenda? What does it open or confirm? Flag any uncertainty from not having read it.]
+
+## Research connections
+
+[bullet per relevant law or hypothesis: "- **ID:** one sentence on the connection"]
+
+## Candidate laws or signals
+
+[If the description suggests a pattern worth tracking, note it. Write "none" if nothing stands out from the description alone.]"""
 
 
 def _parse_escalation(note: str) -> tuple[bool, str]:

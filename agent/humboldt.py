@@ -282,6 +282,12 @@ def cmd_triage_feed(output: str | None = None):
     triage_feed(output_path=output)
 
 
+def cmd_triage_discord(output: str | None = None):
+    """Triage inbox/discord-*.md items (ideas + links) against current laws and hypotheses."""
+    from agent.triage import triage_discord
+    triage_discord(output_path=output)
+
+
 def cmd_shallow_read(triage_path: str, dry_run: bool = False):
     """Shallow-read all non-discard items from a triage report."""
     from agent.shallow_read import shallow_read
@@ -569,6 +575,8 @@ Usage:
   python3 -m agent.humboldt deepread "<name>" "<p1-p2>"  # deep-read page range
   python3 -m agent.humboldt triage-feed                  # score inbox feed items → discard/shallow report
   python3 -m agent.humboldt triage-feed --output FILE    # write triage report to file
+  python3 -m agent.humboldt triage-discord               # score inbox discord items (ideas+links) → report
+  python3 -m agent.humboldt triage-discord --output FILE # write discord triage report to file
   python3 -m agent.humboldt shallow-read --from-triage FILE   # shallow-read all non-discard items from triage report
   python3 -m agent.humboldt shallow-read --from-triage FILE --dry-run  # preview, no writes
   python3 -m agent.humboldt ingest                       # embed notebook/notes/laws/ideas/shallow-reads → Pinecone humboldt ns
@@ -634,6 +642,13 @@ def main():
             if idx + 1 < len(rest):
                 output = rest[idx + 1]
         cmd_triage_feed(output=output)
+    elif cmd == "triage-discord":
+        output = None
+        if "--output" in rest:
+            idx = rest.index("--output")
+            if idx + 1 < len(rest):
+                output = rest[idx + 1]
+        cmd_triage_discord(output=output)
     elif cmd == "shallow-read":
         triage_path = None
         dry_run = "--dry-run" in rest
