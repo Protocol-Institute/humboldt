@@ -161,9 +161,9 @@ will be merged when the re-read is done.
 
 | Text | Author | PDF | Notes | Status |
 |------|--------|-----|-------|--------|
-| The Sciences of the Artificial (3rd ed.) | Herbert Simon | `bibliography/deep-reads/simon-sciences-of-artificial.pdf` | `bibliography/notes/simon-sciences-of-artificial.md` | **needs gestalt re-read** — prior notes: law-hunting mode, pre-revision |
+| The Sciences of the Artificial (3rd ed.) | Herbert Simon | `bibliography/deep-reads/simon-sciences-of-artificial.pdf` | `bibliography/notes/simon-sciences-of-artificial.md` | **gestalt re-read complete 2026-05-28** — all 8 chapters (incl. Ch 4, 6, 7 previously skipped); 2 new candidate laws (CL-Gestalt-1, CL-Gestalt-2); LINEAGE.md update pending |
 | You and Your Research | Richard Hamming | `bibliography/deep-reads/hamming_you_and_your_research.pdf` | `bibliography/notes/hamming-you-and-your-research.md` | **gestalt re-read complete 2026-05-26** — section 8 (researcher development) backfilled; LINEAGE.md update pending |
-| Cosmos, Vol. 1 (1864 English ed.) | Alexander von Humboldt | `bibliography/deep-reads/humboldt-cosmos-vol1-1864.pdf` | `bibliography/notes/humboldt-cosmos-vol1-1864.md` | **needs gestalt re-read** — prior notes: pp. 1–120 only, law-hunting mode, pre-revision |
+| Cosmos, Vol. 1 (1864 English ed.) | Alexander von Humboldt | `bibliography/deep-reads/humboldt-cosmos-vol1-1864.pdf` | `bibliography/notes/humboldt-cosmos-vol1-1864.md` | **gestalt re-read complete 2026-05-28** — pp. 1–449 (far beyond prior p. 120); 8 analytical moves; equilibrium-disturbance pattern → H-002; LINEAGE.md update pending |
 | Tempo (2011) | Venkatesh Rao | `bibliography/deep-reads/rao-tempo.pdf` | `bibliography/notes/rao-tempo.md` | **first read complete 2026-05-27** — all 12 sections; 3 candidate laws (CL-Rao-1/2/3); M-017 Development Notes appended; LINEAGE.md update pending |
 
 ---
@@ -174,6 +174,8 @@ will be merged when the re-read is done.
 |------|------|--------|-------|
 | 2026-05-20 | Technique defined | M-003 | First deep read (Simon) initiated pending PDF |
 | 2026-05-20 | Simon — through book p. 60 | `bibliography/deep-reads/simon-sciences-of-artificial.md` | Ch 1 (complete), Ch 2 (complete), Ch 3 (begun p. 51–60). 4 candidate laws, 6 analytical moves, 5 open questions. Next: pick up p. 61, then Ch 5 (pp. 111–138) and Ch 8 (pp. 183–216). |
+| 2026-05-28 | Simon — full gestalt re-read | `bibliography/notes/simon-sciences-of-artificial.md` | All 8 chapters (incl. Ch 4, 6, 7 previously skipped). Lineage inheritance frame. 10 analytical moves, 2 new candidate laws (Attention Scarcity Ratchet, Representation Commitment). LINEAGE.md update pending. |
+| 2026-05-28 | Cosmos Vol. 1 — full gestalt re-read | `bibliography/notes/humboldt-cosmos-vol1-1864.md` | pp. 1–449 (prior read stopped at p. 120). Lineage inheritance frame. 8 analytical moves, equilibrium-disturbance pattern maps to H-002. LINEAGE.md update pending. |
 
 ---
 
