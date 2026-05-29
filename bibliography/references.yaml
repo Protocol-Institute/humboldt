@@ -2,19 +2,101 @@
 # Maintained by daemon/conversation_review.py and agent/references.py.
 # Do not edit URLs or IDs manually — use `humboldt references sort` to classify.
 #
-# Status values:
-#   unsorted    — added, not yet classified
-#   read        — worth a light scan; not a deep-read candidate
-#   deep_read   — queued for M-003; meets ≥3 selection criteria
-#   discard     — rejected; sort_reason required
-#
-# Discard reasons:
-#   bullshit        — low epistemic quality, hype, unfounded claims
-#   irrelevant      — no connection to the research agenda
-#   duplicate       — already covered by an existing reference
-#   superseded      — older version; a better source exists
-#   too-thin        — interesting but not enough substance
-#   paywalled       — inaccessible and not worth pursuing
-#   already-known   — adds no new information to what is already held
+# Status: unsorted | read | deep_read | discard
+# Discard reasons: bullshit | irrelevant | duplicate | superseded | too-thin | paywalled | already-known
 
-references: []
+references:
+- added: '2026-05-28'
+  id: ref-2026-05-28-001
+  snippet: Primary research documentation connecting theoretical foundations to ongoing
+    protocol dynamics formalization work.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #new-nature'
+  status: unsorted
+  title: Humboldt's notebook entry integrating Simon and Hamming readings with daemon-layer
+    protocol work.
+  type: article
+  url: https://protocol-institute.org/humboldt-notebook.html#entry-202
+- added: '2026-05-28'
+  id: ref-2026-05-28-002
+  snippet: Relevant as a potential tool for scaling research capture and hypothesis
+    testing across distributed conversations and data sources.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #🎲-random'
+  status: unsorted
+  title: Elicit research platform with growing capabilities and API access for research
+    workflows
+  type: article
+  url: https://docs.elicit.com/#description/other-mcp-clients
+- added: '2026-05-28'
+  id: ref-2026-05-28-003
+  snippet: Technical infrastructure for automating research discovery; relevant to
+    understanding how protocol layers handle coordination and whether search/retrieval
+    mechanics introduce new ossification pressures.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #🎲-random'
+  status: unsorted
+  title: SPLADE semantic search methodology used by Elicit for research automation.
+  type: article
+  url: https://elicit.com/blog/semantic-search/
+- added: '2026-05-28'
+  id: ref-2026-05-28-004
+  snippet: Concrete implementation example for testing H-001 regarding cost distribution
+    across protocol transitions and whether staged architectures reduce or merely
+    displace coordination overhead.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #The orchestration point is right — cross'
+  status: unsorted
+  title: Elicit's hybrid search solution using SPLADE and Vespa for staged retrieval
+    and reranking.
+  type: article
+  url: https://elicit.com/solutions/search
+- added: '2026-05-28'
+  id: ref-2026-05-28-005
+  snippet: Empirical case study of protocol emergence and coordination in non-technical
+    systems; relevant to understanding protocol universality across domains and L-005
+    (working systems resistance to restructuring).
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #🔍-protocol-watch'
+  status: unsorted
+  title: Blog post analyzing communes as institutional sites for coordination through
+    'chore protocols' using economic and systems theory frameworks.
+  type: article
+  url: https://blog.zaratan.world/p/chores-as-complex-coordination
+- added: '2026-05-28'
+  id: ref-2026-05-28-006
+  snippet: Hardware-level protocol redesign attempting to reduce coordination costs
+    at system interconnect layer; directly tests whether coordination cost reduction
+    is achievable across protocol abstraction levels.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #🔍-protocol-watch'
+  status: unsorted
+  title: IEEE ISCAS paper on UnifiedBus interconnect protocol for computing systems
+    reducing communication latency through unified memory addressing.
+  type: article
+  url: https://www.huawei.com/en/news/2026/5/ieee-iscas-tau-scaling
+- added: '2026-05-28'
+  id: ref-2026-05-28-007
+  snippet: Stateless core design is a direct test case for H-001 on coordination cost
+    conservation across protocol layers; statelessness removes certain coordination
+    requirements.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #🔍-protocol-watch'
+  status: unsorted
+  title: Model Context Protocol 2026 release candidate with stateless core architecture.
+  type: article
+  url: https://blog.modelcontextprotocol.io/posts/2026-07-28-release-candidate/
