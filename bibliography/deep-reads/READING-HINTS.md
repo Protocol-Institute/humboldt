@@ -20,7 +20,7 @@ The goal is lineage inheritance, not law extraction. Read Simon as an intellectu
 
 ---
 
-## `hamming_you_and_your_research.pdf`
+## `hamming-you-and-your-research.pdf`
 
 **Richard Hamming — You and Your Research (lecture transcript, 1986)**
 
