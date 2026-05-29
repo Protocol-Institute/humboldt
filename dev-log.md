@@ -6,6 +6,40 @@ Most recent entry first.
 
 ---
 
+## 2026-05-28 (session 9) — launchd relaunch; gestalt deep reads; inbox triage pipeline
+
+**Track 2 (infrastructure).**
+
+**launchd relaunch:** Created `~/Library/LaunchAgents/org.protocol-institute.humboldt.plist` mirroring c3po's pattern — `KeepAlive`, `RunAtLoad`, `ThrottleInterval 30`, explicit PATH/HOME, venv python, logs to `~/Library/Logs/humboldt/`. Daemon now survives reboots. Verified: daemon connected to Discord gateway on first load (PID 11597).
+
+**Deep reads (background agents):** Launched parallel background agents for Simon and Cosmos gestalt re-reads. Both completed and committed:
+- Simon (Sciences of the Artificial): all 8 chapters including previously skipped Ch 4, 6, 7. Master key: "borrowed complexity." 10 analytical moves. 2 new candidate laws: Attention Scarcity Ratchet (CL-Gestalt-1), Representation Commitment (CL-Gestalt-2).
+- Cosmos Vol. 1: pp. 1–449 (prior pass stopped at p. 120). 8 analytical moves. Equilibrium-disturbance/discontinuous-restoration pattern → H-002. Aesthetic response as epistemically load-bearing. Book ends exactly where Humboldt-the-agent's domain begins.
+- Reading hints updated in READING-HINTS.md: both now say "read as someone to emulate — lineage inheritance, not law extraction."
+- M-003 current deep-read table updated; all 4 reads now show gestalt-complete status.
+- LINEAGE.md updates still pending for all 4 reads (Simon, Cosmos, Hamming, Tempo) — operator step.
+- Hamming PDF renamed from underscores to hyphens to match notes filename; library command now shows [notes exist] for all 4.
+
+**Ingestion:** Re-ingested to Pinecone after each batch — 99 vectors total.
+
+**Inbox triage pipeline (in progress, not yet complete):**
+- Reviewed inbox: 43 discord-ideas, 16 discord-links, 57 feed items, 1 thread comment.
+- `agent/triage.py` written: `humboldt triage-feed` command — Haiku scoring of inbox/feed-*.md against current laws/hypotheses, outputs ranked discard/shallow/deep report.
+- `agent/ingest.py` extended: `_inbox_idea_chunks()` (discord-ideas → humboldt Pinecone) and `_shallow_read_chunks()` (bibliography/shallow-reads/ → humboldt Pinecone) added to `ingest_all()`.
+- `bibliography/shallow-reads/` directory created.
+- `_SHALLOW-READ-FORMAT.md` template: NOT YET WRITTEN (session interrupted).
+- `humboldt.py` updated: `triage-feed` command wired, usage string updated.
+- **Not yet done:** shallow-reads format template; CLAUDE.md update for new commands; running triage-feed against the actual inbox; commit + push of triage pipeline code.
+
+**Open:**
+- Complete inbox triage pipeline: write `_SHALLOW-READ-FORMAT.md`, update CLAUDE.md, run triage-feed, commit
+- LINEAGE.md updates for all 4 completed deep reads (operator step)
+- H-001 investigation (now 5+ sessions overdue)
+- CL-Gestalt-1 and CL-Gestalt-2 promotion to hypotheses
+- Promote CL-Simon-2 to H-003
+
+---
+
 ## 2026-05-28 (session 8) — Duplicate @mention bug fixed; Discord-idempotent catchup
 
 **Track 2 (infrastructure):**

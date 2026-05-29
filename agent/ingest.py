@@ -152,6 +152,76 @@ def _law_chunks() -> list[dict]:
     return chunks
 
 
+def _inbox_idea_chunks() -> list[dict]:
+    """One chunk per discord-idea file — community research inputs with hypothesis tags."""
+    inbox_dir = _ROOT / "inbox"
+    chunks = []
+    for path in sorted(inbox_dir.glob("discord-idea-*.md")):
+        text = path.read_text().strip()
+        if not text:
+            continue
+        title_match = re.search(r"^#\s+(.+)$", text, re.MULTILINE)
+        hyp_match = re.search(r"\*\*Hypothesis:\*\*\s*(.+)$", text, re.MULTILINE)
+        author_match = re.search(r"\*\*Author:\*\*\s*(.+)$", text, re.MULTILINE)
+        date_match = re.search(r"\*\*Date:\*\*\s*(.+)$", text, re.MULTILINE)
+
+        title = title_match.group(1).strip() if title_match else path.stem
+        hypothesis = hyp_match.group(1).strip() if hyp_match else ""
+        author = author_match.group(1).strip() if author_match else ""
+        date_str = date_match.group(1).strip() if date_match else ""
+
+        # Strip the leading "Idea: " prefix from the title for cleaner embed text
+        clean_title = re.sub(r"^Idea:\s*", "", title)
+        embed_text = f"Community Research Idea — {clean_title}\n\n{text}"
+        chunk_id = f"humboldt-inbox-idea-{_slugify(path.stem)}"
+
+        chunks.append({
+            "id": chunk_id,
+            "text": embed_text,
+            "metadata": {
+                "type": "inbox_idea",
+                "title": f"Idea: {clean_title[:80]}",
+                "hypothesis": hypothesis,
+                "author": author,
+                "date": date_str,
+                "source_file": f"inbox/{path.name}",
+                "text": embed_text[:2000],
+            },
+        })
+    return chunks
+
+
+def _shallow_read_chunks() -> list[dict]:
+    """Chunk shallow-read notes by ## section, same as deep-read notes."""
+    shallow_dir = _ROOT / "bibliography" / "shallow-reads"
+    if not shallow_dir.exists():
+        return []
+    chunks = []
+    for path in sorted(shallow_dir.glob("*.md")):
+        if path.name.startswith("_"):
+            continue  # skip format templates
+        text = path.read_text()
+        title_match = re.search(r"^#\s+(.+)$", text, re.MULTILINE)
+        doc_title = title_match.group(1).strip() if title_match else path.stem
+
+        for section_title, body in _chunk_markdown(text):
+            embed_text = f"Shallow Read — {doc_title}: {section_title}\n\n{body}"
+            chunk_id = f"humboldt-shallow-{_slugify(path.stem)}-{_slugify(section_title)}"
+            chunks.append({
+                "id": chunk_id,
+                "text": embed_text,
+                "metadata": {
+                    "type": "shallow_read",
+                    "title": f"Shallow Read: {doc_title} — {section_title}",
+                    "doc_title": doc_title,
+                    "section": section_title,
+                    "source_file": f"bibliography/shallow-reads/{path.name}",
+                    "text": embed_text[:2000],
+                },
+            })
+    return chunks
+
+
 def _hypothesis_chunks() -> list[dict]:
     """Embed each hypothesis YAML in full."""
     hyp_dir = _ROOT / "research" / "hypotheses"
@@ -201,8 +271,10 @@ def ingest_all(verbose: bool = True) -> dict:
     all_chunks = (
         _notebook_chunks()
         + _notes_chunks()
+        + _shallow_read_chunks()
         + _law_chunks()
         + _hypothesis_chunks()
+        + _inbox_idea_chunks()
     )
 
     if not all_chunks:

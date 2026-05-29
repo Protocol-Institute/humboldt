@@ -74,7 +74,7 @@ Namespaces (as of 2026-05-20 for PI corpus; 2026-05-26 for humboldt):
 - `discord_links`: 6,722 vectors — enriched Discord links
 - `sig`: 4,689 vectors — SIG channel discussions
 - `transcripts`: 4 vectors (grows with use)
-- `humboldt`: 61 vectors (2026-05-26) — Humboldt's own notebook, reading notes, laws, hypotheses
+- `humboldt`: ~99 vectors (2026-05-28) — Humboldt's own notebook, reading notes, shallow reads, laws, hypotheses, inbox ideas
 
 Do not write to c3po namespaces. Humboldt's own work goes to the `humboldt` namespace via `humboldt ingest`.
 
@@ -104,8 +104,14 @@ python3 -m agent.humboldt library
 python3 -m agent.humboldt deepread "simon"
 
 # Ingest Humboldt's own documents → humboldt Pinecone namespace
-# Run after each session that adds notebook entries, notes, or laws
+# Covers: notebook, reading notes, shallow reads, laws, hypotheses, inbox discord-ideas
+# Run after each session that adds any of the above
 python3 -m agent.humboldt ingest
+
+# Triage inbox/feed-*.md items against current laws and hypotheses
+# Produces a ranked discard / shallow / deep report (uses Haiku)
+python3 -m agent.humboldt triage-feed
+python3 -m agent.humboldt triage-feed --output inbox/triage-YYYY-MM-DD.md
 
 # Daemon (Discord bot + scheduled tasks)
 python3 -m agent.humboldt daemon run       # start daemon (blocking)
@@ -159,7 +165,9 @@ research/
 bibliography/
 ├── deep-reads/   PDF source documents — drop new deep-read texts here
 │                 READING-HINTS.md — reading hints index (required before any deep read)
-└── notes/        Markdown reading notes — one per source, produced by M-003
+├── notes/        Markdown reading notes — one per source, produced by M-003
+└── shallow-reads/ One-paragraph synthesis notes for triage-feed shallow decisions
+                  _SHALLOW-READ-FORMAT.md — template (skipped by ingest, prefix _)
 ```
 
 **Project file conventions:**

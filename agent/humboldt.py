@@ -276,6 +276,12 @@ def cmd_ingest():
     ingest_all(verbose=True)
 
 
+def cmd_triage_feed(output: str | None = None):
+    """Triage inbox/feed-*.md items against current laws and hypotheses."""
+    from agent.triage import triage_feed
+    triage_feed(output_path=output)
+
+
 def cmd_daemon_run():
     """Start the Humboldt daemon (Discord bot + scheduled tasks)."""
     from daemon.runner import run
@@ -555,7 +561,9 @@ Usage:
   python3 -m agent.humboldt library                      # list deep-read library
   python3 -m agent.humboldt deepread "<name>"            # deep-read full document
   python3 -m agent.humboldt deepread "<name>" "<p1-p2>"  # deep-read page range
-  python3 -m agent.humboldt ingest                       # embed notebook/notes/laws → Pinecone humboldt ns
+  python3 -m agent.humboldt triage-feed                  # score inbox feed items → discard/shallow/deep report
+  python3 -m agent.humboldt triage-feed --output FILE    # write triage report to file
+  python3 -m agent.humboldt ingest                       # embed notebook/notes/laws/ideas/shallow-reads → Pinecone humboldt ns
   python3 -m agent.humboldt daemon run                   # start daemon (Discord + feeds)
   python3 -m agent.humboldt daemon restart               # hot-reload daemon (SIGUSR1, preserves state)
   python3 -m agent.humboldt daemon status                # show daemon state + PID
@@ -611,6 +619,13 @@ def main():
         doc = rest[0]
         pages = rest[1] if len(rest) > 1 else None
         cmd_deepread(doc, pages)
+    elif cmd == "triage-feed":
+        output = None
+        if "--output" in rest:
+            idx = rest.index("--output")
+            if idx + 1 < len(rest):
+                output = rest[idx + 1]
+        cmd_triage_feed(output=output)
     elif cmd == "ingest":
         cmd_ingest()
     elif cmd == "daemon":
