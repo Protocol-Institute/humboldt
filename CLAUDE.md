@@ -103,6 +103,10 @@ python3 -m agent.humboldt library
 # Deep-read a document from bibliography/deep-reads/ (reads actual PDF)
 python3 -m agent.humboldt deepread "simon"
 
+# Pre-notebook activity queue — automated process log since last notebook entry
+python3 -m agent.humboldt pre-notebook              # show pending entries
+python3 -m agent.humboldt pre-notebook mark-consumed # advance cursor after writing notebook
+
 # Ingest Humboldt's own documents → humboldt Pinecone namespace
 # Covers: notebook, reading notes, shallow reads, laws, hypotheses, inbox discord-ideas
 # Run after each session that adds any of the above
@@ -204,9 +208,9 @@ When a new law is added or updated, also update the `related_laws` field in any 
 
 ## Session Rituals
 
-Sessions touch one or more tracks. Track 2 startup always runs. Tracks 1 and 3 startup/wrapup run only when that track is active in the session. **Track 2 is the enforcer at wrapup: it must explicitly report on the wrapup checklist for every active track before the session closes.**
+Sessions touch one or more tracks. **Startup:** Track 2 always runs first; Track 1 runs when research work is planned; Track 3 has no startup. **Wrapup:** a single unified ritual (see below) always runs regardless of which tracks were active. Steps marked [T1] are skipped only when no Track 1 work occurred this session.
 
-Items marked **[REQUIRED]** are non-skippable. Skipping them must be flagged explicitly and justified.
+Items marked **[REQUIRED]** are non-skippable. The session checklist must be posted before the session closes.
 
 ---
 
@@ -226,9 +230,10 @@ Items marked **[REQUIRED]** are non-skippable. Skipping them must be flagged exp
 
 *Orients the researcher before investigation. Read before generating or testing anything.*
 
-1. Read the two most recent lab notebook entries (`notebook/`) — pick up the live thread of inquiry.
-2. Read `research/agenda.md` — Humboldt's own research queue. This is the Track 1 to-do list; it lives in `research/` because it belongs to Humboldt, not to the operator.
-3. Scan `research/hypotheses/` for active hypotheses — identify which are ready for adversarial testing vs. still generative.
+1. Run `python3 -m agent.humboldt pre-notebook` — shows all automated activity (shallow reads, ingests, triages, daemon reviews) since the last notebook entry. This is the "what happened while I was away" queue; it feeds into the notebook entry at wrapup.
+2. Read the two most recent lab notebook entries (`notebook/`) — pick up the live thread of inquiry.
+3. Read `research/agenda.md` — Humboldt's own research queue.
+4. Scan `research/hypotheses/` for active hypotheses — identify which are ready for adversarial testing vs. still generative.
 
 ---
 
@@ -238,48 +243,71 @@ Track 3 has no startup ritual. It responds to Track 1 and 2 output at wrapup.
 
 ---
 
-### Track 1 Wrapup — runs after any Track 1 work
+### Session Wrapup — unified ritual, always runs, never abbreviated
 
-1. **[REQUIRED]** Write lab notebook entry in `notebook/YYYY-MM-DD.md` — first person, covers what was investigated, what emerged, what questions opened. Update `notebook/README.md` index. Entry must be written even if the session felt inconclusive; inconclusive sessions often contain the most important observations.
-2. **[REQUIRED]** Update `research/agenda.md` — revise priorities based on what this session produced. Mark completed items done, add new items that emerged, reorder based on current state of inquiry. This is Humboldt's own list; it should reflect Humboldt's current sense of what matters next, not a frozen prior plan.
-3. Update any `research/laws/` or `research/hypotheses/` YAML files modified during the session.
-4. Update reading log in `bibliography/notes/[source].md` if a deep read session occurred.
+**Before starting:** Ask "Ready to wrap up, or is there more to do?" Never initiate the wrapup unilaterally.
 
----
+**The session is not closed until the wrapup checklist has been posted.**
 
-### Track 2 Wrapup — always runs last, enforces all other tracks
+Run all steps in order. Steps marked **[T1]** are skipped only when no Track 1 work occurred; all other steps always run.
 
-*The enforcer. Track 2 closes the session and verifies all active tracks completed their wrapup.*
-
-1. Update `status.md` — dated entry, one-line summary, open items. **Always include current daemon PID** (or "daemon not running") so status.md is the single source of truth for daemon state.
-2. Update `CLAUDE.md` if: namespace vector counts changed, new CLI commands added, new keys added, or ritual definitions changed.
-3. Commit all changed files — `research/`, `notebook/`, `bibliography/`, `methods/`, `_template/`, any modified docs.
-4. Push to `origin main`.
-5. **[REQUIRED]** Write `dev-log.md` entry — covers Track 2 and Track 3 activity: infrastructure changes, persona decisions, open issues updated. Even a short entry is required; silence is not.
-6. Update Claude memory at `/Users/Venkat/.claude/projects/-Users-Venkat-Dropbox-Code-protocol-institute/memory/` — anything non-obvious about research findings, design decisions, or pipeline changes.
-7. **[REQUIRED]** Report the wrapup checklist explicitly:
-
-```
-SESSION WRAPUP REPORT
-─────────────────────
-Active tracks this session: [T1 / T2 / T3]
-
-Track 1: [✓ lab notebook written | SKIPPED — reason: ___]
-Track 2: [✓ dev-log written | SKIPPED — reason: ___]
-         [✓ status.md updated]
-         [✓ committed and pushed]
-Track 3: [✓ template scan completed | no material changes | SKIPPED — reason: ___]
-```
+1. **[T1]** **[REQUIRED]** Write lab notebook entry `notebook/YYYY-MM-DD.md`. Structure: (a) open with a synthesized paragraph covering all pending pre-notebook entries — "Since the last session, I triaged X items, shallow-read Y, the daemon did Z" — then (b) the live session narrative. Run `python3 -m agent.humboldt pre-notebook` at startup (step 1) to get the queue; synthesize it here. After writing, run `python3 -m agent.humboldt pre-notebook mark-consumed` to advance the cursor. Update `notebook/README.md` index.
+2. **[T1]** **[REQUIRED]** Update `research/agenda.md` — mark completed items, add new items that emerged, reorder to reflect current state of inquiry.
+3. **[T1]** Update `research/laws/` or `research/hypotheses/` YAMLs for anything touched this session.
+4. **[T1]** Update `bibliography/notes/[source].md` if a deep read occurred.
+5. **[REQUIRED]** Write `dev-log.md` entry using the schema below. Required for every session — including short, bug-fix, and inconclusive sessions. No devlog entry = session not closed.
+6. Update `status.md` — dated entry, one-line summary, open items. Always include daemon PID (or "not running").
+7. Update `CLAUDE.md` if: namespace vector counts changed, new CLI commands added, new keys added, or ritual definitions changed.
+8. Scan session output for patterns to generalize into `_template/` — update relevant files or note "no changes" in the checklist below.
+9. Commit all changed files — `research/`, `notebook/`, `bibliography/`, `methods/`, `dev-log.md`, `status.md`, `CLAUDE.md`, `TODO.md`, `_template/`, any other modified docs. **Do not commit before step 5** — the devlog entry must be in the same commit as the work it covers.
+10. Push to `origin main`.
+11. Update Claude memory at `/Users/Venkat/.claude/projects/-Users-Venkat-Dropbox-Code-protocol-institute-humboldt/memory/` — anything non-obvious not already in CLAUDE.md.
+12. **[REQUIRED]** Post the wrapup checklist.
 
 ---
 
-### Track 3 Wrapup — runs after Track 1 and 2 wrapup, when either was active
+### Dev-log entry schema
 
-*Scans session output for patterns that should generalize into the template.*
+Required fields — every entry, every session:
 
-1. Review Track 1 wrapup output (new techniques, new method applications, notebook observations about research process) — does any of it represent a generalizable pattern not yet in `_template/`?
-2. Review Track 2 wrapup output (persona decisions, SOUL/METHOD changes, ritual refinements) — does any of it update the template's recommended patterns?
-3. If material changes found: update the relevant file(s) in `_template/`. If no material changes: note "no template updates" in the Track 3 line of the wrapup report.
+```
+## YYYY-MM-DD (session N) — Short descriptive title
+
+**Tracks active:** T1 / T2 / T3
+**Daemon PID:** [PID] (or "not running")
+
+[Body: what changed and why. Explain reasoning behind decisions, not just what files changed.
+Name the current state of affected subsystems after the session ends. Note anything that
+closes off alternatives or locks in a direction. A three-sentence entry is fine for a short
+session. Zero sentences is never acceptable.]
+
+**Open (next session):**
+- [item]
+```
+
+---
+
+### Wrapup checklist (post at end of every session)
+
+```
+SESSION WRAPUP — [YYYY-MM-DD] — session [N]
+══════════════════════════════════════════════════
+Tracks active: [T1 / T2 / T3]
+Daemon PID: [PID or "not running"]
+
+ 1. [T1] Notebook entry written ........... [✓ | — no T1]
+ 2. [T1] research/agenda.md updated ........ [✓ | — no T1]
+ 3. [T1] Laws/hypotheses YAMLs updated ..... [✓ | n/a | — no T1]
+ 4. [T1] Reading notes updated ............. [✓ | n/a | — no T1]
+ 5.      dev-log.md entry written ........... [✓ | ✗ EXPLAIN]
+ 6.      status.md updated .................. [✓ | ✗ EXPLAIN]
+ 7.      CLAUDE.md updated .................. [✓ | n/a]
+ 8.      Template scan ...................... [✓ no changes | ✓ updated: ___ | n/a]
+ 9.      Committed .......................... [✓ | ✗ EXPLAIN]
+10.      Pushed ............................. [✓ | ✗ EXPLAIN]
+11.      Claude memory updated .............. [✓ | n/a]
+══════════════════════════════════════════════════
+```
 
 ---
 

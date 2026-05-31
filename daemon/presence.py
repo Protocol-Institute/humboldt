@@ -206,7 +206,7 @@ async def generate_notebook_post(
     """Generate a #new-nature post announcing a new notebook entry."""
     entry_text = entry_path.read_text() if entry_path.exists() else ""
     paragraphs = [p.strip() for p in entry_text.split("\n\n") if p.strip() and not p.startswith("#")]
-    snippet = paragraphs[0][:500] if paragraphs else "(no content)"
+    snippet = "\n\n".join(paragraphs)[:1200] if paragraphs else "(no content)"
 
     # Use entry_url (direct anchor) if provided, else look up public notebook URL
     if entry_url:
@@ -227,14 +227,15 @@ async def generate_notebook_post(
     costs.check_budget()
     resp = await _client().messages.create(
         model=_MAIN_MODEL,
-        max_tokens=300,
+        max_tokens=100,
         system=_slim_context(),
         messages=[{"role": "user", "content": (
-            f"I just wrote a lab notebook entry for {entry_date}. Opening:\n\n{snippet}\n\n"
+            f"I just wrote a lab notebook entry for {entry_date}:\n\n{snippet}\n\n"
             f"Link: {notebook_url}\n\n"
-            f"Write a short Discord post (2–4 sentences) for #new-nature sharing this. "
-            f"Include what emerged and the link. First person, researcher tone, not a press release. "
-            f"Under 400 characters."
+            f"Write a single-sentence Discord post for #new-nature. "
+            f"State the most concrete thing that happened or emerged — a specific finding, a question that sharpened, a tension that surfaced. "
+            f"Not a summary of topics, not a teaser. The actual thing. "
+            f"End with the link. Under 220 characters total. First person."
         )}],
     )
     costs.log_call("notebook_post", _MAIN_MODEL, resp.usage.input_tokens, resp.usage.output_tokens)

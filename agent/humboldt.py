@@ -716,6 +716,15 @@ def main():
         cmd_people(handle=handle)
     elif cmd == "ingest":
         cmd_ingest()
+    elif cmd == "pre-notebook":
+        subcmd = rest[0] if rest else "show"
+        if subcmd == "mark-consumed":
+            from agent.pre_notebook import mark_consumed
+            mark_consumed()
+            print("Pre-notebook cursor advanced.")
+        else:
+            from agent.pre_notebook import show_pending
+            show_pending()
     elif cmd == "daemon":
         subcmd = rest[0] if rest else "run"
         if subcmd == "run":

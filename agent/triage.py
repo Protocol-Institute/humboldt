@@ -198,7 +198,12 @@ def _load_discord_items() -> list[dict]:
 def _triage_discord_batch(items: list[dict], context: str, client) -> list[dict]:
     item_block = ""
     for i, item in enumerate(items):
-        annotation = item["hypothesis"] or item["relevance"][:120]
+        parts = []
+        if item["hypothesis"]:
+            parts.append(f"Tagged: {item['hypothesis']}")
+        if item["relevance"]:
+            parts.append(item["relevance"][:150])
+        annotation = " — ".join(parts) if parts else "(no annotation)"
         item_block += (
             f"\n[{i + 1}] [{item['item_type']}] {item['title']}\n"
             f"Annotation: {annotation}\n"
@@ -285,6 +290,18 @@ def triage_discord(output_path: str | None = None) -> None:
     else:
         print("\n" + report)
 
+    n_shallow = sum(1 for r in all_results if r["decision"] == "shallow")
+    n_discard = sum(1 for r in all_results if r["decision"] == "discard")
+    try:
+        from agent.pre_notebook import append as pn_append
+        pn_append(
+            process="triage_discord",
+            summary=f"Triaged {len(items)} Discord items: {n_shallow} shallow, {n_discard} discard.",
+            detail={"shallow": n_shallow, "discard": n_discard, "total": len(items)},
+        )
+    except Exception:
+        pass
+
 
 def triage_feed(output_path: str | None = None) -> None:
     from dotenv import load_dotenv
@@ -317,3 +334,15 @@ def triage_feed(output_path: str | None = None) -> None:
         print(f"\nReport written to: {output_path}")
     else:
         print("\n" + report)
+
+    n_shallow = sum(1 for r in all_results if r["decision"] == "shallow")
+    n_discard = sum(1 for r in all_results if r["decision"] == "discard")
+    try:
+        from agent.pre_notebook import append as pn_append
+        pn_append(
+            process="triage_feed",
+            summary=f"Triaged {len(items)} feed items: {n_shallow} shallow, {n_discard} discard.",
+            detail={"shallow": n_shallow, "discard": n_discard, "total": len(items)},
+        )
+    except Exception:
+        pass

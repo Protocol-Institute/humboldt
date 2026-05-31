@@ -221,4 +221,23 @@ async def run_review(
     if notebook_written or refs_added:
         _commit_review_output(nb_path, refs_added > 0)
 
+    # 4. Append to pre-notebook log
+    try:
+        from agent.pre_notebook import append as pn_append
+        parts = []
+        if notebook_written:
+            parts.append(f"notebook section written to {nb_path.name}")
+        if refs_added:
+            parts.append(f"{refs_added} reference(s) promoted to bibliography/references.yaml")
+        if not parts:
+            parts.append("nothing new to synthesize")
+        pn_append(
+            process="daemon_conversation_review",
+            summary=f"Daily conversation review: {'; '.join(parts)}.",
+            detail={"notebook_written": notebook_written, "references_added": refs_added,
+                    "last_review_date": last_review_date},
+        )
+    except Exception:
+        pass
+
     return {"notebook_written": notebook_written, "references_added": refs_added}

@@ -499,6 +499,14 @@ class HumboldtBot(discord.Client):
             except Exception as e:
                 logger.warning(f"Post-notebook publish failed: {e}")
 
+            # Advance pre-notebook cursor — new entries have consumed the queue
+            try:
+                from agent.pre_notebook import mark_consumed
+                await self.loop.run_in_executor(None, mark_consumed)
+                logger.info("Pre-notebook cursor advanced after notebook commit")
+            except Exception as e:
+                logger.warning(f"Pre-notebook cursor advance failed: {e}")
+
     @task_notebook.before_loop
     async def before_task_notebook(self):
         await self.wait_until_ready()

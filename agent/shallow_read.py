@@ -419,3 +419,30 @@ def shallow_read(triage_path: str, dry_run: bool = False) -> None:
                 print(f"    {e['rationale']}")
     else:
         print("\nNo escalations — all stored as shallow reads.")
+
+    if dry_run or written == 0:
+        return
+
+    # Append to pre-notebook log
+    from agent.pre_notebook import append as pn_append
+    escalation_titles = [e["title"] for e in escalations]
+    summary = (
+        f"Shallow-read {written} items from {Path(triage_path).name}: "
+        f"{len(escalations)} escalation(s)."
+        + (f" Escalated: {'; '.join(escalation_titles[:3])}." if escalation_titles else "")
+    )
+    pn_append(
+        process="shallow_read",
+        summary=summary,
+        detail={
+            "written": written,
+            "skipped": skipped,
+            "escalations": escalation_titles,
+            "triage_source": Path(triage_path).name,
+        },
+    )
+
+    # Re-ingest so shallow-read notes are immediately searchable
+    print("\nRe-ingesting humboldt namespace…")
+    from agent.ingest import ingest_all
+    ingest_all(verbose=True)

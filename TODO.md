@@ -8,21 +8,25 @@ Priority: **[H]** urgent, **[M]** soon, **[L]** when convenient.
 
 ## Track 2 — Persona and Infrastructure
 
-### Autonomous research daemon — NEXT SESSION [H]
+### Autonomous research daemon — Layer 1 RUNNING; Layer 2 next [H]
 
-Full implementation plan at `plans/autonomous-research-daemon.md`. Build in this order:
+Full plan at `plans/autonomous-research-daemon.md`.
+
+**Layer 1 (COMPLETE — running since session 9):** `task_conversation_review` — daily Discord synthesis into notebook + reference promotion to `bibliography/references.yaml`. Has produced autonomous notebook entries on 2026-05-30 and 2026-05-31.
+
+**Layer 2 — research_tick (NOT YET BUILT):** Build in this order:
 
 **Phase 1 — Infrastructure + dry run:**
 - `daemon/research_expenses.py` + `daemon/research-expenses.jsonl`
 - `daemon/escalation-queue.json` (gitignored)
-- `methods/M-018-opportunistic-investigation.md`
+- `methods/M-019-opportunistic-investigation.md` (M-018 slot taken by Open Source Exploration)
 - `daemon/research_tick.py` skeleton (orient + decide + dry-run act/close)
 - Wire `task_research_tick` into `discord_client.py` (dry-run mode)
 - Add `research-tick --dry-run` + `research-expenses` CLI commands
 
 **Phase 2 — Live execution:** hypothesis_retrieval + escalation_precursor + notebook/git/Discord
 
-**Phase 3:** opportunistic (M-018) + sensemaking_synthesis
+**Phase 3:** opportunistic (M-019) + sensemaking_synthesis
 
 **Phase 4 (future):** deep read daemon
 

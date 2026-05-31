@@ -282,12 +282,13 @@ def ingest_all(verbose: bool = True) -> dict:
             print("No documents found to ingest.")
         return {"upserted": 0}
 
+    type_counts: dict[str, int] = {}
+    for c in all_chunks:
+        t = c["metadata"]["type"]
+        type_counts[t] = type_counts.get(t, 0) + 1
+    breakdown = ", ".join(f"{v} {k}" for k, v in type_counts.items())
+
     if verbose:
-        type_counts: dict[str, int] = {}
-        for c in all_chunks:
-            t = c["metadata"]["type"]
-            type_counts[t] = type_counts.get(t, 0) + 1
-        breakdown = ", ".join(f"{v} {k}" for k, v in type_counts.items())
         print(f"Ingesting {len(all_chunks)} chunks ({breakdown}) → namespace '{_NAMESPACE}'")
 
     idx = _pinecone_index()
@@ -308,4 +309,15 @@ def ingest_all(verbose: bool = True) -> dict:
 
     if verbose:
         print(f"Done. {total_upserted} vectors upserted to '{_NAMESPACE}'.")
+
+    try:
+        from agent.pre_notebook import append as pn_append
+        pn_append(
+            process="ingest",
+            summary=f"Re-ingested humboldt namespace: {total_upserted} vectors ({breakdown}).",
+            detail=type_counts,
+        )
+    except Exception:
+        pass
+
     return {"upserted": total_upserted}

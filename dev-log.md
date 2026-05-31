@@ -6,6 +6,47 @@ Most recent entry first.
 
 ---
 
+## 2026-05-31 (session 13) — Triage bug fix; daemon notebook post tuning; session wrapup reconstruction
+
+**Track 2 (infrastructure).**
+
+*Note: sessions 12 and 13 had incomplete wrapups. This entry reconstructs session 12 and covers session 13.*
+
+**Daemon notebook post prompt (presence.py):**
+- `generate_notebook_post`: changed from "2–4 sentences, under 400 characters" to single-sentence with concrete-finding constraint. Snippet expanded from first-paragraph-only (500 chars) to full entry joined paragraphs (1200 chars). max_tokens reduced 300→100. Goal: posts should report the actual thing that happened, not a topic teaser.
+
+**Triage bug fix (agent/triage.py):**
+- `_triage_discord_batch`: `annotation = item["hypothesis"] or item["relevance"][:120]` was short-circuiting — when a capture file had a hypothesis tag (e.g. "H-001"), the relevance note was dropped entirely. Haiku saw only a bare ID with no context, defaulting to "methodological reference" heuristics. Fixed to concatenate both: `"Tagged: H-001 — [relevance text]"`. Brian Arthur's *The Nature of Technology* was the canary — it had H-001 tagged and a relevance note that never reached the model.
+
+**Shallow reads in progress (background):** discord triage (18 items) and feed triage (18 items) both running via `shallow-read --from-triage`.
+
+**Open:**
+- Shallow reads completing (background)
+- `humboldt ingest` — shallow-reads not yet embedded
+- LINEAGE.md updates (operator step)
+- CL-Simon-2 → H-003 YAML
+
+---
+
+## 2026-05-29 (session 12) — Autonomous research daemon plan; two publish bug fixes
+
+**Track 2 (infrastructure). Brief session, no formal wrapup written at the time.**
+
+**Autonomous research daemon plan:**
+- `plans/autonomous-research-daemon.md` written: full design for four-phase build. Phase 1: expenses log, escalation queue, M-018 stub, `research_tick.py` skeleton in dry-run. Phase 2: live hypothesis retrieval + notebook/git/Discord output. Phase 3: opportunistic (M-018) + sensemaking synthesis. Phase 4: deep read daemon (future).
+- `TODO.md` updated with Phase 1–4 build order under "Autonomous research daemon — NEXT SESSION [H]."
+- Note: `task_conversation_review` (already running since session 9 / commit c617bd9) constitutes the first layer of autonomous research. It synthesizes Discord conversations daily into notebook entries and promotes links to `bibliography/references.yaml`. It has already produced autonomous notebook entries on 2026-05-30 and 2026-05-31. The `research_tick` (hypothesis retrieval, escalation queue) is the unimplemented second layer.
+
+**Notebook publish path fix:**
+- `agent/publish.py`: output path changed from `humboldt-notebook.html` to `humboldt-notebook/index.html` to match website clean-URL migration.
+- `agent/notebook_index.py`: URL base updated to `/humboldt-notebook/` so Discord announcement links resolve correctly.
+
+**Person notebook entry broadcast fix:**
+- `daemon/notebook_watcher.py`: now filters to `YYYY-MM-DD` stem format only and explicitly excludes `notebook/people/`. Person profiles (collaborator mental models) are private; they were previously being announced to #new-nature as if they were lab notebook entries.
+- Three mistakenly-announced posts (for `_vgr`, `boredgargoyle`, `4umd`) deleted from Discord; their entries removed from `notebook/index.yaml`.
+
+---
+
 ## 2026-05-29 (session 11) — Inbox processing pipeline complete; inbox clear
 
 **Track 2 (infrastructure) + Track 1 (inbox clearing).**
