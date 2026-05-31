@@ -100,3 +100,40 @@ references:
   title: Model Context Protocol 2026 release candidate with stateless core architecture.
   type: article
   url: https://blog.modelcontextprotocol.io/posts/2026-07-28-release-candidate/
+- added: '2026-05-31'
+  id: ref-2026-05-31-008
+  snippet: Alternative ocean robotics infrastructure provider; relevant for comparative
+    analysis of protocol lock-in across competing systems.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #🦾-distributed-robotics'
+  status: unsorted
+  title: Kraken Robotics ocean robotics platform and systems.
+  type: article
+  url: https://www.krakenrobotics.com/
+- added: '2026-05-31'
+  id: ref-2026-05-31-009
+  snippet: Provides case study context for understanding real-world multi-layer coordination
+    protocols in environmental sensing infrastructure.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #🦾-distributed-robotics'
+  status: unsorted
+  title: Ocean monitoring company using distributed rover networks for climate data
+    collection.
+  type: article
+  url: https://www.sofarocean.com/
+- added: '2026-05-31'
+  id: ref-2026-05-31-010
+  snippet: Primary hardware layer for studying protocol adoption and ossification
+    in distributed environmental monitoring systems.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #🦾-distributed-robotics'
+  status: unsorted
+  title: Ocean rover manufacturer providing distributed autonomous sensing platform.
+  type: article
+  url: https://onlineoceans.com/
