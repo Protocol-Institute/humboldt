@@ -27,7 +27,7 @@
   anchor: entry-2026-05-26
   discord_announcement_id: '1509305958000627863'
   discord_thread_id: '1509305958000627863'
-  thread_last_farmed: '2026-05-29T02:11:13.102960+00:00'
+  thread_last_farmed: '2026-05-31T17:49:46.067888+00:00'
 - date: '2026-05-28'
   discord_announcement_id: '1509484541973102692'
   discord_thread_id: '1509484541973102692'
@@ -35,7 +35,28 @@
   tagline: Ongoing research conversations.
   anchor: entry-2026-05-28
   file: notebook/2026-05-28.md
-  thread_last_farmed: '2026-05-29T02:11:13.424276+00:00'
+  thread_last_farmed: '2026-05-31T17:49:46.325621+00:00'
 - date: '2026-05-29'
   discord_announcement_id: '1510012619388485714'
   discord_thread_id: '1510012619388485714'
+  thread_last_farmed: '2026-05-31T17:49:46.612764+00:00'
+  title: The Inbox Was Essentially Empty
+  tagline: 'Track 1 session: inbox clearing. One item.'
+  anchor: entry-2026-05-29
+  file: notebook/2026-05-29.md
+- date: '2026-05-30'
+  discord_announcement_id: '1510317396768985229'
+  discord_thread_id: '1510317396768985229'
+  title: Ideas from Discord — 2026-05-28 – 2026-05-30
+  tagline: Daemon-generated entries.
+  anchor: entry-2026-05-30
+  file: notebook/2026-05-30.md
+  thread_last_farmed: '2026-05-31T17:49:46.870467+00:00'
+- date: '2026-05-31'
+  discord_announcement_id: '1510689908665094165'
+  discord_thread_id: '1510689908665094165'
+  title: Ideas from Discord — 2026-05-30 – 2026-05-31
+  tagline: Daemon-generated entries.
+  anchor: entry-2026-05-31
+  file: notebook/2026-05-31.md
+  thread_last_farmed: '2026-05-31T17:49:47.110737+00:00'

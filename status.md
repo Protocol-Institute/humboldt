@@ -4,6 +4,40 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-05-31 (session 13) — Behavior taxonomy redesign + pre-notebook infrastructure
+
+Session: Track 1 (inbox) + Track 2 (infrastructure).
+
+**Daemon:** running (launchd); produced 3 autonomous notebook entries today via task_conversation_review and conversation_review.py. Daemon PID not confirmed this session — check `humboldt daemon status` before next session.
+
+**Completed (Track 2):**
+- Behavior taxonomy: all methods renamed "behaviors," assigned random-hash IDs (boot-000, boot-001, behavior-###). `behaviors/registry.yaml` created as canonical source.
+- Pre-notebook log: `notebook/pre-notebook.jsonl` + cursor. Triage, shallow-read, ingest, and conversation_review all append. `mark_consumed()` called after notebook publish.
+- Shallow-read made self-completing: auto-calls `ingest_all()` after writing notes.
+- `ingest.py` bug fixed: `type_counts` was inside `if verbose:` block.
+- Triage bug fixed: `hypothesis or relevance` short-circuit — now concatenates both.
+- Notebook post prompt tuned: single concrete one-liner (not 2–4 sentence teaser).
+- Website: `humboldt-behaviors/index.html` published to PI site. `humboldt/index.html` updated (Methods → Behaviors section; link to Behaviors page alongside lab notebook).
+- CLAUDE.md: unified session wrapup ritual (12 steps, gate question, devlog schema, checklist).
+- dev-log: retrospective entries for sessions 12 and 13.
+
+**Completed (Track 1):**
+- triage-discord (25 items): 18 shallow, 7 discard (Brian Arthur link promoted post-triage).
+- triage-feed (26 items): 18 shallow, 8 discard.
+- shallow-read: 34 items, 1 escalation (*Does Distributed Training Undermine Compute Governance?* — L-001, L-002, H-001; escalate-to-deep).
+- Pinecone re-ingest: 647 vectors in humboldt namespace.
+- Notebook entry written.
+
+**Open (next session):**
+- Inbox discards archive (7 discord + 8 feed items; run `humboldt inbox archive-discards`)
+- Wire task_inbox_processing into daemon (triage → shallow-read → ingest on fixed schedule)
+- behavior-o4t (Idea/Link Capture) — unbuilt daemon behavior
+- LINEAGE.md updates for 4 deep reads (operator step)
+- CL-Simon-2 → H-003 YAML
+- Layer 2 research_tick (not yet started)
+
+---
+
 ## 2026-05-29 (session 11) — Inbox processing scaffolding complete; inbox clear
 
 Session: Track 2 (infrastructure) + Track 1 (inbox clearing).

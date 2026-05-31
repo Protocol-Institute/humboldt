@@ -20,11 +20,37 @@ Most recent entry first.
 
 **Shallow reads in progress (background):** discord triage (18 items) and feed triage (18 items) both running via `shallow-read --from-triage`.
 
+**Behavior taxonomy redesign (continued in same session):**
+- All methods renamed "behaviors" — recurrent habits, not recipes.
+- ID scheme: `boot-###` for bootstrap-triggered (2 behaviors); `behavior-###` with random 3-char hashes for all others (21 behaviors, including 5 new daemon stubs).
+- `behaviors/registry.yaml`: canonical inventory with classification (supervised/live/daemon), state (stub/prototyping/production), source file, and brief implementation note for each behavior.
+- Legacy M-00x IDs preserved as `legacy_id` field; methods/ files unchanged for now.
+- Website Behaviors page: `humboldt-behaviors/index.html` on PI website, grouped by type with state and type badges. `humboldt/index.html` updated: "Methods" section renamed to "Behaviors," link to Behaviors page added alongside lab notebook link.
+- 5 new daemon behavior stubs documented (behavior-e2h, behavior-a8r, behavior-o4t, behavior-g7u, behavior-v3c): feed intake, conversation synthesis, idea/link capture, notebook publish, thread farming.
+
+**Pre-notebook infrastructure:**
+- `agent/pre_notebook.py`: append-only JSONL queue at `notebook/pre-notebook.jsonl`. Cursor file at `notebook/.pre-notebook-cursor` tracks consumed entries. `append()`, `get_pending()`, `mark_consumed()`, `show_pending()` API.
+- `daemon/conversation_review.py`: appends pre-notebook entry after each review run.
+- `agent/triage.py`: appends pre-notebook entries after triage_discord + triage_feed.
+- `agent/shallow_read.py`: appends pre-notebook entry after write; then calls `ingest_all()` automatically. Self-completing pipeline: triage → shallow-read → ingest requires no manual follow-up.
+- `agent/ingest.py`: fix — `type_counts` dict moved outside `if verbose:` block (was undefined when verbose=False). Now appends pre-notebook entry after ingest.
+- `daemon/discord_client.py`: `mark_consumed()` called after notebook publish so cursor advances.
+- `agent/humboldt.py`: `pre-notebook` CLI command (show pending queue; `mark-consumed` subcommand).
+
+**Shallow reads (background, ran in session):**
+- 34 items shallow-read (discord + feed triage 2026-05-31). Notes in `bibliography/shallow-reads/`.
+- 1 escalation: *Does Distributed Training Undermine Compute Governance?* → escalate-to-deep (L-001, L-002, H-001).
+- Ingest ran automatically: 647 vectors in humboldt namespace (59 notebook, 46 notes, 530 shallow_read, 5 law, 2 hypothesis, 5 inbox_idea).
+
+**CLAUDE.md:**
+- Session wrapup restructured from 3 track-split sections → 1 unified ritual (12 numbered steps, gate question, devlog schema, step-level checklist template). This is session 13's wrapup format.
+
 **Open:**
-- Shallow reads completing (background)
-- `humboldt ingest` — shallow-reads not yet embedded
-- LINEAGE.md updates (operator step)
+- LINEAGE.md updates (operator step — 4 deep reads unrecorded)
 - CL-Simon-2 → H-003 YAML
+- Inbox discards archive — 7 discord + 8 feed items still in inbox/
+- Wire task_inbox_processing into daemon (triage → shallow-read → ingest on fixed schedule)
+- behavior-o4t (Idea/Link Capture) — the remaining unbuilt daemon behavior
 
 ---
 
