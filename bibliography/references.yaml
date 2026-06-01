@@ -137,3 +137,40 @@ references:
   title: Ocean rover manufacturer providing distributed autonomous sensing platform.
   type: article
   url: https://onlineoceans.com/
+- added: '2026-06-01'
+  id: ref-2026-06-01-011
+  snippet: Primary research instrument referenced for gathering observations on protocol
+    adoption patterns in real-time.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #Protocols for Business [01-06-26] -- Summer 2026 Direction Discussion'
+  status: unsorted
+  title: Protocolized agent interface for observational capture on organizational
+    protocol changes.
+  type: article
+  url: https://c3po.protocolized.io/
+- added: '2026-06-01'
+  id: ref-2026-06-01-012
+  snippet: Central documentation system for this research agenda's outputs and findings.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #Protocols for Business [01-06-26] -- Summer 2026 Direction Discussion'
+  status: unsorted
+  title: Humboldt research output and findings repository on protocol dynamics.
+  type: article
+  url: https://protocol-institute.org/humboldt/
+- added: '2026-06-01'
+  id: ref-2026-06-01-013
+  snippet: Could provide economic framing for understanding whether apparent coordination
+    gains from AI represent true efficiency or mask hidden costs—relevant to L-004
+    (Goodhart Generalization).
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #Protocols for Business [01-06-26] -- Summer 2026 Direction Discussion'
+  status: unsorted
+  title: Article on the AI productivity paradox and its economic implications.
+  type: article
+  url: https://read.technically.dev/p/the-ai-productivity-paradox
