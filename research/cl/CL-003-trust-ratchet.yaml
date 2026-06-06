@@ -1,0 +1,74 @@
+id: "CL-003"
+ds_file: "research/ds/DS-007-trust-ratchet.md"
+hypothesis_id: null   # H YAML predates new H schema; sensemaking in DS file
+name: "Trust Ratchet in Safety-Critical Protocols"
+type: lifecycle
+statement: >
+  Trust in safety-critical protocols accumulates as a function of operational age
+  and stability rather than technical correctness, creating a systematic bias toward
+  under-updating when technical conditions change. Safety-critical protocols are most
+  trusted precisely when they have not been tested under the new conditions that make
+  them most likely to fail.
+mechanism: >
+  Trust updates asymmetrically: each incident-free operation adds a small positive
+  increment; correction requires a salient incident, which the protocol is specifically
+  designed to prevent. Incident-free history is cognitively accessible evidence;
+  technical incorrectness is often not. The ratchet structure: clicking forward easily
+  (every safe day adds to trust), resisting backward motion (no incident means no
+  salient evidence of incorrectness). The result: age and stability become the primary
+  evidence of reliability, independent of technical design validity.
+  Corollary: the way to make safety-critical protocols updatable is not to argue for
+  a better protocol but to first establish a trusted update meta-protocol. The
+  meta-protocol must itself accumulate survival-evidence before object-level protocols
+  can be updated without trust destruction.
+domains:
+  - "aviation: runway incursion protocols trusted for decades; incidents required
+    to trigger standardization updates"
+  - "medical: antiseptic handwashing — Semmelweis could not get adoption despite
+    technical evidence; dramatic mortality data was required"
+  - "nuclear: NRC regulations defer to established procedures; updating operationally
+    untested protocols faces high institutional resistance"
+  - "mining: historical ventilation protocols trusted for decades; updates required
+    accidents rather than anticipating geological changes"
+supporting_evidence:
+  - domain: "aviation"
+    description: "Runway incursion protocols: trusted procedures contributed to near-misses;
+      incidents triggered revision."
+  - domain: "medical"
+    description: "Antiseptic handwashing required catastrophic mortality evidence despite
+      clear technical argument."
+against:
+  - description: "Aviation TCAS adopted proactively before collision data."
+    resolution: "Required regulatory mandate — voluntary trust revision was not
+      forthcoming. Supports the law: mandatory override of trust-based conservatism needed."
+  - description: "Some medical protocols update via systematic review (Cochrane) without incidents."
+    resolution: "Institutionally designed to override trust-based conservatism.
+      May support rather than falsify — these are meta-protocols for updating."
+open_questions:
+  - "Do near-miss reporting systems show faster trust revision? If yes, this is a
+    design lever for trust updating without catastrophic failure."
+  - "Is there a compounding effect with F-001 (ossification)? Widely-adopted safety
+    protocols face both coordination-cost resistance and trust-ratchet resistance."
+  - "What distinguishes safety-critical protocols from others — consequence severity,
+    or something structural in the protocol design?"
+falsification_conditions: >
+  Safety-critical protocols with long incident-free histories that updated rapidly in
+  response to technical evidence, without requiring an incident to trigger revision.
+retrieval_queries:
+  - "safety protocol trust age stability conservatism"
+  - "protocol modification resistance after historical failure"
+  - "institutional trust inertia proven track record"
+  - "aviation NTSB update mechanism evidence-based medicine guideline update"
+  - "near-miss reporting protocol revision rate"
+related:
+  - F-001
+  - CL-001
+transition_trigger: >
+  Stagnant valley — needs a targeted investigation session: (a) test the near-miss
+  hypothesis against corpus evidence; (b) examine the F-001 / CL-003 compounding
+  interaction. Evidence from either thread reclassifies to productive valley and
+  begins closing toward the heavy lift.
+opened: "2026-05-20"
+
+research_status: stagnant
+phase_pct: 0.12

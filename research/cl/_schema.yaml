@@ -1,0 +1,28 @@
+# CL — Candidate Law schema
+# Valley phase artifact. The hypothesis has survived sensemaking and now enters
+# evidence accumulation. The law is taking shape but not yet committed.
+#
+# id: CL-NNN
+# ds_file: DS-XXX
+# hypothesis_id: H-NNN    # the H item that preceded this
+# name: ""
+# type: lifecycle | hardness | coordination | failure | ...
+# statement: |
+#   Current best formulation. Will be revised during valley.
+# mechanism: |
+#   Why the regularity holds — structural explanation, not just description.
+# domains: []             # evidence domains collected so far
+# supporting_evidence:
+#   - domain: ""
+#     description: ""
+# against:
+#   - description: ""
+#     resolution: ""      # why it doesn't refute, or how it modifies the law
+# open_questions: []      # what needs resolution before heavy lift
+# falsification_conditions: |
+#   Precise conditions that would refute.
+# related: []             # F-NNN, CL-NNN, H-NNN IDs
+# transition_trigger: |
+#   What specific evidence or event signals readiness for heavy lift.
+#   Not "when I know more" — name the specific resolution needed.
+# opened: YYYY-MM-DD

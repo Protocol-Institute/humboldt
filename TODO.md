@@ -4,6 +4,13 @@ Infrastructure, persona, and template work. This is the *operator* layer — man
 
 Priority: **[H]** urgent, **[M]** soon, **[L]** when convenient.
 
+**Stub-blocker convention:** When a Track 2 behavior is a stub and its absence is
+preventing a specific Track 1 arc from advancing phase, annotate the item here with
+`[BLOCKING: P-xxx — what move is blocked]` and mirror the signal in the arc's project
+file (`blocking_behavior:` field) and in the *Behavior Blockers* bucket of
+`research/agenda.md`. The urgency of building the behavior lives entirely in Track 2;
+Track 1 diagnoses and records the block but does not re-label the arc as urgent.
+
 ---
 
 ## Track 2 — Persona and Infrastructure
@@ -14,7 +21,10 @@ Full plan at `plans/autonomous-research-daemon.md`.
 
 **Layer 1 (COMPLETE — running since session 9):** `task_conversation_review` — daily Discord synthesis into notebook + reference promotion to `bibliography/references.yaml`. Has produced autonomous notebook entries on 2026-05-30 and 2026-05-31.
 
-**Layer 2 — research_tick (NOT YET BUILT):** Build in this order:
+**Layer 2 — research_tick (NOT YET BUILT):** Build in this order.
+*Pre-blocker:* orientation phase must use arc-position / phase-tempo scanning (see
+`research/agenda.md` bucket structure), not queue-age. Will block autonomous heavy-lift
+and valley investigation once P-006/P-007 are heavy-lift-ready. Not yet `[BLOCKING]`.*
 
 **Phase 1 — Infrastructure + dry run:**
 - `daemon/research_expenses.py` + `daemon/research-expenses.jsonl`
@@ -75,6 +85,7 @@ Full plan at `plans/autonomous-research-daemon.md`.
 - **[H]** **Looser deep reading — exploration before extraction** — current M-003 prompt filters too aggressively for law candidates, producing narrow output. Deep reading should start with genuine open-ended engagement: what is the author's central problem? what is surprising? what doesn't fit? Candidate laws should *emerge* from engagement, not be the frame that organizes the reading. Revise M-003 prompt structure to lead with exploration, end with extraction.
 
 - **[H]** **Synthesis behaviors — cross-read and cross-law reasoning** — no current mechanism for Humboldt to synthesize *across* deep reads (e.g., Cosmos + Simon + Hamming together) or to notice when candidate laws from different sources converge, conflict, or imply a more general law. Design: a `synthesize` CLI command that takes a set of reading notes and existing laws and runs a synthesis pass; also a periodic scheduled synthesis in the daemon.
+  *Pre-blocker:* will block CL-Humboldt-3 (Substitution Invariance) and CL-Simon-5/6 sensemaking once those arcs open project files. Not yet `[BLOCKING]` — no project arc exists yet — but implement before those arcs reach valley.
 
 ---
 

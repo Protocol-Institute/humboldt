@@ -1,0 +1,66 @@
+id: "CL-001"
+ds_file: "research/ds/DS-003-formalization-ratchet.md"
+hypothesis_id: null   # arc predates H schema; sensemaking tracked in DS file
+name: "The Formalization Ratchet"
+type: lifecycle
+statement: >
+  Under conditions of stress, conflict, or scaling pressure, informal coordination
+  norms tend to be replaced by explicit protocols, and this transition is nearly
+  irreversible: once formalized, informal capacity atrophies — people stop developing
+  the contextual knowledge and trust that made informality work — so reversion
+  requires rebuilding a capacity that was actively degraded, not merely switching
+  back to a prior mode.
+mechanism: >
+  Informal coordination works through shared context and trust, which has carrying
+  capacity limits. Under stress, explicit protocols substitute for shared context —
+  they work without trust and without shared background knowledge. Once in place,
+  the informal capacity atrophies: the practice of developing contextual knowledge
+  stops, and the social substrate (relationships, shared language, implicit norms)
+  that supported informality degrades. Reversion is therefore not a simple reversal
+  but a reconstruction task, executed under conditions hostile to that reconstruction.
+domains:
+  - "organizational: startup informality → corporate procedure under growth pressure"
+  - "legal: customary international law → codified treaty regimes"
+  - "medical: clinical judgment → evidence-based protocol under malpractice pressure"
+  - "software: informal API conventions → versioned specifications under dependency scaling"
+  - "financial: handshake deals → written contracts under transaction scale"
+supporting_evidence:
+  - domain: "organizational"
+    description: "Startup → corporate transitions consistently show degraded informal
+      capacity post-formalization, not just formal preference."
+  - domain: "legal"
+    description: "Customary law practitioners describe tacit knowledge of customary
+      practice as genuinely unavailable after codification — not suppressed."
+  - domain: "medical"
+    description: "Clinical judgment capacity documented as declining in over-protocolicized
+      settings; physicians report difficulty trusting own judgment after protocol dependence."
+against:
+  - description: "Post-crisis informality observed in tight-knit teams."
+    resolution: "Typically involves externally imposed protocols (not internally developed)
+      AND personnel continuity. The law applies to internally developed protocols."
+  - description: "Open-source projects often maintain informal coordination alongside
+      formal specifications."
+    resolution: "Possibly parallel maintenance rather than reversion. Needs investigation."
+open_questions:
+  - "What determines the rate of informal capacity atrophy? Duration? Depth of adoption?"
+  - "Is the internally-developed vs. externally-imposed distinction a law modifier
+    or a full scoping condition?"
+  - "Is there a threshold of formalization intensity below which informal capacity
+    is preserved?"
+falsification_conditions: >
+  Documented cases of organizations successfully reverting from formal protocol to
+  informal coordination after the stressor passed, with personnel continuity (ruling
+  out social substrate reset via turnover).
+related:
+  - F-001  # ossification follows formalization
+  - F-004  # Gall — formalized systems resist redesign
+transition_trigger: >
+  Either (a) strong reversion counterexample found — successful reversion with
+  personnel continuity intact — which either refines or falsifies the law; or (b)
+  the internally-developed vs. externally-imposed distinction survives targeted
+  retrieval and becomes a scoping condition, closing off the main open question.
+  Either result enables the heavy lift.
+opened: "2026-05-20"
+
+research_status: active
+phase_pct: 0.45

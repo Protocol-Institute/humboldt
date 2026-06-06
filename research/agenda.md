@@ -1,36 +1,127 @@
 # Research Agenda
 
-*My own queue of next research tasks — what I plan to investigate, read, or formalize in upcoming sessions. Updated at wrapup after Track 1 sessions.*
+*Humboldt's own queue of next research tasks. Updated at wrapup after Track 1 sessions.*
 
-*Priority: **[H]** urgent, **[M]** soon, **[L]** when fertile.*
-
----
-
-## Next session
-
-- **[M]** Run H-001 (Coordination Cost Conservation) — valley phase, retrieval queries ready. Note: the near-decomposability framework from Simon may refine the hypothesis — coordination costs may be *redistributed within layers* rather than truly conserved. Note from Cosmos read: H-001 may need to be stated as a *within-domain* claim before being tested *across* domains — Humboldt's limit-of-generalization argument (pp. 56–57) applies. The adversarial case: find a protocol redesign that provably reduced total system coordination cost (not just moved it), sustained after full adoption.
-- **[H]** Promote CL-Simon-2 (local-maximum protocol trap) to H-003 — draft the hypothesis YAML.
-- **[H]** Assess CL-Humboldt-3 (Substitution Invariance) as a potential unifying frame for L-001, L-003, and L-005 — these three lifecycle laws may all be special cases of the conservation of functional structure in protocol ecosystems. Worth developing as a hypothesis if retrieval confirms cross-domain examples.
+*Arc position is read from phase tempo, not elapsed time or session count. The right
+question at session start is not "what's been waiting longest?" but "what's nearest to
+a natural phase transition?" Each bucket below reflects a phase-position diagnosis,
+updated at session wrapup. See `bibliography/notes/rao-tempo.md` §M-017 for the
+phase vocabulary and tempo signatures.*
 
 ---
 
-## Near-term
+## Heavy Lift Ready
+*Valley exhausted — synthesis committed; writing the publishable artifact toward the
+separation event. A separation event requires a published artifact available for
+external review, critique, and falsification attempts.*
 
-- ~~**[H]** **Re-read: Cosmos Vol. 1** (gestalt pass)~~ — **COMPLETE 2026-05-28.** Full read pp. 1–449 (prior pass stopped at p. 120). Key finds: 8 transferable analytical moves (mean-value extraction, simultaneous multi-point observation, etc.); equilibrium-disturbance/discontinuous-restoration pattern → H-002; Zusammenhang as empirical program not metaphysics; aesthetic response as epistemically load-bearing. LINEAGE.md update pending.
-- ~~**[H]** **Re-read: Simon, Sciences of the Artificial** (gestalt pass)~~ — **COMPLETE 2026-05-28.** All 8 chapters including previously skipped Ch 4, 6, 7. Key finds: "borrowed complexity" as master key; 10 analytical moves; 2 new candidate laws (CL-Gestalt-1 Attention Scarcity Ratchet, CL-Gestalt-2 Representation Commitment); Ch 6 on social planning directly bears on H-001 and protocol ossification topology. LINEAGE.md update pending.
-- **[H]** **LINEAGE.md updates** — required Phase 4 step for all four completed deep reads: Simon (gestalt 2026-05-28), Cosmos (gestalt 2026-05-28), Hamming (gestalt 2026-05-26), Tempo (first read 2026-05-27). Operator step — do not automate.
-- ~~**[H]** **Re-read: Hamming, "You and Your Research"** (gestalt pass)~~ — **COMPLETE 2026-05-26.** Gestalt notes appended to `bibliography/notes/hamming-you-and-your-research.md`. CL-Hamming-1 kept (refinement: bias is structural not cognitive, researchers know it); CL-Hamming-2 kept (candidate, possibly better in methods inventory); CL-Hamming-3 kept (strongest candidate — flag for promotion to hypothesis). **Pending: LINEAGE.md update — defer to next session after full digestion.**
-- **[M]** Assess CL-Simon-5 (near-decomposability law) and CL-Simon-6 (stable intermediates law) for promotion to hypotheses — these need retrieval evidence from corpus before formalization as hypotheses.
-- **[M]** Read Rittel and Webber, "Dilemmas in a General Theory of Planning" (1973) — the "wicked problems" paper is a direct critical response to Simon's design science. Required to understand the boundary conditions on the Simon framework. Add to `bibliography/deep-reads/` when located.
-- **[M]** Create `bibliography/personal-bib.md` — curated references list. Start with: Simon (Sciences of the Artificial), Hamming (You and Your Research), Humboldt (Cosmos Vol. 1), Nelson & Winter (Evolutionary Theory of Economic Change), Ostrom (Governing the Commons).
-- **[M]** Cross-reference CL-Hamming-2 (problem inversion) with CL-Simon-2 (local-maximum trap) — they describe the same phenomenon at different levels (structural vs. psychological). Consider whether they should be merged into a single hypothesis or kept as complementary laws.
-- **[M]** Test CL-Humboldt-1 (Mean-Point Law) — examine sample of major protocol revisions; determine whether triggers are predominantly visible extremes (crises, high-profile failures) vs. systematic mean-point analysis. Public health domain (vaccination protocols) is hypothesized as a potential falsifier.
+- **T-001** (Ossification) — formulation complete, domains documented. Needs a publishable artifact.
+- **T-002** (Hardness Asymmetry) — formulation complete. Needs a publishable artifact.
+- **T-003** (Goodhart, imported) — protocol-theoretic formulation ready; DS-004 valley work continues in parallel.
+- **T-004** (Gall, imported) — protocol-theoretic formulation ready; DS-005 valley work continues in parallel.
 
 ---
 
-## When opportunity arises
+## Valley — stagnant / behavior-blocked
+*No movement even with attention. Diagnose before proceeding: (a) needs a targeted
+investigation session, or (b) a behavior stub is blocking the next phase move?
+Note diagnosis in the project file and here.*
 
-- **[M]** Read Gertner, *The Idea Factory* (2012) — the Bell Labs institutional design question. Hamming's talk raises the question directly: what organizational protocols produced Bell Labs' research output? Standard reference on the subject. Add to `bibliography/deep-reads/` when located.
-- **[L]** Assess CL-Hamming-3 (ambiguity tolerance as revision condition) against corpus — no prior hypothesis covers the epistemic conditions for protocol revision; this may warrant a new hypothesis if retrieval evidence supports it.
-- **[L]** First M-002 Canonical Domain Rotation: Decentralized Systems. I know this domain well but have not yet done a dedicated rotation — are there protocol laws in the corners of FLP impossibility or BFT that I have not yet examined?
-- **[L]** Test immunology as a candidate canonical domain: does the self/non-self discrimination framework generate new candidate laws, or is it confirmatory only? One targeted retrieval session will tell me whether it's worth adding to the canonical set.
+- **DS-007 / CL-003 (Trust Ratchet)** — `research/ds/DS-007-trust-ratchet.md`
+  Diagnosis: not behavior-blocked — needs deliberate investigation session. The
+  near-miss category and the F-001 ↔ CL-003 interaction are the two unresolved threads.
+  Transition trigger: near-miss data tested; compounding-resistance mechanism examined.
+
+---
+
+## Valley — productive
+*Grinding with diminishing but nonzero returns. This is the correct tempo for this
+phase. Do not accelerate; do not confuse slow progress with stagnation. The valley
+cannot be shortened without compromising the separation event.*
+
+- **DS-006 / CL-002 (Coordination Cost Conservation)** — `research/ds/DS-006-coordination-cost-conservation.md`
+  Crux: automation question — does machine coordination cost count as "coordination
+  cost" for the purposes of the conservation claim? Simon's near-decomposability
+  framework may reframe before it resolves.
+  Transition trigger: automation question resolved in either direction — either a
+  principled argument that machine coordination cost counts (conservation holds) or a
+  documented case of genuine elimination via automation (conservation fails or needs
+  scoping). Either closes the valley and opens the heavy lift.
+
+- **DS-003 / CL-001 (Formalization Ratchet)** — `research/ds/DS-003-formalization-ratchet.md`
+  Status: candidate confidence; falsification conditions not fully tested. The
+  internally-developed vs. externally-imposed distinction surfaced in counterexamples
+  is the live open question.
+  Transition trigger: either (a) strong reversion counterexample found (successful
+  reversion with personnel continuity, ruling out social substrate reset), or (b)
+  the internal/external distinction survives retrieval and becomes a law modifier.
+  Either result closes the valley.
+
+---
+
+## Sensemaking Needed
+*Cheap trick has fired; no project arc formalized yet. One session to draft YAML and
+open a project file. Do not let cheap tricks sit unformalized indefinitely.*
+
+- **Simon read — local-maximum trap** (cheap trick fired; needs H YAML + DS-008) → needs H-003 YAML + DS-008 arc file.
+  Cheap trick: protocols act as local optima in the design space — incremental
+  improvement cannot escape them even when a better design is globally visible.
+  Cross-references Hamming insight (problem inversion) — may be the same phenomenon at
+  different levels. Assess during sensemaking.
+
+- **Simon read — near-decomposability + stable intermediates** (C items; retrieval needed before H) — needs
+  corpus retrieval to confirm evidence base before opening arcs. One targeted session;
+  if retrieval is productive, open project files.
+
+- **Humboldt insight — Mean-Point Law** (cheap trick fired; needs H YAML + DS-008 or DS-009) — cheap trick fired in early exploration; no project
+  arc. Test: are major protocol revisions triggered by visible extremes (crises) or by
+  mean-point analysis? Public health (vaccination protocols) is the candidate falsifier.
+
+---
+
+## Cheap Trick Pending
+*Late exploration — enough material in view that a crystallizing insight may be near.
+Watch for the crescendo tempo signature (rapid integration, sense of things fitting
+together). Do not force it before it arrives.*
+
+- **Humboldt intuition — Substitution Invariance** (C item; cheap trick not yet fired) — Hypothesis: F-001, CL-001, and F-004 may
+  all be special cases of a single conservation principle (functional structure is
+  conserved in protocol ecosystems under pressure). Cheap trick trigger: a cross-domain
+  retrieval session either surfaces a unifying pattern or confirms the three laws are
+  genuinely independent. Either is progress.
+
+- **Hamming + Simon reads — local-optima cross-reference** (two C/H items; one retrieval session) — Both describe structural barriers to
+  escaping local optima, at different levels of analysis (cognitive vs. coordination).
+  May merge into a single hypothesis or stay complementary. One retrieval session.
+
+---
+
+## Behavior Blockers
+*Behaviors whose stub status is preventing a specific arc from advancing. Track 2
+resolves these; Track 1 names them here as the demand signal. Format: behavior-xxx
+[BLOCKING: DS-xxx — what phase move is blocked].*
+
+*(none currently — revisit when synthesis and research_tick behaviors mature)*
+
+---
+
+## Operator Steps
+*Arc-adjacent actions requiring operator input, not research investigation.*
+
+- LINEAGE.md updates for 4 completed deep reads: Simon (gestalt 2026-05-28),
+  Cosmos (gestalt 2026-05-28), Hamming (gestalt 2026-05-26), Tempo (2026-05-27).
+  M-003 Phase 4 — do not skip or automate.
+- CL-Rao-1 (Narrative Displacement), CL-Rao-2 (Doctrine Lock-In), CL-Rao-3
+  (Temporal Misalignment Failure) — review `bibliography/notes/rao-tempo.md` §10
+  and decide which warrant promotion to hypothesis YAMLs.
+
+---
+
+## Exploration
+*Open territory, no cheap trick yet. Enter here when the productive valley and
+sensemaking queues are clear, or when the inventory needs fresh ground.*
+
+- First canonical domain rotation (M-002): Decentralized Systems — FLP impossibility,
+  BFT protocols. Known domain; may surface laws in corners not yet examined.
+- Immunology as candidate canonical domain: self/non-self discrimination. One targeted
+  retrieval session to test fertility before committing to a full rotation.

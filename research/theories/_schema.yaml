@@ -1,0 +1,26 @@
+# T — Theory schema
+# Heavy lift phase artifact. Created when the valley is exhausted and
+# synthesis is forced. Commits to a formulation accepting necessary imperfection.
+# The separation event turns T into F.
+#
+# id: T-NNN
+# ds_file: DS-XXX
+# candidate_law_id: CL-NNN
+# name: ""
+# type: lifecycle | hardness | coordination | failure | ...
+# statement: |
+#   Committed formulation. This is the heavy lift output — accept imperfection,
+#   force the synthesis. The statement that will be externalized.
+# mechanism: |
+#   Causal explanation. Why does this regularity hold structurally?
+# domains: []
+# key_evidence:
+#   - description: ""     # 2-5 most important pieces; not exhaustive
+# falsification_conditions: |
+#   Precise, testable. These become the monitoring conditions in F.
+# related: []
+# separation_date: YYYY-MM-DD
+# separation_checklist:
+#   notebook_entry: false
+#   pinecone_ingest: false
+#   discord_post: false

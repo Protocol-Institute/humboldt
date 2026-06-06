@@ -1,0 +1,45 @@
+id: "T-003"
+ds_file: "research/ds/DS-004-goodhart-import.md"
+candidate_law_id: null   # DS-004 valley arc will produce a CL when protocol-theoretic evidence is complete
+name: "Goodhart Generalization: Metric Capture"
+type: failure
+statement: >
+  Any protocol that uses a measurable proxy for an unmeasurable goal will, under
+  sufficient optimization pressure, cause participants to optimize the proxy in ways
+  that degrade the underlying goal. The degree of degradation is proportional to
+  the optimization pressure and inversely proportional to the gap between the proxy
+  and the goal.
+mechanism: >
+  Measurable proxies are imperfect representations of underlying goals. The gap between
+  proxy and goal defines the exploitation surface. Under optimization pressure, participants
+  discover and exploit this surface; the proxy becomes the de facto goal. Goodhart (1975)
+  stated this for monetary policy; the pattern is universal to optimization-under-protocol.
+domains:
+  - "economic: GDP as proxy for welfare; test scores as proxy for learning"
+  - "medical: clinical trial endpoints vs. actual patient outcomes"
+  - "software: code coverage as proxy for test quality"
+  - "financial: VaR as proxy for risk (optimized away the fat tails)"
+  - "governmental: crime statistics as proxy for safety (Compstat effects)"
+key_evidence:
+  - "GDP and test score gaming: documented at scale across many national policy regimes"
+  - "VaR optimization: directly contributed to 2008 financial crisis tail-risk underestimation"
+  - "Compstat: NYPD crime statistics manipulation documented systematically"
+falsification_conditions: >
+  A protocol using measurable proxies under sustained optimization pressure that did NOT
+  experience metric capture. Near-falsifications are cases where the proxy is near-perfect
+  (the proxy IS the goal) — these approach the definitional boundary rather than refuting.
+related:
+  - T-001
+  - CL-001
+note: >
+  Source law imported from Goodhart (1975). The protocol-theoretic application is under
+  active investigation in DS-004 (valley phase). This T item represents the committed
+  formulation of the source law as applicable to protocols — the separation event will
+  require a published protocol-theoretic artifact, not merely registration of the import.
+separation_date: null
+separation_checklist:
+  artifact_drafted: false
+  peer_review: false
+  published: false
+research_status: active
+phase_pct: 0.60

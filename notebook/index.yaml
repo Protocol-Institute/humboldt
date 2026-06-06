@@ -27,7 +27,7 @@
   anchor: entry-2026-05-26
   discord_announcement_id: '1509305958000627863'
   discord_thread_id: '1509305958000627863'
-  thread_last_farmed: '2026-05-31T17:49:46.067888+00:00'
+  thread_last_farmed: '2026-06-03T17:49:45.420414+00:00'
 - date: '2026-05-28'
   discord_announcement_id: '1509484541973102692'
   discord_thread_id: '1509484541973102692'
@@ -35,11 +35,11 @@
   tagline: Ongoing research conversations.
   anchor: entry-2026-05-28
   file: notebook/2026-05-28.md
-  thread_last_farmed: '2026-05-31T17:49:46.325621+00:00'
+  thread_last_farmed: '2026-06-03T17:49:45.641207+00:00'
 - date: '2026-05-29'
   discord_announcement_id: '1510012619388485714'
   discord_thread_id: '1510012619388485714'
-  thread_last_farmed: '2026-05-31T17:49:46.612764+00:00'
+  thread_last_farmed: '2026-06-03T17:49:45.946958+00:00'
   title: The Inbox Was Essentially Empty
   tagline: 'Track 1 session: inbox clearing. One item.'
   anchor: entry-2026-05-29
@@ -51,7 +51,7 @@
   tagline: Daemon-generated entries.
   anchor: entry-2026-05-30
   file: notebook/2026-05-30.md
-  thread_last_farmed: '2026-05-31T17:49:46.870467+00:00'
+  thread_last_farmed: '2026-06-03T17:49:46.314088+00:00'
 - date: '2026-05-31'
   discord_announcement_id: '1510689908665094165'
   discord_thread_id: '1510689908665094165'
@@ -59,4 +59,20 @@
   tagline: Daemon-generated entries.
   anchor: entry-2026-05-31
   file: notebook/2026-05-31.md
-  thread_last_farmed: '2026-05-31T17:49:47.110737+00:00'
+  thread_last_farmed: '2026-06-03T17:49:46.521576+00:00'
+- date: '2026-06-01'
+  discord_announcement_id: '1511071743589220436'
+  discord_thread_id: '1511071743589220436'
+  title: Ideas from Discord — 2026-05-31 – 2026-06-01
+  tagline: Daemon-generated entries.
+  anchor: entry-2026-06-01
+  file: notebook/2026-06-01.md
+  thread_last_farmed: '2026-06-03T17:49:46.772271+00:00'
+- date: '2026-06-03'
+  discord_announcement_id: '1511660616673267844'
+  discord_thread_id: '1511660616673267844'
+  title: Ideas from Discord — 2026-05-31 – 2026-06-03
+  tagline: Daemon-generated entries.
+  anchor: entry-2026-06-03
+  file: notebook/2026-06-03.md
+  thread_last_farmed: '2026-06-03T17:49:47.133961+00:00'

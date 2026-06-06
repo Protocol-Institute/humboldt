@@ -1,0 +1,20 @@
+# F — Falsification Monitor schema
+# Retrospective phase artifact. Created at the separation event from T.
+# There is no "established" — only laws that have not yet been falsified or superseded.
+# F items are monitored indefinitely. Inbox items, Discord, and shallow reads
+# may all surface falsification candidates; they are logged here.
+#
+# id: F-NNN
+# ds_file: DS-XXX
+# theory_id: T-NNN        # null for legacy items created before T schema existed
+# name: ""
+# type: lifecycle | hardness | coordination | failure | ...
+# statement: |
+#   Current best formulation. May be updated as monitoring surfaces refinements.
+# mechanism: |
+#   Causal explanation.
+# registered: YYYY-MM-DD
+# status: active | superseded | refuted
+# counterexamples: []     # each entry: {description, resolution, date}
+# superseded_by: ""       # F-NNN of the law that supersedes this one
+# monitoring_notes: []    # observations that bear on falsification without yet refuting

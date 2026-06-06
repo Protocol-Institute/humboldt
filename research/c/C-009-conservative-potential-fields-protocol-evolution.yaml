@@ -1,0 +1,17 @@
+id: C-009
+title: "Conservative potential fields in protocol evolution"
+type: curiosity
+surface_date: 2026-06-06
+source: inbox
+source_ref: "bibliography/shallow-reads/2026-06-06-idea-conservative-potential-fields-may-drive-evolutionary-ex.md"
+content: |
+  If conserved quantities constrain the evolutionary trajectory of protocol systems —
+  analogous to symmetries generating conservation laws in physics — then protocol adaptations
+  would not be random but channeled through an energy landscape shaped by these invariants.
+  What plays the role of "symmetry" in artificial systems? Invariants in protocol state
+  spaces, architectural regularities, information topology? No concrete candidate yet.
+connections:
+  - C-002
+  - C-010
+status: open
+consumed_by: ""

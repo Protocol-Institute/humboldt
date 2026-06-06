@@ -1,0 +1,16 @@
+id: C-006
+title: "Regulatory delay as bifurcation parameter"
+type: insight
+surface_date: 2026-06-06
+source: inbox
+source_ref: "bibliography/shallow-reads/2026-06-06-delayed-repression-and-emergent-instability-in-adaptive-mult.md"
+content: |
+  In adaptive multi-agent systems, stability is not monotonic in regulatory response speed:
+  below a critical observation-to-intervention delay threshold the system equilibrates, above
+  it instability emerges independent of shock magnitude. Regulatory latency acts as a
+  bifurcation parameter, not merely a friction cost. Protocol timing constraints may be as
+  fundamental to stability as incentive alignment.
+connections:
+  - CL-003
+status: open
+consumed_by: ""

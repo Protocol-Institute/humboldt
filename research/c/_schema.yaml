@@ -1,0 +1,16 @@
+# C — Curiosity schema
+# Exploration phase artifact. A provocation, not a proto-law.
+# These flow in continuously from inbox, Discord, reading, and observation.
+# The only thing a C item is NOT is a candidate law or hypothesis.
+#
+# id: C-NNN
+# type: curiosity | insight | motif | example
+# surface_date: YYYY-MM-DD
+# source: inbox | reading | discord | observation
+# source_ref: ""        # filename, message ID, or context
+# content: |
+#   1-3 sentences. What caught attention and why.
+#   No law framing — just the provocation.
+# connections: []       # C/H/CL IDs that feel adjacent (optional)
+# status: open | consumed
+# consumed_by: ""       # DS-XXX if this C item triggered a cheap trick and opened an arc

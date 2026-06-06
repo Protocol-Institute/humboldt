@@ -92,7 +92,7 @@ python3 -m agent.humboldt investigate "protocol ossification"
 python3 -m agent.humboldt inventory
 
 # Assess evidence for a specific law
-python3 -m agent.humboldt assess L-001
+python3 -m agent.humboldt assess F-001
 
 # Generate candidate laws for a topic (no file output)
 python3 -m agent.humboldt hypothesize "coordination cost"
@@ -157,6 +157,11 @@ python3 -m agent.humboldt discord sweep --limit 500          # cap at N messages
 # The daemon runs this automatically after each new notebook entry is detected.
 python3 -m agent.humboldt publish               # render + push to website repo
 python3 -m agent.humboldt publish --dry-run     # preview rendering, no git ops
+
+# Publish research status page (reads research/c,h,cl,theories,f → humboldt-research/index.html)
+# Run after any session that changes the research inventory.
+python3 -m agent.humboldt publish-research              # generate + push
+python3 -m agent.humboldt publish-research --dry-run    # preview, no git ops
 ```
 
 ### Deep-read library
@@ -169,23 +174,34 @@ Source PDFs live in `bibliography/deep-reads/`. Drop new documents there; the `l
 
 ## Research Inventory
 
-`research/` is the core output — always commit it. Files:
+`research/` is the core output — always commit it. The schema follows the Double Freytag
+phase model (Rao, *Tempo*). Each phase produces a typed artifact; the DS file is the
+narrative arc container spanning all phases.
 
 ```
 research/
-├── projects/     Markdown — living arc documents (one per inquiry, phase-gated)
-│                 Templates: _template-discovered.md, _template-imported.md
-│                 P-001 Ossification (retro), P-002 Hardness Asymmetry (retro)
-│                 P-003 Formalization Ratchet (valley), P-004 Goodhart import (valley)
-│                 P-005 Gall import (valley), P-006 Coordination Cost (valley)
-│                 P-007 Trust Ratchet (valley)
-├── laws/         YAML — publication artifacts for completed heavy lifts
-│                 Schema: id, name, statement, type, confidence, domains,
-│                 related_laws, mechanism, falsification_conditions,
-│                 counterexamples, evidence, notes, project_file, registered
-├── hypotheses/   YAML — lightweight index pointing to project files (being phased out)
-│                 Hypothesis tracking has moved to project files (sensemaking section)
-└── theories/     Markdown — unified theory development
+├── ds/       DS-NNN — Deep Story arc files (one per inquiry)
+│             Templates: _template-discovered.md, _template-imported.md
+│             DS-001 Ossification (F-001, retrospective)
+│             DS-002 Hardness Asymmetry (F-002, retrospective)
+│             DS-003 Formalization Ratchet (CL-001, valley)
+│             DS-004 Goodhart import (F-003 source law, valley for protocol-theoretic CL)
+│             DS-005 Gall import (F-004 source law, valley for protocol-theoretic CL)
+│             DS-006 Coordination Cost (CL-002, valley)
+│             DS-007 Trust Ratchet (CL-003, valley)
+├── c/        C-NNN — Curiosity items (exploration phase)
+│             Schema in _schema.yaml
+├── h/        H-NNN — Hypothesis items (sensemaking phase, post-cheap-trick)
+│             Schema in _schema.yaml
+├── cl/       CL-NNN — Candidate Law items (valley phase)
+│             Schema in _schema.yaml
+│             CL-001 Formalization Ratchet, CL-002 Coordination Cost, CL-003 Trust Ratchet
+├── theories/ T-NNN — Theory items (heavy lift phase)
+│             Schema in _schema.yaml
+└── f/        F-NNN — Falsification Monitor items (retrospective phase)
+              Schema in _schema.yaml. No "established" — only unfalsified.
+              F-001 Ossification, F-002 Hardness Asymmetry
+              F-003 Goodhart (imported source law), F-004 Gall (imported source law)
 
 bibliography/
 ├── deep-reads/   PDF source documents — drop new deep-read texts here
@@ -195,14 +211,26 @@ bibliography/
                   _SHALLOW-READ-FORMAT.md — template (skipped by ingest, prefix _)
 ```
 
-**Project file conventions:**
-- New inquiry arc → use `_template-discovered.md` if originated here; `_template-imported.md` if importing a named law
-- Phase field tracks current arc position (M-017 vocabulary): `exploration | sensemaking | valley | heavy_lift | retrospective`
-- Law YAMLs are created at the separation event (end of heavy lift) — not before
-- Hypothesis YAMLs (H-00x) are legacy; new hypotheses live in project file sensemaking sections
-- "Imported regularities" (L-004 Goodhart, L-005 Gall) enter at valley phase — sensemaking done elsewhere
+**Phase-to-artifact mapping (Double Freytag):**
 
-When a new law is added or updated, also update the `related_laws` field in any affected files.
+| Phase | Artifact | Schema |
+|-------|----------|--------|
+| Liminal Passage | — | null |
+| Exploration | C (Curiosity) | `research/c/_schema.yaml` |
+| Sensemaking | H (Hypothesis) | `research/h/_schema.yaml` |
+| Valley | CL (Candidate Law) | `research/cl/_schema.yaml` |
+| Heavy Lift | T (Theory) | `research/theories/_schema.yaml` |
+| Retrospective | F (Falsification Monitor) | `research/f/_schema.yaml` |
+
+**Transitions:** Cheap Trick (exploration → sensemaking) and Separation Event
+(heavy lift → retrospective) are named. The other 4 transitions are unnamed and
+triggered by readiness assessment.
+
+**DS file conventions:**
+- New arc → use `_template-discovered.md` or `_template-imported.md`
+- Header field `**Phase artifact:**` names the current typed artifact (e.g., `CL-002`)
+- No "established" confidence — F items are monitored, not certified
+- When a CL item is updated, also update `related:` in any affected F/CL files
 
 ---
 
@@ -220,8 +248,8 @@ Items marked **[REQUIRED]** are non-skippable. The session checklist must be pos
 
 1. Read `status.md` — last entry: what was open, where things ended. Note the daemon PID.
 2. Read `TODO.md` — current Track 2 and Track 3 priorities.
-3. Check `research/laws/` — current count by confidence level.
-4. Note any hypotheses `status: active` that are ready for investigation.
+3. Check `research/cl/` (candidate laws) and `research/f/` (falsification monitors) — current counts and any new monitoring notes.
+4. Note any CL items with `transition_trigger` conditions that may be within reach this session.
 5. Confirm which tracks are active in this session and declare them at the start.
 
 ---
@@ -233,7 +261,7 @@ Items marked **[REQUIRED]** are non-skippable. The session checklist must be pos
 1. Run `python3 -m agent.humboldt pre-notebook` — shows all automated activity (shallow reads, ingests, triages, daemon reviews) since the last notebook entry. This is the "what happened while I was away" queue; it feeds into the notebook entry at wrapup.
 2. Read the two most recent lab notebook entries (`notebook/`) — pick up the live thread of inquiry.
 3. Read `research/agenda.md` — Humboldt's own research queue.
-4. Scan `research/hypotheses/` for active hypotheses — identify which are ready for adversarial testing vs. still generative.
+4. Scan `research/cl/` for active candidate laws — read each `transition_trigger` and assess readiness. Note which are productive valley vs. stagnant.
 
 ---
 
@@ -253,7 +281,7 @@ Run all steps in order. Steps marked **[T1]** are skipped only when no Track 1 w
 
 1. **[T1]** **[REQUIRED]** Write lab notebook entry `notebook/YYYY-MM-DD.md`. Structure: (a) open with a synthesized paragraph covering all pending pre-notebook entries — "Since the last session, I triaged X items, shallow-read Y, the daemon did Z" — then (b) the live session narrative. Run `python3 -m agent.humboldt pre-notebook` at startup (step 1) to get the queue; synthesize it here. After writing, run `python3 -m agent.humboldt pre-notebook mark-consumed` to advance the cursor. Update `notebook/README.md` index.
 2. **[T1]** **[REQUIRED]** Update `research/agenda.md` — mark completed items, add new items that emerged, reorder to reflect current state of inquiry.
-3. **[T1]** Update `research/laws/` or `research/hypotheses/` YAMLs for anything touched this session.
+3. **[T1]** Update `research/cl/`, `research/h/`, `research/f/`, or `research/theories/` YAMLs for anything touched this session.
 4. **[T1]** Update `bibliography/notes/[source].md` if a deep read occurred.
 5. **[REQUIRED]** Write `dev-log.md` entry using the schema below. Required for every session — including short, bug-fix, and inconclusive sessions. No devlog entry = session not closed.
 6. Update `status.md` — dated entry, one-line summary, open items. Always include daemon PID (or "not running").

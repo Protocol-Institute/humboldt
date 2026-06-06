@@ -1,0 +1,40 @@
+id: "T-002"
+ds_file: "research/ds/DS-002-hardness-asymmetry.md"
+candidate_law_id: null
+name: "Hardness Asymmetry"
+type: hardness
+statement: >
+  In any protocol with a verification function and an execution or forgery function,
+  the verification cost and the circumvention cost are structurally decoupled and can
+  differ by arbitrary orders of magnitude. Protocol robustness is determined by this
+  ratio, not by the absolute cost of either function alone.
+mechanism: >
+  The verification and circumvention functions exploit different mathematical or social
+  structures — they are not inverses. Public-key cryptography exploits trapdoor
+  one-way functions. Social reputation exploits the asymmetry between social memory
+  (cheap, distributed) and behavior change (costly, personal). The asymmetry is a
+  design resource: protocols can be engineered to maximize the circumvention/verification
+  ratio.
+domains:
+  - "cryptographic: public-key infrastructure (verification O(n), forgery computationally infeasible)"
+  - "legal: tort law (filing cheap; defending expensive — asymmetry inverted)"
+  - "social: reputation systems (earning costly; verifying cheaply)"
+  - "financial: fraud detection (verifying cheap; constructing undetected fraud costly)"
+  - "biological analogy: immune recognition (self/non-self cheap; immune evasion costly)"
+key_evidence:
+  - "Public-key cryptography: trapdoor functions produce arbitrary verification/circumvention ratio"
+  - "Legal harassment (inverted hardness): circumvention cheaper than verification — a designed failure mode"
+  - "Immune system: self/non-self discrimination cheap; pathogen evasion costly — natural engineering of high ratio"
+falsification_conditions: >
+  A protocol where circumvention cost and verification cost converge and the protocol
+  remains robust. Simple passwords demonstrate convergence but are design failures —
+  the law claims the asymmetry is achievable and significant, not universal.
+related:
+  - T-001
+separation_date: null
+separation_checklist:
+  artifact_drafted: false
+  peer_review: false
+  published: false
+research_status: active
+phase_pct: 0.72

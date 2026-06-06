@@ -1,0 +1,24 @@
+# H — Hypothesis schema
+# Sensemaking phase artifact. Created at the cheap trick transition.
+# Tracks the developing framing from first insight to working hypothesis.
+#
+# id: H-NNN
+# ds_file: DS-XXX
+# cheap_trick: |
+#   The insight that fired — one sentence. The moment exploration turned.
+# cheap_trick_source: ""   # C-NNN, "reading/source-name", "corpus query", etc.
+# question: |
+#   The research question this opens. Loose at first; sharpens during sensemaking.
+# sensemaking_attempts:
+#   - framing: ""           # what this attempt tried to explain
+#     verdict: ""           # what held, what broke, why kept or abandoned
+# working_statement: |
+#   Falsifiable claim about how something works.
+#   This is the output of sensemaking, not its input — do not fill before attempts.
+# prediction: |
+#   What should be observable if this is true.
+# falsified_by: |
+#   What observations would refute it.
+# related: []              # F-NNN, CL-NNN IDs
+# opened: YYYY-MM-DD
+# status: active | promoted | abandoned

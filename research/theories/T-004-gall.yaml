@@ -1,0 +1,44 @@
+id: "T-004"
+ds_file: "research/ds/DS-005-gall-import.md"
+candidate_law_id: null
+name: "Gall Generalization: Working Systems Resist Restructuring"
+type: evolution
+statement: >
+  A complex protocol system that functions correctly cannot be safely redesigned
+  from scratch; it must be evolved from a simpler working system. Attempts to
+  design complex protocol systems directly, without evolutionary derivation from
+  working simpler predecessors, reliably fail.
+mechanism: >
+  Working complex systems have embedded in them a large number of implicit solutions
+  to problems invisible in their specification — accumulated through use and adaptation,
+  not designed. A redesign from scratch must solve all these problems simultaneously,
+  without the evolutionary process that discovered them one at a time in context.
+  Especially acute for protocols: agents have adapted in ways they cannot fully articulate.
+domains:
+  - "software: failed big-bang rewrites (Netscape, FoxPro, many others)"
+  - "organizational: top-down institutional redesigns vs. evolutionary reform"
+  - "regulatory: comprehensive frameworks designed from scratch vs. incremental refinement"
+  - "urban: high-modernist planned cities (Brasilia, Chandigarh) vs. evolved cities"
+  - "financial: designed clearing systems vs. evolved settlement conventions"
+key_evidence:
+  - "Netscape rewrite (2000): canonical software case; product never recovered market position"
+  - "IPv6 non-adoption: multi-decade coexistence with IPv4 rather than replacement"
+  - "Brasilia/Chandigarh: planned cities requiring retrofit of organic features"
+falsification_conditions: >
+  A successful from-scratch replacement of a complex working protocol system. The
+  IPv4 → IPv6 transition is a live candidate; its multi-decade timeline and continued
+  coexistence may support rather than falsify the law.
+related:
+  - T-001
+  - CL-001
+note: >
+  Source law imported from Gall (1975). Protocol-theoretic application under active
+  investigation in DS-005 (valley phase). Separation event requires a published
+  protocol-theoretic artifact.
+separation_date: null
+separation_checklist:
+  artifact_drafted: false
+  peer_review: false
+  published: false
+research_status: active
+phase_pct: 0.55

@@ -37,6 +37,26 @@ behaviors:
 
   # ── Generative ─────────────────────────────────────────────────────────────
 
+  - id: behavior-c7r
+    name: Curiosity Browsing
+    description: >
+      Randomly sample the curiosity collection (research/c/) when stuck or between
+      arcs, looking for connections that might spark a cheap trick. Operates in the
+      liminal passage and late exploration phases. Outputs: a connection note in the
+      notebook, a new C item capturing the observation, or — rarely — a cheap trick
+      that opens a new DS arc. Feeds into Random Links (behavior-q2n) and
+      Forced Connection downstream behaviors.
+    classification: live
+    state: stub
+    phase: exploration
+    implementation: >
+      Sample 3-5 C items at random from research/c/ (weighted toward recently added
+      and unconnected items); also sample 1-2 active CL items for cross-phase
+      connection attempts. Haiku prompt: "Do any of these feel structurally related?
+      Is there a pattern here that could organize an inquiry?" If a connection
+      registers as potentially cheap-trick-level, escalate to Sonnet. Otherwise
+      write a brief C item noting the connection and status: open.
+
   - id: behavior-q2n
     name: Random Links
     description: Force structural connection between two disparate inputs to surface candidate law hypotheses.

@@ -571,6 +571,12 @@ def cmd_publish(dry_run: bool = False):
         print(f"Published {len(n)} entry(ies) — GitHub Pages will deploy automatically.")
 
 
+def cmd_publish_research(dry_run: bool = False):
+    """Generate research status page → website + push."""
+    from agent.publish_research import publish_research
+    publish_research(dry_run=dry_run)
+
+
 def cmd_references_list(unsorted_only: bool = False):
     """Display the reference list grouped by status."""
     from agent.references import cmd_list
@@ -622,6 +628,8 @@ Usage:
   python3 -m agent.humboldt discord sweep --limit N      # cap at N messages (default 1000)
   python3 -m agent.humboldt publish                      # render notebook → website + push
   python3 -m agent.humboldt publish --dry-run            # preview rendering, no git ops
+  python3 -m agent.humboldt publish-research             # generate research status page → website + push
+  python3 -m agent.humboldt publish-research --dry-run   # preview, no git ops
   python3 -m agent.humboldt references list              # show reference list by status
   python3 -m agent.humboldt references list --unsorted   # show only unsorted
   python3 -m agent.humboldt references sort              # classify unsorted → read/deep_read/discard
@@ -739,6 +747,9 @@ def main():
     elif cmd == "publish":
         dry_run = "--dry-run" in rest
         cmd_publish(dry_run=dry_run)
+    elif cmd == "publish-research":
+        dry_run = "--dry-run" in rest
+        cmd_publish_research(dry_run=dry_run)
     elif cmd == "references":
         subcmd = rest[0] if rest else "list"
         if subcmd == "list":

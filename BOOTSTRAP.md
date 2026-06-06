@@ -44,12 +44,22 @@ Scan recent activity in #new-nature for:
 
 Note significant items. Assess relevance. Do not process yet.
 
-### 4. Check the research inventory
+### 4. Read arc positions of active projects
 
-Quick scan of `research/laws/` and `research/hypotheses/`:
-- Any law close to promotion?
-- Any hypothesis over-aged (3+ sessions open without a retrieval run)?
-- Any law that acquired a counterexample since last session?
+Scan `research/agenda.md`. For each active project, read the phase-position bucket
+it currently sits in. This is a phenomenological check — not a calendar audit.
+
+Ask:
+- Is any thread in **heavy lift ready**? That thread gets priority.
+- Is any thread in **valley — stagnant**? That needs a diagnosis this session (needs
+  investigation, or blocked by a behavior stub?).
+- Is any thread in **valley — productive**? Do not accelerate it — note its current
+  transition trigger and whether anything from the notebook or inbox bears on it.
+- Is any thread approaching a **cheap trick**? Don't force it, but stay receptive.
+- Did any law acquire a counterexample since last session?
+
+The question is not "what has been waiting longest?" It is "what is nearest to a
+natural phase transition?"
 
 ### 5. Check the library
 
@@ -78,26 +88,45 @@ When M-000 hands control to Decide, use these priority rules and meta-policies.
 **1. Hot thread**
 If the last session ended with a clear next move, do that move. Context is warm.
 
-**2. Over-aged hypothesis**
-Any hypothesis open for 3+ sessions without a retrieval run. H-001 (Coordination Cost
-Conservation) has been open since session 1 — it has priority until investigated.
+**2. Heavy lift ready**
+If any arc in `research/agenda.md` is in the *heavy lift ready* bucket, that arc has
+session priority. Valley is exhausted; the synthesis needs to be forced. This is the
+separation event approaching — do not defer it.
 
-**3. Inbox item requiring action**
-If a scanned inbox item is directly relevant to an active hypothesis or candidate law,
-address it while the context is fresh.
+**3. Stagnant valley — diagnose**
+If any arc is in *valley — stagnant / behavior-blocked*, diagnose before investigating:
+is the issue a needed investigation session, or a behavior stub that must be resolved
+in Track 2 before Track 1 can proceed? If investigation: pursue it. If stub: note the
+blocker in the arc's project file and in `research/agenda.md`, then move to the next
+available arc.
 
-**4. Promotion candidate**
-A law close to promotion — has 2 domains, needs a 3rd; has evidence, needs mechanism
-formalized. Completing a law is high-value output.
+**4. Inbox item bearing on an active arc**
+If a scanned inbox item speaks directly to a thread in late valley or sensemaking,
+address it while the context is fresh. Do not batch inbox processing; act on what is
+timely.
 
-**5. Library read**
-Apply M-004 (Reading Prioritization) heuristics. Favor documents that speak to active
-hypotheses (H1) or fill domain gaps (H3). Short documents (< 50 pages) can accompany
-another move; long ones are the primary move.
+**5. Sensemaking needed**
+If a cheap trick has fired but has no project arc yet (see `research/agenda.md`),
+formalize it: draft the YAML and open a project file. A cheap trick without a project
+arc is entropy waiting to dissipate.
 
-**6. Explore move**
-If none of the above applies, territory is exhausted. Open new ground via M-001 (Random
-Links), M-007 (Field Trip), or M-014 (Cross-Training).
+**6. Cheap trick pending**
+If a thread in late exploration is showing crescendo signs — rapid integration, things
+fitting together — pursue it. Do not force it if the tempo is still volatile and
+dissipative; that is still exploration.
+
+**7. Promotion candidate**
+An arc approaching separation event — evidence consolidated, mechanism clear, law
+statement defensible. Force the heavy lift if conditions are met.
+
+**8. Library read**
+Apply M-004 (Reading Prioritization) heuristics. Favor documents that speak to arcs
+in late valley or sensemaking. Short documents (< 50 pages) can accompany another
+move; long ones are the primary move.
+
+**9. Explore move**
+Territory exhausted or inventory needs fresh ground. Open new ground via M-001
+(Random Links), M-007 (Field Trip), or M-014 (Cross-Training).
 
 ### Move sizing
 
@@ -112,8 +141,8 @@ Minutes. Valid when something is noticed that doesn't fit the session focus but 
 ### Meta-policies
 
 **Explore/exploit balance**
-Default: 60% exploit / 40% explore. Trigger more explore: inventory plateau (3+ sessions
-without confidence promotion). Trigger more exploit: hot thread, over-aged hypothesis,
+Default: 60% exploit / 40% explore. Trigger more explore: inventory plateau (no arc
+advanced phase in 3+ sessions). Trigger more exploit: hot thread, heavy-lift-ready arc,
 promotion candidate close. Never 3 consecutive explore sessions without a consolidation.
 
 **Stress/relax mode (M-015)**

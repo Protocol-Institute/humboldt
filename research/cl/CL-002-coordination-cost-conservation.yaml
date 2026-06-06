@@ -1,0 +1,66 @@
+id: "CL-002"
+ds_file: "research/ds/DS-006-coordination-cost-conservation.md"
+hypothesis_id: null   # H YAML predates new H schema; sensemaking in DS file
+name: "Coordination Cost Conservation"
+type: coordination
+statement: >
+  The total coordination cost in a protocol system is conserved across protocol layer
+  transitions — when a protocol redesign reduces coordination cost at one layer, it
+  increases it at adjacent layers by at least the same amount.
+mechanism: >
+  Coordination cost is the cost borne by participants in achieving the coordination
+  that a protocol is designed to enable. Protocol redesign redistributes this cost
+  between layers rather than eliminating it. The thermodynamics analogy: energy is
+  conserved across transformations; coordination cost is conserved across layer
+  transitions. A "simpler" protocol at one layer is simple because it has pushed
+  complexity — and therefore coordination cost — somewhere else.
+domains:
+  - "software: TCP/IP vs. OSI — TCP/IP simplified network layer; application-layer
+    complexity (HTTP, SMTP) substantially higher than OSI application design"
+  - "software: OAuth simplified application-level authentication; moved complexity
+    to identity provider infrastructure and permission management UX"
+  - "software: DNS simplified address resolution; produced coordination complexity
+    in DNS infrastructure (DNSSEC, anycast, registrar coordination)"
+  - "software: REST vs. SOAP — simplified protocol design; moved coordination cost
+    to documentation, versioning, backward-compatibility"
+supporting_evidence:
+  - domain: "TCP/IP / OSI"
+    description: "The 'simplicity' of TCP/IP is documented as pushing application-layer
+      complexity upward — the OSI application layer handled more; TCP/IP delegates to applications."
+  - domain: "OAuth"
+    description: "OAuth 'simplifies' per-application auth but produces significant
+      coordination work at the identity provider and in the user's permission management."
+against:
+  - description: "Compression protocols (DEFLATE/gzip) appear to reduce coordination
+      cost without redistribution."
+    resolution: "Compression extracts information-theoretic efficiency — different
+      mechanism. May not be comparable to coordination redistribution."
+open_questions:
+  - "THE CRUX: If automation can genuinely eliminate coordination cost (move it to
+    machines), does the conservation law fail? Or is machine coordination cost still
+    coordination cost? This determines whether the law holds or needs scoping."
+  - "Is this a strict conservation law or a tendency? Protocol systems are not
+    closed systems — external investment may genuinely reduce total cost."
+  - "How to measure coordination cost across layers to allow empirical testing?"
+falsification_conditions: >
+  A protocol redesign that demonstrably reduced total system coordination cost —
+  not just moved it — sustained over time after full adoption. The automation case
+  is the primary candidate for this test.
+retrieval_queries:
+  - "coordination cost protocol complexity tradeoff"
+  - "simplification shifting burden adjacent layers"
+  - "protocol complexity redistribution"
+  - "invisible coordination cost formalization"
+  - "transaction cost protocol design"
+related:
+  - F-001
+  - CL-001
+transition_trigger: >
+  Automation question resolved in either direction: either a principled argument that
+  machine coordination cost counts (conservation holds) or a documented case of genuine
+  elimination via automation (conservation fails or needs scoping). Either closes the
+  valley and opens the heavy lift.
+opened: "2026-05-20"
+
+research_status: active
+phase_pct: 0.4

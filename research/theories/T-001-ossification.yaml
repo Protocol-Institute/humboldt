@@ -1,0 +1,39 @@
+id: "T-001"
+ds_file: "research/ds/DS-001-ossification.md"
+candidate_law_id: null   # predates CL schema; CL retroactively corresponds to valley evidence
+name: "Protocol Ossification Under Adoption Pressure"
+type: lifecycle
+statement: >
+  Protocols that achieve widespread adoption become progressively harder to modify,
+  independent of the quality of proposed improvements, because the cost of coordinating
+  change grows superlinearly with the number of conforming implementations.
+mechanism: >
+  Each conforming implementation represents a sunk cost in the existing protocol.
+  Backward-incompatible change requires simultaneous coordination of all implementations.
+  Coordination cost is superlinear in the number of parties (see Metcalfe's Law).
+  The protocol becomes a coordination trap: widely used precisely because of its
+  properties, and now locked into those properties by that very usage.
+domains:
+  - "software: TCP/IP, HTTP/1.1 → HTTP/2 transition timelines"
+  - "financial: SWIFT, ISO 20022 migration"
+  - "legal: common law precedent stickiness"
+  - "social: established etiquette forms resistant to deliberate reform"
+key_evidence:
+  - "TCP/IP core structure: decades of redesign proposals abandoned; extensions via optional fields only"
+  - "SWIFT ISO 20022 migration: multi-decade timeline despite both parties wanting it"
+  - "TLS deprecation countercase: asymmetric power (browsers) can accelerate — law applies to distributed, non-hierarchical adoption"
+falsification_conditions: >
+  A protocol achieving wide adoption that was subsequently modified with proportionally
+  less difficulty than a narrowly-adopted protocol, requiring true backward-incompatibility.
+  Additive-only changes and closed ecosystems that update in lockstep do not qualify.
+related:
+  - T-004  # Gall — working systems resist restructuring
+  - CL-001 # Formalization Ratchet — formalization follows ossification
+  - CL-002 # Coordination Cost Conservation — mechanism overlap
+separation_date: null
+separation_checklist:
+  artifact_drafted: false
+  peer_review: false
+  published: false
+research_status: active
+phase_pct: 0.78

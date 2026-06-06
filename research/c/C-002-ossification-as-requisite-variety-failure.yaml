@@ -1,0 +1,18 @@
+id: C-002
+title: "Ossification as requisite-variety failure"
+type: insight
+surface_date: 2026-06-06
+source: inbox
+source_ref: "bibliography/shallow-reads/2026-06-06-idea-ossification-as-frozen-internal-variety-while-external-.md"
+content: |
+  Protocol ossification might be best understood as a complexity mismatch: internal adaptive
+  capacity frozen while external environmental variety keeps growing. This reframes T-001 not
+  as a coordination-cost story but as a control-theoretic failure — the protocol can no longer
+  match the variety of its environment. Ashby's law of requisite variety may provide the
+  unifying mechanism for both ossification and hardness asymmetry.
+connections:
+  - T-001
+  - T-002
+  - C-010
+status: open
+consumed_by: ""
