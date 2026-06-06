@@ -29,8 +29,6 @@ Humboldt's persona is assembled dynamically from six documents, not a monolithic
 - `_slim_context()` — IDENTITY excerpt + law names + latest notebook paragraph. Used for proactive channel posts and notebook announcements.
 - `_rich_context()` — Full IDENTITY + LINEAGE excerpt + law statements + active hypotheses + recent notebook. Used for @mention responses.
 
-`SOUL.md` is archived (2026-05-21). It was a monolithic persona file; the above modular documents supersede it.
-
 ---
 
 ## System Components
@@ -64,12 +62,17 @@ Uses `claude-sonnet-4-6`. Prompt caching on the system block (persona documents 
 
 Chunks and embeds Humboldt's own research output into the `humboldt` Pinecone namespace:
 
-- `notebook/*.md` — chunked by `##` section
-- `bibliography/notes/*.md` — reading notes, chunked by section
-- `research/laws/*.yaml` — full YAML per law
-- `research/hypotheses/*.yaml` — full YAML per hypothesis
+- `notebook/*.md` — lab notebook entries, chunked by `##` section
+- `bibliography/notes/*.md` — deep-read notes, chunked by section
+- `bibliography/shallow-reads/*.md` — shallow-read notes, chunked by section
+- `research/c/*.yaml` — Curiosity items (exploration phase)
+- `research/h/*.yaml` — Hypothesis items (sensemaking phase)
+- `research/cl/*.yaml` — Candidate Law items (valley phase)
+- `research/f/*.yaml` — Falsification Monitor items (retrospective phase)
+- `research/ds/*.md` — Deep Story arc files, chunked by section
+- `inbox/discord-idea-*.md` — community-captured ideas
 
-Each vector carries augmented metadata (document title, date, section) so retrieved results are self-identifying in prompts. Run after any session that produces new notebook entries or modifies laws. The daemon runs `ingest_all()` automatically after new notebook entries are detected.
+Each vector carries augmented metadata (document title, date, section, type) so retrieved results are self-identifying in prompts. Run after any session that produces new notebook entries or modifies research artifacts. The daemon runs `ingest_all()` automatically after new notebook entries are detected.
 
 ### `agent/publish.py` — Website Publishing Pipeline
 
@@ -204,61 +207,108 @@ Single JSON file (`daemon/state.json`, gitignored) tracks everything the daemon 
 
 ## Research Inventory
 
+Research output is organized around the **Double Freytag phase model** (Rao, *Tempo*). Each phase produces a typed artifact. The DS file is the narrative arc container spanning all phases of a single inquiry.
+
 ```
 research/
-├── projects/       Arc documents — one per inquiry thread, phase-gated
-│                   Phases: exploration | sensemaking | valley | heavy_lift | retrospective
-│                   Templates: _template-discovered.md, _template-imported.md
-├── laws/           YAML — formal law statements (produced at heavy_lift separation event)
-├── hypotheses/     YAML — active hypotheses (legacy; new ones live in project sensemaking)
-└── theories/       Markdown — unified theory development
+├── ds/       DS-NNN — Deep Story arc files (one per inquiry thread)
+│             The arc container: tracks phase position, tempo, transition trigger,
+│             and blocking behavior for each thread. Opened at the start of any
+│             new inquiry; closed after the separation event artifact is published.
+├── c/        C-NNN — Curiosity items (exploration phase)
+│             Provocations, not proto-laws. Flows in continuously from inbox,
+│             Discord, reading, and observation. The only rule: not a candidate law.
+├── h/        H-NNN — Hypothesis items (sensemaking phase, post-cheap-trick)
+│             Tracks the developing framing from first insight to working claim.
+│             Created at the cheap trick transition; closed when promoted to CL.
+├── cl/       CL-NNN — Candidate Law items (valley phase)
+│             Evidence accumulating under an organizing insight. Has a named
+│             transition_trigger: the specific condition that would close the valley
+│             and open the heavy lift.
+├── theories/ T-NNN — Theory items (heavy lift phase)
+│             Synthesis committed; writing the publishable artifact. A T item
+│             only exists when Humboldt is actively writing toward publication.
+└── f/        F-NNN — Falsification Monitor items (retrospective phase)
+              Created only after a separation event — a published artifact available
+              for independent review. Currently empty: no separation events have occurred.
 ```
 
-**Project files** are the primary tracking unit for research arcs. Hypothesis YAMLs (H-00x) are a legacy format; new research threads open as project files under `research/projects/`.
+**Phase-to-artifact mapping:**
 
-**Law YAML schema:**
-```yaml
-id, name, statement, type, confidence, domains,
-related_laws, mechanism, falsification_conditions,
-counterexamples, evidence, notes, project_file, registered
-```
+| Phase | Artifact | Created when |
+|-------|----------|-------------|
+| Liminal Passage | — | — |
+| Exploration | C (Curiosity) | Any provocation worth keeping |
+| Sensemaking | H (Hypothesis) | Cheap trick fires; organizing insight crystallizes |
+| Valley | CL (Candidate Law) | Evidence accumulating; arc in sustained investigation |
+| Heavy Lift | T (Theory) | Writing toward a publishable separation event |
+| Retrospective | F (Falsification Monitor) | After a published artifact enters external scrutiny |
 
-**Current inventory** (as of 2026-05-27): L-001 through L-005 (formal laws), H-001 and H-002 (active hypotheses), P-001 through P-007 (project arcs).
+**Transitions:** Cheap Trick (exploration → sensemaking) and Separation Event (heavy lift → retrospective) are named. Other transitions are unnamed and triggered by readiness assessment recorded in `transition_trigger` field of the arc's DS file.
+
+**No confidence field.** There are no "established" laws — only laws that have not yet been falsified or superseded. F items use `status: active | superseded | refuted`.
 
 ---
 
-## Methods Inventory
+## Behavior Inventory
 
-`methods/` contains Humboldt's research technique library — M-000 through M-017:
+Humboldt's research techniques are called **behaviors** — named, documented habits rather than recipes. The canonical inventory is `behaviors/registry.yaml`. Each behavior has a stable hash ID; M-0xx legacy IDs are cross-referenced as `legacy_id` fields.
 
-| Method | Name | Role |
-|--------|------|------|
-| M-000 | OODA Loop | OS kernel — the core decision gate for every session |
-| M-001 | Random Links | Serendipitous cross-domain connection |
-| M-002 | Canonical Domains | Rotation through vetted empirical domains |
-| M-003 | Deep Read | Structured reading protocol for source texts |
-| M-004 | Reading Prioritization | Sequencing the reading queue |
-| M-005 | Explore-Exploit | Balancing new territory vs. deepening existing threads |
-| M-006 | Research Conversations | Treating discussions as research inputs |
-| M-007 | Field Trip | Empirical domain immersion |
-| M-008 | Bullshit Detector | Adversarial testing of candidate laws |
-| M-009 | Visual Thinking | Diagram-based reasoning |
-| M-010 | Fermi Estimation | Order-of-magnitude sanity checks |
-| M-011 | Dyson Design | Speculative design as a research tool |
-| M-012 | Thought Experiments | Controlled counterfactual reasoning |
-| M-013 | Design Fictions | Narrative-form speculation |
-| M-014 | Cross-Training | Deliberate domain rotation |
-| M-015 | Stress-Relax | Alternating intensity and incubation |
-| M-016 | Researcher Calibration | Self-assessment of research craft maturity |
-| M-017 | Research Time Management | Phase-position diagnosis and session pacing |
+**Two classification axes:**
+- **Classification:** `supervised` (operator-triggered), `live` (autonomous during a session), `daemon` (runs outside sessions)
+- **State:** `stub` (defined, not implemented), `prototyping` (in active development), `production` (stable)
+
+**Boot behaviors** (deterministically triggered by the bootstrap sequence):
+
+| ID | Name | State |
+|----|------|-------|
+| boot-000 | Wakeup Sequence | production |
+| boot-001 | OODA Decision Gate | stub |
+
+**Supervised behaviors** (operator-triggered):
+
+| ID | Name | State | Legacy |
+|----|------|-------|--------|
+| behavior-t5m | Deep Read | prototyping | M-003 |
+| behavior-m7v | Cross-Training | stub | M-014 |
+| behavior-h4v | Field Trip | stub | M-007 |
+| behavior-n1s | Visual Thinking | stub | M-009 |
+
+**Live behaviors** (can run autonomously):
+
+| ID | Name | State | Legacy |
+|----|------|-------|--------|
+| behavior-q2n | Random Links | production | M-001 |
+| behavior-c7r | Curiosity Browsing | stub | — |
+| behavior-f8p | Canonical Domains | stub | M-002 |
+| behavior-j6d | Bullshit Detector | stub | M-008 |
+| behavior-z8l | Fermi Estimation | stub | M-010 |
+| behavior-y2g | Dyson Design | stub | M-011 |
+| behavior-r4k | Thought Experiments | stub | M-012 |
+| behavior-c9p | Design Fictions | stub | M-013 |
+| behavior-s5j | Open Source Exploration | stub | M-018 |
+
+**Daemon behaviors** (Discord bot + scheduled tasks):
+
+| ID | Name | State |
+|----|------|-------|
+| behavior-e2h | Feed Intake | prototyping |
+| behavior-a8r | Conversation Synthesis | prototyping |
+| behavior-o4t | Idea/Link Capture | prototyping |
+| behavior-g7u | Notebook Publish | production |
+| behavior-v3c | Thread Farming | prototyping |
+
+The full registry with descriptions, source files, and implementation notes is in `behaviors/registry.yaml`. The `methods/` directory contains the detailed specification documents for each behavior; behavior IDs are the canonical reference, M-0xx names are historical.
 
 ---
 
 ## Deep-Read Library
 
-Source PDFs in `bibliography/deep-reads/`. Reading notes in `bibliography/notes/`. `READING-HINTS.md` is the pre-read index: each entry records the operator's reading hint, which shapes the M-003 Phase 1 structural hypothesis. All reads must use the actual PDF — never from training memory.
+Source PDFs in `bibliography/deep-reads/`. Reading notes in `bibliography/notes/`. `READING-HINTS.md` is the pre-read index: each entry records the operator's reading hint before the read begins. All reads must use the actual PDF — never from training memory. This is enforced by M-003 procedure.
 
-Current library: Simon (*Sciences of the Artificial*), Hamming (*You and Your Research*), Humboldt (*Cosmos Vol. 1*), Rao (*Tempo*).
+Candidates not yet in hand are tracked in `bibliography/deep-read-hopper.md`, with source of recommendation (deep read discovery, shallow read escalation, Discord, operator, web) and PDF status.
+
+**Completed reads:** Simon (*Sciences of the Artificial*), Hamming (*You and Your Research*), von Humboldt (*Cosmos Vol. 1*), Rao (*Tempo*), Iverson (*Notation as a Tool of Thought*).
 
 ---
 
@@ -288,7 +338,7 @@ humboldt investigate "<topic>"
     │   System: assembled persona (cached) + existing inventory
     │   User: retrieved chunks + research task
     │
-    ├── write/update research/laws/ or research/projects/ YAML/MD
+    ├── write/update research/c|h|cl|theories|ds/ YAML/MD artifacts
     │
     └── git add research/ notebook/ && git commit && git push
 ```

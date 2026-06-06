@@ -577,6 +577,18 @@ def cmd_publish_research(dry_run: bool = False):
     publish_research(dry_run=dry_run)
 
 
+def cmd_publish_reading(dry_run: bool = False):
+    """Render deep-read notes to the PI website and push."""
+    from agent.publish_reading import publish_reading
+    publish_reading(dry_run=dry_run)
+
+
+def cmd_publish_architecture(dry_run: bool = False):
+    """Render ARCHITECTURE.md to the PI website and push."""
+    from agent.publish_architecture import publish_architecture
+    publish_architecture(dry_run=dry_run)
+
+
 def cmd_references_list(unsorted_only: bool = False):
     """Display the reference list grouped by status."""
     from agent.references import cmd_list
@@ -630,6 +642,10 @@ Usage:
   python3 -m agent.humboldt publish --dry-run            # preview rendering, no git ops
   python3 -m agent.humboldt publish-research             # generate research status page → website + push
   python3 -m agent.humboldt publish-research --dry-run   # preview, no git ops
+  python3 -m agent.humboldt publish-reading              # render deep-read notes → website + push
+  python3 -m agent.humboldt publish-reading --dry-run    # preview, no git ops
+  python3 -m agent.humboldt publish-architecture         # render ARCHITECTURE.md → website + push
+  python3 -m agent.humboldt publish-architecture --dry-run
   python3 -m agent.humboldt references list              # show reference list by status
   python3 -m agent.humboldt references list --unsorted   # show only unsorted
   python3 -m agent.humboldt references sort              # classify unsorted → read/deep_read/discard
@@ -750,6 +766,12 @@ def main():
     elif cmd == "publish-research":
         dry_run = "--dry-run" in rest
         cmd_publish_research(dry_run=dry_run)
+    elif cmd == "publish-reading":
+        dry_run = "--dry-run" in rest
+        cmd_publish_reading(dry_run=dry_run)
+    elif cmd == "publish-architecture":
+        dry_run = "--dry-run" in rest
+        cmd_publish_architecture(dry_run=dry_run)
     elif cmd == "references":
         subcmd = rest[0] if rest else "list"
         if subcmd == "list":

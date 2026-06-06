@@ -6,6 +6,90 @@ Most recent entry first.
 
 ---
 
+## 2026-06-06 (session 15) — Deep read infrastructure; standalone subsite; ARCHITECTURE.md overhaul; Iverson read
+
+**Tracks active:** T1 / T2 / T3
+**Daemon PID:** 917 (running, launchd)
+
+### behavior-t5m (Deep Read) — now length-agnostic + curiosity pass required
+
+The deep read behavior was implicitly calibrated for books. Two changes:
+
+1. **Length-agnostic:** behavior-t5m now applies to any text length — books, papers, essays, aphorisms, koans. For shorter texts, depth comes from connections to existing inventory rather than extended structural mapping. The Phase 1 structural mapping step is now split: long texts use the table-of-contents pass; short texts form a one-sentence pre-reading hypothesis instead.
+
+2. **Phase 3b (Curiosity Pass) added as a required phase:** After synthesis, every deep read must produce 2–5 C-NNN YAMLs capturing things the text opened that don't rise to candidate law level. `source: reading`, `source_ref` points to the notes file. These feed directly into the exploration inventory via ingest.
+
+The Iverson read was the first test of both changes. It ran as a background subagent: 24 pages read, full 12-section notes written, 4 C items created (C-011 through C-014), LINEAGE.md updated with Iverson entry + new "Computational Epistemology / Formal Methods" tradition. Completed in ~4 minutes.
+
+### deep-read-hopper.md — candidate tracking document
+
+`bibliography/deep-read-hopper.md` created as the canonical queue for deep-read candidates at any stage of PDF availability. Fields: title/author, type, source of recommendation (source codes: `deep-read:X`, `shallow-read`, `discord:@handle`, `operator`, `web`), PDF status, research connections, date added.
+
+Populated on creation with: 7 books surfaced from reading notes (Rittel-Webber, Nelson-Winter, Ostrom, Kauffman, Gertner, Kuhn, Wilhelm von Humboldt); 2 Ribbonfarm essay series; 9 arXiv escalations from shallow reads; 2 needs-operator-guidance items (Lamport, IEEE UnifiedBus); 1 web-only article. Also added the complete ACM Turing Award lecture collection (60 entries, 1966–2025), sourced from the Wikipedia laureate list after amturing.acm.org returned Cloudflare 403s. Iverson (1979) already moved from `needs-hunting` to `in-library`.
+
+READING-HINTS.md and the M-003 source file now both reference the hopper. Download script at `bibliography/deep-reads/download-turing-lectures.sh` (requires browser cookie injection to bypass Cloudflare).
+
+### ingest.py — new schema functions
+
+The `_law_chunks()` and `_hypothesis_chunks()` functions pointed at `research/laws/` and `research/hypotheses/` — both directories were deleted in the session 14 schema redesign. They were silently returning empty lists and none of the new artifacts were being ingested. Fixed:
+
+- `_law_chunks()` → removed (directory gone)
+- `_hypothesis_chunks()` → removed (directory gone)  
+- Added: `_curiosity_chunks()` (C items), `_cl_chunks()` (CL items), `_h_chunks()` (H items), `_f_chunks()` (F items), `_ds_chunks()` (DS arc markdown)
+
+Confirmed counts on fix: 10 C, 3 CL, 0 H, 0 F, 52 DS chunks. Ingest pipeline now covers 9 source types.
+
+### New publish commands
+
+- `humboldt publish-reading` — renders `bibliography/notes/*.md` → `humboldt-reading/index.html` on PI website. Each source gets a card: gestalt paragraph highlighted, analytical moves and candidate law counts badged, full notes in a `<details>` collapsible. Pushed live this session.
+- `humboldt publish-architecture` — renders `ARCHITECTURE.md` → `humboldt-architecture/index.html` on PI website. Pushed live this session.
+
+### humboldt-site/ — standalone subsite
+
+`protocol-institute/humboldt-site/` created as the foundation for `humboldt.protocol-institute.org`. Standalone static site: own CSS, own nav, no dependency on the PI website CSS or JS.
+
+7 pages built from live data via `build.py`:
+- **/** — research mission from IDENTITY.md, live CL inventory, latest notebook entry teaser
+- **/notebook/** — all notebook entries, newest-first, TOC with permalinks
+- **/reading/** — all deep-read notes with gestalt blocks and collapsible full notes
+- **/research/** — research status page (adapted from PI website generated version)
+- **/methods/** — all 26 behaviors from registry.yaml, grouped by classification
+- **/devlog/** — all 17 dev-log sessions, TOC with permalinks
+- **/architecture/** — full ARCHITECTURE.md rendered as prose
+
+Nav redesign this session: main header is logo-only; all page navigation moves to a dedicated **subsite nav bar** — a horizontal strip below the header with tab labels and one-line descriptors (e.g., "Research / Active arcs", "Methods / Behaviors"). Active tab has teal underline. Horizontally scrollable on narrow viewports. Served at localhost:8765.
+
+Deployment to the subdomain is deferred — standalone site confirmed working locally first.
+
+### ARCHITECTURE.md — three sections rewritten
+
+SOUL.md was still mentioned as "archived"; that line is gone. Three sections required complete rewrites:
+
+- **ingest.py description** — now lists all 9 current source types
+- **Research Inventory** — fully replaced with DS/C/H/CL/T/F schema, phase-to-artifact table, transition trigger explanation, explicit note that F is correctly empty
+- **Methods Inventory → Behavior Inventory** — renamed, split into boot/supervised/live/daemon tables with behavior-### IDs and legacy M-0xx cross-references; `behaviors/registry.yaml` named as the canonical source
+
+Also updated: Deep-Read Library section now includes Iverson and references `deep-read-hopper.md`; data flow diagram corrected to new artifact paths.
+
+### _template/ — SOUL-template.md replaced
+
+`_template/SOUL-template.md` deleted (monolithic persona model, superseded 2026-05-21).
+`_template/IDENTITY-template.md` created — the new AR template lead document following the modular architecture: IDENTITY / LINEAGE / MEMORY / METHOD / BOOTSTRAP / behaviors/registry.yaml / research schema / bibliography.
+
+### LINEAGE.md completions (T1 operator step, session 15)
+
+Phase 4 entries written for Hamming, Cosmos, and Rao — all three had been pending since their respective reads in sessions 5–8. Combined with the Iverson entry (written by subagent), LINEAGE.md now has entries for all 5 completed reads. The "LINEAGE.md updates for 4 completed deep reads" item is removed from the Operator Steps queue.
+
+**Open (next session):**
+- CL-Rao-1/2/3 promotion decision (still in Operator Steps)
+- First separation event artifact (T-001 or T-002 — write and publish)
+- Deploy humboldt-site/ to humboldt.protocol-institute.org + update main PI site
+- Iverson curiosities: one corpus retrieval session to check notation-lock-in evidence
+- Behavior Double Freytag lifecycle model (T2 [H] item, still deferred)
+- Run ingest after this session (new notes + C items need embedding)
+
+---
+
 ## 2026-06-06 (session 14) — Schema redesign (DS/C/H/CL/T/F); research status page; inbox pass; separation event clarification
 
 **Tracks active:** T1 / T2 / T3

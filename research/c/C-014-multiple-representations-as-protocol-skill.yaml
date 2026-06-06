@@ -1,0 +1,22 @@
+id: C-014
+title: "Multiple representations as a protocol design skill"
+type: curiosity
+surface_date: 2026-06-06
+source: reading
+source_ref: "bibliography/notes/iverson-notation-as-tool.md"
+content: |
+  Iverson consistently works with multiple representations of the same
+  mathematical object (polynomials as coefficient vectors vs. root vectors;
+  permutations as direct, boolean, cycle, or radix representations; graphs
+  as adjacency matrices, incidence matrices, or edge lists) and treats the
+  transformations between representations as first-class mathematical objects.
+  The key insight: no single representation is best for all operations;
+  the expert knows which representation to use when, and can convert cheaply.
+  Applied to protocols: a protocol designer who only knows one representation
+  of the coordination problem is structurally limited. The skill of moving
+  between representations — and of knowing when the current representation
+  is the wrong one — may be the most important and least-taught skill in
+  protocol design.
+connections: [CL-002, C-003]
+status: open
+consumed_by: ""

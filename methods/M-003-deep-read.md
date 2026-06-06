@@ -1,9 +1,9 @@
 # M-003: Deep Read
 
 **Type:** Analytical (situating + tradition-building)
-**Purpose:** Fully internalize the intellectual structure of an exceptional source — not to extract facts but to absorb a way of thinking
+**Purpose:** Fully internalize the intellectual structure of an exceptional source — not to extract facts but to absorb a way of thinking. Applies to any length of text: books, papers, essays, aphorisms, koans.
 **Maturity:** Active (first defined 2026-05-20)
-**Source documents:** `bibliography/deep-reads/` — PDFs only; drop new sources here
+**Source documents:** `bibliography/deep-reads/` — PDFs preferred; short texts may be inline
 **Reading notes:** `bibliography/notes/` — one `.md` per source, written by this technique
 
 ---
@@ -11,6 +11,8 @@
 ## What This Technique Is For
 
 Most reading is extractive: you pull relevant facts, examples, and quotes from a source and move on. Deep reading is different. It treats a source as an intellectual tradition to be inhabited rather than a mine to be excavated.
+
+**Deep reading applies regardless of text length.** A 500-page book, a 20-page paper, a two-paragraph essay, a single aphorism, or a koan can all be deep-read. Length changes the procedure, not the intent. For long texts, depth comes from sustained close reading of the work on its own terms. For short texts, depth comes from making connections — to other texts in the library, to active hypotheses and candidate laws, to the conceptual vocabulary already carried. A short text that generates genuine connections is more valuable than a long text that yields only surface extraction. The question is always the same: *what does this open, and what does it change?*
 
 Human researchers situate themselves in particular traditions by going deep into a small number of foundational texts. These texts do not merely provide data points — they provide **conceptual vocabulary, analytical habits, and ways of framing problems** that shape how the researcher sees everything subsequently. A researcher who has deeply read Kuhn thinks about paradigm shifts; one who has deeply read Ostrom looks for design principles; one who has deeply read Simon thinks in terms of bounded rationality, satisficing, and near-decomposable systems.
 
@@ -45,7 +47,7 @@ A source qualifies for deep reading when it meets at least three of:
 - **Foundational to a tradition:** it is the text that a whole school of thinking traces back to, or one of a small number of such texts
 - **Conceptually productive for new nature:** its core ideas have direct structural relevance to the research agenda, not just incidental overlap
 - **Cross-domain by design:** the author is explicitly doing what Humboldt is doing — reasoning across domain boundaries to find structural regularities
-- **Analytically transferable:** the book's *methods*, not just its *conclusions*, can be applied to Humboldt's own research problems
+- **Analytically transferable:** the text's *methods or moves*, not just its *conclusions*, can be applied to Humboldt's own research problems
 - **Intellectually alive:** the text still generates live debate or new research; it is not merely historically significant
 
 The selection threshold is high because deep reading is expensive — it commits Humboldt to a tradition and shapes subsequent reasoning. A poor selection imports a tradition that may not be fertile. The current deep-read set is consulted when evaluating candidates for addition.
@@ -56,8 +58,11 @@ The selection threshold is high because deep reading is expensive — it commits
 
 ### Phase 1: Structural Mapping (before close reading)
 
-1. Read the table of contents, preface, introduction, and conclusion first — in that order — without reading the body. Construct a hypothesis about the book's argument structure.
-2. Identify the core claim: what is the one thing this book is most fundamentally arguing?
+*For long texts (books, substantial papers):* Read the table of contents, preface, introduction, and conclusion first — in that order — without reading the body. Construct a hypothesis about the argument structure before entering it.
+
+*For short texts (essays, papers, aphorisms, koans):* There is no pre-reading shortcut. Instead, write a one-sentence hypothesis about what the text is doing before reading it closely — what is the animating question or provocation? Record this before reading so the revision is visible.
+
+1. Identify the core claim: what is the one thing this text is most fundamentally arguing (or, for a koan/aphorism, resisting easy statement of)?
 3. Identify the key conceptual terms: what words does the author use in a specialized way that you will need to track?
 4. Identify the central examples or cases the author returns to repeatedly — these are the load-bearing analogies.
 
@@ -83,6 +88,43 @@ Read the full text. Engage with it on its own terms before filtering it through 
 3. Extract **candidate laws** — regularities the author asserts or implies. These may generate entries in `research/hypotheses/`.
 4. Identify **tradition membership** — what school of thought does this text belong to? Who are the precursors, contemporaries, and successors? Which of those are worth adding to the personal bibliography?
 5. Write the **deep-read synthesis** — the full bibliography entry documenting all of the above.
+
+### Phase 3b: Curiosity Pass [REQUIRED on completion]
+
+After synthesis, do a dedicated pass to capture curiosities — things the text opened that
+don't rise to candidate law level but caught genuine attention. These are provocations,
+surprising observations, productive tensions, or questions the text raised without answering.
+
+For each curiosity identified (target: 2–5 per source, fewer is fine, more if warranted):
+
+1. Check the current highest C-NNN number in `research/c/` to assign the next sequential ID.
+2. Write a YAML file `research/c/C-NNN-[short-slug].yaml` following the C item schema:
+   ```yaml
+   id: C-NNN
+   title: "Short evocative title"
+   type: curiosity | insight | motif | example
+   surface_date: YYYY-MM-DD
+   source: reading
+   source_ref: "bibliography/notes/[source-filename].md"
+   content: |
+     1–3 sentences. What caught attention and why.
+     No law framing — just the provocation.
+   connections: []   # C/H/CL IDs that feel adjacent (optional)
+   status: open
+   consumed_by: ""
+   ```
+3. These C items will be ingested on the next `humboldt ingest` run and made retrievable.
+
+**What counts as a curiosity vs. a candidate law:** A candidate law is a falsifiable
+regularity asserted or strongly implied by the text. A curiosity is anything else worth
+keeping — an anomaly, a tension between two frameworks, a question the text opened, an
+example that feels generative, a structural observation that might mean something but you
+don't yet know what. When in doubt, write the curiosity; promote to H or CL later.
+
+**For short texts:** curiosities are the primary output. A koan or aphorism may yield no
+candidate laws but 3–4 genuine curiosities via the connections it forces.
+
+---
 
 ### Phase 4: Lineage Update [REQUIRED on completion]
 
@@ -118,6 +160,8 @@ The deep-read text is not finished when the synthesis is written. Active integra
 ---
 
 ## Source and Notes Conventions
+
+**Candidate tracking:** `bibliography/deep-read-hopper.md` — add any text flagged for eventual deep reading, regardless of whether the PDF is in hand. Records source of recommendation (deep-read discovery, shallow-read escalation, Discord, operator, web) and PDF status.
 
 **Source documents** go in `bibliography/deep-reads/` as PDFs. Filename: `[author-short-title].pdf`. Drop new sources here; the `humboldt library` command will find them.
 

@@ -108,9 +108,6 @@ resolves these; Track 1 names them here as the demand signal. Format: behavior-x
 ## Operator Steps
 *Arc-adjacent actions requiring operator input, not research investigation.*
 
-- LINEAGE.md updates for 4 completed deep reads: Simon (gestalt 2026-05-28),
-  Cosmos (gestalt 2026-05-28), Hamming (gestalt 2026-05-26), Tempo (2026-05-27).
-  M-003 Phase 4 — do not skip or automate.
 - CL-Rao-1 (Narrative Displacement), CL-Rao-2 (Doctrine Lock-In), CL-Rao-3
   (Temporal Misalignment Failure) — review `bibliography/notes/rao-tempo.md` §10
   and decide which warrant promotion to hypothesis YAMLs.
@@ -125,3 +122,7 @@ sensemaking queues are clear, or when the inventory needs fresh ground.*
   BFT protocols. Known domain; may surface laws in corners not yet examined.
 - Immunology as candidate canonical domain: self/non-self discrimination. One targeted
   retrieval session to test fertility before committing to a full rotation.
+- **Iverson curiosities** (C-011 through C-014) — notation lock-in, suggestivity/mastery
+  tradeoff, efficiency circularity, multiple representations. No cheap trick yet; need
+  one corpus retrieval session to see if protocol-notation examples are recoverable.
+  C-012 (suggestivity/mastery tradeoff) has a direct bearing on CL-001 adoption dynamics.

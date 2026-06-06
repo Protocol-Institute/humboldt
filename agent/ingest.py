@@ -1,8 +1,8 @@
 """Ingest Humboldt's own documents into the 'humboldt' Pinecone namespace.
 
-Chunks by ## section headers for markdown files; embeds law and hypothesis
-YAMLs in full. Each vector carries augmented metadata (document title, date,
-section) so retrieved results are self-identifying in Claude prompts.
+Covers: notebook entries, deep-read notes, shallow reads, C/H/CL/F research
+artifacts, DS arc files, and Discord inbox ideas. Each vector carries augmented
+metadata so retrieved results are self-identifying in Claude prompts.
 
 Run via: python3 -m agent.humboldt ingest
 """
@@ -114,38 +114,136 @@ def _notes_chunks() -> list[dict]:
     return chunks
 
 
-def _law_chunks() -> list[dict]:
-    """Embed each law YAML in full — no chunking, laws are small."""
-    laws_dir = _ROOT / "research" / "laws"
+def _curiosity_chunks() -> list[dict]:
+    """Embed each C (Curiosity) YAML — exploration phase artifacts."""
+    c_dir = _ROOT / "research" / "c"
     chunks = []
-    for path in sorted(laws_dir.glob("*.yaml")):
+    for path in sorted(c_dir.glob("C-*.yaml")):
         try:
-            law = yaml.safe_load(path.read_text())
+            item = yaml.safe_load(path.read_text())
         except Exception:
             continue
-        law_id = law.get("id", path.stem)
-        name = law.get("name", "")
-        statement = (law.get("statement") or "").strip()
-        mechanism = (law.get("mechanism") or "").strip()
-        confidence = law.get("confidence", "candidate")
-        domains = law.get("domains") or []
+        item_id = item.get("id", path.stem)
+        title = item.get("title", "")
+        content = (item.get("content") or "").strip()
+        source = item.get("source", "")
+        connections = item.get("connections") or []
 
-        embed_text = f"Law {law_id}: {name}\n\nStatement: {statement}"
+        embed_text = f"Curiosity {item_id}: {title}\n\n{content}"
+        if connections:
+            embed_text += "\n\nConnections: " + ", ".join(str(c) for c in connections)
+
+        chunks.append({
+            "id": f"humboldt-curiosity-{_slugify(item_id)}",
+            "text": embed_text,
+            "metadata": {
+                "type": "curiosity",
+                "title": f"{item_id}: {title}",
+                "item_id": item_id,
+                "source": source,
+                "source_file": f"research/c/{path.name}",
+                "text": embed_text[:2000],
+            },
+        })
+    return chunks
+
+
+def _cl_chunks() -> list[dict]:
+    """Embed each CL (Candidate Law) YAML — valley phase artifacts."""
+    cl_dir = _ROOT / "research" / "cl"
+    chunks = []
+    for path in sorted(cl_dir.glob("CL-*.yaml")):
+        try:
+            item = yaml.safe_load(path.read_text())
+        except Exception:
+            continue
+        item_id = item.get("id", path.stem)
+        name = item.get("name", "")
+        statement = (item.get("statement") or "").strip()
+        mechanism = (item.get("mechanism") or "").strip()
+        domains = item.get("domains") or []
+
+        embed_text = f"Candidate Law {item_id}: {name}\n\nStatement: {statement}"
         if mechanism:
             embed_text += f"\n\nMechanism: {mechanism}"
         if domains:
             embed_text += "\n\nDomains: " + "; ".join(str(d) for d in domains[:4])
 
         chunks.append({
-            "id": f"humboldt-law-{_slugify(law_id)}",
+            "id": f"humboldt-cl-{_slugify(item_id)}",
             "text": embed_text,
             "metadata": {
-                "type": "law",
-                "title": f"Law {law_id}: {name} [{confidence}]",
-                "law_id": law_id,
+                "type": "candidate_law",
+                "title": f"{item_id}: {name}",
+                "item_id": item_id,
                 "name": name,
-                "confidence": confidence,
-                "source_file": f"research/laws/{path.name}",
+                "source_file": f"research/cl/{path.name}",
+                "text": embed_text[:2000],
+            },
+        })
+    return chunks
+
+
+def _h_chunks() -> list[dict]:
+    """Embed each H (Hypothesis) YAML — sensemaking phase artifacts."""
+    h_dir = _ROOT / "research" / "h"
+    chunks = []
+    for path in sorted(h_dir.glob("H-*.yaml")):
+        try:
+            item = yaml.safe_load(path.read_text())
+        except Exception:
+            continue
+        item_id = item.get("id", path.stem)
+        question = (item.get("question") or "").strip()
+        cheap_trick = (item.get("cheap_trick") or "").strip()
+        working_statement = (item.get("working_statement") or "").strip()
+
+        embed_text = f"Hypothesis {item_id}: {question}"
+        if cheap_trick:
+            embed_text += f"\n\nCheap trick: {cheap_trick}"
+        if working_statement:
+            embed_text += f"\n\nWorking statement: {working_statement}"
+
+        chunks.append({
+            "id": f"humboldt-h-{_slugify(item_id)}",
+            "text": embed_text,
+            "metadata": {
+                "type": "hypothesis",
+                "title": f"{item_id}: {question[:80]}",
+                "item_id": item_id,
+                "source_file": f"research/h/{path.name}",
+                "text": embed_text[:2000],
+            },
+        })
+    return chunks
+
+
+def _f_chunks() -> list[dict]:
+    """Embed each F (Falsification Monitor) YAML — retrospective phase artifacts."""
+    f_dir = _ROOT / "research" / "f"
+    chunks = []
+    for path in sorted(f_dir.glob("F-*.yaml")):
+        try:
+            item = yaml.safe_load(path.read_text())
+        except Exception:
+            continue
+        item_id = item.get("id", path.stem)
+        name = item.get("name", "")
+        statement = (item.get("statement") or "").strip()
+        falsification_conditions = (item.get("falsification_conditions") or "").strip()
+
+        embed_text = f"Falsification Monitor {item_id}: {name}\n\nStatement: {statement}"
+        if falsification_conditions:
+            embed_text += f"\n\nFalsification conditions: {falsification_conditions}"
+
+        chunks.append({
+            "id": f"humboldt-f-{_slugify(item_id)}",
+            "text": embed_text,
+            "metadata": {
+                "type": "falsification_monitor",
+                "title": f"{item_id}: {name}",
+                "item_id": item_id,
+                "source_file": f"research/f/{path.name}",
                 "text": embed_text[:2000],
             },
         })
@@ -222,37 +320,30 @@ def _shallow_read_chunks() -> list[dict]:
     return chunks
 
 
-def _hypothesis_chunks() -> list[dict]:
-    """Embed each hypothesis YAML in full."""
-    hyp_dir = _ROOT / "research" / "hypotheses"
+def _ds_chunks() -> list[dict]:
+    """Chunk each DS (Deep Story arc) markdown file by section."""
+    ds_dir = _ROOT / "research" / "ds"
     chunks = []
-    for path in sorted(hyp_dir.glob("*.yaml")):
-        try:
-            hyp = yaml.safe_load(path.read_text())
-        except Exception:
-            continue
-        hyp_id = hyp.get("id", path.stem)
-        question = (hyp.get("question") or "").strip()
-        motivation = (hyp.get("motivation") or "").strip()
-        status = hyp.get("status", "active")
+    for path in sorted(ds_dir.glob("DS-*.md")):
+        text = path.read_text()
+        title_match = re.search(r"^#\s+(.+)$", text, re.MULTILINE)
+        doc_title = title_match.group(1).strip() if title_match else path.stem
 
-        embed_text = f"Hypothesis {hyp_id}: {question}"
-        if motivation:
-            embed_text += f"\n\nMotivation: {motivation}"
-
-        chunks.append({
-            "id": f"humboldt-hypothesis-{_slugify(hyp_id)}",
-            "text": embed_text,
-            "metadata": {
-                "type": "hypothesis",
-                "title": f"Hypothesis {hyp_id} [{status}]: {question[:80]}",
-                "hyp_id": hyp_id,
-                "question": question[:500],
-                "status": status,
-                "source_file": f"research/hypotheses/{path.name}",
-                "text": embed_text[:2000],
-            },
-        })
+        for section_title, body in _chunk_markdown(text):
+            embed_text = f"Deep Story Arc — {doc_title}: {section_title}\n\n{body}"
+            chunk_id = f"humboldt-ds-{_slugify(path.stem)}-{_slugify(section_title)}"
+            chunks.append({
+                "id": chunk_id,
+                "text": embed_text,
+                "metadata": {
+                    "type": "deep_story",
+                    "title": f"{path.stem} — {section_title}",
+                    "doc_title": doc_title,
+                    "section": section_title,
+                    "source_file": f"research/ds/{path.name}",
+                    "text": embed_text[:2000],
+                },
+            })
     return chunks
 
 
@@ -272,8 +363,11 @@ def ingest_all(verbose: bool = True) -> dict:
         _notebook_chunks()
         + _notes_chunks()
         + _shallow_read_chunks()
-        + _law_chunks()
-        + _hypothesis_chunks()
+        + _curiosity_chunks()
+        + _h_chunks()
+        + _cl_chunks()
+        + _f_chunks()
+        + _ds_chunks()
         + _inbox_idea_chunks()
     )
 

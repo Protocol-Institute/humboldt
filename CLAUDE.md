@@ -74,7 +74,7 @@ Namespaces (as of 2026-05-20 for PI corpus; 2026-05-26 for humboldt):
 - `discord_links`: 6,722 vectors — enriched Discord links
 - `sig`: 4,689 vectors — SIG channel discussions
 - `transcripts`: 4 vectors (grows with use)
-- `humboldt`: 1,260 vectors (2026-06-06) — Humboldt's own notebook, reading notes, shallow reads, curiosities (C items), DS files, CL/T/H artifacts, inbox ideas
+- `humboldt`: 1,344 vectors (2026-06-06, post-session-15) — 69 notebook, 59 notes (5 deep reads), 1145 shallow reads, 14 curiosity, 3 candidate law, 52 deep story, 2 inbox ideas
 
 Do not write to c3po namespaces. Humboldt's own work goes to the `humboldt` namespace via `humboldt ingest`.
 
@@ -108,7 +108,7 @@ python3 -m agent.humboldt pre-notebook              # show pending entries
 python3 -m agent.humboldt pre-notebook mark-consumed # advance cursor after writing notebook
 
 # Ingest Humboldt's own documents → humboldt Pinecone namespace
-# Covers: notebook, reading notes, shallow reads, laws, hypotheses, inbox discord-ideas
+# Covers: notebook, reading notes, shallow reads, C/H/CL/F/DS artifacts, inbox discord-ideas
 # Run after each session that adds any of the above
 python3 -m agent.humboldt ingest
 
@@ -162,6 +162,16 @@ python3 -m agent.humboldt publish --dry-run     # preview rendering, no git ops
 # Run after any session that changes the research inventory.
 python3 -m agent.humboldt publish-research              # generate + push
 python3 -m agent.humboldt publish-research --dry-run    # preview, no git ops
+
+# Publish deep-read notes (reads bibliography/notes/ → humboldt-reading/index.html)
+# Run after any session that completes a deep read.
+python3 -m agent.humboldt publish-reading               # generate + push
+python3 -m agent.humboldt publish-reading --dry-run     # preview, no git ops
+
+# Publish architecture page (renders ARCHITECTURE.md → humboldt-architecture/index.html)
+# Run after any session that updates ARCHITECTURE.md.
+python3 -m agent.humboldt publish-architecture          # generate + push
+python3 -m agent.humboldt publish-architecture --dry-run
 ```
 
 ### Deep-read library

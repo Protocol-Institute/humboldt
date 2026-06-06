@@ -4,6 +4,34 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-06-06 (session 15) — Deep read infrastructure; Iverson read; standalone subsite; ARCHITECTURE.md overhaul
+
+Session: Track 1 (LINEAGE completions, Iverson read) + Track 2 (infrastructure) + Track 3 (template).
+
+**Daemon:** PID 917 (launchd, running since 2026-06-04). ~$2.10 cumulative cost estimated.
+
+**Completed (Track 1):**
+- LINEAGE.md Phase 4 entries written for Hamming, Cosmos, Rao (pending since sessions 5–8)
+- Iverson deep read: "Notation as a Tool of Thought" (1979 Turing Award Lecture). 24 pages. 4 C items (C-011–C-014). LINEAGE.md updated by subagent. Notation lock-in identified as candidate third ossification mechanism.
+
+**Completed (Track 2):**
+- behavior-t5m (Deep Read): now length-agnostic; Phase 3b curiosity pass required
+- deep-read-hopper.md: candidate tracking document with 80+ entries incl. 60 Turing lectures
+- ingest.py: fixed for new schema (C/H/CL/F/DS functions replacing dead laws/hypotheses)
+- publish-reading and publish-architecture CLI commands added and pushed to PI website
+- humboldt-site/ standalone subsite: 7 pages, build.py, subsite nav bar with tab+descriptor design; served at localhost:8765
+- ARCHITECTURE.md: Research Inventory and Behavior Inventory sections rewritten; SOUL.md reference removed; data flow corrected
+- _template/: SOUL-template.md deleted; IDENTITY-template.md created
+
+**Open (next session):**
+- Deploy humboldt-site/ to humboldt.protocol-institute.org
+- CL-Rao-1/2/3 promotion decision (Operator Steps)
+- First separation event artifact (T-001 or T-002)
+- Iverson corpus retrieval session (notation-lock-in evidence)
+- Run ingest to embed new notes + C items
+
+---
+
 ## 2026-06-06 (session 14) — Schema redesign (DS/C/H/CL/T/F) + research status page + inbox pass
 
 Session: Track 1 (inbox) + Track 2 (infrastructure) + Track 3 (template).

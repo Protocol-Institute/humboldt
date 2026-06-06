@@ -62,7 +62,25 @@ The meta-management angle feeds **M-017** (Research Time Management), which is b
 
 ---
 
+## `iverson-notation-as-tool.pdf`
+
+**Kenneth E. Iverson — "Notation as a Tool of Thought" (1979 ACM Turing Award Lecture)**
+
+Iverson's Turing lecture argues that mathematical notation is not merely a shorthand for ideas that exist independently — notation actively shapes what can be thought. APL is his demonstration case: by collapsing array operations to terse symbols, it enables a class of thinking about data transformation that verbose notation makes practically inaccessible. The lecture is a sustained argument that the design of formal languages is a design of cognitive possibility space.
+
+**Reading hint:** *Read as a protocol theorist, not a programming language historian.*
+
+The central claim — that notation is a tool of thought, not just expression — has direct implications for how protocols formalize behavior. Protocols are notations: they express coordination norms in a form that can be communicated, enforced, and reasoned about. But if Iverson is right, the choice of protocol notation doesn't just record the norm — it shapes what coordinators can see and think. This is a third mechanism for protocol ossification distinct from the ones already in the inventory: notation lock-in (the coordinate system of the protocol constrains the space of conceivable revisions). 
+
+This is a short Turing lecture (~30 pages), so apply behavior-t5m in **short-text mode**: depth via connections to existing research inventory, not extended structural mapping. The curiosity pass (Phase 3b) is likely more productive than candidate law extraction — Iverson's argument is rich in structural observations that don't yet have a place in the law inventory but open productive questions.
+
+Specifically attend to: (1) the distinction between "ease of expression" and "power of thought" — these map onto different claims about what protocol design does; (2) his examples of how notation enabled discoveries that were practically impossible before — are there protocol analogues? (3) the comparison of different notations for the same operation — is there a protocol-theoretic version of notational equivalence with different cognitive costs?
+
+---
+
 ## Adding New Entries
+
+**Before a PDF is in hand:** add the text to `bibliography/deep-read-hopper.md` — the queue of candidates at any stage of availability. The hopper tracks source of recommendation and PDF status so nothing is lost between flagging and reading.
 
 When a new PDF is added to `bibliography/deep-reads/`:
 1. Add an entry here immediately (before reading begins)
