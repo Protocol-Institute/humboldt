@@ -4,6 +4,35 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-06-06 (session 14) — Schema redesign (DS/C/H/CL/T/F) + research status page + inbox pass
+
+Session: Track 1 (inbox) + Track 2 (infrastructure) + Track 3 (template).
+
+**Daemon:** PID 917 (launchd, running since 2026-06-04). $1.72 cumulative cost at session start.
+
+**Completed (Track 2):**
+- Research schema redesigned around Double Freytag phases: P→DS, L→T/CL, H→CL, new C (curiosity) and F (falsification monitor) types. All "laws" reclassified as T (heavy lift) — no separation events have occurred yet.
+- research/agenda.md: phase-bucket headers replace time buckets; no [H]/[M]/[L] on research items.
+- BOOTSTRAP.md: maturity scan replaces "over-aged hypothesis" priority rule.
+- TODO.md: stub-blocker convention documented. New behavior lifecycle + transition graph items added.
+- agent/publish_research.py: research status page generator with Double Freytag SVG diagram.
+- website/humboldt-research/index.html: live on PI website.
+- Curiosity Browsing (behavior-c7r) registered in behaviors/registry.yaml.
+
+**Completed (Track 1):**
+- Inbox pass: 171 items → 123 shallow reads, 46 archived discards.
+- 10 C items created in research/c/ (exploration phase first population).
+- 1260 vectors ingested to humboldt Pinecone namespace.
+
+**Open (next session):**
+- Behavior Double Freytag lifecycle + transition graph model
+- First separation event artifact (likely T-001 or T-002 — write publishable paper)
+- LINEAGE.md updates for 4 deep reads (Simon, Cosmos, Hamming, Tempo) — operator step
+- CL-Simon-2 → H-003 YAML + DS-008 arc
+- CL-Rao-1/2/3 promotion decision
+
+---
+
 ## 2026-05-31 (session 13) — Behavior taxonomy redesign + pre-notebook infrastructure
 
 Session: Track 1 (inbox) + Track 2 (infrastructure).

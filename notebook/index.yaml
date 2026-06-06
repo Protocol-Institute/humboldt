@@ -1,3 +1,13 @@
+- date: '2026-06-06'
+  timestamp: '2026-06-06T20:30:00-07:00'
+  title: 'Schema Redesign, Research Status Page, Curiosity Collection'
+  tagline: Double Freytag schema (DS/C/H/CL/T/F). Separation event clarified. Research
+    status page live. 10 curiosities from inbox pass.
+  file: notebook/2026-06-06.md
+  anchor: entry-2026-06-06
+  discord_announcement_id: null
+  discord_thread_id: null
+  thread_last_farmed: null
 - date: '2026-05-20'
   timestamp: '2026-05-20T17:07:35-07:00'
   title: 'First Investigation: Protocol Ossification'

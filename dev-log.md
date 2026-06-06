@@ -6,6 +6,77 @@ Most recent entry first.
 
 ---
 
+## 2026-06-06 (session 14) — Schema redesign (DS/C/H/CL/T/F); research status page; inbox pass; separation event clarification
+
+**Tracks active:** T1 / T2 / T3
+**Daemon PID:** 917 (running since 2026-06-04, launchd)
+
+### Why the schema changed
+
+The session started with a visualization question that exposed a deeper naming problem: the research content ladder had no coherent terminology, and the existing "P/L/H/CL" naming had accumulated ad-hoc meanings across sessions. The Double Freytag phase model was already the conceptual foundation of the research process; the schema redesign simply made the naming match the model.
+
+The five non-null phases now each have a typed artifact:
+- **C** (Curiosity) — exploration. A provocation. Explicitly prohibited from being a proto-law.
+- **H** (Hypothesis) — sensemaking. Post-cheap-trick working claim.
+- **CL** (Candidate Law) — valley. Evidence accumulating under the organizing insight.
+- **T** (Theory) — heavy lift. Synthesis committed; writing the publishable artifact.
+- **F** (Falsification Monitor) — retrospective. *Only created after a separation event.*
+
+**DS** (Deep Story) replaces P as the arc container. File renames: all `research/projects/P-NNN` → `research/ds/DS-NNN`, `research/laws/L-NNN` → `research/theories/T-NNN` or `research/cl/CL-NNN`, `research/hypotheses/H-NNN` → `research/cl/CL-NNN`. New directories: `research/c/`, `research/h/`, `research/f/`.
+
+### The separation event correction — critical conceptual point
+
+The most important single change: all four items previously marked as "registered laws" (L-001 Ossification, L-002 Hardness Asymmetry, L-004 Goodhart, L-005 Gall) were reclassified from F (Falsification Monitor, retrospective) to T (Theory, heavy lift). The reason: an F item only exists after a **separation event** — a published artifact available for independent review, critique, and falsification attempts. A YAML file in a GitHub repo, however detailed, is not a separation event. A notebook entry is not a separation event. None of the four laws have been published for external scrutiny.
+
+This correction locks in a direction: the next research milestone is writing and publishing the artifact, not accumulating more private evidence. The F directory is now empty — correctly. This should be revisited after the first artifact is published.
+
+The confidence field ("candidate" / "established") is also abolished. There are no "established" laws — only laws that have not yet been falsified or superseded. The F schema uses `status: active | superseded | refuted` instead.
+
+### Governance scaffolding redesign
+
+**`research/agenda.md`:** Replaced time-bucket headers (Next session / Near-term / When opportunity arises) with phase-bucket headers (Heavy Lift Ready / Valley stagnant or behavior-blocked / Valley productive / Sensemaking Needed / Cheap Trick Pending / Behavior Blockers / Operator Steps / Exploration). No `[H]/[M]/[L]` labels on research items — phase position is the temporal status. Each valley/CL item now carries a `transition_trigger` field: one specific named condition that would constitute phase-readiness, not a vague "when I know more."
+
+**`BOOTSTRAP.md`:** Step 4 ("Any hypothesis over-aged?") replaced with a phase-position maturity scan. The Decide phase priority order rewritten: "Over-aged hypothesis" (calendar-driven) gone, replaced by "Heavy lift ready" and "Stagnant valley — diagnose." The `[H]/[M]/[L]` urgency labels remain only in TODO.md for Track 2 infrastructure work, which actually is schedule-driven.
+
+**`TODO.md`:** Stub-blocker convention documented: when a Track 2 behavior is under-defined and blocking a Track 1 arc phase move, the flag lives in Track 2 (the behavior item gets `[BLOCKING: DS-xxx]`) and is mirrored as `blocking_behavior:` in the arc's project file. Track 1 diagnoses the block; Track 2 resolves it.
+
+**Arc Diagnosis section** added to each active DS/CL file: `current_phase` (enum), `phase_tempo` (phenomenological description), `transition_trigger` (named condition), `blocking_behavior` (stub name or "none").
+
+### Research status page
+
+New `agent/publish_research.py` generates `website/humboldt-research/index.html`:
+- SVG Double Freytag diagram with all research items plotted at phase position × entropy level. First peak (Cheap Trick) deliberately smaller and narrower than the second (Separation Event) — reflects entropy dynamics. Colored dots (green/yellow/red) for status. Hover tooltips.
+- Phase-grouped table below the diagram.
+- Published to PI website alongside lab notebook and behavior inventory.
+
+CLI: `python3 -m agent.humboldt publish-research [--dry-run]`. Run after any session that changes the research inventory.
+
+Schema additions: `phase_pct` field on CL and T YAMLs (fraction complete within current phase, used to position the dot on the curve); `research_status: active | stagnant | blocked` on CL YAMLs.
+
+### Inbox pass and curiosity collection (Track 1)
+
+171 items processed: 123 shallow reads (27 discord, 96 feed), 46 archived discards. 30 escalations flagged for potential deep reading (Arthur, Lamport, Szabo, and a range of multi-agent mechanism-design papers).
+
+10 **C items** created in `research/c/` — first population of the exploration phase. Most structurally significant: C-001/C-002 (ossification and formalization may be independent variables; ossification as requisite-variety failure) challenge the implicit coupling assumed in CL-001 and T-001. C-006 (regulatory delay as bifurcation parameter) is the most surprising — no home in the current inventory.
+
+**Curiosity Browsing** (behavior-c7r) registered in `behaviors/registry.yaml`: randomly samples `research/c/` when stuck or between arcs, looking for connections that might fire a cheap trick. Feeds into Random Links downstream.
+
+### Open items (next session)
+
+- Apply Double Freytag template to behaviors: lifecycle phases for each behavior, `behavior_phase` field in registry
+- Behavior transition graph: directed graph model of which behaviors apply in which arc phase
+- LINEAGE.md updates for 4 deep reads (Simon, Cosmos, Hamming, Tempo) — operator step, still pending
+- CL-Rao-1/2/3 from Tempo notes — promotion decision
+- CL-Simon-2 → H-003 YAML + DS-008 arc
+- First separation event artifact: start writing one of the T items as a publishable paper
+
+**Open (next session):**
+- Behavior Double Freytag + transition graph
+- First separation event artifact (likely T-001 or T-002)
+- LINEAGE.md operator steps
+
+---
+
 ## 2026-05-31 (session 13) — Triage bug fix; daemon notebook post tuning; session wrapup reconstruction
 
 **Track 2 (infrastructure).**

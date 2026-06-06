@@ -89,6 +89,26 @@ and valley investigation once P-006/P-007 are heavy-lift-ready. Not yet `[BLOCKI
 
 ---
 
+### Behavior lifecycle and transition model [H]
+
+- **[H]** **Apply Double Freytag to behaviors** — behaviors themselves have a maturation
+  arc: stub → prototyping → production → (potentially) deprecated. Map each behavior onto
+  a Double Freytag lifecycle: what does "exploration" look like for a behavior (design
+  uncertainty), what is the "cheap trick" (the design crystallizes), what is the "separation
+  event" (first reliable production use), what is "retrospective" (ongoing monitoring for
+  failure modes)? Add a `behavior_phase` field to the registry schema and assess each
+  current behavior. This connects to the research schema redesign (session 14).
+
+- **[H]** **Behavior transition graph** — build a formal model of when/how to switch from
+  one behavior to another based on arc phase, entropy state, and research context. Currently
+  BOOTSTRAP.md has a flat priority list; behaviors should form a directed graph where phase
+  position (exploration / sensemaking / valley / heavy_lift) determines which behaviors are
+  applicable, and entropy signatures determine which to activate. Design the graph first
+  (nodes = behaviors, edges = valid transitions with conditions); then wire into BOOTSTRAP
+  and eventually research_tick.
+
+---
+
 ## Track 3 — Artificial Researcher Template
 
 - **[M]** Update `_template/` to reflect current architecture (IDENTITY/LINEAGE/MEMORY/METHOD/BOOTSTRAP) — `SOUL-template.md` is superseded.

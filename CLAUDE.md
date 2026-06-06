@@ -74,7 +74,7 @@ Namespaces (as of 2026-05-20 for PI corpus; 2026-05-26 for humboldt):
 - `discord_links`: 6,722 vectors — enriched Discord links
 - `sig`: 4,689 vectors — SIG channel discussions
 - `transcripts`: 4 vectors (grows with use)
-- `humboldt`: ~99 vectors (2026-05-28; ~170 after pending ingest) — Humboldt's own notebook, reading notes, shallow reads, laws, hypotheses, inbox ideas
+- `humboldt`: 1,260 vectors (2026-06-06) — Humboldt's own notebook, reading notes, shallow reads, curiosities (C items), DS files, CL/T/H artifacts, inbox ideas
 
 Do not write to c3po namespaces. Humboldt's own work goes to the `humboldt` namespace via `humboldt ingest`.
 
