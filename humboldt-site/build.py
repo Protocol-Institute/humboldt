@@ -7,10 +7,15 @@ Generates dist/ from source data in the humboldt repo:
   dist/research/index.html     — Research status
   dist/reading/index.html      — Deep reads
   dist/architecture/index.html — Architecture
+  dist/chat/index.html         — Research chat UI
+
+Also injects live system prompt into functions/chat.js:
+  Reads IDENTITY.md, LINEAGE.md, CL/F/H inventory, recent notebook
+  and replaces __HUMBOLDT_SYSTEM_PROMPT__ placeholder.
 
 Usage:
   cd humboldt-site/
-  python3 build.py             # generate dist/
+  python3 build.py             # generate dist/ + inject system prompt
   python3 build.py --serve     # generate + serve on localhost:8765
 """
 
@@ -36,6 +41,7 @@ PAGES = [
     ("/research/",     "Research"),
     ("/reading/",      "Reading"),
     ("/architecture/", "Architecture"),
+    ("/chat/",         "Chat"),
 ]
 
 
@@ -477,6 +483,264 @@ def _copy_assets() -> None:
     print(f"  Assets → dist/assets/ ({len(list(_ASSETS_SRC.iterdir()))} files)")
 
 
+# ── Chat UI ───────────────────────────────────────────────────────────────────
+
+def _build_chat() -> None:
+    body = """\
+    <div class="page-header">
+      <h1>Chat with Humboldt</h1>
+      <p class="page-tagline">A research conversation — ask about the New Nature agenda, active candidate laws, or anything in the PI corpus.</p>
+    </div>
+    <div class="chat-container">
+      <div id="chat-messages" class="chat-messages" aria-live="polite" aria-label="Conversation"></div>
+      <div class="chat-input-row">
+        <textarea id="chat-input" class="chat-input" rows="3"
+          placeholder="Ask about Humboldt's research, the candidate laws, the PI corpus…"
+          aria-label="Your message"></textarea>
+        <button id="chat-send" class="chat-send" aria-label="Send">Send</button>
+      </div>
+      <p class="chat-hint">Humboldt responds from its own research notebooks, candidate laws, and the full Protocol Institute corpus.</p>
+    </div>
+    <script>
+    (function() {
+      const API = "/chat";
+      const messages = document.getElementById("chat-messages");
+      const input    = document.getElementById("chat-input");
+      const sendBtn  = document.getElementById("chat-send");
+      let history = [];
+      let busy = false;
+
+      function appendMsg(role, text) {
+        const div = document.createElement("div");
+        div.className = "chat-msg chat-msg--" + role;
+        const label = document.createElement("span");
+        label.className = "msg-role";
+        label.textContent = role === "user" ? "You" : "Humboldt";
+        const body = document.createElement("div");
+        body.className = "msg-body";
+        body.textContent = text;
+        div.appendChild(label);
+        div.appendChild(body);
+        messages.appendChild(div);
+        messages.scrollTop = messages.scrollHeight;
+        return body;
+      }
+
+      async function send() {
+        const query = input.value.trim();
+        if (!query || busy) return;
+        busy = true;
+        sendBtn.disabled = true;
+        input.value = "";
+        appendMsg("user", query);
+        const thinking = appendMsg("assistant", "…");
+        try {
+          const res = await fetch(API, {
+            method:  "POST",
+            headers: { "Content-Type": "application/json" },
+            body:    JSON.stringify({ query, history }),
+          });
+          const data = await res.json();
+          if (data.error) {
+            thinking.textContent = "Error: " + data.error;
+          } else {
+            thinking.textContent = data.answer;
+            history.push({ role: "user",      content: query       });
+            history.push({ role: "assistant",  content: data.answer });
+            if (history.length > 16) history = history.slice(-16);
+          }
+        } catch (e) {
+          thinking.textContent = "Network error. Please try again.";
+        }
+        busy = false;
+        sendBtn.disabled = false;
+        input.focus();
+      }
+
+      sendBtn.addEventListener("click", send);
+      input.addEventListener("keydown", e => {
+        if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); }
+      });
+    })();
+    </script>"""
+
+    extra_css = """
+    .chat-container { max-width: 680px; }
+    .chat-messages {
+      min-height: 200px; max-height: 520px; overflow-y: auto;
+      border: 1px solid #e0e0da; border-radius: 4px;
+      padding: 1.25rem; margin-bottom: 1rem;
+      background: #fff;
+      display: flex; flex-direction: column; gap: 1.25rem;
+    }
+    .chat-msg { display: flex; flex-direction: column; gap: 0.2rem; }
+    .msg-role {
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.07em;
+      text-transform: uppercase; color: #999;
+    }
+    .chat-msg--user .msg-role  { color: #2A6B6B; }
+    .chat-msg--user .msg-body  { background: #f0f7f7; padding: 0.65rem 0.85rem; border-radius: 4px; }
+    .msg-body { font-size: 0.95rem; line-height: 1.6; white-space: pre-wrap; word-break: break-word; }
+    .chat-input-row { display: flex; gap: 0.75rem; align-items: flex-end; margin-bottom: 0.6rem; }
+    .chat-input {
+      flex: 1; padding: 0.65rem 0.85rem; font-size: 0.95rem;
+      font-family: inherit; border: 1px solid #e0e0da; border-radius: 4px;
+      background: #fff; resize: vertical; min-height: 52px; line-height: 1.5;
+    }
+    .chat-input:focus { outline: none; border-color: #2A6B6B; }
+    .chat-send {
+      padding: 0.65rem 1.25rem; background: #2A6B6B; color: #fff; border: none;
+      border-radius: 4px; font-size: 0.9rem; font-family: inherit; cursor: pointer;
+      white-space: nowrap; align-self: flex-end;
+    }
+    .chat-send:hover:not(:disabled) { background: #1d4f4f; }
+    .chat-send:disabled { opacity: 0.5; cursor: default; }
+    .chat-hint { font-size: 0.8rem; color: #aaa; margin-top: 0; }
+    """
+
+    out = _DIST / "chat" / "index.html"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(_page("Chat", "/chat/", body, extra_css))
+    print("  Chat UI → dist/chat/index.html")
+
+
+# ── System prompt injection ────────────────────────────────────────────────────
+
+def _assemble_system_prompt() -> str:
+    """
+    Build the Humboldt chat system prompt from live source files.
+    Mirrors the structure of daemon/presence.py _rich_context() but with
+    web-chat behavior rules instead of Discord constraints.
+    """
+    identity = (_ROOT / "IDENTITY.md").read_text() if (_ROOT / "IDENTITY.md").exists() else ""
+
+    lineage_raw = (_ROOT / "LINEAGE.md").read_text() if (_ROOT / "LINEAGE.md").exists() else ""
+    lineage = (lineage_raw[:1200].rsplit("\n", 1)[0] + "\n…") if len(lineage_raw) > 1200 else lineage_raw
+
+    # CL inventory
+    cl_blocks = []
+    for p in sorted((_ROOT / "research" / "cl").glob("CL-*.yaml")):
+        try:
+            item = yaml.safe_load(p.read_text())
+            if not item: continue
+            lid       = item.get("id", "")
+            title     = item.get("title", "")
+            statement = (item.get("statement") or "").strip().replace("\n", " ")
+            confidence = item.get("confidence", "candidate")
+            cl_blocks.append(f"**{lid}** ({confidence}): {title}\n  {statement[:300]}")
+        except Exception:
+            pass
+    cl_str = "\n\n".join(cl_blocks) if cl_blocks else "(none yet)"
+
+    # F inventory
+    f_lines = []
+    for p in sorted((_ROOT / "research" / "f").glob("F-*.yaml")):
+        try:
+            item = yaml.safe_load(p.read_text())
+            if not item: continue
+            f_lines.append(f"- {item.get('id')}: {item.get('title', '')}")
+        except Exception:
+            pass
+
+    # T inventory (established / heavy-lift)
+    t_lines = []
+    for p in sorted((_ROOT / "research" / "theories").glob("T-*.yaml")):
+        try:
+            item = yaml.safe_load(p.read_text())
+            if not item: continue
+            statement = (item.get("statement") or "").strip().replace("\n", " ")[:200]
+            t_lines.append(f"- {item.get('id')}: {item.get('name', '')} — {statement}")
+        except Exception:
+            pass
+
+    inventory_parts = [f"**Candidate laws (valley phase):**\n\n{cl_str}"]
+    if f_lines:
+        inventory_parts.append("**Falsification monitors:**\n" + "\n".join(f_lines))
+    if t_lines:
+        inventory_parts.append("**Registered laws (heavy lift / retrospective):**\n" + "\n".join(t_lines))
+    inventory_str = "\n\n".join(inventory_parts)
+
+    # Recent notebook
+    nb_entries = sorted((_ROOT / "notebook").glob("????-??-??.md"), reverse=True)
+    recent_nb = ""
+    recent_label = "none"
+    if nb_entries:
+        recent_label = nb_entries[0].stem
+        text = nb_entries[0].read_text()
+        recent_nb = text[:1000].rsplit("\n", 1)[0] + "\n…" if len(text) > 1000 else text
+
+    return f"""{identity}
+
+---
+
+{lineage}
+
+---
+
+## Research inventory
+
+{inventory_str}
+
+## Most recent notebook entry ({recent_label})
+
+{recent_nb}
+
+---
+
+## Chat behavior
+
+You are Humboldt, the Protocol Institute's artificial researcher. You are having a research conversation on the web — not a Discord channel, not a Q&A session with a librarian. You are an investigator sharing your thinking.
+
+Respond as an active researcher: share what you currently believe, flag what you are uncertain about, notice when someone's question touches your open investigations. Ground your responses in the retrieved context — your own research artifacts (notebook, candidate laws) and the PI corpus — but synthesize rather than recite.
+
+Voice: first person, direct, intellectually honest. You hold positions provisionally and engage with pushback — either disagree with specific reasoning or acknowledge the point and say you will think about it. Do not defend positions just because they are yours.
+
+Length: as long as the substance requires. Not every answer needs to be short, but never pad. If you have nothing useful to add on a sub-question, say so briefly.
+
+Do not end with a question unless you genuinely need the answer to continue a thread of reasoning — not as a social device. A question is a research move, not a conversational filler.
+
+You are not a search engine. When the retrieved context is thin, say so directly and reason from what you do have. When someone asks you something outside your current research or the PI corpus, engage with it from your research perspective rather than refusing.
+
+Do not mention your name in every response — it is already displayed in the UI.
+"""
+
+
+def _inject_system_prompt() -> None:
+    """
+    Inject the live system prompt into functions/chat.js.
+
+    Idempotent: uses a regex to always replace the SYSTEM_PROMPT const value,
+    regardless of what was there from a previous build. The const is marked with
+    a sentinel comment so the regex has a stable anchor.
+    """
+    chat_js = _SITE / "functions" / "chat.js"
+    if not chat_js.exists():
+        print("  System prompt → functions/chat.js not found, skipping")
+        return
+    prompt = _assemble_system_prompt()
+    # Escape for JS template literal
+    escaped = prompt.replace("\\", "\\\\").replace("`", "\\`").replace("${", "\\${")
+    src = chat_js.read_text()
+    # Replace everything between the sentinel comment and the closing backtick+semicolon
+    # Pattern: const SYSTEM_PROMPT = `/* @BUILD_INJECT */  ...  `; (any content inside)
+    # Falls back to placeholder replacement for first-run compatibility.
+    # Template literal may contain \` (escaped backtick) — match those too
+    sentinel_re = re.compile(
+        r"(const SYSTEM_PROMPT = `)(?:[^`\\]|\\.)*(`;\s*$)",
+        re.DOTALL | re.MULTILINE,
+    )
+    if sentinel_re.search(src):
+        updated = sentinel_re.sub(rf"\g<1>{escaped}\g<2>", src)
+    elif "__HUMBOLDT_SYSTEM_PROMPT__" in src:
+        updated = src.replace("__HUMBOLDT_SYSTEM_PROMPT__", escaped)
+    else:
+        print("  System prompt → no injection point found in functions/chat.js, skipping")
+        return
+    chat_js.write_text(updated)
+    lines = prompt.count("\n")
+    print(f"  System prompt → injected into functions/chat.js ({lines} lines)")
+
+
 # ── Main ──────────────────────────────────────────────────────────────────────
 
 def build() -> None:
@@ -487,7 +751,9 @@ def build() -> None:
     _build_research()
     _build_reading()
     _build_architecture()
+    _build_chat()
     _copy_assets()
+    _inject_system_prompt()
     print("Done.")
 
 
