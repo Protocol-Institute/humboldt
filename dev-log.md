@@ -6,6 +6,43 @@ Most recent entry first.
 
 ---
 
+## 2026-06-07 (session 16, continued) — humboldt-site pages fixed; .org cleanup
+
+**Tracks active:** T2
+**Daemon PID:** 917 (running, launchd)
+
+### humboldt-site: research and reading pages fixed
+
+Both pages had stripped-down implementations that didn't match the PI website versions.
+Fixed by importing directly from `agent/publish_research.py` and `agent/publish_reading.py`:
+
+- `research/index.html`: now uses `_build_svg`, `_phase_rows`, `_phase_header`, `_CSS`, `_JS`
+  from publish_research.py — Double Freytag arc with hover-tooltip dots + phase-grouped table
+- `reading/index.html`: now uses `_render_note`, `_render_card`, `_CSS` from publish_reading.py
+  — TOC, gestalt blocks, "What it opens," badges, collapsible full notes
+
+`_page()` template gained `extra_js` parameter for per-page script injection.
+
+### Chat bot deployed (/chat)
+
+`humboldt-site/functions/chat.js` — CF Pages Function at POST /chat:
+- Two-index Pinecone retrieval (c3po corpus + humboldt research artifacts)
+- System prompt injected by `build.py` from IDENTITY.md, LINEAGE.md, CL/T/F inventory,
+  recent notebook — idempotent regex replacement, refreshes on every build
+- Voice: `_rich_context()` from presence.py with Discord constraints removed
+- 5 secrets set on CF Pages project
+
+### .org website cleanup
+
+Deleted 7 humboldt pages from protocol-institute.org (3,521 lines removed).
+Added 14 301 redirects in `_redirects` → `humboldt.protocol-institute.org/*`.
+Programs page simplified to single subdomain link. Team page notebook link updated.
+
+**Open (next session):**
+- Rewire publish pipeline: `publish-site` CLI command replaces old per-page publishes;
+  daemon notebook_watcher updated to call it. See TODO.md for full spec.
+- Avoid running old publish commands until rewired (they recreate deleted .org pages).
+
 ## 2026-06-07 (session 16) — PI org migration; humboldt Pinecone index; humboldt-site subsite
 
 **Tracks active:** T2

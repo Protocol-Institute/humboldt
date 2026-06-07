@@ -109,6 +109,26 @@ and valley investigation once P-006/P-007 are heavy-lift-ready. Not yet `[BLOCKI
 
 ---
 
+### humboldt-site publish pipeline [H]
+
+The `humboldt publish`, `publish-research`, `publish-reading`, `publish-architecture` CLI
+commands and the daemon's `notebook_watcher.py` auto-publish still write to `../website/`
+(now deleted). They need to be rewired to rebuild and redeploy `humboldt-site` instead.
+
+**Work needed:**
+- `agent/humboldt.py`: add `publish-site` command (runs `build.py` + `wrangler pages deploy`
+  from `humboldt-site/`); deprecate old per-page publish commands or make them call
+  `publish-site`
+- `daemon/notebook_watcher.py`: replace `publish()` call with `publish_site()` equivalent
+- Secrets for wrangler deploy needed in daemon env (or use CF API token from `.env`)
+- `CLAUDE.md`: update CLI docs to reflect new `publish-site` command
+- Add `wrangler` as a dep check in the dev setup docs
+
+Until this is done, running any old publish command recreates the deleted pages in the
+website repo (CF Pages will redeploy them). Avoid running old publish commands.
+
+---
+
 ## Track 3 — Artificial Researcher Template
 
 - **[M]** Update `_template/` to reflect current architecture (IDENTITY/LINEAGE/MEMORY/METHOD/BOOTSTRAP) — `SOUL-template.md` is superseded.

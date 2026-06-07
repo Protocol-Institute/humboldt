@@ -18,11 +18,16 @@ Session: Track 2 only.
 - Custom domain `humboldt.protocol-institute.org` provisioned (pending DNS propagation)
 - PI website programs page + humboldt/index.html updated to link to new subdomain
 
+**Completed later in session:**
+- humboldt-site research + reading pages fixed (import from agent/publish_research.py, publish_reading.py)
+- Chat bot deployed at /chat (Pages Function, 5 secrets set, system prompt injected by build.py)
+- All humboldt pages removed from protocol-institute.org; 14 redirects added to _redirects
+- Programs page simplified to single subdomain link; team page notebook link updated
+
 **Open (next session):**
-- Verify `humboldt.protocol-institute.org` resolves correctly
-- Wire daemon/publish pipeline to auto-rebuild + redeploy humboldt-site after new notebook entries
-- Decide on git-connected vs CLI-deploy for humboldt-site updates
-- Check daemon cost logs for any auth errors post-key-migration
+- Rewire publish pipeline: `publish-site` CLI + daemon notebook_watcher — see TODO.md
+- Avoid old publish commands until rewired (they recreate deleted .org pages)
+- Check daemon cost logs for auth errors post-key-migration
 
 ---
 
