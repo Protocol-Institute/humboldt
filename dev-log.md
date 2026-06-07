@@ -6,6 +6,51 @@ Most recent entry first.
 
 ---
 
+## 2026-06-07 (session 16) — PI org migration; humboldt Pinecone index; humboldt-site subsite
+
+**Tracks active:** T2
+**Daemon PID:** 917 (running, launchd)
+
+### Key migration — personal → PI org accounts
+
+All three retrieval keys in humboldt `.env` were still pointing at personal accounts as of session start:
+- `VOYAGE_API_KEY`: was personal (`pa-s9GiLbr…`), now PI org (`pa-Bdk7…`)
+- `PINECONE_API_KEY`: was personal (`pcsk_5HhrjD…`), now PI org (`pcsk_5HqmhB…`)
+- `PINECONE_C3PO_HOST`: was old personal host (`c3po-bwo39z7`), now PI org (`c3po-1os2tli`)
+
+Keys were already present in `../.env.keys`; this was purely an `.env` update + documentation pass. `admin/keys.md` updated to reflect `VOYAGE_HUMBOLDT_API_KEY` is not needed (shared PI alias suffices). `PINECONE_C3PO_HOST` added to `.env.template`.
+
+### Humboldt Pinecone index — separated from c3po
+
+Problem: humboldt's research artifacts were stored in a `humboldt` namespace in the c3po Pinecone index. This created migration coupling (just seen: the PI org c3po index had no `humboldt` namespace because it was never re-ingested after c3po migrated in May). Also means humboldt's write access = write access to all c3po corpus namespaces.
+
+Fix: created a standalone `humboldt` index (1024d, cosine, aws us-east-1) in the PI org Pinecone account. Migrated 1,384 vectors via direct fetch+upsert from the personal account's `c3po/humboldt` namespace (batch size 50; no re-ingestion, preserves all vectors including ones whose source content may no longer exist).
+
+Code changes:
+- `agent/ingest.py`: now writes to `PINECONE_HUMBOLDT_HOST` (default namespace)
+- `agent/retrieval.py`: routes `humboldt` sentinel to humboldt index; all corpus namespaces still query c3po index; results merged
+- `PINECONE_HUMBOLDT_HOST` added to `.env`, `.env.template`, `.env.keys`, `admin/keys.md`, `CLAUDE.md`
+
+### humboldt-site/ — Cloudflare Pages subsite
+
+Built `humboldt-site/` — a self-contained static site generator:
+- `build.py`: generates 5 pages (About, Notebook, Research, Reading, Architecture) from source data in the repo
+- `assets/style.css`: standalone CSS using PI design language (Cormorant Garamond + DM Sans, #2A6B6B teal) — no PI website dependencies
+- `wrangler.toml`: CF Pages config (project: humboldt, output: dist/)
+- `dist/` gitignored (generated artifact)
+
+Deployed to PI CF account as `humboldt` Pages project. Custom domain `humboldt.protocol-institute.org` provisioned (pending DNS propagation, typically a few minutes).
+
+Updated PI website:
+- `programs/index.html`: AI Infrastructure track now links to `humboldt.protocol-institute.org`
+- `humboldt/index.html`: internal links (/humboldt-notebook etc.) updated to point to new subdomain
+
+**Open (next session):**
+- Verify `humboldt.protocol-institute.org` resolves correctly after DNS propagation
+- Wire `humboldt publish` / daemon auto-publish to rebuild and redeploy humboldt-site after new notebook entries
+- humboldt-site/ deploy workflow: either git-connected auto-deploy or CLI command added to publish pipeline
+- Verify daemon still works correctly after key migration (check `daemon/costs.jsonl` for any auth errors)
+
 ## 2026-06-06 (session 15) — Deep read infrastructure; standalone subsite; ARCHITECTURE.md overhaul; Iverson read
 
 **Tracks active:** T1 / T2 / T3

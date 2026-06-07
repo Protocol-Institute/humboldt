@@ -4,6 +4,28 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-06-07 (session 16) — PI org migration; separate humboldt Pinecone index; humboldt-site CF Pages
+
+Session: Track 2 only.
+
+**Daemon:** PID 917 (launchd, running). Key migration may affect daemon cost tracking if VOYAGE_API_KEY billing changed — verify `daemon/costs.jsonl` on next session.
+
+**Completed:**
+- `.env` updated: all three retrieval keys (VOYAGE, PINECONE key + host) switched from personal to PI org values
+- New Pinecone `humboldt` index created on PI org account; 1,384 vectors migrated from personal c3po index
+- `ingest.py` / `retrieval.py` updated for two-index architecture
+- `humboldt-site/` built and deployed to Cloudflare Pages
+- Custom domain `humboldt.protocol-institute.org` provisioned (pending DNS propagation)
+- PI website programs page + humboldt/index.html updated to link to new subdomain
+
+**Open (next session):**
+- Verify `humboldt.protocol-institute.org` resolves correctly
+- Wire daemon/publish pipeline to auto-rebuild + redeploy humboldt-site after new notebook entries
+- Decide on git-connected vs CLI-deploy for humboldt-site updates
+- Check daemon cost logs for any auth errors post-key-migration
+
+---
+
 ## 2026-06-06 (session 15) — Deep read infrastructure; Iverson read; standalone subsite; ARCHITECTURE.md overhaul
 
 Session: Track 1 (LINEAGE completions, Iverson read) + Track 2 (infrastructure) + Track 3 (template).
