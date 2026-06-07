@@ -1,4 +1,4 @@
-"""Ingest Humboldt's own documents into the 'humboldt' Pinecone namespace.
+"""Ingest Humboldt's own documents into the dedicated humboldt Pinecone index.
 
 Covers: notebook entries, deep-read notes, shallow reads, C/H/CL/F research
 artifacts, DS arc files, and Discord inbox ideas. Each vector carries augmented
@@ -16,7 +16,7 @@ import voyageai
 from pinecone import Pinecone
 
 _ROOT = Path(__file__).parent.parent
-_NAMESPACE = "humboldt"
+_NAMESPACE = ""  # dedicated index — default namespace
 _VOYAGE_MODEL = "voyage-3"
 _BATCH_SIZE = 96  # voyage-3 max batch
 
@@ -27,7 +27,7 @@ def _voyage_client() -> voyageai.Client:
 
 def _pinecone_index():
     pc = Pinecone(api_key=os.environ["PINECONE_API_KEY"])
-    return pc.Index(host=os.environ["PINECONE_C3PO_HOST"])
+    return pc.Index(host=os.environ["PINECONE_HUMBOLDT_HOST"])
 
 
 def _slugify(text: str) -> str:

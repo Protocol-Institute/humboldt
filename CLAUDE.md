@@ -43,40 +43,49 @@ PI keys are stored in `../.env.keys` and inventoried in `../admin/keys.md`. Copy
 xattr -w com.dropbox.ignored 1 .env
 ```
 
-Humboldt reuses the c3po keys — no new key provisioning required for Phase 1. Keys needed:
+All PI org keys. No personal keys used.
 
 | Variable | Source |
 |----------|--------|
-| `VOYAGE_API_KEY` | `../.env.keys` — same as c3po |
-| `PINECONE_API_KEY` | `../.env.keys` — same as c3po |
-| `PINECONE_C3PO_HOST` | `../.env.keys` — same as c3po |
-| `ANTHROPIC_API_KEY` | `../.env.keys` — same as c3po |
+| `VOYAGE_API_KEY` | `../.env.keys` — PI org Voyage AI key |
+| `PINECONE_API_KEY` | `../.env.keys` — PI org Pinecone key |
+| `PINECONE_C3PO_HOST` | `../.env.keys` — c3po corpus index (read) |
+| `PINECONE_HUMBOLDT_HOST` | `../.env.keys` — humboldt research index (read/write) |
+| `ANTHROPIC_API_KEY` | `../.env.keys` — personal key (PI org key deferred) |
 | `C3PO_WORKER_URL` | Phase 2 — URL of deployed c3po worker |
 | `C3PO_MCP_KEY` | Phase 2 — `MCP_API_KEY` from c3po config |
 
 ---
 
-## Pinecone Index
+## Pinecone Indexes
 
-Humboldt uses the existing c3po index (read-only in Phase 1):
+Humboldt uses two separate indexes on the PI org Pinecone account:
 
+### c3po index (corpus, read-only)
 - Index name: `c3po`
 - Host: `PINECONE_C3PO_HOST` from env
-- Dimensions: 1024 (voyage-3)
-- Metric: cosine
+- Dimensions: 1024 (voyage-3) · Metric: cosine · Cloud: aws us-east-1
 
-Namespaces (as of 2026-05-20 for PI corpus; 2026-05-26 for humboldt):
-- `pdfs`: 766 vectors — Summer of Protocols papers
-- `substack`: 1,040 vectors — Protocolized magazine
+PI corpus namespaces (as of 2026-06-07):
+- `pdfs`: 750 vectors — Summer of Protocols papers
+- `substack`: 1,080 vectors — Protocolized magazine
 - `videos`: 2,940 vectors — talks and lectures
 - `bibliography`: 278 vectors — curated references
-- `discord`: 3,301 vectors — PI community Discord
-- `discord_links`: 6,722 vectors — enriched Discord links
-- `sig`: 4,689 vectors — SIG channel discussions
-- `transcripts`: 4 vectors (grows with use)
-- `humboldt`: 1,344 vectors (2026-06-06, post-session-15) — 69 notebook, 59 notes (5 deep reads), 1145 shallow reads, 14 curiosity, 3 candidate law, 52 deep story, 2 inbox ideas
+- `discord`: 5,578 vectors — PI community Discord
+- `discord_links`: 9,650 vectors — enriched Discord links
+- `sig`: 5,315 vectors — SIG channel discussions
+- `transcripts`: 22 vectors (grows with use)
+- `meta`: 32 vectors
+- `definitions`: 560 vectors
 
-Do not write to c3po namespaces. Humboldt's own work goes to the `humboldt` namespace via `humboldt ingest`.
+### humboldt index (research artifacts, read/write)
+- Index name: `humboldt`
+- Host: `PINECONE_HUMBOLDT_HOST` from env
+- Dimensions: 1024 (voyage-3) · Metric: cosine · Cloud: aws us-east-1
+- Default namespace (no namespace name)
+- 1,384 vectors (2026-06-07, migrated from personal account) — notebook, notes, shallow reads, C/H/CL research YAMLs, DS arc files, inbox ideas
+
+Humboldt's own work goes here via `humboldt ingest`. Do not write to c3po namespaces.
 
 ---
 

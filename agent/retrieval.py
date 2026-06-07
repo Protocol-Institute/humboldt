@@ -1,4 +1,9 @@
-"""Corpus retrieval via Pinecone (direct) or c3po Worker API."""
+"""Corpus retrieval via Pinecone (direct) or c3po Worker API.
+
+Two indexes:
+  c3po index   (PINECONE_C3PO_HOST)      — PI corpus namespaces: pdfs, substack, videos, etc.
+  humboldt index (PINECONE_HUMBOLDT_HOST) — Humboldt's own research artifacts (default namespace)
+"""
 
 import os
 import json
@@ -19,14 +24,26 @@ NS_HUMBOLDT = ["humboldt"]
 # PI corpus + Humboldt's own notebook/notes/laws — use for Discord responses
 NS_BROAD_PLUS = ["pdfs", "substack", "videos", "bibliography", "discord_links", "sig", "humboldt"]
 
+_HUMBOLDT_NS = "humboldt"  # sentinel — routes to the dedicated humboldt index
+
 
 def _voyage_client() -> voyageai.Client:
     return voyageai.Client(api_key=os.environ["VOYAGE_API_KEY"])
 
 
-def _pinecone_index():
+def _c3po_index():
     pc = Pinecone(api_key=os.environ["PINECONE_API_KEY"])
     return pc.Index(host=os.environ["PINECONE_C3PO_HOST"])
+
+
+def _humboldt_index():
+    pc = Pinecone(api_key=os.environ["PINECONE_API_KEY"])
+    return pc.Index(host=os.environ["PINECONE_HUMBOLDT_HOST"])
+
+
+# Keep old name as alias so daemon/synthesizer callsites don't break
+def _pinecone_index():
+    return _c3po_index()
 
 
 def embed(text: str) -> list[float]:
@@ -41,20 +58,43 @@ def query_pinecone(
     top_k: int = 12,
     filter: Optional[dict] = None,
 ) -> list[dict]:
-    """Query the c3po Pinecone index and return merged, ranked chunks."""
+    """Query Pinecone indexes and return merged, ranked chunks.
+
+    Corpus namespaces (pdfs, substack, etc.) are queried on the c3po index.
+    The 'humboldt' sentinel routes to the dedicated humboldt index.
+    """
     vector = embed(query)
-    idx = _pinecone_index()
+
+    corpus_ns = [ns for ns in namespaces if ns != _HUMBOLDT_NS]
+    include_humboldt = _HUMBOLDT_NS in namespaces
 
     all_results = []
-    for ns in namespaces:
-        kwargs = dict(vector=vector, top_k=top_k, include_metadata=True, namespace=ns)
+
+    if corpus_ns:
+        idx = _c3po_index()
+        for ns in corpus_ns:
+            kwargs = dict(vector=vector, top_k=top_k, include_metadata=True, namespace=ns)
+            if filter:
+                kwargs["filter"] = filter
+            resp = idx.query(**kwargs)
+            for match in resp.matches:
+                all_results.append({
+                    "score": match.score,
+                    "namespace": ns,
+                    "id": match.id,
+                    "metadata": match.metadata or {},
+                })
+
+    if include_humboldt:
+        hidx = _humboldt_index()
+        kwargs = dict(vector=vector, top_k=top_k, include_metadata=True)
         if filter:
             kwargs["filter"] = filter
-        resp = idx.query(**kwargs)
+        resp = hidx.query(**kwargs)
         for match in resp.matches:
             all_results.append({
                 "score": match.score,
-                "namespace": ns,
+                "namespace": _HUMBOLDT_NS,
                 "id": match.id,
                 "metadata": match.metadata or {},
             })
