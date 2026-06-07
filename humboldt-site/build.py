@@ -64,8 +64,10 @@ def _nav(active_path: str) -> str:
 </nav>"""
 
 
-def _page(title: str, active_path: str, body: str, extra_css: str = "") -> str:
+def _page(title: str, active_path: str, body: str,
+          extra_css: str = "", extra_js: str = "") -> str:
     extra = f"\n  <style>{extra_css}</style>" if extra_css else ""
+    js    = f"\n<script>{extra_js}</script>" if extra_js else ""
     return f"""\
 <!DOCTYPE html>
 <html lang="en">
@@ -93,7 +95,7 @@ def _page(title: str, active_path: str, body: str, extra_css: str = "") -> str:
      <a href="https://protocol-institute.org" target="_blank" rel="noopener">Protocol Institute</a>
   </p>
 </footer>
-
+{js}
 </body>
 </html>"""
 
@@ -253,185 +255,122 @@ def _build_notebook() -> None:
 
 # ── Research ──────────────────────────────────────────────────────────────────
 
-_PHASE_LABELS = {
-    "exploration": "Exploration",
-    "sensemaking": "Sensemaking",
-    "valley":      "Valley",
-    "heavy_lift":  "Heavy Lift",
-    "retrospective": "Retrospective",
-}
-
-_STATUS_DOT = {
-    "active":     ("dot-green",  "Active"),
-    "open":       ("dot-green",  "Open"),
-    "stagnant":   ("dot-yellow", "Stagnant"),
-    "blocked":    ("dot-red",    "Blocked"),
-    "refuted":    ("dot-red",    "Refuted"),
-}
-
-def _dot(status: str) -> str:
-    cls, label = _STATUS_DOT.get(status, ("dot-green", "Active"))
-    return f'<span class="status-dot {cls}" title="{label}"></span>'
-
-
-def _load_yaml_dir(path: Path) -> list[dict]:
-    items = []
-    for p in sorted(path.glob("*.yaml")):
-        if p.name.startswith("_"):
-            continue
-        try:
-            item = yaml.safe_load(p.read_text())
-            if item:
-                items.append(item)
-        except Exception:
-            pass
-    return items
-
-
-def _research_section(label: str, items: list[dict], fields: list[tuple[str, str]]) -> str:
-    if not items:
-        return ""
-    html = f'<h2>{label}</h2>\n<div class="research-cards">\n'
-    for item in items:
-        item_id = item.get("id", "")
-        title = item.get("title", "")
-        status = item.get("status", "active")
-        phase = item.get("phase", "")
-        phase_label = _PHASE_LABELS.get(phase, phase.replace("_", " ").title() if phase else "")
-        html += f'<div class="research-card">\n'
-        html += f'  <div class="card-header">{_dot(status)} <strong>{item_id}</strong> — {title}</div>\n'
-        if phase_label:
-            html += f'  <div class="card-phase">Phase: {phase_label}</div>\n'
-        for field_key, field_label in fields:
-            val = item.get(field_key, "")
-            if val and str(val).strip():
-                html += f'  <div class="card-field"><span class="field-label">{field_label}:</span> {val}</div>\n'
-        html += "</div>\n"
-    html += "</div>\n"
-    return html
-
-
 def _build_research() -> None:
-    c_items  = _load_yaml_dir(_ROOT / "research" / "c")
-    h_items  = _load_yaml_dir(_ROOT / "research" / "h")
-    cl_items = _load_yaml_dir(_ROOT / "research" / "cl")
-    t_items  = _load_yaml_dir(_ROOT / "research" / "theories")
-    f_items  = _load_yaml_dir(_ROOT / "research" / "f")
+    import sys as _sys
+    if str(_ROOT) not in _sys.path:
+        _sys.path.insert(0, str(_ROOT))
+    from agent.publish_research import (
+        _build_svg, _phase_rows, _phase_header, _empty, _all_items,
+        _CSS as _RCSS, _JS as _RJS,
+    )
 
-    sections = ""
-    sections += _research_section("Falsification Monitors", f_items,
-        [("statement", "Statement"), ("confidence", "Confidence"), ("monitoring_since", "Since")])
-    sections += _research_section("Candidate Laws", cl_items,
-        [("statement", "Statement"), ("confidence", "Confidence"), ("opened", "Opened")])
-    sections += _research_section("Hypotheses", h_items,
-        [("statement", "Statement"), ("confidence", "Confidence")])
-    sections += _research_section("Curiosities", c_items,
-        [("content", "Note"), ("source", "Source")])
-    sections += _research_section("Theories", t_items,
-        [("statement", "Statement")])
+    all_items = _all_items()
+    svg_html  = _build_svg(all_items)
+    total     = len(all_items)
+
+    exp_n, exp_r = _phase_rows("c",       "status",          "open",   name_key="title", type_key="type")
+    sns_n, sns_r = _phase_rows("h",       "status",          "active", name_key="id")
+    val_n, val_r = _phase_rows("cl",      "research_status", "active")
+    hlt_n, hlt_r = _phase_rows("theories","research_status", "active")
+    ret_n, ret_r = _phase_rows("f",       "status",          "active")
+
+    from datetime import datetime as _dt, timezone as _tz
+    now = _dt.now(_tz.utc).strftime("%Y-%m-%d")
 
     body = f"""\
     <div class="page-header">
       <h1>Research Status</h1>
-      <p class="page-tagline">Humboldt's live inventory — candidate laws, hypotheses, and curiosities by phase.</p>
+      <p class="page-tagline">Research inventory by arc phase — the Double Freytag model of inquiry (<em>Tempo</em>, Rao 2011). Hover a dot for details.</p>
     </div>
-    <div class="research-body">
-{sections}
-    </div>"""
 
-    extra_css = """
-    .research-cards { margin-bottom: 2.5rem; }
-    .research-card { border: 1px solid #e8e8e4; border-radius: 4px;
-      padding: 1rem 1.25rem; margin-bottom: 1rem; background: #fff; }
-    .card-header { font-size: 1rem; margin-bottom: 0.4rem; }
-    .card-phase { font-size: 0.82rem; color: #777; margin-bottom: 0.5rem; }
-    .card-field { font-size: 0.88rem; color: #444; margin-bottom: 0.3rem; }
-    .field-label { font-weight: 500; color: #333; }
-    .status-dot { display: inline-block; width: 8px; height: 8px;
-      border-radius: 50%; margin-right: 0.4em; vertical-align: middle; }
-    .dot-green  { background: #4CAF50; }
-    .dot-yellow { background: #FFC107; }
-    .dot-red    { background: #F44336; }
-    """
+{svg_html}
+
+    <div class="legend">
+      <div class="legend-item"><span class="dot dot-green"></span> Active / ongoing</div>
+      <div class="legend-item"><span class="dot dot-yellow"></span> Stagnant or superseded</div>
+      <div class="legend-item"><span class="dot dot-red"></span> Blocked or refuted</div>
+    </div>
+
+    <table class="research-table">
+      <thead>
+        <tr><th style="width:24px"></th><th style="width:70px">ID</th>
+        <th style="width:220px">Name / Type</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        {_phase_header("Exploration",   "Curiosities — open provocations, awaiting cheap trick", exp_n)}
+        {exp_r}
+        {_phase_header("Sensemaking",   "Hypotheses — post-cheap-trick; building toward a falsifiable claim", sns_n)}
+        {sns_r}
+        {_phase_header("Valley",        "Candidate Laws — evidence accumulation; no external validation yet", val_n)}
+        {val_r}
+        {_phase_header("Heavy Lift",    "Theories — synthesis committed; approaching separation event", hlt_n)}
+        {hlt_r}
+        {_phase_header("Retrospective", "Falsification Monitors — registered; monitored for counterexamples", ret_n)}
+        {ret_r}
+      </tbody>
+    </table>
+
+    <p class="updated-note">{total} items across all phases. Generated {now}.
+    Source: <a href="https://github.com/Protocol-Institute/humboldt/tree/main/research"
+    target="_blank" rel="noopener">research/ on GitHub</a>.</p>"""
 
     out = _DIST / "research" / "index.html"
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(_page("Research Status", "/research/", body, extra_css))
-    counts = f"F:{len(f_items)} CL:{len(cl_items)} H:{len(h_items)} C:{len(c_items)} T:{len(t_items)}"
-    print(f"  Research → dist/research/index.html ({counts})")
+    out.write_text(_page("Research Status", "/research/", body,
+                         extra_css=_RCSS, extra_js=_RJS))
+    print(f"  Research → dist/research/index.html ({total} items)")
 
 
 # ── Reading ───────────────────────────────────────────────────────────────────
 
-def _extract_bib(text: str) -> dict:
-    bib = {}
-    for field, key in [("Author", "author"), ("Title", "title"), ("Year", "year")]:
-        m = re.search(rf"\*\*{field}:\*\*\s*(.+)$", text, re.MULTILINE)
-        if m:
-            bib[key] = m.group(1).strip().strip("*_")
-    return bib
-
-
-def _extract_summary(text: str) -> str:
-    """Extract first non-empty paragraph or summary section as a brief intro."""
-    for heading in ("Summary", "Overview", "Central Argument", "My Summary"):
-        m = re.search(rf"^#{1,4}\s+(?:\d+\.\s+)?{re.escape(heading)}\s*$", text,
-                      re.IGNORECASE | re.MULTILINE)
-        if m:
-            after = text[m.end():].strip()
-            paras = [p.strip() for p in after.split("\n\n") if p.strip()]
-            if paras:
-                raw = re.sub(r"^#{1,4}\s+.*$", "", paras[0], flags=re.MULTILINE).strip()
-                if raw:
-                    return md_lib.markdown(raw[:600])
-    return ""
-
-
 def _build_reading() -> None:
+    import sys as _sys
+    if str(_ROOT) not in _sys.path:
+        _sys.path.insert(0, str(_ROOT))
+    from agent.publish_reading import _render_note, _render_card, _CSS as _RCSS
+
     notes_dir = _ROOT / "bibliography" / "notes"
-    note_files = sorted(notes_dir.glob("*.md"))
+    note_paths = sorted(p for p in notes_dir.glob("*.md") if not p.name.startswith("_"))
+    if not note_paths:
+        print("  Reading → no notes found")
+        return
 
-    cards = ""
-    for path in note_files:
-        text = path.read_text()
-        title_m = re.search(r"^#\s+(.+)$", text, re.MULTILINE)
-        doc_title = title_m.group(1).strip() if title_m else path.stem
-        bib = _extract_bib(text)
-        summary = _extract_summary(text)
-        anchor = path.stem
+    notes = [_render_note(p) for p in note_paths]
+    notes.sort(key=lambda n: n["date_read"] or "0000")
 
-        meta_parts = [p for p in [bib.get("author"), bib.get("year")] if p]
-        meta = " · ".join(meta_parts)
+    # TOC
+    toc_items = ""
+    for note in notes:
+        bib = note["bib"]
+        pub_title = bib["title"] or note["title_line"]
+        author = bib["author"] or ""
+        year = bib["year"] or ""
+        slug = note["stem"]
+        toc_items += f'      <li><a href="#read-{slug}">{pub_title}</a>'
+        if author:
+            toc_items += f' — {author}'
+        if year:
+            toc_items += f' ({year})'
+        toc_items += "</li>\n"
 
-        cards += f'<div class="reading-card" id="{anchor}">\n'
-        cards += f'  <h2>{doc_title}</h2>\n'
-        if meta:
-            cards += f'  <p class="reading-meta">{meta}</p>\n'
-        if summary:
-            cards += f'  <div class="reading-summary">{summary}</div>\n'
-        cards += '</div>\n'
+    cards = "\n".join(_render_card(note, i) for i, note in enumerate(notes))
 
     body = f"""\
     <div class="page-header">
       <h1>Deep Reading</h1>
-      <p class="page-tagline">Notes from Humboldt's deep reads — extended engagement with foundational texts relevant to the New Nature research agenda.</p>
+      <p class="page-tagline">Notes from behavior-t5m — sources that changed how Humboldt thinks, read from the actual text, never from training memory.</p>
     </div>
-    <div class="reading-body">
-{cards}
-    </div>"""
-
-    extra_css = """
-    .reading-card { border-top: 1px solid #ddd; padding-top: 2rem; margin-top: 2rem; }
-    .reading-card:first-of-type { border-top: none; padding-top: 0; margin-top: 0; }
-    .reading-meta { font-size: 0.88rem; color: #777; font-style: italic; margin-bottom: 0.8rem; }
-    .reading-summary { font-size: 0.95rem; color: #444; }
-    .reading-summary p { max-width: 68ch; }
-    """
+    <div class="reading-toc">
+      <h3>Sources ({len(notes)} completed)</h3>
+      <ul>
+{toc_items}      </ul>
+    </div>
+{cards}"""
 
     out = _DIST / "reading" / "index.html"
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(_page("Deep Reading", "/reading/", body, extra_css))
-    print(f"  Reading → dist/reading/index.html ({len(note_files)} notes)")
+    out.write_text(_page("Deep Reading", "/reading/", body, extra_css=_RCSS))
+    print(f"  Reading → dist/reading/index.html ({len(notes)} notes)")
 
 
 # ── Architecture ──────────────────────────────────────────────────────────────
