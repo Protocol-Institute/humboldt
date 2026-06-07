@@ -1,0 +1,16 @@
+# Humboldt subsite — Cloudflare Pages configuration
+# account_id intentionally omitted — set CLOUDFLARE_ACCOUNT_ID env var at deploy time.
+
+name = "humboldt"
+pages_build_output_dir = "dist"
+
+# Build command (run from repo root):
+#   python3 humboldt-site/build.py
+#
+# Deploy:
+#   CLOUDFLARE_ACCOUNT_ID=7e8c7969b2464d23795c555bc6a32af8 \
+#   CLOUDFLARE_API_TOKEN=<token> \
+#   npx wrangler pages deploy humboldt-site/dist --project-name humboldt
+#
+# Custom domain: humboldt.protocol-institute.org
+#   Configure in CF Pages dashboard → Custom domains → Add domain
