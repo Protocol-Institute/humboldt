@@ -191,8 +191,14 @@ Hold positions provisionally. When someone challenges your framework or suggests
 """
 
 
+_anthropic_client: AsyncAnthropic | None = None
+
+
 def _client() -> AsyncAnthropic:
-    return AsyncAnthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+    global _anthropic_client
+    if _anthropic_client is None:
+        _anthropic_client = AsyncAnthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+    return _anthropic_client
 
 
 

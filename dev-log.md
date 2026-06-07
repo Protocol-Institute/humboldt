@@ -6,6 +6,24 @@ Most recent entry first.
 
 ---
 
+## 2026-06-06 (session 17) — Publish pipeline rewire; fd leak fix; Discord reliability hardening
+
+**Tracks active:** T2
+**Daemon PID:** 917 (launchd, running)
+
+Three independent bodies of work this session.
+
+**Publish pipeline rewire:** The old `publish`, `publish-research`, `publish-reading`, `publish-architecture` CLI commands targeted the now-deleted `../website/` repo. Created `agent/publish_site.py` which runs `humboldt-site/build.py` then `wrangler pages deploy dist`. Old commands now exit with a deprecation error. Daemon `notebook_watcher` path updated to call `publish_site(verbose=False)`. CF credentials added to `.env` and `.env.template`. Tested live — deploy to `humboldt.protocol-institute.org` confirmed.
+
+**File descriptor leak (incident 2026-06-06-01):** Discord bot had been silently unresponsive for ~2.5 days (Jun 4 03:19 UTC through this session). Root cause: `presence.py`'s `_client()` factory created a new `AsyncAnthropic` instance per call, each holding an httpx connection pool open indefinitely. Same pattern in `capture.py` and `conversation_review.py`. Fixed: `presence.py` converted to module-level singleton; `capture.py` and `conversation_review.py` use `async with` context manager. fd count dropped from 324 (234 leaked IPv6 sockets) to ~88 after hot-reload. No API cost overages — the leak had suppressed all costs to near zero by preventing new connections. Incident report filed at `Code/incidents/2026-06-06-humboldt-fd-leak-bot-silence.md`.
+
+**Discord reliability hardening:** Added `except Exception` catch to `on_message` mention handler (was silently dropping all non-budget errors; users saw no reply). Added fallback reply to `_scan_missed_mentions`. Implemented `_catchup_all_channels(since_date)` for guild-wide @mention recovery covering all text channels and active threads. Added `!catchup [YYYY-MM-DD]` operator DM command. Added `force_full_scan` state flag. Raised `_scan_missed_mentions` limit to 500 for non-brief restarts. Attempted catch-up for missed mentions during blackout: Jun 4 `_vgr` mention recovered; Jun 5 `plague_year` and Jun 6 `ncc1031` (in threads/other channels) triggered via `!catchup` DM. Voyage API 401 errors appeared post-restart (ingest path only); separate investigation item.
+
+**Open (next session):**
+- Investigate Voyage API 401 (PI org key may have billing/expiry issue)
+- Proper rewind-catchup architecture (per-channel cursors, no manual state edits)
+- Duplicate notebook posts on restart (idempotency bug in `task_notebook`)
+
 ## 2026-06-07 (session 16, continued) — humboldt-site pages fixed; .org cleanup
 
 **Tracks active:** T2

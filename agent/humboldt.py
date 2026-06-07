@@ -563,30 +563,38 @@ def cmd_discord_post(draft: bool = False):
     asyncio.run(_discord_post_async(draft))
 
 
+def cmd_publish_site(dry_run: bool = False):
+    """Build humboldt-site/ and deploy to Cloudflare Pages."""
+    from agent.publish_site import publish_site
+    ok = publish_site(dry_run=dry_run, verbose=True)
+    if not ok and not dry_run:
+        sys.exit(1)
+
+
+_PUBLISH_DEPRECATED_MSG = (
+    "This command targeted the old protocol-institute.org website (now removed).\n"
+    "Use `publish-site` instead — it rebuilds and deploys humboldt-site/ to CF Pages."
+)
+
+
 def cmd_publish(dry_run: bool = False):
-    """Render notebook entries to the PI website and push."""
-    from agent.publish import publish
-    n = publish(dry_run=dry_run, verbose=True)
-    if n and not dry_run:
-        print(f"Published {len(n)} entry(ies) — GitHub Pages will deploy automatically.")
+    print(_PUBLISH_DEPRECATED_MSG)
+    sys.exit(1)
 
 
 def cmd_publish_research(dry_run: bool = False):
-    """Generate research status page → website + push."""
-    from agent.publish_research import publish_research
-    publish_research(dry_run=dry_run)
+    print(_PUBLISH_DEPRECATED_MSG)
+    sys.exit(1)
 
 
 def cmd_publish_reading(dry_run: bool = False):
-    """Render deep-read notes to the PI website and push."""
-    from agent.publish_reading import publish_reading
-    publish_reading(dry_run=dry_run)
+    print(_PUBLISH_DEPRECATED_MSG)
+    sys.exit(1)
 
 
 def cmd_publish_architecture(dry_run: bool = False):
-    """Render ARCHITECTURE.md to the PI website and push."""
-    from agent.publish_architecture import publish_architecture
-    publish_architecture(dry_run=dry_run)
+    print(_PUBLISH_DEPRECATED_MSG)
+    sys.exit(1)
 
 
 def cmd_references_list(unsorted_only: bool = False):
@@ -638,14 +646,8 @@ Usage:
   python3 -m agent.humboldt discord sweep                # capture sweep: full #new-nature history
   python3 -m agent.humboldt discord sweep --since DATE   # sweep since YYYY-MM-DD (UTC)
   python3 -m agent.humboldt discord sweep --limit N      # cap at N messages (default 1000)
-  python3 -m agent.humboldt publish                      # render notebook → website + push
-  python3 -m agent.humboldt publish --dry-run            # preview rendering, no git ops
-  python3 -m agent.humboldt publish-research             # generate research status page → website + push
-  python3 -m agent.humboldt publish-research --dry-run   # preview, no git ops
-  python3 -m agent.humboldt publish-reading              # render deep-read notes → website + push
-  python3 -m agent.humboldt publish-reading --dry-run    # preview, no git ops
-  python3 -m agent.humboldt publish-architecture         # render ARCHITECTURE.md → website + push
-  python3 -m agent.humboldt publish-architecture --dry-run
+  python3 -m agent.humboldt publish-site                  # build humboldt-site/ + deploy to CF Pages
+  python3 -m agent.humboldt publish-site --dry-run        # build only, no deploy
   python3 -m agent.humboldt references list              # show reference list by status
   python3 -m agent.humboldt references list --unsorted   # show only unsorted
   python3 -m agent.humboldt references sort              # classify unsorted → read/deep_read/discard
@@ -760,18 +762,19 @@ def main():
         else:
             print(f"Unknown daemon subcommand: {subcmd}")
             sys.exit(1)
-    elif cmd == "publish":
+    elif cmd == "publish-site":
         dry_run = "--dry-run" in rest
-        cmd_publish(dry_run=dry_run)
-    elif cmd == "publish-research":
+        cmd_publish_site(dry_run=dry_run)
+    elif cmd in ("publish", "publish-research", "publish-reading", "publish-architecture"):
         dry_run = "--dry-run" in rest
-        cmd_publish_research(dry_run=dry_run)
-    elif cmd == "publish-reading":
-        dry_run = "--dry-run" in rest
-        cmd_publish_reading(dry_run=dry_run)
-    elif cmd == "publish-architecture":
-        dry_run = "--dry-run" in rest
-        cmd_publish_architecture(dry_run=dry_run)
+        if cmd == "publish":
+            cmd_publish(dry_run=dry_run)
+        elif cmd == "publish-research":
+            cmd_publish_research(dry_run=dry_run)
+        elif cmd == "publish-reading":
+            cmd_publish_reading(dry_run=dry_run)
+        elif cmd == "publish-architecture":
+            cmd_publish_architecture(dry_run=dry_run)
     elif cmd == "references":
         subcmd = rest[0] if rest else "list"
         if subcmd == "list":

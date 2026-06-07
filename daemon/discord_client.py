@@ -155,20 +155,27 @@ class HumboldtBot(discord.Client):
 
         # Determine whether this is a brief code-update restart (< 5 min offline).
         # If so, skip the "catching up" prefix — we weren't really away.
+        # force_full_scan in state overrides brief_restart detection (used for manual catch-up).
         brief_restart = False
-        last_shutdown_str = state.get("last_clean_shutdown")
-        last_startup_str = state.get("last_startup")
-        if last_shutdown_str and last_startup_str:
-            shutdown_dt = datetime.fromisoformat(last_shutdown_str)
-            startup_dt = datetime.fromisoformat(last_startup_str)
-            offline_seconds = (startup_dt - shutdown_dt).total_seconds()
-            brief_restart = 0 < offline_seconds < 300  # < 5 minutes = code-update restart
+        if state.get("force_full_scan"):
+            fresh = st.load()
+            fresh.pop("force_full_scan", None)
+            st.save(fresh)
+        else:
+            last_shutdown_str = state.get("last_clean_shutdown")
+            last_startup_str = state.get("last_startup")
+            if last_shutdown_str and last_startup_str:
+                shutdown_dt = datetime.fromisoformat(last_shutdown_str)
+                startup_dt = datetime.fromisoformat(last_startup_str)
+                offline_seconds = (startup_dt - shutdown_dt).total_seconds()
+                brief_restart = 0 < offline_seconds < 300  # < 5 minutes = code-update restart
 
         responded_ids: set[str] = set(state.get("responded_mention_ids", []))
 
         missed = []
         latest_id: str | None = None
-        async for msg in channel.history(limit=100, after=discord.Object(id=int(last_msg_id))):
+        scan_limit = 100 if brief_restart else 500
+        async for msg in channel.history(limit=scan_limit, after=discord.Object(id=int(last_msg_id))):
             latest_id = str(msg.id)
             if msg.author != self.user and self.user in msg.mentions:
                 if str(msg.id) not in responded_ids:
@@ -230,7 +237,120 @@ class HumboldtBot(discord.Client):
                 st.record_responded_mention(fresh, str(msg.id))
                 st.save(fresh)
             except Exception as e:
-                logger.error(f"Missed mention response failed: {e}")
+                logger.error(f"Missed mention response failed: {e}", exc_info=True)
+                try:
+                    await msg.reply("*(Something went wrong — couldn't generate a response.)*")
+                except Exception:
+                    pass
+
+    async def _catchup_all_channels(self, report_channel, since_date: str) -> None:
+        """
+        Scan every accessible text channel (and active threads) for @mentions since
+        since_date that Humboldt hasn't replied to. Responds with the offline-catchup prefix.
+        Used by the !catchup operator DM command after extended outages.
+        """
+        from datetime import datetime, timezone
+        since_dt = datetime.fromisoformat(since_date).replace(tzinfo=timezone.utc)
+        responded_ids: set[str] = set(st.load().get("responded_mention_ids", []))
+
+        guild = self.get_guild(self.guild_id)
+        if not guild:
+            await report_channel.send("Guild not found.")
+            return
+
+        # Collect all scannable channels: text channels + active thread channels
+        channels_to_scan = []
+        for ch in guild.text_channels:
+            try:
+                if ch.permissions_for(guild.me).read_message_history:
+                    channels_to_scan.append(ch)
+            except Exception:
+                pass
+        try:
+            active_threads = await guild.active_threads()
+            for t in active_threads.threads:
+                channels_to_scan.append(t)
+        except Exception:
+            pass
+
+        total_found = 0
+        total_replied = 0
+        for ch in channels_to_scan:
+            try:
+                async for msg in ch.history(limit=500, after=discord.Object(id=self._dt_to_snowflake(since_dt))):
+                    if msg.author == self.user:
+                        continue
+                    if self.user not in msg.mentions:
+                        continue
+                    if str(msg.id) in responded_ids:
+                        continue
+                    total_found += 1
+                    # Check Discord history for an existing reply
+                    try:
+                        if await self._already_replied_to(msg):
+                            fresh = st.load()
+                            st.record_responded_mention(fresh, str(msg.id))
+                            st.save(fresh)
+                            responded_ids.add(str(msg.id))
+                            continue
+                    except Exception:
+                        pass
+
+                    content = msg.content.replace(f"<@{self.user.id}>", "").strip()
+                    if not content:
+                        continue
+
+                    history = []
+                    name_to_id: dict[str, str] = {msg.author.name: str(msg.author.id)}
+                    async for ctx in ch.history(limit=9, before=msg):
+                        history.insert(0, {"author": ctx.author.name, "content": ctx.content[:300]})
+                        name_to_id[ctx.author.name] = str(ctx.author.id)
+
+                    chunks = []
+                    try:
+                        from agent import retrieval as ret
+                        chunks = await self.loop.run_in_executor(
+                            None, lambda c=content: ret.multi_retrieve([c], namespaces=ret.NS_BROAD_PLUS, top_k_each=5)
+                        )
+                    except Exception:
+                        pass
+
+                    try:
+                        response = await presence.generate_mention_response(
+                            username=msg.author.name,
+                            message=content,
+                            context_messages=history,
+                            corpus_chunks=chunks,
+                        )
+                        thread_title, body = _parse_thread_response(response)
+                        body = _resolve_mentions(body, name_to_id)
+                        await msg.reply(f"*(catching up from while I was offline)*\n{body}")
+                        logger.info(f"Catchup: replied to @mention from {msg.author.name} in #{ch.name}: {content[:60]}")
+                        fresh = st.load()
+                        st.record_responded_mention(fresh, str(msg.id))
+                        st.save(fresh)
+                        responded_ids.add(str(msg.id))
+                        total_replied += 1
+                    except Exception as e:
+                        logger.error(f"Catchup reply failed for {msg.id}: {e}", exc_info=True)
+                        try:
+                            await msg.reply("*(Something went wrong — couldn't generate a response.)*")
+                        except Exception:
+                            pass
+            except Exception as e:
+                logger.warning(f"Catchup: could not scan #{getattr(ch, 'name', ch.id)}: {e}")
+
+        await report_channel.send(
+            f"Catchup complete. Found {total_found} unresponded @mention(s) since {since_date}; "
+            f"replied to {total_replied}."
+        )
+
+    @staticmethod
+    def _dt_to_snowflake(dt) -> int:
+        """Convert a datetime to a Discord snowflake ID for use as history `after=` cursor."""
+        DISCORD_EPOCH = 1420070400000
+        ts_ms = int(dt.timestamp() * 1000)
+        return (ts_ms - DISCORD_EPOCH) << 22
 
     async def _handle_operator_dm(self, message: discord.Message) -> None:
         """Handle control commands sent as DMs from the operator."""
@@ -248,8 +368,15 @@ class HumboldtBot(discord.Client):
                 f"Last #new-nature msg ID: {state.get('last_new_nature_message_id', 'none')}\n"
                 f"Responded mention IDs tracked: {len(state.get('responded_mention_ids', []))}"
             )
+        elif cmd.startswith("!catchup"):
+            # !catchup-all — scan all guild channels for missed @mentions since blackout
+            # Optional: !catchup 2026-06-04  (defaults to Jun 4 blackout start)
+            parts = cmd.split()
+            since_date = parts[1] if len(parts) > 1 else "2026-06-04"
+            await message.channel.send(f"Scanning all channels for missed @mentions since {since_date}…")
+            await self._catchup_all_channels(message.channel, since_date)
         else:
-            await message.channel.send(f"Unknown command `{cmd}`. Available: `!reload`, `!status`.")
+            await message.channel.send(f"Unknown command `{cmd}`. Available: `!reload`, `!status`, `!catchup [YYYY-MM-DD]`.")
 
     async def on_message(self, message: discord.Message):
         if message.author == self.user:
@@ -301,6 +428,10 @@ class HumboldtBot(discord.Client):
         except BudgetExceeded as e:
             logger.warning(f"Budget exceeded — skipping @mention response: {e}")
             await message.reply("I've hit my daily API budget and am offline until midnight. Back tomorrow.")
+            return
+        except Exception as e:
+            logger.error(f"Mention response failed: {e}", exc_info=True)
+            await message.reply("*(Something went wrong on my end — couldn't generate a response.)*")
             return
 
         thread_title, body = _parse_thread_response(response)
@@ -490,12 +621,14 @@ class HumboldtBot(discord.Client):
             except Exception as e:
                 logger.warning(f"Post-notebook ingest failed: {e}")
 
-            # Publish new notebook entries to the PI website
+            # Rebuild and deploy humboldt-site to CF Pages
             try:
-                from agent.publish import publish
-                published_entries = await self.loop.run_in_executor(None, publish)
-                if published_entries:
-                    logger.info(f"Published {len(published_entries)} notebook entry(ies) to website")
+                from agent.publish_site import publish_site
+                ok = await self.loop.run_in_executor(None, lambda: publish_site(verbose=False))
+                if ok:
+                    logger.info("Published notebook update to humboldt-site (CF Pages)")
+                else:
+                    logger.warning("Post-notebook publish-site returned failure")
             except Exception as e:
                 logger.warning(f"Post-notebook publish failed: {e}")
 

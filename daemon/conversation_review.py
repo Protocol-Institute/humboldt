@@ -80,23 +80,24 @@ async def generate_notebook_synthesis(messages: list[dict], date_range: str) -> 
     context = _load_slim_context()
 
     costs.check_budget()
-    resp = await AsyncAnthropic(api_key=os.environ["ANTHROPIC_API_KEY"]).messages.create(
-        model=_MAIN_MODEL,
-        max_tokens=400,
-        system=context,
-        messages=[{"role": "user", "content": (
-            f"You are reviewing #new-nature conversations from {date_range}.\n\n"
-            f"{convo}\n\n"
-            f"Write a short reflective note (3–5 sentences) for your lab notebook "
-            f"capturing what you took away from these exchanges. "
-            f"Not a summary or list of what was said — a researcher's synthesis: "
-            f"what ideas surprised you, what challenged your current thinking, "
-            f"what examples appeared that you want to remember, what new questions opened. "
-            f"If nothing of research value emerged, respond with exactly: NOTHING\n\n"
-            f"First person, researcher voice. Do not repeat things already in your laws "
-            f"or hypotheses — only genuinely new observations."
-        )}],
-    )
+    async with AsyncAnthropic(api_key=os.environ["ANTHROPIC_API_KEY"]) as client:
+        resp = await client.messages.create(
+            model=_MAIN_MODEL,
+            max_tokens=400,
+            system=context,
+            messages=[{"role": "user", "content": (
+                f"You are reviewing #new-nature conversations from {date_range}.\n\n"
+                f"{convo}\n\n"
+                f"Write a short reflective note (3–5 sentences) for your lab notebook "
+                f"capturing what you took away from these exchanges. "
+                f"Not a summary or list of what was said — a researcher's synthesis: "
+                f"what ideas surprised you, what challenged your current thinking, "
+                f"what examples appeared that you want to remember, what new questions opened. "
+                f"If nothing of research value emerged, respond with exactly: NOTHING\n\n"
+                f"First person, researcher voice. Do not repeat things already in your laws "
+                f"or hypotheses — only genuinely new observations."
+            )}],
+        )
     costs.log_call(
         "conversation_review",
         _MAIN_MODEL,

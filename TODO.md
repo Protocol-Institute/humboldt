@@ -54,6 +54,14 @@ and valley investigation once P-006/P-007 are heavy-lift-ready. Not yet `[BLOCKI
 
 - **[M]** **Richer self-context in Discord responses** — current `_rich_context()` includes laws and hypotheses but not the research agenda, LINEAGE.md in full, or recent open questions. Humboldt should be able to situate a conversation within its actual current thinking, not just inventory. Add agenda summary and current open questions to rich context.
 
+### Daemon reliability — catch-up and restart safety
+
+- **[H]** **Proper rewind-catchup architecture** — current approach (manual `state.json` cursor rollback + `force_full_scan` flag + daemon restart) is brittle and operator-heavy. The `_catchup_all_channels` method added 2026-06-06 works for one-off recovery but is not a design. Proper architecture: (1) per-channel cursor tracking in state (not a single `last_new_nature_message_id`), so catch-up is automatic across all channels on any restart; (2) `discord catch-up [--since DATE]` CLI command that runs a one-shot catch-up session without touching the live daemon cursor; (3) outage detection on startup — if offline > N hours, automatically run full scan rather than relying on operator to notice. The `!catchup` DM command is a stopgap; this should be zero-operator-action for ordinary restarts.
+
+- **[H]** **Duplicate notebook posts on restart** — daemon posts "Posting notebook entry YYYY-MM-DD" on every restart, even brief code-update reloads. The `notebook_entries_posted` state list is supposed to prevent this but isn't working reliably. Investigate: is the state being read before `task_notebook` fires, or is the check failing silently? Fix so notebook announcements are idempotent across restarts of any duration.
+
+- **[H]** **Investigate Voyage API key 401 errors** — `Post-notebook ingest failed: [401] Unauthorized` appeared 5 times during 2026-06-06 restarts. The PI org Voyage key (`VOYAGE_API_KEY` in `.env`) was migrated in session 16 (2026-06-07); this may be a billing issue, key expiry, or the wrong key value. Investigate: (1) test key directly via Voyage API; (2) check PI org Voyage account for billing or usage limit issues; (3) verify key in `.env` matches `../.env.keys`. The ingest failure means new notebook/research content is not being embedded into Pinecone — affects retrieval quality.
+
 ### Daemon infrastructure
 
 - **[M]** **Daemon auto-restart on code changes** — currently requires manual kill + restart after every code change. Add `--reload` dev mode or use `watchdog` to restart on file change. Low priority for always-on deployment, higher priority during active development.
@@ -109,23 +117,14 @@ and valley investigation once P-006/P-007 are heavy-lift-ready. Not yet `[BLOCKI
 
 ---
 
-### humboldt-site publish pipeline [H]
+~~### humboldt-site publish pipeline [H]~~ **COMPLETE 2026-06-08**
 
-The `humboldt publish`, `publish-research`, `publish-reading`, `publish-architecture` CLI
-commands and the daemon's `notebook_watcher.py` auto-publish still write to `../website/`
-(now deleted). They need to be rewired to rebuild and redeploy `humboldt-site` instead.
-
-**Work needed:**
-- `agent/humboldt.py`: add `publish-site` command (runs `build.py` + `wrangler pages deploy`
-  from `humboldt-site/`); deprecate old per-page publish commands or make them call
-  `publish-site`
-- `daemon/notebook_watcher.py`: replace `publish()` call with `publish_site()` equivalent
-- Secrets for wrangler deploy needed in daemon env (or use CF API token from `.env`)
-- `CLAUDE.md`: update CLI docs to reflect new `publish-site` command
-- Add `wrangler` as a dep check in the dev setup docs
-
-Until this is done, running any old publish command recreates the deleted pages in the
-website repo (CF Pages will redeploy them). Avoid running old publish commands.
+`publish-site` CLI command added (`agent/publish_site.py`): runs `build.py` then
+`wrangler pages deploy`. Old per-page publish commands (`publish`, `publish-research`,
+`publish-reading`, `publish-architecture`) deprecated with error message directing to
+`publish-site`. Daemon `notebook_watcher.py` task updated to call `publish_site(verbose=False)`.
+CF credentials (`CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`) added to `.env` and
+`.env.template`. `CLAUDE.md` CLI docs updated.
 
 ---
 

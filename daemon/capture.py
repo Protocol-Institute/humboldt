@@ -134,13 +134,13 @@ Rules:
 Return only valid JSON — no markdown fences, no commentary."""
 
     costs.check_budget()
-    client = AsyncAnthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
     try:
-        resp = await client.messages.create(
-            model=_FAST_MODEL,
-            max_tokens=1500,
-            messages=[{"role": "user", "content": prompt}],
-        )
+        async with AsyncAnthropic(api_key=os.environ["ANTHROPIC_API_KEY"]) as client:
+            resp = await client.messages.create(
+                model=_FAST_MODEL,
+                max_tokens=1500,
+                messages=[{"role": "user", "content": prompt}],
+            )
         costs.log_call(
             "discord_capture",
             _FAST_MODEL,

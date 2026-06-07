@@ -4,6 +4,31 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-06-06 (session 17) — Publish pipeline rewire; fd leak incident; Discord reliability
+
+Session: Track 2 only.
+
+**Daemon:** PID 917 (launchd, running). Hot-reloaded 4× during session.
+
+**Completed:**
+- `publish-site` CLI command added (`agent/publish_site.py`); old publish commands deprecated with error
+- Daemon `notebook_watcher` rewired to `publish_site(verbose=False)`
+- CF credentials added to `.env` + `.env.template`
+- **fd leak fixed** (incident 2026-06-06-01): `AsyncAnthropic` singleton in `presence.py`; `async with` in `capture.py` and `conversation_review.py`; fd count 324→88
+- `on_message` error handling: added `except Exception` with visible user reply
+- `_scan_missed_mentions`: fallback reply on failure; limit raised to 500 for non-brief restarts
+- `_catchup_all_channels` + `!catchup` DM command for guild-wide missed mention recovery
+- `force_full_scan` state flag for manual catch-up override
+- Incident report filed: `Code/incidents/2026-06-06-humboldt-fd-leak-bot-silence.md`
+- 3 new TODO items: Voyage 401 investigation, rewind-catchup architecture, duplicate notebook post fix
+
+**Open (next session):**
+- Investigate Voyage API key 401 errors (ingest failing post-restart)
+- Rewind-catchup architecture (per-channel cursors, zero-operator-action recovery)
+- Duplicate notebook posts on restart (idempotency bug)
+
+---
+
 ## 2026-06-07 (session 16) — PI org migration; separate humboldt Pinecone index; humboldt-site CF Pages
 
 Session: Track 2 only.
