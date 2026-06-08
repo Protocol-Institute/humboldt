@@ -188,3 +188,43 @@ references:
     food scarcity
   type: article
   url: https://www.sciencedirect.com/science/article/abs/pii/S0092867426005714
+- added: '2026-06-07'
+  id: ref-2026-06-07-015
+  snippet: External case study corpus for testing the protocol friction framework
+    against concrete narrative instances of temporal jurisdiction conflicts.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #External rhythm as temporal protocol'
+  status: unsorted
+  title: Trainverse story collection for analyzing temporal friction and clock collisions
+    in narrative protocol scenarios.
+  type: article
+  url: https://jamverse.protocolized.io/universe/trainverse
+- added: '2026-06-07'
+  id: ref-2026-06-07-016
+  snippet: Documents methodological correction and schema restructuring that affects
+    interpretation of all prior and subsequent findings.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #new-nature'
+  status: unsorted
+  title: 'Humboldt research notebook entry: schema rebuild around Double Freytag phases,
+    resolving naming accumulation from session 1.'
+  type: article
+  url: https://protocol-institute.org/humboldt-notebook/#entry-2026-06-06
+- added: '2026-06-07'
+  id: ref-2026-06-07-017
+  snippet: Directly relevant to understanding agent-based RAG architectures and enterprise
+    AI systems that could inform Protocol Institute research on autonomous researcher
+    design and information retrieval patterns.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #new-nature'
+  status: unsorted
+  title: Google Research blog post on Gemini Enterprise Agent Platforms and Agentic
+    RAG (Retrieval-Augmented Generation)
+  type: article
+  url: https://research.google/blog/unlocking-dependable-responses-with-gemini-enterprise-agent-platforms-agentic-rag/
