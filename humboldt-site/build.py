@@ -8,6 +8,7 @@ Generates dist/ from source data in the humboldt repo:
   dist/reading/index.html      — Deep reads
   dist/architecture/index.html — Architecture
   dist/chat/index.html         — Research chat UI
+  dist/brain/index.html        — Behavior MDP graph (static, read-only)
 
 Also injects live system prompt into functions/chat.js:
   Reads IDENTITY.md, LINEAGE.md, CL/F/H inventory, recent notebook
@@ -280,7 +281,7 @@ def _build_research() -> None:
     body = f"""\
     <div class="page-header">
       <h1>Research Status</h1>
-      <p class="page-tagline">Research inventory by arc phase — the Double Freytag model of inquiry (<em>Tempo</em>, Rao 2011). Hover a dot for details.</p>
+      <p class="page-tagline">Research inventory by arc phase — the Double Freytag model of inquiry (<em>Tempo</em>, Rao 2011). Hover a dot for details. See also the <a href="/brain/">behavior graph</a> — the Markov process that governs how Humboldt moves between research behaviors.</p>
     </div>
 
 {svg_html}
@@ -543,6 +544,70 @@ def _build_chat() -> None:
     print("  Chat UI → dist/chat/index.html")
 
 
+# ── Brain (Behavior MDP) ──────────────────────────────────────────────────────
+
+def _build_brain() -> None:
+    """Generate dist/brain/index.html — static read-only MDP visualization."""
+    import json as _json
+
+    admin_src = _ROOT / "behaviors" / "admin.html"
+    registry_path = _ROOT / "behaviors" / "registry.yaml"
+    mdp_path = _ROOT / "behaviors" / "mdp.yaml"
+
+    if not admin_src.exists():
+        print("  Brain → behaviors/admin.html not found, skipping")
+        return
+
+    reg  = yaml.safe_load(registry_path.read_text()) if registry_path.exists() else {}
+    mdp  = yaml.safe_load(mdp_path.read_text())      if mdp_path.exists()      else {}
+
+    behaviors     = reg.get("behaviors", [])
+    virtual_nodes = mdp.get("virtual_nodes", [])
+    static_data   = {
+        "behaviors":     behaviors,
+        "virtual_nodes": virtual_nodes,
+        "mdp":           mdp,
+    }
+    data_json = _json.dumps(static_data, ensure_ascii=False)
+
+    # Inject static data block immediately before the closing </script> tag
+    injection = f"window.HUMBOLDT_STATIC_DATA = {data_json};\n"
+    html = admin_src.read_text()
+    # Insert after <script src="...d3..."> line so it runs before the main script
+    d3_tag = '<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>'
+    if d3_tag in html:
+        html = html.replace(
+            d3_tag,
+            d3_tag + f'\n<script>\n{injection}</script>',
+            1,
+        )
+    else:
+        # Fallback: inject at top of first <script> block
+        html = html.replace("<script>", f"<script>\n{injection}", 1)
+
+    # Inject site stylesheet (for nav styles) and nav bar
+    html = html.replace(
+        '</head>',
+        '<link rel="stylesheet" href="/assets/style.css">\n</head>',
+        1,
+    )
+    nav_html = _nav("/brain/")
+    html = html.replace('<body>', f'<body>\n{nav_html}', 1)
+    # Shrink the app body to account for nav height (52px) + header
+    html = html.replace(
+        'height: 100vh;',
+        'height: calc(100vh - 52px);',
+        1,
+    )
+
+    out = _DIST / "brain" / "index.html"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(html)
+    n_nodes = len(behaviors) + len(virtual_nodes)
+    n_edges = len(mdp.get("transitions", []))
+    print(f"  Brain → dist/brain/index.html ({n_nodes} nodes, {n_edges} edges)")
+
+
 # ── System prompt injection ────────────────────────────────────────────────────
 
 def _assemble_system_prompt() -> str:
@@ -691,6 +756,7 @@ def build() -> None:
     _build_reading()
     _build_architecture()
     _build_chat()
+    _build_brain()
     _copy_assets()
     _inject_system_prompt()
     print("Done.")

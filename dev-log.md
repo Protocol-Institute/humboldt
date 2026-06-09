@@ -6,6 +6,27 @@ Most recent entry first.
 
 ---
 
+## 2026-06-09 (session 18) — Behavior MDP graph; daemon stale-state fix; brain page
+
+**Tracks active:** T2
+**Daemon PID:** 917 (running)
+
+Three distinct work streams this session.
+
+**Daemon reliability fixes.** Resolved two open bugs from session 17. The Voyage 401 investigation came back clean — key is valid, ingest runs fine (1,427 vectors), the 401s were transient during the key migration window. Closed without code changes. The duplicate notebook post bug had a real root cause: `task_conversation_review` and `task_feeds` were loading state at task start, running async LLM calls (yield points), then saving the stale snapshot — clobbering `last_notebook_commit` and `notebook_entries_posted` set by concurrent `task_notebook` runs. Fixed by applying the existing fresh-load pattern to both tasks' final saves. Confirmed in the production daemon.err log: the pattern was three "Posting notebook entry 2026-06-06" events on 2026-06-06, each triggered by a different commit being visible after the cursor was rolled back by the stale save.
+
+**Behavior MDP system.** Built the full behavior graph architecture: all 26 behaviors assigned to Double Freytag phases in `behaviors/registry.yaml`; `behaviors/mdp.yaml` defines the MDP (28 nodes including 2 virtual HL/RE placeholders, 72 edges — 34 within-phase bidirectional, 35 cross-phase, 2 cycle-back); `agent/behaviors.py` provides an HTTP admin server and CLI (graph, admin, log, supervisory); `behaviors/admin.html` is a D3.js visualization with vertical phase flow, hover tooltips, and in-graph weight editing; `behaviors/log.jsonl` is the behavior visit log. The supervisory CLI reads consecutive transitions from the log and flags divergences from MDP weights. The full MDP is connected via the retrospective → liminal cycle-back edge.
+
+**Brain page.** Deployed the behavior graph as a static read-only page at `humboldt.protocol-institute.org/brain/` — no nav link, linked from the Research page opening blurb. `_build_brain()` in `humboldt-site/build.py` bakes registry + MDP data as inline JSON (`window.HUMBOLDT_STATIC_DATA`), injects the site nav, and writes to `dist/brain/`. Fixed a flexbox layout bug (`min-width: 0` on the graph container) that was causing the SVG to expand the flex child and suppress scrollbars. Added zoom via `viewBox` + dynamic SVG sizing (slider, +/−, keyboard shortcuts), auto-hiding scrollbars, and a collapsible right sidebar.
+
+**Open (next session):**
+- Continue brain page GUI improvements (to-do item logged in TODO.md)
+- Triage 56 untriaged discord-ideas from 2026-06-06–08 (temporal protocols cluster, ossification independence, ambiguity)
+- Triage 86+ untriaged feed items from 2026-06-07–09
+- Brian Arthur "Nature of Technology" — two independent triage recommendations; source PDF when ready
+- Rewind-catchup architecture still open ([H])
+- Wire behavior logging into session wrapup ritual
+
 ## 2026-06-06 (session 17) — Publish pipeline rewire; fd leak fix; Discord reliability hardening
 
 **Tracks active:** T2

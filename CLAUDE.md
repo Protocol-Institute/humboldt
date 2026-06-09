@@ -162,6 +162,13 @@ python3 -m agent.humboldt discord sweep
 python3 -m agent.humboldt discord sweep --since 2026-05-01  # since a date (UTC)
 python3 -m agent.humboldt discord sweep --limit 500          # cap at N messages
 
+# Behavior graph — MDP visualization and supervisory loop
+# Graph definition: behaviors/mdp.yaml  Log: behaviors/log.jsonl
+python3 -m agent.humboldt behaviors graph                          # text summary: phases, nodes, edge counts
+python3 -m agent.humboldt behaviors admin                          # start local admin web UI (localhost:7878)
+python3 -m agent.humboldt behaviors log <id> [--arc ARC] [--note] # record a behavior visit to log.jsonl
+python3 -m agent.humboldt behaviors supervisory                    # analyze log; suggest weight updates
+
 # Publish the humboldt-site to Cloudflare Pages (humboldt.protocol-institute.org)
 # Rebuilds all pages (notebook, research, reading, architecture, about, chat) and deploys.
 # The daemon runs this automatically after each new notebook entry is detected.

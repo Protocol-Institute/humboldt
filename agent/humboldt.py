@@ -810,6 +810,35 @@ def main():
         else:
             print(f"Unknown discord subcommand: {subcmd}")
             sys.exit(1)
+    elif cmd == "behaviors":
+        from . import behaviors as beh
+        subcmd = rest[0] if rest else "graph"
+        if subcmd == "admin":
+            beh.run_admin()
+        elif subcmd == "graph":
+            beh.cmd_graph()
+        elif subcmd == "log":
+            if not rest[1:]:
+                print("Usage: humboldt behaviors log <behavior-id> [--arc ARC] [--note TEXT]")
+                sys.exit(1)
+            behavior_id = rest[1]
+            arc_id = None
+            note = None
+            i = 2
+            while i < len(rest):
+                if rest[i] == "--arc" and i + 1 < len(rest):
+                    arc_id = rest[i + 1]; i += 2
+                elif rest[i] == "--note" and i + 1 < len(rest):
+                    note = rest[i + 1]; i += 2
+                else:
+                    i += 1
+            beh.cmd_log_visit(behavior_id, arc_id=arc_id, note=note)
+        elif subcmd == "supervisory":
+            beh.cmd_supervisory()
+        else:
+            print(f"Unknown behaviors subcommand: {subcmd}")
+            print("Available: admin, graph, log, supervisory")
+            sys.exit(1)
     else:
         print(f"Unknown command: {cmd}")
         print(USAGE)

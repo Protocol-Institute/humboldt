@@ -4,6 +4,31 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-06-09 (session 18) — Behavior MDP graph; daemon stale-state fix; brain page
+
+Session: Track 2 only.
+
+**Daemon:** PID 917 (launchd, running). Hot-reloaded once during session (stale-state fix).
+
+**Completed:**
+- Voyage 401 investigation: resolved (transient, no code change needed)
+- Duplicate notebook posts fixed: stale-state race in `task_conversation_review` + `task_feeds`; applied fresh-load pattern at both tasks' final saves
+- Behavior MDP built: `behaviors/registry.yaml` (26 phases assigned), `behaviors/mdp.yaml` (72 edges), `behaviors/admin.html` (D3.js visualization), `agent/behaviors.py` (HTTP server + CLI), `behaviors/log.jsonl` (empty)
+- CLI: `humboldt behaviors admin | graph | log | supervisory`
+- Brain page deployed: `humboldt.protocol-institute.org/brain/` — static, linked from Research page, not in nav
+- Brain page layout fix: `min-width: 0` on flex container, viewBox + zoom controls, collapsible sidebar, auto-hide scrollbars
+- TODO.md updated: Voyage and duplicate-post items closed; behavior MDP section added
+
+**Open (next session):**
+- Continue brain page GUI improvements (TODO.md)
+- Triage 56+ discord-ideas from 2026-06-06–08 (temporal protocols, ambiguity clusters)
+- Triage 86+ feed items from 2026-06-07–09
+- Brian Arthur "Nature of Technology" — source PDF
+- Rewind-catchup architecture [H]
+- Wire behavior logging into session ritual
+
+---
+
 ## 2026-06-06 (session 17) — Publish pipeline rewire; fd leak incident; Discord reliability
 
 Session: Track 2 only.

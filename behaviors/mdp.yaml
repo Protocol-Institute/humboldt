@@ -1,0 +1,203 @@
+# Humboldt Behavior MDP — Markov Decision Process graph
+#
+# Speculative initial weights (2026-06-09). Adjust via `humboldt behaviors admin`.
+# Supervisory loop learns from behaviors/log.jsonl.
+#
+# Edge semantics:
+#   weight      — unnormalized influence weight; normalized per source at runtime
+#   bidirectional — true = within-phase (same weight both directions); false = one-way
+#   cross_phase — true = inter-phase transition (forward only)
+#   cycle_back  — true = retrospective → liminal arc-restart edge
+#
+# Constraint: within each phase, no absorbing states (every node has ≥1 within-phase
+# outgoing edge). Phase stuckness is allowed; permanent node stuckness is not.
+# Full graph is connected via the retrospective → liminal cycle-back.
+
+version: 1
+
+# ── Phase definitions ────────────────────────────────────────────────────────
+
+phases:
+  - id: liminal
+    name: Liminal Passage
+    order: 0
+    color: "#8b949e"
+    description: Between arcs — wandering, building analogy capacity, reorienting.
+
+  - id: exploration
+    name: Exploration
+    order: 1
+    color: "#58a6ff"
+    description: Active curiosity — random links, deep reads, field observation, social input.
+
+  - id: sensemaking
+    name: Sensemaking
+    order: 2
+    color: "#bc8cff"
+    description: Pattern recognition — thought experiments, visualization, estimation.
+
+  - id: valley
+    name: Valley
+    order: 3
+    color: "#3fb950"
+    description: Candidate law development — stress-testing, design fiction, iteration.
+
+  - id: heavy_lift
+    name: Heavy Lift
+    order: 4
+    color: "#f78166"
+    description: Theory synthesis. No behaviors implemented yet.
+
+  - id: retrospective
+    name: Retrospective
+    order: 5
+    color: "#f1e05a"
+    description: Falsification monitoring. No behaviors implemented yet.
+
+  - id: daemon
+    name: Daemon
+    order: -1
+    color: "#3fb950"
+    description: Always-on background processes. Not part of research phase flow.
+
+# ── Virtual nodes for phases with no implemented behaviors ───────────────────
+
+virtual_nodes:
+  - id: hl-placeholder
+    name: Heavy Lift (TBD)
+    phase: heavy_lift
+    state: placeholder
+    description: No behaviors implemented for this phase yet. Represents the heavy synthesis work needed to move from candidate law to theory.
+
+  - id: re-placeholder
+    name: Retrospective (TBD)
+    phase: retrospective
+    state: placeholder
+    description: No behaviors implemented for this phase yet. Represents falsification monitoring and arc closing.
+
+# ── Transition graph ─────────────────────────────────────────────────────────
+# Each entry: {from, to, weight, bidirectional, [cross_phase], [cycle_back]}
+
+transitions:
+
+  # ════════════════════════════════════════════════════════
+  #  LIMINAL — within-phase (bidirectional)
+  # ════════════════════════════════════════════════════════
+
+  - {from: boot-000,      to: boot-001,       weight: 0.70, bidirectional: true}
+  - {from: boot-001,      to: behavior-k7r,   weight: 0.50, bidirectional: true}
+  - {from: boot-001,      to: behavior-p1f,   weight: 0.50, bidirectional: true}
+  - {from: boot-001,      to: behavior-m7v,   weight: 0.30, bidirectional: true}
+  - {from: behavior-k7r,  to: behavior-p1f,   weight: 0.40, bidirectional: true}
+  - {from: behavior-k7r,  to: behavior-c7r,   weight: 0.50, bidirectional: true}
+  - {from: behavior-k7r,  to: behavior-s5j,   weight: 0.40, bidirectional: true}
+  - {from: behavior-p1f,  to: behavior-c7r,   weight: 0.40, bidirectional: true}
+  - {from: behavior-c7r,  to: behavior-m7v,   weight: 0.30, bidirectional: true}
+  - {from: behavior-c7r,  to: behavior-s5j,   weight: 0.30, bidirectional: true}
+  - {from: behavior-m7v,  to: behavior-s5j,   weight: 0.30, bidirectional: true}
+
+  # ════════════════════════════════════════════════════════
+  #  LIMINAL → EXPLORATION (cross-phase, one-directional)
+  # ════════════════════════════════════════════════════════
+
+  - {from: boot-001,      to: behavior-q2n,   weight: 0.40, bidirectional: false, cross_phase: true}
+  - {from: boot-001,      to: behavior-w3x,   weight: 0.30, bidirectional: false, cross_phase: true}
+  - {from: behavior-c7r,  to: behavior-q2n,   weight: 0.50, bidirectional: false, cross_phase: true}
+  - {from: behavior-c7r,  to: behavior-t5m,   weight: 0.30, bidirectional: false, cross_phase: true}
+  - {from: behavior-c7r,  to: behavior-j6d,   weight: 0.20, bidirectional: false, cross_phase: true}
+  - {from: behavior-k7r,  to: behavior-q2n,   weight: 0.40, bidirectional: false, cross_phase: true}
+  - {from: behavior-k7r,  to: behavior-f8p,   weight: 0.30, bidirectional: false, cross_phase: true}
+  - {from: behavior-s5j,  to: behavior-w3x,   weight: 0.40, bidirectional: false, cross_phase: true}
+  - {from: behavior-s5j,  to: behavior-t5m,   weight: 0.30, bidirectional: false, cross_phase: true}
+  - {from: behavior-m7v,  to: behavior-f8p,   weight: 0.40, bidirectional: false, cross_phase: true}
+  - {from: behavior-m7v,  to: behavior-h4v,   weight: 0.30, bidirectional: false, cross_phase: true}
+  - {from: behavior-p1f,  to: behavior-h4v,   weight: 0.30, bidirectional: false, cross_phase: true}
+  - {from: behavior-p1f,  to: behavior-b9c,   weight: 0.30, bidirectional: false, cross_phase: true}
+
+  # ════════════════════════════════════════════════════════
+  #  EXPLORATION — within-phase (bidirectional)
+  # ════════════════════════════════════════════════════════
+
+  - {from: behavior-q2n,  to: behavior-f8p,   weight: 0.40, bidirectional: true}
+  - {from: behavior-q2n,  to: behavior-t5m,   weight: 0.30, bidirectional: true}
+  - {from: behavior-q2n,  to: behavior-j6d,   weight: 0.40, bidirectional: true}
+  - {from: behavior-q2n,  to: behavior-b9c,   weight: 0.30, bidirectional: true}
+  - {from: behavior-f8p,  to: behavior-t5m,   weight: 0.40, bidirectional: true}
+  - {from: behavior-f8p,  to: behavior-h4v,   weight: 0.30, bidirectional: true}
+  - {from: behavior-f8p,  to: behavior-b9c,   weight: 0.30, bidirectional: true}
+  - {from: behavior-t5m,  to: behavior-w3x,   weight: 0.50, bidirectional: true}
+  - {from: behavior-t5m,  to: behavior-b9c,   weight: 0.40, bidirectional: true}
+  - {from: behavior-t5m,  to: behavior-j6d,   weight: 0.30, bidirectional: true}
+  - {from: behavior-j6d,  to: behavior-w3x,   weight: 0.40, bidirectional: true}
+  - {from: behavior-j6d,  to: behavior-b9c,   weight: 0.30, bidirectional: true}
+  - {from: behavior-w3x,  to: behavior-h4v,   weight: 0.30, bidirectional: true}
+  - {from: behavior-h4v,  to: behavior-b9c,   weight: 0.50, bidirectional: true}
+
+  # ════════════════════════════════════════════════════════
+  #  EXPLORATION → SENSEMAKING (cross-phase)
+  # ════════════════════════════════════════════════════════
+
+  - {from: behavior-q2n,  to: behavior-r4k,   weight: 0.40, bidirectional: false, cross_phase: true}
+  - {from: behavior-q2n,  to: behavior-n1s,   weight: 0.20, bidirectional: false, cross_phase: true}
+  - {from: behavior-f8p,  to: behavior-n1s,   weight: 0.40, bidirectional: false, cross_phase: true}
+  - {from: behavior-f8p,  to: behavior-z8l,   weight: 0.30, bidirectional: false, cross_phase: true}
+  - {from: behavior-t5m,  to: behavior-r4k,   weight: 0.50, bidirectional: false, cross_phase: true}
+  - {from: behavior-t5m,  to: behavior-n1s,   weight: 0.30, bidirectional: false, cross_phase: true}
+  - {from: behavior-t5m,  to: behavior-z8l,   weight: 0.30, bidirectional: false, cross_phase: true}
+  - {from: behavior-j6d,  to: behavior-r4k,   weight: 0.30, bidirectional: false, cross_phase: true}
+  - {from: behavior-b9c,  to: behavior-r4k,   weight: 0.40, bidirectional: false, cross_phase: true}
+  - {from: behavior-b9c,  to: behavior-n1s,   weight: 0.20, bidirectional: false, cross_phase: true}
+  - {from: behavior-h4v,  to: behavior-n1s,   weight: 0.40, bidirectional: false, cross_phase: true}
+  - {from: behavior-h4v,  to: behavior-r4k,   weight: 0.30, bidirectional: false, cross_phase: true}
+  - {from: behavior-w3x,  to: behavior-r4k,   weight: 0.25, bidirectional: false, cross_phase: true}
+
+  # ════════════════════════════════════════════════════════
+  #  SENSEMAKING — within-phase (bidirectional)
+  # ════════════════════════════════════════════════════════
+
+  - {from: behavior-r4k,  to: behavior-n1s,   weight: 0.50, bidirectional: true}
+  - {from: behavior-r4k,  to: behavior-z8l,   weight: 0.40, bidirectional: true}
+  - {from: behavior-r4k,  to: behavior-d3w,   weight: 0.30, bidirectional: true}
+  - {from: behavior-r4k,  to: behavior-x6b,   weight: 0.30, bidirectional: true}
+  - {from: behavior-n1s,  to: behavior-z8l,   weight: 0.40, bidirectional: true}
+  - {from: behavior-n1s,  to: behavior-x6b,   weight: 0.30, bidirectional: true}
+  - {from: behavior-z8l,  to: behavior-d3w,   weight: 0.40, bidirectional: true}
+  - {from: behavior-d3w,  to: behavior-x6b,   weight: 0.40, bidirectional: true}
+
+  # ════════════════════════════════════════════════════════
+  #  SENSEMAKING → VALLEY (cross-phase)
+  # ════════════════════════════════════════════════════════
+
+  - {from: behavior-r4k,  to: behavior-y2g,   weight: 0.50, bidirectional: false, cross_phase: true}
+  - {from: behavior-r4k,  to: behavior-c9p,   weight: 0.30, bidirectional: false, cross_phase: true}
+  - {from: behavior-n1s,  to: behavior-y2g,   weight: 0.40, bidirectional: false, cross_phase: true}
+  - {from: behavior-n1s,  to: behavior-c9p,   weight: 0.30, bidirectional: false, cross_phase: true}
+  - {from: behavior-z8l,  to: behavior-y2g,   weight: 0.40, bidirectional: false, cross_phase: true}
+  - {from: behavior-x6b,  to: behavior-c9p,   weight: 0.30, bidirectional: false, cross_phase: true}
+  - {from: behavior-d3w,  to: behavior-r4k,   weight: 0.35, bidirectional: false, cross_phase: false}
+
+  # ════════════════════════════════════════════════════════
+  #  VALLEY — within-phase (bidirectional)
+  # ════════════════════════════════════════════════════════
+
+  - {from: behavior-y2g,  to: behavior-c9p,   weight: 0.60, bidirectional: true}
+
+  # ════════════════════════════════════════════════════════
+  #  VALLEY → HEAVY LIFT (cross-phase)
+  # ════════════════════════════════════════════════════════
+
+  - {from: behavior-y2g,  to: hl-placeholder,  weight: 0.20, bidirectional: false, cross_phase: true}
+  - {from: behavior-c9p,  to: hl-placeholder,  weight: 0.15, bidirectional: false, cross_phase: true}
+
+  # ════════════════════════════════════════════════════════
+  #  HEAVY LIFT → RETROSPECTIVE (cross-phase)
+  # ════════════════════════════════════════════════════════
+
+  - {from: hl-placeholder, to: re-placeholder, weight: 0.15, bidirectional: false, cross_phase: true}
+
+  # ════════════════════════════════════════════════════════
+  #  RETROSPECTIVE → LIMINAL (cycle-back — closes the graph)
+  # ════════════════════════════════════════════════════════
+
+  - {from: re-placeholder, to: behavior-c7r,   weight: 0.40, bidirectional: false, cycle_back: true}
+  - {from: re-placeholder, to: boot-001,       weight: 0.30, bidirectional: false, cycle_back: true}

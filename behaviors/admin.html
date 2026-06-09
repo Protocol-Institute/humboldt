@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Humboldt — Behavior MDP Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-weight: 300;
+  background: #FAFAF7;
+  color: #1A1A1A;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Header ── */
+header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  background: #FAFAF7;
+  border-bottom: 1px solid #e0e0da;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+header h1 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #1A1A1A;
+  letter-spacing: -0.01em;
+  flex: 1;
+  min-width: 160px;
+}
+header .subtitle { font-size: 11px; color: #888; white-space: nowrap; }
+
+/* ── Buttons ── */
+.btn {
+  padding: 4px 12px;
+  border: 1px solid #e0e0da;
+  border-radius: 4px;
+  background: #fff;
+  color: #444;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+  white-space: nowrap;
+}
+.btn:hover { background: #f0f0ec; color: #1A1A1A; }
+.btn:disabled { opacity: 0.45; cursor: default; }
+.btn.primary { background: #2A6B6B; border-color: #2A6B6B; color: #fff; }
+.btn.primary:hover { background: #1d4f4f; }
+.btn.warn { background: #fff8e1; border-color: #b8860b; color: #7a5c00; }
+.btn.warn:hover { background: #fff3cd; }
+.btn.icon { padding: 4px 9px; font-size: 14px; line-height: 1; font-weight: 400; }
+
+/* ── Zoom controls ── */
+.zoom-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 4px;
+  border-left: 1px solid #e0e0da;
+  margin-left: 4px;
+}
+.zoom-controls label { font-size: 10px; color: #888; white-space: nowrap; }
+#zoom-slider {
+  width: 80px;
+  accent-color: #2A6B6B;
+  cursor: pointer;
+}
+#zoom-label { font-size: 10px; color: #888; min-width: 32px; text-align: right; font-family: 'SF Mono', monospace; }
+
+/* ── App body ── */
+.app-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* ── Graph container — min-width:0 is critical for flex+overflow ── */
+#graph-container {
+  flex: 1;
+  min-width: 0;
+  overflow: auto;
+  background: #FAFAF7;
+  position: relative;
+}
+
+/* Auto-hide scrollbars on macOS when content fits */
+#graph-container::-webkit-scrollbar { width: 8px; height: 8px; }
+#graph-container::-webkit-scrollbar-track { background: transparent; }
+#graph-container::-webkit-scrollbar-thumb { background: #d0d0cc; border-radius: 4px; }
+#graph-container::-webkit-scrollbar-thumb:hover { background: #b0b0aa; }
+
+#graph-svg { display: block; cursor: grab; }
+#graph-svg:active { cursor: grabbing; }
+
+/* ── Phase labels ── */
+.phase-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  font-family: 'DM Sans', system-ui, sans-serif;
+}
+
+/* ── Nodes ── */
+.node circle { cursor: pointer; transition: stroke-width 0.1s; }
+.node circle:hover { stroke-width: 3; }
+.node.selected circle { stroke-width: 3; }
+.node text {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 9px;
+  pointer-events: none;
+  dominant-baseline: central;
+  text-anchor: middle;
+  fill: #1A1A1A;
+}
+.node .node-name { font-size: 7px; fill: #888; dominant-baseline: auto; }
+
+/* ── Edges ── */
+.edge { cursor: pointer; fill: none; }
+.edge:hover { stroke-width: 3 !important; opacity: 1 !important; }
+.edge.selected { stroke-width: 3 !important; opacity: 1 !important; }
+.edge-weight-label {
+  font-size: 9px; fill: #bbb;
+  pointer-events: none;
+  font-family: 'SF Mono', monospace;
+}
+
+/* ── Tooltip ── */
+#tooltip {
+  position: fixed;
+  background: #fff;
+  border: 1px solid #e0e0da;
+  border-radius: 6px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  padding: 10px 14px;
+  font-size: 11px;
+  max-width: 300px;
+  pointer-events: none;
+  z-index: 200;
+  display: none;
+  line-height: 1.5;
+  font-family: 'DM Sans', system-ui, sans-serif;
+}
+#tooltip .tt-id    { color: #2A6B6B; font-weight: 500; margin-bottom: 4px; font-family: 'SF Mono', monospace; font-size: 10px; }
+#tooltip .tt-name  { color: #1A1A1A; font-weight: 500; margin-bottom: 3px; }
+#tooltip .tt-phase { color: #888; font-size: 10px; margin-bottom: 6px; }
+#tooltip .tt-desc  { color: #555; font-size: 10px; }
+#tooltip .tt-weight { color: #b8860b; font-weight: 600; margin-top: 6px; font-size: 10px; }
+#tooltip .tt-prob   { color: #2a8a3c; font-size: 10px; }
+
+/* ── Detail panel ── */
+#detail-panel {
+  width: 290px;
+  min-width: 290px;
+  flex-shrink: 0;
+  background: #f5f5f2;
+  border-left: 1px solid #e0e0da;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: width 0.2s ease, min-width 0.2s ease;
+  position: relative;
+}
+#detail-panel.collapsed {
+  width: 30px;
+  min-width: 30px;
+}
+#detail-panel.collapsed #detail-inner { display: none; }
+
+#sidebar-toggle {
+  position: absolute;
+  top: 8px;
+  left: 6px;
+  width: 20px;
+  height: 20px;
+  border: none;
+  background: transparent;
+  color: #888;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  z-index: 10;
+  padding: 0;
+  line-height: 1;
+  transition: color 0.1s, background 0.1s, transform 0.2s;
+}
+#sidebar-toggle:hover { color: #2A6B6B; background: #e8e8e4; }
+#detail-panel.collapsed #sidebar-toggle { transform: rotate(180deg); }
+
+#detail-inner {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+  padding-left: 28px; /* leave room for toggle button */
+}
+
+#detail-header {
+  padding: 10px 14px 10px 0;
+  border-bottom: 1px solid #e0e0da;
+  font-size: 10px;
+  color: #888;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  background: #FAFAF7;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  flex-shrink: 0;
+}
+
+#detail-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 14px 12px 0;
+}
+
+#detail-body .field-label {
+  font-size: 9px; color: #888; margin-top: 10px;
+  letter-spacing: 0.06em; font-weight: 500;
+  font-family: 'DM Sans', system-ui;
+}
+#detail-body .field-value { font-size: 12px; color: #1A1A1A; margin-top: 2px; }
+#detail-body .field-value.id {
+  color: #2A6B6B; font-weight: 500;
+  font-family: 'SF Mono', monospace; font-size: 11px;
+}
+#detail-body .field-value.desc { font-size: 11px; color: #555; line-height: 1.5; margin-top: 4px; }
+
+/* ── Weight editor ── */
+.weight-editor {
+  margin-top: 14px;
+  padding: 11px;
+  background: #fff;
+  border-radius: 4px;
+  border: 1px solid #e0e0da;
+}
+.weight-editor h4 {
+  font-size: 11px; color: #b8860b; margin-bottom: 10px;
+  font-family: 'DM Sans', system-ui; font-weight: 500;
+}
+.weight-editor label { font-size: 10px; color: #888; display: block; margin-bottom: 4px; }
+.weight-editor input[type=range] { width: 100%; accent-color: #2A6B6B; }
+.weight-editor input[type=number] {
+  background: #FAFAF7; border: 1px solid #e0e0da; border-radius: 3px;
+  color: #1A1A1A; font-family: 'SF Mono', monospace; font-size: 12px;
+  padding: 4px 8px; width: 80px; margin-top: 4px;
+}
+.weight-editor .weight-row { display: flex; align-items: center; gap: 10px; margin-top: 6px; }
+.weight-editor .prob-display { font-size: 10px; color: #2a8a3c; margin-top: 6px; }
+
+/* ── Suggestions ── */
+.suggestion {
+  background: #fff; border: 1px solid #e0e0da; border-radius: 4px;
+  padding: 8px; margin-bottom: 6px; font-size: 10px; color: #555; line-height: 1.5;
+}
+.suggestion .sug-type { color: #b8860b; font-weight: 600; margin-bottom: 2px; }
+.suggestion .sug-apply { margin-top: 4px; }
+
+/* ── Legend ── */
+.legend {
+  padding: 10px 14px 10px 0;
+  border-top: 1px solid #e0e0da;
+  font-size: 10px; color: #888;
+  background: #FAFAF7;
+  font-family: 'DM Sans', system-ui;
+  flex-shrink: 0;
+}
+.legend-item { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.legend-dot  { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.legend-line { width: 24px; height: 2px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Humboldt — Behavior Graph</h1>
+  <span class="subtitle" id="status-text">Loading…</span>
+  <div class="zoom-controls">
+    <button class="btn icon" id="zoom-out-btn" title="Zoom out">−</button>
+    <input type="range" id="zoom-slider" min="0.25" max="2.5" step="0.05" value="1">
+    <button class="btn icon" id="zoom-in-btn" title="Zoom in">+</button>
+    <span id="zoom-label">100%</span>
+  </div>
+  <button class="btn warn" id="supervisory-btn">Supervisory</button>
+  <button class="btn primary" id="save-btn">Save Changes</button>
+</header>
+
+<div class="app-body">
+  <div id="graph-container">
+    <svg id="graph-svg"></svg>
+  </div>
+
+  <div id="detail-panel">
+    <button id="sidebar-toggle" title="Toggle sidebar" onclick="toggleSidebar()">‹</button>
+    <div id="detail-inner">
+      <div id="detail-header">SELECTED</div>
+      <div id="detail-body">
+        <p style="color:#888;font-size:11px;margin-top:8px;">Click a node or edge to inspect.</p>
+      </div>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#e8f5e9;border:1.5px solid #2a8a3c"></div>production</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#fff8e1;border:1.5px solid #b8860b"></div>prototyping</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#f0f0ec;border:1.5px solid #9ca3af"></div>stub</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#eaeae6;border:1.5px solid #d0d0cc"></div>placeholder</div>
+        <div style="margin-top:8px;"></div>
+        <div class="legend-item"><div class="legend-line" style="background:#2A6B6B"></div>within-phase (bidir)</div>
+        <div class="legend-item"><div class="legend-line" style="background:#bbb"></div>cross-phase</div>
+        <div class="legend-item"><div class="legend-line" style="border-top:2px dashed #b8860b;height:0"></div>cycle-back</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="tooltip"></div>
+
+<script>
+// ── Constants ────────────────────────────────────────────────────────────────
+const PHASE_ORDER = ['liminal','exploration','sensemaking','valley','heavy_lift','retrospective'];
+const BAND_H      = 220;
+const NODE_R      = 30;
+const NODE_SPACING = 130;
+const MAIN_W      = 730;
+const DAEMON_X    = 870;
+const DAEMON_Y_START = 40;
+const DAEMON_SPACING = 100;
+const LEFT_PAD    = 40;
+const LABEL_X     = 8;
+
+const STATE_FILL = {
+  production: '#e8f5e9', prototyping: '#fff8e1',
+  stub: '#f0f0ec',       placeholder: '#eaeae6',
+};
+const STATE_STROKE = {
+  production: '#2a8a3c', prototyping: '#b8860b',
+  stub: '#9ca3af',       placeholder: '#d0d0cc',
+};
+const PHASE_COLORS = {
+  liminal: '#6b7280',       exploration: '#2A6B6B',
+  sensemaking: '#7c4dbd',   valley: '#2a8a3c',
+  heavy_lift: '#c04a32',    retrospective: '#b8860b',
+  daemon: '#2a8a3c',
+};
+
+// ── State ────────────────────────────────────────────────────────────────────
+let allBehaviors = [];
+let mdpData      = {};
+let positions    = {};
+let editedWeights = {};
+let selectedEdge = null;
+let selectedNode = null;
+let currentZoom  = 1.0;
+let svgNativeW   = 0;
+let svgNativeH   = 0;
+
+function edgeKey(from, to) { return `${from}||${to}`; }
+function shortId(id) { return id.startsWith('behavior-') ? id.slice(9) : id; }
+
+// ── Layout ───────────────────────────────────────────────────────────────────
+function computePositions(behaviors, mdp) {
+  const pos = {};
+  const byPhase = {};
+  [...behaviors, ...(mdp.virtual_nodes || [])].forEach(b => {
+    const ph = b.phase || 'liminal';
+    if (!byPhase[ph]) byPhase[ph] = [];
+    byPhase[ph].push(b);
+  });
+  PHASE_ORDER.forEach((phId, phIdx) => {
+    const nodes = byPhase[phId] || [];
+    const bandCY = phIdx * BAND_H + BAND_H / 2;
+    const n = nodes.length;
+    nodes.forEach((b, i) => {
+      const x = LEFT_PAD + MAIN_W / 2 + (i - (n - 1) / 2) * NODE_SPACING;
+      pos[b.id] = { x, y: bandCY, phase: phId };
+    });
+  });
+  (byPhase['daemon'] || []).forEach((b, i) => {
+    pos[b.id] = { x: DAEMON_X, y: DAEMON_Y_START + i * DAEMON_SPACING, phase: 'daemon' };
+  });
+  return pos;
+}
+
+function computeSvgDimensions(behaviors, mdp) {
+  const daemonCount = behaviors.filter(b => b.phase === 'daemon').length;
+  const mainH = PHASE_ORDER.length * BAND_H + 40;
+  const daemonH = DAEMON_Y_START + daemonCount * DAEMON_SPACING + 40;
+  const totalH = Math.max(mainH, daemonH);
+  const totalW = DAEMON_X + NODE_R + 20; // right edge = daemon col + margin
+  return { w: totalW, h: totalH };
+}
+
+// ── Zoom ─────────────────────────────────────────────────────────────────────
+function applyZoom(level) {
+  currentZoom = Math.max(0.25, Math.min(2.5, level));
+  d3.select('#graph-svg')
+    .attr('width',  Math.round(svgNativeW * currentZoom))
+    .attr('height', Math.round(svgNativeH * currentZoom));
+  document.getElementById('zoom-slider').value = currentZoom;
+  document.getElementById('zoom-label').textContent = Math.round(currentZoom * 100) + '%';
+}
+
+document.getElementById('zoom-slider').addEventListener('input', function() {
+  applyZoom(parseFloat(this.value));
+});
+document.getElementById('zoom-in-btn').addEventListener('click', () => applyZoom(currentZoom + 0.15));
+document.getElementById('zoom-out-btn').addEventListener('click', () => applyZoom(currentZoom - 0.15));
+
+// Keyboard shortcuts
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT') return;
+  if (e.key === '=' || e.key === '+') applyZoom(currentZoom + 0.15);
+  if (e.key === '-' || e.key === '_') applyZoom(currentZoom - 0.15);
+  if (e.key === '0') applyZoom(1.0);
+});
+
+// ── Sidebar ───────────────────────────────────────────────────────────────────
+function toggleSidebar() {
+  document.getElementById('detail-panel').classList.toggle('collapsed');
+}
+
+// ── Normalised probs ──────────────────────────────────────────────────────────
+function computeProbs(transitions, edWeights) {
+  const totals = {};
+  transitions.forEach(t => {
+    const w = edWeights[edgeKey(t.from, t.to)] ?? t.weight;
+    totals[t.from] = (totals[t.from] || 0) + w;
+    if (t.bidirectional) {
+      const wr = edWeights[edgeKey(t.to, t.from)] ?? t.weight;
+      totals[t.to] = (totals[t.to] || 0) + wr;
+    }
+  });
+  const probs = {};
+  transitions.forEach(t => {
+    const w = edWeights[edgeKey(t.from, t.to)] ?? t.weight;
+    probs[edgeKey(t.from, t.to)] = totals[t.from] > 0 ? w / totals[t.from] : 0;
+    if (t.bidirectional) {
+      const wr = edWeights[edgeKey(t.to, t.from)] ?? t.weight;
+      probs[edgeKey(t.to, t.from)] = totals[t.to] > 0 ? wr / totals[t.to] : 0;
+    }
+  });
+  return probs;
+}
+
+// ── Path generators ───────────────────────────────────────────────────────────
+function withinPhasePath(sp, tp, offset) {
+  const midX = (sp.x + tp.x) / 2;
+  return `M ${sp.x},${sp.y} Q ${midX},${sp.y + offset} ${tp.x},${tp.y}`;
+}
+function crossPhasePath(sp, tp) {
+  const x1 = sp.x, y1 = sp.y + NODE_R + 3;
+  const x2 = tp.x, y2 = tp.y - NODE_R - 3;
+  const mid = (y1 + y2) / 2;
+  return `M ${x1},${y1} C ${x1},${mid} ${x2},${mid} ${x2},${y2}`;
+}
+
+// ── Render ────────────────────────────────────────────────────────────────────
+function render() {
+  const transitions = mdpData.transitions || [];
+  const allNodes    = [...allBehaviors, ...(mdpData.virtual_nodes || [])];
+  positions = computePositions(allBehaviors, mdpData);
+
+  const dims = computeSvgDimensions(allBehaviors, mdpData);
+  svgNativeW = dims.w;
+  svgNativeH = dims.h;
+
+  const svgEl = d3.select('#graph-svg')
+    .attr('width',   Math.round(svgNativeW * currentZoom))
+    .attr('height',  Math.round(svgNativeH * currentZoom))
+    .attr('viewBox', `0 0 ${svgNativeW} ${svgNativeH}`);
+
+  svgEl.selectAll('*').remove();
+
+  // ── Arrow markers ────────────────────────────────────────────────────────
+  const defs = svgEl.append('defs');
+  [
+    {id: 'arrow-within', color: '#2A6B6B'},
+    {id: 'arrow-cross',  color: '#bbb'},
+    {id: 'arrow-cycle',  color: '#b8860b'},
+  ].forEach(({id, color}) => {
+    defs.append('marker').attr('id', id)
+      .attr('markerWidth', 8).attr('markerHeight', 6)
+      .attr('refX', 7).attr('refY', 3).attr('orient', 'auto')
+      .append('polygon').attr('points', '0 0, 8 3, 0 6').attr('fill', color);
+    defs.append('marker').attr('id', id + '-rev')
+      .attr('markerWidth', 8).attr('markerHeight', 6)
+      .attr('refX', 1).attr('refY', 3).attr('orient', 'auto-start-reverse')
+      .append('polygon').attr('points', '0 0, 8 3, 0 6').attr('fill', color);
+  });
+
+  // ── Phase bands ──────────────────────────────────────────────────────────
+  PHASE_ORDER.forEach((phId, i) => {
+    const y     = i * BAND_H;
+    const color = PHASE_COLORS[phId] || '#6b7280';
+    svgEl.append('rect')
+      .attr('x', 0).attr('y', y)
+      .attr('width', MAIN_W + LEFT_PAD + 10).attr('height', BAND_H)
+      .attr('fill', color).attr('opacity', 0.04);
+    svgEl.append('line')
+      .attr('x1', 0).attr('y1', y)
+      .attr('x2', MAIN_W + LEFT_PAD + 10).attr('y2', y)
+      .attr('stroke', color).attr('stroke-width', 1).attr('opacity', 0.25);
+    svgEl.append('text').attr('class', 'phase-label')
+      .attr('x', LABEL_X).attr('y', y + 16)
+      .attr('fill', color).attr('opacity', 0.8)
+      .text(phId.toUpperCase().replace('_', ' '));
+  });
+
+  // ── Daemon sidebar box ────────────────────────────────────────────────────
+  const daemonBs = allBehaviors.filter(b => b.phase === 'daemon');
+  if (daemonBs.length) {
+    const dY = DAEMON_Y_START - 22;
+    const dH = daemonBs.length * DAEMON_SPACING + 44;
+    svgEl.append('rect')
+      .attr('x', DAEMON_X - NODE_R - 16).attr('y', dY)
+      .attr('width', NODE_R * 2 + 32).attr('height', dH)
+      .attr('rx', 8).attr('fill', '#fff')
+      .attr('stroke', '#2a8a3c').attr('stroke-width', 1).attr('opacity', 0.7);
+    svgEl.append('text')
+      .attr('x', DAEMON_X).attr('y', dY + 14)
+      .attr('text-anchor', 'middle')
+      .attr('font-size', 9).attr('fill', '#2a8a3c').attr('opacity', 0.85)
+      .attr('font-family', "'DM Sans', system-ui").attr('font-weight', '600')
+      .attr('letter-spacing', '0.08em').text('DAEMON');
+  }
+
+  // ── Edges ─────────────────────────────────────────────────────────────────
+  const edgeG = svgEl.append('g').attr('class', 'edges');
+  const probs = computeProbs(transitions, editedWeights);
+  const pairIdx = {};
+
+  transitions.forEach(t => {
+    const sp = positions[t.from], tp = positions[t.to];
+    if (!sp || !tp) return;
+
+    const w       = editedWeights[edgeKey(t.from, t.to)] ?? t.weight;
+    const isWithin = t.bidirectional && !t.cross_phase;
+    const isCycle  = t.cycle_back;
+    const key      = edgeKey(t.from, t.to);
+
+    let pathD, strokeColor, markerEnd, markerStart = null, dash = null;
+
+    if (isWithin) {
+      const pk = [t.from, t.to].sort().join('|');
+      pairIdx[pk] = pairIdx[pk] || 0;
+      const idx = pairIdx[pk]++;
+      const dir = (idx % 2 === 0) ? -1 : 1;
+      const off = dir * (55 + Math.floor(idx / 2) * 22);
+      pathD = withinPhasePath(sp, tp, off);
+      strokeColor = '#2A6B6B'; markerEnd = 'url(#arrow-within)'; markerStart = 'url(#arrow-within-rev)';
+    } else if (isCycle) {
+      pathD = crossPhasePath(sp, tp);
+      strokeColor = '#b8860b'; markerEnd = 'url(#arrow-cycle)'; dash = '6 4';
+    } else {
+      pathD = crossPhasePath(sp, tp);
+      strokeColor = '#bbb'; markerEnd = 'url(#arrow-cross)';
+    }
+
+    const path = edgeG.append('path').attr('class', 'edge')
+      .attr('d', pathD)
+      .attr('stroke', strokeColor)
+      .attr('stroke-width', 1.2 + w * 2.0)
+      .attr('opacity', 0.25 + w * 0.60)
+      .attr('marker-end', markerEnd)
+      .attr('id', `edge-${key}`);
+    if (markerStart) path.attr('marker-start', markerStart);
+    if (dash)        path.attr('stroke-dasharray', dash);
+
+    // Weight label at path midpoint (deferred so path length is available)
+    path.each(function() {
+      const el = this;
+      requestAnimationFrame(() => {
+        try {
+          const pt = el.getPointAtLength(el.getTotalLength() / 2);
+          const prob = probs[key];
+          svgEl.append('text').attr('class', 'edge-weight-label')
+            .attr('x', pt.x + 4).attr('y', pt.y - 4).attr('id', `elabel-${key}`)
+            .text(prob !== undefined ? prob.toFixed(2) : w.toFixed(2));
+        } catch (_) {}
+      });
+    });
+
+    path.on('mouseover', e => showEdgeTooltip(e, t, w, probs[key]))
+        .on('mousemove', moveTooltip)
+        .on('mouseout',  hideTooltip)
+        .on('click', function(e) { e.stopPropagation(); selectEdge(t, this); });
+  });
+
+  // ── Nodes ─────────────────────────────────────────────────────────────────
+  const nodeG = svgEl.append('g').attr('class', 'nodes');
+  allNodes.forEach(b => {
+    const pos = positions[b.id]; if (!pos) return;
+    const g = nodeG.append('g').attr('class', 'node').attr('id', `node-${b.id}`)
+      .attr('transform', `translate(${pos.x},${pos.y})`);
+    g.append('circle').attr('r', NODE_R)
+      .attr('fill',   STATE_FILL[b.state]   || STATE_FILL.stub)
+      .attr('stroke', STATE_STROKE[b.state] || STATE_STROKE.stub)
+      .attr('stroke-width', 2);
+    g.append('text').attr('dy', b.name ? '-4' : '0.35em').attr('fill', '#1A1A1A')
+      .text(shortId(b.id));
+    if (b.name) {
+      g.append('text').attr('class', 'node-name').attr('dy', '10').attr('y', 6)
+        .attr('fill', '#888').text(b.name.split(' ').slice(0, 2).join(' '));
+    }
+    g.on('mouseover', e => showNodeTooltip(e, b))
+     .on('mousemove', moveTooltip)
+     .on('mouseout',  hideTooltip)
+     .on('click', function(e) { e.stopPropagation(); selectNode(b, this); });
+  });
+
+  svgEl.on('click', () => {
+    selectedEdge = selectedNode = null;
+    d3.selectAll('.edge,.node').classed('selected', false);
+    showDefaultDetail();
+  });
+
+  const total = allNodes.length;
+  document.getElementById('status-text').textContent =
+    `${total} behaviors · ${transitions.length} edges`;
+}
+
+// ── Tooltip ───────────────────────────────────────────────────────────────────
+const tip = document.getElementById('tooltip');
+
+function showNodeTooltip(event, b) {
+  const phColor = PHASE_COLORS[b.phase] || '#6b7280';
+  tip.innerHTML = `
+    <div class="tt-id">${b.id}</div>
+    <div class="tt-name">${b.name || ''}</div>
+    <div class="tt-phase" style="color:${phColor}">${(b.phase||'').toUpperCase()} · ${b.state||''} · ${b.classification||''}</div>
+    <div class="tt-desc">${(b.description||'').replace(/\s+/g,' ').slice(0,220)}${(b.description||'').length > 220 ? '…' : ''}</div>
+  `;
+  tip.style.display = 'block'; moveTooltip(event);
+}
+function showEdgeTooltip(event, t, w, prob) {
+  const type = t.cycle_back ? 'cycle-back' : t.cross_phase ? 'cross-phase →' : 'within-phase ↔';
+  tip.innerHTML = `
+    <div class="tt-id">${t.from} → ${t.to}</div>
+    <div class="tt-phase">${type}</div>
+    <div class="tt-weight">weight: ${w.toFixed(3)}</div>
+    ${prob !== undefined ? `<div class="tt-prob">normalised: ${(prob*100).toFixed(1)}%</div>` : ''}
+  `;
+  tip.style.display = 'block'; moveTooltip(event);
+}
+function moveTooltip(event) {
+  tip.style.left = Math.min(event.clientX + 14, window.innerWidth  - 320) + 'px';
+  tip.style.top  = Math.min(event.clientY - 10, window.innerHeight - 180) + 'px';
+}
+function hideTooltip() { tip.style.display = 'none'; }
+
+// ── Detail panel ──────────────────────────────────────────────────────────────
+function showDefaultDetail() {
+  document.getElementById('detail-header').textContent = 'SELECTED';
+  document.getElementById('detail-body').innerHTML =
+    '<p style="color:#888;font-size:11px;margin-top:8px;">Click a node or edge to inspect.</p>';
+}
+
+function selectNode(b, el) {
+  d3.selectAll('.node,.edge').classed('selected', false);
+  d3.select(el.closest('g.node') || el.parentNode).classed('selected', true);
+  selectedNode = b; selectedEdge = null;
+  const phColor = PHASE_COLORS[b.phase] || '#6b7280';
+  const out = (mdpData.transitions||[]).filter(t => t.from===b.id || (t.bidirectional && t.to===b.id));
+  document.getElementById('detail-header').textContent = 'NODE';
+  document.getElementById('detail-body').innerHTML = `
+    <div class="field-label">ID</div>
+    <div class="field-value id">${b.id}</div>
+    <div class="field-label">NAME</div>
+    <div class="field-value">${b.name||'(unnamed)'}</div>
+    <div class="field-label">PHASE</div>
+    <div class="field-value" style="color:${phColor}">${(b.phase||'').toUpperCase()}</div>
+    <div class="field-label">STATE · CLASSIFICATION</div>
+    <div class="field-value">${b.state||'?'} · ${b.classification||'?'}</div>
+    <div class="field-label">DESCRIPTION</div>
+    <div class="field-value desc">${(b.description||'').replace(/\s+/g,' ')}</div>
+    ${b.implementation ? `<div class="field-label">IMPLEMENTATION</div><div class="field-value desc">${b.implementation.replace(/\s+/g,' ')}</div>` : ''}
+    <div class="field-label">OUTGOING EDGES</div>
+    <div class="field-value">${out.length}</div>
+  `;
+}
+
+function selectEdge(t, pathEl) {
+  d3.selectAll('.node,.edge').classed('selected', false);
+  d3.select(pathEl).classed('selected', true);
+  selectedEdge = t; selectedNode = null;
+  const w    = editedWeights[edgeKey(t.from, t.to)] ?? t.weight;
+  const probs = computeProbs(mdpData.transitions||[], editedWeights);
+  const prob  = probs[edgeKey(t.from, t.to)];
+  const type  = t.cycle_back ? 'cycle-back' : t.cross_phase ? 'cross-phase →' : 'within-phase ↔';
+  document.getElementById('detail-header').textContent = 'EDGE';
+  document.getElementById('detail-body').innerHTML = `
+    <div class="field-label">FROM</div><div class="field-value id">${t.from}</div>
+    <div class="field-label">TO</div><div class="field-value id">${t.to}</div>
+    <div class="field-label">TYPE</div><div class="field-value">${type}</div>
+    <div class="weight-editor">
+      <h4>Edit Weight</h4>
+      <label>Raw weight (unnormalized)</label>
+      <div class="weight-row">
+        <input type="range" id="w-slider" min="0.01" max="1.0" step="0.01" value="${w}">
+        <input type="number" id="w-input" min="0.01" max="2.0" step="0.01" value="${w.toFixed(3)}">
+      </div>
+      <div class="prob-display" id="prob-display">
+        Normalised: ${prob !== undefined ? (prob*100).toFixed(1)+'%' : '—'}
+      </div>
+      <div style="margin-top:10px;display:flex;gap:8px;">
+        <button class="btn" onclick="applyWeight()">Apply</button>
+        <button class="btn" onclick="resetWeight()">Reset</button>
+      </div>
+    </div>
+  `;
+  document.getElementById('w-slider').addEventListener('input', function() {
+    document.getElementById('w-input').value = parseFloat(this.value).toFixed(3);
+    updateProbDisplay();
+  });
+  document.getElementById('w-input').addEventListener('input', function() {
+    const v = parseFloat(this.value);
+    if (!isNaN(v) && v > 0) { document.getElementById('w-slider').value = Math.min(v,1); updateProbDisplay(); }
+  });
+}
+
+function updateProbDisplay() {
+  if (!selectedEdge) return;
+  const v = parseFloat(document.getElementById('w-input').value) || selectedEdge.weight;
+  const tmp = {...editedWeights, [edgeKey(selectedEdge.from, selectedEdge.to)]: v};
+  const prob = computeProbs(mdpData.transitions||[], tmp)[edgeKey(selectedEdge.from, selectedEdge.to)];
+  const el = document.getElementById('prob-display');
+  if (el) el.textContent = `Normalised: ${prob !== undefined ? (prob*100).toFixed(1)+'%' : '—'}`;
+}
+
+function applyWeight() {
+  if (!selectedEdge) return;
+  const newW = parseFloat(document.getElementById('w-input').value);
+  if (isNaN(newW) || newW <= 0) return;
+  editedWeights[edgeKey(selectedEdge.from, selectedEdge.to)] = newW;
+  render();
+  setTimeout(() => {
+    const p = document.getElementById(`edge-${edgeKey(selectedEdge.from, selectedEdge.to)}`);
+    if (p) selectEdge(selectedEdge, p);
+  }, 50);
+  document.getElementById('status-text').textContent = 'Unsaved changes — click Save';
+}
+
+function resetWeight() {
+  if (!selectedEdge) return;
+  delete editedWeights[edgeKey(selectedEdge.from, selectedEdge.to)];
+  render();
+  document.getElementById('status-text').textContent = 'Weight reset.';
+}
+
+// ── Save ──────────────────────────────────────────────────────────────────────
+document.getElementById('save-btn').addEventListener('click', async () => {
+  if (window.HUMBOLDT_STATIC_DATA) {
+    document.getElementById('status-text').textContent = 'Read-only — edit locally: humboldt behaviors admin';
+    return;
+  }
+  const transitions = (mdpData.transitions||[]).map(t => {
+    const k = edgeKey(t.from, t.to);
+    return editedWeights[k] !== undefined ? {...t, weight: editedWeights[k]} : t;
+  });
+  const payload = {...mdpData, transitions};
+  try {
+    const r = await fetch('/api/mdp', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)});
+    const res = await r.json();
+    if (res.status === 'saved') { editedWeights = {}; mdpData = payload; document.getElementById('status-text').textContent = 'Saved ✓'; }
+  } catch(e) { document.getElementById('status-text').textContent = 'Save failed: ' + e.message; }
+});
+
+// ── Supervisory ───────────────────────────────────────────────────────────────
+document.getElementById('supervisory-btn').addEventListener('click', async () => {
+  if (window.HUMBOLDT_STATIC_DATA) {
+    document.getElementById('status-text').textContent = 'Run locally: humboldt behaviors supervisory';
+    return;
+  }
+  document.getElementById('status-text').textContent = 'Analysing…';
+  try { showSupervisoryResult(await (await fetch('/api/supervisory')).json()); }
+  catch(e) { document.getElementById('status-text').textContent = 'Failed: ' + e.message; }
+});
+
+function showSupervisoryResult(res) {
+  document.getElementById('detail-header').textContent = 'SUPERVISORY';
+  let html = '';
+  if (res.status === 'no_data') {
+    html = `<p style="color:#888;font-size:11px;margin-top:8px;">${res.message}</p>`;
+  } else {
+    html += `<div class="field-label">LOG STATS</div><div class="field-value">${res.log_entries} entries · ${res.unique_transitions} unique transitions</div>`;
+    if (res.stuckness?.length) {
+      html += `<div class="field-label" style="color:#b8860b;margin-top:12px;">⚠ POTENTIAL STUCKNESS</div>`;
+      res.stuckness.forEach(s => { html += `<div class="suggestion"><div class="sug-type">${s.phase}</div>${s.message}</div>`; });
+    }
+    if (res.suggestions?.length) {
+      html += `<div class="field-label" style="margin-top:12px;">WEIGHT SUGGESTIONS</div>`;
+      res.suggestions.forEach(s => {
+        html += `<div class="suggestion"><div class="sug-type">${s.type==='missing_edge'?'+ NEW EDGE':'≈ ADJUST'}</div>${s.message}
+          ${s.suggested_weight!==undefined ? `<div class="sug-apply"><button class="btn" onclick="applySuggestion('${s.from}','${s.to}',${s.suggested_weight})">Apply ${s.suggested_weight}</button></div>` : ''}</div>`;
+      });
+    } else {
+      html += `<div class="field-value" style="margin-top:8px;color:#2a8a3c;">✓ Weights look calibrated.</div>`;
+    }
+  }
+  document.getElementById('detail-body').innerHTML = html;
+  document.getElementById('status-text').textContent = `Supervisory: ${res.log_entries||0} entries`;
+}
+
+function applySuggestion(from, to, weight) {
+  editedWeights[edgeKey(from, to)] = weight;
+  render();
+  document.getElementById('status-text').textContent = `Applied ${from}→${to}=${weight}. Save to persist.`;
+}
+
+// ── Bootstrap ─────────────────────────────────────────────────────────────────
+async function init() {
+  try {
+    let behData, mdpLoaded;
+    if (window.HUMBOLDT_STATIC_DATA) {
+      behData   = { behaviors: window.HUMBOLDT_STATIC_DATA.behaviors, virtual_nodes: window.HUMBOLDT_STATIC_DATA.virtual_nodes };
+      mdpLoaded = window.HUMBOLDT_STATIC_DATA.mdp;
+      document.getElementById('save-btn').textContent = 'Read-only';
+      document.getElementById('save-btn').disabled = true;
+    } else {
+      const [br, mr] = await Promise.all([fetch('/api/behaviors'), fetch('/api/mdp')]);
+      behData = await br.json(); mdpLoaded = await mr.json();
+    }
+    mdpData = mdpLoaded;
+    allBehaviors = [...(behData.behaviors||[]), ...(behData.virtual_nodes||[]), ...(mdpData.virtual_nodes||[])];
+    // deduplicate by id
+    const seen = new Set();
+    allBehaviors = allBehaviors.filter(b => { if (seen.has(b.id)) return false; seen.add(b.id); return true; });
+    render();
+  } catch(e) {
+    document.getElementById('status-text').textContent = 'Load error: ' + e.message;
+    d3.select('#graph-svg').append('text')
+      .attr('x', 20).attr('y', 40).attr('fill', '#c04a32').attr('font-size', 13)
+      .attr('font-family', "'DM Sans', system-ui").text('Error: ' + e.message);
+  }
+}
+
+init();
+</script>
+</body>
+</html>

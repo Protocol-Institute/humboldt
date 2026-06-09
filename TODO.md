@@ -58,9 +58,9 @@ and valley investigation once P-006/P-007 are heavy-lift-ready. Not yet `[BLOCKI
 
 - **[H]** **Proper rewind-catchup architecture** — current approach (manual `state.json` cursor rollback + `force_full_scan` flag + daemon restart) is brittle and operator-heavy. The `_catchup_all_channels` method added 2026-06-06 works for one-off recovery but is not a design. Proper architecture: (1) per-channel cursor tracking in state (not a single `last_new_nature_message_id`), so catch-up is automatic across all channels on any restart; (2) `discord catch-up [--since DATE]` CLI command that runs a one-shot catch-up session without touching the live daemon cursor; (3) outage detection on startup — if offline > N hours, automatically run full scan rather than relying on operator to notice. The `!catchup` DM command is a stopgap; this should be zero-operator-action for ordinary restarts.
 
-- **[H]** **Duplicate notebook posts on restart** — daemon posts "Posting notebook entry YYYY-MM-DD" on every restart, even brief code-update reloads. The `notebook_entries_posted` state list is supposed to prevent this but isn't working reliably. Investigate: is the state being read before `task_notebook` fires, or is the check failing silently? Fix so notebook announcements are idempotent across restarts of any duration.
+- ~~**[H]** **Duplicate notebook posts on restart**~~ — **FIXED 2026-06-09.** Root cause: `task_conversation_review` and `task_feeds` were saving stale state snapshots (loaded at task start, saved at task end) after async LLM calls, clobbering `last_notebook_commit` and `notebook_entries_posted` set by concurrent `task_notebook` runs. Fixed by applying the fresh-load pattern to both tasks' final saves.
 
-- **[H]** **Investigate Voyage API key 401 errors** — `Post-notebook ingest failed: [401] Unauthorized` appeared 5 times during 2026-06-06 restarts. The PI org Voyage key (`VOYAGE_API_KEY` in `.env`) was migrated in session 16 (2026-06-07); this may be a billing issue, key expiry, or the wrong key value. Investigate: (1) test key directly via Voyage API; (2) check PI org Voyage account for billing or usage limit issues; (3) verify key in `.env` matches `../.env.keys`. The ingest failure means new notebook/research content is not being embedded into Pinecone — affects retrieval quality.
+- ~~**[H]** **Investigate Voyage API key 401 errors**~~ — **RESOLVED 2026-06-09.** Key is valid and ingest runs cleanly (1,427 vectors). The 401s were transient during the session 16/17 key migration window, not a persistent bug.
 
 ### Daemon infrastructure
 
@@ -97,23 +97,30 @@ and valley investigation once P-006/P-007 are heavy-lift-ready. Not yet `[BLOCKI
 
 ---
 
-### Behavior lifecycle and transition model [H]
+### Behavior MDP — lifecycle and transition model
 
-- **[H]** **Apply Double Freytag to behaviors** — behaviors themselves have a maturation
-  arc: stub → prototyping → production → (potentially) deprecated. Map each behavior onto
-  a Double Freytag lifecycle: what does "exploration" look like for a behavior (design
-  uncertainty), what is the "cheap trick" (the design crystallizes), what is the "separation
-  event" (first reliable production use), what is "retrospective" (ongoing monitoring for
-  failure modes)? Add a `behavior_phase` field to the registry schema and assess each
-  current behavior. This connects to the research schema redesign (session 14).
+~~**[H]** **Behavior transition graph**~~ — **BUILT 2026-06-09 (session 18).**
+- All 26 behaviors assigned to Double Freytag phases in `behaviors/registry.yaml`
+- `behaviors/mdp.yaml`: 28 nodes (26 real + 2 virtual), 72 edges (34 within-phase bidir, 35 cross-phase, 2 cycle-back)
+- `behaviors/admin.html`: D3.js admin visualization (vertical phase flow, hover tooltips, in-graph weight editor, supervisory analysis panel)
+- `behaviors/log.jsonl`: behavior visit log (timestamp, behavior_id, phase, arc_id, note)
+- `agent/behaviors.py`: HTTP admin server + CLI (graph, admin, log, supervisory)
+- CLI: `humboldt behaviors admin | graph | log <id> | supervisory`
+- Admin server: http://localhost:7878 — live weight editing → POST saves to mdp.yaml
 
-- **[H]** **Behavior transition graph** — build a formal model of when/how to switch from
-  one behavior to another based on arc phase, entropy state, and research context. Currently
-  BOOTSTRAP.md has a flat priority list; behaviors should form a directed graph where phase
-  position (exploration / sensemaking / valley / heavy_lift) determines which behaviors are
-  applicable, and entropy signatures determine which to activate. Design the graph first
-  (nodes = behaviors, edges = valid transitions with conditions); then wire into BOOTSTRAP
-  and eventually research_tick.
+**Remaining items (Track 2):**
+
+- **[H]** **Brain page GUI improvements** — continue from session 18. Specific items to consider: pan-by-drag within the SVG (currently only scroll); edge label positioning cleanup (labels sometimes overlap nodes); phase band labels could be clickable to filter view; fit-to-screen button; URL hash to restore selected node/edge across refreshes. Evaluate after seeing it in use.
+
+- **[M]** **Wire behavior logging into research sessions** — currently logging is manual (`humboldt behaviors log <id>`). Integrate into session wrapup checklist: log the behaviors actually used in the session. Eventually, BOOTSTRAP.md decision gate (boot-001) should log its output automatically.
+
+- **[M]** **Apply Double Freytag to behavior lifecycle** — add `behavior_phase` field tracking the behavior's own maturation arc (design-uncertainty → prototype → production → monitoring). Assess each behavior in the registry. Connects to session 14 schema redesign.
+
+- **[L]** **Wire behavior graph into BOOTSTRAP.md** — replace flat priority list with phase-position check: given current arc phase, which behaviors are applicable? Use MDP to recommend next behavior from current position. Requires boot-001 to be implemented.
+
+- **[L]** **Heavy Lift and Retrospective behaviors** — design concrete behaviors for phases 4 and 5 to replace placeholders. Heavy Lift likely needs a synthesis behavior (cross-read + cross-law reasoning, see TODO synthesis behaviors item). Retrospective likely needs a monitoring + challenge behavior.
+
+- **[L]** **Humboldt self-manages supervisory loop** — currently operator reviews `humboldt behaviors supervisory` output and applies suggestions manually. Eventually: daemon runs supervisory analysis weekly, writes suggestions to notebook, Humboldt reviews and applies on Track 1.
 
 ---
 

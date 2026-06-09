@@ -881,8 +881,9 @@ class HumboldtBot(discord.Client):
             logger.warning(f"Thread harvest failed: {e}")
 
         from datetime import date
-        state["last_conversation_review"] = date.today().isoformat()
-        st.save(state)
+        fresh = st.load()
+        fresh["last_conversation_review"] = date.today().isoformat()
+        st.save(fresh)
 
     @task_conversation_review.before_loop
     async def before_task_conversation_review(self):
@@ -921,8 +922,9 @@ class HumboldtBot(discord.Client):
             except Exception as e:
                 logger.error(f"Feed error ({feed_cfg.get('name')}): {e}")
 
-        state["last_feed_check"] = datetime.now(timezone.utc).isoformat()
-        st.save(state)
+        fresh = st.load()
+        fresh["last_feed_check"] = datetime.now(timezone.utc).isoformat()
+        st.save(fresh)
 
         if saved_titles:
             # Suppress DMs if we just restarted quickly (code-update restart < 5 min offline).
