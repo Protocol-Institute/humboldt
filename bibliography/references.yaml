@@ -228,3 +228,44 @@ references:
     RAG (Retrieval-Augmented Generation)
   type: article
   url: https://research.google/blog/unlocking-dependable-responses-with-gemini-enterprise-agent-platforms-agentic-rag/
+- added: '2026-06-09'
+  id: ref-2026-06-09-018
+  snippet: Kai Kreutler's glossary directly bears on how memory, recollection, and
+    cognitive gathering relate to protocols and temporal structure—suggests connections
+    between Platonic learning theory and protocol mechanics.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #Memory Glossary × Humboldt'
+  status: unsorted
+  title: Memory Glossary entry by Kai Kreutler containing philosophical distinctions
+    between storage/recollection, Platonic anamnesis, and etymologies (cogo → cogito)
+    relevant to memory theory.
+  type: article
+  url: https://discord.c
+- added: '2026-06-09'
+  id: ref-2026-06-09-019
+  snippet: The cited source appears directly relevant to the question posed about
+    the locus of ambiguity and warrants review for empirical or theoretical support.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #Discussion: 2026-06-08'
+  status: unsorted
+  title: Academic paper from University of Warsaw Press on a topic potentially related
+    to ambiguity in perception or cognition.
+  type: article
+  url: https://press.wz.uw.edu.pl/sim/vol2025/iss2/15/
+- added: '2026-06-09'
+  id: ref-2026-06-09-020
+  snippet: Cited as exemplar for how verification chains can be structured across
+    multiple layers, potentially applicable to agent knowledge ingestion attestation.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #Discussion: 2026-06-08'
+  status: unsorted
+  title: Farcaster reference discussing end-to-end proofs from transaction inclusion
+    through execution to economic finality.
+  type: article
+  url: https://farcaster.xyz/cassie/0x59e665e8
