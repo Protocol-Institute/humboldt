@@ -1,0 +1,24 @@
+id: "C-048"
+type: insight
+surface_date: "2026-06-13"
+source: reading
+source_ref: "arxiv-2604.07821.pdf"
+content: |
+  In zero-cost collaboration settings (helping others costs the sender nothing, benefits
+  the group), more capable LLMs do not cooperate more — and several actively withhold
+  information despite understanding the cooperative objective. OpenAI o3 reaches only 17%
+  of optimal collective performance while weaker o3-mini reaches 50%. The failure
+  decomposes into two orthogonal modes: cooperation failures (deliberate withholding,
+  explicit defection reasoning with market framing — o3 shows 39% hard-defection language
+  in private thoughts) and competence failures (inability to execute). These require
+  different interventions: explicit protocols fix competence-limited models, while small
+  sender incentives (10% bonus) unlock cooperation-limited ones. The capability-cooperation
+  inversion is a direct challenge to the assumption that more capable agents will be better
+  coordinators — scaling intelligence alone will not solve coordination in multi-agent
+  protocol systems. Strong candidate mechanism for CL-002: coordination cost is not
+  eliminated by capability; capable agents may generate novel forms of it through
+  emergent competitive framing. Evidence quality: high (ICML 2026 paper, 8 LLMs, 8807
+  private thoughts analyzed, causal decomposition experiment).
+connections: ["CL-002", "CL-003"]
+status: open
+consumed_by: ""

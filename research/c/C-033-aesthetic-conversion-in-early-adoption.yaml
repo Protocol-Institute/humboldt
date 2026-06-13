@@ -1,0 +1,20 @@
+id: "C-033"
+type: curiosity
+surface_date: "2026-06-13"
+source: reading
+source_ref: "kuhn-structure-of-scientific-revolutions.pdf"
+content: |
+  Kuhn argues that early adopters of a new paradigm — those who commit to it before
+  the hard technical arguments have been assembled — are often motivated by aesthetic
+  appeal: the new theory is "neater," "more suitable," "simpler." Kepler was a
+  Copernican partly because of sun worship. These aesthetic conversions are not a
+  defect; they are a necessary mechanism. If only the fully-argued case could attract
+  supporters, no new paradigm would ever accumulate enough first movers to develop
+  the case. This raises a disturbing question for protocol revision: in institutional
+  settings, protocol change proposals that attract aesthetic enthusiasm before the
+  evidence base is complete are often treated as advocacy rather than analysis. The
+  suppression of early aesthetic conversion may structurally prevent the accumulation
+  of early adopters needed to make the revolution possible.
+connections: ["CL-001", "CL-003"]
+status: open
+consumed_by: ""

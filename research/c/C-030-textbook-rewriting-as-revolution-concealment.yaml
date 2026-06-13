@@ -1,0 +1,20 @@
+id: "C-030"
+type: curiosity
+surface_date: "2026-06-13"
+source: reading
+source_ref: "kuhn-structure-of-scientific-revolutions.pdf"
+content: |
+  Kuhn argues that textbooks systematically rewrite the history of science after each
+  revolution to make progress look cumulative — "truncating the scientist's sense of
+  his discipline's history." This is not propaganda but a functional necessity: you
+  cannot train someone in a new paradigm while constantly reminding them that the
+  paradigm was once bitterly contested. The protocol analog is organizational
+  procedures manuals and compliance documentation — after a protocol revision, prior
+  versions are archived or destroyed, the new protocol is presented as if it were
+  always the sensible way to proceed, and the institutional record of why the old
+  protocol was in place is lost. This is not just historical erasure; it actively makes
+  future revision harder by removing the reasoning that could illuminate what problems
+  the old protocol was solving.
+connections: ["F-001", "CL-001", "C-004"]
+status: open
+consumed_by: ""

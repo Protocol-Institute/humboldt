@@ -1,0 +1,17 @@
+id: "C-025"
+type: curiosity
+surface_date: "2026-06-13"
+source: reading
+source_ref: "kuhn-structure-of-scientific-revolutions.pdf"
+content: |
+  After Dalton's paradigm was accepted, chemists "beat nature into line" — over nearly a
+  generation, measurements of compound ratios converged from observed values toward the
+  ratios demanded by atomic theory. The numerical data themselves shifted. This is not
+  a story about fraud or bias; it is about what counts as a careful measurement when
+  the paradigm has changed. What is the protocol analog? When a protocol is revised,
+  do compliance records, audit findings, and outcome measurements from the pre-revision
+  period get systematically reinterpreted — or do organizations quietly re-run prior
+  analyses under the new protocol until the numbers converge?
+connections: ["F-002", "CL-001"]
+status: open
+consumed_by: ""

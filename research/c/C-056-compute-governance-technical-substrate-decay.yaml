@@ -1,0 +1,23 @@
+id: "C-056"
+type: curiosity
+surface_date: "2026-06-13"
+source: reading
+source_ref: "arxiv-2605.29359.pdf"
+content: |
+  Compute governance protocols (EU AI Act, California SB 53, proposed international
+  agreements) are built around the assumption that frontier AI training requires large,
+  detectable datacenter clusters. Distributed training algorithms (DiLoCo and variants)
+  progressively undermine this assumption: frontier-scale models can now be trained
+  on networks of sub-threshold nodes using consumer-grade internet (100 Mbps bandwidth),
+  making evasion technically feasible within regulatory compliance periods. The governance
+  protocol has been formalized around a technical substrate that is actively evolving
+  away from the form the protocol can detect. This is a direct instance of F-002
+  (formalization is cheap/fast, deformalization is expensive/slow) applied to governance
+  infrastructure: the regulations formalized quickly around a detectability assumption
+  that distributed training now challenges, and updating the regulations to track
+  the new substrate requires slow legislative/international processes. Evidence quality:
+  moderate (engineering analysis with efficiency model, simulator, cost calculations;
+  no empirical training runs at scale).
+connections: ["F-002", "CL-001"]
+status: open
+consumed_by: ""

@@ -52,6 +52,11 @@ cannot be shortened without compromising the separation event.*
   Status: candidate confidence; falsification conditions not fully tested. The
   internally-developed vs. externally-imposed distinction surfaced in counterexamples
   is the live open question.
+  **New material (2026-06-13):** Rittel & Webber read provides a theoretical grounding for
+  the ratchet mechanism — protocols are taming operations on wicked problems; re-opening
+  them means re-entering the wicked territory the protocol was designed to escape. The
+  externally-imposed case is doubly invisible: the embedded political choices were someone
+  else's wicked territory. C-015–022 extend this. Assess whether this closes trigger (b).
   Transition trigger: either (a) strong reversion counterexample found (successful
   reversion with personnel continuity, ruling out social substrate reset), or (b)
   the internal/external distinction survives retrieval and becomes a law modifier.

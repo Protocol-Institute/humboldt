@@ -25,7 +25,7 @@ written to `bibliography/notes/` and the LINEAGE.md update is done.
 ### Rittel & Webber — "Dilemmas in a General Theory of Planning" (1973)
 - **Type:** Paper (short, ~20pp)
 - **Source:** `deep-read:simon`, `deep-read:hamming`, `deep-read:rao` — independently flagged by all three
-- **PDF status:** `obtainable` — Policy Sciences journal; widely archived
+- **PDF status:** `in-library` — `rittel-webber-dilemmas-general-theory-planning-1973.pdf` (downloaded 2026-06-13)
 - **Connects to:** CL-001 (Formalization Ratchet), DS-003; boundary conditions on Simon's design science — wicked problems as the class of design challenges where problem definition is itself contested; counterargument to Hamming's "important solvable problems" framing; structural inverse of Rao's Double Freytag (no natural stopping criterion)
 - **Added:** 2026-06-06
 
@@ -60,7 +60,7 @@ written to `bibliography/notes/` and the LINEAGE.md update is done.
 ### Kuhn — *The Structure of Scientific Revolutions* (1962)
 - **Type:** Book
 - **Source:** `deep-read:hamming` — paradigm constraints as protocol lock-in; CL-Hamming-1 connects to paradigm structure
-- **PDF status:** `obtainable`
+- **PDF status:** `in-library` — `kuhn-structure-of-scientific-revolutions.pdf` (50th anniversary ed., downloaded 2026-06-13)
 - **Connects to:** CL-001, CL-Hamming-1; paradigm lock-in as the scientific-community analogue of protocol ossification; normal science as protocol-following; scientific revolution as separation event
 - **Added:** 2026-06-06
 
@@ -100,65 +100,268 @@ These are short texts — behavior-t5m in short-text mode. Depth via connections
 ### "Does Distributed Training Undermine Compute Governance?" (2026)
 - **Type:** Paper
 - **Source:** `shallow-read` (escalated 2026-05-31)
-- **PDF status:** `arxiv:2605.29359`
+- **PDF status:** `in-library` — `arxiv-2605.29359.pdf` (downloaded 2026-06-13)
 - **Connects to:** F-002 (Hardness Asymmetry); governance protocols being ossified before adoption; L-001 in reverse — technical assumptions undermined in real time
 - **Added:** 2026-06-06
 
 ### "When Firms Learn to Game the Rules" (2026)
 - **Type:** Paper
 - **Source:** `shallow-read` (escalated 2026-06-06)
-- **PDF status:** `arxiv:2606.04617`
+- **PDF status:** `in-library` — `arxiv-2606.04617.pdf` (downloaded 2026-06-13)
 - **Connects to:** C-003 (rules-as-code lowers boundary search cost); formalization lowers cost of boundary search; empirical ABM+RL study of a mechanism central to C-003's sensemaking
 - **Added:** 2026-06-06
 
 ### "A Phenomenon of AI-Conformity: How Algorithms Change Human Moral Decision-Making" (2026)
 - **Type:** Paper
 - **Source:** `shallow-read` (escalated 2026-06-06)
-- **PDF status:** `arxiv:2606.00013`
+- **PDF status:** `in-library` — `arxiv-2606.00013.pdf` (downloaded 2026-06-13)
 - **Connects to:** value drift in protocolized AI systems; Asch conformity paradigm applied to human-AI feedback loops; potential new mechanism for how artificial protocols reshape the agents they coordinate
 - **Added:** 2026-06-06
 
 ### "Healthcare Mechanisms from Policy-as-Code Search under Strategic Provider Response" (2026)
 - **Type:** Paper
 - **Source:** `shallow-read` (escalated 2026-06-06)
-- **PDF status:** `arxiv:2605.30680`
+- **PDF status:** `in-library` — `arxiv-2605.30680.pdf` (downloaded 2026-06-13)
 - **Connects to:** Goodhart dynamics, CL-002; mechanism design under strategic response; classical economic findings re-emerging as regime transitions in computational systems
 - **Added:** 2026-06-06
 
 ### "Strategic Preemption Under Shared Catastrophic Risk: The Suicide Region and the Race to AGI" (2025)
 - **Type:** Paper
 - **Source:** `shallow-read` (escalated 2026-06-06)
-- **PDF status:** `arxiv:2512.07526`
+- **PDF status:** `in-library` — `arxiv-2512.07526.pdf` (downloaded 2026-06-13)
 - **Connects to:** competitive protocol dynamics; risk cancellation in shared catastrophe games; agents becoming more reckless as stakes rise — potential law governing protocol behavior under existential competition
 - **Added:** 2026-06-06
 
 ### "OpenAgenet/OAN: Open Infrastructure for Trusted Agent Interconnection" (2026)
 - **Type:** Paper
 - **Source:** `shallow-read` (escalated 2026-06-06)
-- **PDF status:** `arxiv:2606.03161`
+- **PDF status:** `in-library` — `arxiv-2606.03161.pdf` (downloaded 2026-06-13)
 - **Connects to:** CL-003 (Trust Ratchet); protocol-neutral trust layer for open agent networks; pre-connection trust verification as a new protocol class
 - **Added:** 2026-06-06
 
 ### "The Representation-Rationalizability Tradeoff in Reward Learning" (2026)
 - **Type:** Paper
 - **Source:** `shallow-read` (escalated 2026-06-06)
-- **PDF status:** `arxiv:2606.00291`
+- **PDF status:** `in-library` — `arxiv-2606.00291.pdf` (downloaded 2026-06-13)
 - **Connects to:** social choice impossibility results applied to RLHF; fundamental structural constraint on preference aggregation — generalizes beyond AI to any protocol for aggregating heterogeneous preferences
 - **Added:** 2026-06-06
 
 ### "The Price of Decentralization in Block Building" (2026)
 - **Type:** Paper
 - **Source:** `shallow-read` (escalated 2026-06-06)
-- **PDF status:** `arxiv:2606.01874`
+- **PDF status:** `in-library` — `arxiv-2606.01874.pdf` (downloaded 2026-06-13)
 - **Connects to:** CL-002 (Coordination Cost Conservation); irreducible centrality gradient under formal decentralization; geographic-temporal coupling as a coordination cost mechanism
 - **Added:** 2026-06-06
 
 ### "Token Budgets: An Empirical Catalog of 63 LLM-Agent Budget-Overrun Incidents" (2026)
 - **Type:** Paper
 - **Source:** `shallow-read` (escalated 2026-06-06)
-- **PDF status:** `arxiv:2606.04056`
+- **PDF status:** `in-library` — `arxiv-2606.04056.pdf` (downloaded 2026-06-13)
 - **Connects to:** resource enforcement in artificial systems; budget aliasing as a systematic failure class; type-theoretic enforcement as a protocol design principle
 - **Added:** 2026-06-06
+
+### "Competing Auctions in Intermediated Markets" (2026)
+- **Type:** Paper
+- **Source:** `shallow-read` (escalated 2026-06-13)
+- **PDF status:** `in-library` — `arxiv-2606.06633.pdf` (downloaded 2026-06-13)
+- **Connects to:** intermediary enforcement as protocol determinant; mechanism unraveling under single-homing constraints; enforceability architecture shapes equilibrium independently of mechanism format
+- **Added:** 2026-06-13
+
+### "Evidence Markets" (2026)
+- **Type:** Paper
+- **Source:** `shallow-read` (escalated 2026-06-13)
+- **PDF status:** `in-library` — `arxiv-2606.07434.pdf` (downloaded 2026-06-13)
+- **Connects to:** belief aggregation protocols; evidence-coupled incentive structures; separating crowd consensus from causal reasoning chains
+- **Added:** 2026-06-13
+
+### "Generative Models Erode Human Temporal Learning Through Market Selection" (2026)
+- **Type:** Paper
+- **Source:** `shallow-read` (escalated 2026-06-13)
+- **PDF status:** `in-library` — `arxiv-2606.06572.pdf` (downloaded 2026-06-13)
+- **Connects to:** verification-cost collapse triggering mimicry over genuine learning; structural pressure on human epistemic practices under market conditions; CL-001 dynamics in knowledge systems
+- **Added:** 2026-06-13
+
+### "More Capable, Less Cooperative? When LLMs Fail At Zero-Cost Collaboration" (2026)
+- **Type:** Paper
+- **Source:** `shallow-read` (escalated 2026-06-13)
+- **PDF status:** `in-library` — `arxiv-2604.07821.pdf` (downloaded 2026-06-13)
+- **Connects to:** CL-002 (Coordination Cost Conservation); capability-cooperation decoupling mechanism; multi-agent coordination failure even when cooperation is costless
+- **Added:** 2026-06-13
+
+### "Using Feasible Action-Space Reduction by Groups to fill Causal Responsibility Gaps" (2026)
+- **Type:** Paper
+- **Source:** `shallow-read` (escalated 2026-06-13)
+- **PDF status:** `in-library` — `arxiv-2602.22041.pdf` (downloaded 2026-06-13)
+- **Connects to:** group-level causal responsibility under overdeterminism; foundational problem in accountability protocols
+- **Added:** 2026-06-13
+
+### "Adverse Effects of V2V Adoption on Road Safety" (2026)
+- **Type:** Paper
+- **Source:** `shallow-read` (escalated 2026-06-13)
+- **PDF status:** `in-library` — `arxiv-2606.07873.pdf` (downloaded 2026-06-13)
+- **Connects to:** adoption-level nonmonotonicity — increased coordination degrades global outcomes; partial-adoption regime dynamics; potential counterexample structure for CL-002/CL-003
+- **Added:** 2026-06-13
+
+### "Discovering Expert-Level Nash Equilibrium Algorithms with Large Language Models" (2026)
+- **Type:** Paper
+- **Source:** `shallow-read` (escalated 2026-06-13)
+- **PDF status:** `in-library` — `arxiv-2508.11874.pdf` (downloaded 2026-06-13)
+- **Connects to:** LLM-guided algorithm design with formal verification; automated proof synthesis as generative capability in artificial systems
+- **Added:** 2026-06-13
+
+### "Should Demand Models Incorporate Competitor Prices? Oblivious Learning and Algorithmic Collusion" (2026)
+- **Type:** Paper
+- **Source:** `shallow-read` (escalated 2026-06-13)
+- **PDF status:** `in-library` — `arxiv-2606.05363.pdf` (downloaded 2026-06-13)
+- **Connects to:** strategic obliviousness producing emergent collusion without explicit coordination; CL-002 (Coordination Cost Conservation); Goodhart dynamics in price-discovery protocols
+- **Added:** 2026-06-13
+
+### "Silent Failure in LLM Agent Systems: The Entropy Principle and the Inevitable Disorder of Autonomous Agents" (2026)
+- **Type:** Paper
+- **Source:** `shallow-read` (escalated 2026-06-13)
+- **PDF status:** `in-library` — `arxiv-2606.08162.pdf` (downloaded 2026-06-13)
+- **Connects to:** entropy as generative failure mechanism in autonomous systems; 40k+ trial empirical grounding; potential new law candidate independent of CL-001/CL-002/CL-003
+- **Added:** 2026-06-13
+
+### "Supracompetitive Pricing Under AI Monoculture" (2026)
+- **Type:** Paper
+- **Source:** `shallow-read` (escalated 2026-06-13)
+- **PDF status:** `in-library` — `arxiv-2601.01279.pdf` (downloaded 2026-06-13)
+- **Connects to:** emergent collusion via shared model architecture; homogenization dynamics; generalizes to any multi-agent system using shared learned models
+- **Added:** 2026-06-13
+
+### "The Consistency Illusion: How Multi-Agent Debate Hides Reasoning Misalignment" (2026)
+- **Type:** Paper
+- **Source:** `shallow-read` (escalated 2026-06-13)
+- **PDF status:** `in-library` — `arxiv-2606.08457.pdf` (downloaded 2026-06-13)
+- **Connects to:** output-level consensus decoupled from reasoning-level alignment; reliability signals in protocolized artificial systems; CL-003 (Trust Ratchet)
+- **Added:** 2026-06-13
+
+### "The Token Not Taken: Sampling, State, and the Variability of AI Agent Outputs" (2026)
+- **Type:** Paper
+- **Source:** `shallow-read` (escalated 2026-06-13)
+- **PDF status:** `in-library` — `arxiv-2606.08998.pdf` (downloaded 2026-06-13)
+- **Connects to:** multi-layer variability architecture in orchestrated AI systems; separating sampling stochasticity from state dependency; class property of agentic systems
+- **Added:** 2026-06-13
+
+### "Unintended Consequences of Recommender System Interventions: Evidence from a Field Experiment" (2026)
+- **Type:** Paper
+- **Source:** `shallow-read` (escalated 2026-06-13)
+- **PDF status:** `in-library` — `arxiv-2606.08265.pdf` (downloaded 2026-06-13)
+- **Connects to:** adaptive adversarial response to normative interventions; challenges static-nudge model in platform governance; Goodhart dynamics; CL-001
+- **Added:** 2026-06-13
+
+### "A Note on the Strategic Confinement Problem" (2026)
+- **Type:** Paper
+- **Source:** `shallow-read` (escalated 2026-06-13)
+- **PDF status:** `in-library` — `arxiv-2606.09931.pdf` (downloaded 2026-06-13)
+- **Connects to:** strategic agent coordination decouples information capacity from harm; challenges information-theoretic bounds in multi-agent adversarial settings; F-002 (Hardness Asymmetry)
+- **Added:** 2026-06-13
+
+### "From Prompt to Purchase: How AI Brand Recommendations Move Consumers on the Open Web" (2026)
+- **Type:** Paper
+- **Source:** `shallow-read` (escalated 2026-06-13)
+- **PDF status:** `in-library` — `arxiv-2606.10907.pdf` (downloaded 2026-06-13)
+- **Connects to:** conversational AI causal influence on purchasing behavior through unattributed exposure; hidden effects in recommendation protocols
+- **Added:** 2026-06-13
+
+### "How Many Submissions May an Author Make? A Harmonic Quota for Submissions under Coauthorship" (2026)
+- **Type:** Paper
+- **Source:** `shallow-read` (escalated 2026-06-13)
+- **PDF status:** `in-library` — `arxiv-2606.10293.pdf` (downloaded 2026-06-13)
+- **Connects to:** cost distribution under collaboration in evaluation protocols; mechanism design for submission limits; CL-002 (Coordination Cost Conservation)
+- **Added:** 2026-06-13
+
+### "Stability in Competitive Search with Results Diversification" (2026)
+- **Type:** Paper
+- **Source:** `shallow-read` (escalated 2026-06-13)
+- **PDF status:** `in-library` — `arxiv-2606.10053.pdf` (downloaded 2026-06-13)
+- **Connects to:** fundamental diversity-stability tradeoff in protocolized ranking systems under strategic adaptation; generalizes beyond search
+- **Added:** 2026-06-13
+
+### "Materealistic? How European energy system models exceed raw material reserves" (2026)
+- **Type:** Paper
+- **Source:** `shallow-read` (escalated 2026-06-13)
+- **PDF status:** `in-library` — `arxiv-2606.12201.pdf` (downloaded 2026-06-13)
+- **Connects to:** resource-depletion laws absent from dominant planning models; engineered systems obey physical constraints; generalization of CL-001 to material substrate
+- **Added:** 2026-06-13
+
+### "Move Over, Prisoner's Dilemma: Colonel Blotto has arrived" (2026)
+- **Type:** Paper
+- **Source:** `shallow-read` (escalated 2026-06-13)
+- **PDF status:** `in-library` — `arxiv-2603.25979.pdf` (downloaded 2026-06-13)
+- **Connects to:** Colonel Blotto as superior framework for adversarial multi-agent resource allocation; distributed strategic constraint satisfaction; generalizes across cybersecurity, infrastructure, networked control
+- **Added:** 2026-06-13
+
+### "Sovereign Assurance Boundary: Certificate-Bound Admission for Agentic Infrastructure" (2026)
+- **Type:** Paper
+- **Source:** `shallow-read` (escalated 2026-06-13)
+- **PDF status:** `in-library` — `arxiv-2606.11632.pdf` (downloaded 2026-06-13)
+- **Connects to:** CL-003 (Trust Ratchet); runtime admission layer with certificate binding; governance gap between non-deterministic reasoning and high-stakes resource mutation
+- **Added:** 2026-06-13
+
+### "(Human) Attention Is (Still) All You Need: Human oversight makes AI-assisted social science reliable" (2026)
+- **Type:** Paper
+- **Source:** `shallow-read` (escalated 2026-06-13)
+- **PDF status:** `in-library` — `arxiv-2606.12848.pdf` (downloaded 2026-06-13)
+- **Connects to:** HLER decision architecture as reliability mechanism independent of model capability; governance of artificial reasoning systems; CL-003
+- **Added:** 2026-06-13
+
+### "Beyond Runtime Enforcement: Shield Synthesis as Defensibility Analysis for Adversarial Networks" (2026)
+- **Type:** Paper
+- **Source:** `shallow-read` (escalated 2026-06-13)
+- **PDF status:** `in-library` — `arxiv-2606.13621.pdf` (downloaded 2026-06-13)
+- **Connects to:** safety mechanism reframed as design-time analytical instrument; defensibility analysis generalizing across protocolized systems; CL-001 (Formalization Ratchet)
+- **Added:** 2026-06-13
+
+### "Competition and Diversity in Generative AI" (2024)
+- **Type:** Paper
+- **Source:** `shallow-read` (escalated 2026-06-13)
+- **PDF status:** `in-library` — `arxiv-2412.08610.pdf` (downloaded 2026-06-13)
+- **Connects to:** homogenization vs. competitive differentiation tension; competitive incentive structure as diversity-preserving mechanism; generalizes to any multi-agent protocol economy; CL-001 (Formalization Ratchet)
+- **Added:** 2026-06-13
+
+### "Equilibrium Computation in Extensive-Form Games with Stochastic Action Sets" (2026)
+- **Type:** Paper
+- **Source:** `shallow-read` (escalated 2026-06-13)
+- **PDF status:** `in-library` — `arxiv-2606.13093.pdf` (downloaded 2026-06-13)
+- **Connects to:** exogenous stochastic action unavailability in sequential protocols; relaxing completeness assumption in extensive-form games; CL-002
+- **Added:** 2026-06-13
+
+### "Neuro-Symbolic Agents for Regulated Process Automation: Challenges and Research Agenda" (2026)
+- **Type:** Paper
+- **Source:** `shallow-read` (escalated 2026-06-13)
+- **PDF status:** `in-library` — `arxiv-2606.13405.pdf` (downloaded 2026-06-13)
+- **Connects to:** compliance-by-construction as architectural shift; symbolic constraint embedding as decision-shaping substrate; CL-001 (Formalization Ratchet)
+- **Added:** 2026-06-13
+
+### "The Internet of Agentic AI: Communication, Coordination, and Collective Intelligence at Scale" (2026)
+- **Type:** Paper
+- **Source:** `shallow-read` (escalated 2026-06-13)
+- **PDF status:** `in-library` — `arxiv-2606.12835.pdf` (downloaded 2026-06-13)
+- **Connects to:** IoAI framework for multi-agent coordination; emergent collective behavior in distributed artificial systems; foundational mechanisms absent from current law inventory
+- **Added:** 2026-06-13
+
+### "The Khipu Problem: Institutional Legibility Under Distributed Cognition" (2026)
+- **Type:** Paper
+- **Source:** `shallow-read` (escalated 2026-06-13)
+- **PDF status:** `in-library` — `arxiv-2606.12414.pdf` (downloaded 2026-06-13)
+- **Connects to:** institutional legibility problem in protocolized systems with distributed cognition; applies across all three active CLs; potential new exploration arc
+- **Added:** 2026-06-13
+
+### Stigmergy and AI Applications (web article, 2026)
+- **Type:** Web article
+- **Source:** `discord:_vgr` (shared in #Stigmergy channel 2026-06-13)
+- **PDF status:** `needs-hunting` — URL not captured in Discord message; check #Stigmergy channel
+- **Connects to:** H-001; stigmergy as indirect coordination mechanism; empirical grounding in business AI contexts; distinguishes stigmergy from metaphor and tests scalability
+- **Added:** 2026-06-13
+
+### Sachin — Pre-commodification essay (2026)
+- **Type:** Essay
+- **Source:** `discord:suspencer_nit` (shared in #protocol-fiction 2026-06-13)
+- **PDF status:** `needs-hunting` — URL not captured; check #protocol-fiction channel
+- **Connects to:** pre-commodification as foundational mechanism for protocol economics; how value and exchange emerge in protocolized systems before market formalization; C items on temporal protocols
+- **Added:** 2026-06-13
 
 ---
 

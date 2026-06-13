@@ -1,0 +1,16 @@
+id: "C-020"
+type: insight
+surface_date: "2026-06-13"
+source: reading
+source_ref: "rittel-webber-dilemmas-general-theory-planning-1973.pdf"
+content: |
+  Property 8 says every wicked problem is a symptom of a higher-level problem, and that
+  solving at too low a level (incrementally) may make the higher problem harder. Rittel and
+  Webber's own example is striking: computerizing an administrative process reduces
+  operational cost but reinforces organizational patterns and increases the cost of structural
+  change. If this is general, then coordination cost is not eliminated by low-level protocol
+  fixes — it is displaced upward, to a level where it is less visible and more entrenched.
+  This is the symptom hierarchy as a mechanism for coordination cost conservation.
+connections: ["CL-002", "CL-001"]
+status: open
+consumed_by: ""

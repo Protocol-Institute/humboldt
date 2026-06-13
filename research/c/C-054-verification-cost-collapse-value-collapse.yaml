@@ -1,0 +1,27 @@
+id: "C-054"
+type: insight
+surface_date: "2026-06-13"
+source: reading
+source_ref: "arxiv-2606.06572.pdf"
+content: |
+  When generative AI outputs become sufficiently similar in surface features to
+  Human Temporal Learning (HTL)-intensive outputs, the economic justification for
+  verification collapses before verification becomes technically impossible. The
+  mechanism: verification is justified when g * Δq ≥ c_v (verification ability times
+  quality gap exceeds per-item verification cost). AI outputs narrow the observable
+  gap Δq, raising c_v (deeper inspection required) and lowering g (harder to distinguish).
+  Once verification is no longer economically justified, evaluators reward outputs
+  regardless of production mode. Producers who invested in deep learning cannot
+  compete on price with near-zero-cost generation. High-cost producers exit, the
+  quality pool degrades, which further reduces expected gain from verification —
+  a positive feedback loop ("value collapse"). This is an analog to CL-001 in
+  knowledge systems: the protocol for verifying knowledge provenance ossifies toward
+  surface-feature checking, and this ossification is driven by rational economic
+  response to verification cost, not institutional inertia. Four cross-domain stages
+  are documented (clinical medicine = intact; legal practice = sanctions maintain;
+  academic publishing = volume overwhelms; content platforms = source-blind).
+  Evidence quality: moderate-high (cross-domain case evidence + formal model,
+  published in ICML 2026 proceedings).
+connections: ["CL-001", "F-003", "F-001"]
+status: open
+consumed_by: ""

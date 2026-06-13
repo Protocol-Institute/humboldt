@@ -1,0 +1,20 @@
+id: "C-027"
+type: curiosity
+surface_date: "2026-06-13"
+source: reading
+source_ref: "kuhn-structure-of-scientific-revolutions.pdf"
+content: |
+  Kuhn quotes Planck: "a new scientific truth does not triumph by convincing its
+  opponents and making them see the light, but rather because its opponents eventually
+  die, and a new generation grows up that is familiar with it." In scientific
+  communities this works because cohorts are relatively cleanly separated and careers
+  have a definite end. In protocol-governed institutions, the equivalent is personnel
+  turnover — but institutional protocols often outlive multiple generations of
+  practitioners, and the protocol itself functions as a memory device that allows the
+  original paradigm to persist beyond the original cohort. This is a mechanism by
+  which F-001 (ossification at the rate of institutional memory loss) could run
+  *slower* than the Planck Principle would predict: the protocol encodes the old world
+  and transmits it to new entrants, replacing biological memory with documentary memory.
+connections: ["F-001", "CL-001"]
+status: open
+consumed_by: ""

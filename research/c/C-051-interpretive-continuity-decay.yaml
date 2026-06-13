@@ -1,0 +1,25 @@
+id: "C-051"
+type: insight
+surface_date: "2026-06-13"
+source: reading
+source_ref: "arxiv-2606.12414.pdf"
+content: |
+  The "khipu problem": in distributed AI systems, traces and records can survive while
+  the institutional capacity to read them as parts of one coherent governance episode
+  decays. This is not a failure of trace retention but of interpretive continuity —
+  the ability of a later institution to reconstruct who the system was acting for, what
+  authority was in force, what evidence was in scope, and what counted as the consequential
+  outcome. The paper distinguishes three forms: missing evidence (recoverable), ambiguous
+  evidence (contestable), and structurally unreadable evidence (requires blocking or
+  refusal, not supplementation). The decisive governance failure is loss of the reading
+  practice that makes preserved artifacts cohere as one actionable case — precisely
+  analogous to the historical khipu: the cords remain, the knots remain, but the
+  interpretive institution has decayed. Strong cross-law relevance: this is a new
+  mechanism for F-001 (ossification at the rate of institutional memory loss) — the
+  protocol-relevant memory that decays is not the rules themselves but the social practice
+  of reading and applying them. Also connects to CL-001: protocols resist revision partly
+  because interpretive continuity makes revision legibility itself costly. Evidence quality:
+  theoretical/conceptual with systematic framework; no empirical data but rigorous argument.
+connections: ["F-001", "CL-001", "CL-003"]
+status: open
+consumed_by: ""

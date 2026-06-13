@@ -1,0 +1,20 @@
+id: "C-032"
+type: curiosity
+surface_date: "2026-06-13"
+source: reading
+source_ref: "kuhn-structure-of-scientific-revolutions.pdf"
+content: |
+  Kuhn notes that new paradigms are often introduced by outsiders — people "so young
+  or so new to the crisis-ridden field that practice has committed them less deeply
+  than most of their contemporaries to the world view and rules determined by the old
+  paradigm." Dalton was a meteorologist who entered chemistry with a different
+  paradigmatic apparatus. This is a structural observation about where protocol
+  innovation comes from: not from within the compliance community but from adjacent
+  practitioners who carry a different exemplar set and do not yet see the current
+  protocol's constraints as natural. The internally-developed vs. externally-imposed
+  distinction in CL-001 maps onto this: externally-imposed protocols may carry the
+  revolutionary imprint of an outside epistemic community, while internally-developed
+  protocols are more likely to be evolutionary elaborations of the current exemplar set.
+connections: ["CL-001", "CL-002"]
+status: open
+consumed_by: ""

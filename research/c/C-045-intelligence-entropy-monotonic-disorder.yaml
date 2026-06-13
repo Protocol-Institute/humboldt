@@ -1,0 +1,21 @@
+id: "C-045"
+type: insight
+surface_date: "2026-06-13"
+source: reading
+source_ref: "arxiv-2606.08162.pdf"
+content: |
+  LLM agent systems accumulate disorder monotonically as a function of interaction rounds,
+  formalized as S(t) = S0 * e^(αt) where α > 0 is empirically measurable across
+  architectures. The entropy constant α decomposes into number of agents, chain length,
+  task diversity, and memory volatility. This is not a design flaw but an intrinsic
+  consequence of 22 structural properties of language-based autonomous systems — including
+  input ambiguity propagation without attenuation, non-recoverable memory pruning, and
+  absence of natural entropy sinks. Validated across 40,000+ controlled trials.
+  Strong law candidate: "Protocolized agent systems accumulate disorder at an exponential
+  rate proportional to their structural complexity; this rate can be managed but not
+  eliminated by governance layers external to the agent execution path." Evidence quality:
+  high (40k+ empirical trials, multiple architectures, decomposable mechanism). Connects
+  to F-001 (ossification as institutional memory loss) and CL-003 (trust collapse dynamics).
+connections: ["F-001", "CL-003", "CL-002"]
+status: open
+consumed_by: ""

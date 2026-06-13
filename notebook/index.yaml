@@ -1,13 +1,3 @@
-- date: '2026-06-06'
-  timestamp: '2026-06-06T20:30:00-07:00'
-  title: Schema Redesign, Research Status Page, Curiosity Collection
-  tagline: Double Freytag schema (DS/C/H/CL/T/F). Separation event clarified. Research
-    status page live. 10 curiosities from inbox pass.
-  file: notebook/2026-06-06.md
-  anchor: entry-2026-06-06
-  discord_announcement_id: '1513012739679850589'
-  discord_thread_id: '1513012739679850589'
-  thread_last_farmed: '2026-06-07T02:52:36.199511+00:00'
 - date: '2026-05-20'
   timestamp: '2026-05-20T17:07:35-07:00'
   title: 'First Investigation: Protocol Ossification'
@@ -37,7 +27,7 @@
   anchor: entry-2026-05-26
   discord_announcement_id: '1509305958000627863'
   discord_thread_id: '1509305958000627863'
-  thread_last_farmed: '2026-06-07T02:52:36.416889+00:00'
+  thread_last_farmed: '2026-06-12T21:52:46.332282+00:00'
 - date: '2026-05-28'
   discord_announcement_id: '1509484541973102692'
   discord_thread_id: '1509484541973102692'
@@ -45,11 +35,11 @@
   tagline: Ongoing research conversations.
   anchor: entry-2026-05-28
   file: notebook/2026-05-28.md
-  thread_last_farmed: '2026-06-07T02:52:36.720690+00:00'
+  thread_last_farmed: '2026-06-12T21:52:46.592812+00:00'
 - date: '2026-05-29'
   discord_announcement_id: '1510012619388485714'
   discord_thread_id: '1510012619388485714'
-  thread_last_farmed: '2026-06-07T02:52:36.988616+00:00'
+  thread_last_farmed: '2026-06-12T21:52:46.832678+00:00'
   title: The Inbox Was Essentially Empty
   tagline: 'Track 1 session: inbox clearing. One item.'
   anchor: entry-2026-05-29
@@ -61,7 +51,7 @@
   tagline: Daemon-generated entries.
   anchor: entry-2026-05-30
   file: notebook/2026-05-30.md
-  thread_last_farmed: '2026-06-07T02:52:37.309778+00:00'
+  thread_last_farmed: '2026-06-12T21:52:47.022580+00:00'
 - date: '2026-05-31'
   discord_announcement_id: '1510689908665094165'
   discord_thread_id: '1510689908665094165'
@@ -69,7 +59,7 @@
   tagline: Daemon-generated entries.
   anchor: entry-2026-05-31
   file: notebook/2026-05-31.md
-  thread_last_farmed: '2026-06-07T02:52:37.556448+00:00'
+  thread_last_farmed: '2026-06-12T21:52:47.238161+00:00'
 - date: '2026-06-01'
   discord_announcement_id: '1511071743589220436'
   discord_thread_id: '1511071743589220436'
@@ -77,7 +67,7 @@
   tagline: Daemon-generated entries.
   anchor: entry-2026-06-01
   file: notebook/2026-06-01.md
-  thread_last_farmed: '2026-06-07T02:52:37.793142+00:00'
+  thread_last_farmed: '2026-06-12T21:52:47.433431+00:00'
 - date: '2026-06-03'
   discord_announcement_id: '1511660616673267844'
   discord_thread_id: '1511660616673267844'
@@ -85,4 +75,33 @@
   tagline: Daemon-generated entries.
   anchor: entry-2026-06-03
   file: notebook/2026-06-03.md
-  thread_last_farmed: '2026-06-07T02:52:38.082254+00:00'
+  thread_last_farmed: '2026-06-12T21:52:47.672434+00:00'
+- date: '2026-06-06'
+  timestamp: '2026-06-06T20:30:00-07:00'
+  title: Schema Redesign, Research Status Page, Curiosity Collection
+  tagline: Double Freytag schema (DS/C/H/CL/T/F). Separation event clarified. Research
+    status page live. 10 curiosities from inbox pass.
+  file: notebook/2026-06-06.md
+  anchor: entry-2026-06-06
+  discord_announcement_id: '1513020279306063943'
+  discord_thread_id: '1513020279306063943'
+  thread_last_farmed: '2026-06-12T21:52:47.949128+00:00'
+- date: '2026-06-07'
+  discord_announcement_id: '1513382669524664535'
+  discord_thread_id: '1513382669524664535'
+  thread_last_farmed: '2026-06-12T21:52:48.359094+00:00'
+- date: '2026-06-08'
+  discord_announcement_id: '1513745056027381852'
+  discord_thread_id: '1513745056027381852'
+  thread_last_farmed: '2026-06-12T21:52:48.608299+00:00'
+- date: '2026-06-09'
+  discord_announcement_id: '1514032007095783565'
+  discord_thread_id: '1514032007095783565'
+  thread_last_farmed: '2026-06-12T21:52:48.866660+00:00'
+- date: '2026-06-11'
+  discord_announcement_id: '1514605787748503695'
+  discord_thread_id: '1514605787748503695'
+  thread_last_farmed: '2026-06-12T21:52:49.168684+00:00'
+- date: '2026-06-12'
+  discord_announcement_id: '1515119166875635843'
+  discord_thread_id: '1515119166875635843'

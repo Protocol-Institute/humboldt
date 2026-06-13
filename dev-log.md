@@ -6,6 +6,27 @@ Most recent entry first.
 
 ---
 
+## 2026-06-13 (session 19) — Inbox clearing; PDF library build; deep reads launched
+
+**Tracks active:** T1, T2
+**Daemon PID:** 917 (running)
+
+Three work streams: inbox clearing (T1), PDF library expansion (T2), and deep reads initiated (T1).
+
+**Inbox clearing.** 316 unprocessed items (216 feed from 2026-06-08–12, 100 Discord ideas/links accumulated since session 18). Triage-feed: 156 shallow, 60 discard. Triage-discord: 64 shallow, 36 discard. All 220 shallow reads run via `shallow-read --from-triage`; 96 discards archived; humboldt namespace re-ingested to 2460 vectors. 29 feed escalations + 2 Discord escalations = 31 new deep-read candidates, all added to the hopper. Protocolized Substack added to daemon feed roster (`https://protocolizedmagazine.substack.com/feed`) — direct ingestion of PI's own magazine, previously only available indirectly via c3po corpus.
+
+**PDF library expansion.** All 36 newly escalated arXiv papers downloaded (plus 9 previously queued = 36 total new downloads). Rittel & Webber downloaded from open-access mirror (11pp). Kuhn downloaded in 50th anniversary edition (237pp). Library: 43 PDFs (was 7 at session start). Hopper updated: all downloaded papers marked `in-library`. Remaining needs-hunting: Ostrom, Kauffman, Nelson & Winter, von Humboldt *On Language*, Gertner. Turing lectures remain Cloudflare-blocked.
+
+**Deep reads (three parallel subagents).** Rittel & Webber: complete. 8 C items (C-015–C-022), reading notes at `bibliography/notes/rittel-webber-dilemmas-general-theory-planning.md`. Key result: wicked-problem framing reframes CL-001 — the ratchet exists because re-opening a protocol means re-entering the wicked territory the protocol was designed to escape, and that re-entry was already costly enough to settle once. Kuhn: in-flight at session close (C-025–044 reserved). Papers queue: in-flight at session close, C-045–049 written (entropy principle ×2, computable-rules boundary-search amplification, capability-cooperation inversion, consensus-reasoning decoupling). Both agents will run to completion autonomously; output lands on disk, review and commit deferred to next session. READING-HINTS.md updated with reading hints for Rittel & Webber and Kuhn.
+
+**Open (next session):**
+- Review and commit output from Kuhn agent + papers agent (C-025+ and C-050+)
+- Run `humboldt ingest` after reviewing new C items
+- CL-001 transition trigger assessment — Rittel & Webber result may be enough to close the valley
+- CL-003 needs targeted investigation (still stagnant)
+- Brain page GUI improvements still open ([H])
+- Rewind-catchup architecture still open ([H])
+
 ## 2026-06-09 (session 18) — Behavior MDP graph; daemon stale-state fix; brain page
 
 **Tracks active:** T2

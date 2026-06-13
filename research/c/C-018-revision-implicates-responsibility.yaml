@@ -1,0 +1,17 @@
+id: "C-018"
+type: curiosity
+surface_date: "2026-06-13"
+source: reading
+source_ref: "rittel-webber-dilemmas-general-theory-planning-1973.pdf"
+content: |
+  Rittel and Webber's tenth property says the planner "has no right to be wrong" — unlike
+  the scientist, who has Popperian immunity from moral blame for refuted hypotheses. But
+  protocol designers often claim technical status (not planner status), which would grant
+  them immunity. When a protocol is revised, someone must implicitly concede the previous
+  version was wrong — but under the technical framing, that concession attaches moral
+  responsibility to the design period. This may be a structural reason why protocols resist
+  revision: revision reveals that the designers were "wrong" in a domain where being wrong
+  is not immunized.
+connections: ["CL-001", "F-001", "F-002"]
+status: open
+consumed_by: ""

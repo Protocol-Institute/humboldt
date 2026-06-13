@@ -83,7 +83,7 @@ PI corpus namespaces (as of 2026-06-07):
 - Host: `PINECONE_HUMBOLDT_HOST` from env
 - Dimensions: 1024 (voyage-3) · Metric: cosine · Cloud: aws us-east-1
 - Default namespace (no namespace name)
-- 1,384 vectors (2026-06-07, migrated from personal account) — notebook, notes, shallow reads, C/H/CL research YAMLs, DS arc files, inbox ideas
+- 2,460 vectors (2026-06-13) — notebook, notes, shallow reads, C/H/CL research YAMLs, DS arc files, inbox ideas
 
 Humboldt's own work goes here via `humboldt ingest`. Do not write to c3po namespaces.
 

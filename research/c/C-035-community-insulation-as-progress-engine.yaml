@@ -1,0 +1,20 @@
+id: "C-035"
+type: curiosity
+surface_date: "2026-06-13"
+source: reading
+source_ref: "kuhn-structure-of-scientific-revolutions.pdf"
+content: |
+  Kuhn argues that science is unusually productive partly because scientific communities
+  are unusually insulated from external demands — practitioners can choose problems
+  they have good reason to believe they can solve, rather than problems that urgently
+  need solving. This insularity is what makes puzzle-solving efficient. The implication
+  for protocol-governed systems is uncomfortable: protocols that are subject to constant
+  external pressure (political, regulatory, market) may be structurally incapable of
+  the kind of sustained normal-science elaboration that produces deep expertise. Highly
+  contested protocols (financial regulation, environmental standards) may never achieve
+  the kind of stable puzzle-solving community that Kuhn identifies as the source of
+  productive normal science — and may therefore never accumulate the anomalies needed
+  to trigger productive revolution either.
+connections: ["CL-002", "CL-001"]
+status: open
+consumed_by: ""

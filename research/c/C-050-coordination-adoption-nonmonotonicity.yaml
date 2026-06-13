@@ -1,0 +1,23 @@
+id: "C-050"
+type: curiosity
+surface_date: "2026-06-13"
+source: reading
+source_ref: "arxiv-2606.07873.pdf"
+content: |
+  Under partial adoption of V2V communication, increased adoption can increase equilibrium
+  accident probability rather than decrease it. The mechanism: equipped drivers condition
+  their behavior on warning signals, and under fixed non-optimal signaling probabilities,
+  this creates regions (R3 and R4) where more adoption produces perverse equilibrium
+  outcomes. The perverse effect disappears when the signaling policy is optimized at each
+  adoption level — optimal signaling restores monotonicity. This is a counterexample
+  candidate for the naive version of CL-002 (more coordination protocol = lower coordination
+  cost). The actual result is more nuanced: coordination protocol adoption is beneficial
+  monotonically only when the signaling/protocol design is co-optimized with adoption.
+  A protocol designed for a particular adoption level may produce worse outcomes than no
+  protocol at intermediate adoption levels — a potential hardness asymmetry instance
+  (protocols that work at full adoption may cause harm at partial adoption). Evidence
+  quality: moderate (game-theoretic model, corrected consistency equation, theorems
+  with proof but no empirical data).
+connections: ["CL-002", "F-002"]
+status: open
+consumed_by: ""

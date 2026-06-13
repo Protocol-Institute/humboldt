@@ -1,0 +1,21 @@
+id: "C-036"
+type: curiosity
+surface_date: "2026-06-13"
+source: reading
+source_ref: "kuhn-structure-of-scientific-revolutions.pdf"
+content: |
+  Kuhn distinguishes sharply between translation and conversion. To translate a theory
+  into your own language is not to make it your own; for that you must "go native" —
+  discover that you are thinking in, not merely translating out of, the new language.
+  Translation is a potent tool for persuasion but does not constitute conversion, and
+  conversion cannot be accomplished by deliberate choice — it happens to you at some
+  point in the process of learning to translate. This distinction illuminates a
+  persistent failure mode in protocol reform: regulatory bodies and compliance
+  communities learn to *translate* a new protocol framework (they can explain it,
+  apply it mechanically, even train others in it) without ever converting to it.
+  They remain "foreigners in a foreign environment," and their work is parasitic on
+  the work of practitioners who have actually gone native. The protocol operates but
+  does not take root.
+connections: ["CL-001", "CL-003", "F-002"]
+status: open
+consumed_by: ""

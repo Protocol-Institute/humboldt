@@ -1,0 +1,20 @@
+id: "C-029"
+type: curiosity
+surface_date: "2026-06-13"
+source: reading
+source_ref: "kuhn-structure-of-scientific-revolutions.pdf"
+content: |
+  Kuhn's Postscript distinguishes two ways a paradigm can be transmitted: as explicit
+  rules (symbolic generalizations, values, models that can be stated) and as exemplars
+  (concrete problem-solutions that train tacit perception, not reducible to rules). He
+  argues the exemplar is the philosophically deeper form — it is what actually trains
+  practitioners to see the world in the paradigm's way, and it is what normal science
+  really runs on. This suggests a fundamental typology for protocols: protocols that
+  operate primarily by explicit rule-specification, and protocols that operate primarily
+  by exemplar (case law, precedent, standard of care defined by what practitioners
+  actually do). Exemplar-based protocols may be far more resistant to deformalization
+  than rule-based protocols, because there is no text to revise — only a community of
+  practice to convert.
+connections: ["CL-001", "F-002", "C-011"]
+status: open
+consumed_by: ""

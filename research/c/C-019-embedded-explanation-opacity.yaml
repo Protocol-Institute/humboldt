@@ -1,0 +1,17 @@
+id: "C-019"
+type: insight
+surface_date: "2026-06-13"
+source: reading
+source_ref: "rittel-webber-dilemmas-general-theory-planning-1973.pdf"
+content: |
+  Property 9 says the choice of explanation for a discrepancy is arbitrary in the logical
+  sense — "attitudinal criteria guide the choice." Protocols encode one explanation (one
+  causal story about what the problem is) and institutionalize it. But because the
+  explanation was never stated as a falsifiable hypothesis — it was stated as a problem
+  formulation — it is invisible inside the protocol. When the world changes and the
+  embedded explanation becomes wrong, the protocol cannot self-diagnose: there is no
+  mechanism for the protocol body to signal that its founding causal story has been
+  falsified.
+connections: ["CL-001", "F-001", "C-004"]
+status: open
+consumed_by: ""

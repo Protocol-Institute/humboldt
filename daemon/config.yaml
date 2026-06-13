@@ -40,3 +40,5 @@ feeds:
       url: "https://arxiv.org/rss/cs.CY"
     - name: "arxiv econ.GN (General Economics)"
       url: "https://arxiv.org/rss/econ.GN"
+    - name: "Protocolized magazine (Substack)"
+      url: "https://protocolizedmagazine.substack.com/feed"

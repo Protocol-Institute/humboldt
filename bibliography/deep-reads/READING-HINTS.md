@@ -78,6 +78,32 @@ Specifically attend to: (1) the distinction between "ease of expression" and "po
 
 ---
 
+## `rittel-webber-dilemmas-general-theory-planning-1973.pdf`
+
+**Horst Rittel & Melvin Webber — "Dilemmas in a General Theory of Planning" (Policy Sciences, 1973)**
+
+Rittel and Webber's argument: there is a class of problems — "wicked problems" — that are structurally different from the tame problems that science and engineering solve. Wicked problems have no definitive formulation, no stopping criterion, solutions are not true/false but good/bad, and every solution changes the problem. Planning for social systems is an instance of this class.
+
+**Reading hint:** *Mine curiosities and philosophy.*
+
+This is a short paper (~11 pages) — apply behavior-t5m in short-text mode. Do not hunt for candidate laws; hunt for provocations. The key philosophical move is the distinction between *tame* and *wicked* problems — but attend to what that distinction implies about the *nature of protocols themselves*. Protocols are attempts to tame wicked problems: they impose a definitive formulation, a stopping criterion, and a true/false judgment. What does Rittel & Webber's argument say about the *structural impossibility* of that project? Is the Formalization Ratchet (CL-001) a consequence of the fact that the problems being formalized are wicked? The curiosity pass (Phase 3b) should surface observations at the boundary of the argument — places where the logic holds in unexpected ways, or where the framing breaks down interestingly. Philosophy over extraction.
+
+---
+
+## `kuhn-structure-of-scientific-revolutions.pdf`
+
+**Thomas S. Kuhn — The Structure of Scientific Revolutions (50th anniversary ed., orig. 1962)**
+
+Kuhn's argument: science does not progress by continuous accumulation. It progresses through paradigms — shared frameworks of assumptions, methods, and exemplars that define "normal science" — punctuated by revolutions in which the paradigm is replaced. Anomalies accumulate inside normal science; crisis triggers revolution; a new paradigm is incommensurable with the old.
+
+**Reading hint:** *Mine curiosities and philosophy.*
+
+Read selectively. Priority chapters: I (Introduction), II (Route to Normal Science), V (Priority of Paradigms), VI (Anomaly), VII (Crisis), IX (Nature and Necessity of Revolutions), X (Revolutions as Changes of World View), and the 1969 Postscript. Skip the detailed history-of-science case studies unless they spark something.
+
+The research agenda connection is dense: paradigms are protocols; normal science is protocol-following; anomaly accumulation is what happens before a CL-001 transition trigger fires; revolution is a separation event. But resist the temptation to map these directly — the richest curiosities will come from where the analogy *breaks down*, not where it holds. Specifically: Kuhn argues paradigm replacement is not rational in the standard sense — it involves conversion, generational change, aesthetic appeal. What does that say about CL-001 and CL-003? Is protocol revision ever *rational* in Kuhn's sense, or is it always a kind of revolution? The philosophy of incommensurability is especially fertile: if old and new protocols are incommensurable (no shared standard of evaluation), what does that do to the Hardness Asymmetry (F-002)? Attend also to Kuhn's own epistemological position — he is uncomfortable with relativism but can't fully escape it. That discomfort is productive.
+
+---
+
 ## Adding New Entries
 
 **Before a PDF is in hand:** add the text to `bibliography/deep-read-hopper.md` — the queue of candidates at any stage of availability. The hopper tracks source of recommendation and PDF status so nothing is lost between flagging and reading.

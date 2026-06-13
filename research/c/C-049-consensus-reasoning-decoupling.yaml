@@ -1,0 +1,24 @@
+id: "C-049"
+type: insight
+surface_date: "2026-06-13"
+source: reading
+source_ref: "arxiv-2606.08457.pdf"
+content: |
+  In multi-agent debate systems, answer-level consensus does not entail reasoning-level
+  alignment. Standard debate actually worsens reasoning alignment: contradictions between
+  agents fall (appearing more consistent) while semantic similarity of their reasoning
+  chains simultaneously decreases — agents appear to agree more but reason less
+  consistently. The CARA metric reveals this "consistency illusion." The mechanism is
+  that debate produces surface harmony while reasoning diverges: agents adopt the same
+  answer through sycophantic copying, explanation drift, or vague clinical claims rather
+  than genuine epistemic convergence. The Grounded Debate Protocol (requiring agents to
+  commit to named grounds and explicit stances) resolves the illusion, producing large
+  alignment gains (Cohen's d = +1.43 to +1.99). Directly relevant to CL-003: trust in
+  multi-agent systems accretes via output consensus signals that may be entirely decoupled
+  from the underlying reliability of the reasoning process — a near-miss mechanism that
+  does not manifest as visible failure until high-stakes cases. Evidence quality: high
+  (NLP study with human and LLM-judge validation, 500+ medical QA items, replication
+  across two backbone models and two datasets).
+connections: ["CL-003", "C-049"]
+status: open
+consumed_by: ""

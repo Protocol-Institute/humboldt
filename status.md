@@ -4,6 +4,32 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-06-13 (session 19) — Inbox clearing; PDF library build; deep reads launched
+
+Session: Track 1 + Track 2.
+
+**Daemon:** PID 917 (running). $2.84 cumulative cost at session start.
+
+**Completed:**
+- Inbox cleared: 316 items → triage-feed (156 shallow, 60 discard) + triage-discord (64 shallow, 36 discard) → 220 shallow reads; 2460 vectors in humboldt namespace
+- 29 feed escalations + 2 Discord escalations added to deep-read hopper
+- 36 arXiv papers + Rittel & Webber + Kuhn downloaded; library now 43 PDFs
+- Protocolized Substack added to daemon feeds
+- Rittel & Webber deep read complete: C-015–022, reading notes written
+- Kuhn deep read: IN-FLIGHT (agent still running; C-025–044 reserved; notes not yet written)
+- Papers queue: IN-FLIGHT (agent still running; C-045–049 written; ~27 papers remain)
+- Session 19 notebook entry written + notebook README index updated
+
+**Open (next session):**
+- Review + commit output from Kuhn agent + papers queue agent
+- Run `humboldt ingest` after reviewing new C items
+- CL-001 transition trigger assessment (Rittel & Webber result materially strengthens valley case)
+- CL-003 targeted investigation (still stagnant)
+- Brain page GUI improvements ([H])
+- Rewind-catchup architecture ([H])
+
+---
+
 ## 2026-06-09 (session 18) — Behavior MDP graph; daemon stale-state fix; brain page
 
 Session: Track 2 only.
