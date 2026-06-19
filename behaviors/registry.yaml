@@ -48,6 +48,32 @@ behaviors:
 
   # ── Generative ─────────────────────────────────────────────────────────────
 
+  - id: behavior-p7q
+    name: Backpocket Viewing
+    description: >
+      Maintain a standing set of long-horizon research questions (research/questions.md)
+      and check all new input against them. Unlike Curiosity Browsing (which samples
+      existing artifacts looking for connections), Backpocket Viewing is a filter applied
+      to the incoming stream — every new item is checked against the question list for
+      resonance. Inspired by Feynman's practice of carrying a dozen favorite problems
+      and testing every new result against them. Outputs: a resonance annotation on the
+      item (which question it touches and how), a notebook observation when a strong
+      match arrives, or — occasionally — a C item if the match surfaces a genuinely new
+      angle on a standing question. Peers with Random Links (behavior-q2n) in the
+      exploration phase.
+    classification: live
+    state: stub
+    phase: exploration
+    backing_store: research/questions.md
+    implementation: >
+      Load research/questions.md question list; for each new input item (triage output,
+      shallow read, inbox scan), Haiku prompt: "Does this item resonate with any of
+      these standing questions? If yes, name the question and describe the connection
+      in one sentence." Threshold: resonance must be specific (names the question +
+      explains the connection) not vague. Strong matches (Haiku scores ≥ 0.7) escalate
+      to Sonnet for a fuller resonance note written to the notebook. Very strong matches
+      (operator-flagged or Sonnet scores ≥ 0.9) can open a new C item.
+
   - id: behavior-c7r
     name: Curiosity Browsing
     description: >

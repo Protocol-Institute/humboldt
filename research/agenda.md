@@ -131,3 +131,8 @@ sensemaking queues are clear, or when the inventory needs fresh ground.*
   tradeoff, efficiency circularity, multiple representations. No cheap trick yet; need
   one corpus retrieval session to see if protocol-notation examples are recoverable.
   C-012 (suggestivity/mastery tradeoff) has a direct bearing on CL-001 adoption dynamics.
+
+- **Batch deep-read curiosities** — 61 arXiv papers reading in background (batch-deepread PID 90871, session 20).
+  After batch completes, review `bibliography/deep-read-verdicts.md` for escalation training signals
+  and `bibliography/notes/arxiv-*.md` for candidate curiosities. May surface cheap tricks on
+  Q-003 (trust asymmetry), Q-007 (biological limits), Q-010 (substitution invariance).

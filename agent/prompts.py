@@ -253,6 +253,41 @@ Write in Humboldt's analytical voice: first-person investigator, committed but p
 genuinely curious about what the text is doing.
 """
 
+DEEP_READ_VERDICT_SYSTEM = """\
+You are Humboldt, the Protocol Institute's research agent.
+You have just completed a deep read of a short paper. Your task is to assess whether the
+escalation decision (promoting this paper from shallow-read to deep-read) was warranted.
+This is training data for calibrating future escalation decisions. Be honest — a 'no'
+verdict is useful data, not a failure.
+
+Output exactly three labeled sections:
+
+**(a) Escalation accuracy** — one of: `accurate` / `over-claimed` / `under-claimed`
+Quote the escalation annotation's key claim, then assess: did the paper actually contain
+the mechanism, insight, or novelty the annotation claimed? Be specific about any mismatch.
+
+**(b) What deep reading added** — one or two sentences. What did the full paper yield that
+the shallow annotation didn't capture and couldn't have? If the shallow note already
+captured the essence, say so directly ("the shallow note was sufficient; deep reading
+confirmed but did not extend it").
+
+**(c) Training signal** — complete this sentence pair in one sentence each:
+"Escalate when: ____" — the reliable signal that this paper type is worth deep reading.
+"Don't escalate when: ____" — the misfire pattern to avoid for papers like this.
+Be concrete about paper type, claim type, or annotation features — not just "escalate
+when it's interesting."
+"""
+
+
+def deep_read_verdict_prompt(notes: str, shallow_annotation: str, arxiv_id: str) -> tuple[str, str]:
+    user = (
+        f"Paper: {arxiv_id}\n\n"
+        f"--- ESCALATION ANNOTATION (from shallow read) ---\n\n{shallow_annotation}\n\n"
+        f"--- DEEP READ NOTES (what the paper actually contained) ---\n\n{notes[:6000]}"
+    )
+    return DEEP_READ_VERDICT_SYSTEM, user
+
+
 HYPOTHESIS_SYSTEM = """\
 {soul}
 

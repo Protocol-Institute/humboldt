@@ -83,7 +83,7 @@ PI corpus namespaces (as of 2026-06-07):
 - Host: `PINECONE_HUMBOLDT_HOST` from env
 - Dimensions: 1024 (voyage-3) · Metric: cosine · Cloud: aws us-east-1
 - Default namespace (no namespace name)
-- 2,460 vectors (2026-06-13) — notebook, notes, shallow reads, C/H/CL research YAMLs, DS arc files, inbox ideas
+- 3,595 vectors (2026-06-18) — notebook, notes, shallow reads, C/H/CL research YAMLs, DS arc files, inbox ideas
 
 Humboldt's own work goes here via `humboldt ingest`. Do not write to c3po namespaces.
 
@@ -111,6 +111,10 @@ python3 -m agent.humboldt library
 
 # Deep-read a document from bibliography/deep-reads/ (reads actual PDF)
 python3 -m agent.humboldt deepread "simon"
+
+# Batch deep-read all unread arxiv papers + write post-hoc verdicts to bibliography/deep-read-verdicts.md
+python3 -m agent.humboldt batch-deepread
+python3 -m agent.humboldt batch-deepread "arxiv-2606*"  # subset by glob
 
 # Pre-notebook activity queue — automated process log since last notebook entry
 python3 -m agent.humboldt pre-notebook              # show pending entries

@@ -129,7 +129,10 @@ def cmd_assess(law_id: str, namespaces: list[str] = ret.NS_ALL):
     synth.synthesize_streaming(system, user)
 
 
-def cmd_deepread(doc_name: str, page_range: str = None):
+DEEP_READ_MAX_TOKENS = 16000
+
+
+def cmd_deepread(doc_name: str, page_range: str = None, stream: bool = True):
     """
     Deep-read a document from bibliography/deep-reads/.
 
@@ -188,7 +191,11 @@ def cmd_deepread(doc_name: str, page_range: str = None):
     system, user = prompts.deep_read_prompt(soul, doc_title, range_label, extracted)
 
     print("Synthesizing deep-read notes...\n")
-    output = synth.synthesize_streaming(system, user)
+    if stream:
+        output = synth.synthesize_streaming(system, user, max_tokens=DEEP_READ_MAX_TOKENS)
+    else:
+        output = synth.synthesize(system, user, max_tokens=DEEP_READ_MAX_TOKENS)
+        print(output)
 
     # Write or append notes
     NOTES_DIR.mkdir(parents=True, exist_ok=True)
@@ -209,6 +216,84 @@ def cmd_deepread(doc_name: str, page_range: str = None):
         print(f"\nNotes written to: {notes_file}")
 
     print("Next: review notes, promote candidate laws to research/hypotheses/")
+
+
+def cmd_batch_deepread(pattern: str = "arxiv-*.pdf"):
+    """
+    Deep-read all unread short-form papers in the library matching a glob pattern.
+
+    Writes notes to bibliography/notes/ per paper and appends verdicts to
+    bibliography/deep-read-verdicts.md for escalation calibration.
+
+    Usage:
+        humboldt batch-deepread                  # all unread arxiv papers
+        humboldt batch-deepread "arxiv-2606*"    # subset by glob
+    """
+    shallow_reads_dir = Path("bibliography/shallow-reads")
+    verdicts_file = Path("bibliography/deep-read-verdicts.md")
+
+    pdfs = sorted(LIBRARY_DIR.glob(pattern))
+    unread = [p for p in pdfs if not (NOTES_DIR / f"{p.stem}.md").exists()]
+
+    if not unread:
+        print(f"No unread papers matching '{pattern}' in library.")
+        return
+
+    print(f"Found {len(unread)} unread paper(s). Beginning batch deep read...\n")
+
+    if not verdicts_file.exists():
+        verdicts_file.write_text(
+            "# Deep-Read Verdicts\n\n"
+            "*Post-hoc judgment for each short-paper deep read. Training data for escalation calibration.*\n\n"
+            "**Verdict codes:** `accurate` / `over-claimed` / `under-claimed`\n\n"
+            "---\n\n"
+        )
+
+    for i, pdf_path in enumerate(unread, 1):
+        print(f"\n{'='*60}")
+        print(f"[{i}/{len(unread)}] {pdf_path.name}")
+        print(f"{'='*60}\n")
+
+        cmd_deepread(pdf_path.stem, stream=True)
+
+        notes_file = NOTES_DIR / f"{pdf_path.stem}.md"
+        if not notes_file.exists():
+            continue
+
+        # Find matching shallow-read by searching for the arxiv ID in shallow-read files
+        arxiv_id = pdf_path.stem  # e.g. arxiv-2606.08162
+        bare_id = arxiv_id.replace("arxiv-", "")  # e.g. 2606.08162
+        shallow_annotation = "(shallow annotation not found)"
+        for sr_file in sorted(shallow_reads_dir.glob("*.md")):
+            if sr_file.name.startswith("_"):
+                continue
+            content = sr_file.read_text()
+            if bare_id in content or arxiv_id in content:
+                # Extract the escalation reason from the ESCALATE marker
+                import re
+                escalate_match = re.search(
+                    r'(?:ESCALATE|escalat)[^\n]*\n(.*?)(?:\n\n|\Z)', content, re.DOTALL
+                )
+                if escalate_match:
+                    shallow_annotation = escalate_match.group(1).strip()
+                else:
+                    # Use first 500 chars of file as annotation
+                    shallow_annotation = content[:500]
+                break
+
+        # Generate verdict via separate Haiku call
+        print("\nGenerating deep-read verdict...\n")
+        notes_text = notes_file.read_text()
+        system, user = prompts.deep_read_verdict_prompt(notes_text, shallow_annotation, arxiv_id)
+        verdict = synth.synthesize(system, user, max_tokens=1500, model="haiku")
+
+        with verdicts_file.open('a') as vf:
+            vf.write(f"## {pdf_path.stem}\n\n{verdict}\n\n---\n\n")
+        print(f"Verdict recorded → bibliography/deep-read-verdicts.md")
+
+    print(f"\n{'='*60}")
+    print(f"Batch complete. {len(unread)} paper(s) read.")
+    print(f"Verdicts: bibliography/deep-read-verdicts.md")
 
 
 def cmd_library():
@@ -626,6 +711,8 @@ Usage:
   python3 -m agent.humboldt library                      # list deep-read library
   python3 -m agent.humboldt deepread "<name>"            # deep-read full document
   python3 -m agent.humboldt deepread "<name>" "<p1-p2>"  # deep-read page range
+  python3 -m agent.humboldt batch-deepread               # deep-read all unread arxiv papers; write verdicts
+  python3 -m agent.humboldt batch-deepread "arxiv-2606*" # subset by glob pattern
   python3 -m agent.humboldt triage-feed                  # score inbox feed items → discard/shallow report
   python3 -m agent.humboldt triage-feed --output FILE    # write triage report to file
   python3 -m agent.humboldt triage-discord               # score inbox discord items (ideas+links) → report
@@ -693,6 +780,9 @@ def main():
         doc = rest[0]
         pages = rest[1] if len(rest) > 1 else None
         cmd_deepread(doc, pages)
+    elif cmd == "batch-deepread":
+        pattern = rest[0] if rest else "arxiv-*.pdf"
+        cmd_batch_deepread(pattern)
     elif cmd == "triage-feed":
         output = None
         if "--output" in rest:

@@ -6,6 +6,31 @@ Most recent entry first.
 
 ---
 
+## 2026-06-18 (session 20) — Inbox clearing; backpocket behavior; batch deep-read + verdict training loop
+
+**Tracks active:** T1, T2
+**Daemon PID:** 917 (running)
+
+Three work streams completed, one infrastructure stream ongoing.
+
+**Inbox clearing (T1).** 313 items (161 feed, 136 Discord ideas, 10 Discord links, 6 other). Triage-feed: 122 shallow / 39 discard. Triage-discord: 101 shallow / 45 discard. Full shallow-read pipeline ran on all 223 non-discards. 84 discards archived via `inbox archive-discards`. humboldt namespace: 2,460 → 3,595 vectors after ingest. 36 escalations identified (28 arXiv + 8 Discord); all 28 arXiv papers downloaded to library.
+
+**Backpocket Viewing behavior (behavior-p7q, T2).** New exploration-phase behavior added to `behaviors/registry.yaml`. Peer to Curiosity Browsing (behavior-q2n) but operating on incoming material rather than existing artifacts. 12 MDP edges added to `behaviors/mdp.yaml` (bidirectional with all peer exploration behaviors; one forward edge to sensemaking). Backing store: `research/questions.md` (new file, Q-001–012 seed questions). The key design distinction: Curiosity Browsing is pull (sampling artifacts for connections), Backpocket Viewing is filter (checking incoming stream against standing questions).
+
+**Batch deep-read + verdict training loop (T2).** New `batch-deepread` CLI command implemented. Bugs found and fixed during testing: (a) `synthesize()` lacked `model` parameter — added along with `synthesize_streaming()`, resolves `model="haiku"` kwarg bug; (b) httpx streaming API calls on large papers were hanging indefinitely without a read timeout — added 600s read timeout to the httpx client; (c) max_tokens was 4096, too small for a 10-section deep read — raised to DEEP_READ_MAX_TOKENS=16000; (d) batch used non-streaming calls (risking timeout before first byte on long generations) — switched back to streaming after diagnosing that the timeout now protects against stalls. Batch launched (PID 90871) against 61 unread arXiv papers. Verdict output per paper: separate Haiku call after each deep read producing (a) accuracy code, (b) what deep reading added, (c) training signal for future triage. Accumulated in `bibliography/deep-read-verdicts.md`. Hopper updated: Rittel, Kuhn, Iverson marked complete; in-library entries removed from active sections.
+
+The verdict training loop is the structural innovation here. Each Haiku verdict call is cheap and fast; accumulated across 60+ papers it will reveal systematic biases in the escalation criteria (over-claiming is the dominant error mode in shallow reads that over-rely on abstract novelty claims). This is the first mechanism Humboldt has for learning from its own reading practice.
+
+**Open (next session):**
+- Review batch-deepread output when complete (PID 90871; 61 papers; running in background)
+- Run `humboldt ingest` after batch completes (notes go into humboldt namespace)
+- Add today's 36 escalations to deep-read hopper (arXiv papers + Discord ideas/links)
+- CL-001 transition trigger assessment (Rittel read last session provides the mechanism; session 20 brought Q-008 constitutive/regulative question which refines the scope)
+- CL-003 targeted investigation (still stagnant; Q-003 trust asymmetry is the backpocket question that maps directly)
+- CLAUDE.md: update vector count (3,595)
+
+---
+
 ## 2026-06-13 (session 19) — Inbox clearing; PDF library build; deep reads launched
 
 **Tracks active:** T1, T2

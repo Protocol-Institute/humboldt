@@ -102,13 +102,16 @@ transitions:
 
   - {from: boot-001,      to: behavior-q2n,   weight: 0.40, bidirectional: false, cross_phase: true}
   - {from: boot-001,      to: behavior-w3x,   weight: 0.30, bidirectional: false, cross_phase: true}
+  - {from: boot-001,      to: behavior-p7q,   weight: 0.30, bidirectional: false, cross_phase: true}
   - {from: behavior-c7r,  to: behavior-q2n,   weight: 0.50, bidirectional: false, cross_phase: true}
   - {from: behavior-c7r,  to: behavior-t5m,   weight: 0.30, bidirectional: false, cross_phase: true}
   - {from: behavior-c7r,  to: behavior-j6d,   weight: 0.20, bidirectional: false, cross_phase: true}
   - {from: behavior-k7r,  to: behavior-q2n,   weight: 0.40, bidirectional: false, cross_phase: true}
   - {from: behavior-k7r,  to: behavior-f8p,   weight: 0.30, bidirectional: false, cross_phase: true}
+  - {from: behavior-k7r,  to: behavior-p7q,   weight: 0.30, bidirectional: false, cross_phase: true}
   - {from: behavior-s5j,  to: behavior-w3x,   weight: 0.40, bidirectional: false, cross_phase: true}
   - {from: behavior-s5j,  to: behavior-t5m,   weight: 0.30, bidirectional: false, cross_phase: true}
+  - {from: behavior-s5j,  to: behavior-p7q,   weight: 0.35, bidirectional: false, cross_phase: true}
   - {from: behavior-m7v,  to: behavior-f8p,   weight: 0.40, bidirectional: false, cross_phase: true}
   - {from: behavior-m7v,  to: behavior-h4v,   weight: 0.30, bidirectional: false, cross_phase: true}
   - {from: behavior-p1f,  to: behavior-h4v,   weight: 0.30, bidirectional: false, cross_phase: true}
@@ -122,16 +125,21 @@ transitions:
   - {from: behavior-q2n,  to: behavior-t5m,   weight: 0.30, bidirectional: true}
   - {from: behavior-q2n,  to: behavior-j6d,   weight: 0.40, bidirectional: true}
   - {from: behavior-q2n,  to: behavior-b9c,   weight: 0.30, bidirectional: true}
+  - {from: behavior-q2n,  to: behavior-p7q,   weight: 0.40, bidirectional: true}
   - {from: behavior-f8p,  to: behavior-t5m,   weight: 0.40, bidirectional: true}
   - {from: behavior-f8p,  to: behavior-h4v,   weight: 0.30, bidirectional: true}
   - {from: behavior-f8p,  to: behavior-b9c,   weight: 0.30, bidirectional: true}
+  - {from: behavior-f8p,  to: behavior-p7q,   weight: 0.35, bidirectional: true}
   - {from: behavior-t5m,  to: behavior-w3x,   weight: 0.50, bidirectional: true}
   - {from: behavior-t5m,  to: behavior-b9c,   weight: 0.40, bidirectional: true}
   - {from: behavior-t5m,  to: behavior-j6d,   weight: 0.30, bidirectional: true}
+  - {from: behavior-t5m,  to: behavior-p7q,   weight: 0.25, bidirectional: true}
   - {from: behavior-j6d,  to: behavior-w3x,   weight: 0.40, bidirectional: true}
   - {from: behavior-j6d,  to: behavior-b9c,   weight: 0.30, bidirectional: true}
+  - {from: behavior-j6d,  to: behavior-p7q,   weight: 0.30, bidirectional: true}
   - {from: behavior-w3x,  to: behavior-h4v,   weight: 0.30, bidirectional: true}
   - {from: behavior-h4v,  to: behavior-b9c,   weight: 0.50, bidirectional: true}
+  - {from: behavior-b9c,  to: behavior-p7q,   weight: 0.35, bidirectional: true}
 
   # ════════════════════════════════════════════════════════
   #  EXPLORATION → SENSEMAKING (cross-phase)
@@ -139,6 +147,7 @@ transitions:
 
   - {from: behavior-q2n,  to: behavior-r4k,   weight: 0.40, bidirectional: false, cross_phase: true}
   - {from: behavior-q2n,  to: behavior-n1s,   weight: 0.20, bidirectional: false, cross_phase: true}
+  - {from: behavior-p7q,  to: behavior-r4k,   weight: 0.30, bidirectional: false, cross_phase: true}
   - {from: behavior-f8p,  to: behavior-n1s,   weight: 0.40, bidirectional: false, cross_phase: true}
   - {from: behavior-f8p,  to: behavior-z8l,   weight: 0.30, bidirectional: false, cross_phase: true}
   - {from: behavior-t5m,  to: behavior-r4k,   weight: 0.50, bidirectional: false, cross_phase: true}

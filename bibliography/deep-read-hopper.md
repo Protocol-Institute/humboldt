@@ -22,13 +22,6 @@ written to `bibliography/notes/` and the LINEAGE.md update is done.
 
 ## Books and Long Foundational Texts
 
-### Rittel & Webber — "Dilemmas in a General Theory of Planning" (1973)
-- **Type:** Paper (short, ~20pp)
-- **Source:** `deep-read:simon`, `deep-read:hamming`, `deep-read:rao` — independently flagged by all three
-- **PDF status:** `in-library` — `rittel-webber-dilemmas-general-theory-planning-1973.pdf` (downloaded 2026-06-13)
-- **Connects to:** CL-001 (Formalization Ratchet), DS-003; boundary conditions on Simon's design science — wicked problems as the class of design challenges where problem definition is itself contested; counterargument to Hamming's "important solvable problems" framing; structural inverse of Rao's Double Freytag (no natural stopping criterion)
-- **Added:** 2026-06-06
-
 ### Nelson & Winter — *An Evolutionary Theory of Economic Change* (1982)
 - **Type:** Book
 - **Source:** `deep-read:simon` — Simon's Lamarckian SOPs are the direct ancestor; Nelson-Winter construct a formal evolutionary economics from them
@@ -55,13 +48,6 @@ written to `bibliography/notes/` and the LINEAGE.md update is done.
 - **Source:** `deep-read:hamming` — institutional analysis of Bell Labs; Hamming provides the psychological layer, Gertner the institutional
 - **PDF status:** `needs-hunting`
 - **Connects to:** CL-Hamming-1 (important-problem selection bias); what organizational protocols maximize research output?; the positive case for productive institutional design
-- **Added:** 2026-06-06
-
-### Kuhn — *The Structure of Scientific Revolutions* (1962)
-- **Type:** Book
-- **Source:** `deep-read:hamming` — paradigm constraints as protocol lock-in; CL-Hamming-1 connects to paradigm structure
-- **PDF status:** `in-library` — `kuhn-structure-of-scientific-revolutions.pdf` (50th anniversary ed., downloaded 2026-06-13)
-- **Connects to:** CL-001, CL-Hamming-1; paradigm lock-in as the scientific-community analogue of protocol ossification; normal science as protocol-following; scientific revolution as separation event
 - **Added:** 2026-06-06
 
 ### Wilhelm von Humboldt — *On Language* (1836, trans. Heath 1988)
@@ -413,7 +399,7 @@ to existing research inventory, not extended structural mapping.
 |------|-------------|-----------------|------------|-------|
 | 1966 | Alan Perlis | Advanced programming techniques, compiler construction | needs-hunting | CACM 1967 |
 | 1967 | Maurice Wilkes | EDSAC design, program libraries | needs-hunting | |
-| 1968 | Richard Hamming | Numerical methods, error-correcting codes | **in-library** | `hamming-you-and-your-research.pdf`; deep read complete |
+| 1968 | Richard Hamming | Numerical methods, error-correcting codes | **complete** | `hamming-you-and-your-research.pdf`; deep read complete 2026-05-26 |
 | 1969 | Marvin Minsky | Artificial intelligence | needs-hunting | |
 | 1970 | James H. Wilkinson | Numerical analysis for digital computers | needs-hunting | |
 | 1971 | John McCarthy | Artificial intelligence, LISP | needs-hunting | |
@@ -424,7 +410,7 @@ to existing research inventory, not extended structural mapping.
 | 1976 | Michael O. Rabin & Dana Scott | Nondeterministic automata theory | needs-hunting | |
 | 1977 | John Backus | FORTRAN, "Can Programming Be Liberated from the von Neumann Style?" | needs-hunting | CACM 1978; landmark paper on functional programming |
 | 1978 | Robert W. Floyd | Program verification, algorithm analysis | needs-hunting | |
-| 1979 | Kenneth E. Iverson | APL, mathematical notation | **in-library** | `iverson-notation-as-tool.pdf`; reading in progress 2026-06-06 |
+| 1979 | Kenneth E. Iverson | APL, mathematical notation | **complete** | `iverson-notation-as-tool.pdf`; deep read complete 2026-06-13 |
 | 1980 | Tony Hoare | Programming language design, "The Emperor's New Clothes" | needs-hunting | CACM 1981; high priority — protocol ossification in language design |
 | 1981 | Edgar F. Codd | Relational database | needs-hunting | |
 | 1982 | Stephen Cook | NP-completeness | needs-hunting | |
@@ -484,3 +470,6 @@ to existing research inventory, not extended structural mapping.
 | Hamming — *You and Your Research* | 2026-05-26 | `bibliography/notes/hamming-you-and-your-research.md` |
 | von Humboldt — *Cosmos, Vol. 1* | 2026-05-28 | `bibliography/notes/humboldt-cosmos-vol1-1864.md` |
 | Rao — *Tempo* | 2026-05-27 | `bibliography/notes/rao-tempo.md` |
+| Rittel & Webber — "Dilemmas in a General Theory of Planning" | 2026-06-13 | `bibliography/notes/rittel-webber-dilemmas-general-theory-planning.md` |
+| Kuhn — *The Structure of Scientific Revolutions* | 2026-06-13 | `bibliography/notes/kuhn-structure-of-scientific-revolutions.md` |
+| Iverson — "Notation as a Tool of Thought" | 2026-06-13 | `bibliography/notes/iverson-notation-as-tool.md` |

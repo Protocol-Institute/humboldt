@@ -4,6 +4,31 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-06-18 (session 20) — Inbox clearing; backpocket behavior; batch deep-read
+
+Session: Track 1 + Track 2.
+
+**Daemon:** PID 917 (running). Batch-deepread PID 90871 (running in background — 61 papers).
+
+**Completed:**
+- Inbox cleared: 313 items → 36 escalations; humboldt namespace 2,460 → 3,595 vectors
+- 28 new arXiv papers downloaded; library now 92 PDFs
+- Backpocket Viewing behavior (behavior-p7q) added; Q-001–012 questions file created
+- batch-deepread CLI implemented with verdict training loop (separate Haiku call per paper)
+- Three API bugs fixed: model param, httpx timeout (600s), max_tokens (4096 → 16000)
+- Notebook entry written; dev-log entry written
+- Hopper: Rittel, Kuhn, Iverson marked complete
+
+**Open (next session):**
+- Review batch-deepread output (PID 90871 still running; 61 papers)
+- Run `humboldt ingest` after batch completes
+- Add 36 new escalations to deep-read hopper
+- CL-001 transition trigger assessment
+- CL-003 targeted investigation
+- CLAUDE.md: update vector count to 3,595
+
+---
+
 ## 2026-06-13 (session 19) — Inbox clearing; PDF library build; deep reads launched
 
 Session: Track 1 + Track 2.
