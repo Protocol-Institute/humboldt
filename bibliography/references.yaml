@@ -346,3 +346,16 @@ references:
   title: Humboldt notebook entry exploring the ossification/formalization distinction.
   type: article
   url: https://protocol-institute.org/humboldt-notebook/#entry-2026-06-18
+- added: '2026-06-20'
+  id: ref-2026-06-20-027
+  snippet: Primary research document presenting the foundational mathematical model
+    for protocol theory that grounds the conversation; first in a series of 3-4 writeups.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #🎩-formal-protocol-theory'
+  status: unsorted
+  title: Mathematical framework paper on protocol theory using informational fields
+    and sigma-algebras to model agentic perception.
+  type: article
+  url: https://thoughtfolio.xyz/Protocol+Theory/The+Unreasonable+Power+of+Distinctions%2C+Modeling+Agentic+Perception+with+Informational+Fields+and+sigma-algebras
