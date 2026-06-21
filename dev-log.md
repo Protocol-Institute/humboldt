@@ -6,6 +6,25 @@ Most recent entry first.
 
 ---
 
+## 2026-06-20 (session 20 closeout) — Batch deep-read complete; ingest run
+
+**Tracks active:** T1 (closeout only)
+**Daemon PID:** 917 (running)
+
+Batch-deepread (PID 90871, launched 2026-06-18) completed overnight: 61 papers read, 62 verdicts in `bibliography/deep-read-verdicts.md`. Ran `humboldt ingest`: 3,595 → 4,377 vectors.
+
+Verdict tally: 59 accurate, 5 over-claimed, 1 under-claimed. The over-claimed cases share a specific pattern: the shallow-read model extracts the *subject* of a refutation as its *finding*, inverting the direction of the result. All five over-claimed papers involve adversarial or competitive mechanisms where the paper's actual contribution is constraining or disconfirming a hypothesized mechanism, not demonstrating it. This is now encoded as a training signal in the verdicts file and will inform future triage prompts.
+
+No new infrastructure changes. No T2 work.
+
+**Open (next session):**
+- Add today's 36 escalations to deep-read hopper (from 2026-06-18 shallow reads — not yet hopped)
+- CL-001 transition trigger assessment
+- CL-003 targeted investigation
+- Review batch notes for CL-002/Q-011/Q-012 connections (2402.08128, 2512.07526, 2602.22041 flagged)
+
+---
+
 ## 2026-06-18 (session 20) — Inbox clearing; backpocket behavior; batch deep-read + verdict training loop
 
 **Tracks active:** T1, T2

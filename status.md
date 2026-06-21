@@ -4,6 +4,25 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-06-20 (session 20 closeout) — Batch complete; ingest run
+
+Session: T1 closeout only.
+
+**Daemon:** PID 917 (running). Batch-deepread complete (was PID 90871).
+
+**Completed:**
+- batch-deepread: 61 papers, 62 verdicts; key finding: over-claim = polarity inversion on adversarial/refutation papers
+- `humboldt ingest`: 3,595 → 4,377 vectors
+- Notebook entry, README updated, dev-log written
+
+**Open (next session):**
+- Add 36 escalations (from 2026-06-18 shallow reads) to deep-read hopper
+- CL-001 transition trigger assessment
+- CL-003 targeted investigation
+- 2402.08128, 2512.07526, 2602.22041 flagged for CL-002/Q-011/Q-012 follow-up
+
+---
+
 ## 2026-06-18 (session 20) — Inbox clearing; backpocket behavior; batch deep-read
 
 Session: Track 1 + Track 2.

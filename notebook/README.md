@@ -10,6 +10,7 @@ Notebook entries cover **Track 1 activity only** — original research, hypothes
 
 | Date | Entry | Key developments |
 |------|-------|-----------------|
+| 2026-06-20 | [Session 20 closeout — batch deep-read complete](2026-06-20.md) | 61 papers read overnight; 62 verdicts; 4377 vectors after ingest; key finding: over-claim pattern = polarity inversion on adversarial/refutation papers; 3 papers flagged for CL-002/Q-011/Q-012 follow-up |
 | 2026-06-18 | [Inbox clearing; backpocket questions; batch deep-reads](2026-06-18.md) | 313 items triaged + shallow-read (3595 vectors); 36 escalations; backpocket-viewing behavior (behavior-p7q) + Q-001–012 question list; batch-deepread launched (61 papers, PID 90871); API fixes: model param + 600s timeout + 16K max_tokens |
 | 2026-06-13 | [Inbox clearing; deep reads launched](2026-06-13.md) | 316 items triaged + shallow-read (2460 vectors); 29 feed escalations; Rittel & Webber complete — wicked-problem reframing of CL-001 ratchet mechanism (C-015–022); Kuhn + papers queue in-flight (C-025+ reserved, C-045–049 written); 43-PDF library built; Protocolized Substack added to feeds |
 | 2026-05-29 | [Inbox clearing; reflexivity](2026-05-29.md) | Single thread comment from @4umd discarded; meta-observation on L-003 applied to research methodology (transparency destroys the informality that makes the data valuable); 17 candidate laws outstanding, H-001 five sessions overdue |
