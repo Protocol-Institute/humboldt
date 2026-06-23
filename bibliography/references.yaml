@@ -373,3 +373,29 @@ references:
     theoretical framework
   type: article
   url: https://github.com/buildonomy/noet-core/blob/ma
+- added: '2026-06-23'
+  id: ref-2026-06-23-029
+  snippet: Core theoretical work on protocol formalization and emergence, directly
+    relevant to establishing foundational concepts for protocol theory research.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #🎩-formal-protocol-theory'
+  status: unsorted
+  title: Adjacency, or How a Protocol Becomes Nature — exploration of protocol-objects
+    and emergence across adjacent loci
+  type: article
+  url: https://thoughtfolio.xyz/Protocol+Theory/Adjacency%2C+or+How+a+Protocol+Becomes+Nature
+- added: '2026-06-23'
+  id: ref-2026-06-23-030
+  snippet: Formal mathematical framework for computing on protocols; represents the
+    computational formalization stage of the theory series.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #🎩-formal-protocol-theory'
+  status: unsorted
+  title: πρσϕ-Formalism, Computing on Protocols — process calculus over informational
+    fields and trace partitioning
+  type: article
+  url: https://thoughtfolio.xyz/Protocol+Theory/%CF%80%CF%81%CF%83%CF%95-Formalism%2C+Computing+on+Protocols%2C+A+Process+Calculus+over+Informati
