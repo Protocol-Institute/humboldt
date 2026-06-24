@@ -4,6 +4,28 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-06-24 (session 21) — Discord presence fix; inbox triage + shallow-read
+
+Session: T2 only.
+
+**Daemon:** PID 917 (running). Hot-reloaded twice during session.
+
+**Completed:**
+- Fixed dead research context paths: all Discord presence code (presence.py, capture.py, discord_client.py) was reading from nonexistent `research/laws/` and `research/hypotheses/` dirs since session 14 schema migration. Now reads from `research/cl/`. Root cause of repetitive/ruminative Discord posts.
+- `_slim_context()` now includes 3 recent notebook entries + 6 recent shallow-read titles
+- Removed proactive thread creation from `_new_nature_tick()` — threads only on @mention responses
+- Inbox triage: feed (117 → 91 shallow, 26 discard) + discord (75 → 56 shallow, 19 discard)
+- Shallow-read pass: 23 escalations (thoughtfolio protocol theory series, Mesh Inference, Recursive Joint Simulation, Milgram/LLMs, Brouwerian assertibility)
+- Ingest: 4,377 → 5,105 vectors
+
+**Open (next session):**
+- Add today's 23 escalations + prior 36 to deep-read hopper
+- CL-001 transition trigger assessment
+- CL-003 targeted investigation
+- Review batch notes for CL-002/Q-011/Q-012 connections
+
+---
+
 ## 2026-06-20 (session 20 closeout) — Batch complete; ingest run
 
 Session: T1 closeout only.

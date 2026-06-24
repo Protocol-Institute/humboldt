@@ -57,26 +57,46 @@ def _slim_context() -> str:
     if len(identity) > 500:
         identity = identity[:500].rsplit("\n", 1)[0] + "\n…"
 
-    laws_dir = _ROOT / "research" / "laws"
-    law_lines = []
-    for f in sorted(laws_dir.glob("*.yaml")):
+    cl_dir = _ROOT / "research" / "cl"
+    cl_lines = []
+    for f in sorted(cl_dir.glob("CL-*.yaml")):
         try:
-            law = yaml.safe_load(f.read_text())
-            law_lines.append(f"- {law.get('id')}: {law.get('name')}")
+            cl = yaml.safe_load(f.read_text())
+            name = cl.get("name", "")
+            stmt = (cl.get("statement") or "").strip().replace("\n", " ")
+            first_sentence = (stmt.split(".")[0] + ".") if "." in stmt else stmt[:150]
+            cl_lines.append(f"- {cl.get('id')}: {name} — {first_sentence[:160]}")
         except Exception:
             pass
-    laws_str = "\n".join(law_lines) if law_lines else "(none yet)"
+    cl_str = "\n".join(cl_lines) if cl_lines else "(none yet)"
 
     nb_dir = _ROOT / "notebook"
     entries = sorted(nb_dir.glob("????-??-??.md"), reverse=True)
-    recent_nb = ""
-    if entries:
-        text = entries[0].read_text()
-        paragraphs = [p.strip() for p in text.split("\n\n") if p.strip() and not p.startswith("#")]
+    nb_blocks = []
+    for e in entries[:3]:
+        text = e.read_text()
+        paragraphs = [
+            p.strip() for p in text.split("\n\n")
+            if p.strip()
+            and not p.strip().startswith("#")
+            and not p.strip().startswith("---")
+            and not p.strip().startswith("*Daemon")
+            and len(p.strip()) > 60
+        ]
         if paragraphs:
-            recent_nb = paragraphs[0][:300]
+            nb_blocks.append(f"**{e.stem}:** {paragraphs[0][:220]}")
+    recent_nb = "\n\n".join(nb_blocks) if nb_blocks else "(none)"
 
-    recent_label = entries[0].stem if entries else "none"
+    sr_dir = _ROOT / "bibliography" / "shallow-reads"
+    sr_titles = []
+    for f in sorted(sr_dir.glob("????-??-??-*.md"), reverse=True)[:6]:
+        try:
+            first_line = f.read_text().split("\n")[0].lstrip("# ").strip()
+            if first_line and not first_line.startswith("_"):
+                sr_titles.append(f"- {first_line[:90]}")
+        except Exception:
+            pass
+    sr_str = "\n".join(sr_titles) if sr_titles else "(none)"
 
     resources = _public_resources()
 
@@ -84,11 +104,14 @@ def _slim_context() -> str:
 
 ## Research state (brief)
 
-Candidate laws:
-{laws_str}
+Candidate laws under investigation:
+{cl_str}
 
-Most recent notebook entry ({recent_label}):
+Recent notebook entries:
 {recent_nb}
+
+Recently explored external material (shallow reads):
+{sr_str}
 
 {resources}
 
@@ -98,6 +121,7 @@ You are Humboldt, an artificial researcher at the Protocol Institute, posting in
 
 Be short. 2–3 sentences is the default. Under 350 characters unless the question genuinely demands more.
 Make one point clearly rather than surveying the field.
+Draw on the full range of your research — candidate laws, recent notebook thinking, recently read material — not just your identity or fixed themes.
 Do not end with a question unless you genuinely need the answer to continue your research — not as a social filler. Most responses have no question.
 Hold positions provisionally. When someone pushes back or suggests a different frame, engage with it — either disagree with specific reasoning or say you will think about it. Do not reflexively defend your current view.
 """
@@ -114,41 +138,36 @@ def _rich_context() -> str:
         raw = lineage_path.read_text()
         lineage = raw[:1200].rsplit("\n", 1)[0] + "\n…" if len(raw) > 1200 else raw
 
-    laws_dir = _ROOT / "research" / "laws"
+    cl_dir = _ROOT / "research" / "cl"
     law_blocks = []
-    for f in sorted(laws_dir.glob("*.yaml")):
+    for f in sorted(cl_dir.glob("CL-*.yaml")):
         try:
-            law = yaml.safe_load(f.read_text())
-            lid = law.get("id", "")
-            name = law.get("name", "")
-            statement = (law.get("statement") or "").strip().replace("\n", " ")
-            confidence = law.get("confidence", "candidate")
-            law_blocks.append(f"**{lid}** ({confidence}): {name}\n  {statement[:300]}")
+            cl = yaml.safe_load(f.read_text())
+            lid = cl.get("id", "")
+            name = cl.get("name", "")
+            statement = (cl.get("statement") or "").strip().replace("\n", " ")
+            law_blocks.append(f"**{lid}** (candidate): {name}\n  {statement[:300]}")
         except Exception:
             pass
     laws_str = "\n\n".join(law_blocks) if law_blocks else "(none yet)"
 
-    hyp_dir = _ROOT / "research" / "hypotheses"
-    hyp_lines = []
-    for f in sorted(hyp_dir.glob("*.yaml")):
-        try:
-            h = yaml.safe_load(f.read_text())
-            if h.get("status") == "active":
-                hyp_lines.append(f"- {h.get('id')}: {h.get('question', '')[:150]}")
-        except Exception:
-            pass
-    hyp_str = "\n".join(hyp_lines) if hyp_lines else "(none active)"
-
     nb_dir = _ROOT / "notebook"
     entries = sorted(nb_dir.glob("????-??-??.md"), reverse=True)
-    recent_nb = ""
-    recent_label = "none"
-    if entries:
-        recent_label = entries[0].stem
-        text = entries[0].read_text()
-        if len(text) > 800:
-            text = text[:800].rsplit("\n", 1)[0] + "\n…"
-        recent_nb = text
+    nb_blocks = []
+    for e in entries[:3]:
+        text = e.read_text()
+        paragraphs = [
+            p.strip() for p in text.split("\n\n")
+            if p.strip()
+            and not p.strip().startswith("#")
+            and not p.strip().startswith("---")
+            and not p.strip().startswith("*Daemon")
+            and len(p.strip()) > 60
+        ]
+        excerpt = "\n\n".join(paragraphs[:2])[:600]
+        nb_blocks.append(f"**{e.stem}:**\n{excerpt}")
+    recent_nb = "\n\n---\n\n".join(nb_blocks) if nb_blocks else "(none)"
+    recent_label = entries[0].stem if entries else "none"
 
     resources = _public_resources()
 
@@ -160,15 +179,11 @@ def _rich_context() -> str:
 
 ---
 
-## Law inventory
+## Candidate law inventory
 
 {laws_str}
 
-## Active hypotheses
-
-{hyp_str}
-
-## Most recent notebook entry ({recent_label})
+## Recent notebook entries ({recent_label} and prior)
 
 {recent_nb}
 
@@ -184,6 +199,7 @@ You are Humboldt, an artificial researcher at the Protocol Institute, posting in
 
 Be short. 3–5 sentences is the default. Under 500 characters unless the question is genuinely complex. Never a lecture.
 Make one point well rather than several points adequately.
+Draw on the full range of your candidate laws and recent thinking — not just fixed themes from your identity.
 Do not end with a question unless you genuinely need the answer to continue your research — not as a social device. Most responses have no question.
 Do not repeat or rephrase things you have already said recently in this channel — if you have nothing new to add, say less or nothing.
 
@@ -284,8 +300,7 @@ async def generate_new_nature_response(
             f"Rules:\n"
             f"- If nothing new to add: respond PASS\n"
             f"- When addressing someone's specific point, use @username (e.g. @{participants[0] if participants else 'username'})\n"
-            f"- If this topic looks like it will go 2–3 more turns, start with: THREAD: <5-8 word title>\\n<response>\n"
-            f"- Otherwise: 2–3 sentences, under 350 characters\n"
+            f"- 2–3 sentences, under 350 characters\n"
             f"- Only ask a question if you genuinely need the answer for research"
         )}],
     )

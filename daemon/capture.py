@@ -32,24 +32,19 @@ _saved_urls: set[str] = set()
 
 
 def _load_research_context() -> tuple[list[str], list[str]]:
-    """Load active hypotheses and law names for the extraction prompt."""
-    hyp_dir = _ROOT / "research" / "hypotheses"
+    """Load candidate laws from research/cl/ for the extraction prompt."""
+    cl_dir = _ROOT / "research" / "cl"
     hypotheses: list[str] = []
-    for f in sorted(hyp_dir.glob("*.yaml")):
-        try:
-            h = yaml.safe_load(f.read_text())
-            if h.get("status") == "active":
-                question = h.get("question") or h.get("name") or ""
-                hypotheses.append(f"{h.get('id')}: {question[:120]}")
-        except Exception:
-            pass
-
-    laws_dir = _ROOT / "research" / "laws"
     laws: list[str] = []
-    for f in sorted(laws_dir.glob("*.yaml")):
+    for f in sorted(cl_dir.glob("CL-*.yaml")):
         try:
-            law = yaml.safe_load(f.read_text())
-            laws.append(f"{law.get('id')}: {law.get('name')}")
+            cl = yaml.safe_load(f.read_text())
+            name = cl.get("name", "")
+            stmt = (cl.get("statement") or "").strip().replace("\n", " ")
+            first_sentence = (stmt.split(".")[0] + ".") if "." in stmt else stmt[:120]
+            entry = f"{cl.get('id')}: {name} — {first_sentence[:120]}"
+            hypotheses.append(entry)
+            laws.append(f"{cl.get('id')}: {name}")
         except Exception:
             pass
 

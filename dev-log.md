@@ -6,6 +6,31 @@ Most recent entry first.
 
 ---
 
+## 2026-06-24 (session 21) — Discord presence fix; inbox triage + shallow-read pass
+
+**Tracks active:** T2
+**Daemon PID:** 917 (running)
+
+Three infrastructure fixes to Discord presence, all caused by the session 14 schema migration that replaced `research/laws/` and `research/hypotheses/` with the CL/H/T/F structure — the old directories were never removed from the code paths.
+
+**Fix 1 — Dead research context paths:** `_slim_context()`, `_rich_context()` (presence.py), `_load_research_context()` (capture.py), and `_active_hypotheses()` (discord_client.py) all read from `research/laws/` and `research/hypotheses/` — both nonexistent since session 14. Every prompt ran with `laws: (none yet)` and `hypotheses: (none active)`, leaving the model nothing to draw on except fixed identity text. Root cause of repetitive/ruminative Discord posts. Fixed: all four functions now read from `research/cl/`. `_slim_context()` additionally loads 3 recent notebook entries (not just one, and filtered past the `*Daemon-generated entries.*` boilerplate) and 6 recent shallow-read titles for topical breadth.
+
+**Fix 2 — Proactive thread creation removed:** `_new_nature_tick()` was creating conversation threads on every proactive post regardless of whether anyone was engaging. Removed the `THREAD:` prefix from the `generate_new_nature_response` prompt and stripped all thread-parsing/creation logic from `_new_nature_tick()`. Thread creation remains in `on_message()` (@mention responses only).
+
+**Fix 3 — Paragraph filter for daemon notebook entries:** Notebook entries written by `task_conversation_review` open with `*Daemon-generated entries.*` — the paragraph selector was grabbing this boilerplate instead of the first substantive paragraph. Added a filter skipping short paragraphs, `---` rules, and lines starting with `*Daemon`.
+
+Daemon hot-reloaded twice (SIGUSR1) to pick up changes. PID unchanged (os.execv).
+
+**Inbox pass:** triage-feed (117 → 91 shallow, 26 discard) + triage-discord (75 → 56 shallow, 19 discard) run in parallel. Shallow-read pass produced 23 escalations, highest-signal: three-part thoughtfolio.xyz protocol theory series (Adjacency, Informational Fields + Sigma-Algebras, πρσϕ-Formalism); Mesh Inference (2606.19537, free energy collective intelligence); Recursive Joint Simulation (2402.08128, simulability as game-theoretic primitive); No Certificate / No Categorical Speech Act (Brouwerian assertibility constraint); LLMs + Milgram obedience (2605.21401, sustained authority pressure bypasses safety training). Ingest: 4,377 → 5,105 vectors.
+
+**Open (next session):**
+- Add today's 23 escalations + prior 36 to deep-read hopper
+- CL-001 transition trigger assessment
+- CL-003 targeted investigation
+- Review batch notes for CL-002/Q-011/Q-012 connections (2402.08128, 2512.07526, 2602.22041 flagged)
+
+---
+
 ## 2026-06-20 (session 20 closeout) — Batch deep-read complete; ingest run
 
 **Tracks active:** T1 (closeout only)

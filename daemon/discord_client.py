@@ -67,13 +67,13 @@ def _load_config() -> dict:
 
 
 def _active_hypotheses() -> list[str]:
-    hyp_dir = _ROOT / "research" / "hypotheses"
+    cl_dir = _ROOT / "research" / "cl"
     result = []
-    for f in sorted(hyp_dir.glob("*.yaml")):
+    for f in sorted(cl_dir.glob("CL-*.yaml")):
         try:
-            h = yaml.safe_load(f.read_text())
-            if h.get("status") == "active":
-                result.append(f"{h.get('id')} — {h.get('name')}")
+            cl = yaml.safe_load(f.read_text())
+            if cl.get("research_status") != "archived":
+                result.append(f"{cl.get('id')} — {cl.get('name')}")
         except Exception:
             pass
     return result
@@ -789,41 +789,8 @@ class HumboldtBot(discord.Client):
             n_captured = 0
 
         if response_text and channel:
-            thread_title, body = _parse_thread_response(response_text)
-            body = _resolve_mentions(body, name_to_id)
-            long_gap = last_bot_age > 30 * 60
-
-            # Only thread if the anchor message is recent enough to be meaningful
-            anchor_age = (
-                (datetime.now(timezone.utc) - latest_human_msg.created_at).total_seconds()
-                if latest_human_msg else float("inf")
-            )
-            if thread_title and latest_human_msg and anchor_age < _THREAD_ANCHOR_MAX_AGE:
-                try:
-                    thread = await latest_human_msg.create_thread(
-                        name=thread_title,
-                        auto_archive_duration=1440,
-                    )
-                    await thread.send(body)
-                    logger.info(f"Opened thread: '{thread_title}'")
-                except discord.Forbidden:
-                    # No thread permission: fall back to a plain channel post
-                    logger.warning("No thread permission — posting to channel instead")
-                    await channel.send(body)
-                except discord.HTTPException as e:
-                    # 160004 = thread already exists on this message; drop silently
-                    if e.code == 160004:
-                        logger.info(f"Thread already exists on anchor message — skipping")
-                    else:
-                        logger.error(f"Thread creation failed (HTTP {e.status} code={e.code}): {e.text}")
-                        await channel.send(body)
-                except Exception as e:
-                    logger.error(f"Thread creation failed unexpectedly: {e}")
-                    await channel.send(body)
-            else:
-                if thread_title:
-                    logger.debug(f"Thread '{thread_title}' skipped — anchor too old ({anchor_age:.0f}s)")
-                await channel.send(body)
+            body = _resolve_mentions(response_text, name_to_id)
+            await channel.send(body)
 
         if n_captured:
             logger.info(f"Captured {n_captured} item(s) from #new-nature")
