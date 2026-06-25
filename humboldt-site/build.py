@@ -2,12 +2,13 @@
 """Build the Humboldt standalone subsite.
 
 Generates dist/ from source data in the humboldt repo:
-  dist/index.html              — About
+  dist/index.html              — Chat (landing page)
+  dist/chat/index.html         — Chat (alias)
   dist/notebook/index.html     — Lab notebook
   dist/research/index.html     — Research status
   dist/reading/index.html      — Deep reads
   dist/architecture/index.html — Architecture
-  dist/chat/index.html         — Research chat UI
+  dist/about/index.html        — About
   dist/brain/index.html        — Behavior MDP graph (static, read-only)
 
 Also injects live system prompt into functions/chat.js:
@@ -37,12 +38,12 @@ _DIST = _SITE / "dist"
 _ASSETS_SRC = _SITE / "assets"
 
 PAGES = [
-    ("/",              "About"),
+    ("/",              "Chat"),
     ("/notebook/",     "Notebook"),
     ("/research/",     "Research"),
     ("/reading/",      "Reading"),
     ("/architecture/", "Architecture"),
-    ("/chat/",         "Chat"),
+    ("/about/",        "About"),
 ]
 
 
@@ -152,9 +153,10 @@ def _build_about() -> None:
 
     </div>"""
 
-    out = _DIST / "index.html"
-    out.write_text(_page("About", "/", body))
-    print("  About → dist/index.html")
+    out = _DIST / "about" / "index.html"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(_page("About", "/about/", body))
+    print("  About → dist/about/index.html")
 
 
 # ── Notebook ──────────────────────────────────────────────────────────────────
@@ -262,6 +264,7 @@ def _build_research() -> None:
         _sys.path.insert(0, str(_ROOT))
     from agent.publish_research import (
         _build_svg, _phase_rows, _phase_header, _empty, _all_items,
+        _curiosity_carousel,
         _CSS as _RCSS, _JS as _RJS,
     )
 
@@ -269,7 +272,7 @@ def _build_research() -> None:
     svg_html  = _build_svg(all_items)
     total     = len(all_items)
 
-    exp_n, exp_r = _phase_rows("c",       "status",          "open",   name_key="title", type_key="type")
+    cur_n, cur_carousel = _curiosity_carousel()
     sns_n, sns_r = _phase_rows("h",       "status",          "active", name_key="id")
     val_n, val_r = _phase_rows("cl",      "research_status", "active")
     hlt_n, hlt_r = _phase_rows("theories","research_status", "active")
@@ -292,14 +295,14 @@ def _build_research() -> None:
       <div class="legend-item"><span class="dot dot-red"></span> Blocked or refuted</div>
     </div>
 
+    {cur_carousel}
+
     <table class="research-table">
       <thead>
         <tr><th style="width:24px"></th><th style="width:70px">ID</th>
         <th style="width:220px">Name / Type</th><th>Description</th></tr>
       </thead>
       <tbody>
-        {_phase_header("Exploration",   "Curiosities — open provocations, awaiting cheap trick", exp_n)}
-        {exp_r}
         {_phase_header("Sensemaking",   "Hypotheses — post-cheap-trick; building toward a falsifiable claim", sns_n)}
         {sns_r}
         {_phase_header("Valley",        "Candidate Laws — evidence accumulation; no external validation yet", val_n)}
@@ -428,9 +431,21 @@ def _copy_assets() -> None:
 def _build_chat() -> None:
     body = """\
     <div class="page-header">
-      <h1>Chat with Humboldt</h1>
-      <p class="page-tagline">A research conversation — ask about the New Nature agenda, active candidate laws, or anything in the PI corpus.</p>
+      <h1>Humboldt</h1>
+      <p class="page-tagline">An artificial researcher investigating the structural laws of protocolized and artificial systems.</p>
     </div>
+
+    <div class="chat-intro">
+      <p>Ask about active candidate laws, recent research thinking, the Protocol Institute corpus, or anything in the New Nature agenda. Humboldt draws on its own notebooks, current candidate laws, and the full PI knowledge base.</p>
+      <nav class="chat-site-links" aria-label="Site sections">
+        <a href="/notebook/" class="site-link"><strong>Notebook</strong> — field notes from each research session</a>
+        <a href="/research/" class="site-link"><strong>Research</strong> — candidate laws and arc inventory</a>
+        <a href="/reading/" class="site-link"><strong>Reading</strong> — deep reading notes from source texts</a>
+        <a href="/architecture/" class="site-link"><strong>Architecture</strong> — system design and behavior inventory</a>
+        <a href="/about/" class="site-link"><strong>About</strong> — the research question and context</a>
+      </nav>
+    </div>
+
     <div class="chat-container">
       <div id="chat-messages" class="chat-messages" aria-live="polite" aria-label="Conversation"></div>
       <div class="chat-input-row">
@@ -439,7 +454,6 @@ def _build_chat() -> None:
           aria-label="Your message"></textarea>
         <button id="chat-send" class="chat-send" aria-label="Send">Send</button>
       </div>
-      <p class="chat-hint">Humboldt responds from its own research notebooks, candidate laws, and the full Protocol Institute corpus.</p>
     </div>
     <script>
     (function() {
@@ -505,6 +519,17 @@ def _build_chat() -> None:
     </script>"""
 
     extra_css = """
+    .chat-intro { max-width: 680px; margin-bottom: 2rem; }
+    .chat-intro p { margin-bottom: 1rem; }
+    .chat-site-links {
+      display: flex; flex-direction: column; gap: 0.35rem;
+      border-left: 3px solid #2A6B6B; padding-left: 1rem; margin-top: 0.5rem;
+    }
+    .site-link {
+      font-size: 0.9rem; color: #333; text-decoration: none; line-height: 1.5;
+    }
+    .site-link:hover { color: #2A6B6B; }
+    .site-link strong { color: #2A6B6B; }
     .chat-container { max-width: 680px; }
     .chat-messages {
       min-height: 200px; max-height: 520px; overflow-y: auto;
@@ -535,13 +560,16 @@ def _build_chat() -> None:
     }
     .chat-send:hover:not(:disabled) { background: #1d4f4f; }
     .chat-send:disabled { opacity: 0.5; cursor: default; }
-    .chat-hint { font-size: 0.8rem; color: #aaa; margin-top: 0; }
     """
 
-    out = _DIST / "chat" / "index.html"
-    out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(_page("Chat", "/chat/", body, extra_css))
-    print("  Chat UI → dist/chat/index.html")
+    html = _page("Humboldt", "/", body, extra_css)
+    # Landing page
+    (_DIST / "index.html").write_text(html)
+    # Alias at /chat/ for any existing links
+    chat_out = _DIST / "chat" / "index.html"
+    chat_out.parent.mkdir(parents=True, exist_ok=True)
+    chat_out.write_text(html)
+    print("  Chat UI → dist/index.html + dist/chat/index.html")
 
 
 # ── Brain (Behavior MDP) ──────────────────────────────────────────────────────

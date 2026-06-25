@@ -582,25 +582,13 @@ class HumboldtBot(discord.Client):
                     entry_url=entry_url,
                 )
                 announcement_id: str | None = None
-                thread_id: str | None = None
                 if channel:
                     msg = await channel.send(post)
                     announcement_id = str(msg.id)
-                    # Create a discussion thread on the announcement
-                    try:
-                        thread = await msg.create_thread(
-                            name=f"Discussion: {entry['date']}",
-                            auto_archive_duration=10080,  # 7 days
-                        )
-                        thread_id = str(thread.id)
-                        logger.info(f"Created discussion thread for {entry['date']}: {thread_id}")
-                    except Exception as te:
-                        logger.warning(f"Thread creation failed for {entry['date']}: {te}")
-                # Persist announcement and thread IDs in index.yaml
+                # Persist announcement ID in index.yaml
                 nbi.upsert_entry(
                     entry["date"],
                     discord_announcement_id=announcement_id,
-                    discord_thread_id=thread_id,
                 )
                 posted.add(entry["date"])
             except Exception as e:
@@ -724,6 +712,14 @@ class HumboldtBot(discord.Client):
         if not self._within_active_hours():
             return
 
+        # One proactive post per calendar day — skip the check entirely if already posted today.
+        from datetime import date as _date
+        today_str = _date.today().isoformat()
+        _quick_state = st.load()
+        if _quick_state.get("last_proactive_post_date") == today_str:
+            logger.debug("Proactive post already made today — skipping #new-nature check")
+            return
+
         state = st.load()
         last_msg_id = state.get("last_new_nature_message_id")
         channel = self.get_channel(self.new_nature_id)
@@ -791,6 +787,9 @@ class HumboldtBot(discord.Client):
         if response_text and channel:
             body = _resolve_mentions(response_text, name_to_id)
             await channel.send(body)
+            fresh = st.load()
+            fresh["last_proactive_post_date"] = today_str
+            st.save(fresh)
 
         if n_captured:
             logger.info(f"Captured {n_captured} item(s) from #new-nature")

@@ -4,6 +4,25 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-06-25 (session 22) — Daemon presence tuning; website restructure
+
+Session: T2 only.
+
+**Daemon:** PID 3839 (running). Hot-reloaded twice during session.
+
+**Completed:**
+- Removed thread creation from `task_notebook` — notebook posts now plain channel messages (session 21 had only removed threads from `_new_nature_tick()`)
+- Added 1/day rate limit on proactive `_new_nature_tick()` posts (`last_proactive_post_date` in state)
+- Sharpened `generate_new_nature_response()` prompt: requires concrete new research finding, not general engagement
+- Chat page made landing page at `/`; About moved to `/about/`; chat page has intro + section nav links
+- Curiosities section on research page: 47-item browsable carousel (3/page) replaces table rows; cards include type badge, excerpt, provenance link to GitHub
+
+**Open (next session):**
+- Implement Backpocket Viewing (behavior-p7q) — curiosity → cheap trick promotion
+- Audit exploration/liminal behavior stubs
+
+---
+
 ## 2026-06-24 (session 21) — Discord presence fix; inbox triage + shallow-read
 
 Session: T2 only.

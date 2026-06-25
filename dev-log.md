@@ -6,6 +6,29 @@ Most recent entry first.
 
 ---
 
+## 2026-06-25 (session 22) — Daemon presence tuning; website restructure
+
+**Tracks active:** T2
+**Daemon PID:** 3839 (running, hot-reloaded twice)
+
+Three daemon fixes and two website changes.
+
+**Daemon fix 1 — Notebook post thread creation removed:** `task_notebook` was still creating "Discussion: YYYY-MM-DD" threads on every notebook entry announcement, even though session 21 had removed proactive threads from `_new_nature_tick()`. The earlier post the user noticed (with stale content + a thread) was from a pre-session-21 daemon instance that had detected the conversation-review commit `5940e3f` before being killed. Removed thread creation from `task_notebook`. `nbi.upsert_entry()` call updated accordingly — `discord_thread_id` omitted (field is optional). Threads now only from @mention responses when the model decides an exchange warrants one.
+
+**Daemon fix 2 — 1/day rate limit on proactive posts:** Added `last_proactive_post_date` (YYYY-MM-DD) to `daemon/state.py` `_DEFAULTS`. `_new_nature_tick()` now skips the entire LLM call if a proactive post has already been made today. Records the date after posting via a fresh-load state write.
+
+**Daemon fix 3 — Content threshold sharpened:** `generate_new_nature_response()` prompt now explicitly tells the model this is its one shot for the day and sets a higher bar: only post if there is a concrete specific finding from recent notebooks or shallow reads, not general channel engagement or identity-level observations.
+
+**Website 1 — Chat as landing page:** Chat page moved to `/` (was `/chat/`). About moved to `/about/`. Nav reordered: Chat (home) → Notebook → Research → Reading → Architecture → About. `/chat/` kept as alias. Chat page now has an intro paragraph and a nav-link block with short descriptions of each section.
+
+**Website 2 — Curiosity carousel:** Curiosities (47 active) moved from the research table into a 3-per-page browsable carousel above the table. Each card shows: type badge (insight/motif/example/curiosity), ID, title, content excerpt, and a provenance link to the source file on GitHub. Other phases (Sensemaking, Valley, Heavy Lift, Retrospective) remain in the table. `_curiosity_carousel()` added to `publish_research.py`; imported and used in `humboldt-site/build.py`. Carousel CSS and JS added to `_CSS` / `_JS`.
+
+**Open (next session):**
+- Implement Backpocket Viewing (behavior-p7q) — primary curiosity → cheap trick promotion path
+- Audit other exploration/liminal stubs (see TODO)
+
+---
+
 ## 2026-06-24 (session 21) — Discord presence fix; inbox triage + shallow-read pass
 
 **Tracks active:** T2

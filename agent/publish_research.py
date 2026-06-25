@@ -297,6 +297,85 @@ def _phase_rows(subdir: str, status_key: str, default_status: str,
     return len(items), "\n".join(rows) if rows else _empty()
 
 
+# ── Curiosity carousel ───────────────────────────────────────────────────────
+
+_GH_BASE = "https://github.com/Protocol-Institute/humboldt/blob/main/"
+
+_TYPE_COLORS = {
+    "insight":   ("c-badge-insight",   "c-type-insight"),
+    "motif":     ("c-badge-motif",     "c-type-motif"),
+    "example":   ("c-badge-example",   "c-type-example"),
+    "curiosity": ("c-badge-curiosity", "c-type-curiosity"),
+}
+_DEFAULT_TYPE_COLORS = ("c-badge-curiosity", "c-type-curiosity")
+
+
+def _curiosity_carousel() -> tuple[int, str]:
+    """
+    Build a browsable card carousel for all active curiosities.
+    Returns (count, html).
+    """
+    items = [i for i in _load_yamls(_RESEARCH / "c")
+             if i.get("status", "open") not in _SKIP_STATUSES]
+
+    if not items:
+        return 0, '<p class="c-empty"><em>No active curiosities.</em></p>'
+
+    cards = []
+    for item in items:
+        iid    = item.get("id", "?")
+        title  = _esc(item.get("title", iid))
+        typ    = (item.get("type", "curiosity") or "curiosity").lower()
+        badge_cls, card_cls = _TYPE_COLORS.get(typ, _DEFAULT_TYPE_COLORS)
+        content = _snippet(item.get("content") or item.get("question", ""), 220)
+
+        src_ref = item.get("source_ref", "")
+        src     = item.get("source", "")
+        if src_ref:
+            stem = Path(src_ref).stem
+            label = stem[:72] + "…" if len(stem) > 72 else stem
+            url = _GH_BASE + src_ref
+            source_html = (
+                f'<div class="c-source">'
+                f'<a href="{url}" target="_blank" rel="noopener" title="{_esc(src_ref)}">'
+                f'↗ {_esc(label)}</a></div>'
+            )
+        elif src:
+            source_html = f'<div class="c-source">source: {_esc(src)}</div>'
+        else:
+            source_html = ""
+
+        cards.append(
+            f'<div class="c-card {card_cls}">'
+            f'  <div class="c-meta">'
+            f'    <span class="c-badge {badge_cls}">{_esc(typ)}</span>'
+            f'    <span class="c-id">{_esc(iid)}</span>'
+            f'  </div>'
+            f'  <div class="c-title">{title}</div>'
+            f'  <div class="c-content">{_esc(content)}</div>'
+            f'  {source_html}'
+            f'</div>'
+        )
+
+    n = len(cards)
+    cards_html = "\n".join(cards)
+    return n, f"""\
+<div class="c-carousel" data-total="{n}">
+  <div class="c-carousel-header">
+    <span class="c-section-label">Curiosities — open provocations, awaiting cheap trick
+      <span class="c-count">({n})</span></span>
+    <div class="c-nav">
+      <button class="c-btn c-prev" aria-label="Previous">&#8592;</button>
+      <span class="c-counter" aria-live="polite"></span>
+      <button class="c-btn c-next" aria-label="Next">&#8594;</button>
+    </div>
+  </div>
+  <div class="c-track">
+{cards_html}
+  </div>
+</div>"""
+
+
 # ── HTML assembly ─────────────────────────────────────────────────────────────
 
 _CSS = """\
@@ -358,30 +437,97 @@ _CSS = """\
     .tb-coordination { background: #e8f4e8; color: #1a5a2a; }
     .tb-failure      { background: #fdf0e0; color: #6a3a00; }
     .tb-evolution    { background: #f8f0e8; color: #5a3a1a; }
-    .updated-note { font-size: .82rem; color: #999; margin-top: 2rem; }"""
+    .updated-note { font-size: .82rem; color: #999; margin-top: 2rem; }
+    /* Curiosity carousel */
+    .c-carousel { margin-bottom: 2rem; }
+    .c-carousel-header { display: flex; justify-content: space-between; align-items: center;
+      padding-bottom: .5rem; border-bottom: 1px solid #e0e0da; margin-bottom: .85rem; }
+    .c-section-label { font-size: .78rem; text-transform: uppercase; letter-spacing: .07em;
+      color: #555; font-weight: 700; }
+    .c-count { font-weight: 400; color: #999; margin-left: .2em; }
+    .c-nav { display: flex; align-items: center; gap: .45rem; }
+    .c-btn { background: none; border: 1px solid #ccc; border-radius: 3px;
+      padding: .18rem .55rem; cursor: pointer; font-size: .9rem; color: #555;
+      line-height: 1.4; }
+    .c-btn:disabled { opacity: .3; cursor: default; }
+    .c-btn:not(:disabled):hover { border-color: #2A6B6B; color: #2A6B6B; }
+    .c-counter { font-size: .8rem; color: #888; min-width: 72px; text-align: center; }
+    .c-track { display: grid; grid-template-columns: repeat(3, 1fr); gap: .9rem; }
+    .c-card { border: 1px solid #e0e0da; border-radius: 4px; padding: .8rem 1rem;
+      border-left: 3px solid #ccc; display: flex; flex-direction: column; gap: .3rem; }
+    .c-type-insight  { border-left-color: #2A6B6B; }
+    .c-type-motif    { border-left-color: #7a2a7a; }
+    .c-type-example  { border-left-color: #2a7a2a; }
+    .c-type-curiosity{ border-left-color: #888; }
+    .c-meta { display: flex; align-items: center; gap: .45rem; }
+    .c-badge { font-size: .68rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: .06em; padding: .08rem .32rem; border-radius: 2px; }
+    .c-badge-insight  { background: #e8f4f4; color: #2A6B6B; }
+    .c-badge-motif    { background: #f4e8f4; color: #7a2a7a; }
+    .c-badge-example  { background: #e8f4e8; color: #2a7a2a; }
+    .c-badge-curiosity{ background: #f0f0f0; color: #555; }
+    .c-id { font-family: monospace; font-size: .78rem; color: #999; }
+    .c-title { font-weight: 600; font-size: .92rem; line-height: 1.4; color: #2C2C2C; }
+    .c-content { font-size: .84rem; color: #555; line-height: 1.5; flex: 1; }
+    .c-source { font-size: .74rem; color: #bbb; margin-top: .2rem; }
+    .c-source a { color: #bbb; text-decoration: none; }
+    .c-source a:hover { color: #2A6B6B; }
+    .c-empty { color: #aaa; font-style: italic; }
+    @media (max-width: 640px) { .c-track { grid-template-columns: 1fr; } }"""
 
 _JS = """\
 (function(){
+  /* SVG dot tooltip */
   var tip = document.getElementById('ft-tip');
-  document.querySelectorAll('.idot').forEach(function(d){
-    d.addEventListener('mouseenter', function(e){
-      tip.innerHTML =
-        '<strong>' + d.dataset.id + ' — ' + (d.dataset.name||'') + '</strong>' +
-        '<div class="tm">' + (d.dataset.phase||'') + ' · ' + (d.dataset.status||'') + '</div>' +
-        '<div class="tb2">' + (d.dataset.blurb||'') + '</div>';
-      tip.style.display = 'block';
-      move(e);
+  if(tip){
+    document.querySelectorAll('.idot').forEach(function(d){
+      d.addEventListener('mouseenter', function(e){
+        tip.innerHTML =
+          '<strong>' + d.dataset.id + ' — ' + (d.dataset.name||'') + '</strong>' +
+          '<div class="tm">' + (d.dataset.phase||'') + ' · ' + (d.dataset.status||'') + '</div>' +
+          '<div class="tb2">' + (d.dataset.blurb||'') + '</div>';
+        tip.style.display = 'block';
+        move(e);
+      });
+      d.addEventListener('mousemove', move);
+      d.addEventListener('mouseleave', function(){ tip.style.display='none'; });
     });
-    d.addEventListener('mousemove', move);
-    d.addEventListener('mouseleave', function(){ tip.style.display='none'; });
-  });
-  function move(e){
-    var x = e.clientX + 14, y = e.clientY - 10;
-    var w = tip.offsetWidth || 240;
-    if(x + w > window.innerWidth - 8) x = e.clientX - w - 14;
-    tip.style.left = x + 'px';
-    tip.style.top  = y + 'px';
+    function move(e){
+      var x = e.clientX + 14, y = e.clientY - 10;
+      var w = tip.offsetWidth || 240;
+      if(x + w > window.innerWidth - 8) x = e.clientX - w - 14;
+      tip.style.left = x + 'px';
+      tip.style.top  = y + 'px';
+    }
   }
+  /* Curiosity carousel */
+  document.querySelectorAll('.c-carousel').forEach(function(car){
+    var cards = Array.from(car.querySelectorAll('.c-card'));
+    var total = cards.length;
+    var page  = 0;
+    function perPage(){ return window.innerWidth < 640 ? 1 : 3; }
+    function show(){
+      var pp   = perPage();
+      var maxP = Math.ceil(total / pp) - 1;
+      if(page > maxP) page = maxP;
+      var s = page * pp, e = Math.min(s + pp, total);
+      cards.forEach(function(c, i){ c.style.display = (i>=s && i<e) ? '' : 'none'; });
+      var ctr = car.querySelector('.c-counter');
+      if(ctr) ctr.textContent = (s+1) + '–' + e + ' of ' + total;
+      var prev = car.querySelector('.c-prev');
+      var next = car.querySelector('.c-next');
+      if(prev) prev.disabled = page===0;
+      if(next) next.disabled = e>=total;
+    }
+    var prev = car.querySelector('.c-prev');
+    var next = car.querySelector('.c-next');
+    if(prev) prev.addEventListener('click', function(){ if(page>0){page--;show();} });
+    if(next) next.addEventListener('click', function(){
+      if(page*perPage()+perPage()<total){page++;show();}
+    });
+    window.addEventListener('resize', show);
+    show();
+  });
 })();"""
 
 
@@ -391,7 +537,7 @@ def _build_html() -> str:
     svg_html  = _build_svg(all_items)
     total     = len(all_items)
 
-    exp_n, exp_r = _phase_rows("c",  "status",          "open",   name_key="title", type_key="type")
+    cur_n, cur_carousel = _curiosity_carousel()
     sns_n, sns_r = _phase_rows("h",  "status",          "active", name_key="id")
     val_n, val_r = _phase_rows("cl", "research_status", "active")
     hlt_n, hlt_r = _phase_rows("theories", "research_status", "active")
@@ -438,14 +584,14 @@ def _build_html() -> str:
           <div class="legend-item"><span class="dot dot-red"></span> Blocked or refuted</div>
         </div>
 
+{cur_carousel}
+
         <table class="research-table">
           <thead>
             <tr><th style="width:24px"></th><th style="width:70px">ID</th>
             <th style="width:220px">Name / Type</th><th>Description</th></tr>
           </thead>
           <tbody>
-            {_phase_header("Exploration",   "Curiosities — open provocations, awaiting cheap trick", exp_n)}
-            {exp_r}
             {_phase_header("Sensemaking",   "Hypotheses — post-cheap-trick; building toward a falsifiable claim", sns_n)}
             {sns_r}
             {_phase_header("Valley",        "Candidate Laws — evidence accumulation; no external validation yet", val_n)}

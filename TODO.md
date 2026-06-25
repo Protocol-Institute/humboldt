@@ -42,6 +42,18 @@ and valley investigation once P-006/P-007 are heavy-lift-ready. Not yet `[BLOCKI
 
 ---
 
+### Curiosity promotion behaviors — stub → production
+
+The curiosity collection (research/c/) accumulates fast and has no automated pathway toward Cheap Trick transitions. The exploration-phase stub behaviors address this but none are production yet.
+
+- **[M]** **Backpocket Viewing (behavior-p7q)** — randomly sample 3–5 curiosities (weighted toward recently added and unconnected items), cross-reference with 1–2 active CL items, check for structural connections that could qualify as a cheap trick. Implementation sketch in registry: Haiku triage → escalate to Sonnet if cheap-trick-level. Output: connection note in notebook, new C item (connection only), or cheap-trick trigger opening a new DS arc. Start here — it's the primary curiosity → hypothesis promotion path.
+
+- **[M]** **Curiosity Browsing (behavior-c7r)** — audit and implement alongside Backpocket Viewing; they share the curiosity-sampling logic.
+
+- **[L]** **Audit remaining exploration/liminal stubs** — behavior-f8p (Canonical Domains), behavior-h4v (Field Trip), behavior-j6d (Bullshit Detector), behavior-w3x (Reading Prioritization), behavior-k7r (Explore-Exploit), behavior-s5j (Open Source Exploration), behavior-m7v (Cross-Training) are all liminal/exploration stubs. Review each: promote to production, defer, or descope. Do not build all at once — prioritize by what Track 1 actually needs next.
+
+---
+
 ### Discord presence quality (next cluster)
 
 - **[H]** **Conversation style tuning** — review actual #new-nature transcripts and identify what's off. Current symptoms: likely too formal / too long / too eager. Tune `_slim_context()` and `_rich_context()` prompts based on observed output. May require a dedicated prompt-tuning session with real examples.
