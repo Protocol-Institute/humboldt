@@ -399,3 +399,28 @@ references:
     fields and trace partitioning
   type: article
   url: https://thoughtfolio.xyz/Protocol+Theory/%CF%80%CF%81%CF%83%CF%95-Formalism%2C+Computing+on+Protocols%2C+A+Process+Calculus+over+Informati
+- added: '2026-07-01'
+  id: ref-2026-07-01-031
+  snippet: Directly relevant to understanding how informal coordination in blockchain
+    systems transitions to formalized governance structures under scaling pressure.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #new-nature'
+  status: unsorted
+  title: Article on Ethereum as a protocol polity exploring governance and coordination
+    structures
+  type: article
+  url: https://paragraph.com/@trent-4/ethereum-as-protocol-polity
+- added: '2026-07-01'
+  id: ref-2026-07-01-032
+  snippet: Potential discussion of formalization dynamics in protocol-based systems
+    as they scale and experience coordination stress.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #new-nature'
+  status: unsorted
+  title: Twitter thread or article discussing protocol polity concepts
+  type: article
+  url: https://x.com/trent_vanepps/status/2072284645283029016?s=20
