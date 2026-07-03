@@ -424,3 +424,40 @@ references:
   title: Twitter thread or article discussing protocol polity concepts
   type: article
   url: https://x.com/trent_vanepps/status/2072284645283029016?s=20
+- added: '2026-07-03'
+  id: ref-2026-07-03-033
+  snippet: Relevant to formal methods for analyzing protocol equivalence and ontological
+    stability under system evolution.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #🎩-formal-protocol-theory'
+  status: unsorted
+  title: Research on ontology change and evolution in formal systems using bisimulation
+    and process algebra.
+  type: article
+  url: https://linkinghub.elsevier.com/retrieve/pii/S0020025516000931
+- added: '2026-07-03'
+  id: ref-2026-07-03-034
+  snippet: Potential framework for operationalizing and measuring coordination cost
+    conservation across protocol transitions.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #🎩-formal-protocol-theory'
+  status: unsorted
+  title: Research on total cost of ownership metrics in systems analysis.
+  type: article
+  url: https://pubmed.ncbi.nlm.nih.gov/22317141/
+- added: '2026-07-03'
+  id: ref-2026-07-03-035
+  snippet: Foundational reference for applying bisimulation to protocol equivalence
+    analysis.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #🎩-formal-protocol-theory'
+  status: unsorted
+  title: Survey or resource on bisimulation theory and its applications.
+  type: article
+  url: https://www.sciencedirect.com/science/article/pii/S1571066105051893?via%3Dihub
