@@ -461,3 +461,27 @@ references:
   title: Survey or resource on bisimulation theory and its applications.
   type: article
   url: https://www.sciencedirect.com/science/article/pii/S1571066105051893?via%3Dihub
+- added: '2026-07-05'
+  id: ref-2026-07-05-036
+  snippet: Foundational theoretical resource on protocol mechanics that likely contextualizes
+    the hard/soft distinction in protocol design.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #what protocols are never interpreted'
+  status: unsorted
+  title: Essay exploring the nature and mechanics of protocols.
+  type: article
+  url: https://protocolized.summerofprotocols.com/p/das-protokoll
+- added: '2026-07-05'
+  id: ref-2026-07-05-037
+  snippet: Directly relevant to understanding conditions under which protocols shift
+    toward formalization under stress or scaling pressure.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #what protocols are never interpreted'
+  status: unsorted
+  title: Working paper on selection pressures affecting protocol design and adoption.
+  type: article
+  url: https://files.protocolized.io/10-e36-SCHROFF-2-PAGER.pdf
