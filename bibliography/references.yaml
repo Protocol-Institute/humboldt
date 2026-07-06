@@ -485,3 +485,29 @@ references:
   title: Working paper on selection pressures affecting protocol design and adoption.
   type: article
   url: https://files.protocolized.io/10-e36-SCHROFF-2-PAGER.pdf
+- added: '2026-07-06'
+  id: ref-2026-07-06-038
+  snippet: May provide framing on when protocols reach equilibrium or transition points,
+    relevant to understanding formalization triggers.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #🎩-formal-protocol-theory'
+  status: unsorted
+  title: Annelies Gamble's piece on 'breakeven point' and rethinking AI, potentially
+    relevant to resolution and threshold concepts in protocol design.
+  type: article
+  url: https://open.substack.com/pub/anneliesgamble/p/the-breakeven-point-rethinking-ai?r=1bqyd&utm_medium=ios
+- added: '2026-07-06'
+  id: ref-2026-07-06-039
+  snippet: Real-world example of a nascent standard that could illustrate how informal
+    repair norms are being formalized into explicit protocols.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #🎩-formal-protocol-theory'
+  status: unsorted
+  title: iFixit's development of a repairability scoring standard with NSF, potentially
+    a candidate for protocolization analysis.
+  type: article
+  url: https://www.ifixit.com/News/118390/ifixit-begins-developing-a-repairability-scoring-standard-with-nsf
