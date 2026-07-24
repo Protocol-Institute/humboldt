@@ -155,6 +155,8 @@ python3 -m agent.humboldt people @handle                 # detail for one contri
 python3 -m agent.humboldt daemon run       # start daemon (blocking)
 python3 -m agent.humboldt daemon restart   # hot-reload after code changes (SIGUSR1, preserves state)
 python3 -m agent.humboldt daemon status    # show PID + last checked timestamps
+python3 -m agent.humboldt daemon pause <YYYY-MM-DD>   # offline for posting/querying + Pinecone writes through date (inclusive)
+python3 -m agent.humboldt daemon unpause              # resume normal operation immediately
 
 # Discord manual post
 python3 -m agent.humboldt discord post           # post latest notebook entry to #new-nature

@@ -4,6 +4,30 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-07-24 (session 23) — Weekly digest, offline pause, Pinecone write-burn fix
+
+Session: T2 only.
+
+**Daemon:** PID 1930 (running). Hot-reloaded four times.
+
+**Completed:**
+- `task_notebook` no longer posts per-entry Discord announcements — new `task_weekly_digest` posts one synthesized digest every 7 days instead
+- `_new_nature_tick` proactive engagement posting disabled (`_PROACTIVE_ENGAGEMENT_ENABLED = False`) — too chatty even at 1/day; capture unaffected
+- New `daemon pause <YYYY-MM-DD>` / `daemon unpause` CLI (`daemon/pause.py`) — offline for posting/querying/Pinecone-writes through a date; effective immediately, no restart needed
+- Reviewed and merged PR #1 (from a parallel agent session): `ingest_all()` was re-embedding/re-upserting the full 5,142-chunk corpus on every notebook commit, burning the account's Pinecone write-unit quota (2,000,000/mo, shared with c3po) and read-unit quota (1,000,000/mo) well before month-end. Now content-hash incremental (`data/ingest_state.json`)
+- Caught and fixed a gap where the first pause implementation didn't cover the actual write path (`task_conversation_review` → `task_notebook` → `ingest_all()`) — a 96-vector write was attempted (429'd against the exhausted quota, nothing written) before the fix landed
+- ARCHITECTURE.md, CLAUDE.md, TODO.md updated for all of the above
+- Daemon currently paused until 2026-08-01
+
+**Open (next session):**
+- Confirm Pinecone quota is clear before unpausing
+- Resume interrupted inbox processing (420 feed + 39 discord-idea items pending, triage reports exist for resumption)
+- Run `humboldt ingest` once safe to confirm the incremental fix on the real corpus
+- Redesign proactive engagement before re-enabling (see TODO.md)
+- Track 1 research overdue — no movement on heavy-lift-ready arcs (T-001, T-002) in a month
+
+---
+
 ## 2026-06-25 (session 22) — Daemon presence tuning; website restructure
 
 Session: T2 only.

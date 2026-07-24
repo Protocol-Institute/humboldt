@@ -6,6 +6,36 @@ Most recent entry first.
 
 ---
 
+## 2026-07-24 (session 23) — Weekly digest, offline pause, Pinecone write-burn fix, proactive engagement disabled
+
+**Tracks active:** T2
+**Daemon PID:** 1930 (running, hot-reloaded four times)
+
+First real session since 2026-06-25 (session 22) — a month of unattended daemon operation had accumulated real problems: it was posting to #new-nature far too often, and separately was burning through the Pinecone account's monthly write-unit quota.
+
+**Discord chattiness — two separate mechanisms, both fixed:**
+1. `task_notebook` had been announcing every new notebook entry individually. Once `task_conversation_review` started writing a notebook section daily, that meant a #new-nature post every single day. Split the responsibilities: `task_notebook` now only handles infra (re-index, publish-site, pre-notebook cursor); a new `task_weekly_digest` task fires every 7 days and posts ONE synthesized digest of the week's notebook entries against current research state (candidate laws, recent shallow reads), via a new `presence.generate_weekly_digest_post()`.
+2. Separately, `_new_nature_tick`'s self-initiated "jump into the conversation" posting was too chatty/redundant even at its existing 1/day cap. Disabled via a module-level `_PROACTIVE_ENGAGEMENT_ENABLED = False` flag rather than deleting the code — TODO left in-code and in `TODO.md` describing what needs redesigning (sharper judgment on genuine relevance, corpus-grounded content requirements, longer gaps) before re-enabling. Idea/link capture from the channel is unaffected and keeps running silently.
+
+**Offline pause mechanism (`daemon/pause.py`):** new `daemon pause <YYYY-MM-DD>` / `daemon unpause` CLI. Sets/clears `paused_until` in `state.json`; every posting/querying/write call site checks it fresh, so it takes effect immediately on a running daemon (no restart) and self-expires once the date passes. First implementation only gated the Discord-facing paths (@mention replies, proactive tick, weekly digest); had to be extended after discovering it missed the actual write risk — see below.
+
+**Pinecone write-unit burn — diagnosed by a parallel agent session, reviewed and merged here (PR #1):** `ingest_all()` was re-embedding and re-upserting the *entire* corpus (5,142 chunks) on every call, and `task_notebook` called it on every new notebook entry — daily, sometimes twice. One new paragraph cost ~5,000 Pinecone writes. This exhausted the account's monthly write-unit quota (2,000,000, shared with the c3po project) well before month-end, and the read-unit quota (1,000,000) the day after. The fix (`agent/ingest.py`) adds a content-hash state file (`data/ingest_state.json`, gitignored) so only chunks whose text actually changed get re-embedded/upserted, and stale chunks get deleted instead of lingering. Reviewed the diff directly (logic, `_ROOT`/`.gitignore` sanity, `py_compile`), confirmed clean merge, merged via `gh pr merge`.
+
+**A live near-miss during this session:** restarting the daemon to load the pause fix caused `task_notebook`'s first-run-on-start behavior to fire *before* the pause extension (to `task_conversation_review` and the ingest call) was in place — it attempted a 96-vector Pinecone write, which bounced off the still-exhausted quota with a 429 rather than succeeding. No data was actually written, but it was a real gap: the first version of the pause only covered Discord-facing behavior, not the separate notebook-commit → re-index write path. Caught via the daemon log, fixed immediately, verified via the log line `Paused — skipping Pinecone re-index` on the next restart. Lesson: "pause" needs to be defined by every actual side-effect (writes, posts, queries), not by the user-facing framing of what was asked ("stop posting").
+
+**Also spawned, then paused mid-run:** an inbox-processing agent (triage-discord, triage-feed, shallow-read) — got through triage on both fronts and ~107 shallow-reads before being explicitly paused by the operator once the Pinecone write-limit was flagged. Left in a resumable state (triage reports exist for `--from-triage` re-invocation); not resumed this session. `humboldt ingest` was deliberately not run this session per the operator's explicit no-Pinecone-writes instruction — deferred to whenever the write-unit quota is confirmed clear.
+
+**State after this session:** daemon paused until 2026-08-01 (covers posting, querying, and Pinecone writes). Weekly digest and pause code live on the restarted daemon. Proactive engagement off. Ingest fix merged but its first real invocation (after the pause lifts) will still cost one full ~5,142-write backfill to populate `data/ingest_state.json` — unavoidable, but every run after that drops to the real delta.
+
+**Open (next session):**
+- Confirm Pinecone write-unit quota has reset/cleared before unpausing or resuming inbox processing
+- Resume interrupted inbox processing (420 feed items + 39 discord-idea items still awaiting shallow-read/archive, per `inbox status`)
+- Once safe, run `humboldt ingest` to confirm the incremental fix behaves as expected on the real corpus (backfill cost, then small deltas)
+- Redesign `_new_nature_tick` proactive engagement before re-enabling (see TODO.md)
+- A full Track 1 research session is overdue — heavy-lift-ready arcs (T-001, T-002) have had no movement in a month
+
+---
+
 ## 2026-06-25 (session 22) — Daemon presence tuning; website restructure
 
 **Tracks active:** T2

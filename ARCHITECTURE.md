@@ -124,16 +124,21 @@ Starts the `HumboldtBot` Discord client. After the bot exits, checks `bot.reload
 
 ### `daemon/discord_client.py` — Discord Bot
 
-`HumboldtBot(discord.Client)` with four scheduled tasks and two event handlers:
+`HumboldtBot(discord.Client)` with five scheduled tasks and two event handlers:
 
 **Scheduled tasks:**
 
 | Task | Interval | Purpose |
 |------|----------|---------|
-| `task_notebook` | 30 min | Watch for new notebook commits; post to #new-nature; trigger ingest + publish |
+| `task_notebook` | 30 min | Watch for new notebook commits; re-index (Pinecone) + publish site + advance pre-notebook cursor. No longer posts to Discord (see `task_weekly_digest`). |
+| `task_weekly_digest` | 24 h (fires every 7 days) | Synthesize the past week's notebook entries against current research state into ONE #new-nature post, replacing the old per-entry announcements |
 | `task_feeds` | 12 h | Poll RSS/Atom feeds; run relevance check (Haiku); save to `inbox/`; DM operator |
 | `task_conversation_review` | 24 h | Synthesize recent Discord into notebook; promote inbox links to references |
-| `_new_nature_loop` | Adaptive | Proactive #new-nature presence (see below) |
+| `_new_nature_loop` | Adaptive | Proactive #new-nature presence (see below) — posting currently **disabled** (`_PROACTIVE_ENGAGEMENT_ENABLED = False`, 2026-07-24; too chatty even at 1/day). Idea/link capture still runs. |
+
+**`daemon/pause.py` — offline pause:**
+
+`daemon pause <YYYY-MM-DD>` / `daemon unpause` CLI sets/clears `paused_until` in `state.json`. While active, gates: @mention replies (all three call sites — `on_message`, `_scan_missed_mentions`, `_catchup_all_channels` — reply with a fixed offline notice instead of running retrieval/generation), `_new_nature_tick`'s proactive check, `task_weekly_digest`, `task_conversation_review` (skipped entirely, so no notebook commit is created to trigger anything downstream), and `task_notebook`'s `ingest_all()` call (the only Pinecone-write path in the daemon). Checked fresh from `state.json` on every call, so it takes effect immediately without a daemon restart and self-expires once the date passes.
 
 **Event handlers:**
 
@@ -158,8 +163,9 @@ On startup, scans for @mentions that arrived while offline and responds to any n
 
 All Claude calls for Discord output. Two context tiers (`_slim_context` / `_rich_context`) and six generation functions:
 
-- `generate_notebook_post` — post announcing a new notebook entry (Haiku)
-- `generate_new_nature_response` — proactive channel response to new messages (Haiku)
+- `generate_notebook_post` — post announcing a new notebook entry (Haiku); now only invoked manually via `humboldt discord post`, not by the daemon
+- `generate_weekly_digest_post` — weekly #new-nature digest synthesizing the past week's notebook entries against research state (Sonnet)
+- `generate_new_nature_response` — proactive channel response to new messages (Haiku); **disabled** in `_new_nature_tick` as of 2026-07-24
 - `generate_mention_response` — @mention reply with full research context (Sonnet)
 - `generate_person_notebook_entry` — notebook entry about a recurring interlocutor (Sonnet)
 - `check_feed_relevance` — assess whether a feed item bears on active research (Haiku)
@@ -194,11 +200,14 @@ Single JSON file (`daemon/state.json`, gitignored) tracks everything the daemon 
 | Field | Purpose |
 |-------|---------|
 | `last_notebook_commit` | Git commit hash; detects new notebook entries |
-| `notebook_entries_posted` | Dates already announced to Discord |
+| `notebook_entries_posted` | Legacy — dates once announced to Discord per-entry; no longer written (see `task_weekly_digest`) |
+| `last_weekly_digest_date` | Date of last weekly #new-nature digest post |
 | `last_new_nature_message_id` | Discord cursor for the tick loop |
 | `last_new_nature_activity` | Timestamp of last human message (drives adaptive intervals) |
+| `last_proactive_post_date` | Date of last self-initiated #new-nature post (proactive engagement currently disabled — see above) |
 | `last_feed_check` | Timestamp; feeds only return items after this |
 | `last_conversation_review` | Date of last daily synthesis pass |
+| `paused_until` | Date (inclusive) through which posting/querying/Pinecone-writes are offline; `daemon pause`/`daemon unpause` |
 | `responded_mention_ids` | Message IDs already replied to (cap 500); prevents restart duplicates |
 | `last_startup` | ISO timestamp of most recent daemon startup |
 | `last_clean_shutdown` | ISO timestamp of last graceful shutdown; absence implies crash |
@@ -348,11 +357,18 @@ humboldt investigate "<topic>"
 ```
 New notebook commit detected (task_notebook, every 30 min)
     │
-    ├── presence.generate_notebook_post() → #new-nature channel post
+    ├── ingest.ingest_all() → humboldt Pinecone namespace updated  (skipped if paused)
     │
-    ├── ingest.ingest_all() → humboldt Pinecone namespace updated
+    └── publish_site() → humboldt-site rebuilt + deployed to CF Pages
+
+Weekly, separately (task_weekly_digest, fires every 7 days):
     │
-    └── publish.publish() → humboldt-notebook.html → git push website repo
+    ├── gather notebook entries since last digest
+    │
+    ├── presence.generate_weekly_digest_post() → synthesizes the week against
+    │   current research state (candidate laws, recent shallow reads)
+    │
+    └── ONE #new-nature channel post  (skipped if paused)
 ```
 
 ### Daemon Discord presence cycle
