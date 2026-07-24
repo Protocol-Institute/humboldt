@@ -4,9 +4,15 @@ Covers: notebook entries, deep-read notes, shallow reads, C/H/CL/F research
 artifacts, DS arc files, and Discord inbox ideas. Each vector carries augmented
 metadata so retrieved results are self-identifying in Claude prompts.
 
+Incremental — a content hash per chunk (data/ingest_state.json) means only
+new/changed chunks are re-embedded and upserted, and chunks whose source file
+disappeared are deleted. Pass force=True to re-embed everything regardless.
+
 Run via: python3 -m agent.humboldt ingest
 """
 
+import hashlib
+import json
 import os
 import re
 from pathlib import Path
@@ -19,6 +25,7 @@ _ROOT = Path(__file__).parent.parent
 _NAMESPACE = ""  # dedicated index — default namespace
 _VOYAGE_MODEL = "voyage-3"
 _BATCH_SIZE = 96  # voyage-3 max batch
+_STATE_PATH = _ROOT / "data" / "ingest_state.json"  # chunk id -> content hash
 
 
 def _voyage_client() -> voyageai.Client:
@@ -353,11 +360,29 @@ def _embed_batch(texts: list[str]) -> list[list[float]]:
     return result.embeddings
 
 
-def ingest_all(verbose: bool = True) -> dict:
+def _content_hash(text: str) -> str:
+    return hashlib.sha256(text.encode()).hexdigest()[:16]
+
+
+def _load_state() -> dict:
+    if _STATE_PATH.exists():
+        return json.loads(_STATE_PATH.read_text())
+    return {}
+
+
+def _save_state(state: dict) -> None:
+    _STATE_PATH.parent.mkdir(parents=True, exist_ok=True)
+    _STATE_PATH.write_text(json.dumps(state, indent=2, sort_keys=True))
+
+
+def ingest_all(verbose: bool = True, force: bool = False) -> dict:
     """Ingest all Humboldt documents into the humboldt Pinecone namespace.
 
-    Safe to re-run — upserts by deterministic IDs, so re-ingest updates
-    existing vectors rather than creating duplicates.
+    Incremental by default: only chunks whose content hash differs from
+    data/ingest_state.json are (re-)embedded and upserted, and chunks whose
+    id is no longer produced (source file renamed/deleted) are removed from
+    the index. Pass force=True to re-embed and re-upsert every chunk
+    regardless of whether it changed.
     """
     all_chunks = (
         _notebook_chunks()
@@ -374,7 +399,7 @@ def ingest_all(verbose: bool = True) -> dict:
     if not all_chunks:
         if verbose:
             print("No documents found to ingest.")
-        return {"upserted": 0}
+        return {"upserted": 0, "deleted": 0}
 
     type_counts: dict[str, int] = {}
     for c in all_chunks:
@@ -382,36 +407,68 @@ def ingest_all(verbose: bool = True) -> dict:
         type_counts[t] = type_counts.get(t, 0) + 1
     breakdown = ", ".join(f"{v} {k}" for k, v in type_counts.items())
 
+    state = _load_state()
+    current_ids = {c["id"] for c in all_chunks}
+    to_upsert = [
+        (c, h) for c in all_chunks
+        if (h := _content_hash(c["text"])) and (force or state.get(c["id"]) != h)
+    ]
+    to_delete = [cid for cid in state if cid not in current_ids]
+
     if verbose:
-        print(f"Ingesting {len(all_chunks)} chunks ({breakdown}) → namespace '{_NAMESPACE}'")
+        unchanged = len(all_chunks) - len(to_upsert)
+        print(
+            f"{len(all_chunks)} chunks total ({breakdown}) — "
+            f"{len(to_upsert)} changed/new, {unchanged} unchanged, "
+            f"{len(to_delete)} stale to delete"
+        )
+
+    if not to_upsert and not to_delete:
+        if verbose:
+            print("Nothing to do — namespace already up to date.")
+        return {"upserted": 0, "deleted": 0}
 
     idx = _pinecone_index()
     total_upserted = 0
 
-    for i in range(0, len(all_chunks), _BATCH_SIZE):
-        batch = all_chunks[i : i + _BATCH_SIZE]
-        texts = [c["text"] for c in batch]
+    for i in range(0, len(to_upsert), _BATCH_SIZE):
+        batch = to_upsert[i : i + _BATCH_SIZE]
+        texts = [c["text"] for c, _ in batch]
         embeddings = _embed_batch(texts)
         vectors = [
             {"id": c["id"], "values": emb, "metadata": c["metadata"]}
-            for c, emb in zip(batch, embeddings)
+            for (c, _), emb in zip(batch, embeddings)
         ]
         idx.upsert(vectors=vectors, namespace=_NAMESPACE)
         total_upserted += len(vectors)
         if verbose:
-            print(f"  {total_upserted}/{len(all_chunks)} upserted…")
+            print(f"  {total_upserted}/{len(to_upsert)} upserted…")
+
+    if to_delete:
+        idx.delete(ids=to_delete, namespace=_NAMESPACE)
+        if verbose:
+            print(f"  {len(to_delete)} stale vectors deleted.")
+
+    for c, h in to_upsert:
+        state[c["id"]] = h
+    for cid in to_delete:
+        del state[cid]
+    _save_state(state)
 
     if verbose:
-        print(f"Done. {total_upserted} vectors upserted to '{_NAMESPACE}'.")
+        print(f"Done. {total_upserted} upserted, {len(to_delete)} deleted in '{_NAMESPACE}'.")
 
     try:
         from agent.pre_notebook import append as pn_append
         pn_append(
             process="ingest",
-            summary=f"Re-ingested humboldt namespace: {total_upserted} vectors ({breakdown}).",
+            summary=(
+                f"Re-indexed humboldt namespace: {total_upserted} upserted, "
+                f"{len(to_delete)} deleted ({breakdown})."
+            ),
             detail=type_counts,
         )
     except Exception:
         pass
 
-    return {"upserted": total_upserted}
+    return {"upserted": total_upserted, "deleted": len(to_delete)}
