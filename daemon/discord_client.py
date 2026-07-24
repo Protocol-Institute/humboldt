@@ -610,13 +610,19 @@ class HumboldtBot(discord.Client):
                 f"Notebook watcher: {len(new_entries)} new "
                 f"entr{'y' if len(new_entries) == 1 else 'ies'} detected"
             )
-            # Re-ingest after new notebook entries so humboldt namespace stays current
-            try:
-                from agent.ingest import ingest_all
-                await self.loop.run_in_executor(None, lambda: ingest_all(verbose=False))
-                logger.info("humboldt namespace re-indexed after notebook update")
-            except Exception as e:
-                logger.warning(f"Post-notebook ingest failed: {e}")
+            # Re-ingest after new notebook entries so humboldt namespace stays current.
+            # Skipped while paused (no Pinecone writes) — ingest_all() is content-hash
+            # incremental, so nothing is lost: the next unpaused run picks up everything
+            # that changed in the meantime.
+            if pz.is_paused():
+                logger.info("Paused — skipping Pinecone re-index")
+            else:
+                try:
+                    from agent.ingest import ingest_all
+                    await self.loop.run_in_executor(None, lambda: ingest_all(verbose=False))
+                    logger.info("humboldt namespace re-indexed after notebook update")
+                except Exception as e:
+                    logger.warning(f"Post-notebook ingest failed: {e}")
 
             # Rebuild and deploy humboldt-site to CF Pages
             try:
@@ -875,6 +881,8 @@ class HumboldtBot(discord.Client):
         Daily pass: synthesize ideas from recent Discord into notebook +
         promote inbox link captures to bibliography/references.yaml.
         """
+        if pz.is_paused():
+            return
         state = st.load()
         last_review = state.get("last_conversation_review")
 
