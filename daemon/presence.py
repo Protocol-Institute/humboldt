@@ -264,6 +264,48 @@ async def generate_notebook_post(
     return _discord_safe(resp.content[0].text)
 
 
+async def generate_weekly_digest_post(
+    week_entries: list[tuple[str, Path]],
+    notebook_url: str,
+) -> str:
+    """
+    Generate a single weekly #new-nature digest synthesizing the week's notebook
+    entries against current research state, instead of announcing each entry.
+    """
+    blocks = []
+    for entry_date, entry_path in week_entries:
+        text = entry_path.read_text() if entry_path.exists() else ""
+        paragraphs = [
+            p.strip() for p in text.split("\n\n")
+            if p.strip()
+            and not p.strip().startswith("#")
+            and not p.strip().startswith("---")
+            and not p.strip().startswith("*Daemon")
+            and len(p.strip()) > 60
+        ]
+        if paragraphs:
+            blocks.append(f"**{entry_date}:**\n" + "\n\n".join(paragraphs)[:800])
+    week_text = "\n\n---\n\n".join(blocks) if blocks else "(no substantive entries this week)"
+
+    costs.check_budget()
+    resp = await _client().messages.create(
+        model=_MAIN_MODEL,
+        max_tokens=220,
+        system=_slim_context(),
+        messages=[{"role": "user", "content": (
+            f"Here are this week's lab notebook entries:\n\n{week_text}\n\n"
+            f"Write a single weekly #new-nature digest post. Synthesize across the week — "
+            f"the throughline, what sharpened, what's still stuck — rather than recapping "
+            f"day by day. Ground it in your current candidate laws and research state "
+            f"(already in your context) where genuinely relevant, not as a checklist. "
+            f"End with this link: {notebook_url}\n\n"
+            f"Under 500 characters total. First person, researcher voice."
+        )}],
+    )
+    costs.log_call("weekly_digest_post", _MAIN_MODEL, resp.usage.input_tokens, resp.usage.output_tokens)
+    return _discord_safe(resp.content[0].text)
+
+
 async def generate_new_nature_response(
     messages: list[dict],
     recent_bot_posts: list[str] | None = None,

@@ -430,6 +430,31 @@ def cmd_daemon_restart():
         sys.exit(1)
 
 
+def cmd_daemon_pause(until: str | None):
+    """Pause Discord posting/querying (proactive posts, weekly digest, @mention
+    replies) up to and including the given YYYY-MM-DD date. Takes effect
+    immediately on a running daemon — no restart needed."""
+    if not until:
+        print("Usage: python3 -m agent.humboldt daemon pause <YYYY-MM-DD>")
+        sys.exit(1)
+    from datetime import date as _date
+    try:
+        _date.fromisoformat(until)
+    except ValueError:
+        print(f"Invalid date {until!r} — expected YYYY-MM-DD")
+        sys.exit(1)
+    from daemon.pause import set_pause
+    set_pause(until)
+    print(f"Paused — Humboldt is offline for Discord posting/querying until {until}.")
+
+
+def cmd_daemon_unpause():
+    """Clear an active pause and resume normal posting/querying immediately."""
+    from daemon.pause import clear_pause
+    clear_pause()
+    print("Unpaused — Humboldt has resumed normal Discord posting/querying.")
+
+
 def cmd_daemon_status():
     """Show daemon state and cumulative API costs."""
     import json
@@ -455,6 +480,9 @@ def cmd_daemon_status():
         print(f"  Last #new-nature msg    : {state.get('last_new_nature_message_id', 'none')}")
         print(f"  Last feed check         : {state.get('last_feed_check', 'never')}")
         print(f"  Responded mention IDs   : {len(state.get('responded_mention_ids', []))} tracked")
+        from daemon.pause import paused_until
+        active_pause = paused_until()
+        print(f"  Paused                  : {'until ' + active_pause if active_pause else 'no'}")
 
     from daemon import costs
     t = costs.totals()
@@ -728,6 +756,8 @@ Usage:
   python3 -m agent.humboldt daemon run                   # start daemon (Discord + feeds)
   python3 -m agent.humboldt daemon restart               # hot-reload daemon (SIGUSR1, preserves state)
   python3 -m agent.humboldt daemon status                # show daemon state + PID
+  python3 -m agent.humboldt daemon pause <YYYY-MM-DD>     # offline for posting/querying until date (inclusive)
+  python3 -m agent.humboldt daemon unpause                # resume normal posting/querying
   python3 -m agent.humboldt discord post                 # post latest notebook entry to Discord
   python3 -m agent.humboldt discord post --draft         # preview post without sending
   python3 -m agent.humboldt discord sweep                # capture sweep: full #new-nature history
@@ -849,6 +879,10 @@ def main():
             cmd_daemon_status()
         elif subcmd == "restart":
             cmd_daemon_restart()
+        elif subcmd == "pause":
+            cmd_daemon_pause(rest[1] if len(rest) > 1 else None)
+        elif subcmd == "unpause":
+            cmd_daemon_unpause()
         else:
             print(f"Unknown daemon subcommand: {subcmd}")
             sys.exit(1)

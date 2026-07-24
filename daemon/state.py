@@ -13,6 +13,8 @@ _DEFAULTS: dict = {
     "last_feed_check": None,
     "last_conversation_review": None,   # YYYY-MM-DD of last review pass
     "last_proactive_post_date": None,   # YYYY-MM-DD of last self-initiated #new-nature post
+    "last_weekly_digest_date": None,    # YYYY-MM-DD of last weekly notebook digest post
+    "paused_until": None,               # YYYY-MM-DD — offline for posting/querying through this date
     # Restart-safety fields
     "responded_mention_ids": [],        # Discord message IDs already replied to (capped at 500)
     "last_startup": None,               # ISO timestamp of most recent daemon startup

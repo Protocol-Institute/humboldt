@@ -3,7 +3,7 @@
 import asyncio
 import logging
 import os
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
@@ -47,6 +47,7 @@ import yaml
 from discord.ext import tasks
 
 from . import state as st
+from . import pause as pz
 from . import notebook_watcher as nw
 from . import feed_monitor as fm
 from . import presence
@@ -95,6 +96,7 @@ class HumboldtBot(discord.Client):
         self.task_notebook.start()
         self.task_feeds.start()
         self.task_conversation_review.start()
+        self.task_weekly_digest.start()
         # SIGUSR1 triggers a graceful hot-reload: saves state, then re-execs
         self.loop.add_signal_handler(signal.SIGUSR1, self._schedule_reload)
         # new-nature uses a manual loop for adaptive check intervals
@@ -198,6 +200,15 @@ class HumboldtBot(discord.Client):
             content = msg.content.replace(f"<@{self.user.id}>", "").strip()
             if not content:
                 continue
+            if pz.is_paused():
+                try:
+                    await msg.reply(pz.offline_message())
+                    fresh = st.load()
+                    st.record_responded_mention(fresh, str(msg.id))
+                    st.save(fresh)
+                except Exception as e:
+                    logger.warning(f"Paused-offline reply failed for {msg.id}: {e}")
+                continue
             # Primary duplicate guard: check Discord's own history for an existing reply.
             # This survives state resets, reconnects, and race conditions.
             try:
@@ -300,6 +311,18 @@ class HumboldtBot(discord.Client):
                     if not content:
                         continue
 
+                    if pz.is_paused():
+                        try:
+                            await msg.reply(pz.offline_message())
+                            fresh = st.load()
+                            st.record_responded_mention(fresh, str(msg.id))
+                            st.save(fresh)
+                            responded_ids.add(str(msg.id))
+                            total_replied += 1
+                        except Exception as e:
+                            logger.warning(f"Paused-offline reply failed for {msg.id}: {e}")
+                        continue
+
                     history = []
                     name_to_id: dict[str, str] = {msg.author.name: str(msg.author.id)}
                     async for ctx in ch.history(limit=9, before=msg):
@@ -396,6 +419,10 @@ class HumboldtBot(discord.Client):
             return
 
         logger.info(f"@mention from {message.author.name}: {content[:80]}")
+
+        if pz.is_paused():
+            await message.reply(pz.offline_message())
+            return
 
         history = []
         name_to_id: dict[str, str] = {message.author.name: str(message.author.id)}
@@ -554,53 +581,35 @@ class HumboldtBot(discord.Client):
 
     @tasks.loop(minutes=30)
     async def task_notebook(self):
+        """
+        Watch for new notebook commits and keep infra fresh (re-index, publish
+        site, advance pre-notebook cursor). Discord announcement of notebook
+        content is handled separately, on a weekly cadence, by task_weekly_digest —
+        this task no longer posts per entry.
+        """
         state = st.load()
         last_commit = state.get("last_notebook_commit")
 
         if last_commit is None:
-            # First run: initialize without posting historical entries
+            # First run: initialize without processing historical entries
             head = nw.get_head_commit()
             state["last_notebook_commit"] = head
-            state["notebook_entries_posted"] = []
             st.save(state)
             logger.info(f"Notebook watcher initialized at {head}")
             return
 
         new_entries = nw.get_new_notebook_entries(last_commit)
-        posted = set(state.get("notebook_entries_posted", []))
-        channel = self.get_channel(self.new_nature_id)
-
-        for entry in new_entries:
-            if entry["date"] in posted or not entry["path"].exists():
-                continue
-            logger.info(f"Posting notebook entry {entry['date']}")
-            try:
-                from agent import notebook_index as nbi
-                entry_url = nbi.entry_url(entry["date"])
-                post = await presence.generate_notebook_post(
-                    entry["date"], entry["path"], entry["github_url"],
-                    entry_url=entry_url,
-                )
-                announcement_id: str | None = None
-                if channel:
-                    msg = await channel.send(post)
-                    announcement_id = str(msg.id)
-                # Persist announcement ID in index.yaml
-                nbi.upsert_entry(
-                    entry["date"],
-                    discord_announcement_id=announcement_id,
-                )
-                posted.add(entry["date"])
-            except Exception as e:
-                logger.error(f"Failed to post notebook entry: {e}")
 
         head = nw.get_head_commit()
         fresh = st.load()
         fresh["last_notebook_commit"] = head
-        fresh["notebook_entries_posted"] = list(posted)
         st.save(fresh)
 
         if new_entries:
+            logger.info(
+                f"Notebook watcher: {len(new_entries)} new "
+                f"entr{'y' if len(new_entries) == 1 else 'ies'} detected"
+            )
             # Re-ingest after new notebook entries so humboldt namespace stays current
             try:
                 from agent.ingest import ingest_all
@@ -630,6 +639,68 @@ class HumboldtBot(discord.Client):
 
     @task_notebook.before_loop
     async def before_task_notebook(self):
+        await self.wait_until_ready()
+
+    @tasks.loop(hours=24)
+    async def task_weekly_digest(self):
+        """
+        Weekly pass: post ONE #new-nature digest synthesizing the past week's
+        notebook entries against current research state, instead of announcing
+        every entry as it lands (that per-entry cadence moved daily once
+        conversation_review started writing a notebook section every day).
+        """
+        if pz.is_paused():
+            return
+        state = st.load()
+        last_digest = state.get("last_weekly_digest_date")
+        today = date.today()
+
+        if last_digest is None:
+            # First run: start the clock, don't post historical backlog
+            state["last_weekly_digest_date"] = today.isoformat()
+            st.save(state)
+            logger.info("Weekly digest initialized")
+            return
+
+        last_date = date.fromisoformat(last_digest)
+        if (today - last_date).days < 7:
+            return  # not due yet
+
+        nb_dir = _ROOT / "notebook"
+        week_entries: list[tuple[str, Path]] = []
+        for f in sorted(nb_dir.glob("????-??-??.md")):
+            try:
+                entry_date = date.fromisoformat(f.stem)
+            except ValueError:
+                continue
+            if last_date < entry_date <= today:
+                week_entries.append((f.stem, f))
+
+        if not week_entries:
+            logger.info("Weekly digest: no notebook entries since last digest, skipping post")
+            fresh = st.load()
+            fresh["last_weekly_digest_date"] = today.isoformat()
+            st.save(fresh)
+            return
+
+        try:
+            from agent import notebook_index as nbi
+            notebook_url = nbi.entry_url(week_entries[-1][0])
+            post = await presence.generate_weekly_digest_post(week_entries, notebook_url)
+            channel = self.get_channel(self.new_nature_id)
+            if channel:
+                await channel.send(post)
+            logger.info(f"Weekly digest posted ({len(week_entries)} entries synthesized)")
+        except Exception as e:
+            logger.error(f"Weekly digest failed: {e}")
+            return
+
+        fresh = st.load()
+        fresh["last_weekly_digest_date"] = today.isoformat()
+        st.save(fresh)
+
+    @task_weekly_digest.before_loop
+    async def before_task_weekly_digest(self):
         await self.wait_until_ready()
 
     async def _bot_post_context(self, n: int = 5) -> tuple[list[str], float]:
@@ -709,6 +780,8 @@ class HumboldtBot(discord.Client):
 
     async def _new_nature_tick(self):
         """Single #new-nature check: read new messages, maybe respond, maybe capture."""
+        if pz.is_paused():
+            return
         if not self._within_active_hours():
             return
 
