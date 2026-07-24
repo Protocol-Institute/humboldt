@@ -10,6 +10,16 @@ from zoneinfo import ZoneInfo
 # Max age for a message to be eligible as a thread anchor (seconds)
 _THREAD_ANCHOR_MAX_AGE = 15 * 60  # 15 minutes
 
+# TODO(proactive-engagement): _new_nature_tick's self-initiated "jump into the
+# conversation" posting (generate_new_nature_response) was disabled 2026-07-24
+# for being too chatty/redundant even at its 1/day cap. Before re-enabling,
+# it needs real tuning — sharper judgment on whether Humboldt actually has
+# something worth adding vs. generic engagement, probably corpus-grounded
+# content requirements similar to task_weekly_digest, and a longer natural
+# gap between posts. Capture (idea/link extraction) is unaffected and keeps
+# running silently. See daemon/presence.py:generate_new_nature_response.
+_PROACTIVE_ENGAGEMENT_ENABLED = False
+
 
 def _parse_thread_response(text: str) -> tuple[str | None, str]:
     """
@@ -842,6 +852,17 @@ class HumboldtBot(discord.Client):
 
         messages.reverse()  # chronological order for the prompt
         logger.info(f"Checking {len(messages)} new #new-nature messages")
+
+        if not _PROACTIVE_ENGAGEMENT_ENABLED:
+            # Posting disabled — see TODO(proactive-engagement) at top of file.
+            # Capture still runs so ideas/links aren't lost while this is off.
+            try:
+                n_captured = await cap.run_capture(messages, "#new-nature")
+                if n_captured:
+                    logger.info(f"Captured {n_captured} item(s) from #new-nature")
+            except Exception as e:
+                logger.warning(f"new-nature capture error: {e}")
+            return
 
         recent_bot_posts, last_bot_age = await self._bot_post_context(n=5)
 

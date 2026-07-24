@@ -56,6 +56,8 @@ The curiosity collection (research/c/) accumulates fast and has no automated pat
 
 ### Discord presence quality (next cluster)
 
+- **[M]** **Proactive #new-nature engagement — disabled 2026-07-24, needs redesign before re-enabling** — `_new_nature_tick`'s self-initiated jump-into-conversation posting (`generate_new_nature_response`) was too chatty/redundant even at its 1/day cap; operator turned it off (`_PROACTIVE_ENGAGEMENT_ENABLED = False` in `daemon/discord_client.py`; capture still runs silently). Same underlying symptom as the notebook-announcement chattiness fixed the same session (per-entry → weekly digest). Before flipping back on: sharper judgment on whether Humboldt genuinely has something to add vs. generic engagement, probably corpus-grounded content requirements similar to `task_weekly_digest`, and a much longer natural gap between posts than 1/day.
+
 - **[H]** **Conversation style tuning** — review actual #new-nature transcripts and identify what's off. Current symptoms: likely too formal / too long / too eager. Tune `_slim_context()` and `_rich_context()` prompts based on observed output. May require a dedicated prompt-tuning session with real examples.
 
 - ~~**[H]** **Graceful shutdown + restart**~~ — **COMPLETE 2026-05-27.** `responded_mention_ids` prevents duplicate @mention responses across restarts; `last_clean_shutdown` / `last_startup` markers enable brief-restart detection; `close()` override saves clean-shutdown marker; `daemon restart` CLI sends SIGUSR1 for hot-reload; DM `!reload` from operator triggers same; feed DMs suppressed on restarts < 5 min offline; `daemon.pid` file tracks live PID.
