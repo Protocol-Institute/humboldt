@@ -30,7 +30,7 @@ source .venv/bin/activate
 Install deps:
 
 ```bash
-pip install voyageai pinecone anthropic python-dotenv pyyaml rich pypdf markdown
+pip install voyageai pinecone anthropic python-dotenv pyyaml ruamel.yaml rich pypdf markdown
 ```
 
 ---
@@ -99,6 +99,19 @@ python3 -m agent.humboldt investigate "protocol ossification"
 
 # Display current law inventory
 python3 -m agent.humboldt inventory
+
+# ── Redesign 2026-08 (branch redesign-2026-08) — law encyclopedia + bibliography ──
+# The unified law record (laws/L-NNN-*.yaml) replaces the C/H/CL/T/F artifacts.
+# agent/laws.py = CRUD/validation/stage-machine/history (ruamel round-trip).
+python3 -m agent.humboldt laws list [--stage S] [--status S]   # inventory table
+python3 -m agent.humboldt laws show L-003                       # full record
+python3 -m agent.humboldt laws validate [L-003 | all]           # schema + stage-machine
+
+# Canonical bibliography (bibliography/bibliography.yaml). agent/bibliography.py.
+python3 -m agent.humboldt bib list [--depth D] [--kind K] [--year Y]
+python3 -m agent.humboldt bib show bib-0042
+python3 -m agent.humboldt bib stats
+python3 -m agent.humboldt bib migrate [--dry-run]   # one-shot legacy-source migration
 
 # Assess evidence for a specific law
 python3 -m agent.humboldt assess F-001
@@ -192,6 +205,15 @@ Source PDFs live in `bibliography/deep-reads/`. Drop new documents there; the `l
 ---
 
 ## Research Inventory
+
+> **⚠ Superseded by the 2026-08 redesign (branch `redesign-2026-08`, Phase 1 done).**
+> The C/H/CL/T/F typed-artifact system below is retired. The unified **law record**
+> (`laws/L-NNN-*.yaml`, schema `laws/_schema.yaml`) is now the single research artifact;
+> `laws/seeds/` is the holding pen (migrated from `research/c/`); `bibliography/bibliography.yaml`
+> is the canonical bibliography. The old `research/` subtree (`cl/ ds/ theories/ f/ h/
+> questions.md`) is archived at `research/_archive/`; only `research/agenda.md` stays live.
+> The section below is kept for reference until the Phase 6 doc rewrite. See
+> `plans/redesign-2026-08.md`.
 
 `research/` is the core output — always commit it. The schema follows the Double Freytag
 phase model (Rao, *Tempo*). Each phase produces a typed artifact; the DS file is the

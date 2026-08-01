@@ -1,0 +1,29 @@
+id: seed-031
+title: C-031-trust-collapse-rival-availability
+text: 'Kuhn is precise on a point that complicates CL-003 (Trust Ratchet): a paradigm is
+
+  not abandoned merely because anomalies accumulate. Crisis without a rival candidate
+
+  just produces malaise — "proliferation of versions of the theory," philosophical
+
+  reflection, deepened unease — but not revolution. The trust collapse that triggers
+
+  revolution requires both the accumulated anomalies *and* the availability of a
+
+  rival. This has a direct implication: for protocols, the catastrophic trust collapse
+
+  may not be triggered by the protocol''s own failure but by the appearance of an
+
+  alternative that makes the failure legible as failure. A regulatory failure that was
+
+  previously tolerated as "known complexity" becomes intolerable the moment someone
+
+  proposes a rival framework that promises to handle it.'
+source: kuhn-structure-of-scientific-revolutions.pdf
+origin: C-031
+surfaced: '2026-06-13'
+type: curiosity
+connections:
+- CL-003
+- CL-001
+status: open

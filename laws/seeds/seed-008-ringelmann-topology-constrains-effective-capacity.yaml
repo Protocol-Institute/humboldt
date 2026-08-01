@@ -1,0 +1,18 @@
+id: seed-008
+title: Ringelmann — topology constrains effective capacity
+text: 'A two-parameter scaling law maps nominal agent count to effective team size in multi-agent
+
+  LLM systems, classifying configurations into hard-ceiling, sublinear, and linear regimes
+
+  via a structural exponent β. Coordination overhead is not uniform — it is governed by
+
+  interaction topology, not agent count. This is a quantitative instance of the pattern that
+
+  protocolized collectives constrain effective capacity through structure rather than scale.'
+source: bibliography/shallow-reads/2026-06-06-the-ringelmann-effect-in-multi-agent-llm-systems-a-scaling-l.md
+origin: C-008
+surfaced: '2026-06-06'
+type: example
+connections:
+- CL-002
+status: open

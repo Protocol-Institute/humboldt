@@ -1,0 +1,26 @@
+id: seed-022
+title: C-022-wicked-problem-classes-dont-exist
+text: 'Property 7 says there are no *classes* of wicked problems in the sense that principles of
+
+  solution can be developed to fit all members of a class. Each wicked problem is essentially
+
+  unique — past solutions may seem applicable but an overriding distinguishing property might
+
+  always exist. This is a direct challenge to the project of developing laws of protocolized
+
+  systems: if the problems being protocolized are wicked, then laws governing how protocols
+
+  behave might themselves face this same uniqueness problem. The question is whether protocol
+
+  *behavior* (ossification, coordination cost, trust collapse) is tame even when the
+
+  underlying problem it addresses is wicked.'
+source: rittel-webber-dilemmas-general-theory-planning-1973.pdf
+origin: C-022
+surfaced: '2026-06-13'
+type: motif
+connections:
+- CL-001
+- CL-002
+- CL-003
+status: open

@@ -1,0 +1,23 @@
+id: seed-021
+title: C-021-level-choice-as-frozen-politics
+text: 'Property 8 also says there is no natural level at which to address a wicked problem —
+
+  the level chosen "depends upon the self-confidence of the analyst and cannot be decided
+
+  on logical grounds." Protocols are pitched at a particular level of abstraction, and that
+
+  level-choice is political and organizational, not logical. Once the protocol exists, the
+
+  level it was pitched at becomes the level at which the problem is officially defined. What
+
+  was a contingent choice gets frozen into institutional reality: the problem is now, by
+
+  definition, what the protocol addresses.'
+source: rittel-webber-dilemmas-general-theory-planning-1973.pdf
+origin: C-021
+surfaced: '2026-06-13'
+type: curiosity
+connections:
+- CL-001
+- F-001
+status: open

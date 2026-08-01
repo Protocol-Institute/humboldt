@@ -1,0 +1,29 @@
+id: seed-012
+title: 'Suggestivity vs. mastery: the expressive notation trap'
+text: 'Iverson explicitly notes that the suggestiveness of a notation — its power
+
+  to open productive next steps — makes it harder to learn, not easier. This
+
+  inverts the typical complaint about formal notation (too restrictive, too
+
+  opaque). The most generative notations are harder to master because they
+
+  require more judgment, not less: the space of possible moves is large, and
+
+  discriminating among them is a skill that takes time to develop. For protocol
+
+  design, this suggests that more expressive specification formats (e.g., rich
+
+  type systems, temporal logic) may produce better-designed protocols once
+
+  mastered but will be misused during the mastery period — with predictable
+
+  failure modes.'
+source: bibliography/notes/iverson-notation-as-tool.md
+origin: C-012
+surfaced: '2026-06-06'
+type: insight
+connections:
+- CL-001
+- CL-003
+status: open

@@ -6,6 +6,65 @@ Most recent entry first.
 
 ---
 
+## 2026-08-01 (session 25) — Phase 1 output layer: law + bibliography modules, research migration
+
+**Tracks active:** T2 (+ T3 implications deferred to Phase 6)
+**Daemon PID:** 1930 (running, paused through 2026-08-15)
+
+First implementation session of the redesign, run on Opus 4.8 picking up from Fable's
+pre-work. All Phase 1 **[OPUS]** deliverables built and tested; the two **[SONNET]**
+site-page tasks deferred by operator choice.
+
+**Law record module (`agent/laws.py`).** CRUD + validation + the Double Freytag stage
+machine over `laws/L-NNN-*.yaml`. `advance()` moves exactly one stage forward;
+`cycle_back(target)` demotes to whatever a surviving challenge breaks (evidence→valley,
+mechanism→sensemaking, statement→exploration) and re-clamps confidence to the new stage
+cap; history is append-only. Files round-trip through **ruamel.yaml** (installed into the
+venv this session) so the hand-authored folded scalars and inline `# why` comments on
+`related:` survive programmatic writes — load-bearing because the Phase 3 console writes
+these same files. All 7 migrated laws validate; sequence-indent and null-rendering were
+tuned so a load→save cycle is minimal-churn (only real mutations reflow a file).
+
+**Canonical bibliography (`agent/bibliography.py` + `bibliography/bibliography.yaml`).**
+929 entries migrated from three legacy sources by mechanical parsing (no LLM calls): 39
+references.yaml entries (`listed`), 916 shallow reads (`shallow`), 71 deep notes (`deep`).
+Dedup by normalized url→title collapses shallow duplicates and shallow→deep escalations
+(1026 raw → 929). Legacy connected-to tags map to current law ids where unambiguous
+(CL-001→L-003, CL-002→L-006, CL-003→L-007, L-00N→self), raw list preserved in
+`connected_raw`; 221 entries carry law backlinks. arXiv ids yield publication year
+(YYMM→20YY); a body-scan year fallback was removed after it mis-read reading-session dates
+(Simon dated 2026). 3 meta reads tagged (Hamming, Rao/*Tempo*, Kuhn). CLI:
+`humboldt laws {list,show,validate}` and `humboldt bib {list,show,stats,migrate}`.
+
+**Research artifact migration (mechanical, operator-approved).** The 47 `research/c/`
+curiosity items became `laws/seeds/seed-NNN-*.yaml` (content + provenance preserved; a
+README documents the light seed convention). The rest of the old `research/` tree —
+`cl/ ds/ theories/ f/ h/ questions.md` — moved to `research/_archive/` via `git mv` (69
+renames, history preserved); only `agenda.md` stays live. The CL/T/DS content had already
+been folded into the L-records by Fable, so this is pure archival with rollback safety.
+
+**Live-tree safety.** The paused daemon (PID 1930) reads this working tree, and several of
+its Discord-context loaders (`capture.py`, `presence.py`, `discord_client.py`) glob
+`research/cl/`, now empty. Verified they degrade to empty context without crashing
+(`Path.glob` on a missing dir returns `[]`). These stale reads are an accepted transitional
+state — Phase 5 quiet-mode repoints them at `laws/`. The pause (2026-08-15) must hold until
+Phase 5 lands, or the old-code daemon would wake into a half-migrated tree.
+
+Committed as **two commits** per the plan's mechanical/code separation (code+bib-data;
+then the research→archive migration).
+
+**Open (next session):**
+- **Phase 1 [SONNET]:** `/laws/`, `/bibliography/`, extended `/reading/` site pages
+  (`publish_site.py` rework). Until these ship, the public site still shows the old design.
+- **Phase 2 [OPUS]:** `agent/induct.py` + `agent/assess.py` engines against Fable's
+  `prompts/induct.md` + `prompts/assess.md`; then `triage.py`/`reads.py` content/meta rework.
+- `ingest.py` no longer finds the old `research/` chunk types (now archived) and does not
+  yet embed `laws/`/`seeds/`/`bibliography` — extend chunk types when the funnel needs
+  retrieval over the new artifacts.
+- Extend daemon pause past 2026-08-15 if Phase 5 hasn't landed.
+
+---
+
 ## 2026-08-01 (session 24) — Full-system redesign designed; Fable pre-work; exe.dev provisioned
 
 **Tracks active:** T2 (+ T3 implications deferred to Phase 6)

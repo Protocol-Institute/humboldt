@@ -1,0 +1,29 @@
+id: seed-028
+title: C-028-normal-science-anomaly-tolerance
+text: 'Kuhn establishes that normal science tolerates anomalies — puzzles that fail to
+
+  yield — for long periods without triggering crisis. The paradigm provides the
+
+  assurance that the anomaly will eventually be solved by the current framework. This
+
+  is not irrationality; it is what makes sustained puzzle-solving possible. The protocol
+
+  analog is the way compliance cultures treat persistent non-conformances: they are
+
+  categorized as "known issues," "legacy exceptions," or "risk-accepted deviations"
+
+  rather than as signals that the protocol framework itself is wrong. The interesting
+
+  question is what determines when an anomaly crosses from "tolerated puzzle" to
+
+  "crisis-provoking failure" — in science it seems to require that the anomaly touch
+
+  the paradigm''s central commitments, not just its periphery.'
+source: kuhn-structure-of-scientific-revolutions.pdf
+origin: C-028
+surfaced: '2026-06-13'
+type: curiosity
+connections:
+- CL-001
+- CL-003
+status: open

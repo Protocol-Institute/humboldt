@@ -4,6 +4,37 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-08-01 (session 25) — Phase 1 output layer built; research tree migrated
+
+Session: T2 (redesign implementation). Run on Opus 4.8.
+
+**Daemon:** PID 1930 (running; paused through **2026-08-15**). Still old-design code;
+the new modules are CLI-only and not yet wired into the daemon. Reads this working tree
+(now on branch `redesign-2026-08`, mid-migration) — verified it degrades gracefully.
+
+**Completed (Phase 1 [OPUS]):**
+- `agent/laws.py` — law record CRUD, validation, Double Freytag stage machine
+  (one-forward advance, targeted cycle-back, confidence capped by stage), append-only
+  history; ruamel round-trips preserve folded scalars + `# why` comments. All 7 laws valid.
+- `agent/bibliography.py` + `bibliography/bibliography.yaml` — **929** canonical entries
+  migrated from references (39 listed) + shallow reads (819) + deep notes (71); dedup;
+  221 law backlinks; 3 meta reads. `humboldt laws …` / `humboldt bib …` CLI wired.
+- Installed `ruamel.yaml` into the venv.
+
+**Completed (mechanical migration, operator-approved):**
+- 47 `research/c/` items → `laws/seeds/seed-NNN-*.yaml` (+ README).
+- Old `research/` tree (`cl/ ds/ theories/ f/ h/ questions.md`) → `research/_archive/`
+  via `git mv` (69 renames); only `agenda.md` live.
+
+**Open (next session):**
+- Phase 1 [SONNET]: `/laws/`, `/bibliography/`, extended `/reading/` site pages — the
+  public site still shows the old design until these ship
+- Phase 2 [OPUS]: `induct.py` + `assess.py` engines (Fable's prompts already in `prompts/`)
+- `ingest.py` chunk types not yet extended to laws/seeds/bibliography
+- Extend pause past 2026-08-15 if Phase 5 cutover slips
+
+---
+
 ## 2026-08-01 (session 24) — Redesign designed + Fable pre-work; exe.dev VM provisioned
 
 Session: T2 only. Run on Fable; subsequent implementation sessions should use Opus/Sonnet.

@@ -1,0 +1,31 @@
+id: seed-013
+title: Efficiency circularity as a lock-in mechanism
+text: 'Iverson observes that overemphasis on efficiency generates a feedback loop:
+
+  early programming languages were designed around the constraints of early
+
+  computers, and each computer generation was built to serve the programming
+
+  languages of the prior generation. Neither notation nor substrate could
+
+  escape the loop. This is not about programming languages specifically —
+
+  it is a general structure: any system where the notation is designed for
+
+  an existing substrate, and the substrate then adapts to the notation,
+
+  will exhibit this circularity and resist external disruption. Legal systems
+
+  (courts shaped by law, law shaped by courts), database schemas (schemas
+
+  shaped by applications, applications shaped by schemas), standards
+
+  organizations — all may exhibit the same pattern.'
+source: bibliography/notes/iverson-notation-as-tool.md
+origin: C-013
+surfaced: '2026-06-06'
+type: motif
+connections:
+- CL-001
+- C-001
+status: open

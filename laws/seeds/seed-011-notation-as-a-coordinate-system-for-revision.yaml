@@ -1,0 +1,29 @@
+id: seed-011
+title: Notation as a coordinate system for revision
+text: 'Iverson argues that the notation in which a problem is expressed determines
+
+  what solutions are conceivable — not just what is easy to express, but what
+
+  can be thought at all. Applied to protocols: a protocol expressed in a given
+
+  notation (legal code, API spec, standards document) installs a coordinate
+
+  system for all subsequent revision attempts. Revisions that are natural in
+
+  the coordinate system get considered; revisions that require a different
+
+  coordinate system cannot be reached without switching notation first, which
+
+  requires abandoning the expertise accumulated in the old one. This may be
+
+  the primary mechanism for protocol ossification at the representational
+
+  level — prior to any coordination cost or trust investment.'
+source: bibliography/notes/iverson-notation-as-tool.md
+origin: C-011
+surfaced: '2026-06-06'
+type: curiosity
+connections:
+- CL-001
+- C-001
+status: open

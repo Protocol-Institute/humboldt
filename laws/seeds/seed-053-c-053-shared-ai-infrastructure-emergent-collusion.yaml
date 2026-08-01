@@ -1,0 +1,42 @@
+id: seed-053
+title: C-053-shared-ai-infrastructure-emergent-collusion
+text: 'When competing sellers delegate pricing to a shared AI model, standard "responsible"
+
+  deployment practices — configuring for robustness and reproducibility by setting
+
+  low-temperature deterministic outputs — inadvertently produce supracompetitive pricing
+
+  via phase transition. The mechanism: high output fidelity (low temperature) increases
+
+  correlation between competitors'' pricing actions, enabling implicit coordination without
+
+  communication. Below a critical fidelity threshold, competitive pricing is the unique
+
+  stable outcome; above it, the system exhibits bistability. Performance-driven model
+
+  updating creates a self-reinforcing loop — pricing patterns that produce seller
+
+  engagement are reinforced in future recommendations. The result is that practices
+
+  deployed for reliability (determinism, reproducibility) function as protocol-level
+
+  coordination mechanisms. This is a Goodhart/F-003 instance at the infrastructure level:
+
+  the "metric" being optimized (output consistency/reliability) produces emergent collusion
+
+  as a side effect. Framed for protocol research: shared protocol infrastructure, when
+
+  optimized for fidelity/determinism, can generate coordination outcomes no individual
+
+  participant intended or designed. Evidence quality: high (formal game-theoretic model
+
+  with bistability proof, mechanism tractable and realistic).'
+source: arxiv-2601.01279.pdf
+origin: C-053
+surfaced: '2026-06-13'
+type: insight
+connections:
+- F-003
+- CL-002
+- CL-001
+status: open

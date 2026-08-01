@@ -1,0 +1,37 @@
+id: seed-055
+title: C-055-normative-intervention-algorithmic-retraining
+text: 'A platform "sleep reminder" campaign designed to reduce late-night engagement paradoxically
+
+  increased it by 14.75%, with effects persisting weeks after the campaign ended. The
+
+  mechanism: the intervention revealed latent user demand for celebrity content that the
+
+  baseline recommender algorithm had under-supplied. User behavioral responses to the
+
+  campaign became training signals for the post-campaign recommendation policy, reinforcing
+
+  the engagement loops the campaign aimed to mitigate. Normative interventions in
+
+  adaptive algorithmic systems function as forced-exploration mechanisms that permanently
+
+  reshape the system''s policy — not as temporary nudges. This is a Goodhart/F-003
+
+  instance in the governance domain: the intervention measure (campaign content exposure)
+
+  becomes a training signal that the system optimizes against, inverting the intended effect.
+
+  For protocol research: regulatory interventions in adaptive systems may produce durable
+
+  unintended consequences by retraining the system''s underlying optimization target,
+
+  not just by producing surface behavioral change. Evidence quality: high (large-scale
+
+  randomized field experiment on actual platform with granular logs, causal identification).'
+source: arxiv-2606.08265.pdf
+origin: C-055
+surfaced: '2026-06-13'
+type: curiosity
+connections:
+- F-003
+- CL-002
+status: open

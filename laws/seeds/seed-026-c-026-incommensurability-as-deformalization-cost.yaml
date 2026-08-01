@@ -1,0 +1,29 @@
+id: seed-026
+title: C-026-incommensurability-as-deformalization-cost
+text: 'Kuhn argues that the transition between incommensurable paradigms cannot be made
+
+  step-by-step, forced by logic — it requires a gestalt switch, a conversion that
+
+  happens all at once or not at all. If protocol revision is analogous, then the
+
+  difficulty of deformalization (F-002) is not merely a coordination cost but an
+
+  incommensurability cost: the old protocol and the new one literally cannot be
+
+  evaluated against the same standard, because they disagree about what counts as
+
+  evidence, what problems matter, and what a good outcome looks like. Incremental
+
+  "revision" may then be a surface phenomenon masking an underlying revolutionary
+
+  demand — and the resistance to deformalization is structurally the same as
+
+  resistance to paradigm change.'
+source: kuhn-structure-of-scientific-revolutions.pdf
+origin: C-026
+surfaced: '2026-06-13'
+type: curiosity
+connections:
+- F-002
+- CL-001
+status: open
