@@ -43,6 +43,15 @@ def _load_inventory() -> str:
     return "\n\n".join(parts)
 
 
+def _opt(argv: list[str], flag: str) -> str | None:
+    """Return the value following ``flag`` in argv, or None if absent."""
+    if flag in argv:
+        i = argv.index(flag)
+        if i + 1 < len(argv):
+            return argv[i + 1]
+    return None
+
+
 def _session_log_path(slug: str) -> Path:
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     date = datetime.date.today().isoformat()
@@ -911,6 +920,47 @@ def main():
             cmd_references_promote()
         else:
             print(f"Unknown references subcommand: {subcmd}")
+            sys.exit(1)
+    elif cmd == "laws":
+        from . import laws as laws_mod
+        subcmd = rest[0] if rest else "list"
+        if subcmd == "list":
+            stage = _opt(rest, "--stage")
+            status = _opt(rest, "--status")
+            laws_mod.cmd_list(stage=stage, status=status)
+        elif subcmd == "show":
+            if len(rest) < 2:
+                print("Usage: humboldt laws show <L-NNN>")
+                sys.exit(1)
+            laws_mod.cmd_show(rest[1])
+        elif subcmd == "validate":
+            laws_mod.cmd_validate(rest[1] if len(rest) > 1 else "all")
+        else:
+            print(f"Unknown laws subcommand: {subcmd}")
+            print("Available: list, show, validate")
+            sys.exit(1)
+    elif cmd == "bib":
+        from . import bibliography as bib_mod
+        subcmd = rest[0] if rest else "list"
+        if subcmd == "list":
+            year = _opt(rest, "--year")
+            bib_mod.cmd_list(
+                depth=_opt(rest, "--depth"),
+                kind=_opt(rest, "--kind"),
+                year=int(year) if year else None,
+            )
+        elif subcmd == "show":
+            if len(rest) < 2:
+                print("Usage: humboldt bib show <bib-NNNN>")
+                sys.exit(1)
+            bib_mod.cmd_show(rest[1])
+        elif subcmd == "stats":
+            bib_mod.cmd_stats()
+        elif subcmd == "migrate":
+            bib_mod.migrate(dry_run="--dry-run" in rest)
+        else:
+            print(f"Unknown bib subcommand: {subcmd}")
+            print("Available: list, show, stats, migrate")
             sys.exit(1)
     elif cmd == "discord":
         subcmd = rest[0] if rest else ""
