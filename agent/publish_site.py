@@ -15,7 +15,8 @@ from pathlib import Path
 
 _ROOT = Path(__file__).parent.parent
 _SITE = _ROOT / "humboldt-site"
-_PYTHON = "/opt/homebrew/bin/python3"
+_VENV_PYTHON = _ROOT / ".venv" / "bin" / "python3"
+_PYTHON = str(_VENV_PYTHON) if _VENV_PYTHON.exists() else "/opt/homebrew/bin/python3"
 _CF_ACCOUNT_ID = "7e8c7969b2464d23795c555bc6a32af8"
 _CF_PROJECT = "humboldt"
 

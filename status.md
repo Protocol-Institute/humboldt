@@ -23,10 +23,12 @@ still old-design code, not touched.
   have crashed the next `publish-site`); chat system prompt's law inventory rebuilt from
   `laws/*.yaml` (was silently reading the same archived dirs → empty inventory).
 - Built + smoke-tested locally (local HTTP server + browser pass on all six pages).
-  **Not deployed** — operator to confirm before `publish-site` makes this live.
+  Deployed (operator-approved) — fixed `agent/publish_site.py`'s hardcoded system-Python
+  interpreter (broke on the new `ruamel.yaml` dep, venv-only) along the way. `/laws/`,
+  `/bibliography/`, `/reading/` verified live on humboldt.protocol-institute.org.
 
 **Open (next session):**
-- Deploy decision, then **Phase 2 [OPUS]:** `induct.py` + `assess.py` engines.
+- **Phase 2 [OPUS]:** `induct.py` + `assess.py` engines.
 - `ingest.py` chunk types still not extended to laws/seeds/bibliography.
 - Extend pause past 2026-08-15 if Phase 5 cutover slips.
 

@@ -53,12 +53,20 @@ at the new pages instead of the retired research status page.
 Built and smoke-tested locally (`build.py` + a local HTTP server + browser passes):
 all six changed/new pages render, stage/depth/kind filters and the bibliography search
 box work, `<details>` expansion works, no unresolved template artifacts, balanced
-`<div>` tags. Not yet deployed to CF Pages — the operator should confirm before a
-`publish-site` run makes this live on humboldt.protocol-institute.org (929 bibliography
-entries + 916 shallow reads is a large visible change to the public site).
+`<div>` tags.
+
+**Deploy (operator-approved).** `publish_site()`'s `python3 -m agent.humboldt publish-site`
+failed on first attempt: `agent/publish_site.py` hardcoded `_PYTHON =
+"/opt/homebrew/bin/python3"` (the system interpreter, per `Code/CLAUDE.md`'s canonical-
+Python convention) to run `build.py` as a subprocess, but `ruamel.yaml` — added session 25
+for `agent/laws.py`, now pulled in transitively by `build.py` via `publish_laws.py` — only
+lives in this project's `.venv`, not system-wide. Fixed by pointing `_PYTHON` at
+`.venv/bin/python3` when it exists (falling back to the system interpreter otherwise) —
+the correct fix per this project's own venv-per-project convention, not a global
+`pip install`. Deployed clean after the fix; `/laws/`, `/bibliography/`, `/reading/` all
+verified 200 live on humboldt.protocol-institute.org.
 
 **Open (next session):**
-- Deploy decision: run `publish-site` (or `--dry-run` first) once approved.
 - **Phase 2 [OPUS]:** `agent/induct.py` + `agent/assess.py` engines against Fable's
   `prompts/induct.md` + `prompts/assess.md`; then `triage.py`/`reads.py` content/meta
   rework.
