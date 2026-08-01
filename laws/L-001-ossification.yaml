@@ -1,0 +1,117 @@
+id: "L-001"
+title: "Protocol Ossification Under Adoption Pressure"
+slug: "ossification"
+stage: heavy-lift
+status: active
+origin: discovered
+source: null
+confidence: supported
+
+statement: >
+  Protocols that achieve widespread adoption become progressively harder to modify,
+  independent of the quality of proposed improvements, because the cost of coordinating
+  change grows superlinearly with the number of conforming implementations.
+
+mechanism: >
+  Each conforming implementation represents a sunk cost in the existing protocol.
+  Backward-incompatible change requires simultaneous coordination of all
+  implementations. Coordination cost is superlinear in the number of parties (see
+  Metcalfe's Law). The protocol becomes a coordination trap: widely used precisely
+  because of its properties, and now locked into those properties by that very usage.
+
+justification: >
+  The founding arc of the research program (DS-001). The cheap trick — adoption and
+  adaptability are in structural tension; adoption is a trap, not just a success
+  metric — emerged from juxtaposing TCP/IP transition history with network-effects
+  reasoning. Sensemaking rejected the generic "network effects create lock-in" framing
+  (explains continued use, not resistance to wanted change) in favor of the coordination
+  cost account: the cost is not the change but coordinating the transition, and that
+  cost grows faster than any individual implementation's stake. What makes the law
+  compelling is its domain independence: social etiquette and common law cases behave
+  identically to TCP/IP despite entirely different technical substrates. The TLS
+  counterexample sharpened scope rather than weakening the law — asymmetric power can
+  accelerate transitions, so the law applies to distributed, non-hierarchical adoption.
+
+examples:
+  - domain: "software (internet protocols)"
+    description: "TCP/IP core structure: decades of redesign proposals abandoned;
+      extensions land via optional fields only. HTTP/1.1 → HTTP/2 required significant
+      coordination apparatus (ALPN, explicit upgrade paths)."
+    source: "PI corpus: TCP/IP transition history, HTTP/2 adoption timeline"
+  - domain: "financial infrastructure"
+    description: "SWIFT ISO 20022 migration: multi-decade timeline despite both sides
+      wanting the change."
+    source: "SWIFT ISO 20022 migration documentation"
+  - domain: "legal"
+    description: "Common law precedent stickiness: landmark cases slow to overturn even
+      when clearly outdated."
+    source: "Common law precedent literature"
+  - domain: "social"
+    description: "Formal greeting/etiquette protocols (e.g., business card conventions
+      in Japan) persist under modernization pressure."
+    source: null
+
+counterexamples:
+  - description: "TLS version deprecation moved faster than the superlinear prediction."
+    resolution: "Asymmetric power (browser vendors forcing transition) can accelerate
+      beyond the naive prediction. Scoping condition: the law applies to distributed,
+      non-hierarchical adoption. Whether asymmetric power is a general law modifier
+      remains open."
+    source: null
+  - description: "BGP optional attributes and TCP options show extension without
+      coordination."
+    resolution: "Additive, backward-compatible changes — the law is about incompatible
+      change."
+    source: null
+  - description: "Closed corporate standards (e.g., SAP internal formats) update in
+      lockstep."
+    resolution: "Lacks the distributed adoption structure the law applies to."
+    source: null
+
+open_questions:
+  - "Is there a threshold adoption level beyond which coordination cost becomes
+    prohibitive, or is the gradient smooth?"
+  - "Is asymmetric power (enforcement nodes) a general modifier of the law or a
+    special case exclusion?"
+
+falsification: >
+  A protocol achieving wide adoption that was subsequently modified — requiring true
+  backward-incompatibility — with proportionally less difficulty than a narrowly-adopted
+  protocol. Additive-only changes and closed ecosystems that update in lockstep do not
+  qualify.
+
+references:
+  - "PI corpus: TCP/IP transition history papers"
+  - "SWIFT ISO 20022 migration documentation"
+  - "Common law precedent literature"
+seeds: []
+related:
+  - "L-003"  # formalization typically precedes/compounds ossification
+  - "L-005"  # Gall — working systems resist restructuring (mechanism overlap)
+  - "L-006"  # coordination cost is the shared mechanism substrate
+
+triggers:
+  advance: >
+    Separation artifact complete: a publishable writeup of the law drafted and
+    reviewed (the separation event). The evidence base already spans 4+ independent
+    domains; the artifact is what stands between heavy-lift and retrospective.
+  challenge: >
+    A documented case of a widely-adopted, distributed protocol undergoing
+    backward-incompatible modification at sublinear coordination cost without an
+    asymmetric-power enforcer — survives one assessment pass.
+
+history:
+  - {date: "2026-05-20", event: created, detail: "Session 1 corpus investigation
+      ('protocol ossification'); registered as seed law L-001. Cheap trick: adoption
+      and adaptability in structural tension (DS-001)."}
+  - {date: "2026-05-20", event: evidence, detail: "Valley evidence compiled across
+      software, financial, legal, social domains; TLS asymmetric-power scoping
+      identified; heavy-lift formulation completed same session (retrospectively
+      recognized as too fast — see DS-001 retrospective)."}
+  - {date: "2026-06-06", event: edited, detail: "Session 14 schema redesign:
+      reclassified F-001 → T-001 (no separation event had occurred; 'established'
+      abolished)."}
+  - {date: "2026-06-13", event: evidence, detail: "Rittel & Webber deep read: wicked
+      problems framing bears on why coordination cost resists engineering solutions."}
+  - {date: "2026-08-01", event: migrated, detail: "Unified law record L-001 created
+      from T-001 + DS-001 (2026-08 redesign); typed artifacts retired."}

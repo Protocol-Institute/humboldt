@@ -1,0 +1,118 @@
+id: "L-003"
+title: "The Formalization Ratchet"
+slug: "formalization-ratchet"
+stage: valley
+status: active
+origin: discovered
+source: null
+confidence: provisional
+
+statement: >
+  Under conditions of stress, conflict, or scaling pressure, informal coordination
+  norms tend to be replaced by explicit protocols, and this transition is nearly
+  irreversible: once formalized, informal capacity atrophies — people stop developing
+  the contextual knowledge and trust that made informality work — so reversion
+  requires rebuilding a capacity that was actively degraded, not merely switching
+  back to a prior mode.
+
+mechanism: >
+  Informal coordination works through shared context and trust, which has carrying
+  capacity limits. Under stress, explicit protocols substitute for shared context —
+  they work without trust and without shared background knowledge. Once in place,
+  the informal capacity atrophies: the practice of developing contextual knowledge
+  stops, and the social substrate (relationships, shared language, implicit norms)
+  that supported informality degrades. Reversion is therefore not a simple reversal
+  but a reconstruction task, executed under conditions hostile to that reconstruction.
+
+justification: >
+  The cheap trick (DS-003) separates "why do protocols persist?" from "why can't you
+  go back?" — the answer to the second is that the informal alternative no longer
+  exists, not that the formal protocol is locked in. Sensemaking rejected generic path
+  dependence (doesn't explain why the informal option specifically decays rather than
+  remaining available) for the atrophy account: informal capacity requires active
+  maintenance, and formalization starves it. Evidence holds across four domains, with
+  the strongest signal being practitioners' phenomenology — customary law and clinical
+  judgment described as genuinely unavailable after codification, not suppressed. The
+  counterexamples cluster around two conditions (externally imposed protocols +
+  personnel continuity), which is itself law-shaped: the distinction either becomes a
+  scoping condition or collapses the counterexamples.
+
+examples:
+  - domain: "organizational"
+    description: "Startup → corporate transitions consistently show degraded informal
+      capacity post-formalization, not just formal preference."
+    source: "Organizational sociology: startup lifecycle literature"
+  - domain: "legal (international)"
+    description: "Customary international law practitioners describe tacit knowledge
+      of customary practice as genuinely unavailable after treaty codification."
+    source: "Customary international law → treaty regime literature"
+  - domain: "medical"
+    description: "Clinical judgment capacity declines in over-protocolized settings;
+      physicians report difficulty trusting their own judgment after extended protocol
+      dependence."
+    source: "Clinical judgment vs. evidence-based protocol literature"
+  - domain: "software"
+    description: "Informal API convention maintainers report inability to return to
+      informal coordination after versioned specification was imposed."
+    source: null
+
+counterexamples:
+  - description: "Post-crisis informality observed in tight-knit teams."
+    resolution: "Typically involves externally imposed protocols (not internally
+      developed) AND personnel continuity — both favor informal capacity retention.
+      Provisional scoping: the law applies to internally developed protocols. OPEN —
+      distinction not yet tested against targeted retrieval."
+    source: null
+  - description: "Open-source projects maintain informal coordination alongside formal
+      specifications."
+    resolution: "Likely parallel maintenance (informal capacity actively cultivated
+      alongside formal structure) rather than reversion. OPEN — needs investigation."
+    source: null
+
+open_questions:
+  - "What determines the rate of informal capacity atrophy — duration of
+    formalization, or depth of protocol adoption?"
+  - "Is the internally-developed vs. externally-imposed distinction a law modifier or
+    a full scoping condition?"
+  - "Is there a threshold of formalization intensity below which informal capacity is
+    preserved (the OSS parallel-maintenance pattern)?"
+
+falsification: >
+  Documented cases of organizations successfully reverting from formal protocol to
+  informal coordination after the stressor passed, with personnel continuity (ruling
+  out social substrate reset via turnover).
+
+references:
+  - "Organizational sociology: startup → corporate lifecycle literature"
+  - "Customary international law → treaty regime transition literature"
+  - "Clinical judgment → evidence-based protocol literature"
+seeds: []
+related:
+  - "L-001"  # formalization typically precedes ossification; compounding resistance
+  - "L-007"  # both are ratchet structures (asymmetric forward/backward motion)
+
+triggers:
+  advance: >
+    Either (a) a strong reversion counterexample found — successful reversion with
+    personnel continuity intact — which refines or falsifies the law; or (b) the
+    internally-developed vs. externally-imposed distinction survives targeted
+    retrieval and becomes a scoping condition, closing the main open question.
+    Either result enables the heavy lift.
+  challenge: >
+    A documented internal-protocol reversion case with personnel continuity —
+    survives one assessment pass (this is simultaneously the falsification test).
+
+history:
+  - {date: "2026-05-20", event: created, detail: "Opened as arc DS-003. Cheap trick:
+      the ratchet resists backward motion because the informal alternative no longer
+      exists (atrophy, not lock-in)."}
+  - {date: "2026-05-20", event: evidence, detail: "Valley evidence across
+      organizational, legal, medical, software domains; counterexample cluster
+      (external imposition + personnel continuity) identified."}
+  - {date: "2026-06-06", event: edited, detail: "Session 14 schema redesign:
+      registered as CL-001 (valley phase, productive)."}
+  - {date: "2026-06-13", event: evidence, detail: "Rittel & Webber deep read
+      materially strengthens the valley case (wicked-problem framing of
+      de-formalization as a reconstruction task)."}
+  - {date: "2026-08-01", event: migrated, detail: "Unified law record L-003 created
+      from CL-001 + DS-003 (2026-08 redesign)."}

@@ -1,0 +1,118 @@
+id: "L-006"
+title: "Coordination Cost Conservation"
+slug: "coordination-cost-conservation"
+stage: valley
+status: active
+origin: discovered
+source: null
+confidence: provisional
+
+statement: >
+  The total coordination cost in a protocol system is conserved across protocol layer
+  transitions — when a protocol redesign reduces coordination cost at one layer, it
+  increases it at adjacent layers by at least the same amount.
+
+mechanism: >
+  Coordination cost is the cost borne by participants in achieving the coordination a
+  protocol is designed to enable. Protocol redesign redistributes this cost between
+  layers rather than eliminating it — the thermodynamics analogy: energy is conserved
+  across transformations; coordination cost is conserved across layer transitions.
+  A "simpler" protocol at one layer is simple because it has pushed complexity — and
+  therefore coordination cost — somewhere else.
+
+justification: >
+  If true, this is a conservation law — a far stronger claim than "protocol changes
+  have tradeoffs," and conservation laws are rare and valuable because they set hard
+  limits on what protocol design can achieve (DS-006). Sensemaking rejected
+  "complexity is conserved" (not well-defined) for coordination cost specifically,
+  which is in principle measurable (transaction costs, time, error rates, overhead).
+  The evidence pattern is consistent — every examined "simplification" shows cost
+  reappearing at an adjacent layer — but the evidence base is currently
+  software-concentrated, and the strong claim (conservation, not tendency) rests on
+  an unresolved crux: whether automation genuinely eliminates coordination cost or
+  merely moves it to the machine layer. The law is held at provisional until the
+  crux resolves.
+
+examples:
+  - domain: "software (network stack)"
+    description: "TCP/IP vs. OSI: TCP/IP simplified the network layer; application
+      layer complexity (HTTP, SMTP, etc.) substantially exceeds OSI's application
+      design — cost moved up-stack."
+    source: "OSI vs. TCP/IP comparison literature"
+  - domain: "software (identity)"
+    description: "OAuth simplified per-application authentication; moved complexity
+      to identity-provider infrastructure and permission-management UX — more total
+      coordination work, differently concentrated."
+    source: "OAuth and identity infrastructure literature"
+  - domain: "software (naming)"
+    description: "DNS simplified application-layer address resolution; produced
+      coordination complexity in DNS infrastructure (DNSSEC, anycast, registrar
+      coordination)."
+    source: null
+  - domain: "software (APIs)"
+    description: "REST vs. SOAP/WS-*: simplified protocol design; moved cost to
+      documentation, versioning, backward-compatibility maintenance."
+    source: null
+
+counterexamples:
+  - description: "Compression protocols (DEFLATE/gzip) appear to genuinely reduce
+      cost without redistribution."
+    resolution: "Compression extracts information-theoretic efficiency — a different
+      mechanism; may not be a coordination cost phenomenon at all. Partially
+      resolved, kept on record."
+    source: null
+  - description: "No documented case yet of genuine total-cost reduction — but
+      absence of evidence is not evidence of absence."
+    resolution: "OPEN — this is the standing falsification search."
+    source: null
+
+open_questions:
+  - "THE CRUX: if automation moves coordination cost to machines, does it count as
+    eliminated or redistributed? If machine coordination cost counts, conservation
+    holds; if only human cost counts, automation is a genuine escape. This single
+    question determines the law's fate."
+  - "Strict conservation or tendency? Protocol systems are not closed systems —
+    external investment may genuinely reduce total cost."
+  - "What unit of account allows coordination cost to be measured across layers?
+    Without one, the conservation claim is untestable."
+  - "Cross-domain breadth: all current evidence is software. Do organizational or
+    legal layer-transitions show the same signature?"
+
+falsification: >
+  A protocol redesign that demonstrably reduced total system coordination cost — not
+  just moved it — sustained over time after full adoption. The automation case is the
+  primary candidate for this test.
+
+references:
+  - "OSI vs. TCP/IP comparison literature"
+  - "OAuth / identity infrastructure literature"
+  - "Transaction cost economics (Coase) literature"
+seeds: []
+related:
+  - "L-001"  # coordination cost is the mechanism substrate of ossification
+
+triggers:
+  advance: >
+    The automation crux resolved in either direction: a principled argument that
+    machine coordination cost counts (conservation holds), or a documented case of
+    genuine elimination via automation (law fails or gets scoped). Either closes the
+    valley. Secondary requirement before heavy lift: at least one non-software domain
+    example (independence of domains).
+  challenge: >
+    A demonstrated total-cost reduction sustained after full adoption — survives one
+    assessment pass (this is the falsification test itself).
+
+history:
+  - {date: "2026-05-20", event: created, detail: "Opened as H-001, then arc DS-006.
+      Cheap trick: coordination cost behaves like energy — redistributable, not
+      destructible."}
+  - {date: "2026-05-20", event: evidence, detail: "Software-domain evidence compiled:
+      TCP/IP-OSI, OAuth, DNS, REST. Automation crux identified as the decisive open
+      question."}
+  - {date: "2026-06-06", event: edited, detail: "Session 14 schema redesign:
+      registered as CL-002 (valley, productive)."}
+  - {date: "2026-06-24", event: evidence, detail: "Session 20/21 batch reads flagged
+      2402.08128, 2512.07526, 2602.22041 for CL-002/Q-011/Q-012 follow-up (not yet
+      folded in)."}
+  - {date: "2026-08-01", event: migrated, detail: "Unified law record L-006 created
+      from CL-002 + DS-006 (2026-08 redesign)."}

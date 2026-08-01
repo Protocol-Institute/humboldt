@@ -1,0 +1,119 @@
+id: "L-005"
+title: "Gall Generalization: Working Systems Resist Restructuring"
+slug: "gall-working-systems"
+stage: heavy-lift
+status: active
+origin: imported
+source: "John Gall (1975), Systemantics — 'A complex system that works is invariably
+  found to have evolved from a simple system that worked.'"
+confidence: provisional
+
+statement: >
+  A complex protocol system that functions correctly cannot be safely replaced from
+  scratch; it must be evolved from a simpler working protocol. Attempts to replace
+  working complex protocol systems from scratch reliably fail — or produce indefinite
+  coexistence of old and new rather than replacement.
+
+mechanism: >
+  Working complex systems embed a large number of implicit solutions to coordination
+  problems that are invisible in their specification — accumulated through use and
+  adaptation, not designed. For protocols the problem is structurally worse than for
+  general systems: the implicit solutions are distributed across all adopters'
+  practices, tacit and unsurveyable. A from-scratch replacement must rediscover them
+  through deployment failure, which cannot happen before adoption; the new protocol
+  fails in unexpected ways, and the old one persists because the new one cannot be
+  trusted. Characteristic outcome: indefinite coexistence.
+
+justification: >
+  Imported because protocol systems are complex coordinated systems by definition,
+  spanning independent agents who have adapted to the protocol in ways they cannot
+  fully articulate (DS-005). The protocol-theoretic version adds two things to Gall:
+  (1) the distributed-implicit-solutions mechanism — the solutions live in all
+  adopters' practices, not one organization, making from-scratch redesign structurally
+  harder; (2) coexistence-rather-than-replacement as the characteristic empirical
+  signature (IPv4/IPv6 is the canonical living case). Confidence held at provisional
+  rather than supported for a methodological reason: the import was made without a
+  deep read of the source text (Systemantics PDF unavailable) — a recorded gap that
+  the heavy lift must close.
+
+examples:
+  - domain: "software (internet protocols)"
+    description: "IPv4 → IPv6: from-scratch redesign, 30+ years of 'transition,' old
+      protocol still dominant — coexistence, not replacement."
+    source: null
+  - domain: "software (applications)"
+    description: "Netscape rewrite (2000): canonical big-bang failure; the product
+      never recovered market position."
+    source: null
+  - domain: "organizational"
+    description: "Post-Soviet institutional redesign literature: extensively negative
+      on from-scratch cases versus incremental reform."
+    source: null
+  - domain: "urban"
+    description: "Brasília and Chandigarh: designed from scratch; functional but
+      required retrofit of organic features; adoption by mandate, not choice."
+    source: null
+  - domain: "financial"
+    description: "Clearing systems (DTCC lineage) evolved from existing settlement
+      practices; from-scratch clearing architectures largely abandoned for
+      incremental reform."
+    source: null
+
+counterexamples:
+  - description: "Some from-scratch replacements succeed."
+    resolution: "Success conditions — small well-understood old system, controlled
+      rollout, small homogeneous adopter population — are precisely the conditions
+      the law excludes (complex, distributed adoption)."
+    source: null
+  - description: "TCP/IP itself replaced ARPANET protocols."
+    resolution: "Deployed while adoption was small and DARPA-coordinated; gradual,
+      controlled — not from-scratch replacement under uncontrolled adoption."
+    source: null
+  - description: "Protocols with explicit sunset mechanisms might reduce the problem."
+    resolution: "OPEN — empirically, sunset mechanisms are rarely honored on
+      schedule."
+    source: null
+
+open_questions:
+  - "Is coexistence-rather-than-replacement the general outcome of from-scratch
+    protocol replacement attempts? (Candidate protocol-specific sub-pattern.)"
+  - "Is Gall's law about the implicit-solutions problem alone, or compounded by
+    adoption momentum (L-001)? The two may be inseparable in practice."
+
+falsification: >
+  A successful from-scratch replacement of a complex working protocol system in which
+  the old protocol is actually deprecated and replaced — not merely coexisting —
+  within a reasonable timeframe, under distributed, uncontrolled adoption.
+
+references:
+  - "Gall (1975), Systemantics — SOURCE NOT YET DEEP-READ (PDF unavailable; recorded
+    methodological gap)"
+  - "IPv6 transition literature"
+  - "Post-Soviet institutional reform literature"
+seeds: []
+related:
+  - "L-001"  # adoption momentum compounds the implicit-solutions problem
+  - "L-003"  # evolved-vs-designed parallels informal-vs-formalized
+
+triggers:
+  advance: >
+    Two conditions, both required: (a) Systemantics deep read completed (source text,
+    not training knowledge — closes the recorded import gap; confidence may then rise
+    to supported); (b) coexistence-pattern evidence survey completed. Then the
+    separation artifact (published protocol-theoretic writeup) gates retrospective.
+  challenge: >
+    A documented successful from-scratch replacement of a complex, distributed
+    protocol system with genuine deprecation of the old protocol — survives one
+    assessment pass.
+
+history:
+  - {date: "2026-05-20", event: created, detail: "Imported as arc DS-005; original
+      registration as L-005-gall-generalization. Import made WITHOUT source deep read
+      (Systemantics unavailable) — gap recorded at import time."}
+  - {date: "2026-05-20", event: evidence, detail: "Protocol-theoretic evidence across
+      software, organizational, urban, financial domains; coexistence signature
+      identified as the protocol-specific addition."}
+  - {date: "2026-06-06", event: edited, detail: "Session 14 schema redesign:
+      reclassified → T-004."}
+  - {date: "2026-08-01", event: migrated, detail: "Unified law record L-005 created
+      from T-004 + DS-005 (2026-08 redesign); original numbering restored."}
