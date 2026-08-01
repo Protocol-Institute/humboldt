@@ -19,6 +19,7 @@ import markdown as md_lib
 
 _ROOT = Path(__file__).parent.parent
 _NOTES_DIR = _ROOT / "bibliography" / "notes"
+_SHALLOW_DIR = _ROOT / "bibliography" / "shallow-reads"
 _WEBSITE_REPO = _ROOT.parent / "website"
 _OUTPUT_DIR = _WEBSITE_REPO / "humboldt-reading"
 _OUTPUT_HTML = _OUTPUT_DIR / "index.html"
@@ -395,6 +396,124 @@ def _build_html(notes: list[dict]) -> str:
   </footer>
 </body>
 </html>"""
+
+
+# ── Shallow reads (humboldt-site /reading/ extension, plan §4.2) ──────────────
+#
+# Adds a compact, date-grouped shallow-read section alongside the existing deep-read
+# cards. Kept separate from _render_note/_render_card (used by the legacy website
+# publish_reading() path above) — shallow reads are lighter records (819 files) and
+# get a lighter rendering: one line + a short excerpt, not the full note body.
+
+def _parse_shallow_light(path: Path) -> dict:
+    from agent import bibliography as bib_mod
+    from agent import laws as laws_mod
+
+    text = path.read_text()
+    title_m = re.search(r"^#\s+(.+)$", text, re.MULTILINE)
+    title = title_m.group(1).strip() if title_m else path.stem
+
+    source_m = re.search(r"^\*\*Source:\*\*\s*(.+)$", text, re.MULTILINE)
+    source = source_m.group(1).strip() if source_m else ""
+    url = bib_mod._first_url(source)
+
+    date_m = re.search(r"^\*\*Date read:\*\*\s*(\S+)", text, re.MULTILINE)
+    date_read = date_m.group(1).strip() if date_m else ""
+
+    conn_m = re.search(r"^\*\*Connected to:\*\*\s*(.+)$", text, re.MULTILINE)
+    raw_tokens = re.split(r"[,\s]+", conn_m.group(1).strip()) if conn_m else []
+    current_ids = {l["id"] for l in laws_mod.load_all()}
+    mapped, _raw = bib_mod._map_law_tokens(raw_tokens, current_ids)
+
+    esc_m = re.search(r"^\*\*Escalation:\*\*\s*(\S+)", text, re.MULTILINE)
+    escalation = esc_m.group(1).strip() if esc_m else ""
+
+    took = _extract_section(text, "What I took from it")
+    took = re.sub(r"\s+", " ", took).strip()
+    excerpt = (took[:280].rsplit(" ", 1)[0] + "…") if len(took) > 280 else took
+
+    return {
+        "stem": path.stem,
+        "title": title,
+        "url": url,
+        "date_read": date_read,
+        "laws": mapped,
+        "escalation": escalation,
+        "excerpt": excerpt,
+    }
+
+
+def _render_shallow_item(item: dict) -> str:
+    title_html = (
+        f'<a href="{item["url"]}" target="_blank" rel="noopener">{item["title"]}</a>'
+        if item["url"] else item["title"]
+    )
+    laws_html = "".join(
+        f'<a class="law-chip" href="/laws/#law-{lid}">{lid}</a>' for lid in item["laws"]
+    )
+    star = '<span class="shallow-star" title="Escalated to deep read">★</span>' if item["escalation"] == "escalate-to-deep" else ""
+    return f"""
+      <div class="shallow-item" id="shallow-{item['stem']}">
+        <p class="shallow-title">{title_html} {star}{laws_html}</p>
+        <p class="shallow-excerpt">{item['excerpt']}</p>
+      </div>"""
+
+
+def build_shallow_section() -> tuple[str, int]:
+    """Returns (body_html, count) — a date-grouped, collapsible shallow-read section."""
+    paths = sorted((p for p in _SHALLOW_DIR.glob("*.md") if not p.name.startswith("_")), reverse=True)
+    if not paths:
+        return "", 0
+
+    items = [_parse_shallow_light(p) for p in paths]
+    by_date: dict[str, list[dict]] = {}
+    for it in items:
+        by_date.setdefault(it["date_read"] or "undated", []).append(it)
+
+    groups_html = []
+    for date_str in sorted(by_date, reverse=True):
+        group_items = by_date[date_str]
+        try:
+            label = datetime.strptime(date_str, "%Y-%m-%d").strftime("%-d %B %Y")
+        except ValueError:
+            label = date_str
+        rows = "".join(_render_shallow_item(it) for it in group_items)
+        groups_html.append(f"""
+    <details class="shallow-date-group">
+      <summary>{label} <span class="shallow-date-count">({len(group_items)})</span></summary>
+      <div class="shallow-items">{rows}
+      </div>
+    </details>""")
+
+    body = f"""\
+    <div class="shallow-section">
+      <p class="section-label">Shallow reads — {len(items)} sources, one-paragraph synthesis notes from triage</p>
+{''.join(groups_html)}
+    </div>"""
+    return body, len(items)
+
+
+_SHALLOW_CSS = """
+    .shallow-section { margin-top: 3rem; }
+    .shallow-date-group {
+      border-top: 1px solid #eee; padding-top: 0.5rem; margin-top: 0.75rem;
+    }
+    .shallow-date-group summary {
+      cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+      color: #2A6B6B; padding: 0.4rem 0; user-select: none;
+    }
+    .shallow-date-group summary:hover { color: #1d4f4f; }
+    .shallow-date-count { color: #999; font-weight: 400; }
+    .shallow-items { padding: 0.25rem 0 0.75rem 1rem; }
+    .shallow-item { margin-bottom: 0.9rem; }
+    .shallow-title { font-size: 0.92rem; margin-bottom: 0.15rem; }
+    .shallow-star { color: #a5620a; margin: 0 0.2rem; }
+    .shallow-excerpt { font-size: 0.85rem; color: #666; max-width: 68ch; margin-bottom: 0; }
+    .law-chip {
+      display: inline-block; background: #edf5f5; color: #1d4f4f; border-radius: 3px;
+      padding: 0.05rem 0.4rem; margin-left: 0.35rem; font-size: 0.78rem;
+    }
+"""
 
 
 # ── Entry point ───────────────────────────────────────────────────────────────

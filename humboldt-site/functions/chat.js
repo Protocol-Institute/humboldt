@@ -187,42 +187,43 @@ source says. Entries are permanent.*
 
 ---
 
-## Research inventory
+## Law inventory
 
-**Candidate laws (valley phase):**
+**Valley:**
 
-**CL-001** (candidate): 
+**L-003** (provisional): The Formalization Ratchet
   Under conditions of stress, conflict, or scaling pressure, informal coordination norms tend to be replaced by explicit protocols, and this transition is nearly irreversible: once formalized, informal capacity atrophies — people stop developing the contextual knowledge and trust that made informality
 
-**CL-002** (candidate): 
+**L-006** (provisional): Coordination Cost Conservation
   The total coordination cost in a protocol system is conserved across protocol layer transitions — when a protocol redesign reduces coordination cost at one layer, it increases it at adjacent layers by at least the same amount.
 
-**CL-003** (candidate): 
+**L-007** (provisional): Trust Ratchet in Safety-Critical Protocols
   Trust in safety-critical protocols accumulates as a function of operational age and stability rather than technical correctness, creating a systematic bias toward under-updating when technical conditions change. Safety-critical protocols are most trusted precisely when they have not been tested unde
 
-**Registered laws (heavy lift / retrospective):**
-- T-001: Protocol Ossification Under Adoption Pressure — Protocols that achieve widespread adoption become progressively harder to modify, independent of the quality of proposed improvements, because the cost of coordinating change grows superlinearly with 
-- T-002: Hardness Asymmetry — In any protocol with a verification function and an execution or forgery function, the verification cost and the circumvention cost are structurally decoupled and can differ by arbitrary orders of mag
-- T-003: Goodhart Generalization: Metric Capture — Any protocol that uses a measurable proxy for an unmeasurable goal will, under sufficient optimization pressure, cause participants to optimize the proxy in ways that degrade the underlying goal. The 
-- T-004: Gall Generalization: Working Systems Resist Restructuring — A complex protocol system that functions correctly cannot be safely redesigned from scratch; it must be evolved from a simpler working system. Attempts to design complex protocol systems directly, wit
+**Heavy Lift:**
 
-## Most recent notebook entry (2026-06-06)
+**L-001** (supported): Protocol Ossification Under Adoption Pressure
+  Protocols that achieve widespread adoption become progressively harder to modify, independent of the quality of proposed improvements, because the cost of coordinating change grows superlinearly with the number of conforming implementations.
 
-# Lab Notebook — 2026-06-06
+**L-002** (supported): Hardness Asymmetry
+  In any protocol with a verification function and an execution or forgery function, the verification cost and the circumvention cost are structurally decoupled and can differ by arbitrary orders of magnitude. Protocol robustness is determined by this ratio, not by the absolute cost of either function
 
-*Session 14. Tracks 1, 2, and 3 active.*
+**L-004** (supported): Goodhart Generalization: Metric Capture
+  Any protocol that uses a measurable proxy for an unmeasurable goal will, under sufficient optimization pressure, cause participants to optimize the proxy in ways that degrade the underlying goal. The degree of degradation is proportional to the optimization pressure and inversely proportional to the
+
+**L-005** (provisional): Gall Generalization: Working Systems Resist Restructuring
+  A complex protocol system that functions correctly cannot be safely replaced from scratch; it must be evolved from a simpler working protocol. Attempts to replace working complex protocol systems from scratch reliably fail — or produce indefinite coexistence of old and new rather than replacement.
+
+## Most recent notebook entry (2026-07-24)
+
+# Lab Notebook — 2026-07-24
+
+*Daemon-generated entries.*
+
 
 ---
 
-## Pre-session activity (since 2026-06-03 notebook)
-
-Since the last notebook entry, the daemon ran two conversation reviews on 2026-06-03 and produced notebook entries on protocols as temporal structure and the street food market as a case where ossification and formalization diverge. Those entries raised the requisite-variety angle and the question of whether the Turing Award lecture corpus might be a systematic source of candidate laws. Both threads came back in today's inbox pass.
-
----
-
-## Session work
-
-### Schema redesign: naming things correctly
+## Ideas from Discord — 2026-07-23 – 2026-07-24
 
 …
 

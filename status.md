@@ -4,6 +4,34 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-08-01 (session 26) — Phase 1 [SONNET] site pages: /laws/, /bibliography/, extended /reading/
+
+Session: T2 (redesign implementation). Run on Sonnet 5.
+
+**Daemon:** PID 1930 (running; paused through **2026-08-15**). Unchanged this session —
+still old-design code, not touched.
+
+**Completed (Phase 1 [SONNET]):**
+- `agent/publish_laws.py` (new) — `/laws/` encyclopedia page: stage-grouped law cards,
+  JS stage filter, expandable full record, reverse-indexed bibliography citations per law.
+- `agent/publish_bibliography.py` (new) — `/bibliography/` page: all 929 entries,
+  depth/kind filters + live search, linked to `/reading/` and `/laws/`.
+- `agent/publish_reading.py` (extended) — `/reading/` now also renders 916 shallow reads,
+  date-grouped and collapsible, alongside the existing 71 deep-read cards.
+- `humboldt-site/build.py` — nav rewired (`/research/` → `/laws/` + `/bibliography/`);
+  dead `_build_research()` removed (its source dirs were archived session 25 and would
+  have crashed the next `publish-site`); chat system prompt's law inventory rebuilt from
+  `laws/*.yaml` (was silently reading the same archived dirs → empty inventory).
+- Built + smoke-tested locally (local HTTP server + browser pass on all six pages).
+  **Not deployed** — operator to confirm before `publish-site` makes this live.
+
+**Open (next session):**
+- Deploy decision, then **Phase 2 [OPUS]:** `induct.py` + `assess.py` engines.
+- `ingest.py` chunk types still not extended to laws/seeds/bibliography.
+- Extend pause past 2026-08-15 if Phase 5 cutover slips.
+
+---
+
 ## 2026-08-01 (session 25) — Phase 1 output layer built; research tree migrated
 
 Session: T2 (redesign implementation). Run on Opus 4.8.

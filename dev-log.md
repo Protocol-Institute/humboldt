@@ -6,6 +6,70 @@ Most recent entry first.
 
 ---
 
+## 2026-08-01 (session 26) — Phase 1 [SONNET]: /laws/, /bibliography/, extended /reading/ pages
+
+**Tracks active:** T2
+**Daemon PID:** 1930 (running, paused through 2026-08-15)
+
+Completed the two Phase 1 [SONNET] deliverables session 25 deferred, run on Sonnet 5.
+The public site's data layer had actually gone stale two ways since session 25's
+research→archive migration: `_build_research()` in `humboldt-site/build.py` globbed
+`research/cl|h|theories|f`, now empty, which would have crashed the next `publish-site`
+run outright; and `_assemble_system_prompt()` (the chat persona's live inventory) read
+the same dead paths silently (`Path.glob` on a missing dir returns `[]`), so the chat
+system prompt's "candidate laws" section had gone quietly empty. Both are fixed as part
+of this session, not just the two named pages — leaving either broken defeats the point
+of shipping the new pages.
+
+**`agent/publish_laws.py` (new).** Renders `/laws/` from `agent.laws.load_all()`: cards
+grouped by Double Freytag stage with a JS stage-filter bar, badges for stage/confidence/
+status/origin, an expandable "full record" (`<details>`) with mechanism, justification,
+examples, counterexamples, open questions, falsification, triggers, related laws, and
+append-only history. Each law also lists the bibliography entries that cite it — built
+from a *reverse* index over `bibliography.yaml`'s `laws:` field (laws' own `references:`
+stayed free text per session 25's bibliography.py note, so this reverse index is the only
+reliable law↔source link available yet).
+
+**`agent/publish_bibliography.py` (new).** Renders `/bibliography/` from
+`agent.bibliography.load()`: all 929 entries in one table, depth/kind filter buttons +
+live text search (vanilla JS, no server), each title linking to its `/reading/` anchor
+(deep → `#read-<stem>`, shallow → `#shallow-<stem>`) or out to its source URL, and a
+`Laws` column linking into `/laws/#law-<id>`.
+
+**`agent/publish_reading.py` (extended).** Added `build_shallow_section()` — parses all
+916 `bibliography/shallow-reads/*.md` (reusing `bibliography.py`'s `_first_url` /
+`_map_law_tokens` for consistency with the canonical bib), rendered as compact
+title+excerpt items grouped into collapsible per-date `<details>` blocks, newest first.
+Kept fully additive — `_render_note`/`_render_card`/`_CSS` (used by both the new page and
+the legacy, now-deprecated `publish_reading()` → website-repo path) untouched.
+
+**`humboldt-site/build.py` (rewired).** Nav: `/research/` → `/laws/` + `/bibliography/`
+added. `_build_research()` deleted (dead source dirs). `_build_reading()` now appends the
+shallow section and covers both read types in its tagline. `_assemble_system_prompt()`
+rewritten to build the law-inventory block from `laws/*.yaml` grouped by stage, replacing
+the CL/F/T-file reads. About-page copy and the chat page's site-links nav updated to point
+at the new pages instead of the retired research status page.
+
+Built and smoke-tested locally (`build.py` + a local HTTP server + browser passes):
+all six changed/new pages render, stage/depth/kind filters and the bibliography search
+box work, `<details>` expansion works, no unresolved template artifacts, balanced
+`<div>` tags. Not yet deployed to CF Pages — the operator should confirm before a
+`publish-site` run makes this live on humboldt.protocol-institute.org (929 bibliography
+entries + 916 shallow reads is a large visible change to the public site).
+
+**Open (next session):**
+- Deploy decision: run `publish-site` (or `--dry-run` first) once approved.
+- **Phase 2 [OPUS]:** `agent/induct.py` + `agent/assess.py` engines against Fable's
+  `prompts/induct.md` + `prompts/assess.md`; then `triage.py`/`reads.py` content/meta
+  rework.
+- `ingest.py` still doesn't embed `laws/`/`seeds/`/`bibliography` chunk types.
+- Extend daemon pause past 2026-08-15 if Phase 5 hasn't landed.
+- Cosmetic: a handful of shallow-read source files have implausible dates (e.g.
+  "17 January 2025") that surface literally in the new date-grouped /reading/ section —
+  a data quality artifact in the markdown, not a template bug; worth a triage pass later.
+
+---
+
 ## 2026-08-01 (session 25) — Phase 1 output layer: law + bibliography modules, research migration
 
 **Tracks active:** T2 (+ T3 implications deferred to Phase 6)

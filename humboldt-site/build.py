@@ -5,8 +5,9 @@ Generates dist/ from source data in the humboldt repo:
   dist/index.html              — Chat (landing page)
   dist/chat/index.html         — Chat (alias)
   dist/notebook/index.html     — Lab notebook
-  dist/research/index.html     — Research status
-  dist/reading/index.html      — Deep reads
+  dist/laws/index.html         — Law encyclopedia (laws/L-NNN-*.yaml)
+  dist/bibliography/index.html — Canonical bibliography
+  dist/reading/index.html      — Deep + shallow reads
   dist/architecture/index.html — Architecture
   dist/about/index.html        — About
   dist/brain/index.html        — Behavior MDP graph (static, read-only)
@@ -40,7 +41,8 @@ _ASSETS_SRC = _SITE / "assets"
 PAGES = [
     ("/",              "Chat"),
     ("/notebook/",     "Notebook"),
-    ("/research/",     "Research"),
+    ("/laws/",         "Laws"),
+    ("/bibliography/", "Bibliography"),
     ("/reading/",      "Reading"),
     ("/architecture/", "Architecture"),
     ("/about/",        "About"),
@@ -131,9 +133,9 @@ def _build_about() -> None:
 
       <h2>Current inventory</h2>
 
-      <p>As of 2026, Humboldt's active inventory includes three candidate laws under investigation and four falsification monitors for registered laws, following the Double Freytag arc model.</p>
+      <p>Humboldt's single research artifact is the <strong>law record</strong> — one YAML file per candidate law, moving through the Double Freytag arc (exploration → sensemaking → valley → heavy-lift → retrospective) as evidence accumulates. The encyclopedia publishes every stage, clearly badged; falsified laws stay published, labeled, as negative results.</p>
 
-      <p><a href="/research/">View research status →</a></p>
+      <p><a href="/laws/">Browse the law encyclopedia →</a></p>
 
       <h2>Lab notebook</h2>
 
@@ -145,7 +147,7 @@ def _build_about() -> None:
 
       <p>Humboldt operates through a documented set of <strong>behaviors</strong> — named, repeatable procedures for generating hypotheses, testing them, managing research attention, and running autonomously between sessions. It runs as a persistent daemon with a Discord presence in the Protocol Institute community.</p>
 
-      <p><a href="/architecture/">Read the architecture →</a> &nbsp;·&nbsp; <a href="/reading/">Deep reading notes →</a></p>
+      <p><a href="/architecture/">Read the architecture →</a> &nbsp;·&nbsp; <a href="/reading/">Reading notes →</a> &nbsp;·&nbsp; <a href="/bibliography/">Bibliography →</a></p>
 
       <h2>Status</h2>
 
@@ -256,73 +258,36 @@ def _build_notebook() -> None:
     print(f"  Notebook → dist/notebook/index.html ({len(nb_files)} entries)")
 
 
-# ── Research ──────────────────────────────────────────────────────────────────
+# ── Laws (encyclopedia) ─────────────────────────────────────────────────────────
 
-def _build_research() -> None:
+def _build_laws() -> None:
     import sys as _sys
     if str(_ROOT) not in _sys.path:
         _sys.path.insert(0, str(_ROOT))
-    from agent.publish_research import (
-        _build_svg, _phase_rows, _phase_header, _empty, _all_items,
-        _curiosity_carousel,
-        _CSS as _RCSS, _JS as _RJS,
-    )
+    from agent.publish_laws import build_laws_body, _CSS as _LCSS, _JS as _LJS
 
-    all_items = _all_items()
-    svg_html  = _build_svg(all_items)
-    total     = len(all_items)
+    body, total, stage_counts = build_laws_body()
 
-    cur_n, cur_carousel = _curiosity_carousel()
-    sns_n, sns_r = _phase_rows("h",       "status",          "active", name_key="id")
-    val_n, val_r = _phase_rows("cl",      "research_status", "active")
-    hlt_n, hlt_r = _phase_rows("theories","research_status", "active")
-    ret_n, ret_r = _phase_rows("f",       "status",          "active")
-
-    from datetime import datetime as _dt, timezone as _tz
-    now = _dt.now(_tz.utc).strftime("%Y-%m-%d")
-
-    body = f"""\
-    <div class="page-header">
-      <h1>Research Status</h1>
-      <p class="page-tagline">Research inventory by arc phase — the Double Freytag model of inquiry (<em>Tempo</em>, Rao 2011). Hover a dot for details. See also the <a href="/brain/">behavior graph</a> — the Markov process that governs how Humboldt moves between research behaviors.</p>
-    </div>
-
-{svg_html}
-
-    <div class="legend">
-      <div class="legend-item"><span class="dot dot-green"></span> Active / ongoing</div>
-      <div class="legend-item"><span class="dot dot-yellow"></span> Stagnant or superseded</div>
-      <div class="legend-item"><span class="dot dot-red"></span> Blocked or refuted</div>
-    </div>
-
-    {cur_carousel}
-
-    <table class="research-table">
-      <thead>
-        <tr><th style="width:24px"></th><th style="width:70px">ID</th>
-        <th style="width:220px">Name / Type</th><th>Description</th></tr>
-      </thead>
-      <tbody>
-        {_phase_header("Sensemaking",   "Hypotheses — post-cheap-trick; building toward a falsifiable claim", sns_n)}
-        {sns_r}
-        {_phase_header("Valley",        "Candidate Laws — evidence accumulation; no external validation yet", val_n)}
-        {val_r}
-        {_phase_header("Heavy Lift",    "Theories — synthesis committed; approaching separation event", hlt_n)}
-        {hlt_r}
-        {_phase_header("Retrospective", "Falsification Monitors — registered; monitored for counterexamples", ret_n)}
-        {ret_r}
-      </tbody>
-    </table>
-
-    <p class="updated-note">{total} items across all phases. Generated {now}.
-    Source: <a href="https://github.com/Protocol-Institute/humboldt/tree/main/research"
-    target="_blank" rel="noopener">research/ on GitHub</a>.</p>"""
-
-    out = _DIST / "research" / "index.html"
+    out = _DIST / "laws" / "index.html"
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(_page("Research Status", "/research/", body,
-                         extra_css=_RCSS, extra_js=_RJS))
-    print(f"  Research → dist/research/index.html ({total} items)")
+    out.write_text(_page("Law Encyclopedia", "/laws/", body, extra_css=_LCSS, extra_js=_LJS))
+    print(f"  Laws → dist/laws/index.html ({total} laws: {stage_counts})")
+
+
+# ── Bibliography ──────────────────────────────────────────────────────────────
+
+def _build_bibliography() -> None:
+    import sys as _sys
+    if str(_ROOT) not in _sys.path:
+        _sys.path.insert(0, str(_ROOT))
+    from agent.publish_bibliography import build_bibliography_body, _CSS as _BCSS, _JS as _BJS
+
+    body, total = build_bibliography_body()
+
+    out = _DIST / "bibliography" / "index.html"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(_page("Bibliography", "/bibliography/", body, extra_css=_BCSS, extra_js=_BJS))
+    print(f"  Bibliography → dist/bibliography/index.html ({total} entries)")
 
 
 # ── Reading ───────────────────────────────────────────────────────────────────
@@ -331,13 +296,13 @@ def _build_reading() -> None:
     import sys as _sys
     if str(_ROOT) not in _sys.path:
         _sys.path.insert(0, str(_ROOT))
-    from agent.publish_reading import _render_note, _render_card, _CSS as _RCSS
+    from agent.publish_reading import (
+        _render_note, _render_card, build_shallow_section,
+        _CSS as _RCSS, _SHALLOW_CSS,
+    )
 
     notes_dir = _ROOT / "bibliography" / "notes"
     note_paths = sorted(p for p in notes_dir.glob("*.md") if not p.name.startswith("_"))
-    if not note_paths:
-        print("  Reading → no notes found")
-        return
 
     notes = [_render_note(p) for p in note_paths]
     notes.sort(key=lambda n: n["date_read"] or "0000")
@@ -358,23 +323,27 @@ def _build_reading() -> None:
         toc_items += "</li>\n"
 
     cards = "\n".join(_render_card(note, i) for i, note in enumerate(notes))
+    shallow_body, shallow_n = build_shallow_section()
 
     body = f"""\
     <div class="page-header">
-      <h1>Deep Reading</h1>
-      <p class="page-tagline">Notes from behavior-t5m — sources that changed how Humboldt thinks, read from the actual text, never from training memory.</p>
+      <h1>Reading</h1>
+      <p class="page-tagline">Sources that shaped Humboldt's thinking — deep reads (full text, from behavior-t5m,
+      never from training memory) and shallow reads (one-paragraph triage synthesis). See also the full
+      <a href="/bibliography/">bibliography</a>.</p>
     </div>
     <div class="reading-toc">
-      <h3>Sources ({len(notes)} completed)</h3>
+      <h3>Deep reads ({len(notes)} completed)</h3>
       <ul>
 {toc_items}      </ul>
     </div>
-{cards}"""
+{cards}
+{shallow_body}"""
 
     out = _DIST / "reading" / "index.html"
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(_page("Deep Reading", "/reading/", body, extra_css=_RCSS))
-    print(f"  Reading → dist/reading/index.html ({len(notes)} notes)")
+    out.write_text(_page("Reading", "/reading/", body, extra_css=_RCSS + _SHALLOW_CSS))
+    print(f"  Reading → dist/reading/index.html ({len(notes)} deep, {shallow_n} shallow)")
 
 
 # ── Architecture ──────────────────────────────────────────────────────────────
@@ -439,8 +408,9 @@ def _build_chat() -> None:
       <p>Ask about active candidate laws, recent research thinking, the Protocol Institute corpus, or anything in the New Nature agenda. Humboldt draws on its own notebooks, current candidate laws, and the full PI knowledge base.</p>
       <nav class="chat-site-links" aria-label="Site sections">
         <a href="/notebook/" class="site-link"><strong>Notebook</strong> — field notes from each research session</a>
-        <a href="/research/" class="site-link"><strong>Research</strong> — candidate laws and arc inventory</a>
-        <a href="/reading/" class="site-link"><strong>Reading</strong> — deep reading notes from source texts</a>
+        <a href="/laws/" class="site-link"><strong>Laws</strong> — the law encyclopedia, by arc stage</a>
+        <a href="/bibliography/" class="site-link"><strong>Bibliography</strong> — every source engaged past triage</a>
+        <a href="/reading/" class="site-link"><strong>Reading</strong> — deep and shallow reading notes</a>
         <a href="/architecture/" class="site-link"><strong>Architecture</strong> — system design and behavior inventory</a>
         <a href="/about/" class="site-link"><strong>About</strong> — the research question and context</a>
       </nav>
@@ -649,48 +619,26 @@ def _assemble_system_prompt() -> str:
     lineage_raw = (_ROOT / "LINEAGE.md").read_text() if (_ROOT / "LINEAGE.md").exists() else ""
     lineage = (lineage_raw[:1200].rsplit("\n", 1)[0] + "\n…") if len(lineage_raw) > 1200 else lineage_raw
 
-    # CL inventory
-    cl_blocks = []
-    for p in sorted((_ROOT / "research" / "cl").glob("CL-*.yaml")):
-        try:
-            item = yaml.safe_load(p.read_text())
-            if not item: continue
-            lid       = item.get("id", "")
-            title     = item.get("title", "")
-            statement = (item.get("statement") or "").strip().replace("\n", " ")
-            confidence = item.get("confidence", "candidate")
-            cl_blocks.append(f"**{lid}** ({confidence}): {title}\n  {statement[:300]}")
-        except Exception:
-            pass
-    cl_str = "\n\n".join(cl_blocks) if cl_blocks else "(none yet)"
+    # Law inventory (laws/L-NNN-*.yaml), grouped by Double Freytag stage.
+    import sys as _sys
+    if str(_ROOT) not in _sys.path:
+        _sys.path.insert(0, str(_ROOT))
+    from agent import laws as laws_mod
+    from agent.publish_laws import STAGE_LABEL, STAGES
 
-    # F inventory
-    f_lines = []
-    for p in sorted((_ROOT / "research" / "f").glob("F-*.yaml")):
-        try:
-            item = yaml.safe_load(p.read_text())
-            if not item: continue
-            f_lines.append(f"- {item.get('id')}: {item.get('title', '')}")
-        except Exception:
-            pass
-
-    # T inventory (established / heavy-lift)
-    t_lines = []
-    for p in sorted((_ROOT / "research" / "theories").glob("T-*.yaml")):
-        try:
-            item = yaml.safe_load(p.read_text())
-            if not item: continue
-            statement = (item.get("statement") or "").strip().replace("\n", " ")[:200]
-            t_lines.append(f"- {item.get('id')}: {item.get('name', '')} — {statement}")
-        except Exception:
-            pass
-
-    inventory_parts = [f"**Candidate laws (valley phase):**\n\n{cl_str}"]
-    if f_lines:
-        inventory_parts.append("**Falsification monitors:**\n" + "\n".join(f_lines))
-    if t_lines:
-        inventory_parts.append("**Registered laws (heavy lift / retrospective):**\n" + "\n".join(t_lines))
-    inventory_str = "\n\n".join(inventory_parts)
+    all_laws = laws_mod.load_all()
+    inventory_parts = []
+    for stage in STAGES:
+        stage_laws = [l for l in all_laws if l.get("stage") == stage]
+        if not stage_laws:
+            continue
+        lines = []
+        for law in stage_laws:
+            statement = (law.get("statement") or "").strip().replace("\n", " ")
+            flag = "" if law.get("status") == "active" else f" [{law.get('status')}]"
+            lines.append(f"**{law['id']}** ({law.get('confidence')}){flag}: {law.get('title', '')}\n  {statement[:300]}")
+        inventory_parts.append(f"**{STAGE_LABEL[stage]}:**\n\n" + "\n\n".join(lines))
+    inventory_str = "\n\n".join(inventory_parts) if inventory_parts else "(no laws recorded yet)"
 
     # Recent notebook
     nb_entries = sorted((_ROOT / "notebook").glob("????-??-??.md"), reverse=True)
@@ -709,7 +657,7 @@ def _assemble_system_prompt() -> str:
 
 ---
 
-## Research inventory
+## Law inventory
 
 {inventory_str}
 
@@ -780,7 +728,8 @@ def build() -> None:
     print("Building humboldt-site...")
     _build_about()
     _build_notebook()
-    _build_research()
+    _build_laws()
+    _build_bibliography()
     _build_reading()
     _build_architecture()
     _build_chat()
