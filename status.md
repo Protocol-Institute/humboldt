@@ -4,6 +4,33 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-08-01 (session 24) — Redesign designed + Fable pre-work; exe.dev VM provisioned
+
+Session: T2 only. Run on Fable; subsequent implementation sessions should use Opus/Sonnet.
+
+**Daemon:** PID 1930 (running; paused through **2026-08-15** — extended this session).
+Note: the working tree is now on branch `redesign-2026-08`; the live daemon reads this
+tree (see dev-log caution).
+
+**Completed:**
+- Full-system redesign specified in `plans/redesign-2026-08.md` — funnel → law
+  encyclopedia, KPI = law accumulation rate; six phases with [FABLE]/[OPUS]/[SONNET]
+  build-tier markup; key decisions locked (see doc §1)
+- Fable pre-work committed on branch (d703fd2): `laws/_schema.yaml`, `laws/L-001..007`
+  (migrated from CL/T/DS), `prompts/induct.md`, `prompts/assess.md`,
+  `behaviors/definition-rubric.md`
+- exe.dev onboarding: SSH key + config, VM `humboldt.exe.xyz` created (Phase 5 target),
+  `Code/warnings-exe.md` policy written, unused personal VM deleted
+- Branch `redesign-2026-08` pushed; Claude memory updated (`project_redesign_2026_08`)
+
+**Open (next session):**
+- Phase 1 implementation on branch (Opus): `laws.py`, `bibliography.py` + bib migration;
+  (Sonnet): encyclopedia/bibliography/reading site pages, research/ archival, seeds move
+- Inbox backlog (519 feed + 40 discord) stays parked until Phase 6 shakedown
+- Extend pause if Phase 5 cutover slips past 2026-08-15
+
+---
+
 ## 2026-07-24 (session 23) — Weekly digest, offline pause, Pinecone write-burn fix
 
 Session: T2 only.

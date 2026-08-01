@@ -6,6 +6,55 @@ Most recent entry first.
 
 ---
 
+## 2026-08-01 (session 24) — Full-system redesign designed; Fable pre-work; exe.dev provisioned
+
+**Tracks active:** T2 (+ T3 implications deferred to Phase 6)
+**Daemon PID:** 1930 (running, paused through 2026-08-15)
+
+Audit-and-redesign session run on Fable. The whole system gets rebuilt around one
+principle: Humboldt is a funnel turning raw inputs into a published encyclopedia of
+candidate laws, KPI = law accumulation rate. **`plans/redesign-2026-08.md` is the
+spec** — read it before touching anything; it locks the decisions (unified law record
+replaces C/H/CL/T/F; encyclopedia publishes all stages labeled; Discord goes
+law-events-only; C items become the seed pool; falsified laws stay published) and
+carries build-tier markup ([FABLE]/[OPUS]/[SONNET]) so implementation runs on cheaper
+models. Six phases on branch `redesign-2026-08`; the 519-item inbox backlog is
+deliberately parked as the Phase 6 acceptance test.
+
+**Fable pre-work completed and committed (d703fd2)** so no later phase blocks on the
+big model: `laws/_schema.yaml` (stage machine: one-stage advancement, cycle-back
+targeted by what a challenge breaks, confidence capped by stage, append-only history);
+`laws/L-001..L-007` migrated with content and histories folded from CL/T/DS (original
+L-numbering restored; Gall held at provisional pending the never-done Systemantics
+source read; Trust Ratchet carries its stagnant-valley diagnosis forward);
+`prompts/induct.md` + `prompts/assess.md` (the epistemic core — induction bar and
+promotion gate); `behaviors/definition-rubric.md` (SIMPLE/HARD classification for the
+behavior-request pipeline). Old `research/` tree left in place — archiving is Phase 1
+Sonnet work.
+
+**exe.dev provisioned ahead of Phase 5:** VM `humboldt.exe.xyz` (Ubuntu 24.04,
+2 vCPU/4GB/20GB) created under a new one-VM-per-project policy written at the Code/
+level (`Code/warnings-exe.md`); dedicated SSH key generated + registered; tunnel alias
+`ssh humboldt-console` → localhost:7878 ready. Cutover moves the daemon + console
+there in Phase 5; the public site stays on Cloudflare Pages (the VM only runs
+build+deploy). The pre-existing unused personal VM was deleted at operator request.
+
+**Caution for branch sessions:** the laptop daemon (launchd, KeepAlive) is still
+running from this working tree, which is now checked out on the redesign branch. It's
+paused, and this session only *added* files, but once branch work starts deleting or
+rewiring daemon code, remember the live process reads this tree — hot-reload only
+happens on SIGUSR1, but new file reads happen continuously. Site publishing is NOT
+pause-gated (known gap, accepted).
+
+**Open (next session — Opus, on branch `redesign-2026-08`):**
+- Phase 1 [OPUS]: `agent/laws.py` (CRUD/validation/history), `agent/bibliography.py`
+  + migrate references.yaml/notes/shallow-reads into canonical bibliography
+- Phase 1 [SONNET]: /laws/, /bibliography/, extended /reading/ site pages;
+  `research/` → `_archive/`; `research/c/` → `laws/seeds/`
+- Extend daemon pause past 2026-08-15 if Phase 5 hasn't landed by then
+
+---
+
 ## 2026-07-24 (session 23) — Weekly digest, offline pause, Pinecone write-burn fix, proactive engagement disabled
 
 **Tracks active:** T2
