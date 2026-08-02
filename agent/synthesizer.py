@@ -57,6 +57,35 @@ def synthesize(
     return resp.content[0].text
 
 
+def synthesize_full(
+    system: str,
+    user: str,
+    model: str = MODEL,
+    max_tokens: int = MAX_TOKENS,
+    operation: str = "synthesize",
+) -> tuple[str, str]:
+    """Non-streaming call returning (text, stop_reason).
+
+    Checks the cost circuit-breaker and logs the call. Uses the module's 600s
+    read timeout so large-``max_tokens`` funnel calls (induct/assess) don't trip
+    an idle-connection drop. System is not cache-flagged — funnel prompts embed
+    per-run inputs, so there is no reusable prefix.
+    """
+    from daemon import costs
+
+    costs.check_budget()
+    client = _client()
+    resp = client.messages.create(
+        model=_resolve_model(model),
+        max_tokens=max_tokens,
+        system=[{"type": "text", "text": system}],
+        messages=[{"role": "user", "content": user}],
+    )
+    costs.log_call(operation, _resolve_model(model),
+                   resp.usage.input_tokens, resp.usage.output_tokens)
+    return resp.content[0].text, resp.stop_reason
+
+
 def synthesize_streaming(
     system: str,
     user: str,

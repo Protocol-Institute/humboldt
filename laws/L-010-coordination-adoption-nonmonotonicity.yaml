@@ -1,0 +1,62 @@
+id: L-010
+title: Coordination Adoption Nonmonotonicity
+slug: coordination-adoption-nonmonotonicity
+stage: exploration
+status: active
+origin: discovered
+source: null
+confidence: speculative
+statement: >
+  In protocol systems where agents condition behavior on coordination signals from other adopters,
+  increasing adoption rates can increase rather than decrease system-level failure rates within
+  certain adoption ranges, because signal-conditioned behavioral changes outpace the safety
+  gains from improved coverage.
+mechanism: >
+  When adopters of a coordination protocol receive signals that cause them to alter their behavior
+  (e.g., reducing precautionary behavior in response to warning signals), the safety benefit
+  of the signal depends on the accuracy and completeness of signal coverage. Under partial adoption
+  with fixed non-optimal signaling probabilities, the behavioral change induced in equipped
+  agents creates new failure modes — they rely on signals that are absent for unequipped counterparties.
+  The aggregate failure rate is a non-monotone function of adoption with a potential local maximum
+  in intermediate adoption ranges, before coverage becomes dense enough to support the signal-conditioned
+  behavior.
+justification: >
+  seed-050 (C-050-coordination-adoption-nonmonotonicity) provides the formal mechanism from
+  V2V communication research, with specific regions (R3 and R4) where this inversion holds.
+  This is a general structural property of any protocol where adoption triggers behavioral change
+  rather than just adding capability. It is distinguishable from L-001 (ossification under adoption)
+  because it concerns safety outcomes during the adoption curve, not governance cost. It is
+  cross-domain: vaccination hesitancy under partial coverage, security protocol adoption curves,
+  and network trust infrastructure (OAN paper, arxiv-2606.03161) all exhibit analogous intermediate-adoption
+  failure modes.
+examples:
+  - domain: Vehicle-to-vehicle communication
+    description: Under partial V2V adoption, equipped drivers condition on warning signals
+      and reduce precautionary behavior. In adoption regions R3 and R4, this increases 
+      equilibrium accident probability relative to lower adoption rates.
+    source: seed-050 (C-050-coordination-adoption-nonmonotonicity)
+  - domain: Network trust infrastructure
+    description: Agent trust protocols (e.g., OAN) that cause relying agents to reduce 
+      verification effort in response to trust signals create analogous 
+      intermediate-adoption vulnerabilities when not all counterparties are covered by the
+      trust infrastructure.
+    source: arxiv-2606.03161 (Xu, OAN White Paper)
+counterexamples: []
+open_questions: []
+falsification: >
+  The law would be falsified if, for any protocol where adoption triggers behavioral conditioning,
+  the system-level failure rate were strictly monotone decreasing in adoption rate. Finding
+  no intermediate-adoption maximum across a broad class of coordination protocols would refute
+  the general claim, though the V2V-specific finding would remain.
+references: []
+seeds:
+  - seed-050
+related: []
+triggers:
+  advance: ''
+  challenge: ''
+history:
+  - date: '2026-08-02'
+    event: created
+    detail: induction sweep — seed-050 (C-050-coordination-adoption-nonmonotonicity) 
+      provides the formal mechanism from V2V commun

@@ -41,44 +41,56 @@ justification: >
 
 examples:
   - domain: "aviation"
-    description: "Runway incursion protocols: trusted procedures contributed to
-      near-misses; incidents were required to trigger standardization updates."
+    description: "Runway incursion protocols: trusted procedures contributed to near-misses;
+      incidents were required to trigger standardization updates."
     source: "Aviation safety protocol literature (FAA, ICAO)"
   - domain: "medical"
-    description: "Antiseptic handwashing: Semmelweis could not get adoption despite
-      technical evidence; catastrophic mortality data was required."
+    description: "Antiseptic handwashing: Semmelweis could not get adoption despite technical
+      evidence; catastrophic mortality data was required."
     source: null
   - domain: "nuclear"
-    description: "NRC regulations defer to established procedures; updating
-      technically correct but operationally untested protocols faces high
-      institutional resistance."
+    description: "NRC regulations defer to established procedures; updating technically correct
+      but operationally untested protocols faces high institutional resistance."
     source: null
   - domain: "mining"
-    description: "Historical ventilation protocols trusted for decades; updates
-      required accidents rather than anticipating geological change."
+    description: "Historical ventilation protocols trusted for decades; updates required accidents
+      rather than anticipating geological change."
     source: "Coal mine safety protocol literature"
 
+  - domain: Paradigm anomaly tolerance
+    description: 'seed-028 (Kuhn, normal-science-anomaly-tolerance) establishes that the paradigm
+      provides assurance that anomalies will eventually be solved by the current framework —
+      this is the positive function of the ratchet, not just inertia. Applied to L-007: safety-critical
+      protocol communities tolerate accumulating anomalies not irrationally but because the
+      trust accumulated through operational stability functions as a credible prior that anomalies
+      are solvable within the existing framework. This is a mechanism refinement for L-007.'
+    source: seed-028 (C-028-normal-science-anomaly-tolerance)
 counterexamples:
   - description: "Aviation TCAS adopted proactively, before collision data."
-    resolution: "Required regulatory mandate — voluntary trust revision was not
-      forthcoming. Supports the law: mandatory override of trust-based conservatism
-      was needed."
+    resolution: "Required regulatory mandate — voluntary trust revision was not forthcoming.
+      Supports the law: mandatory override of trust-based conservatism was needed."
     source: null
-  - description: "Some medical protocols update via systematic review (Cochrane)
-      without incidents."
-    resolution: "Institutionally designed to override trust-based conservatism —
-      these are update meta-protocols, which the corollary predicts. Supports rather
-      than falsifies."
+  - description: "Some medical protocols update via systematic review (Cochrane) without incidents."
+    resolution: "Institutionally designed to override trust-based conservatism — these are update
+      meta-protocols, which the corollary predicts. Supports rather than falsifies."
     source: null
 
+  - domain: Scientific paradigm change
+    description: "seed-031 (Kuhn, trust-collapse-rival-availability) establishes that anomaly
+      accumulation without a rival candidate produces malaise but not abandonment — a direct
+      mechanism for why trust ratchets persist even under known technical failure. However,
+      this also implies L-007 is not just age-based: it requires the additional condition that
+      no credible rival exists. Cases where a viable alternative IS available should show faster
+      trust collapse, which would constrain L-007's scope."
+    source: seed-031 (C-031-trust-collapse-rival-availability)
+    resolution: OPEN
 open_questions:
-  - "Do near-miss reporting systems show faster trust revision? If yes, this is a
-    design lever for trust updating without catastrophic failure — the primary
-    untested crux."
-  - "Compounding with L-001: do widely-adopted safety protocols face ossification
-    resistance and trust-ratchet resistance simultaneously?"
-  - "What structurally distinguishes safety-critical protocols — consequence
-    severity, or something in the protocol design itself?"
+  - "Do near-miss reporting systems show faster trust revision? If yes, this is a design lever
+    for trust updating without catastrophic failure — the primary untested crux."
+  - "Compounding with L-001: do widely-adopted safety protocols face ossification resistance
+    and trust-ratchet resistance simultaneously?"
+  - "What structurally distinguishes safety-critical protocols — consequence severity, or something
+    in the protocol design itself?"
 
 falsification: >
   Safety-critical protocols with long incident-free histories that updated rapidly in
@@ -106,15 +118,25 @@ triggers:
     protocol on technical evidence alone — survives one assessment pass.
 
 history:
-  - {date: "2026-05-20", event: created, detail: "Opened as H-002, then arc DS-007.
-      Cheap trick via M-001 random links: coal mine safety history × availability
-      heuristic — trust accumulates from incident-free history, not correctness."}
-  - {date: "2026-05-20", event: evidence, detail: "Evidence across aviation, medical,
-      nuclear, mining; TCAS and Cochrane identified as corollary-confirming
-      meta-protocol cases."}
-  - {date: "2026-06-06", event: edited, detail: "Session 14 schema redesign:
-      registered as CL-003. Valley diagnosed STAGNANT — no evidence growth since
-      opening; targeted investigation prescribed, not yet run."}
-  - {date: "2026-08-01", event: migrated, detail: "Unified law record L-007 created
-      from CL-003 + DS-007 (2026-08 redesign). Stagnant-valley diagnosis carries
-      over — this law is the assess behavior's first stalled-law flag candidate."}
+  - {date: "2026-05-20", event: created, detail: "Opened as H-002, then arc DS-007. Cheap trick
+      via M-001 random links: coal mine safety history × availability heuristic — trust accumulates
+      from incident-free history, not correctness."}
+  - {date: "2026-05-20", event: evidence, detail: "Evidence across aviation, medical, nuclear,
+      mining; TCAS and Cochrane identified as corollary-confirming meta-protocol cases."}
+  - {date: "2026-06-06", event: edited, detail: "Session 14 schema redesign: registered as CL-003.
+      Valley diagnosed STAGNANT — no evidence growth since opening; targeted investigation prescribed,
+      not yet run."}
+  - {date: "2026-08-01", event: migrated, detail: "Unified law record L-007 created from CL-003
+      + DS-007 (2026-08 redesign). Stagnant-valley diagnosis carries over — this law is the
+      assess behavior's first stalled-law flag candidate."}
+  - date: '2026-08-02'
+    event: counterexample
+    detail: 'The claim that trust accumulates as a function of operational age rather than technical
+      correctness — specifically whether a rival candidate is required for trust collapse: seed-031
+      (Kuhn, trust-collapse-rival-availability) establishes that anomaly accumulation without
+      a r'
+  - date: '2026-08-02'
+    event: evidence
+    detail: 'The mechanism by which trust in established protocols resists updating even when
+      technical conditions change: seed-028 (Kuhn, normal-science-anomaly-tolerance) establishes
+      that the paradigm provides assurance t'

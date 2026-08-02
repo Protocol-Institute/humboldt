@@ -1,6 +1,7 @@
 id: seed-050
 title: C-050-coordination-adoption-nonmonotonicity
-text: 'Under partial adoption of V2V communication, increased adoption can increase equilibrium
+text: 'Under partial adoption of V2V communication, increased adoption can increase
+  equilibrium
 
   accident probability rather than decrease it. The mechanism: equipped drivers condition
 
@@ -8,7 +9,8 @@ text: 'Under partial adoption of V2V communication, increased adoption can incre
 
   this creates regions (R3 and R4) where more adoption produces perverse equilibrium
 
-  outcomes. The perverse effect disappears when the signaling policy is optimized at each
+  outcomes. The perverse effect disappears when the signaling policy is optimized
+  at each
 
   adoption level — optimal signaling restores monotonicity. This is a counterexample
 
@@ -18,7 +20,8 @@ text: 'Under partial adoption of V2V communication, increased adoption can incre
 
   monotonically only when the signaling/protocol design is co-optimized with adoption.
 
-  A protocol designed for a particular adoption level may produce worse outcomes than no
+  A protocol designed for a particular adoption level may produce worse outcomes than
+  no
 
   protocol at intermediate adoption levels — a potential hardness asymmetry instance
 
@@ -34,4 +37,5 @@ type: curiosity
 connections:
 - CL-002
 - F-002
-status: open
+status: promoted
+promoted_to: L-010

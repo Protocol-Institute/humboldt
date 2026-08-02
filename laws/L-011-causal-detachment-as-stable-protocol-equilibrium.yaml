@@ -1,0 +1,66 @@
+id: L-011
+title: Causal Detachment as Stable Protocol Equilibrium
+slug: causal-detachment-as-stable-protocol-equilibrium
+stage: exploration
+status: active
+origin: imported
+source: arxiv-2606.03636 (Tembine, Causal Mirage Equilibrium)
+confidence: speculative
+statement: >
+  In protocol systems using autoregressive or generative components, operationally functional
+  configurations that are internally consistent but systematically decoupled from external ground
+  truth can emerge as stable attractors — states that are neither correctable by normal error
+  signals nor detectable as failures by operational metrics.
+mechanism: >
+  Classical protocol failure detection relies on behavioral anomaly (the system stops producing
+  acceptable outputs) or verification failure (outputs can be checked against ground truth).
+  Causal Mirage Equilibria (Tembine 2026) are states that satisfy both: outputs remain operationally
+  coherent and internally consistent, so no anomaly detector fires, while the causal connection
+  to the external referent has degraded. The stability follows because self-referential generative
+  processes can lock onto self-consistent internal attractors. Normal error-correction mechanisms
+  are calibrated to surface-level output quality, not causal grounding, and cannot distinguish
+  a well-functioning causally-anchored system from a well-functioning causally-detached one.
+justification: >
+  arxiv-2606.03636 (Tembine, Causal Mirage Equilibrium) provides the formal existence proof
+  and stability conditions. This is a genuine protocol-theoretic law because it identifies a
+  failure mode invisible to standard verification architectures — the kind of structural constraint
+  that defines laws of artificial systems. It is distinguishable from Goodhart's Law (L-004)
+  because no proxy substitution occurs; the system continues apparently satisfying all protocol
+  requirements while the underlying semantic grounding degrades. It is distinguishable from
+  simple error because the state is stable under normal correction.
+examples:
+  - domain: Large language model deployment
+    description: LLMs that produce highly coherent, consistently formatted, grammatically 
+      correct outputs can simultaneously be in states of systematic confabulation about 
+      factual matters — satisfying all operational protocol metrics while causally 
+      detached from the domain they appear to describe.
+    source: arxiv-2606.03636 (Tembine 2026)
+  - domain: AI conformity in decision systems
+    description: AI systems that produce confident recommendations with reasoning cause 
+      genuine attitude change in human judges (Venerina et al. 2026), meaning 
+      operationally successful influence can occur independent of the causal validity of 
+      the reasoning provided.
+    source: arxiv-2606.00013 (Venerina et al. 2026)
+counterexamples: []
+open_questions: []
+falsification: >
+  The law would be falsified if operationally functional, internally consistent outputs were
+  shown to always be causally grounded — i.e., if there were no stable configurations satisfying
+  operational metrics while decoupled from ground truth. It would also be falsified if standard
+  verification protocols reliably distinguished causally anchored from causally detached outputs
+  without needing access to external ground truth.
+references: []
+seeds: []
+related: []
+triggers:
+  advance: ''
+  challenge: ''
+history:
+  - date: '2026-08-02'
+    event: created
+    detail: induction sweep — arxiv-2606.03636 (Tembine, Causal Mirage Equilibrium) 
+      provides the formal existence proof and stabil
+  - date: '2026-08-02'
+    event: edited
+    detail: source set to arxiv-2606.03636 (Tembine, Causal Mirage Equilibrium) (import 
+      provenance)

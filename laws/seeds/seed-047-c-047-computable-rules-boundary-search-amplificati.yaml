@@ -1,6 +1,7 @@
 id: seed-047
 title: C-047-computable-rules-boundary-search-amplification
-text: 'When regulatory obligations become more computable (machine-readable, testable, and
+text: 'When regulatory obligations become more computable (machine-readable, testable,
+  and
 
   with precise enforcement signals), firms cluster more sharply near the legal boundary
 
@@ -14,15 +15,19 @@ text: 'When regulatory obligations become more computable (machine-readable, tes
 
   learn what minimally compliant behavior looks like and optimize to it. The key estimand
 
-  distinction is between signal boundary mass (where the enforcement signal places firms)
+  distinction is between signal boundary mass (where the enforcement signal places
+  firms)
 
-  and conduct boundary mass (where actual conduct is). Computable rules raise both, but
+  and conduct boundary mass (where actual conduct is). Computable rules raise both,
+  but
 
-  only anti-gaming adaptive design reliably reduces conduct harm. Strong connection to
+  only anti-gaming adaptive design reliably reduces conduct harm. Strong connection
+  to
 
   CL-001: formalization doesn''t just resist revision, it actively recruits boundary-seeking
 
-  behavior that makes the substantive purpose of the protocol harder to enforce over time.
+  behavior that makes the substantive purpose of the protocol harder to enforce over
+  time.
 
   Evidence quality: high (ABM+RL simulation, 2.88M firm-period panel, paired tests).'
 source: arxiv-2606.04617.pdf
@@ -33,4 +38,5 @@ connections:
 - CL-001
 - F-003
 - C-003
-status: open
+status: promoted
+promoted_to: L-008

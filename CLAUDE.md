@@ -113,8 +113,18 @@ python3 -m agent.humboldt bib show bib-0042
 python3 -m agent.humboldt bib stats
 python3 -m agent.humboldt bib migrate [--dry-run]   # one-shot legacy-source migration
 
-# Assess evidence for a specific law
-python3 -m agent.humboldt assess F-001
+# ── Funnel engines (Phase 2) — agent/induct.py + agent/assess.py ──
+# induct  = stage 5: seeds + reads-since-cursor + inventory → new laws / evidence (Sonnet).
+# assess  = stage 6/8: one law vs its advance trigger → PROMOTE/HOLD/DEMOTE, applied via
+#           the laws.py stage machine (Sonnet routine; Opus for heavy-lift/retrospective).
+# Both consume the Fable prompts in prompts/{induct,assess}.md. Events → analytics/events.jsonl
+# + behaviors/log.jsonl (via agent/funnel_log.py). NOT yet daemon-wired (Phase 5).
+python3 -m agent.humboldt induct                     # run the induction sweep
+python3 -m agent.humboldt induct --dry-run           # call model, apply nothing
+python3 -m agent.humboldt induct --since YYYY-MM-DD    # override the read cursor
+python3 -m agent.humboldt assess L-003               # assess one law (promote/hold/demote)
+python3 -m agent.humboldt assess L-003 --dry-run     # call model, apply nothing
+python3 -m agent.humboldt assess --all               # assess every active law
 
 # Generate candidate laws for a topic (no file output)
 python3 -m agent.humboldt hypothesize "coordination cost"

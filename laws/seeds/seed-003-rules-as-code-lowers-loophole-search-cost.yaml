@@ -1,12 +1,15 @@
 id: seed-003
 title: Rules-as-code lowers loophole search cost
-text: 'When rules are formalized into machine-readable code, they become auditable, differentiable,
+text: 'When rules are formalized into machine-readable code, they become auditable,
+  differentiable,
 
   and learnable — which reduces the search cost for strategic actors discovering exploitable
 
-  boundaries. This is distinct from gaming under informal rules; it is the emergence of
+  boundaries. This is distinct from gaming under informal rules; it is the emergence
+  of
 
-  adversarial optimization against the protocol specification itself. Formalization may trade
+  adversarial optimization against the protocol specification itself. Formalization
+  may trade
 
   coordination clarity for a new vulnerability class.'
 source: bibliography/shallow-reads/2026-06-06-when-firms-learn-to-game-the-rules.md
@@ -16,4 +19,5 @@ type: insight
 connections:
 - T-003
 - CL-001
-status: open
+status: promoted
+promoted_to: L-008

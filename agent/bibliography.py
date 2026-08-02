@@ -202,7 +202,14 @@ def upsert(
 
 
 def link_law(bib_id: str, law_id: str) -> bool:
-    """Record that ``law_id`` cites ``bib_id``. Returns True if changed."""
+    """Record that ``law_id`` cites ``bib_id``. Returns True if changed.
+
+    ``law_id`` is coerced to a plain ``str`` because callers pass ids read from
+    ruamel-loaded law records (ruamel scalar subclasses). This file is dumped
+    with PyYAML, which would otherwise serialise a ruamel scalar as an
+    unloadable ``!!python/object`` tag and corrupt the bibliography.
+    """
+    bib_id, law_id = str(bib_id), str(law_id)
     entries = load()
     for e in entries:
         if e.get("id") == bib_id:

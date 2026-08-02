@@ -1,0 +1,65 @@
+id: L-009
+title: Catastrophic Risk Cancellation in Symmetric Racing Protocols
+slug: catastrophic-risk-cancellation-in-symmetric-racing-protocols
+stage: exploration
+status: active
+origin: imported
+source: arxiv-2512.07526 (Tan, Strategic Preemption Under Shared Catastrophic Risk)
+confidence: speculative
+statement: >
+  In competitive protocol races where the prize of first deployment is concentrated among winners
+  and the cost of catastrophic failure is shared symmetrically across all participants, the
+  magnitude of the catastrophic cost has no effect on the equilibrium deployment timing — the
+  catastrophe term cancels algebraically from every participant's decision.
+mechanism: >
+  In a symmetric n-player preemption game, each player's indifference condition between deploying
+  now versus waiting balances the incremental value of waiting against the risk of being preempted.
+  When catastrophic ruin appears as an identical additive term in every player's payoff function,
+  it enters both sides of the indifference condition equally and cancels. The catastrophe is
+  not discounted or ignored — it is structurally invisible to the decision variable. The only
+  parameters that govern equilibrium timing are prize concentration and preemption probability,
+  not ruin magnitude.
+justification: >
+  arxiv-2512.07526 (Tan, Strategic Preemption Under Shared Catastrophic Risk) provides the formal
+  proof and is the primary source. The paper explicitly positions this as a general game-theoretic
+  law, not an AGI-specific finding, and demonstrates the algebraic cancellation. This constitutes
+  a genuine protocol-theoretic law because it identifies a structural constraint on any racing
+  protocol with symmetric downside: no governance mechanism operating on shared-cost magnitude
+  can deter racing. The only leverage points are prize asymmetry or preemption probability.
+  This is mechanism-bearing, cross-domain (autonomous weapons, gain-of-function research, space
+  weaponization all cited), and falsifiable.
+examples:
+  - domain: AI development races
+    description: Frontier AI labs operating under shared catastrophic risk (societal 
+      disruption, safety failures) with concentrated winner prizes (market position, 
+      capability leadership) show no evidence that increased catastrophe salience slows 
+      deployment timing, consistent with the cancellation theorem.
+    source: arxiv-2512.07526 (Tan 2026)
+  - domain: Gain-of-function research
+    description: Symmetric pandemic risk shared across all nations does not deter 
+      individual lab races for research priority, consistent with the cancellation of 
+      shared ruin terms.
+    source: arxiv-2512.07526 (Tan 2026)
+counterexamples: []
+open_questions: []
+falsification: >
+  The law would be falsified if introducing shared catastrophic cost into a symmetric racing
+  game demonstrably slowed deployment timing — i.e., if large increases in symmetric ruin magnitude
+  shifted equilibrium timing even under identical prize structures. It would also be falsified
+  if asymmetric externalization of ruin (some players bear more) eliminated the cancellation
+  without changing prize structure.
+references: []
+seeds: []
+related: []
+triggers:
+  advance: ''
+  challenge: ''
+history:
+  - date: '2026-08-02'
+    event: created
+    detail: induction sweep — arxiv-2512.07526 (Tan, Strategic Preemption Under Shared 
+      Catastrophic Risk) provides the formal proo
+  - date: '2026-08-02'
+    event: edited
+    detail: source set to arxiv-2512.07526 (Tan, Strategic Preemption Under Shared 
+      Catastrophic Risk) (import provenance)

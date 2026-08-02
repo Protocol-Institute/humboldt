@@ -39,43 +39,64 @@ justification: >
 
 examples:
   - domain: "organizational"
-    description: "Startup → corporate transitions consistently show degraded informal
-      capacity post-formalization, not just formal preference."
+    description: "Startup → corporate transitions consistently show degraded informal capacity
+      post-formalization, not just formal preference."
     source: "Organizational sociology: startup lifecycle literature"
   - domain: "legal (international)"
-    description: "Customary international law practitioners describe tacit knowledge
-      of customary practice as genuinely unavailable after treaty codification."
+    description: "Customary international law practitioners describe tacit knowledge of customary
+      practice as genuinely unavailable after treaty codification."
     source: "Customary international law → treaty regime literature"
   - domain: "medical"
-    description: "Clinical judgment capacity declines in over-protocolized settings;
-      physicians report difficulty trusting their own judgment after extended protocol
-      dependence."
+    description: "Clinical judgment capacity declines in over-protocolized settings; physicians
+      report difficulty trusting their own judgment after extended protocol dependence."
     source: "Clinical judgment vs. evidence-based protocol literature"
   - domain: "software"
-    description: "Informal API convention maintainers report inability to return to
-      informal coordination after versioned specification was imposed."
+    description: "Informal API convention maintainers report inability to return to informal
+      coordination after versioned specification was imposed."
     source: null
 
+  - domain: Protocol governance under scaling pressure
+    description: The Ethereum-as-polity analysis (shallow read, trent_vanepps) documents 
+      the arc from informal coordination norms in early Ethereum governance to formalized 
+      institutional structures under scaling pressure — a direct observational case for 
+      the stress→formalization→irreversibility chain claimed by L-003.
+    source: shallow · 
+      2026-07-24-link-article-on-ethereum-as-a-protocol-polity-exploring-gove.md
+  - domain: Protocol design under environmental pressure
+    description: The Schroff working paper (shallow read, c3po) frames formalization not 
+      as a design choice but as an adaptive response to measurable stress conditions — 
+      scaling bottlenecks, coordination failure, exploit vulnerability. This supports 
+      L-003's mechanism while providing a selection-pressure vocabulary that sharpens why 
+      the ratchet direction is asymmetric.
+    source: shallow · 
+      2026-07-24-link-working-paper-on-selection-pressures-affecting-protocol.md
+  - domain: Repair knowledge standardization
+    description: iFixit's transition from crowdsourced repair guides to an NSF-backed 
+      formal repairability scoring standard is a live instance of the informal-to-formal 
+      transition. The critical question for L-003 is whether the informal repair 
+      community's adaptive capacity degrades as the formal standard takes hold — this case
+      is worth tracking longitudinally as a falsification test.
+    source: shallow · 
+      2026-07-24-link-ifixit-s-development-of-a-repairability-scoring-standar.md
 counterexamples:
   - description: "Post-crisis informality observed in tight-knit teams."
-    resolution: "Typically involves externally imposed protocols (not internally
-      developed) AND personnel continuity — both favor informal capacity retention.
-      Provisional scoping: the law applies to internally developed protocols. OPEN —
-      distinction not yet tested against targeted retrieval."
+    resolution: "Typically involves externally imposed protocols (not internally developed)
+      AND personnel continuity — both favor informal capacity retention. Provisional scoping:
+      the law applies to internally developed protocols. OPEN — distinction not yet tested against
+      targeted retrieval."
     source: null
-  - description: "Open-source projects maintain informal coordination alongside formal
-      specifications."
-    resolution: "Likely parallel maintenance (informal capacity actively cultivated
-      alongside formal structure) rather than reversion. OPEN — needs investigation."
+  - description: "Open-source projects maintain informal coordination alongside formal specifications."
+    resolution: "Likely parallel maintenance (informal capacity actively cultivated alongside
+      formal structure) rather than reversion. OPEN — needs investigation."
     source: null
 
 open_questions:
-  - "What determines the rate of informal capacity atrophy — duration of
-    formalization, or depth of protocol adoption?"
-  - "Is the internally-developed vs. externally-imposed distinction a law modifier or
-    a full scoping condition?"
-  - "Is there a threshold of formalization intensity below which informal capacity is
-    preserved (the OSS parallel-maintenance pattern)?"
+  - "What determines the rate of informal capacity atrophy — duration of formalization, or depth
+    of protocol adoption?"
+  - "Is the internally-developed vs. externally-imposed distinction a law modifier or a full
+    scoping condition?"
+  - "Is there a threshold of formalization intensity below which informal capacity is preserved
+    (the OSS parallel-maintenance pattern)?"
 
 falsification: >
   Documented cases of organizations successfully reverting from formal protocol to
@@ -103,16 +124,30 @@ triggers:
     survives one assessment pass (this is simultaneously the falsification test).
 
 history:
-  - {date: "2026-05-20", event: created, detail: "Opened as arc DS-003. Cheap trick:
-      the ratchet resists backward motion because the informal alternative no longer
-      exists (atrophy, not lock-in)."}
-  - {date: "2026-05-20", event: evidence, detail: "Valley evidence across
-      organizational, legal, medical, software domains; counterexample cluster
-      (external imposition + personnel continuity) identified."}
-  - {date: "2026-06-06", event: edited, detail: "Session 14 schema redesign:
-      registered as CL-001 (valley phase, productive)."}
-  - {date: "2026-06-13", event: evidence, detail: "Rittel & Webber deep read
-      materially strengthens the valley case (wicked-problem framing of
-      de-formalization as a reconstruction task)."}
-  - {date: "2026-08-01", event: migrated, detail: "Unified law record L-003 created
-      from CL-001 + DS-003 (2026-08 redesign)."}
+  - {date: "2026-05-20", event: created, detail: "Opened as arc DS-003. Cheap trick: the ratchet
+      resists backward motion because the informal alternative no longer exists (atrophy, not
+      lock-in)."}
+  - {date: "2026-05-20", event: evidence, detail: "Valley evidence across organizational, legal,
+      medical, software domains; counterexample cluster (external imposition + personnel continuity)
+      identified."}
+  - {date: "2026-06-06", event: edited, detail: "Session 14 schema redesign: registered as CL-001
+      (valley phase, productive)."}
+  - {date: "2026-06-13", event: evidence, detail: "Rittel & Webber deep read materially strengthens
+      the valley case (wicked-problem framing of de-formalization as a reconstruction task)."}
+  - {date: "2026-08-01", event: migrated, detail: "Unified law record L-003 created from CL-001
+      + DS-003 (2026-08 redesign)."}
+  - date: '2026-08-02'
+    event: evidence
+    detail: 'The claim that formalization under stress is nearly irreversible and that informal
+      capacity atrophies: The Ethereum-as-polity analysis (shallow read, trent_vanepps) documents
+      the arc from informal coordi'
+  - date: '2026-08-02'
+    event: evidence
+    detail: 'Selection pressures as the driver of formalization (mechanism question: is formalization
+      chosen or induced?): The Schroff working paper (shallow read, c3po) frames formalization
+      not as a design choice but as an'
+  - date: '2026-08-02'
+    event: evidence
+    detail: "The irreversibility claim — once formalized, informal capacity atrophies: iFixit's
+      transition from crowdsourced repair guides to an NSF-backed formal repairability scoring
+      st"

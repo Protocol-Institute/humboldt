@@ -4,6 +4,40 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-08-02 (session 27) — Phase 2 [OPUS]: induct + assess engines; first live sweep (L-008–L-011)
+
+Session: T2 (redesign implementation). Run on Opus 4.8.
+
+**Daemon:** PID 1930 (running; paused through **2026-08-15**). Unchanged — still old-design
+code, not wired to the new engines (Phase 5).
+
+**Completed (Phase 2 [OPUS]):**
+- `agent/induct.py` (funnel stage 5) + `agent/assess.py` (stage 6/8) — the funnel engines
+  consuming `prompts/induct.md` / `prompts/assess.md`, applying verdicts via the Phase-1
+  `laws.py` stage machine. `--dry-run` on both; `assess --all` sweep.
+- `agent/funnel_log.py` — event spine: behavior visits → `behaviors/log.jsonl`, law events
+  → `analytics/events.jsonl` (new dir).
+- `synthesizer.synthesize_full()` — shared funnel call path (budget-checked, cost-logged,
+  600s timeout).
+- CLI: `humboldt induct` / `humboldt assess <L-NNN>|--all` wired + USAGE; legacy `assess`
+  unbound.
+- Fixed a latent `bibliography.link_law` ruamel/PyYAML corruption bug (would have broken
+  the bibliography on first live induct) and an imported-law `source` capture gap
+  (`induct.md` + engine).
+
+**First live induction sweep** (operator-approved): created **L-008–L-011** (2 discovered,
+2 imported w/ provenance), 12 evidence attachments (incl. OPEN counterexamples on L-001 &
+L-007), 3 seeds consumed, 43 left. All 11 law records valid.
+
+**Open (next session):**
+- Supervisor review of L-008–L-011; `assess` the survivors.
+- `humboldt ingest` (Pinecone write — deferred past pause window) when ready.
+- Remaining Phase 2: `triage.py`/`reads.py` rework [OPUS]; publish hook + law-event
+  Discord [SONNET].
+- Phase 5: gate induct/assess through the pause when daemon-wired.
+
+---
+
 ## 2026-08-01 (session 26) — Phase 1 [SONNET] site pages: /laws/, /bibliography/, extended /reading/
 
 Session: T2 (redesign implementation). Run on Sonnet 5.

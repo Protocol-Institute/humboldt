@@ -4,8 +4,8 @@ slug: "gall-working-systems"
 stage: heavy-lift
 status: active
 origin: imported
-source: "John Gall (1975), Systemantics — 'A complex system that works is invariably
-  found to have evolved from a simple system that worked.'"
+source: "John Gall (1975), Systemantics — 'A complex system that works is invariably found to
+  have evolved from a simple system that worked.'"
 confidence: provisional
 
 statement: >
@@ -38,47 +38,53 @@ justification: >
 
 examples:
   - domain: "software (internet protocols)"
-    description: "IPv4 → IPv6: from-scratch redesign, 30+ years of 'transition,' old
-      protocol still dominant — coexistence, not replacement."
+    description: "IPv4 → IPv6: from-scratch redesign, 30+ years of 'transition,' old protocol
+      still dominant — coexistence, not replacement."
     source: null
   - domain: "software (applications)"
-    description: "Netscape rewrite (2000): canonical big-bang failure; the product
-      never recovered market position."
+    description: "Netscape rewrite (2000): canonical big-bang failure; the product never recovered
+      market position."
     source: null
   - domain: "organizational"
-    description: "Post-Soviet institutional redesign literature: extensively negative
-      on from-scratch cases versus incremental reform."
+    description: "Post-Soviet institutional redesign literature: extensively negative on from-scratch
+      cases versus incremental reform."
     source: null
   - domain: "urban"
-    description: "Brasília and Chandigarh: designed from scratch; functional but
-      required retrofit of organic features; adoption by mandate, not choice."
+    description: "Brasília and Chandigarh: designed from scratch; functional but required retrofit
+      of organic features; adoption by mandate, not choice."
     source: null
   - domain: "financial"
-    description: "Clearing systems (DTCC lineage) evolved from existing settlement
-      practices; from-scratch clearing architectures largely abandoned for
-      incremental reform."
+    description: "Clearing systems (DTCC lineage) evolved from existing settlement practices;
+      from-scratch clearing architectures largely abandoned for incremental reform."
     source: null
 
+  - domain: Agent trust infrastructure
+    description: "The OAN white paper (arxiv-2606.03161) is itself an example of Gall's principle
+      in action: rather than replacing interaction protocols (MCP, A2A, ANP), OAN proposes adding
+      a trust infrastructure layer beneath them, evolving the system by adding missing components
+      rather than reconstructing from scratch. The author's explicit diagnosis — 'interaction
+      protocols are maturing faster than the identity infrastructure they presuppose' — is a
+      statement of the gap that Gall's law predicts would emerge."
+    source: arxiv-2606.03161 (Xu, OAN White Paper 2026)
 counterexamples:
   - description: "Some from-scratch replacements succeed."
-    resolution: "Success conditions — small well-understood old system, controlled
-      rollout, small homogeneous adopter population — are precisely the conditions
-      the law excludes (complex, distributed adoption)."
+    resolution: "Success conditions — small well-understood old system, controlled rollout,
+      small homogeneous adopter population — are precisely the conditions the law excludes (complex,
+      distributed adoption)."
     source: null
   - description: "TCP/IP itself replaced ARPANET protocols."
-    resolution: "Deployed while adoption was small and DARPA-coordinated; gradual,
-      controlled — not from-scratch replacement under uncontrolled adoption."
+    resolution: "Deployed while adoption was small and DARPA-coordinated; gradual, controlled
+      — not from-scratch replacement under uncontrolled adoption."
     source: null
   - description: "Protocols with explicit sunset mechanisms might reduce the problem."
-    resolution: "OPEN — empirically, sunset mechanisms are rarely honored on
-      schedule."
+    resolution: "OPEN — empirically, sunset mechanisms are rarely honored on schedule."
     source: null
 
 open_questions:
-  - "Is coexistence-rather-than-replacement the general outcome of from-scratch
-    protocol replacement attempts? (Candidate protocol-specific sub-pattern.)"
-  - "Is Gall's law about the implicit-solutions problem alone, or compounded by
-    adoption momentum (L-001)? The two may be inseparable in practice."
+  - "Is coexistence-rather-than-replacement the general outcome of from-scratch protocol replacement
+    attempts? (Candidate protocol-specific sub-pattern.)"
+  - "Is Gall's law about the implicit-solutions problem alone, or compounded by adoption momentum
+    (L-001)? The two may be inseparable in practice."
 
 falsification: >
   A successful from-scratch replacement of a complex working protocol system in which
@@ -86,8 +92,8 @@ falsification: >
   within a reasonable timeframe, under distributed, uncontrolled adoption.
 
 references:
-  - "Gall (1975), Systemantics — SOURCE NOT YET DEEP-READ (PDF unavailable; recorded
-    methodological gap)"
+  - "Gall (1975), Systemantics — SOURCE NOT YET DEEP-READ (PDF unavailable; recorded methodological
+    gap)"
   - "IPv6 transition literature"
   - "Post-Soviet institutional reform literature"
 seeds: []
@@ -107,13 +113,18 @@ triggers:
     assessment pass.
 
 history:
-  - {date: "2026-05-20", event: created, detail: "Imported as arc DS-005; original
-      registration as L-005-gall-generalization. Import made WITHOUT source deep read
-      (Systemantics unavailable) — gap recorded at import time."}
-  - {date: "2026-05-20", event: evidence, detail: "Protocol-theoretic evidence across
-      software, organizational, urban, financial domains; coexistence signature
-      identified as the protocol-specific addition."}
-  - {date: "2026-06-06", event: edited, detail: "Session 14 schema redesign:
-      reclassified → T-004."}
-  - {date: "2026-08-01", event: migrated, detail: "Unified law record L-005 created
-      from T-004 + DS-005 (2026-08 redesign); original numbering restored."}
+  - {date: "2026-05-20", event: created, detail: "Imported as arc DS-005; original registration
+      as L-005-gall-generalization. Import made WITHOUT source deep read (Systemantics unavailable)
+      — gap recorded at import time."}
+  - {date: "2026-05-20", event: evidence, detail: "Protocol-theoretic evidence across software,
+      organizational, urban, financial domains; coexistence signature identified as the protocol-specific
+      addition."}
+  - {date: "2026-06-06", event: edited, detail: "Session 14 schema redesign: reclassified →
+      T-004."}
+  - {date: "2026-08-01", event: migrated, detail: "Unified law record L-005 created from T-004
+      + DS-005 (2026-08 redesign); original numbering restored."}
+  - date: '2026-08-02'
+    event: evidence
+    detail: "The claim that complex working systems cannot be safely replaced from scratch and
+      must be evolved: The OAN white paper (arxiv-2606.03161) is itself an example of Gall's
+      principle in action: rather th"

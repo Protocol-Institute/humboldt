@@ -6,6 +6,82 @@ Most recent entry first.
 
 ---
 
+## 2026-08-02 (session 27) — Phase 2 [OPUS]: induct + assess funnel engines; first live sweep
+
+**Tracks active:** T2
+**Daemon PID:** 1930 (running, paused through 2026-08-15)
+
+Built the two funnel engines that consume Fable's epistemic-core prompts and were the
+redesign's `NEXT`: `agent/induct.py` (stage 5) and `agent/assess.py` (stage 6, plus
+stage-8 challenge mode). These are the harnesses around `prompts/induct.md` /
+`prompts/assess.md` — they fill the prompt slots, call the model, parse the YAML verdict,
+and apply it through the Phase-1 `laws.py` stage machine and `bibliography.py` linker.
+The epistemic bar stays entirely in the prompts (supervisor-editable); the engines are
+deliberately dumb about *what* counts as a law and faithful about *applying* whatever the
+model decides.
+
+**induct** gathers the law inventory + open seeds + reads since a date cursor
+(`laws/.induct-cursor`), and applies three verdict kinds: NEW LAW (→ `laws.create` +
+folded mechanism/justification/falsification + examples + seed-consumption marking + bib
+linking), EVIDENCE (example/counterexample/reference attach + history + bib link), LEAVE
+(seed stays). **assess** pulls the full record + a fresh corpus retrieval as "new
+evidence", routes Sonnet for routine laws / Opus for heavy-lift + retrospective, and
+applies PROMOTE (`laws.advance` + earned confidence) / HOLD (append the executable *gap*
+to `open_questions`) / DEMOTE (`laws.cycle_back`, + `mark_challenged` when a retrospective
+law fails challenge). Both take `--dry-run`; assess also takes `--all` for a sweep.
+
+**Shared plumbing.** Added `synthesizer.synthesize_full()` (returns text + stop_reason,
+budget-checked via `costs`, cost-logged, 600s read timeout) as the funnel call path —
+this is the "synthesizer = shared Claude-call plumbing" the redesign §11 wants. Added
+`agent/funnel_log.py`: behavior-visit lines → `behaviors/log.jsonl` (the MDP supervisory
+reader keys on `behavior_id`/`phase`, so funnel invocations log there as one visit each),
+and law-event lines → `analytics/events.jsonl` (the §8 KPI timeline). Kept as two files
+on purpose: the current supervisory reader indexes `entry["behavior_id"]` directly and
+would KeyError on a bare law-event line; per-event log lines would also inflate transition
+counts. Phase 4 (`analytics.py`) unifies the spine — noted so it isn't lost.
+
+CLI: `induct` and `assess` wired into `humboldt.py` + USAGE; the legacy retrieval-only
+`assess` (read the archived `research/laws/`) renamed `cmd_assess_evidence` and unbound.
+
+**Two bugs the verification surfaced, both fixed:**
+1. `bibliography.link_law` re-dumps `bibliography.yaml` with PyYAML but was handed law ids
+   read from ruamel records (ruamel scalar subclasses); PyYAML serialised those as
+   unloadable `!!python/object` tags. This *would have corrupted the bibliography on the
+   first live induct run* — caught by a synthetic apply-path test before running live.
+   Fixed by coercing ids to plain `str` in `link_law`.
+2. Imported new-laws whose source the model named in prose (justification) rather than in
+   a parseable slot produced schema-invalid records (`imported law missing source`). Added
+   an explicit `source:` field to `induct.md`'s new_laws output schema and taught
+   `_apply_new_law` to read it; this is a mechanical prompt clarification, not a change to
+   the epistemic bar.
+
+**First live induction sweep run** (operator-approved this session) against the months-old
+backlog (47 seeds, 25 reads): created **L-008–L-011** (two discovered — proxy-optimization
+under computable enforcement, coordination-adoption nonmonotonicity; two imported with
+provenance — Tan preemption-cancellation, Tembine causal-mirage), attached **12 evidence
+items** including new OPEN counterexamples on L-001 and L-007, consumed 3 seeds, left 43.
+All 11 law records validate. The new laws are exploration-stage/speculative and badged as
+such — supervisor review pending; a 4-law burst is expected for a first sweep against a
+backlog and should fall to 0–1 in steady-state weekly runs.
+
+**Deliberately not done:** `humboldt ingest` (would embed the new laws into the humboldt
+Pinecone index) was left for the operator — the 08-15 pause partly protects Pinecone write
+quota (session 23). The induct/assess runs queued pre-notebook entries for the next Track 1
+session's notebook synthesis (not consumed this session).
+
+**Open (next session):**
+- Supervisor review of L-008–L-011 (keep/edit/reject); run `assess` on the survivors.
+- `humboldt ingest` when the operator is ready to write to Pinecone.
+- Remaining Phase 2 [OPUS]: `triage.py`/`reads.py` rework (content/meta tagging, bib
+  wiring, seed emission from reads). Then Phase 2 [SONNET]: publish hook + law-event
+  Discord plumbing.
+- **Phase 5 note:** when induct/assess are wired into the daemon, they must pass through
+  the global pause gate like every other write/API call site (per the pause-completeness
+  lesson) — they're CLI-only today.
+- `ingest.py` chunk types still not extended to laws/seeds/bibliography.
+
+---
+
 ## 2026-08-01 (session 26) — Phase 1 [SONNET]: /laws/, /bibliography/, extended /reading/ pages
 
 **Tracks active:** T2

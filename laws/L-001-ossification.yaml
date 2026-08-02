@@ -34,45 +34,58 @@ justification: >
 
 examples:
   - domain: "software (internet protocols)"
-    description: "TCP/IP core structure: decades of redesign proposals abandoned;
-      extensions land via optional fields only. HTTP/1.1 → HTTP/2 required significant
-      coordination apparatus (ALPN, explicit upgrade paths)."
+    description: "TCP/IP core structure: decades of redesign proposals abandoned; extensions
+      land via optional fields only. HTTP/1.1 → HTTP/2 required significant coordination apparatus
+      (ALPN, explicit upgrade paths)."
     source: "PI corpus: TCP/IP transition history, HTTP/2 adoption timeline"
   - domain: "financial infrastructure"
-    description: "SWIFT ISO 20022 migration: multi-decade timeline despite both sides
-      wanting the change."
+    description: "SWIFT ISO 20022 migration: multi-decade timeline despite both sides wanting
+      the change."
     source: "SWIFT ISO 20022 migration documentation"
   - domain: "legal"
-    description: "Common law precedent stickiness: landmark cases slow to overturn even
-      when clearly outdated."
+    description: "Common law precedent stickiness: landmark cases slow to overturn even when
+      clearly outdated."
     source: "Common law precedent literature"
   - domain: "social"
-    description: "Formal greeting/etiquette protocols (e.g., business card conventions
-      in Japan) persist under modernization pressure."
+    description: "Formal greeting/etiquette protocols (e.g., business card conventions in Japan)
+      persist under modernization pressure."
     source: null
 
+  - domain: Paradigm succession and cohort replacement
+    description: "seed-027 (Planck principle) identifies cohort replacement as the primary mechanism
+      by which entrenched protocols are displaced in scientific communities — not persuasion
+      or technical demonstration. This bears on L-001's mechanism: if ossification persists
+      until the ossified cohort is replaced, the coordination-cost story may be secondary to
+      the social-identity story. The Planck mechanism would predict that protocol change rates
+      track cohort turnover rates, not coordination cost reduction."
+    source: seed-027 (C-027-planck-principle-institutional-memory)
 counterexamples:
   - description: "TLS version deprecation moved faster than the superlinear prediction."
-    resolution: "Asymmetric power (browser vendors forcing transition) can accelerate
-      beyond the naive prediction. Scoping condition: the law applies to distributed,
-      non-hierarchical adoption. Whether asymmetric power is a general law modifier
-      remains open."
+    resolution: "Asymmetric power (browser vendors forcing transition) can accelerate beyond
+      the naive prediction. Scoping condition: the law applies to distributed, non-hierarchical
+      adoption. Whether asymmetric power is a general law modifier remains open."
     source: null
-  - description: "BGP optional attributes and TCP options show extension without
-      coordination."
-    resolution: "Additive, backward-compatible changes — the law is about incompatible
-      change."
+  - description: "BGP optional attributes and TCP options show extension without coordination."
+    resolution: "Additive, backward-compatible changes — the law is about incompatible change."
     source: null
-  - description: "Closed corporate standards (e.g., SAP internal formats) update in
-      lockstep."
+  - description: "Closed corporate standards (e.g., SAP internal formats) update in lockstep."
     resolution: "Lacks the distributed adoption structure the law applies to."
     source: null
 
+  - domain: Street food market governance
+    description: seed-001 observes that street food markets can be highly formalized 
+      (licensing, fees, operating hours) yet remain behaviorally adaptive. This challenges
+      the implicit coupling in L-001 between formalization and ossification. If true, 
+      L-001's mechanism needs a third variable — something beyond adoption and 
+      formalization that determines whether a protocol becomes truly ossified versus 
+      merely formalized.
+    source: seed-001 (Ossification ≠ formalization)
+    resolution: OPEN
 open_questions:
-  - "Is there a threshold adoption level beyond which coordination cost becomes
-    prohibitive, or is the gradient smooth?"
-  - "Is asymmetric power (enforcement nodes) a general modifier of the law or a
-    special case exclusion?"
+  - "Is there a threshold adoption level beyond which coordination cost becomes prohibitive,
+    or is the gradient smooth?"
+  - "Is asymmetric power (enforcement nodes) a general modifier of the law or a special case
+    exclusion?"
 
 falsification: >
   A protocol achieving wide adoption that was subsequently modified — requiring true
@@ -101,17 +114,26 @@ triggers:
     asymmetric-power enforcer — survives one assessment pass.
 
 history:
-  - {date: "2026-05-20", event: created, detail: "Session 1 corpus investigation
-      ('protocol ossification'); registered as seed law L-001. Cheap trick: adoption
-      and adaptability in structural tension (DS-001)."}
-  - {date: "2026-05-20", event: evidence, detail: "Valley evidence compiled across
-      software, financial, legal, social domains; TLS asymmetric-power scoping
-      identified; heavy-lift formulation completed same session (retrospectively
-      recognized as too fast — see DS-001 retrospective)."}
-  - {date: "2026-06-06", event: edited, detail: "Session 14 schema redesign:
-      reclassified F-001 → T-001 (no separation event had occurred; 'established'
-      abolished)."}
-  - {date: "2026-06-13", event: evidence, detail: "Rittel & Webber deep read: wicked
-      problems framing bears on why coordination cost resists engineering solutions."}
-  - {date: "2026-08-01", event: migrated, detail: "Unified law record L-001 created
-      from T-001 + DS-001 (2026-08 redesign); typed artifacts retired."}
+  - {date: "2026-05-20", event: created, detail: "Session 1 corpus investigation ('protocol
+      ossification'); registered as seed law L-001. Cheap trick: adoption and adaptability in
+      structural tension (DS-001)."}
+  - {date: "2026-05-20", event: evidence, detail: "Valley evidence compiled across software,
+      financial, legal, social domains; TLS asymmetric-power scoping identified; heavy-lift
+      formulation completed same session (retrospectively recognized as too fast — see DS-001
+      retrospective)."}
+  - {date: "2026-06-06", event: edited, detail: "Session 14 schema redesign: reclassified F-001
+      → T-001 (no separation event had occurred; 'established' abolished)."}
+  - {date: "2026-06-13", event: evidence, detail: "Rittel & Webber deep read: wicked problems
+      framing bears on why coordination cost resists engineering solutions."}
+  - {date: "2026-08-01", event: migrated, detail: "Unified law record L-001 created from T-001
+      + DS-001 (2026-08 redesign); typed artifacts retired."}
+  - date: '2026-08-02'
+    event: evidence
+    detail: 'Whether ossification is driven by coordination cost (current mechanism) or by something
+      else — the seed-001 counterexample suggests they are decoupled: seed-027 (Planck principle)
+      identifies cohort replacement as the primary mechanism by which entrench'
+  - date: '2026-08-02'
+    event: counterexample
+    detail: 'The assumption that adoption pressure drives ossification — seed-001 suggests ossification
+      and formalization are independent variables: seed-001 observes that street food markets
+      can be highly formalized (licensing, fees, operating hour'

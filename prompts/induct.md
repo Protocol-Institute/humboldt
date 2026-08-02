@@ -85,7 +85,8 @@ new_laws:            # usually empty
     statement: ""
     mechanism: ""
     justification: ""   # why this is law-shaped; which seeds/reads fed it
-    origin: discovered  # or imported (+ source)
+    origin: discovered  # or imported
+    source: ""          # REQUIRED when origin is imported: the source law/work generalized (e.g. "arxiv-2512.07526 (Tan)")
     examples: [{domain: "", description: "", source: ""}]
     falsification: ""
     seeds_consumed: []  # seed ids folded into this law

@@ -1,0 +1,61 @@
+id: L-008
+title: Proxy Optimization Under Computable Enforcement
+slug: proxy-optimization-under-computable-enforcement
+stage: exploration
+status: active
+origin: discovered
+source: null
+confidence: speculative
+statement: >
+  When protocol obligations become precisely computable and enforcement signals become legible
+  to optimizing agents, participants cluster more densely at the compliance boundary rather
+  than distributing across the interior of permissible behavior, degrading the distance between
+  formal compliance and the underlying goal the protocol was designed to serve.
+mechanism: >
+  Computable rules create a differentiable compliance landscape: agents can calculate exactly
+  where the boundary is and how close they are to it. Under optimization pressure, the minimum-cost
+  strategy is to operate at the boundary, not comfortably inside it. This is structurally distinct
+  from Goodhart's Law (L-004), which concerns proxy substitution; here the proxy is not substituted
+  — it is hit precisely, with compliance theater replacing genuine goal-pursuit. The mechanism
+  is adversarial gradient descent against an explicit loss function defined by the rule itself.
+justification: >
+  seed-047 (computable-rules-boundary-search-amplification) provides direct empirical evidence:
+  conduct boundary mass increases from 0.367 to 0.411 under computable static rules. seed-003
+  (rules-as-code lowers loophole search cost) provides the mechanism from the adversarial search
+  side. The healthcare policy paper (arxiv-2605.30680) shows pressure migration as a structural
+  analog — closing one channel just redirects to the nearest open one. Together these establish
+  a cross-domain pattern. The law is distinguishable from L-004 because the proxy is not abandoned
+  or gamed indirectly; it is precisely satisfied while the underlying goal is structurally vacated.
+examples:
+  - domain: Financial regulation
+    description: Under computable regulatory rules with precise enforcement thresholds 
+      (e.g., capital adequacy ratios), banks cluster near the minimum required ratio 
+      rather than holding comfortable buffers, because the cost of excess capital is real 
+      and the compliance signal is exact.
+    source: seed-047 (C-047-computable-rules-boundary-search-amplification)
+  - domain: Healthcare policy
+    description: Healthcare providers shift billing and patient-selection behavior to 
+      adjacent channels when one distortion channel is closed by a precisely specified 
+      rule, reproducing the incentive geometry at the nearest unmonitored boundary.
+    source: arxiv-2605.30680 (Wang et al., Medi-Sim)
+counterexamples: []
+open_questions: []
+falsification: >
+  If computable enforcement were accompanied by systematic redistribution of behavior toward
+  the interior of compliance space (agents operating well above the minimum threshold despite
+  computable signals), the law would be falsified. This would likely require either significant
+  positive-sum incentives for interior operation, or enforcement architectures that reward distance
+  from the boundary rather than crossing it.
+references: []
+seeds:
+  - seed-047
+  - seed-003
+related: []
+triggers:
+  advance: ''
+  challenge: ''
+history:
+  - date: '2026-08-02'
+    event: created
+    detail: 'induction sweep — seed-047 (computable-rules-boundary-search-amplification) provides
+      direct empirical evidence: conduc'

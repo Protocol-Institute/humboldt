@@ -35,48 +35,44 @@ justification: >
 
 examples:
   - domain: "software (network stack)"
-    description: "TCP/IP vs. OSI: TCP/IP simplified the network layer; application
-      layer complexity (HTTP, SMTP, etc.) substantially exceeds OSI's application
-      design — cost moved up-stack."
+    description: "TCP/IP vs. OSI: TCP/IP simplified the network layer; application layer complexity
+      (HTTP, SMTP, etc.) substantially exceeds OSI's application design — cost moved up-stack."
     source: "OSI vs. TCP/IP comparison literature"
   - domain: "software (identity)"
-    description: "OAuth simplified per-application authentication; moved complexity
-      to identity-provider infrastructure and permission-management UX — more total
-      coordination work, differently concentrated."
+    description: "OAuth simplified per-application authentication; moved complexity to identity-provider
+      infrastructure and permission-management UX — more total coordination work, differently
+      concentrated."
     source: "OAuth and identity infrastructure literature"
   - domain: "software (naming)"
-    description: "DNS simplified application-layer address resolution; produced
-      coordination complexity in DNS infrastructure (DNSSEC, anycast, registrar
-      coordination)."
+    description: "DNS simplified application-layer address resolution; produced coordination
+      complexity in DNS infrastructure (DNSSEC, anycast, registrar coordination)."
     source: null
   - domain: "software (APIs)"
-    description: "REST vs. SOAP/WS-*: simplified protocol design; moved cost to
-      documentation, versioning, backward-compatibility maintenance."
+    description: "REST vs. SOAP/WS-*: simplified protocol design; moved cost to documentation,
+      versioning, backward-compatibility maintenance."
     source: null
 
 counterexamples:
-  - description: "Compression protocols (DEFLATE/gzip) appear to genuinely reduce
-      cost without redistribution."
-    resolution: "Compression extracts information-theoretic efficiency — a different
-      mechanism; may not be a coordination cost phenomenon at all. Partially
-      resolved, kept on record."
+  - description: "Compression protocols (DEFLATE/gzip) appear to genuinely reduce cost without
+      redistribution."
+    resolution: "Compression extracts information-theoretic efficiency — a different mechanism;
+      may not be a coordination cost phenomenon at all. Partially resolved, kept on record."
     source: null
-  - description: "No documented case yet of genuine total-cost reduction — but
-      absence of evidence is not evidence of absence."
+  - description: "No documented case yet of genuine total-cost reduction — but absence of evidence
+      is not evidence of absence."
     resolution: "OPEN — this is the standing falsification search."
     source: null
 
 open_questions:
-  - "THE CRUX: if automation moves coordination cost to machines, does it count as
-    eliminated or redistributed? If machine coordination cost counts, conservation
-    holds; if only human cost counts, automation is a genuine escape. This single
-    question determines the law's fate."
-  - "Strict conservation or tendency? Protocol systems are not closed systems —
-    external investment may genuinely reduce total cost."
-  - "What unit of account allows coordination cost to be measured across layers?
-    Without one, the conservation claim is untestable."
-  - "Cross-domain breadth: all current evidence is software. Do organizational or
-    legal layer-transitions show the same signature?"
+  - "THE CRUX: if automation moves coordination cost to machines, does it count as eliminated
+    or redistributed? If machine coordination cost counts, conservation holds; if only human
+    cost counts, automation is a genuine escape. This single question determines the law's fate."
+  - "Strict conservation or tendency? Protocol systems are not closed systems — external investment
+    may genuinely reduce total cost."
+  - "What unit of account allows coordination cost to be measured across layers? Without one,
+    the conservation claim is untestable."
+  - "Cross-domain breadth: all current evidence is software. Do organizational or legal layer-transitions
+    show the same signature?"
 
 falsification: >
   A protocol redesign that demonstrably reduced total system coordination cost — not
@@ -103,16 +99,17 @@ triggers:
     assessment pass (this is the falsification test itself).
 
 history:
-  - {date: "2026-05-20", event: created, detail: "Opened as H-001, then arc DS-006.
-      Cheap trick: coordination cost behaves like energy — redistributable, not
-      destructible."}
-  - {date: "2026-05-20", event: evidence, detail: "Software-domain evidence compiled:
-      TCP/IP-OSI, OAuth, DNS, REST. Automation crux identified as the decisive open
-      question."}
-  - {date: "2026-06-06", event: edited, detail: "Session 14 schema redesign:
-      registered as CL-002 (valley, productive)."}
-  - {date: "2026-06-24", event: evidence, detail: "Session 20/21 batch reads flagged
-      2402.08128, 2512.07526, 2602.22041 for CL-002/Q-011/Q-012 follow-up (not yet
-      folded in)."}
-  - {date: "2026-08-01", event: migrated, detail: "Unified law record L-006 created
-      from CL-002 + DS-006 (2026-08 redesign)."}
+  - {date: "2026-05-20", event: created, detail: "Opened as H-001, then arc DS-006. Cheap trick:
+      coordination cost behaves like energy — redistributable, not destructible."}
+  - {date: "2026-05-20", event: evidence, detail: "Software-domain evidence compiled: TCP/IP-OSI,
+      OAuth, DNS, REST. Automation crux identified as the decisive open question."}
+  - {date: "2026-06-06", event: edited, detail: "Session 14 schema redesign: registered as CL-002
+      (valley, productive)."}
+  - {date: "2026-06-24", event: evidence, detail: "Session 20/21 batch reads flagged 2402.08128,
+      2512.07526, 2602.22041 for CL-002/Q-011/Q-012 follow-up (not yet folded in)."}
+  - {date: "2026-08-01", event: migrated, detail: "Unified law record L-006 created from CL-002
+      + DS-006 (2026-08 redesign)."}
+  - date: '2026-08-02'
+    event: evidence
+    detail: 'reference shallow · 2026-07-24-link-research-on-total-cost-of-ownership-metrics-in-systems-.md:
+      The measurement problem — how to operationalize coordination cost conservation a'

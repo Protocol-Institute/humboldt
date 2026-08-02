@@ -107,8 +107,25 @@ def cmd_hypothesize(topic: str):
     synth.synthesize_streaming(system, user)
 
 
-def cmd_assess(law_id: str, namespaces: list[str] = ret.NS_ALL):
-    """Gather evidence for a specific law."""
+def cmd_induct(dry_run: bool = False, since: str | None = None):
+    """Funnel stage 5 — induction sweep: seeds + recent reads → new laws / evidence."""
+    from agent.induct import induct
+    induct(dry_run=dry_run, since=since)
+
+
+def cmd_assess_law(target: str, dry_run: bool = False):
+    """Funnel stage 6/8 — assess one law (L-NNN) or sweep all (--all)."""
+    from agent import assess as assess_mod
+    if target == "--all":
+        assess_mod.assess_all(dry_run=dry_run)
+    else:
+        assess_mod.assess(target, dry_run=dry_run)
+
+
+def cmd_assess_evidence(law_id: str, namespaces: list[str] = ret.NS_ALL):
+    """LEGACY (unbound) — retrieval-only evidence gather against research/laws/,
+    which is archived. Superseded by the `assess` funnel engine (agent/assess.py).
+    Kept as a retrieval helper reference; not wired into the CLI."""
     soul = prompts.load_soul()
     law_files = list(LAWS_DIR.glob(f"{law_id}*.yaml"))
     if not law_files:
@@ -742,7 +759,12 @@ USAGE = """
 Usage:
   python3 -m agent.humboldt investigate "<topic>"        # open-ended investigation
   python3 -m agent.humboldt hypothesize "<topic>"        # propose candidate laws (no files)
-  python3 -m agent.humboldt assess <law-id>              # gather evidence for a law
+  python3 -m agent.humboldt induct                       # funnel stage 5: seeds+reads → new laws/evidence
+  python3 -m agent.humboldt induct --dry-run             # call model, apply nothing
+  python3 -m agent.humboldt induct --since YYYY-MM-DD     # override the read cursor
+  python3 -m agent.humboldt assess <L-NNN>               # funnel stage 6/8: assess one law (promote/hold/demote)
+  python3 -m agent.humboldt assess <L-NNN> --dry-run     # call model, apply nothing
+  python3 -m agent.humboldt assess --all                 # assess every active law
   python3 -m agent.humboldt theorize                     # find unification opportunities
   python3 -m agent.humboldt inventory                    # show current law inventory
   python3 -m agent.humboldt library                      # list deep-read library
@@ -801,11 +823,15 @@ def main():
             print("Usage: humboldt hypothesize \"<topic>\"")
             sys.exit(1)
         cmd_hypothesize(" ".join(rest))
+    elif cmd == "induct":
+        dry_run = "--dry-run" in rest
+        cmd_induct(dry_run=dry_run, since=_opt(rest, "--since"))
     elif cmd == "assess":
-        if not rest:
-            print("Usage: humboldt assess <law-id>  (e.g. L-001)")
+        target = next((a for a in rest if not a.startswith("--")), None)
+        if not target and "--all" not in rest:
+            print("Usage: humboldt assess <L-NNN> [--dry-run]  |  humboldt assess --all [--dry-run]")
             sys.exit(1)
-        cmd_assess(rest[0])
+        cmd_assess_law(target or "--all", dry_run="--dry-run" in rest)
     elif cmd == "theorize":
         cmd_theorize()
     elif cmd == "inventory":
