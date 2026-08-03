@@ -42,7 +42,22 @@ examples:
       the reasoning provided.
     source: arxiv-2606.00013 (Venerina et al. 2026)
 counterexamples: []
-open_questions: []
+open_questions:
+  - "Single-source dependency: the law rests entirely on arxiv-2606.03636 (Tembine). The advance
+    trigger explicitly requires a second independent domain with a documented, reproducible
+    case of stable causal detachment — a deployed generative or agentic system where (a) all
+    operational metrics remain green, (b) causal grounding measurably degrades, and (c) standard
+    error-correction fails to recover. No such case appears in the new evidence. Specific actionable
+    next step: retrieve or commission a case study from LLM deployment audits, RAG pipeline
+    drift analysis, or autonomous agent benchmarks where output-quality metrics diverge from
+    factual grounding metrics over time — specifically cases where human or automated correction
+    attempts failed to restore grounding without oracle access. Hallucination-persistence literature
+    (e.g., documented confabulation that survives RLHF correction in production) would be the
+    most direct candidate. The Venerina second example remains flagged as weakly coupled (persuasion
+    ≠ causal detachment) and does not count toward the advance trigger. Additionally, the law's
+    statement should be amended to include the scoping condition surfaced by the challenge:
+    \"in deployments where no authoritative external oracle is integrated into the active correction
+    loop.\""
 falsification: >
   The law would be falsified if operationally functional, internally consistent outputs were
   shown to always be causally grounded — i.e., if there were no stable configurations satisfying
@@ -53,8 +68,20 @@ references: []
 seeds: []
 related: []
 triggers:
-  advance: ''
-  challenge: ''
+  advance: >
+    Independent evidence that causally-detached-but-internally-consistent states are stable
+    attractors (resist normal error correction) in a system other than the Tembine model — e.g.
+    a
+    documented, reproducible case where a deployed generative/agentic system holds all operational
+    metrics green while grounding degrades and standard correction fails to recover. The second
+    domain example (Venerina persuasion) is weakly coupled and does not count until this is
+    shown.
+  challenge: >
+    A verification/error-correction architecture calibrated only to output quality that
+    nonetheless reliably distinguishes causally-grounded from causally-detached functioning
+    outputs
+    without access to external ground truth; OR evidence that such detached states are transient
+    rather than stable attractors.
 history:
   - date: '2026-08-02'
     event: created
@@ -64,3 +91,16 @@ history:
     event: edited
     detail: source set to arxiv-2606.03636 (Tembine, Causal Mirage Equilibrium) (import 
       provenance)
+  - date: '2026-08-03'
+    event: edited
+    detail: 'supervisor review — accepted with reservation at exploration (deep-read-confirmed
+      but most abstract); advance/challenge triggers set; Venerina second example flagged as
+      weakly coupled (persuasion != causal detachment).'
+  - date: '2026-08-03'
+    event: resolved
+    detail: The challenge is resolved by noting the RLVR/spec passage presupposes access 
+      to an external oracle as a design choice — it does not show that such ora
+  - date: '2026-08-03'
+    event: edited
+    detail: 'assessment HOLD — gap: Single-source dependency: the law rests entirely on arxiv-2606.03636
+      (Tembine). The advance trigger explicitly requires a second independent domain wi'

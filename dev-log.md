@@ -6,6 +6,63 @@ Most recent entry first.
 
 ---
 
+## 2026-08-03 (session 28) — Supervisor review + first assess pass on L-008–011
+
+**Tracks active:** T2
+**Daemon PID:** 1930 (running, paused through 2026-08-15)
+
+Closed the session-27 open loop: the four laws the first live induction sweep produced
+(L-008–011, all exploration/speculative) got a supervisor review and the first real
+`assess` pass. All four **accepted** into the encyclopedia at exploration; all four then
+**HOLD** on assessment — the correct outcome for two-day-old speculative laws, and the
+proof that the promotion gate resists rhetorical momentum rather than rubber-stamping the
+induct engine's output.
+
+Provenance checked first: both imported laws (L-009 Tan, L-011 Tembine) are
+deep-read-confirmed with page-level verdicts (`deep-read-verdicts.md`), not built from
+abstracts — so the "formal proof" claims are earned. The one substantive edit was
+**L-010**, which overclaimed its own source: seed-050 explicitly says the perverse
+adoption nonmonotonicity *vanishes under co-optimized signaling*, which the induct-drafted
+statement dropped, leaving the stated falsification condition self-satisfying. Rewrote the
+statement to design-conditional form, aligned falsification, and linked `related: [L-006]`
+(it's a boundary condition on Coordination Cost Conservation, kept standalone per operator
+call). L-008/L-009/L-011 accepted as-is with a review history entry; L-011's Venerina
+second example flagged as weakly coupled (persuasion ≠ causal detachment).
+
+The gating discovery: **`induct` creates laws with empty `advance`/`challenge` triggers**,
+and `assess` Step 1 reads the advance trigger literally — so assessment was impossible
+until I hand-authored triggers for all four (supervisor judgment, appropriately). The
+assess pass then worked cleanly: it pulled fresh corpus retrievals as new evidence, and on
+L-009 surfaced a genuine OPEN counterexample (PI corpus: real protocol races are
+structurally *asymmetric*, undercutting the symmetric-ruin premise). Each law now carries
+an executable **gap** in `open_questions` — L-010's names three target domains (TCAS,
+vaccination risk-compensation, TLS warning-habituation), L-008's names three (EPA
+e-reporting, YouTube ContentID, citation metrics). Those gaps are the Track-1 research
+queue, living natively in the law records rather than the (still old-schema) `agenda.md`.
+
+Two defects logged for the Phase-2 triage/reads rework (captured in `TODO.md` ON DECK):
+(1) the empty-triggers gap above — `induct.md` should draft triggers or `assess` should
+fall back to a stage-default bar; without it every sweep yields un-assessable laws; (2) a
+transient YAML PARSE-ERROR on L-008's first assess (clean on retry, nothing
+double-applied) wants a one-shot parse retry, plus a cosmetic `history.detail` mid-word
+truncation in the induct logger. Also captured the next-session build plan at the top of
+`TODO.md`: the [OPUS] triage/reads rework (content/meta tagging, bib wiring, seed
+emission, `references:`→`bib-NNNN` backfill) with those two fixes folded in, then a
+[SONNET] publish-hook + law-event Discord session.
+
+Subsystem state after this session: the induct→assess funnel is proven end-to-end on real
+laws; the encyclopedia holds 11 valid records (7 mature + 4 fresh exploration, all HELD);
+`analytics/events.jsonl` captured 5 law events. Production daemon unchanged — still
+on-laptop, paused, old code; off-laptop is Phase 5 and not started.
+
+**Open (next session):**
+- Phase 2 [OPUS]: `triage.py`/`reads.py` rework + the two induct/assess fixes.
+- Then [SONNET]: publish hook + law-event Discord plumbing.
+- Extend the 08-15 pause when the daemon is next touched if Phase 5 will slip past it.
+- `humboldt ingest` of new laws/seeds/bib remains deferred behind the pause.
+
+---
+
 ## 2026-08-02 (session 27) — Phase 2 [OPUS]: induct + assess funnel engines; first live sweep
 
 **Tracks active:** T2

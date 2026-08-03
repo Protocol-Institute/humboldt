@@ -39,7 +39,22 @@ examples:
       rule, reproducing the incentive geometry at the nearest unmonitored boundary.
     source: arxiv-2605.30680 (Wang et al., Medi-Sim)
 counterexamples: []
-open_questions: []
+open_questions:
+  - "Primary gap (unchanged from supervisor review): a measured boundary-clustering result —
+    boundary- mass increase or equivalent quantitative metric — in at least one genuinely independent,
+    non-financial-regulation domain. The healthcare analog (arxiv-2605.30680) does not qualify
+    because it measures pressure migration (channel substitution) rather than boundary-mass
+    clustering on a single compliance dimension. Candidate domains to retrieve evidence for:
+    (1) environmental compliance under EPA digital reporting mandates (post-2010 e-reporting),
+    where firms' reported emissions could be analyzed for clustering near permit thresholds;
+    (2) digital platform content moderation under precisely specified automated rules (e.g.,
+    YouTube's ContentID thresholds), where creators' video duration or monetization-trigger
+    behavior could exhibit measurable boundary clustering; (3) academic publishing under computable
+    citation/impact metrics with threshold-based outcomes. A retrieval session targeting any
+    of these with quantitative evidence would satisfy the advance trigger. Secondary gap: the
+    scoping condition identified in the challenge resolution (penalty-enforcement vs. reputation/surplus-enforcement)
+    should be made explicit in the law's statement or mechanism field before the law advances,
+    to prevent the IETF-class case from registering as a counterexample upon promotion."
 falsification: >
   If computable enforcement were accompanied by systematic redistribution of behavior toward
   the interior of compliance space (agents operating well above the minimum threshold despite
@@ -52,10 +67,31 @@ seeds:
   - seed-003
 related: []
 triggers:
-  advance: ''
-  challenge: ''
+  advance: >
+    Mechanism confirmed in 2+ genuinely independent domains with cited evidence —
+    boundary-mass increase (or an equivalent boundary-clustering measure) measured, not
+    asserted, in at least one non-financial-regulation domain. Analogs that merely share
+    the boundary-clustering intuition (e.g. pressure-migration) do not count as a second
+    domain.
+  challenge: >
+    A domain under computable, legible enforcement where optimizing agents demonstrably
+    distribute toward the interior of permissible behavior (operating well above the
+    minimum threshold) rather than clustering at the compliance boundary.
 history:
   - date: '2026-08-02'
     event: created
     detail: 'induction sweep — seed-047 (computable-rules-boundary-search-amplification) provides
       direct empirical evidence: conduc'
+  - date: '2026-08-03'
+    event: edited
+    detail: 'supervisor review — accepted at exploration; advance/challenge triggers set (gap:
+      rests on one strong source, needs a measured non-financial second domain).'
+  - date: '2026-08-03'
+    event: resolved
+    detail: "The IETF reference is suggestive but not measured, and the law's own falsification
+      condition anticipates this class of case: it predicts boundary-clus"
+  - date: '2026-08-03'
+    event: edited
+    detail: 'assessment HOLD — gap: Primary gap (unchanged from supervisor review): a measured
+      boundary-clustering result — boundary- mass increase or equivalent quantitative metric
+      — in'

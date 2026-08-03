@@ -4,6 +4,35 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-08-03 (session 28) — Supervisor review + first assess pass on L-008–011
+
+Session: T2 (redesign — supervisor review). Run on Opus 4.8.
+
+**Daemon:** PID 1930 (running; paused through **2026-08-15**). Unchanged — still
+old-design code, on-laptop, not wired to the new engines (Phase 5). Off-laptop not started.
+
+**Completed:**
+- Supervisor review of the induct sweep's output (L-008–011): all four **accepted** at
+  exploration/speculative. Provenance verified — L-009 (Tan) and L-011 (Tembine) are
+  deep-read-confirmed, not abstract-built.
+- **L-010 statement rewritten** — it overclaimed seed-050 (the nonmonotonicity vanishes
+  under co-optimized signaling); now design-conditional, falsification aligned, linked
+  `related: [L-006]`. L-011 Venerina example flagged weakly coupled. Review history entry
+  + `advance`/`challenge` triggers set on all four (they were created empty).
+- **First real `assess` pass** on all four → all **HOLD** (correct for fresh speculative
+  laws). L-009 gained an OPEN counterexample (protocol races are empirically asymmetric).
+  Each law now carries an executable gap in `open_questions`. 5 events → events.jsonl.
+- Two Phase-2 defects logged (empty-triggers from induct; assess parse-retry + history
+  truncation) and the next-session build plan captured at the top of `TODO.md`.
+- 11 law records valid.
+
+**Open (next session):**
+- Phase 2 [OPUS]: `triage.py`/`reads.py` rework + fold in the two induct/assess fixes.
+- Then [SONNET]: publish hook + law-event Discord plumbing.
+- Extend 08-15 pause if Phase 5 (server cutover) will slip; `humboldt ingest` deferred.
+
+---
+
 ## 2026-08-02 (session 27) — Phase 2 [OPUS]: induct + assess engines; first live sweep (L-008–L-011)
 
 Session: T2 (redesign implementation). Run on Opus 4.8.

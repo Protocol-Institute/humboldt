@@ -8,9 +8,12 @@ source: null
 confidence: speculative
 statement: >
   In protocol systems where agents condition behavior on coordination signals from other adopters,
-  increasing adoption rates can increase rather than decrease system-level failure rates within
-  certain adoption ranges, because signal-conditioned behavioral changes outpace the safety
-  gains from improved coverage.
+  adoption is monotonically beneficial only when the signaling/protocol design is co-optimized
+  with
+  the adoption level. Under fixed (non-co-optimized) design, intermediate adoption ranges can
+  raise
+  system-level failure rates above those at low or zero adoption, because signal-conditioned
+  behavioral change outpaces the safety gains from improved coverage.
 mechanism: >
   When adopters of a coordination protocol receive signals that cause them to alter their behavior
   (e.g., reducing precautionary behavior in response to warning signals), the safety benefit
@@ -42,21 +45,58 @@ examples:
       trust infrastructure.
     source: arxiv-2606.03161 (Xu, OAN White Paper)
 counterexamples: []
-open_questions: []
+open_questions:
+  - "Two specific gaps must be closed before PROMOTE is possible: (1) DOMAIN CONFIRMATION —
+    retrieve and read arxiv-2606.03161 (Xu, OAN White Paper) to confirm whether it actually
+    contains a modeled or measured intermediate-adoption failure peak under fixed (non-co-optimized)
+    design. Currently this is asserted by analogy only. If it does not, the OAN entry should
+    be downgraded to [inference] and the law's second domain is absent. (2) SECOND INDEPENDENT
+    DOMAIN — identify at least one domain beyond V2V (and beyond OAN unless gap 1 is closed)
+    in which the signal-conditioned behavioral change under partial adoption produces a documented
+    failure-rate non-monotonicity. Candidate domains to search: (a) TCAS/aviation collision-avoidance
+    under partial fleet adoption — there is external literature on TCAS resolution advisory
+    compliance rates creating new failure modes during adoption; (b) vaccination partial-coverage
+    with risk-compensation behavior — peer-reviewed epidemiological literature on behavioral
+    disinhibition under partial vaccine coverage; (c) TLS/HTTPS mixed-content security warnings
+    — user habituation to warning dialogs under partial HTTPS adoption creating intermediate-adoption
+    vulnerability peaks. Each candidate must reproduce the fixed-design vs. co-optimized-design
+    distinction to count toward the advance trigger."
 falsification: >
-  The law would be falsified if, for any protocol where adoption triggers behavioral conditioning,
-  the system-level failure rate were strictly monotone decreasing in adoption rate. Finding
-  no intermediate-adoption maximum across a broad class of coordination protocols would refute
-  the general claim, though the V2V-specific finding would remain.
+  The law would be falsified if, under fixed (non-co-optimized) design, the system-level failure
+  rate were strictly monotone decreasing in adoption across a broad class of signal-conditioned
+  coordination protocols — i.e. if no intermediate-adoption failure peak existed even when the
+  signaling policy is held fixed rather than optimized per adoption level. (The optimized-design
+  case is expected to be monotone and does not falsify the law.)
 references: []
 seeds:
   - seed-050
-related: []
+related:
+  - L-006
 triggers:
-  advance: ''
-  challenge: ''
+  advance: >
+    The design-conditional nonmonotonicity confirmed in 2+ independent domains beyond V2V —
+    a
+    measured intermediate-adoption failure peak under fixed design in, e.g., a security-protocol
+    or vaccination/partial-coverage setting — each reproducing the fixed-design vs
+    co-optimized-design distinction.
+  challenge: >
+    A coordination protocol with signal-conditioned behavior in which fixed (non-co-optimized)
+    design still yields monotone-decreasing failure in adoption — showing the fixed-design caveat
+    is not what produces the nonmonotonicity — or evidence the V2V R3/R4 result does not survive
+    the corrected consistency equation.
 history:
   - date: '2026-08-02'
     event: created
     detail: induction sweep — seed-050 (C-050-coordination-adoption-nonmonotonicity) 
       provides the formal mechanism from V2V commun
+  - date: '2026-08-03'
+    event: edited
+    detail: 'supervisor review — statement tightened to design-conditional form (seed-050 shows
+      the perverse effect vanishes under co-optimized signaling, which the original statement
+      dropped); falsification aligned; related L-006 (boundary condition on Coordination Cost
+      Conservation); advance/challenge triggers set.'
+  - date: '2026-08-03'
+    event: edited
+    detail: 'assessment HOLD — gap: Two specific gaps must be closed before PROMOTE is possible:
+      (1) DOMAIN CONFIRMATION — retrieve and read arxiv-2606.03161 (Xu, OAN White Paper) to
+      con'

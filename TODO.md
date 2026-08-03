@@ -4,6 +4,41 @@ Infrastructure, persona, and template work. This is the *operator* layer — man
 
 Priority: **[H]** urgent, **[M]** soon, **[L]** when convenient.
 
+---
+
+## 🎯 ON DECK — Redesign Phase 2 completion (next session)
+
+> Spec: `plans/redesign-2026-08.md`. We are mid-Phase 2; session 28 closed the
+> L-008–011 supervisor review + assess loop. **Pause expires 2026-08-15** — extend when
+> the daemon is next touched if Phase 5 (server cutover = "off-laptop") will slip past it.
+
+**Primary — `triage.py` / `reads.py` rework [OPUS].** The meaty remaining Phase 2 item:
+- Unified feed+discord triage with **content/meta tagging** (meta reads → graph-change
+  proposals, not law seeds).
+- **Bibliography wiring**: triage-in creates `bib-NNNN` entries; shallow/deep reads
+  upgrade `read_depth` and link their outputs.
+- **Seed emission**: reads emit seeds/evidence into `laws/seeds/` so `induct` has fuel.
+- *Opportunistic in the same pass:* backfill law records' `references:` from free text →
+  `bib-NNNN` ids (currently `/laws/` ↔ source links reverse-only).
+
+**Fold in two defects found session 28 (same code neighborhood, cheap) — highest leverage:**
+1. **`induct` emits laws with empty `advance`/`challenge` triggers** → `assess` Step 1 has
+   nothing to read (had to hand-set all four this session). Fix: `induct.md` drafts
+   triggers, or `assess` falls back to a stage-default bar. Without this, every induction
+   sweep produces un-assessable laws.
+2. **`assess` transient YAML PARSE-ERROR** (L-008 failed once, clean on retry) → add a
+   one-shot parse retry. Plus cosmetic `history.detail` mid-word truncation (`…conduc`)
+   in the induct logger.
+
+**Then — separate [SONNET] session:** publish hook + law-event Discord plumbing (§9 quiet
+mode) — wire law create/promote/challenge → `publish-site` + one Discord law-event post.
+
+**After Phase 2:** Phase 3 (graph + console) → Phase 4 (analytics) → **Phase 5 (server
+cutover + quiet-mode Discord = off-laptop)**.
+
+**Deferred (blocked by pause until 08-15):** `humboldt ingest` of new laws/seeds/bib
+(also `ingest.py` chunk types don't yet cover laws/seeds/bibliography).
+
 **Stub-blocker convention:** When a Track 2 behavior is a stub and its absence is
 preventing a specific Track 1 arc from advancing phase, annotate the item here with
 `[BLOCKING: P-xxx — what move is blocked]` and mirror the signal in the arc's project

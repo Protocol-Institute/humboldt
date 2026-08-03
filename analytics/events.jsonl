@@ -14,3 +14,8 @@
 {"timestamp": "2026-08-02T20:31:09.366294+00:00", "event": "evidence", "law": "L-002", "detail": "reference shallow \u00b7 2026-07-24-link-survey-or-resource-on-bisimulation-theory-and-its-appli.md"}
 {"timestamp": "2026-08-02T20:31:09.380061+00:00", "event": "evidence", "law": "L-006", "detail": "reference shallow \u00b7 2026-07-24-link-research-on-total-cost-of-ownership-metrics-in-systems-.md"}
 {"timestamp": "2026-08-02T20:31:09.396700+00:00", "event": "evidence", "law": "L-005", "detail": "The claim that complex working systems cannot be safely replaced from scratch and must be evolved"}
+{"timestamp": "2026-08-03T18:18:55.226154+00:00", "event": "counterexample", "law": "L-009", "detail": "The PI corpus Protocol Selection Pressures document notes that \"power/influence\" actors can coerce o"}
+{"timestamp": "2026-08-03T18:18:55.226538+00:00", "event": "assessed-hold", "law": "L-009", "detail": "Two specific actionable gaps must be filled before promotion can be reconsidered: (1) INDEPENDENT CONFIRMATION: A second"}
+{"timestamp": "2026-08-03T18:23:19.423841+00:00", "event": "assessed-hold", "law": "L-010", "detail": "Two specific gaps must be closed before PROMOTE is possible: (1) DOMAIN CONFIRMATION \u2014 retrieve and read arxiv-2606.0316"}
+{"timestamp": "2026-08-03T18:23:57.717029+00:00", "event": "assessed-hold", "law": "L-011", "detail": "Single-source dependency: the law rests entirely on arxiv-2606.03636 (Tembine). The advance trigger explicitly requires "}
+{"timestamp": "2026-08-03T18:26:26.063153+00:00", "event": "assessed-hold", "law": "L-008", "detail": "Primary gap (unchanged from supervisor review): a measured boundary-clustering result \u2014 boundary- mass increase or equiv"}

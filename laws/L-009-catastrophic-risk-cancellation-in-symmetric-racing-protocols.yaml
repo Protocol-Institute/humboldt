@@ -40,8 +40,31 @@ examples:
       individual lab races for research priority, consistent with the cancellation of 
       shared ruin terms.
     source: arxiv-2512.07526 (Tan 2026)
-counterexamples: []
-open_questions: []
+counterexamples:
+  - domain: ''
+    description: "The PI corpus Protocol Selection Pressures document notes that \"power/influence\"\
+      \ actors can coerce others into protocols benefiting them, and that agency/freedom asymmetries
+      affect protocol adoption. While not a direct counterexample to the formal theorem, this
+      suggests that real protocol races are structurally asymmetric in ways that violate the
+      symmetric-ruin assumption — potentially pushing all empirical cases outside the law's
+      domain of application.\n"
+    source: ''
+    resolution: "Not resolved. This is structural evidence that asymmetry is the norm in protocol
+      races, not the exception. It does not formally falsify the theorem (which is proved for
+      the symmetric case) but casts doubt on whether the symmetric case describes any real racing
+      protocol. Held open pending domain-specific symmetry assessment.\n"
+open_questions:
+  - "Two specific actionable gaps must be filled before promotion can be reconsidered: (1) INDEPENDENT
+    CONFIRMATION: A second formal derivation of the cancellation result from a source other
+    than Tan (arxiv-2512.07526), OR a published empirical study measuring deployment timing
+    as a function of symmetric ruin magnitude in any racing context. The two current examples
+    (AI races, gain-of-function) are Tan's own illustrative applications and do not constitute
+    independent domains for promotion purposes. (2) SYMMETRY-REGIME VALIDITY: Evidence or argument
+    establishing that the pure symmetric-ruin assumption is a reasonable approximation (not
+    a knife-edge) in at least one of the named empirical domains. This requires either domain-specific
+    documentation of approximate ruin symmetry, or a robustness result showing the cancellation
+    persists under small asymmetries. Without this, the law's scope is formally restricted to
+    idealized symmetric games that may not map onto any real racing protocol."
 falsification: >
   The law would be falsified if introducing shared catastrophic cost into a symmetric racing
   game demonstrably slowed deployment timing — i.e., if large increases in symmetric ruin magnitude
@@ -52,8 +75,17 @@ references: []
 seeds: []
 related: []
 triggers:
-  advance: ''
-  challenge: ''
+  advance: >
+    Independent confirmation of the cancellation result beyond Tan (arxiv-2512.07526) —
+    a second formal derivation, or empirical evidence that ruin magnitude has no effect
+    on deployment timing in a symmetric shared-cost race — since the current examples
+    (AI, gain-of-function) are illustrative applications of the one proof, not
+    independent domains.
+  challenge: >
+    Evidence that increasing symmetric ruin magnitude shifts equilibrium timing under a
+    fixed prize structure; OR that the proof's break conditions (private liability,
+    prize-sharing) are the empirically dominant case, making pure symmetric cancellation
+    a knife-edge rather than the general regime.
 history:
   - date: '2026-08-02'
     event: created
@@ -63,3 +95,15 @@ history:
     event: edited
     detail: source set to arxiv-2512.07526 (Tan, Strategic Preemption Under Shared 
       Catastrophic Risk) (import provenance)
+  - date: '2026-08-03'
+    event: edited
+    detail: 'supervisor review — accepted at exploration (strongest of the L-008–011 cohort,
+      deep-read-confirmed proof); advance/challenge triggers set from the paper''s break conditions.'
+  - date: '2026-08-03'
+    event: counterexample
+    detail: The PI corpus Protocol Selection Pressures document notes that 
+      "power/influence" actors can coerce others into protocols
+  - date: '2026-08-03'
+    event: edited
+    detail: 'assessment HOLD — gap: Two specific actionable gaps must be filled before promotion
+      can be reconsidered: (1) INDEPENDENT CONFIRMATION: A second formal derivation of the canc'
