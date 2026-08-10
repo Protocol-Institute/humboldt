@@ -34,13 +34,13 @@ examples:
       correct outputs can simultaneously be in states of systematic confabulation about 
       factual matters — satisfying all operational protocol metrics while causally 
       detached from the domain they appear to describe.
-    source: arxiv-2606.03636 (Tembine 2026)
+    source: bib-0162
   - domain: AI conformity in decision systems
     description: AI systems that produce confident recommendations with reasoning cause 
       genuine attitude change in human judges (Venerina et al. 2026), meaning 
       operationally successful influence can occur independent of the causal validity of 
       the reasoning provided.
-    source: arxiv-2606.00013 (Venerina et al. 2026)
+    source: bib-0146
 counterexamples: []
 open_questions:
   - "Single-source dependency: the law rests entirely on arxiv-2606.03636 (Tembine). The advance
@@ -64,7 +64,9 @@ falsification: >
   operational metrics while decoupled from ground truth. It would also be falsified if standard
   verification protocols reliably distinguished causally anchored from causally detached outputs
   without needing access to external ground truth.
-references: []
+references:
+  - bib-0162
+  - bib-0146
 seeds: []
 related: []
 triggers:
@@ -104,3 +106,7 @@ history:
     event: edited
     detail: 'assessment HOLD — gap: Single-source dependency: the law rests entirely on arxiv-2606.03636
       (Tembine). The advance trigger explicitly requires a second independent domain wi'
+  - date: '2026-08-10'
+    event: edited
+    detail: 'sources resolved to bibliography ids: arxiv-2606.03636 (Tembine 2026) → bib-0162,
+      arxiv-2606.00013 (Venerina et al. 2026) → bib-0146'

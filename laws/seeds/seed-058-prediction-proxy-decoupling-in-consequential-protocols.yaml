@@ -1,0 +1,17 @@
+id: seed-058
+title: Prediction Proxy Decoupling in Consequential Protocols
+text: When predictions are formalized into legible decision inputs within a safety-critical protocol (criminal
+  justice, clinical triage, resource allocation), the optimization pressure on the decision-maker shifts
+  from the original outcome (recidivism, patient recovery, student success) to the intermediate prediction
+  target itself. This decoupling occurs independent of prediction accuracy improvements, suggesting that
+  computable enforcement and legibility of the proxy metric—not the quality of the proxy—drives the capture.
+  The mechanism may generalize to any multi-stage protocol where an intermediate component becomes independently
+  measurable and organizationally accountable.
+source: bibliography/shallow-reads/2026-08-10-bridging-predictions-and-interventions-an-integrated-framewo.md
+origin: shallow-read
+surfaced: '2026-08-10'
+type: observation
+connections:
+- L-004
+- L-008
+status: open

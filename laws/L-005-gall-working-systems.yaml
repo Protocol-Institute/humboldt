@@ -65,7 +65,7 @@ examples:
       rather than reconstructing from scratch. The author's explicit diagnosis — 'interaction
       protocols are maturing faster than the identity infrastructure they presuppose' — is a
       statement of the gap that Gall's law predicts would emerge."
-    source: arxiv-2606.03161 (Xu, OAN White Paper 2026)
+    source: bib-0228
 counterexamples:
   - description: "Some from-scratch replacements succeed."
     resolution: "Success conditions — small well-understood old system, controlled rollout,
@@ -96,6 +96,7 @@ references:
     gap)"
   - "IPv6 transition literature"
   - "Post-Soviet institutional reform literature"
+  - bib-0228
 seeds: []
 related:
   - "L-001"  # adoption momentum compounds the implicit-solutions problem
@@ -128,3 +129,7 @@ history:
     detail: "The claim that complex working systems cannot be safely replaced from scratch and
       must be evolved: The OAN white paper (arxiv-2606.03161) is itself an example of Gall's
       principle in action: rather th"
+  - date: '2026-08-10'
+    event: edited
+    detail: 'sources resolved to bibliography ids: arxiv-2606.03161 (Xu, OAN White Paper 20
+      → bib-0228'

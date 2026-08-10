@@ -241,8 +241,33 @@ def _year_in(text: str) -> int | None:
     return int(m.group(0)) if m else None
 
 
-def _map_law_tokens(raw_tokens: list[str], current_ids: set[str]):
-    """Split legacy connected-to tags into (mapped current-law ids, all raw)."""
+def year_from(*texts: str | None) -> int | None:
+    """Best-effort publication year from a url/title/source string — arXiv id
+    first (it is unambiguous), then a bare four-digit year. Public because the
+    funnel stages create bibliography entries at triage time and have only these
+    strings to work from."""
+    for t in texts:
+        if not t:
+            continue
+        y = _arxiv_year(t)
+        if y:
+            return y
+    for t in texts:
+        if t:
+            y = _year_in(t)
+            if y:
+                return y
+    return None
+
+
+def map_law_tokens(raw_tokens: list[str], current_ids: set[str]):
+    """Split connected-to tags into (mapped current-law ids, all raw tokens).
+
+    Public because the funnel stages (triage, shallow read) parse the same
+    free-form "Connected to:" strings out of model output and must map them the
+    same way — legacy CL ids included, since the corpus and the operator still
+    use them.
+    """
     laws_out, raw_out = [], []
     for tok in raw_tokens:
         tok = tok.strip()
@@ -265,7 +290,7 @@ def _parse_shallow(path: Path, current_ids: set[str]) -> dict:
     source = source_m.group(1).strip() if source_m else ""
     conn_m = re.search(r"^\*\*Connected to:\*\*\s*(.+)$", text, re.MULTILINE)
     raw_tokens = re.split(r"[,\s]+", conn_m.group(1).strip()) if conn_m else []
-    mapped, raw = _map_law_tokens(raw_tokens, current_ids)
+    mapped, raw = map_law_tokens(raw_tokens, current_ids)
     url = _first_url(source)
     year = _arxiv_year(source) or _arxiv_year(path.name) or _year_in(source)
     return {
@@ -371,6 +396,176 @@ def migrate(dry_run: bool = False, verbose: bool = True) -> dict:
         if verbose:
             print(f"  saved → {_BIB_FILE.relative_to(_ROOT)}")
     return counts
+
+
+# ── Reference backfill ────────────────────────────────────────────────────────
+#
+# Law records predating the bibliography carry `references:` as free text
+# ("Goodhart (1975)", "OSI vs. TCP/IP comparison literature"). Where such a
+# string names a source the bibliography actually holds, it should be a bib-NNNN
+# id so the encyclopedia can link it. This is a one-shot repair, deliberately
+# conservative: an uncertain match stays free text. Free-text references that
+# name a *literature* rather than a work ("Common law precedent literature")
+# have no bibliography entry by construction and are expected to survive.
+
+_BACKFILL_RATIO = 0.87     # difflib similarity on normalised titles
+_BACKFILL_MIN_LEN = 14     # normalised chars; below this, similarity is noise
+
+
+_ARXIV_TOKEN = re.compile(r"arxiv[-:\s]?(\d{4}\.\d{4,5})", re.I)
+_READFILE_TOKEN = re.compile(r"([\w.-]+\.md)")
+
+
+def _match_reference(ref: str, entries: list[dict]) -> tuple[dict | None, float, str]:
+    """Best bibliography entry for one free-text reference or evidence source.
+
+    Returns ``(entry|None, score, how)``. Identifier hits (arXiv id, read-file
+    path, url, exact title) score 1.0; the fuzzy path requires a high title
+    similarity on a reference long enough for that similarity to mean something.
+    """
+    from difflib import SequenceMatcher
+
+    ref = str(ref).strip()
+    if not ref:
+        return None, 0.0, "empty"
+    if re.match(r"seed-\d+", ref):
+        # Seed provenance, not a bibliographic source — belongs in `seeds:`.
+        return None, 0.0, "seed-ref"
+
+    # 1. arXiv id — the strongest identifier the law records carry.
+    am = _ARXIV_TOKEN.search(ref)
+    if am:
+        hit = _find(entries, f"https://arxiv.org/abs/{am.group(1)}", None)
+        if hit is not None:
+            return hit, 1.0, "arxiv"
+
+    # 2. A read output path — the entry that already points at that file.
+    fm = _READFILE_TOKEN.search(ref)
+    if fm:
+        fname = fm.group(1)
+        for e in entries:
+            for field in ("summary", "notes"):
+                if str(e.get(field) or "").endswith(fname):
+                    return e, 1.0, "read-file"
+
+    url = _first_url(ref)
+    exact = _find(entries, url, ref)
+    if exact is not None:
+        return exact, 1.0, "url" if url else "title"
+
+    nref = _norm_title(ref)
+    if len(nref) < _BACKFILL_MIN_LEN:
+        return None, 0.0, "too-short"
+
+    best, best_score = None, 0.0
+    for e in entries:
+        nt = _norm_title(e.get("title"))
+        if len(nt) < _BACKFILL_MIN_LEN:
+            continue
+        score = SequenceMatcher(None, nref, nt).ratio()
+        if score > best_score:
+            best, best_score = e, score
+    if best is not None and best_score >= _BACKFILL_RATIO:
+        return best, best_score, "fuzzy"
+    return None, best_score, "no-match"
+
+
+def backfill_law_references(dry_run: bool = False, verbose: bool = True) -> dict:
+    """Rewrite free-text law ``references:`` as ``bib-NNNN`` ids where a
+    confident bibliography match exists. Unmatched references are left alone.
+
+    Law files go through ``agent/laws.py`` (ruamel round-trip) so comments and
+    folded scalars survive; matched pairs are also linked on the bibliography
+    side so the forward index stays consistent.
+    """
+    entries = load()
+    stats = {"laws_scanned": 0, "laws_changed": 0, "refs_seen": 0,
+             "matched": 0, "already_ids": 0, "unmatched": 0, "sources_matched": 0}
+    links: list[tuple[str, str]] = []
+
+    for law in laws_mod.load_all():
+        stats["laws_scanned"] += 1
+        changed: list[tuple[str, str, float, str]] = []
+
+        def resolve(raw: str, where: str):
+            """Try to turn one free-text string into a bib id. Records stats."""
+            raw = str(raw).strip()
+            if not raw or re.fullmatch(r"bib-\d+", raw):
+                if raw:
+                    stats["already_ids"] += 1
+                return None
+            entry, score, how = _match_reference(raw, entries)
+            if entry is None:
+                stats["unmatched"] += 1
+                if verbose and how != "seed-ref":
+                    print(f"  · {law['id']} {where:<9} no match ({score:.2f}) — {raw[:62]}")
+                return None
+            changed.append((raw, entry["id"], score, how))
+            links.append((entry["id"], str(law["id"])))
+            if verbose:
+                print(f"  ✓ {law['id']} {where:<9} {raw[:48]!r} → {entry['id']} "
+                      f"({how} {score:.2f}) {str(entry.get('title', ''))[:40]}")
+            return entry["id"]
+
+        # 1. references: — the citation list.
+        rewritten = []
+        for ref in law.get("references") or []:
+            stats["refs_seen"] += 1
+            hit = resolve(ref, "reference")
+            if hit:
+                stats["matched"] += 1
+            rewritten.append(hit or ref)
+
+        # 2. examples[].source / counterexamples[].source — the schema marks these
+        #    "bib-NNNN once bibliography lands; free text until then".
+        source_updates: list[tuple[dict, str]] = []
+        for field in ("examples", "counterexamples"):
+            for ev in law.get(field) or []:
+                if not isinstance(ev, dict):
+                    continue
+                hit = resolve(ev.get("source") or "", field[:9])
+                if hit:
+                    stats["sources_matched"] += 1
+                    source_updates.append((ev, hit))
+
+        # A source resolved on an example is also a citation of the law: fold it
+        # into references so the encyclopedia and the bib forward index agree.
+        for _, bib_id in source_updates:
+            if bib_id not in rewritten:
+                rewritten.append(bib_id)
+
+        if not changed:
+            continue
+        stats["laws_changed"] += 1
+        if dry_run:
+            continue
+        law["references"] = rewritten
+        for ev, bib_id in source_updates:
+            ev["source"] = bib_id
+        detail = "sources resolved to bibliography ids: " + ", ".join(
+            f"{old[:40]} → {new}" for old, new, _, _ in changed
+        )
+        laws_mod.add_history(law, "edited", detail)
+        laws_mod.save(law)
+
+    if not dry_run:
+        for bib_id, law_id in links:
+            for e in entries:
+                if e.get("id") == bib_id and law_id not in (e.get("laws") or []):
+                    e.setdefault("laws", []).append(law_id)
+        if links:
+            save(entries)
+
+    if verbose:
+        print(f"\nReference backfill{' (dry-run)' if dry_run else ''}:")
+        print(f"  laws scanned    : {stats['laws_scanned']} "
+              f"({stats['laws_changed']} changed)")
+        print(f"  references seen : {stats['refs_seen']} "
+              f"({stats['already_ids']} already bib ids)")
+        print(f"  references → bib: {stats['matched']}")
+        print(f"  ev. sources → bib: {stats['sources_matched']}")
+        print(f"  left free text  : {stats['unmatched']}")
+    return stats
 
 
 # ── CLI ───────────────────────────────────────────────────────────────────────

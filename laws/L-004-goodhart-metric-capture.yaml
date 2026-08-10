@@ -63,7 +63,7 @@ examples:
       one distortion channel migrates pressure to adjacent channels. This is a direct mechanism
       demonstration for L-004: the proxy (billing code) is hit precisely while the underlying
       goal (appropriate care) degrades through pressure migration.'
-    source: arxiv-2605.30680 (Wang et al., 2026)
+    source: bib-0183
   - domain: Regulatory compliance
     description: 'seed-047 shows that computable, machine-readable regulatory rules increase
       boundary clustering (from 0.367 to 0.411 conduct boundary mass). This extends L-004: not
@@ -102,6 +102,7 @@ references:
   - "Goodhart (1975)"
   - "Compstat / crime statistics manipulation literature"
   - "VaR and 2008 tail-risk literature"
+  - bib-0183
 seeds: []
 related:
   - "L-001"  # enforcement-layer lock-in compounds metric capture
@@ -137,3 +138,6 @@ history:
     detail: 'Whether Goodhart degradation accelerates when the proxy becomes more precisely
       measurable: seed-047 shows that computable, machine-readable regulatory rules increase
       boundary clustering (from'
+  - date: '2026-08-10'
+    event: edited
+    detail: 'sources resolved to bibliography ids: arxiv-2605.30680 (Wang et al., 2026) → bib-0183'

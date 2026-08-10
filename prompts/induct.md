@@ -44,6 +44,26 @@ artificial systems behave**. To qualify, you must be able to write all four of:
   someone could check it.
 - **Falsification sketch** — an observation that would refute it. If you cannot
   imagine the refuting observation, it is not a law.
+- **Both lifecycle triggers** — see below. A law with no triggers cannot be
+  assessed, so it cannot ever be promoted; drafting them is part of drafting the law.
+
+## Triggers — required on every new law
+
+Every new law must ship with both of its triggers written. These are the conditions
+the `assess` pass evaluates on every later sweep; an empty trigger silently freezes
+the law at exploration stage forever.
+
+- **`advance`** — the specific, checkable condition that would justify promoting the
+  law one stage (exploration → sensemaking). Name what evidence, in what quantity,
+  from where. "More evidence" is not a trigger. Good shape: *"The mechanism confirmed
+  in 2+ genuinely independent domains, with the boundary condition on X stated."*
+- **`challenge`** — the specific observation that would force a cycle-back review.
+  This is narrower than the falsification sketch: falsification kills the law,
+  a challenge only demands re-examination. Good shape: *"A documented case of Y
+  under conditions Z that the stated mechanism does not predict."*
+
+Write both in plain language, one to three lines each. The supervisor edits them
+freely afterwards — draft them as a working first pass, not as final wording.
 
 **Disqualifiers** — do not create a law that is:
 - A **topic or theme** ("trust in multi-agent systems matters").
@@ -89,6 +109,9 @@ new_laws:            # usually empty
     source: ""          # REQUIRED when origin is imported: the source law/work generalized (e.g. "arxiv-2512.07526 (Tan)")
     examples: [{domain: "", description: "", source: ""}]
     falsification: ""
+    triggers:           # BOTH REQUIRED — an empty trigger freezes the law forever
+      advance: ""       # what would justify promotion one stage
+      challenge: ""     # what observation would force a cycle-back review
     seeds_consumed: []  # seed ids folded into this law
 evidence:
   - law: "L-NNN"

@@ -42,6 +42,11 @@ _PROMPT = _ROOT / "prompts" / "induct.md"
 _CURSOR = _SEEDS_DIR.parent / ".induct-cursor"   # laws/.induct-cursor
 
 INDUCT_MODEL = "claude-sonnet-4-6"   # §5 stage 5 tier; supervisor-editable
+# A truncated sweep is a wasted sweep: the YAML never closes, nothing parses, and
+# the whole prompt is paid for twice. Raised from 8000 on 2026-08-10, when
+# requiring both lifecycle triggers per new law pushed a normal 4-law verdict
+# past the old ceiling.
+INDUCT_MAX_TOKENS = 16000
 _MAX_SEEDS = 60          # bound the prompt; the seed pool can grow unbounded
 _MAX_SHALLOW = 20
 _MAX_DEEP = 5
@@ -180,6 +185,56 @@ def _folded(text: str) -> FoldedScalarString:
     return FoldedScalarString(str(text).strip() + "\n")
 
 
+def _clip(text: str, limit: int = 160) -> str:
+    """Trim a history ``detail`` to a readable length at a word boundary.
+
+    History details are read by humans in ``humboldt laws show`` and on the
+    encyclopedia timeline; a hard character slice cuts mid-word ("…the mechani").
+    """
+    s = " ".join(str(text or "").split())
+    if len(s) <= limit:
+        return s
+    cut = s[:limit]
+    space = cut.rfind(" ")
+    if space > limit * 0.6:          # don't strip back to almost nothing
+        cut = cut[:space]
+    return cut.rstrip(" ,;:—-") + "…"
+
+
+# Fallback triggers, used only when the model omits them despite the prompt
+# requiring both. A generic trigger is a poor trigger — but a law with an empty
+# trigger can never be assessed at all, so this keeps the funnel unblocked and
+# leaves an obviously-placeholder string for the supervisor to rewrite.
+_DEFAULT_ADVANCE = (
+    "PLACEHOLDER (auto-filled at induction — supervisor to rewrite): the "
+    "mechanism confirmed by evidence from 2+ genuinely independent domains, with "
+    "the falsification condition stated in checkable terms."
+)
+_DEFAULT_CHALLENGE = (
+    "PLACEHOLDER (auto-filled at induction — supervisor to rewrite): a documented "
+    "case matching the law's stated conditions in which the predicted regularity "
+    "does not hold, and which survives one assessment pass."
+)
+
+
+def _apply_triggers(law, nl: dict) -> bool:
+    """Set the law's advance/challenge triggers from the induction verdict.
+
+    Returns True if either trigger fell back to a placeholder — the caller warns,
+    because a placeholder trigger means the next assessment is evaluating boilerplate
+    rather than this law's actual promotion condition.
+    """
+    drafted = nl.get("triggers") or {}
+    advance = str(drafted.get("advance") or "").strip()
+    challenge = str(drafted.get("challenge") or "").strip()
+    fell_back = not advance or not challenge
+    law["triggers"] = {
+        "advance": _folded(advance or _DEFAULT_ADVANCE),
+        "challenge": _folded(challenge or _DEFAULT_CHALLENGE),
+    }
+    return fell_back
+
+
 def _mark_seed_consumed(seed_id: str, law_id: str) -> None:
     for f in list(_SEEDS_DIR.glob(f"{seed_id}-*.yaml")) + list(_SEEDS_DIR.glob(f"{seed_id}.yaml")):
         try:
@@ -220,7 +275,7 @@ def _apply_new_law(nl: dict) -> str:
         source=imp_source,
         seeds=seeds_consumed,
         references=refs,
-        detail=f"induction sweep — {str(nl.get('justification', ''))[:100]}",
+        detail=f"induction sweep — {_clip(nl.get('justification', ''))}",
     )
     law["mechanism"] = _folded(nl.get("mechanism", ""))
     law["justification"] = _folded(nl.get("justification", ""))
@@ -230,6 +285,9 @@ def _apply_new_law(nl: dict) -> str:
          "source": ex.get("source", "")}
         for ex in examples
     ]
+    if _apply_triggers(law, nl):
+        print(f"    ! {law['id']}: induction omitted a trigger — placeholder written; "
+              "supervisor should rewrite before the next assess pass.")
     laws_mod.save(law)
 
     for bib_id in refs:
@@ -258,16 +316,17 @@ def _apply_evidence(ev: dict) -> str | None:
     if kind == "counterexample":
         item["resolution"] = "OPEN"
         law.setdefault("counterexamples", []).append(item)
-        laws_mod.add_history(law, "counterexample", f"{bears}: {item['description'][:100]}")
+        laws_mod.add_history(law, "counterexample",
+                             f"{bears}: {_clip(item['description'])}")
         funnel_log.law_event("counterexample", law["id"], detail=bears)
     elif kind == "reference":
         if src.startswith("bib-") and src not in (law.get("references") or []):
             law.setdefault("references", []).append(src)
-        laws_mod.add_history(law, "evidence", f"reference {src}: {bears[:80]}")
+        laws_mod.add_history(law, "evidence", f"reference {src}: {_clip(bears, 140)}")
         funnel_log.law_event("evidence", law["id"], detail=f"reference {src}")
     else:  # example (default)
         law.setdefault("examples", []).append(item)
-        laws_mod.add_history(law, "evidence", f"{bears}: {item['description'][:100]}")
+        laws_mod.add_history(law, "evidence", f"{bears}: {_clip(item['description'])}")
         funnel_log.law_event("evidence", law["id"], detail=bears)
 
     laws_mod.save(law)
@@ -303,7 +362,7 @@ def induct(dry_run: bool = False, since: str | None = None) -> None:
         system=prompt,
         user="Perform the induction sweep now. Return only the YAML block.",
         model=INDUCT_MODEL,
-        max_tokens=8000,
+        max_tokens=INDUCT_MAX_TOKENS,
         operation="induct",
     )
     if stop_reason == "max_tokens":
@@ -323,7 +382,11 @@ def induct(dry_run: bool = False, since: str | None = None) -> None:
     print(f"\nDecision: {len(new_laws)} new law(s), {len(evidence)} evidence attachment(s), "
           f"{len(left)} seed(s) deliberately left.")
     for nl in new_laws:
-        print(f"  + NEW: {nl.get('title', '')}")
+        trig = nl.get("triggers") or {}
+        missing = [k for k in ("advance", "challenge")
+                   if not str(trig.get(k) or "").strip()]
+        flag = f"  [! no {'/'.join(missing)} trigger — placeholder]" if missing else ""
+        print(f"  + NEW: {nl.get('title', '')}{flag}")
     for ev in evidence:
         print(f"  ~ EVIDENCE → {ev.get('law')}: {ev.get('kind')} — {str(ev.get('bears_on',''))[:60]}")
 

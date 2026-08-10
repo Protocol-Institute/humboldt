@@ -6,6 +6,74 @@ Most recent entry first.
 
 ---
 
+## 2026-08-10 (session 29) — Phase 2 triage/reads rework; daemon DM-spam bug found and fixed
+
+**Tracks active:** T2
+**Daemon PID:** 1189 (running, paused through 2026-08-15)
+
+Two threads. First: closed the primary item on `TODO.md`'s ON DECK — dispatched an Opus
+subagent to rebuild `agent/triage.py` + `agent/shallow_read.py` on the redesign's law/seed/
+bibliography system (they were still reading the archived `research/laws/`/
+`research/hypotheses/` dirs, silently running on empty context since Phase 1). New shared
+`agent/funnel_context.py` reads `laws/*.yaml` + `laws/seeds/`; triage now tags every
+non-discard item `content`/`meta` and creates a `bib-NNNN` entry at `read_depth: listed`;
+shallow-read upgrades it to `shallow`, links laws, and emits a seed when the note is
+law-shaped. Tested live end-to-end (3 triaged, 2 shallow-read, 1 seed emitted, picked up
+by `induct` as evidence for L-004 in the same session) for $0.51. Folded in both session-28
+defects: `induct` now requires both lifecycle triggers on every new law (prompt change +
+a placeholder fallback that's impossible to miss in the record), `assess` gets a one-shot
+parse retry, and history-detail truncation moved to a word boundary. Also ran the
+opportunistic reference backfill for real: 11 evidence sources across 7 laws resolved to
+`bib-NNNN` ids (arXiv-id and read-file-path matches, all confident); the 21 free-text
+`references:` entries name literatures, not works, and correctly stayed as text. All 11
+laws still validate. Reviewed the full diff before accepting it — one stray artifact
+(the subagent copied one of my own Claude-memory files into a new `humboldt/memory/`
+directory, apparently confused by the wrapup ritual in this file; deleted, was untracked)
+and one bug it flagged but didn't fix (`daemon/capture.py` reading the same dead
+`research/cl/` path) — patched that one myself since it's the identical fix already made
+elsewhere this session.
+
+Second thread, unplanned: operator reported Humboldt DMing a raw list of ~49 new feed
+titles daily and asked for a weekly digest with editorial commentary instead. Investigation
+first assumed this was `task_weekly_digest` (the notebook-announcement mechanism built
+session 23) — but that task has *never fired* (`last_weekly_digest_date` was `None`; the
+daemon has been paused almost continuously since 07-24) and is correctly pause-gated. The
+actual source was a different, unrelated mechanism: `task_feeds` DMs the operator
+immediately, every 12h, with zero pause gate at all — a second live instance of the exact
+failure mode [[feedback_pause_completeness]] already named in session 23 (a pause that
+gates the paths named in the request, not every actual side effect). `state.json` confirmed
+it: `last_feed_check` was hours old. Fixed by splitting responsibilities — `task_feeds`
+still fetches/filters/saves to inbox every 12h (silent, no Discord effect, keeps the
+funnel fed) but no longer DMs; items accumulate in a new `state['pending_feed_items']`;
+a new pause-gated `task_feed_digest` (daily poll, weekly fire, same shape as
+`task_weekly_digest`) sends one synthesized DM a week via a new
+`presence.generate_feed_digest_post()`, prompted for an actual opinionated take —
+promising vs. noise, what it'd deprioritize — not a title dump. While in `presence.py`,
+also found and fixed `_slim_context()`/`_rich_context()` reading the same dead
+`research/cl/` path: every daemon-generated Discord post (mentions, both digests) was
+silently running with zero law context, `(none yet)` for the entire inventory. Rewired both
+to `agent.laws.load_all()`; verified live. This would have shipped broken the moment the
+daemon unpauses on 08-15 without today's fix — the weekly-digest editorial-commentary ask
+forced a look at the exact code path that was quietly dead.
+
+None of this session's Discord/state changes are live yet — the daemon (PID 1189) hasn't
+been restarted, and it's still correctly paused through 08-15 regardless. Nothing committed
+was Track 1 research; the seed/evidence the live triage/shallow-read test produced are real
+funnel output (`seed-058`, L-004 evidence) but incidental to testing, not deliberate
+investigation — left for the next Track 1 session's `pre-notebook` queue rather than
+force-writing a notebook entry for them today.
+
+**Open (next session):**
+- `agent/references.py` still reads `research/hypotheses/`/`research/laws/` — flagged,
+  not fixed (it's still live code, used by `conversation_review.promote_inbox_links` and
+  imported by `bibliography.py` itself; not urgent while paused, but same bug class).
+- Decide whether `daemon restart` should happen before or at the 08-15 unpause to pick up
+  this session's changes — currently just sitting on disk.
+- Next TODO.md item: [SONNET] publish hook + law-event Discord plumbing, then Phase 3.
+- A Track 1 session is overdue — this and the last several sessions have all been T2.
+
+---
+
 ## 2026-08-03 (session 28) — Supervisor review + first assess pass on L-008–011
 
 **Tracks active:** T2

@@ -112,6 +112,11 @@ python3 -m agent.humboldt bib list [--depth D] [--kind K] [--year Y]
 python3 -m agent.humboldt bib show bib-0042
 python3 -m agent.humboldt bib stats
 python3 -m agent.humboldt bib migrate [--dry-run]   # one-shot legacy-source migration
+python3 -m agent.humboldt bib backfill-references [--dry-run]
+        # one-shot: law free-text `references:` and examples[].source → bib-NNNN ids
+        # where a confident match exists (arXiv id / read-file path / url / title).
+        # Ran 2026-08-10: 11 evidence sources resolved across 7 laws; the 21
+        # free-text `references:` entries name literatures, not works, so they stay.
 
 # ── Funnel engines (Phase 2) — agent/induct.py + agent/assess.py ──
 # induct  = stage 5: seeds + reads-since-cursor + inventory → new laws / evidence (Sonnet).
@@ -148,21 +153,33 @@ python3 -m agent.humboldt pre-notebook mark-consumed # advance cursor after writ
 # Run after each session that adds any of the above
 python3 -m agent.humboldt ingest
 
-# Triage inbox/feed-*.md items against current laws and hypotheses
-# Produces a discard / shallow report (uses Haiku); depth decisions deferred to shallow-read
+# ── Funnel stages 2–3 (reworked 2026-08-10 for the redesign) ──
+# Context comes from laws/*.yaml + laws/seeds/ via agent/funnel_context.py — the
+# old research/laws/ + research/hypotheses/ readers are gone. Every non-discard
+# item is tagged content|meta and gets a bib-NNNN entry at read_depth: listed.
+
+# Triage inbox/feed-*.md items against the law inventory and seed pool (Haiku)
 python3 -m agent.humboldt triage-feed
 python3 -m agent.humboldt triage-feed --output inbox/triage-YYYY-MM-DD.md
+python3 -m agent.humboldt triage-feed --limit N     # first N items only (cheap test)
+python3 -m agent.humboldt triage-feed --dry-run     # call the model, write nothing
 
 # Shallow-read all non-discard items from a triage report (uses Haiku)
-# Humboldt writes a synthesis note and decides: store-only or escalate-to-deep
+# Writes a synthesis note; upgrades the bib entry to read_depth: shallow with
+# summary: pointing at the note; emits a seed into laws/seeds/ when the note
+# surfaces something law-shaped (never for kind: meta items); decides
+# store-only vs escalate-to-deep. Skips the Pinecone ingest while paused.
 # Output: bibliography/shallow-reads/YYYY-MM-DD-{title-slug}.md (idempotent)
 python3 -m agent.humboldt shallow-read --from-triage inbox/triage-YYYY-MM-DD.md
+python3 -m agent.humboldt shallow-read --from-triage inbox/triage-YYYY-MM-DD.md --limit N
 python3 -m agent.humboldt shallow-read --from-triage inbox/triage-YYYY-MM-DD.md --dry-run
 
 # Triage inbox/discord-*.md items (ideas + links from Discord)
-# Produces a discard / shallow report (uses Haiku, higher discard bar than feed triage)
+# Produces a discard / shallow report (uses Haiku, higher discard bar than feed triage).
+# Meta items are tagged, not discarded — the old "discard research meta-process" rule is gone.
 python3 -m agent.humboldt triage-discord
 python3 -m agent.humboldt triage-discord --output inbox/triage-discord-YYYY-MM-DD.md
+python3 -m agent.humboldt triage-discord --limit N / --dry-run
 
 # Inbox lifecycle management
 python3 -m agent.humboldt inbox status                    # show inbox composition + processed count

@@ -6,38 +6,53 @@ Priority: **[H]** urgent, **[M]** soon, **[L]** when convenient.
 
 ---
 
-## 🎯 ON DECK — Redesign Phase 2 completion (next session)
+## 🎯 ON DECK — Redesign Phase 2 wrap-up (next session)
 
-> Spec: `plans/redesign-2026-08.md`. We are mid-Phase 2; session 28 closed the
-> L-008–011 supervisor review + assess loop. **Pause expires 2026-08-15** — extend when
-> the daemon is next touched if Phase 5 (server cutover = "off-laptop") will slip past it.
+> Spec: `plans/redesign-2026-08.md`. Session 29 (2026-08-10) closed the `triage.py`/
+> `reads.py` rework — the last big Phase 2 item. **Pause expires 2026-08-15** — extend
+> when the daemon is next touched if Phase 5 (server cutover = "off-laptop") will slip
+> past it.
 
-**Primary — `triage.py` / `reads.py` rework [OPUS].** The meaty remaining Phase 2 item:
-- Unified feed+discord triage with **content/meta tagging** (meta reads → graph-change
-  proposals, not law seeds).
-- **Bibliography wiring**: triage-in creates `bib-NNNN` entries; shallow/deep reads
-  upgrade `read_depth` and link their outputs.
-- **Seed emission**: reads emit seeds/evidence into `laws/seeds/` so `induct` has fuel.
-- *Opportunistic in the same pass:* backfill law records' `references:` from free text →
-  `bib-NNNN` ids (currently `/laws/` ↔ source links reverse-only).
+~~**`triage.py` / `reads.py` rework [OPUS].**~~ **DONE (session 29, 2026-08-10).**
+`agent/funnel_context.py` (new) replaces the stale `research/laws/`/`research/hypotheses/`
+readers; triage tags `content`/`meta` and creates `bib-NNNN` entries; shallow-read upgrades
+`read_depth`, links laws, emits seeds. Live-tested end-to-end. Reference backfill also ran
+for real (11 evidence sources across 7 laws → `bib-NNNN`). Both session-28 defects
+(empty triggers, transient parse error) fixed in the same pass. See `dev-log.md` 2026-08-10.
 
-**Fold in two defects found session 28 (same code neighborhood, cheap) — highest leverage:**
-1. **`induct` emits laws with empty `advance`/`challenge` triggers** → `assess` Step 1 has
-   nothing to read (had to hand-set all four this session). Fix: `induct.md` drafts
-   triggers, or `assess` falls back to a stage-default bar. Without this, every induction
-   sweep produces un-assessable laws.
-2. **`assess` transient YAML PARSE-ERROR** (L-008 failed once, clean on retry) → add a
-   one-shot parse retry. Plus cosmetic `history.detail` mid-word truncation (`…conduc`)
-   in the induct logger.
+**Next — [SONNET] session:** publish hook + law-event Discord plumbing (§9 quiet mode) —
+wire law create/promote/challenge → `publish-site` + one Discord law-event post.
 
-**Then — separate [SONNET] session:** publish hook + law-event Discord plumbing (§9 quiet
-mode) — wire law create/promote/challenge → `publish-site` + one Discord law-event post.
+**Also found this session, not yet fixed:** `agent/references.py` still reads the dead
+`research/hypotheses/`/`research/laws/` path — same bug class as the triage/shallow-read
+and daemon-presence fixes, but the module is still live (`conversation_review
+.promote_inbox_links`, and `bibliography.py` itself imports it). Not urgent while the
+daemon's paused; fold into the next daemon-adjacent session.
 
 **After Phase 2:** Phase 3 (graph + console) → Phase 4 (analytics) → **Phase 5 (server
 cutover + quiet-mode Discord = off-laptop)**.
 
 **Deferred (blocked by pause until 08-15):** `humboldt ingest` of new laws/seeds/bib
 (also `ingest.py` chunk types don't yet cover laws/seeds/bibliography).
+
+**Operational:** `daemon restart` hasn't happened since this session's changes (Phase 2
+funnel rework + the daemon feed-DM/law-context fixes below) — do it before or at the
+08-15 unpause so the live daemon actually runs the fixed code.
+
+---
+
+## Daemon bug fixed this session (2026-08-10, not in the redesign spec)
+
+Operator reported a daily raw-title DM from feed monitoring; investigation found
+`task_feeds` had **no pause gate at all** — a second live instance of the same
+pause-completeness failure mode session 23 already fixed once elsewhere (a pause that
+gates the paths named in the request, not every actual side effect).
+Fixed: `task_feeds` still collects to inbox silently; a new pause-gated weekly
+`task_feed_digest` sends one editorial-commentary DM instead. Along the way, found
+`daemon/presence.py`'s `_slim_context()`/`_rich_context()` reading the same dead
+`research/cl/` path as the funnel modules — every daemon Discord post (mentions, both
+digests) was silently running with zero law context. Fixed; also patched the identical
+bug in `daemon/capture.py`. None of this is live until `daemon restart`.
 
 **Stub-blocker convention:** When a Track 2 behavior is a stub and its absence is
 preventing a specific Track 1 arc from advancing phase, annotate the item here with

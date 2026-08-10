@@ -82,8 +82,73 @@ def _retrieve_new_evidence(law) -> str:
     return "\n\n---\n\n".join(parts)
 
 
+# Stage-appropriate fallback triggers. Step 1 of the assessment prompt evaluates
+# the law's `advance` trigger; a law whose trigger is empty — as every law created
+# by an induction sweep before 2026-08-10 was — gives the model nothing to
+# evaluate and can never be promoted. These defaults restate the schema's own
+# stage-entry criteria (laws/_schema.yaml, STAGE MACHINE RULES) so assessment
+# degrades to "does this law meet the bar for the next stage" rather than failing.
+# They are used for the prompt only and are never written to the record: the
+# supervisor owns trigger wording.
+_DEFAULT_ADVANCE = {
+    "exploration":
+        "Statement, causal mechanism, and falsification condition are all present "
+        "and mutually consistent, with at least one concrete checkable example.",
+    "sensemaking":
+        "Supporting evidence from at least two independent domains, and the "
+        "mechanism survives the sharpest counterexample currently on the record.",
+    "valley":
+        "Evidence from 3+ genuinely independent domains, with the open cruxes "
+        "either resolved or explicitly scoped out of the statement.",
+    "heavy-lift":
+        "A separation artifact — a publishable writeup of the law, its evidence, "
+        "and its boundary conditions — is complete.",
+    "retrospective":
+        "Terminal stage: no advance. Assess in challenge mode only.",
+}
+_DEFAULT_CHALLENGE = (
+    "A documented case meeting the law's stated conditions in which the predicted "
+    "regularity does not hold, which survives one assessment pass."
+)
+
+
+def _record_for_prompt(law) -> tuple[str, list[str]]:
+    """The law record as YAML for the prompt, with empty triggers defaulted.
+
+    Normally the file text is used verbatim so hand-authored comments and folded
+    scalars reach the model as the supervisor wrote them. Only when a trigger is
+    blank is a patched copy dumped instead. Returns ``(yaml_text, warnings)``.
+    """
+    path = laws_mod.path_for(law["id"])
+    record_yaml = path.read_text()
+    triggers = law.get("triggers") or {}
+    advance = str(triggers.get("advance") or "").strip()
+    challenge = str(triggers.get("challenge") or "").strip()
+    if advance and challenge:
+        return record_yaml, []
+
+    import copy
+
+    warnings = []
+    patched = copy.deepcopy(law)
+    filled = dict(patched.get("triggers") or {})
+    if not advance:
+        filled["advance"] = _DEFAULT_ADVANCE.get(
+            law.get("stage"), _DEFAULT_ADVANCE["exploration"])
+        warnings.append("advance")
+    if not challenge:
+        filled["challenge"] = _DEFAULT_CHALLENGE
+        warnings.append("challenge")
+    patched["triggers"] = filled
+    return laws_mod.dumps(patched), warnings
+
+
 def _build_prompt(law, new_evidence: str) -> str:
-    record_yaml = laws_mod.path_for(law["id"]).read_text()
+    record_yaml, warnings = _record_for_prompt(law)
+    if warnings:
+        print(f"  ! {law['id']}: empty {'/'.join(warnings)} trigger — assessing "
+              "against the stage-default condition. Supervisor should write a real "
+              "trigger on this record.")
     tmpl = _PROMPT.read_text()
     return (
         tmpl.replace("{{METHOD_EXCERPT}}", _method_excerpt())
@@ -202,21 +267,29 @@ def _assess_one(law, dry_run: bool) -> str:
     new_evidence = _retrieve_new_evidence(law)
     prompt = _build_prompt(law, new_evidence)
 
-    text, stop_reason = synth.synthesize_full(
-        system=prompt,
-        user="Run the assessment pass now. Return only the YAML block.",
-        model=model,
-        max_tokens=4000,
-        operation="assess",
-    )
-    if stop_reason == "max_tokens":
-        print("  ! warning: response hit max_tokens — verdict may be truncated.")
-
-    try:
-        v = _parse_yaml(text)
-    except Exception as e:  # noqa: BLE001
-        print(f"  ! could not parse assessment: {e}\n{text[:1200]}")
-        return "PARSE-ERROR"
+    # One retry on a malformed verdict. A dropped fence or a stray preamble is a
+    # sampling accident, not a property of the law — and a PARSE-ERROR costs the
+    # whole pass (retrieval included) for nothing. Two attempts, then give up.
+    v = None
+    for attempt in (1, 2):
+        text, stop_reason = synth.synthesize_full(
+            system=prompt,
+            user="Run the assessment pass now. Return only the YAML block.",
+            model=model,
+            max_tokens=4000,
+            operation="assess",
+        )
+        if stop_reason == "max_tokens":
+            print("  ! warning: response hit max_tokens — verdict may be truncated.")
+        try:
+            v = _parse_yaml(text)
+            break
+        except Exception as e:  # noqa: BLE001
+            if attempt == 1:
+                print(f"  ! could not parse assessment ({e}) — retrying once.")
+                continue
+            print(f"  ! could not parse assessment on retry: {e}\n{text[:1200]}")
+            return "PARSE-ERROR"
 
     verdict = str(v.get("verdict", "HOLD")).upper()
     ch = v.get("strongest_challenge") or {}

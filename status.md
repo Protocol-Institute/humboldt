@@ -4,6 +4,52 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-08-10 (session 29) — Phase 2 triage/reads rework; daemon feed-DM bug found and fixed
+
+Session: T2 (redesign implementation + operator-reported bug). Run on Sonnet 5 + an Opus
+4.8 subagent.
+
+**Daemon:** PID 1189 (running; paused through **2026-08-15**). Restarted since last status
+entry (was PID 1930) — no action taken, just a routine relaunch. Not restarted this session;
+today's code changes are on disk but not yet live.
+
+**Completed:**
+- **Phase 2 [OPUS] `triage.py`/`shallow_read.py` rework — the ON DECK item, done.** New
+  `agent/funnel_context.py` replaces the stale `research/laws/`/`research/hypotheses/`
+  readers with `laws/*.yaml` + `laws/seeds/`. Triage tags `content`/`meta` and creates
+  `bib-NNNN` entries at `read_depth: listed`; shallow-read upgrades to `shallow`, links
+  laws, emits seeds. Live-tested end-to-end ($0.51 spend): 3 triaged → 2 shallow-read →
+  1 seed (`seed-058`) → picked up by `induct` as L-004 evidence. Both session-28 defects
+  fixed: `induct` now requires both lifecycle triggers (prompt change + hard-to-miss
+  placeholder fallback), `assess` gets a one-shot parse retry. Reference backfill run for
+  real: 11 evidence sources across 7 laws resolved to `bib-NNNN` ids. All 11 laws still
+  validate; bibliography at 932 entries. Reviewed in full before accepting — cleaned up
+  one stray artifact the subagent left (a copied Claude-memory file in a bogus
+  `humboldt/memory/` dir) and patched one bug it flagged but didn't fix (`daemon/capture.py`
+  reading the same dead `research/cl/` path — same fix as below, done inline).
+- **Daemon bug: operator reported a daily raw-title DM ("~49 new items from feeds") they
+  wanted replaced with a weekly editorial digest.** Root cause was *not* the known
+  `task_weekly_digest` mechanism (never fired — daemon's been paused almost continuously
+  since 07-24) but a second, separate bug: `task_feeds` DMs the operator immediately every
+  12h with **no pause gate at all** — a recurrence of [[feedback_pause_completeness]]'s
+  exact failure mode. Fixed: `task_feeds` still collects silently; a new pause-gated,
+  weekly `task_feed_digest` sends one editorial-commentary DM instead
+  (`presence.generate_feed_digest_post()`). Also fixed `_slim_context()`/`_rich_context()`
+  in `daemon/presence.py` — same dead `research/cl/` path, meaning **every** daemon Discord
+  post (mentions, both digests) was silently running with zero law context. Verified live.
+  None of this is active yet — daemon not restarted this session.
+
+**Open (next session):**
+- `agent/references.py` still reads the dead `research/hypotheses/`/`research/laws/` path
+  (still-live code — `conversation_review.promote_inbox_links`, imported by
+  `bibliography.py`). Flagged, not fixed.
+- Decide when to `daemon restart` to pick up today's changes — anytime before or at the
+  08-15 unpause.
+- TODO.md next: [SONNET] publish hook + law-event Discord plumbing, then Phase 3.
+- Track 1 research is overdue — several sessions running have all been T2.
+
+---
+
 ## 2026-08-03 (session 28) — Supervisor review + first assess pass on L-008–011
 
 Session: T2 (redesign — supervisor review). Run on Opus 4.8.

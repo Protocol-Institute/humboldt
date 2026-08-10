@@ -43,7 +43,7 @@ examples:
       verification effort in response to trust signals create analogous 
       intermediate-adoption vulnerabilities when not all counterparties are covered by the
       trust infrastructure.
-    source: arxiv-2606.03161 (Xu, OAN White Paper)
+    source: bib-0228
 counterexamples: []
 open_questions:
   - "Two specific gaps must be closed before PROMOTE is possible: (1) DOMAIN CONFIRMATION —
@@ -67,7 +67,8 @@ falsification: >
   coordination protocols — i.e. if no intermediate-adoption failure peak existed even when the
   signaling policy is held fixed rather than optimized per adoption level. (The optimized-design
   case is expected to be monotone and does not falsify the law.)
-references: []
+references:
+  - bib-0228
 seeds:
   - seed-050
 related:
@@ -100,3 +101,7 @@ history:
     detail: 'assessment HOLD — gap: Two specific gaps must be closed before PROMOTE is possible:
       (1) DOMAIN CONFIRMATION — retrieve and read arxiv-2606.03161 (Xu, OAN White Paper) to
       con'
+  - date: '2026-08-10'
+    event: edited
+    detail: 'sources resolved to bibliography ids: arxiv-2606.03161 (Xu, OAN White Paper) →
+      bib-0228'

@@ -60,24 +60,21 @@ examples:
       the arc from informal coordination norms in early Ethereum governance to formalized 
       institutional structures under scaling pressure — a direct observational case for 
       the stress→formalization→irreversibility chain claimed by L-003.
-    source: shallow · 
-      2026-07-24-link-article-on-ethereum-as-a-protocol-polity-exploring-gove.md
+    source: bib-0915
   - domain: Protocol design under environmental pressure
     description: The Schroff working paper (shallow read, c3po) frames formalization not 
       as a design choice but as an adaptive response to measurable stress conditions — 
       scaling bottlenecks, coordination failure, exploit vulnerability. This supports 
       L-003's mechanism while providing a selection-pressure vocabulary that sharpens why 
       the ratchet direction is asymmetric.
-    source: shallow · 
-      2026-07-24-link-working-paper-on-selection-pressures-affecting-protocol.md
+    source: bib-0922
   - domain: Repair knowledge standardization
     description: iFixit's transition from crowdsourced repair guides to an NSF-backed 
       formal repairability scoring standard is a live instance of the informal-to-formal 
       transition. The critical question for L-003 is whether the informal repair 
       community's adaptive capacity degrades as the formal standard takes hold — this case
       is worth tracking longitudinally as a falsification test.
-    source: shallow · 
-      2026-07-24-link-ifixit-s-development-of-a-repairability-scoring-standar.md
+    source: bib-0917
 counterexamples:
   - description: "Post-crisis informality observed in tight-knit teams."
     resolution: "Typically involves externally imposed protocols (not internally developed)
@@ -107,6 +104,9 @@ references:
   - "Organizational sociology: startup → corporate lifecycle literature"
   - "Customary international law → treaty regime transition literature"
   - "Clinical judgment → evidence-based protocol literature"
+  - bib-0915
+  - bib-0922
+  - bib-0917
 seeds: []
 related:
   - "L-001"  # formalization typically precedes ossification; compounding resistance
@@ -151,3 +151,8 @@ history:
     detail: "The irreversibility claim — once formalized, informal capacity atrophies: iFixit's
       transition from crowdsourced repair guides to an NSF-backed formal repairability scoring
       st"
+  - date: '2026-08-10'
+    event: edited
+    detail: 'sources resolved to bibliography ids: shallow · 2026-07-24-link-article-on-eth
+      → bib-0915, shallow · 2026-07-24-link-working-paper- → bib-0922, shallow · 2026-07-24-link-ifixit-s-devel
+      → bib-0917'

@@ -34,12 +34,12 @@ examples:
       disruption, safety failures) with concentrated winner prizes (market position, 
       capability leadership) show no evidence that increased catastrophe salience slows 
       deployment timing, consistent with the cancellation theorem.
-    source: arxiv-2512.07526 (Tan 2026)
+    source: bib-0249
   - domain: Gain-of-function research
     description: Symmetric pandemic risk shared across all nations does not deter 
       individual lab races for research priority, consistent with the cancellation of 
       shared ruin terms.
-    source: arxiv-2512.07526 (Tan 2026)
+    source: bib-0249
 counterexamples:
   - domain: ''
     description: "The PI corpus Protocol Selection Pressures document notes that \"power/influence\"\
@@ -71,7 +71,8 @@ falsification: >
   shifted equilibrium timing even under identical prize structures. It would also be falsified
   if asymmetric externalization of ruin (some players bear more) eliminated the cancellation
   without changing prize structure.
-references: []
+references:
+  - bib-0249
 seeds: []
 related: []
 triggers:
@@ -107,3 +108,7 @@ history:
     event: edited
     detail: 'assessment HOLD — gap: Two specific actionable gaps must be filled before promotion
       can be reconsidered: (1) INDEPENDENT CONFIRMATION: A second formal derivation of the canc'
+  - date: '2026-08-10'
+    event: edited
+    detail: 'sources resolved to bibliography ids: arxiv-2512.07526 (Tan 2026) → bib-0249, arxiv-2512.07526
+      (Tan 2026) → bib-0249'

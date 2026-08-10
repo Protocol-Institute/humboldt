@@ -423,7 +423,7 @@ def _parse_shallow_light(path: Path) -> dict:
     conn_m = re.search(r"^\*\*Connected to:\*\*\s*(.+)$", text, re.MULTILINE)
     raw_tokens = re.split(r"[,\s]+", conn_m.group(1).strip()) if conn_m else []
     current_ids = {l["id"] for l in laws_mod.load_all()}
-    mapped, _raw = bib_mod._map_law_tokens(raw_tokens, current_ids)
+    mapped, _raw = bib_mod.map_law_tokens(raw_tokens, current_ids)
 
     esc_m = re.search(r"^\*\*Escalation:\*\*\s*(\S+)", text, re.MULTILINE)
     escalation = esc_m.group(1).strip() if esc_m else ""

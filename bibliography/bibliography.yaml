@@ -2011,7 +2011,8 @@
   kind: content
   notes: bibliography/notes/arxiv-2606.00013.md
   summary: bibliography/shallow-reads/2026-06-06-a-phenomenon-of-ai-conformity-how-algorithms-change-human-mo.md
-  laws: []
+  laws:
+  - L-011
   connected_raw: []
 - id: bib-0147
   title: 'A Sheaf Framework for Strategic Multi-Agent Systems: From Consensus to Nash Equilibria'
@@ -2203,7 +2204,8 @@
   kind: content
   notes: bibliography/notes/arxiv-2606.03636.md
   summary: bibliography/shallow-reads/2026-06-06-causal-mirage-equilibrium-in-agentic-machine-intelligence.md
-  laws: []
+  laws:
+  - L-011
   connected_raw: []
 - id: bib-0163
   title: Closed-Loop Molecular Design with Calibrated Deference
@@ -2455,7 +2457,9 @@
   kind: content
   notes: bibliography/notes/arxiv-2605.30680.md
   summary: bibliography/shallow-reads/2026-06-06-healthcare-mechanisms-from-policy-as-code-search-under-strat.md
-  laws: []
+  laws:
+  - L-004
+  - L-008
   connected_raw: []
 - id: bib-0184
   title: How Many Mechanisms? Measuring Parsimony in Risky Choice
@@ -3030,7 +3034,9 @@
   kind: content
   notes: bibliography/notes/arxiv-2606.03161.md
   summary: bibliography/shallow-reads/2026-06-06-openagenet-oan-open-infrastructure-for-trusted-agent-interco.md
-  laws: []
+  laws:
+  - L-005
+  - L-010
   connected_raw: []
 - id: bib-0229
   title: 'OpenAgenet/OAN: Technical Architecture for Trust-Governed Agent Identity and Discovery'
@@ -3282,7 +3288,8 @@
   kind: content
   notes: bibliography/notes/arxiv-2512.07526.md
   summary: bibliography/shallow-reads/2026-06-06-strategic-preemption-under-shared-catastrophic-risk-the-suic.md
-  laws: []
+  laws:
+  - L-009
   connected_raw: []
 - id: bib-0250
   title: Streaming Communication in Multi-Agent Reasoning
@@ -11706,6 +11713,7 @@
   summary: bibliography/shallow-reads/2026-07-24-link-article-on-ethereum-as-a-protocol-polity-exploring-gove.md
   laws:
   - L-001
+  - L-003
   connected_raw:
   - L-001
 - id: bib-0916
@@ -11734,6 +11742,7 @@
   summary: bibliography/shallow-reads/2026-07-24-link-ifixit-s-development-of-a-repairability-scoring-standar.md
   laws:
   - L-001
+  - L-003
   connected_raw:
   - H-002
   - L-001
@@ -11805,6 +11814,7 @@
   summary: bibliography/shallow-reads/2026-07-24-link-working-paper-on-selection-pressures-affecting-protocol.md
   laws:
   - L-001
+  - L-003
   connected_raw:
   - L-001
 - id: bib-0923
@@ -11891,3 +11901,54 @@
   summary: null
   laws: []
   connected_raw: []
+- id: bib-0930
+  title: Agentic evolution of physically constrained foundation models
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2606.25532
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-08-10-agentic-evolution-of-physically-constrained-foundation-model.md
+  laws:
+  - L-008
+  - L-011
+  connected_raw:
+  - L-008
+  - L-011
+  - seed-045
+- id: bib-0931
+  title: 'Bridging Predictions and Interventions: An Integrated Framework for Automated Decision-Systems'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2606.25668
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-08-10-bridging-predictions-and-interventions-an-integrated-framewo.md
+  laws:
+  - L-004
+  - L-008
+  connected_raw:
+  - L-004
+  - L-008
+  - seed-016
+- id: bib-0932
+  title: 'Bridging the Post-discharge Gap: A Traceable Multi-agent Framework for Safe and Continuous Care'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2606.25334
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-006
+  - L-003
+  connected_raw:
+  - L-006
+  - L-003
+  - seed-020

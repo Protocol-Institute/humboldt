@@ -127,6 +127,14 @@ def load_all() -> list:
     return out
 
 
+def dumps(law) -> str:
+    """Render a law record as YAML text without writing it — for prompts and
+    previews that need a record the file does not (yet) contain."""
+    buf = io.StringIO()
+    _yaml().dump(law, buf)
+    return buf.getvalue()
+
+
 def save(law) -> Path:
     """Write a law record back to its canonical ``L-NNN-<slug>.yaml`` path."""
     law_id = law["id"]

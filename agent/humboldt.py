@@ -387,22 +387,25 @@ def cmd_ingest():
     ingest_all(verbose=True)
 
 
-def cmd_triage_feed(output: str | None = None):
-    """Triage inbox/feed-*.md items against current laws and hypotheses."""
+def cmd_triage_feed(output: str | None = None, limit: int | None = None,
+                    dry_run: bool = False):
+    """Triage inbox/feed-*.md items against the law inventory and seed pool."""
     from agent.triage import triage_feed
-    triage_feed(output_path=output)
+    triage_feed(output_path=output, limit=limit, dry_run=dry_run)
 
 
-def cmd_triage_discord(output: str | None = None):
-    """Triage inbox/discord-*.md items (ideas + links) against current laws and hypotheses."""
+def cmd_triage_discord(output: str | None = None, limit: int | None = None,
+                       dry_run: bool = False):
+    """Triage inbox/discord-*.md items (ideas + links) against laws and seeds."""
     from agent.triage import triage_discord
-    triage_discord(output_path=output)
+    triage_discord(output_path=output, limit=limit, dry_run=dry_run)
 
 
-def cmd_shallow_read(triage_path: str, dry_run: bool = False):
+def cmd_shallow_read(triage_path: str, dry_run: bool = False,
+                     limit: int | None = None):
     """Shallow-read all non-discard items from a triage report."""
     from agent.shallow_read import shallow_read
-    shallow_read(triage_path=triage_path, dry_run=dry_run)
+    shallow_read(triage_path=triage_path, dry_run=dry_run, limit=limit)
 
 
 def cmd_inbox_status():
@@ -772,11 +775,14 @@ Usage:
   python3 -m agent.humboldt deepread "<name>" "<p1-p2>"  # deep-read page range
   python3 -m agent.humboldt batch-deepread               # deep-read all unread arxiv papers; write verdicts
   python3 -m agent.humboldt batch-deepread "arxiv-2606*" # subset by glob pattern
-  python3 -m agent.humboldt triage-feed                  # score inbox feed items → discard/shallow report
+  python3 -m agent.humboldt triage-feed                  # score inbox feed items → discard/shallow report + bib entries
   python3 -m agent.humboldt triage-feed --output FILE    # write triage report to file
+  python3 -m agent.humboldt triage-feed --limit N        # triage only the first N items
+  python3 -m agent.humboldt triage-feed --dry-run        # call the model, write no bibliography/report
   python3 -m agent.humboldt triage-discord               # score inbox discord items (ideas+links) → report
   python3 -m agent.humboldt triage-discord --output FILE # write discord triage report to file
   python3 -m agent.humboldt shallow-read --from-triage FILE   # shallow-read all non-discard items; deletes source files
+  python3 -m agent.humboldt shallow-read --from-triage FILE --limit N  # read only the first N items
   python3 -m agent.humboldt shallow-read --from-triage FILE --dry-run  # preview, no writes
   python3 -m agent.humboldt inbox status                      # show unprocessed inbox composition
   python3 -m agent.humboldt inbox archive-discards --from-triage FILE  # move discards → processed/; update people model
@@ -801,6 +807,11 @@ Usage:
   python3 -m agent.humboldt references sort              # classify unsorted → read/deep_read/discard
   python3 -m agent.humboldt references sort --dry-run    # preview sort decisions, no writes
   python3 -m agent.humboldt references promote           # manually promote inbox links → reference list
+  python3 -m agent.humboldt bib list [--depth D] [--kind K] [--year Y]   # canonical bibliography
+  python3 -m agent.humboldt bib show bib-0042            # one bibliography entry
+  python3 -m agent.humboldt bib stats                    # depth/kind/citation breakdown
+  python3 -m agent.humboldt bib migrate [--dry-run]      # one-shot legacy-source migration
+  python3 -m agent.humboldt bib backfill-references [--dry-run]  # law free-text refs → bib-NNNN ids
 """
 
 
@@ -849,30 +860,24 @@ def main():
         pattern = rest[0] if rest else "arxiv-*.pdf"
         cmd_batch_deepread(pattern)
     elif cmd == "triage-feed":
-        output = None
-        if "--output" in rest:
-            idx = rest.index("--output")
-            if idx + 1 < len(rest):
-                output = rest[idx + 1]
-        cmd_triage_feed(output=output)
+        limit = _opt(rest, "--limit")
+        cmd_triage_feed(output=_opt(rest, "--output"),
+                        limit=int(limit) if limit else None,
+                        dry_run="--dry-run" in rest)
     elif cmd == "triage-discord":
-        output = None
-        if "--output" in rest:
-            idx = rest.index("--output")
-            if idx + 1 < len(rest):
-                output = rest[idx + 1]
-        cmd_triage_discord(output=output)
+        limit = _opt(rest, "--limit")
+        cmd_triage_discord(output=_opt(rest, "--output"),
+                           limit=int(limit) if limit else None,
+                           dry_run="--dry-run" in rest)
     elif cmd == "shallow-read":
-        triage_path = None
-        dry_run = "--dry-run" in rest
-        if "--from-triage" in rest:
-            idx = rest.index("--from-triage")
-            if idx + 1 < len(rest):
-                triage_path = rest[idx + 1]
+        triage_path = _opt(rest, "--from-triage")
+        limit = _opt(rest, "--limit")
         if not triage_path:
-            print("Usage: humboldt shallow-read --from-triage <report-path>")
+            print("Usage: humboldt shallow-read --from-triage <report-path> "
+                  "[--limit N] [--dry-run]")
             sys.exit(1)
-        cmd_shallow_read(triage_path=triage_path, dry_run=dry_run)
+        cmd_shallow_read(triage_path=triage_path, dry_run="--dry-run" in rest,
+                         limit=int(limit) if limit else None)
     elif cmd == "inbox":
         subcmd = rest[0] if rest else "status"
         if subcmd == "status":
@@ -984,9 +989,11 @@ def main():
             bib_mod.cmd_stats()
         elif subcmd == "migrate":
             bib_mod.migrate(dry_run="--dry-run" in rest)
+        elif subcmd in ("backfill-references", "backfill"):
+            bib_mod.backfill_law_references(dry_run="--dry-run" in rest)
         else:
             print(f"Unknown bib subcommand: {subcmd}")
-            print("Available: list, show, stats, migrate")
+            print("Available: list, show, stats, migrate, backfill-references")
             sys.exit(1)
     elif cmd == "discord":
         subcmd = rest[0] if rest else ""

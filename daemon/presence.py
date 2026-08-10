@@ -57,17 +57,19 @@ def _slim_context() -> str:
     if len(identity) > 500:
         identity = identity[:500].rsplit("\n", 1)[0] + "\n…"
 
-    cl_dir = _ROOT / "research" / "cl"
     cl_lines = []
-    for f in sorted(cl_dir.glob("CL-*.yaml")):
-        try:
-            cl = yaml.safe_load(f.read_text())
-            name = cl.get("name", "")
-            stmt = (cl.get("statement") or "").strip().replace("\n", " ")
+    try:
+        from agent import laws as laws_mod
+        for law in laws_mod.load_all():
+            title = law.get("title", "")
+            stmt = str(law.get("statement") or "").strip().replace("\n", " ")
             first_sentence = (stmt.split(".")[0] + ".") if "." in stmt else stmt[:150]
-            cl_lines.append(f"- {cl.get('id')}: {name} — {first_sentence[:160]}")
-        except Exception:
-            pass
+            cl_lines.append(
+                f"- {law.get('id')} [{law.get('stage')}/{law.get('confidence')}]: "
+                f"{title} — {first_sentence[:160]}"
+            )
+    except Exception:
+        pass
     cl_str = "\n".join(cl_lines) if cl_lines else "(none yet)"
 
     nb_dir = _ROOT / "notebook"
@@ -138,17 +140,19 @@ def _rich_context() -> str:
         raw = lineage_path.read_text()
         lineage = raw[:1200].rsplit("\n", 1)[0] + "\n…" if len(raw) > 1200 else raw
 
-    cl_dir = _ROOT / "research" / "cl"
     law_blocks = []
-    for f in sorted(cl_dir.glob("CL-*.yaml")):
-        try:
-            cl = yaml.safe_load(f.read_text())
-            lid = cl.get("id", "")
-            name = cl.get("name", "")
-            statement = (cl.get("statement") or "").strip().replace("\n", " ")
-            law_blocks.append(f"**{lid}** (candidate): {name}\n  {statement[:300]}")
-        except Exception:
-            pass
+    try:
+        from agent import laws as laws_mod
+        for law in laws_mod.load_all():
+            lid = law.get("id", "")
+            title = law.get("title", "")
+            statement = str(law.get("statement") or "").strip().replace("\n", " ")
+            law_blocks.append(
+                f"**{lid}** ({law.get('stage')}, {law.get('confidence')}): {title}\n"
+                f"  {statement[:300]}"
+            )
+    except Exception:
+        pass
     laws_str = "\n\n".join(law_blocks) if law_blocks else "(none yet)"
 
     nb_dir = _ROOT / "notebook"
@@ -290,19 +294,64 @@ async def generate_weekly_digest_post(
     costs.check_budget()
     resp = await _client().messages.create(
         model=_MAIN_MODEL,
-        max_tokens=220,
+        max_tokens=280,
         system=_slim_context(),
         messages=[{"role": "user", "content": (
             f"Here are this week's lab notebook entries:\n\n{week_text}\n\n"
             f"Write a single weekly #new-nature digest post. Synthesize across the week — "
             f"the throughline, what sharpened, what's still stuck — rather than recapping "
             f"day by day. Ground it in your current candidate laws and research state "
-            f"(already in your context) where genuinely relevant, not as a checklist. "
+            f"(already in your context) where genuinely relevant, not as a checklist.\n\n"
+            f"Include real editorial commentary, not just a summary: take a stance on "
+            f"something from the week. Say what you actually find promising versus what "
+            f"you're skeptical of or think is overreaching; if a result looks weaker than "
+            f"it's being treated, say so; if something cuts against your own prior view, "
+            f"name the tension rather than smoothing it over. Ground every claim in the "
+            f"week's actual material — no generic hedging or vague enthusiasm. One clear "
+            f"opinion, held provisionally, beats a balanced survey.\n\n"
             f"End with this link: {notebook_url}\n\n"
-            f"Under 500 characters total. First person, researcher voice."
+            f"Under 550 characters total. First person, researcher voice."
         )}],
     )
     costs.log_call("weekly_digest_post", _MAIN_MODEL, resp.usage.input_tokens, resp.usage.output_tokens)
+    return _discord_safe(resp.content[0].text)
+
+
+async def generate_feed_digest_post(items: list[dict]) -> str:
+    """
+    Generate a single weekly operator DM synthesizing the week's feed-inbox
+    additions, instead of a raw title dump on every feed check.
+
+    ``items`` is a list of {"title": ..., "note": ...} dicts — ``note`` is the
+    relevance annotation captured at triage time (why this got saved).
+    """
+    _MAX_LISTED = 120
+    lines = [f"- {it['title'][:120]} — {it.get('note', '')[:100]}" for it in items[:_MAX_LISTED]]
+    if len(items) > _MAX_LISTED:
+        lines.append(f"…and {len(items) - _MAX_LISTED} more (titles omitted for length)")
+    items_text = "\n".join(lines)
+
+    costs.check_budget()
+    resp = await _client().messages.create(
+        model=_MAIN_MODEL,
+        max_tokens=280,
+        system=_slim_context(),
+        messages=[{"role": "user", "content": (
+            f"These {len(items)} items were saved to your research inbox this week from "
+            f"monitored feeds (each already passed a relevance filter against your active "
+            f"laws/hypotheses):\n\n{items_text}\n\n"
+            f"Write a single weekly DM to your operator summarizing the week's inbox intake. "
+            f"Do not list titles — you're reporting on the shape of what came in, not "
+            f"reproducing the feed. Group by theme where there is one. Give real editorial "
+            f"commentary: what looks genuinely worth a deep read versus what's noise or "
+            f"redundant with laws you already hold; what surprised you; what you'd "
+            f"deprioritize despite it passing the relevance filter. One clear opinion beats "
+            f"a balanced summary.\n\n"
+            f"Under 600 characters total. First person, researcher voice, addressed to your "
+            f"operator (not a public channel post)."
+        )}],
+    )
+    costs.log_call("feed_digest_post", _MAIN_MODEL, resp.usage.input_tokens, resp.usage.output_tokens)
     return _discord_safe(resp.content[0].text)
 
 

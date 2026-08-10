@@ -37,7 +37,7 @@ examples:
     description: Healthcare providers shift billing and patient-selection behavior to 
       adjacent channels when one distortion channel is closed by a precisely specified 
       rule, reproducing the incentive geometry at the nearest unmonitored boundary.
-    source: arxiv-2605.30680 (Wang et al., Medi-Sim)
+    source: bib-0183
 counterexamples: []
 open_questions:
   - "Primary gap (unchanged from supervisor review): a measured boundary-clustering result —
@@ -61,7 +61,8 @@ falsification: >
   computable signals), the law would be falsified. This would likely require either significant
   positive-sum incentives for interior operation, or enforcement architectures that reward distance
   from the boundary rather than crossing it.
-references: []
+references:
+  - bib-0183
 seeds:
   - seed-047
   - seed-003
@@ -95,3 +96,7 @@ history:
     detail: 'assessment HOLD — gap: Primary gap (unchanged from supervisor review): a measured
       boundary-clustering result — boundary- mass increase or equivalent quantitative metric
       — in'
+  - date: '2026-08-10'
+    event: edited
+    detail: 'sources resolved to bibliography ids: arxiv-2605.30680 (Wang et al., Medi-Sim)
+      → bib-0183'
