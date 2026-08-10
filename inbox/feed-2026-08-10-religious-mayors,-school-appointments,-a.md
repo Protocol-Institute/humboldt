@@ -3,7 +3,7 @@
 **Source:** econ.GN updates on arXiv.org
 **URL:** https://arxiv.org/abs/2602.19388
 **Date:** 2026-08-10
-**Relevance:** Directly investigates how religious political actors use executive power to influence public institutions and outcomes, providing empirical evidence on religious governance effects.
+**Relevance:** Directly tests causal impact of religious political control on public service provision (school appointments, sexual health outcomes), using rigorous RDD methodology relevant to understanding religious influence on policy implementation.
 
 ## Summary
 

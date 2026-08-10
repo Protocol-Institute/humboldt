@@ -3,7 +3,7 @@
 **Source:** econ.GN updates on arXiv.org
 **URL:** https://arxiv.org/abs/2608.06528
 **Date:** 2026-08-10
-**Relevance:** Directly addresses capacity market design and supply-chain constraints for large loads like data centers, providing policy evaluation framework relevant to energy economics and market mechanisms.
+**Relevance:** Directly addresses capacity market design and constraints for large industrial loads, relevant to understanding market mechanisms under supply limitations.
 
 ## Summary
 

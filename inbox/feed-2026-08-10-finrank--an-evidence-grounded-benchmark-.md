@@ -3,7 +3,7 @@
 **Source:** econ.GN updates on arXiv.org
 **URL:** https://arxiv.org/abs/2608.07400
 **Date:** 2026-08-10
-**Relevance:** Directly addresses financial QA evaluation challenges where answer correctness alone is insufficient without proper evidence grounding in SEC filings.
+**Relevance:** Introduces a benchmark specifically designed to evaluate financial QA systems on evidence grounding quality, which is a critical gap in current evaluation methodologies for financial document retrieval.
 
 ## Summary
 

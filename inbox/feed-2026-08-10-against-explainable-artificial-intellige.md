@@ -3,7 +3,7 @@
 **Source:** cs.CY updates on arXiv.org
 **URL:** https://arxiv.org/abs/2608.07452
 **Date:** 2026-08-10
-**Relevance:** Directly addresses the critical intersection of AI transparency, legal/regulatory compliance (credit scoring), and the practical limitations of explainability in high-stakes decision systems.
+**Relevance:** Directly addresses AI transparency and interpretability requirements in high-stakes legal/financial decision-making, which is core to understanding AI governance and accountability frameworks.
 
 ## Summary
 

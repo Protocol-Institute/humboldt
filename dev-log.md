@@ -56,19 +56,23 @@ to `agent.laws.load_all()`; verified live. This would have shipped broken the mo
 daemon unpauses on 08-15 without today's fix — the weekly-digest editorial-commentary ask
 forced a look at the exact code path that was quietly dead.
 
-None of this session's Discord/state changes are live yet — the daemon (PID 1189) hasn't
-been restarted, and it's still correctly paused through 08-15 regardless. Nothing committed
-was Track 1 research; the seed/evidence the live triage/shallow-read test produced are real
-funnel output (`seed-058`, L-004 evidence) but incidental to testing, not deliberate
-investigation — left for the next Track 1 session's `pre-notebook` queue rather than
-force-writing a notebook entry for them today.
+At the operator's request, once the fixes were reviewed and committed, ran `daemon
+restart` (PID 1189, SIGUSR1 hot-reload — same PID, fresh code) followed by `daemon
+unpause`, clearing the through-08-15 pause early. Restart-before-unpause mattered here:
+unpausing on the still-running old code would have resumed exactly the bug this session
+fixed (`task_feeds`'s ungated DM). Both new digest tasks correctly no-op on their first
+tick (they initialize the clock, don't post a historical backlog), so nothing fired
+immediately. Nothing committed today was Track 1 research; the seed/evidence the live
+triage/shallow-read test produced are real funnel output (`seed-058`, L-004 evidence)
+but incidental to testing, not deliberate investigation — left for the next Track 1
+session's `pre-notebook` queue rather than force-writing a notebook entry for them today.
 
 **Open (next session):**
 - `agent/references.py` still reads `research/hypotheses/`/`research/laws/` — flagged,
   not fixed (it's still live code, used by `conversation_review.promote_inbox_links` and
-  imported by `bibliography.py` itself; not urgent while paused, but same bug class).
-- Decide whether `daemon restart` should happen before or at the 08-15 unpause to pick up
-  this session's changes — currently just sitting on disk.
+  imported by `bibliography.py` itself; no longer paused, so worth prioritizing).
+- Watch the first live `task_feed_digest`/`task_weekly_digest` firings (~7 days out) to
+  confirm the fixes hold up outside the test harness.
 - Next TODO.md item: [SONNET] publish hook + law-event Discord plumbing, then Phase 3.
 - A Track 1 session is overdue — this and the last several sessions have all been T2.
 

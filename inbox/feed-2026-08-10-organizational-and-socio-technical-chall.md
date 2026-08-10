@@ -3,7 +3,7 @@
 **Source:** cs.CY updates on arXiv.org
 **URL:** https://arxiv.org/abs/2608.06472
 **Date:** 2026-08-10
-**Relevance:** Directly addresses incident investigation and forensic challenges in UAV operations, relevant to understanding failure modes and safety-critical response procedures.
+**Relevance:** Directly addresses socio-technical and organizational factors in UAV incident response, relevant to understanding systemic challenges in emerging technology incidents.
 
 ## Summary
 

@@ -3,7 +3,7 @@
 **Source:** cs.MA updates on arXiv.org
 **URL:** https://arxiv.org/abs/2608.07295
 **Date:** 2026-08-10
-**Relevance:** Directly addresses optimal policy design for educational resource allocation accounting for behavioral responses (residential sorting) that affect distributional outcomes, relevant to public economics and policy optimization research.
+**Relevance:** This addresses resource allocation mechanisms in education systems where spatial constraints (residential segregation) affect policy outcomes and equity—directly relevant to understanding how institutional design shapes educational opportunity distribution.
 
 ## Summary
 

@@ -3,7 +3,7 @@
 **Source:** cs.CY updates on arXiv.org
 **URL:** https://arxiv.org/abs/2608.06932
 **Date:** 2026-08-10
-**Relevance:** Directly addresses definitional and structural challenges in educational short-video research that are foundational to understanding the field's current state and facilitating research comparison.
+**Relevance:** Provides systematic mapping of educational short-video research taxonomy and operationalization, directly supporting evidence synthesis and methodological clarity across this fragmented research domain.
 
 ## Summary
 

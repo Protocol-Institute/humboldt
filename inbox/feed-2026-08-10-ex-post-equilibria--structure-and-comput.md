@@ -3,7 +3,7 @@
 **Source:** cs.GT updates on arXiv.org
 **URL:** https://arxiv.org/abs/2608.07025
 **Date:** 2026-08-10
-**Relevance:** Directly addresses equilibrium concepts in games with uncertainty, which is foundational for mechanism design and robust game theory.
+**Relevance:** Studies equilibrium concepts in games with uncertainty, directly relevant to foundational game theory and mechanism design under incomplete information.
 
 ## Summary
 

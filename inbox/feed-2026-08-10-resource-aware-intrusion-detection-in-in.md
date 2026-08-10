@@ -3,7 +3,7 @@
 **Source:** cs.GT updates on arXiv.org
 **URL:** https://arxiv.org/abs/2608.06655
 **Date:** 2026-08-10
-**Relevance:** Directly addresses intrusion detection in critical infrastructure networks using game-theoretic optimization under resource constraints, a core concern for defensive cybersecurity systems.
+**Relevance:** Directly addresses intrusion detection optimization under resource constraints, which is foundational to cybersecurity infrastructure protection.
 
 ## Summary
 

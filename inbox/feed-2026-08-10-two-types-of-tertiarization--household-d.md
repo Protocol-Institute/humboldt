@@ -3,7 +3,7 @@
 **Source:** econ.GN updates on arXiv.org
 **URL:** https://arxiv.org/abs/2608.06584
 **Date:** 2026-08-10
-**Relevance:** Directly addresses tertiarization trends and service sector growth using comprehensive cross-country input-output data, relevant for understanding structural economic transformation.
+**Relevance:** Directly addresses structural economic transformation through services sector growth, employing input-output analysis across multiple economies to decompose demand sources.
 
 ## Summary
 

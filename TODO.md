@@ -9,9 +9,10 @@ Priority: **[H]** urgent, **[M]** soon, **[L]** when convenient.
 ## 🎯 ON DECK — Redesign Phase 2 wrap-up (next session)
 
 > Spec: `plans/redesign-2026-08.md`. Session 29 (2026-08-10) closed the `triage.py`/
-> `reads.py` rework — the last big Phase 2 item. **Pause expires 2026-08-15** — extend
-> when the daemon is next touched if Phase 5 (server cutover = "off-laptop") will slip
-> past it.
+> `reads.py` rework — the last big Phase 2 item. **Daemon unpaused 2026-08-10** (early —
+> was through 08-15) once this session's fixes were live; normal Discord posting/querying
+> has resumed. Re-pause manually if Phase 5 (server cutover = "off-laptop") work needs
+> the daemon quiet again.
 
 ~~**`triage.py` / `reads.py` rework [OPUS].**~~ **DONE (session 29, 2026-08-10).**
 `agent/funnel_context.py` (new) replaces the stale `research/laws/`/`research/hypotheses/`
@@ -26,18 +27,16 @@ wire law create/promote/challenge → `publish-site` + one Discord law-event pos
 **Also found this session, not yet fixed:** `agent/references.py` still reads the dead
 `research/hypotheses/`/`research/laws/` path — same bug class as the triage/shallow-read
 and daemon-presence fixes, but the module is still live (`conversation_review
-.promote_inbox_links`, and `bibliography.py` itself imports it). Not urgent while the
-daemon's paused; fold into the next daemon-adjacent session.
+.promote_inbox_links`, and `bibliography.py` itself imports it). Now that the daemon is
+unpaused this runs daily again — worth prioritizing over "not urgent."
 
 **After Phase 2:** Phase 3 (graph + console) → Phase 4 (analytics) → **Phase 5 (server
 cutover + quiet-mode Discord = off-laptop)**.
 
-**Deferred (blocked by pause until 08-15):** `humboldt ingest` of new laws/seeds/bib
-(also `ingest.py` chunk types don't yet cover laws/seeds/bibliography).
-
-**Operational:** `daemon restart` hasn't happened since this session's changes (Phase 2
-funnel rework + the daemon feed-DM/law-context fixes below) — do it before or at the
-08-15 unpause so the live daemon actually runs the fixed code.
+**No longer deferred:** the daemon is unpaused, so `task_notebook`'s incremental
+Pinecone re-index and manual `humboldt ingest` are both live again. Watch cost/write-unit
+usage for a session or two given the session-23 quota-exhaustion history, though the
+incremental-ingest fix from that session should hold.
 
 ---
 
@@ -52,7 +51,8 @@ Fixed: `task_feeds` still collects to inbox silently; a new pause-gated weekly
 `daemon/presence.py`'s `_slim_context()`/`_rich_context()` reading the same dead
 `research/cl/` path as the funnel modules — every daemon Discord post (mentions, both
 digests) was silently running with zero law context. Fixed; also patched the identical
-bug in `daemon/capture.py`. None of this is live until `daemon restart`.
+bug in `daemon/capture.py`. **Live as of 19:49 UTC** — `daemon restart` (hot-reload, same
+PID) then `daemon unpause`, both run this session.
 
 **Stub-blocker convention:** When a Track 2 behavior is a stub and its absence is
 preventing a specific Track 1 arc from advancing phase, annotate the item here with

@@ -3,7 +3,7 @@
 **Source:** cs.CY updates on arXiv.org
 **URL:** https://arxiv.org/abs/2512.07901
 **Date:** 2026-08-10
-**Relevance:** Directly addresses synthesis of game theory and self-replicating systems, foundational to understanding strategic competition in evolving populations.
+**Relevance:** Directly addresses the foundational synthesis of game theory and self-replicating systems that von Neumann initiated separately, providing a unified theoretical framework for strategic evolution.
 
 ## Summary
 

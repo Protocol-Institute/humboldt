@@ -3,7 +3,7 @@
 **Source:** cs.GT updates on arXiv.org
 **URL:** https://arxiv.org/abs/2602.03381
 **Date:** 2026-08-10
-**Relevance:** Directly addresses uncertainty quantification and decision-making under unknown dynamics, foundational for robust RL and risk-aware planning problems.
+**Relevance:** Directly addresses decision-making under uncertainty in MDPs, foundational for robust policy optimization when transition dynamics are unknown.
 
 ## Summary
 

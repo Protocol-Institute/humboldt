@@ -3,7 +3,7 @@
 **Source:** cs.CY updates on arXiv.org
 **URL:** https://arxiv.org/abs/2608.06955
 **Date:** 2026-08-10
-**Relevance:** Directly investigates whether LLMs reproduce human evaluative biases and hierarchies learned from training data, which is relevant to understanding systematic biases in LLM outputs.
+**Relevance:** Directly investigates whether LLMs reproduce human evaluative biases from training data, relevant to understanding systematic biases in model outputs.
 
 ## Summary
 

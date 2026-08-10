@@ -3,7 +3,7 @@
 **Source:** econ.GN updates on arXiv.org
 **URL:** https://arxiv.org/abs/2608.04925
 **Date:** 2026-08-10
-**Relevance:** Directly examines how financial institutions transfer interest rate risk to product markets, which is fundamental to understanding financial market transmission mechanisms and insurance pricing.
+**Relevance:** Directly examines how financial institutions transmit interest rate risk to product markets, which is fundamental to understanding interest rate pass-through mechanisms in insurance pricing and risk management.
 
 ## Summary
 

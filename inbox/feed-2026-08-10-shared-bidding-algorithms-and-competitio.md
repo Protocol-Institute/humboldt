@@ -3,7 +3,7 @@
 **Source:** econ.GN updates on arXiv.org
 **URL:** https://arxiv.org/abs/2607.13002
 **Date:** 2026-08-10
-**Relevance:** Directly examines how shared algorithms between competitors affect market behavior and pricing, providing empirical evidence on algorithmic collusion mechanisms.
+**Relevance:** Directly examines how shared algorithms between competitors affect strategic behavior and market outcomes, providing empirical evidence on algorithmic collusion mechanisms.
 
 ## Summary
 

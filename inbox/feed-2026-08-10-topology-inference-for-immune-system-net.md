@@ -3,7 +3,7 @@
 **Source:** cs.MA updates on arXiv.org
 **URL:** https://arxiv.org/abs/2608.07403
 **Date:** 2026-08-10
-**Relevance:** Topology inference from biological data is directly applicable to understanding network interactions in complex systems, including immune cell networks relevant to immunology research.
+**Relevance:** Directly addresses topology inference methods for biological networks using cellular data, which is foundational for understanding immune system organization and interactions.
 
 ## Summary
 

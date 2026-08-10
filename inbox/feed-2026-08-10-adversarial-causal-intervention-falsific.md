@@ -3,7 +3,7 @@
 **Source:** cs.GT updates on arXiv.org
 **URL:** https://arxiv.org/abs/2608.06427
 **Date:** 2026-08-10
-**Relevance:** Directly addresses how generative models can misrepresent causal structure, relevant to understanding causal inference robustness and model validation.
+**Relevance:** Directly addresses causal inference validation and detection of misspecified causal structures in generative models, which is fundamental to ensuring learned models capture true causal relationships rather than spurious correlations.
 
 ## Summary
 

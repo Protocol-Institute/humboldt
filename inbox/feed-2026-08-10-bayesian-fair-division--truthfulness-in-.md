@@ -3,7 +3,7 @@
 **Source:** cs.GT updates on arXiv.org
 **URL:** https://arxiv.org/abs/2608.07414
 **Date:** 2026-08-10
-**Relevance:** Directly addresses truthfulness and strategic behavior in sequential fair division mechanisms, a core topic in mechanism design for resource allocation.
+**Relevance:** Directly addresses fair division mechanisms, truthfulness in strategic settings, and picking sequences—core topics in mechanism design and fair allocation.
 
 ## Summary
 

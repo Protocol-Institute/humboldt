@@ -3,7 +3,7 @@
 **Source:** econ.GN updates on arXiv.org
 **URL:** https://arxiv.org/abs/2501.18732
 **Date:** 2026-08-10
-**Relevance:** Directly addresses optimization of renewable energy bidding strategies across interconnected electricity market sessions, which is fundamental to understanding market efficiency and renewable integration.
+**Relevance:** Directly addresses optimization of renewable energy bidding strategies across coupled market settlements, which is central to understanding renewable integration economics and market design incentives.
 
 ## Summary
 

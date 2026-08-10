@@ -3,7 +3,7 @@
 **Source:** cs.MA updates on arXiv.org
 **URL:** https://arxiv.org/abs/2608.06702
 **Date:** 2026-08-10
-**Relevance:** Directly addresses scalable multi-agent path planning with real-time constraints, a core problem in autonomous systems and robotics coordination.
+**Relevance:** Directly addresses scalable multi-agent path finding algorithms, a core topic in autonomous systems and robotics coordination that would be foundational for research in fleet management and collision avoidance.
 
 ## Summary
 

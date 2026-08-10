@@ -3,7 +3,7 @@
 **Source:** cs.MA updates on arXiv.org
 **URL:** https://arxiv.org/abs/2608.06865
 **Date:** 2026-08-10
-**Relevance:** Directly addresses deepfake detection methodology and AI safety concerns related to generative AI misuse.
+**Relevance:** Directly addresses deepfake detection methods and AI safety challenges, relevant to understanding adversarial AI risks and detection approaches.
 
 ## Summary
 

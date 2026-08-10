@@ -3,7 +3,7 @@
 **Source:** cs.GT updates on arXiv.org
 **URL:** https://arxiv.org/abs/2607.00101
 **Date:** 2026-08-10
-**Relevance:** Directly addresses mechanism design for procurement with budget constraints and strategic sellers, a core topic in algorithmic game theory and mechanism design.
+**Relevance:** Directly addresses mechanism design for budget-constrained procurement with strategic agents, a core topic in algorithmic game theory and market design.
 
 ## Summary
 

@@ -3,7 +3,7 @@
 **Source:** cs.CY updates on arXiv.org
 **URL:** https://arxiv.org/abs/2608.06753
 **Date:** 2026-08-10
-**Relevance:** Directly addresses pedagogical intervention (split deadlines) in introductory CS courses to improve student support and course management outcomes.
+**Relevance:** Directly addresses pedagogical interventions for managing student support and workload in introductory CS courses.
 
 ## Summary
 

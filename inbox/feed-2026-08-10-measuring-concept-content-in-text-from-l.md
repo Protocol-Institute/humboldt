@@ -3,7 +3,7 @@
 **Source:** econ.GN updates on arXiv.org
 **URL:** https://arxiv.org/abs/2608.07208
 **Date:** 2026-08-10
-**Relevance:** Directly addresses measuring conceptual content in LLM activations using linear probes and concept vectors, which is core interpretability research on what models encode internally.
+**Relevance:** Directly addresses methods for measuring concept content in text using LLM internal representations, which is foundational for understanding what information models encode and how to extract interpretable concepts from activations.
 
 ## Summary
 

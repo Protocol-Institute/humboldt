@@ -3,7 +3,7 @@
 **Source:** cs.GT updates on arXiv.org
 **URL:** https://arxiv.org/abs/2608.06741
 **Date:** 2026-08-10
-**Relevance:** Directly addresses how LLMs can improve reasoning about game-theoretic equilibria beyond human-based training, relevant to advancing reasoning capabilities in structured domains.
+**Relevance:** Addresses how LLMs can reason about game-theoretic equilibria beyond human demonstrations, relevant to improving reasoning capabilities in strategic decision-making contexts.
 
 ## Summary
 

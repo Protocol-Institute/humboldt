@@ -3,7 +3,7 @@
 **Source:** econ.GN updates on arXiv.org
 **URL:** https://arxiv.org/abs/2512.14154
 **Date:** 2026-08-10
-**Relevance:** Directly examines the relationship between innovation and financial market structure (stock markets vs. banking), which is core to understanding how technological change affects financial systems.
+**Relevance:** Directly examines how innovation influences financial structure (stock market vs. banking), a core question in financial economics and development.
 
 ## Summary
 

@@ -3,7 +3,7 @@
 **Source:** cs.CY updates on arXiv.org
 **URL:** https://arxiv.org/abs/2608.06908
 **Date:** 2026-08-10
-**Relevance:** Directly addresses methodological improvements to WEAT, a fundamental bias measurement tool in NLP and AI fairness research.
+**Relevance:** Directly addresses bias measurement methodology in word embeddings, a core topic for evaluating fairness in NLP systems.
 
 ## Summary
 

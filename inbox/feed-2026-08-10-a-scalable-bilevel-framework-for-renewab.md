@@ -3,7 +3,7 @@
 **Source:** econ.GN updates on arXiv.org
 **URL:** https://arxiv.org/abs/2211.13905
 **Date:** 2026-08-10
-**Relevance:** Directly addresses scalable optimization methods for renewable energy integration in electricity markets, which is fundamental to modern power system operations.
+**Relevance:** Addresses scalable optimization methods for renewable energy integration under uncertainty, directly relevant to grid operations and market efficiency challenges.
 
 ## Summary
 

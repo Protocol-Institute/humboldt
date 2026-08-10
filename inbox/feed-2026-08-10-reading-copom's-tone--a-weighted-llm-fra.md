@@ -3,7 +3,7 @@
 **Source:** econ.GN updates on arXiv.org
 **URL:** https://arxiv.org/abs/2608.07251
 **Date:** 2026-08-10
-**Relevance:** Directly relevant for developing NLP-based sentiment analysis frameworks for central bank communications and monetary policy tone measurement.
+**Relevance:** Directly relevant to NLP applications in central bank communication analysis and monetary policy sentiment measurement using LLM-based frameworks.
 
 ## Summary
 

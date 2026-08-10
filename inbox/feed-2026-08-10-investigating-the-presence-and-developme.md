@@ -3,7 +3,7 @@
 **Source:** cs.CY updates on arXiv.org
 **URL:** https://arxiv.org/abs/2608.06782
 **Date:** 2026-08-10
-**Relevance:** Directly addresses student-instructor relationship dynamics in CS education, relevant to understanding pedagogical effectiveness and student outcomes in introductory programming courses.
+**Relevance:** Directly addresses how student preferences toward instructors develop over time in CS1 courses, relevant to understanding pedagogical effectiveness and student learning outcomes.
 
 ## Summary
 

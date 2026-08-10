@@ -9,9 +9,12 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 Session: T2 (redesign implementation + operator-reported bug). Run on Sonnet 5 + an Opus
 4.8 subagent.
 
-**Daemon:** PID 1189 (running; paused through **2026-08-15**). Restarted since last status
-entry (was PID 1930) — no action taken, just a routine relaunch. Not restarted this session;
-today's code changes are on disk but not yet live.
+**Daemon:** PID 1189 (running, unpaused). Restarted twice this session: once routinely
+before this session began (was PID 1930, no action taken), and once deliberately at
+19:49 UTC via `daemon restart` (SIGUSR1 hot-reload, same PID) to load today's fixes
+before `daemon unpause` — otherwise unpausing would have resumed the old, buggy
+`task_feeds` in memory. Pause (through 2026-08-15) cleared at operator request once the
+fixes were confirmed live.
 
 **Completed:**
 - **Phase 2 [OPUS] `triage.py`/`shallow_read.py` rework — the ON DECK item, done.** New
@@ -31,20 +34,24 @@ today's code changes are on disk but not yet live.
   wanted replaced with a weekly editorial digest.** Root cause was *not* the known
   `task_weekly_digest` mechanism (never fired — daemon's been paused almost continuously
   since 07-24) but a second, separate bug: `task_feeds` DMs the operator immediately every
-  12h with **no pause gate at all** — a recurrence of [[feedback_pause_completeness]]'s
-  exact failure mode. Fixed: `task_feeds` still collects silently; a new pause-gated,
-  weekly `task_feed_digest` sends one editorial-commentary DM instead
-  (`presence.generate_feed_digest_post()`). Also fixed `_slim_context()`/`_rich_context()`
-  in `daemon/presence.py` — same dead `research/cl/` path, meaning **every** daemon Discord
-  post (mentions, both digests) was silently running with zero law context. Verified live.
-  None of this is active yet — daemon not restarted this session.
+  12h with **no pause gate at all** — a recurrence of the exact pause-completeness failure
+  mode session 23 already fixed once elsewhere. Fixed: `task_feeds` still collects
+  silently; a new pause-gated, weekly `task_feed_digest` sends one editorial-commentary
+  DM instead (`presence.generate_feed_digest_post()`). Also fixed
+  `_slim_context()`/`_rich_context()` in `daemon/presence.py` — same dead `research/cl/`
+  path, meaning **every** daemon Discord post (mentions, both digests) was silently
+  running with zero law context.
+- **Daemon restarted + unpaused (19:49 UTC).** All of the above is live: PID 1189 hot-
+  reloaded via `daemon restart`, then `daemon unpause` cleared the through-08-15 pause at
+  operator request. Normal Discord posting/querying has resumed.
 
 **Open (next session):**
 - `agent/references.py` still reads the dead `research/hypotheses/`/`research/laws/` path
   (still-live code — `conversation_review.promote_inbox_links`, imported by
   `bibliography.py`). Flagged, not fixed.
-- Decide when to `daemon restart` to pick up today's changes — anytime before or at the
-  08-15 unpause.
+- Watch the first live `task_feed_digest` and `task_weekly_digest` firings (both due
+  ~7 days out, both correctly skip posting on their first-ever run) to confirm the fixes
+  hold up outside the test harness.
 - TODO.md next: [SONNET] publish hook + law-event Discord plumbing, then Phase 3.
 - Track 1 research is overdue — several sessions running have all been T2.
 

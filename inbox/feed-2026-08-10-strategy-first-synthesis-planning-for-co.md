@@ -3,7 +3,7 @@
 **Source:** cs.MA updates on arXiv.org
 **URL:** https://arxiv.org/abs/2608.07454
 **Date:** 2026-08-10
-**Relevance:** Directly addresses synthetic planning strategies for complex molecules, foundational to organic synthesis methodology.
+**Relevance:** Directly addresses synthesis planning methodology for complex molecules, relevant to computational chemistry and retrosynthetic analysis approaches.
 
 ## Summary
 

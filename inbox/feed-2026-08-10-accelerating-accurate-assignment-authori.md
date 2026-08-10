@@ -3,7 +3,7 @@
 **Source:** cs.CY updates on arXiv.org
 **URL:** https://arxiv.org/abs/2608.06572
 **Date:** 2026-08-10
-**Relevance:** Directly addresses the challenge of creating accurate autograders for programming assignments, which is a key infrastructure problem in computer science education.
+**Relevance:** Directly addresses a bottleneck in creating effective automated assessment tools for programming education, which is foundational infrastructure for scaling practice problems.
 
 ## Summary
 

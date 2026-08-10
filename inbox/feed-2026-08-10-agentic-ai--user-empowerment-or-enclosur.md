@@ -3,7 +3,7 @@
 **Source:** cs.CY updates on arXiv.org
 **URL:** https://arxiv.org/abs/2608.06510
 **Date:** 2026-08-10
-**Relevance:** Directly addresses critical governance and societal implications of autonomous AI agents, relevant to understanding how agentic systems affect human agency and control.
+**Relevance:** Directly addresses governance and control mechanisms in autonomous AI systems, critical for understanding risks in agentic AI deployment.
 
 ## Summary
 

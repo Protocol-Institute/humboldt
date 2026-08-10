@@ -3,7 +3,7 @@
 **Source:** cs.CY updates on arXiv.org
 **URL:** https://arxiv.org/abs/2608.07337
 **Date:** 2026-08-10
-**Relevance:** Directly addresses watermarking mechanisms for AI-generated content detection and governance, which is fundamental to AI oversight and synthetic content authentication.
+**Relevance:** Addresses watermarking techniques for generative AI oversight, a key governance approach for tracking and managing AI-generated content.
 
 ## Summary
 

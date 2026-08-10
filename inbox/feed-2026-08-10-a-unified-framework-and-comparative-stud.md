@@ -3,7 +3,7 @@
 **Source:** cs.GT updates on arXiv.org
 **URL:** https://arxiv.org/abs/2512.19113
 **Date:** 2026-08-10
-**Relevance:** Directly addresses DeFi derivatives protocols and their mechanisms, providing foundational knowledge for understanding decentralized financial systems and smart contract-based instruments.
+**Relevance:** Directly addresses DeFi derivatives protocols, a core area for understanding decentralized finance systems and their comparative characteristics.
 
 ## Summary
 

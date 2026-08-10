@@ -3,7 +3,7 @@
 **Source:** cs.CY updates on arXiv.org
 **URL:** https://arxiv.org/abs/2608.06831
 **Date:** 2026-08-10
-**Relevance:** Directly addresses AI risk categorization and governance frameworks, which are foundational to understanding and mitigating AI harms across multiple scales.
+**Relevance:** Directly addresses AI risk classification frameworks, which is fundamental to understanding and organizing different categories of AI-related harms relevant to governance and risk assessment.
 
 ## Summary
 

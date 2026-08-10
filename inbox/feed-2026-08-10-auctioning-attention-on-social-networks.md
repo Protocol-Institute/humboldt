@@ -3,7 +3,7 @@
 **Source:** cs.GT updates on arXiv.org
 **URL:** https://arxiv.org/abs/2608.06665
 **Date:** 2026-08-10
-**Relevance:** Directly addresses attention allocation mechanisms and conflicts between stakeholders in social media systems, relevant to understanding platform dynamics and recommendation incentives.
+**Relevance:** Directly addresses attention allocation mechanisms on social platforms, relevant to understanding recommendation system design and stakeholder incentives.
 
 ## Summary
 

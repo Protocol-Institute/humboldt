@@ -3,7 +3,7 @@
 **Source:** cs.GT updates on arXiv.org
 **URL:** https://arxiv.org/abs/2608.06872
 **Date:** 2026-08-10
-**Relevance:** This addresses fundamental impossibility results in social choice theory relevant to understanding voting mechanisms and collective decision-making.
+**Relevance:** The paper addresses fundamental impossibility results in social choice and voting theory, directly relevant to understanding when elections can fail to produce outcomes supported by voter preferences.
 
 ## Summary
 

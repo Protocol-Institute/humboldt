@@ -3,7 +3,7 @@
 **Source:** cs.GT updates on arXiv.org
 **URL:** https://arxiv.org/abs/2608.06623
 **Date:** 2026-08-10
-**Relevance:** Directly addresses optimal auction design with information asymmetry, a core problem in mechanism design and revenue optimization.
+**Relevance:** Directly addresses how sellers can leverage information about bidder values to optimize auction mechanisms and revenue, which is a core topic in auction design theory.
 
 ## Summary
 

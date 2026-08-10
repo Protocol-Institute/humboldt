@@ -3,7 +3,7 @@
 **Source:** cs.GT updates on arXiv.org
 **URL:** https://arxiv.org/abs/2606.01874
 **Date:** 2026-08-10
-**Relevance:** Directly addresses decentralization trade-offs in blockchain block building, a core mechanism for understanding consensus security and fairness.
+**Relevance:** Directly addresses decentralized block building mechanisms and their economic trade-offs, which is fundamental to understanding blockchain protocol design and MEV distribution.
 
 ## Summary
 
