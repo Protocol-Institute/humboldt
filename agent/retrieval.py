@@ -21,8 +21,12 @@ NS_BROAD   = ["pdfs", "substack", "videos", "bibliography", "discord_links", "si
 NS_COMMUNITY = ["discord", "discord_links", "sig"]
 NS_ALL = ["pdfs", "substack", "videos", "bibliography", "discord", "discord_links", "sig"]
 NS_HUMBOLDT = ["humboldt"]
-# PI corpus + Humboldt's own notebook/notes/laws — use for Discord responses
-NS_BROAD_PLUS = ["pdfs", "substack", "videos", "bibliography", "discord_links", "sig", "humboldt"]
+# PI corpus + Humboldt's own notebook/notes/laws — use for Discord responses.
+# Trimmed from NS_BROAD (drops bibliography, discord_links) 2026-08-17: these two
+# rarely surface in live reply context and this set is queried against c3po's
+# shared Pinecone index on every composed reply, unlike the CLI-only NS_BROAD/
+# NS_ALL research commands where the extra breadth is worth the cost.
+NS_BROAD_PLUS = ["pdfs", "substack", "videos", "sig", "humboldt"]
 
 _HUMBOLDT_NS = "humboldt"  # sentinel — routes to the dedicated humboldt index
 
