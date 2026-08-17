@@ -1,6 +1,7 @@
 id: seed-028
 title: C-028-normal-science-anomaly-tolerance
-text: 'Kuhn establishes that normal science tolerates anomalies — puzzles that fail to
+text: 'Kuhn establishes that normal science tolerates anomalies — puzzles that fail
+  to
 
   yield — for long periods without triggering crisis. The paradigm provides the
 
@@ -26,4 +27,5 @@ type: curiosity
 connections:
 - CL-001
 - CL-003
-status: open
+status: promoted
+promoted_to: L-013

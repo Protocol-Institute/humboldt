@@ -469,6 +469,17 @@ def _build_chat() -> None:
             thinking.textContent = "Error: " + data.error;
           } else {
             thinking.textContent = data.answer;
+            // Corpus retrieval can be offline (monthly Pinecone read quota).
+            // Say so in the UI — an ungrounded answer must never look like a
+            // normally-sourced one.
+            if (data.corpusOffline) {
+              const notice = document.createElement("div");
+              notice.className = "corpus-notice";
+              notice.textContent = "Corpus retrieval is temporarily offline — "
+                + "this answer draws only on Humboldt's own law records and notebook, "
+                + "without source lookup.";
+              thinking.appendChild(notice);
+            }
             history.push({ role: "user",      content: query       });
             history.push({ role: "assistant",  content: data.answer });
             if (history.length > 16) history = history.slice(-16);
@@ -489,6 +500,11 @@ def _build_chat() -> None:
     </script>"""
 
     extra_css = """
+    .corpus-notice {
+      margin-top: 0.75rem; padding: 0.5rem 0.75rem;
+      border-left: 3px solid #b5892a; background: #fdf8ec;
+      font-size: 0.82rem; line-height: 1.45; color: #6b5518;
+    }
     .chat-intro { max-width: 680px; margin-bottom: 2rem; }
     .chat-intro p { margin-bottom: 1rem; }
     .chat-site-links {

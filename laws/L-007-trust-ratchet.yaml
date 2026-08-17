@@ -140,3 +140,7 @@ history:
     detail: 'The mechanism by which trust in established protocols resists updating even when
       technical conditions change: seed-028 (Kuhn, normal-science-anomaly-tolerance) establishes
       that the paradigm provides assurance t'
+  - date: '2026-08-17'
+    event: evidence
+    detail: 'reference seed-031; seed-027: The rival-dependency condition for trust collapse
+      — refining the claim that trust decay is driven by technical obsolescence'

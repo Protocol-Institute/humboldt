@@ -20,6 +20,29 @@ _PYTHON = str(_VENV_PYTHON) if _VENV_PYTHON.exists() else "/opt/homebrew/bin/pyt
 _CF_ACCOUNT_ID = "7e8c7969b2464d23795c555bc6a32af8"
 _CF_PROJECT = "humboldt"
 
+# The CF Pages project serves humboldt.protocol-institute.org from this branch
+# only. `wrangler pages deploy` infers the branch from git and silently makes a
+# *preview* deployment for anything else — returning success either way. So a
+# successful publish_site() does NOT imply the public site changed; callers that
+# link to the public URL must check is_production_deploy() first.
+_CF_PRODUCTION_BRANCH = "main"
+
+
+def current_branch() -> str | None:
+    """Current git branch, or None if it cannot be determined."""
+    try:
+        r = subprocess.run(["git", "rev-parse", "--abbrev-ref", "HEAD"],
+                           cwd=_ROOT, capture_output=True, text=True)
+        return r.stdout.strip() or None if r.returncode == 0 else None
+    except Exception:  # noqa: BLE001
+        return None
+
+
+def is_production_deploy() -> bool:
+    """True when a deploy from here lands on the public domain rather than a
+    preview URL. Conservative: unknown branch counts as not-production."""
+    return current_branch() == _CF_PRODUCTION_BRANCH
+
 
 def publish_site(dry_run: bool = False, verbose: bool = True) -> bool:
     """Build the subsite and deploy to CF Pages. Returns True on success."""

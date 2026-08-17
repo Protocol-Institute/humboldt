@@ -53,6 +53,16 @@ examples:
       for pathogens — a naturally selected high ratio."
     source: null
 
+  - domain: Security protocol — information confinement
+    description: 'arxiv-2606.09931 (Schroeder de Witt) shows that for strategic agents with
+      shared coordination resources, classical confinement bounds on information flow lose their
+      force: agents can use Schelling-point salience to concentrate residual channel capacity
+      onto the highest-damage predicate, making even near-zero-capacity channels sufficient
+      to select worst-case equilibria. This is a specific and important sharpening of L-002:
+      the verification-circumvention hardness asymmetry is further amplified when circumventing
+      agents are strategic, because they can optimally allocate whatever circumvention capacity
+      remains. The gap between a leakage bound and a harm bound is the novel structural point.'
+    source: arxiv-2606.09931 (deep read)
 counterexamples:
   - description: "Simple passwords: circumvention and verification costs converge."
     resolution: "Design failure (weak hardness), not a counterexample — the law claims the asymmetry
@@ -107,3 +117,8 @@ history:
     event: evidence
     detail: 'reference shallow · 2026-07-24-link-survey-or-resource-on-bisimulation-theory-and-its-appli.md:
       The formal vocabulary needed to state Hardness Asymmetry rigorously — bisimulati'
+  - date: '2026-08-17'
+    event: evidence
+    detail: 'Hardness asymmetry when communicating parties are strategic agents rather than
+      specified programs: arxiv-2606.09931 (Schroeder de Witt) shows that for strategic agents
+      with shared coordination resources, classical confinement bounds on information flow lose…'

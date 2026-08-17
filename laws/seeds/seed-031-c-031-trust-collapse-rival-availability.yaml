@@ -1,6 +1,7 @@
 id: seed-031
 title: C-031-trust-collapse-rival-availability
-text: 'Kuhn is precise on a point that complicates CL-003 (Trust Ratchet): a paradigm is
+text: 'Kuhn is precise on a point that complicates CL-003 (Trust Ratchet): a paradigm
+  is
 
   not abandoned merely because anomalies accumulate. Crisis without a rival candidate
 
@@ -14,7 +15,8 @@ text: 'Kuhn is precise on a point that complicates CL-003 (Trust Ratchet): a par
 
   may not be triggered by the protocol''s own failure but by the appearance of an
 
-  alternative that makes the failure legible as failure. A regulatory failure that was
+  alternative that makes the failure legible as failure. A regulatory failure that
+  was
 
   previously tolerated as "known complexity" becomes intolerable the moment someone
 
@@ -26,4 +28,5 @@ type: curiosity
 connections:
 - CL-003
 - CL-001
-status: open
+status: promoted
+promoted_to: L-013

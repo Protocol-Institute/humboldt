@@ -1,0 +1,70 @@
+id: L-014
+title: Strategic Boundary Concentration Under Computable Legality
+slug: strategic-boundary-concentration-under-computable-legality
+stage: exploration
+status: active
+origin: discovered
+source: null
+confidence: speculative
+statement: >
+  When legal or protocol obligations are rendered precisely computable and machine-readable,
+  optimizing agents systematically concentrate their behavior at the compliance boundary rather
+  than distributing across the interior of the compliance space. This concentration is a structural
+  response to computability, not to any specific rule content, and occurs even when interior
+  compliance would be equally permissible.
+mechanism: >
+  A computable rule is a learnable object. Agents (firms, algorithms, or humans aided by algorithms)
+  can identify the boundary through systematic search, imitation of boundary-proximate competitors,
+  or explicit optimization. Interior compliance provides no return premium over boundary compliance;
+  boundary compliance maximizes whatever objective the rule was designed to constrain. The estimand
+  distinction is crucial: enforcement sensors may show stable aggregate compliance signals while
+  the distribution of behavior has shifted from interior to boundary — the signal does not distinguish
+  these. This is a specific and mechanistically grounded sharpening of L-008 (Proxy Optimization
+  Under Computable Enforcement), differing in that it specifies the *computability of the rule
+  itself* as the enabling condition, not merely the legibility of the enforcement signal.
+justification: >
+  arxiv-2606.04617 (He) provides the mechanism argument and simulation evidence. The paper is
+  honest about its scope (mechanism claims, not jurisdiction-specific behavior), but the mechanism
+  is clear and the estimand-distinction insight is novel enough to anchor a law. This overlaps
+  with L-008 but adds the specific claim that *rule computability* (not just enforcement legibility)
+  drives boundary concentration — a meaningful protocol-theoretic delta. The deep read of 2606.04617
+  provides the ABM/RL simulation evidence.
+examples:
+  - domain: Regulatory compliance — Rules-as-Code
+    description: He's ABM simulation shows that when firms are modeled as RL agents 
+      learning a computable compliance boundary, they systematically cluster at the 
+      boundary through imitation and search, even as aggregate compliance metrics remain 
+      stable. The conduct boundary mass shifts while signal boundary mass is unchanged.
+    source: arxiv-2606.04617
+  - domain: Tax compliance — Safe-harbor rules
+    description: When tax law specifies precise numeric thresholds (e.g., 30% 
+      thin-capitalization ratios), firms cluster debt ratios just below the threshold. 
+      Interior compliance (e.g., 15% debt ratios) is not preferred even when equally 
+      permissible, because the boundary is the learned optimum.
+    source: seed-008 (structural analogy); arxiv-2606.04617
+counterexamples: []
+open_questions: []
+falsification: >
+  A computable compliance regime in which agents distribute uniformly across the compliance
+  interior rather than concentrating at the boundary, despite having learning capacity and optimization
+  incentives, would refute the structural claim. A regime where computability reduces rather
+  than increases boundary concentration would falsify the mechanism.
+references: []
+seeds:
+  - seed-008
+related: []
+triggers:
+  advance: >
+    Empirical evidence (not simulation) from two or more independent regulatory domains showing
+    measurable boundary concentration shifts following a rules-as-code or computability reform,
+    with pre/post distributions documented and the conduct/signal estimand distinction addressed.
+  challenge: >
+    A documented case where rendering rules computable caused agents to distribute more uniformly
+    across the compliance interior, or where an equivalently computable rule produced no boundary
+    concentration, with a credible account of the suppressing mechanism.
+history:
+  - date: '2026-08-17'
+    event: created
+    detail: induction sweep — arxiv-2606.04617 (He) provides the mechanism argument and 
+      simulation evidence. The paper is honest about its scope (mechanism claims, not 
+      jurisdiction-specific…

@@ -75,6 +75,15 @@ examples:
       community's adaptive capacity degrades as the formal standard takes hold — this case
       is worth tracking longitudinally as a falsification test.
     source: bib-0917
+  - domain: Protocol paradigm — exemplar vs. rule transmission
+    description: "seed-029 (Kuhn on exemplar vs. rule as protocol type) provides a mechanism
+      for why informal capacity atrophies after formalization: exemplar-based coordination (tacit,
+      perceptually trained, not reducible to rules) is displaced by rule-based coordination
+      when protocols are formalized. Once the exemplar tradition is broken — because practitioners
+      are trained in the rules rather than in the practice — rebuilding exemplar capacity requires
+      a generation of re-immersion, not just rule revision. This supports and mechanistically
+      enriches L-003's claim about irreversibility."
+    source: seed-029
 counterexamples:
   - description: "Post-crisis informality observed in tight-knit teams."
     resolution: "Typically involves externally imposed protocols (not internally developed)
@@ -156,3 +165,8 @@ history:
     detail: 'sources resolved to bibliography ids: shallow · 2026-07-24-link-article-on-eth
       → bib-0915, shallow · 2026-07-24-link-working-paper- → bib-0922, shallow · 2026-07-24-link-ifixit-s-devel
       → bib-0917'
+  - date: '2026-08-17'
+    event: evidence
+    detail: 'The irreversibility of the formalization transition and the atrophy of informal
+      capacity: seed-029 (Kuhn on exemplar vs. rule as protocol type) provides a mechanism for
+      why informal capacity atrophies after formalization: exemplar-based coordination…'

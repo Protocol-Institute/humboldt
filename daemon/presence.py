@@ -412,8 +412,16 @@ async def generate_mention_response(
     context_messages: list[dict],
     corpus_chunks: list[dict],
     person_context: str | None = None,
+    corpus_offline: bool = False,
 ) -> str:
-    """Generate a response to a direct @mention, using full research context."""
+    """Generate a response to a direct @mention, using full research context.
+
+    ``corpus_offline`` marks a retrieval outage (Pinecone monthly quota) as
+    distinct from a retrieval that simply found nothing. Humboldt still answers
+    — it has its laws, notebook and lineage on disk — but it must say that it is
+    answering without corpus access rather than present an ungrounded reply as a
+    normally-sourced one.
+    """
     from agent.prompts import _format_chunks
 
     context_str = (
@@ -423,8 +431,13 @@ async def generate_mention_response(
     # Separate Humboldt's own work from PI corpus for clearer attribution
     own = [c for c in corpus_chunks if c.get("namespace") == "humboldt"]
     pi = [c for c in corpus_chunks if c.get("namespace") != "humboldt"]
-    own_str = _format_chunks(own[:4]) if own else "(nothing retrieved from own work)"
-    pi_str = _format_chunks(pi[:4]) if pi else "(nothing retrieved from PI corpus)"
+    if corpus_offline:
+        own_str = pi_str = (
+            "(RETRIEVAL OFFLINE — a monthly read quota is exhausted, so nothing "
+            "could be looked up. This is not an empty corpus.)")
+    else:
+        own_str = _format_chunks(own[:4]) if own else "(nothing retrieved from own work)"
+        pi_str = _format_chunks(pi[:4]) if pi else "(nothing retrieved from PI corpus)"
 
     person_block = f"\n\n{person_context}" if person_context else ""
 
@@ -441,7 +454,11 @@ async def generate_mention_response(
             f"From PI corpus:\n{pi_str}"
             f"{person_block}\n\n"
             f"Rules:\n"
-            f"- Address @{username} directly in your response\n"
+            + ("- Corpus retrieval is OFFLINE. Answer from your own law records, "
+               "notebook and standing knowledge, and say so in one short clause "
+               "(e.g. 'my corpus lookup is down right now, so from memory:'). "
+               "Never cite a source you could not retrieve.\n" if corpus_offline else "")
+            + f"- Address @{username} directly in your response\n"
             f"- If this exchange looks like it will go 2–3 more turns, start with: THREAD: <5-8 word title>\\n<response>\n"
             f"- Otherwise: 3–5 sentences, under 500 characters\n"
             f"- Only ask a question if you genuinely need the answer for research"

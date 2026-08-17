@@ -4,6 +4,35 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-08-17 (session 30) — Law-event publish hook; Pinecone read outage + breaker
+
+**Daemon PID:** 24438 (running, unpaused) — restarted at end of session; running this
+session's read-outage fixes.
+
+- **Corpus reads are OFFLINE until 2026-09-01.** Pinecone monthly *egress* quota (1GB)
+  exhausted, account-level, both indexes. Writes/ingest unaffected — which is why it went
+  unnoticed. `humboldt read-status` to check. Plan: `plans/read-outage-2026-08.md`.
+- Read paths were converting the outage into an empty result set — Discord mentions and the
+  public site chat answered ungrounded and silent; `assess` would have verdicted on an
+  empty evidence slot. Fixed: typed `RetrievalUnavailable` (never `[]`), auto-tripping
+  breaker (`agent/read_budget.py`), `assess` refuses (`--no-corpus` to override), Discord
+  + site chat disclose the outage.
+- **Law-event publish hook shipped** (`agent/law_notify.py`) — the TODO ON DECK item.
+  Queue/flush: one site deploy per sweep, Discord announcements capped at 2/day.
+- **Induction sweep created L-012–L-016** (16 laws, 9 exploration) + 9 evidence
+  attachments, incl. an **open counterexample to L-001** (heavy-lift/supported — assess
+  this first when reads return). All 16 validate.
+- **Found (not fixed):** the public site has been stale for the whole redesign branch —
+  production only ever deploys from `main`; all 8 branch deployments were Preview,
+  including the daemon's automatic ones. `law_notify` now refuses to announce off a
+  non-production branch; the cutover itself is a Phase 5 decision.
+
+**Open:** plan Step 4 (egress prevention) before 09-01; plan Step 5
+(read status in `daemon status`); supervisor review of L-012–L-016; `agent/references.py`
+dead paths; `research/agenda.md` on pre-redesign vocabulary.
+
+---
+
 ## 2026-08-10 (session 29) — Phase 2 triage/reads rework; daemon feed-DM bug found and fixed
 
 Session: T2 (redesign implementation + operator-reported bug). Run on Sonnet 5 + an Opus

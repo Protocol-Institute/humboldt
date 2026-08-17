@@ -31,6 +31,7 @@ from ruamel.yaml.scalarstring import FoldedScalarString
 
 from agent import bibliography as bib
 from agent import funnel_log
+from agent import law_notify
 from agent import laws as laws_mod
 
 _ROOT = Path(__file__).parent.parent
@@ -297,6 +298,7 @@ def _apply_new_law(nl: dict) -> str:
 
     funnel_log.law_event("law-created", law["id"], detail=law["title"],
                          stage="exploration", origin=origin)
+    law_notify.queue("created", law)
     return law["id"]
 
 
@@ -406,6 +408,8 @@ def induct(dry_run: bool = False, since: str | None = None) -> None:
             attached.append(lid)
 
     _CURSOR.write_text(date.today().isoformat())
+
+    law_notify.flush()
 
     summary = (f"Induction sweep: created {len(created)} law(s) "
                f"({', '.join(created) or 'none'}), attached {len(attached)} evidence item(s).")

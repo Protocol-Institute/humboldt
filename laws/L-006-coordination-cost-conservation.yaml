@@ -113,3 +113,7 @@ history:
     event: evidence
     detail: 'reference shallow · 2026-07-24-link-research-on-total-cost-of-ownership-metrics-in-systems-.md:
       The measurement problem — how to operationalize coordination cost conservation a'
+  - date: '2026-08-17'
+    event: evidence
+    detail: 'reference arxiv-2606.01874 (deep read): Whether decentralization redistributes
+      coordination cost rather than reducing it'

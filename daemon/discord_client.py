@@ -238,19 +238,24 @@ class HumboldtBot(discord.Client):
                 history.insert(0, {"author": ctx.author.name, "content": ctx.content[:300]})
                 name_to_id[ctx.author.name] = str(ctx.author.id)
             chunks = []
+            corpus_offline = False
+            from agent import retrieval as ret
             try:
-                from agent import retrieval as ret
                 chunks = await self.loop.run_in_executor(
                     None, lambda: ret.multi_retrieve([content], namespaces=ret.NS_BROAD_PLUS, top_k_each=5)
                 )
-            except Exception:
-                pass
+            except ret.RetrievalUnavailable as e:
+                corpus_offline = True
+                logger.warning(f"Corpus offline for catch-up mention: {e}")
+            except Exception as e:  # noqa: BLE001
+                logger.warning(f"Retrieval failed for catch-up mention: {e}")
             try:
                 response = await presence.generate_mention_response(
                     username=msg.author.name,
                     message=content,
                     context_messages=history,
                     corpus_chunks=chunks,
+                    corpus_offline=corpus_offline,
                 )
                 prefix = "" if brief_restart else "*(catching up from while I was offline)*\n"
                 await msg.reply(f"{prefix}{response}")
@@ -341,13 +346,17 @@ class HumboldtBot(discord.Client):
                         name_to_id[ctx.author.name] = str(ctx.author.id)
 
                     chunks = []
+                    corpus_offline = False
+                    from agent import retrieval as ret
                     try:
-                        from agent import retrieval as ret
                         chunks = await self.loop.run_in_executor(
                             None, lambda c=content: ret.multi_retrieve([c], namespaces=ret.NS_BROAD_PLUS, top_k_each=5)
                         )
-                    except Exception:
-                        pass
+                    except ret.RetrievalUnavailable as e:
+                        corpus_offline = True
+                        logger.warning(f"Corpus offline for mention: {e}")
+                    except Exception as e:  # noqa: BLE001
+                        logger.warning(f"Retrieval failed for mention: {e}")
 
                     try:
                         response = await presence.generate_mention_response(
@@ -355,6 +364,7 @@ class HumboldtBot(discord.Client):
                             message=content,
                             context_messages=history,
                             corpus_chunks=chunks,
+                            corpus_offline=corpus_offline,
                         )
                         thread_title, body = _parse_thread_response(response)
                         body = _resolve_mentions(body, name_to_id)
@@ -442,12 +452,16 @@ class HumboldtBot(discord.Client):
             name_to_id[msg.author.name] = str(msg.author.id)
 
         chunks = []
+        corpus_offline = False
+        from agent import retrieval as ret
         try:
-            from agent import retrieval as ret
             loop = asyncio.get_event_loop()
             chunks = await loop.run_in_executor(
                 None, lambda: ret.multi_retrieve([content], namespaces=ret.NS_BROAD_PLUS, top_k_each=5)
             )
+        except ret.RetrievalUnavailable as e:
+            corpus_offline = True
+            logger.warning(f"Corpus offline: {e}")
         except Exception as e:
             logger.warning(f"Retrieval skipped: {e}")
 
@@ -462,6 +476,7 @@ class HumboldtBot(discord.Client):
                     context_messages=history,
                     corpus_chunks=chunks,
                     person_context=person_context,
+                    corpus_offline=corpus_offline,
                 )
         except BudgetExceeded as e:
             logger.warning(f"Budget exceeded — skipping @mention response: {e}")

@@ -34,6 +34,7 @@ from pathlib import Path
 import yaml
 
 from agent import funnel_log
+from agent import law_notify
 from agent import laws as laws_mod
 from agent import retrieval as ret
 
@@ -68,8 +69,14 @@ def _retrieve_new_evidence(law) -> str:
         return "(no query could be formed from the law record)"
     try:
         chunks = ret.multi_retrieve(queries, namespaces=ret.NS_BROAD, top_k_each=8)
-    except Exception as e:  # noqa: BLE001 — retrieval must not crash the pass
-        return f"(corpus retrieval unavailable: {e})"
+    except ret.RetrievalUnavailable as e:
+        # Only reachable under --no-corpus; assess() refuses up front otherwise.
+        # Stated flatly so the verdict prompt cannot mistake it for a thin corpus.
+        return (f"(NO CORPUS ACCESS — {e}. This assessment is running on the law "
+                f"record alone. Do not treat the absence of new evidence as "
+                f"evidence of absence, and do not promote on this basis.)")
+    except Exception as e:  # noqa: BLE001 — a transient fault must not crash the pass
+        return f"(corpus retrieval failed: {e})"
     if not chunks:
         return "(corpus retrieval returned nothing on this law)"
     parts = []
@@ -308,6 +315,11 @@ def _assess_one(law, dry_run: bool) -> str:
     outcome = _apply_verdict(law, v)
     laws_mod.save(law)
 
+    if outcome.startswith("PROMOTE"):
+        law_notify.queue("promoted", law)
+    elif outcome.startswith("DEMOTE"):
+        law_notify.queue("demoted", law)
+
     problems = laws_mod.validate(law)
     if problems:
         print("  ! post-assessment validation warnings:")
@@ -316,10 +328,33 @@ def _assess_one(law, dry_run: bool) -> str:
     return outcome
 
 
-def assess(law_id: str, dry_run: bool = False) -> None:
+def _corpus_gate(no_corpus: bool) -> bool:
+    """False when the pass must not run. Assessment is the promotion gate: a
+    verdict reached without the corpus is not a cheap verdict, it is a different
+    and much weaker claim. Refuse by default rather than emit one that looks
+    normal in the law's history."""
+    from agent import read_budget as rb
+
+    if not rb.is_paused():
+        return True
+    if no_corpus:
+        print(f"  ! {rb.status_line()}\n  ! proceeding on --no-corpus: "
+              f"records-only assessment, no new evidence will be weighed.")
+        return True
+    print(f"Assessment refused — {rb.status_line()}.\n"
+          f"The promotion gate weighs new corpus evidence; with reads offline it "
+          f"would verdict on an empty evidence slot.\n"
+          f"Re-run after the quota resets, or pass --no-corpus to assess on the "
+          f"law record alone (deliberately weaker).")
+    return False
+
+
+def assess(law_id: str, dry_run: bool = False, no_corpus: bool = False) -> None:
     from dotenv import load_dotenv
 
     load_dotenv(_ROOT / ".env")
+    if not _corpus_gate(no_corpus):
+        return
     try:
         law = laws_mod.load(law_id)
     except FileNotFoundError:
@@ -329,6 +364,7 @@ def assess(law_id: str, dry_run: bool = False) -> None:
     outcome = _assess_one(law, dry_run)
 
     if not dry_run:
+        law_notify.flush()
         funnel_log.behavior_visit("assess", "valley", note=f"{law_id}: {outcome}")
         from agent.pre_notebook import append as pn_append
         pn_append(process="assess", summary=f"Assessed {law_id}: {outcome}",
@@ -336,10 +372,12 @@ def assess(law_id: str, dry_run: bool = False) -> None:
     print(f"\n{law_id}: {outcome}")
 
 
-def assess_all(dry_run: bool = False) -> None:
+def assess_all(dry_run: bool = False, no_corpus: bool = False) -> None:
     from dotenv import load_dotenv
 
     load_dotenv(_ROOT / ".env")
+    if not _corpus_gate(no_corpus):
+        return
     laws = [l for l in laws_mod.load_all() if l.get("status") != "falsified"]
     if not laws:
         print("No assessable laws.")
@@ -355,6 +393,7 @@ def assess_all(dry_run: bool = False) -> None:
         print(f"  {lid}: {out}")
 
     if not dry_run:
+        law_notify.flush()
         promoted = [l for l, o in outcomes.items() if o.startswith("PROMOTE")]
         demoted = [l for l, o in outcomes.items() if o.startswith("DEMOTE")]
         summary = (f"Assessment sweep of {len(laws)} laws: "

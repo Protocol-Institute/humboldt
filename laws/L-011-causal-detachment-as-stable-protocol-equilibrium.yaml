@@ -41,6 +41,16 @@ examples:
       operationally successful influence can occur independent of the causal validity of 
       the reasoning provided.
     source: bib-0146
+  - domain: Multi-agent LLM systems — entropy accumulation
+    description: "seed-045 (intelligence entropy monotonic disorder) and seed-046 (memory gate
+      entropy) together show that in multi-agent LLM systems, coordination rules encoded in
+      agent memory are subject to the same entropic degradation as the outputs they govern —
+      memory gates are not stable anchors but drift over interaction rounds. This is consistent
+      with L-011's claim that causal detachment is a stable attractor: if the protocol rules
+      themselves drift, the system's internal consistency may be maintained (outputs parse coherently)
+      while grounding to external truth erodes. The entropy formalization (S(t) = S0 * e^αt)
+      provides a quantitative handle on the rate."
+    source: seed-045; seed-046
 counterexamples: []
 open_questions:
   - "Single-source dependency: the law rests entirely on arxiv-2606.03636 (Tembine). The advance
@@ -110,3 +120,8 @@ history:
     event: edited
     detail: 'sources resolved to bibliography ids: arxiv-2606.03636 (Tembine 2026) → bib-0162,
       arxiv-2606.00013 (Venerina et al. 2026) → bib-0146'
+  - date: '2026-08-17'
+    event: evidence
+    detail: 'Whether causal detachment is a stable attractor in agentic systems using generative
+      components: seed-045 (intelligence entropy monotonic disorder) and seed-046 (memory gate
+      entropy) together show that in multi-agent LLM systems, coordination rules encoded…'

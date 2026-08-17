@@ -58,8 +58,21 @@ def _session_log_path(slug: str) -> Path:
     return DATA_DIR / f"{date}-{slug}.md"
 
 
+def _require_corpus_reads() -> None:
+    """Exit cleanly on a corpus-read outage. These commands are retrieval all the
+    way down — without reads there is no degraded mode worth running, so fail
+    fast with the reset date instead of a Pinecone traceback."""
+    from agent import read_budget as rb
+    if rb.is_paused():
+        print(f"{rb.status_line()}\n"
+              f"This command is retrieval-based and cannot run without corpus access.\n"
+              f"`humboldt read-status` for detail; `humboldt read-unpause` to override.")
+        sys.exit(1)
+
+
 def cmd_investigate(topic: str, namespaces: list[str] = ret.NS_BROAD):
     """Open-ended investigation of a topic."""
+    _require_corpus_reads()
     soul = prompts.load_soul()
     print(f"\n=== HUMBOLDT: Investigating '{topic}' ===\n")
 
@@ -101,6 +114,7 @@ def cmd_investigate(topic: str, namespaces: list[str] = ret.NS_BROAD):
 
 def cmd_hypothesize(topic: str):
     """Generate candidate law hypotheses without writing files."""
+    _require_corpus_reads()
     soul = prompts.load_soul()
     print(f"\n=== HUMBOLDT: Hypothesizing on '{topic}' ===\n")
     system, user = prompts.hypothesis_prompt(soul, topic)
@@ -113,19 +127,41 @@ def cmd_induct(dry_run: bool = False, since: str | None = None):
     induct(dry_run=dry_run, since=since)
 
 
-def cmd_assess_law(target: str, dry_run: bool = False):
+def cmd_assess_law(target: str, dry_run: bool = False, no_corpus: bool = False):
     """Funnel stage 6/8 — assess one law (L-NNN) or sweep all (--all)."""
     from agent import assess as assess_mod
     if target == "--all":
-        assess_mod.assess_all(dry_run=dry_run)
+        assess_mod.assess_all(dry_run=dry_run, no_corpus=no_corpus)
     else:
-        assess_mod.assess(target, dry_run=dry_run)
+        assess_mod.assess(target, dry_run=dry_run, no_corpus=no_corpus)
+
+
+def cmd_read_status():
+    """Show whether corpus reads are available (Pinecone monthly quota breaker)."""
+    from agent import read_budget as rb
+    print(rb.status_line())
+    info = rb.load()
+    if info.get("tripped"):
+        print(f"  tripped: {info['tripped']}")
+
+
+def cmd_read_pause(until: str, reason: str = "operator"):
+    from agent import read_budget as rb
+    rb.set_pause(until, reason)
+    print(f"Corpus reads paused until {until} ({reason}).")
+
+
+def cmd_read_unpause():
+    from agent import read_budget as rb
+    rb.clear()
+    print("Corpus read pause cleared.")
 
 
 def cmd_assess_evidence(law_id: str, namespaces: list[str] = ret.NS_ALL):
     """LEGACY (unbound) — retrieval-only evidence gather against research/laws/,
     which is archived. Superseded by the `assess` funnel engine (agent/assess.py).
     Kept as a retrieval helper reference; not wired into the CLI."""
+    _require_corpus_reads()
     soul = prompts.load_soul()
     law_files = list(LAWS_DIR.glob(f"{law_id}*.yaml"))
     if not law_files:
@@ -768,6 +804,10 @@ Usage:
   python3 -m agent.humboldt assess <L-NNN>               # funnel stage 6/8: assess one law (promote/hold/demote)
   python3 -m agent.humboldt assess <L-NNN> --dry-run     # call model, apply nothing
   python3 -m agent.humboldt assess --all                 # assess every active law
+  python3 -m agent.humboldt assess <L-NNN> --no-corpus   # assess on the record alone (reads offline)
+  python3 -m agent.humboldt read-status                  # are corpus reads available?
+  python3 -m agent.humboldt read-pause <YYYY-MM-DD> [why] # force corpus reads offline
+  python3 -m agent.humboldt read-unpause                 # clear the read pause
   python3 -m agent.humboldt theorize                     # find unification opportunities
   python3 -m agent.humboldt inventory                    # show current law inventory
   python3 -m agent.humboldt library                      # list deep-read library
@@ -840,9 +880,20 @@ def main():
     elif cmd == "assess":
         target = next((a for a in rest if not a.startswith("--")), None)
         if not target and "--all" not in rest:
-            print("Usage: humboldt assess <L-NNN> [--dry-run]  |  humboldt assess --all [--dry-run]")
+            print("Usage: humboldt assess <L-NNN> [--dry-run] [--no-corpus]  |  "
+                  "humboldt assess --all [--dry-run] [--no-corpus]")
             sys.exit(1)
-        cmd_assess_law(target or "--all", dry_run="--dry-run" in rest)
+        cmd_assess_law(target or "--all", dry_run="--dry-run" in rest,
+                       no_corpus="--no-corpus" in rest)
+    elif cmd == "read-status":
+        cmd_read_status()
+    elif cmd == "read-pause":
+        if not rest:
+            print("Usage: humboldt read-pause <YYYY-MM-DD> [reason]")
+            sys.exit(1)
+        cmd_read_pause(rest[0], " ".join(rest[1:]) or "operator")
+    elif cmd == "read-unpause":
+        cmd_read_unpause()
     elif cmd == "theorize":
         cmd_theorize()
     elif cmd == "inventory":

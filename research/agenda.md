@@ -10,6 +10,38 @@ phase vocabulary and tempo signatures.*
 
 ---
 
+## Current state — 2026-08-17 (session 30)
+
+> **Note:** the buckets below still use the pre-redesign vocabulary (T-/DS-/CL- ids).
+> The live artifacts are now `laws/L-NNN-*.yaml`. Reconciling this file to the law
+> records is an open task — see `TODO.md`. The block here is the accurate near-term queue.
+
+**Blocked until 2026-09-01 — corpus reads offline.** Pinecone's monthly egress quota is
+exhausted; `assess` refuses to run rather than verdict on an empty evidence slot (see
+`plans/read-outage-2026-08.md`). Anything requiring retrieval waits. Induction is
+unaffected and continues.
+
+**Awaiting supervisor review — 5 new laws from the 2026-08-17 induction sweep:**
+- **L-012** Intervention-Layer Displacement in Automated Decision Protocols
+- **L-013** Paradigm-Locked Anomaly Tolerance in Protocol Systems
+- **L-014** Strategic Boundary Concentration Under Computable Legality
+- **L-015** Interpretive Continuity Decay in Distributed Governance Protocols
+- **L-016** Normative Intervention Algorithmic Retraining Effect
+
+All five are exploration/speculative with model-drafted triggers. Same review shape as
+L-008–011 got in session 28: check the statement doesn't overclaim its seed, hand-set the
+advance/challenge triggers, and give each an executable gap in `open_questions`.
+
+**Open counterexample to chase:** the sweep attached a counterexample to **L-001**
+(whether ossification is a necessary consequence of formalization). L-001 is at
+heavy-lift/supported — a live counterexample there matters more than five new
+exploration-stage laws. Assess it first when reads return.
+
+**Also queued:** L-008 gained two further examples, L-002/L-003/L-004/L-011 one each,
+L-006 and L-007 a reference each.
+
+---
+
 ## Heavy Lift Ready
 *Valley exhausted — synthesis committed; writing the publishable artifact toward the
 separation event. A separation event requires a published artifact available for

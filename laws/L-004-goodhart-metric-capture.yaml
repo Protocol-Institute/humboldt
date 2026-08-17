@@ -71,6 +71,15 @@ examples:
       precision of the proxy measurement accelerates the degradation by reducing the search
       cost for boundary-seeking behavior.'
     source: seed-047 (C-047-computable-rules-boundary-search-amplification)
+  - domain: Automated decision systems — criminal justice, clinical, educational
+    description: "arxiv-2606.25668 documents empirically that improving prediction accuracy
+      in automated decision systems does not reliably improve downstream outcomes and may worsen
+      them under certain decision-rule configurations. The paper treats this as a design problem
+      but the pattern is a direct confirmation of L-004's core claim: the measurable proxy (prediction
+      accuracy) becomes the optimization target while the underlying goal (recidivism reduction,
+      patient recovery, student success) degrades. The cross-domain documentation across three
+      independent sectors strengthens L-004's generality claim."
+    source: arxiv-2606.25668 (shallow read 2026-08-10)
 counterexamples:
   - description: "Well-designed metrics resist capture because achieving the metric requires
       achieving the goal."
@@ -141,3 +150,9 @@ history:
   - date: '2026-08-10'
     event: edited
     detail: 'sources resolved to bibliography ids: arxiv-2605.30680 (Wang et al., 2026) → bib-0183'
+  - date: '2026-08-17'
+    event: evidence
+    detail: 'The claim that measurable proxies degrade underlying goals under optimization pressure;
+      specifically the prediction-to-outcome decoupling in automated decision systems: arxiv-2606.25668
+      documents empirically that improving prediction accuracy in automated decision systems
+      does not reliably improve downstream outcomes and may…'

@@ -1,0 +1,64 @@
+id: L-016
+title: Normative Intervention Algorithmic Retraining Effect
+slug: normative-intervention-algorithmic-retraining-effect
+stage: exploration
+status: active
+origin: discovered
+source: null
+confidence: speculative
+statement: >
+  In recommendation or allocation systems driven by adaptive algorithms, normative interventions
+  designed to reduce a behavior can paradoxically increase it by surfacing latent demand signals
+  that the pre-intervention algorithm had suppressed or failed to discover, causing the algorithm
+  to retrain toward the newly revealed optimum.
+mechanism: >
+  An adaptive algorithm optimizes against observed demand. When a normative intervention (nudge,
+  reminder, restriction) changes user engagement patterns — even temporarily — it generates
+  a novel signal distribution that the algorithm has not previously optimized against. If the
+  intervention reveals latent demand that was previously suppressed (users wanted something
+  the algorithm hadn't surfaced), the algorithm interprets this as a newly discovered reward
+  signal and shifts its recommendations toward it. The intervention is thus absorbed and inverted
+  by the optimization loop: the platform learns from the behavioral response to the intervention,
+  not from the intervention's intent.
+justification: >
+  seed-055 provides the core empirical observation: a sleep-reminder campaign increased late-night
+  engagement by 14.75%, persisted weeks after the campaign ended, and the mechanism was algorithmic
+  retraining on the revealed celebrity content demand. This is a novel and specific failure
+  mode not covered by existing laws. It differs from L-004 (Goodhart) because the proxy is not
+  optimized by participants — it is the *algorithm's own optimization loop* that absorbs the
+  intervention. It differs from L-010 (Coordination Adoption Nonmonotonicity) because the mechanism
+  is retraining, not coordination signaling.
+examples:
+  - domain: Social media platform — sleep reminder campaign
+    description: 'A platform-wide sleep reminder campaign at 11pm was designed to reduce late-night
+      engagement. The campaign increased late-night engagement by 14.75% and the effect persisted
+      weeks after the campaign ended. The mechanism: the campaign revealed latent user demand
+      for celebrity content that the recommender algorithm had not previously discovered, causing
+      it to retrain toward that content type.'
+    source: seed-055
+counterexamples: []
+open_questions: []
+falsification: >
+  A normative intervention in an adaptive recommendation system that successfully reduced the
+  targeted behavior without triggering algorithmic retraining, with evidence that the intervention's
+  behavioral signal was not absorbed into the optimization objective, would refute the generality
+  of the mechanism.
+references: []
+seeds:
+  - seed-055
+related: []
+triggers:
+  advance: >
+    Two or more independent documented cases from different platform types (search, content
+    recommendation, resource allocation) in which a normative intervention triggered measurable
+    algorithmic retraining in the direction opposite to the intervention's intent, with the
+    retraining mechanism confirmed rather than inferred.
+  challenge: >
+    A documented case in which an adaptive recommendation system received a normative intervention
+    whose behavioral signal did not cause retraining toward the revealed demand — with an account
+    of the protocol feature that prevented absorption.
+history:
+  - date: '2026-08-17'
+    event: created
+    detail: 'induction sweep — seed-055 provides the core empirical observation: a sleep-reminder
+      campaign increased late-night engagement by 14.75%, persisted weeks after the campaign…'

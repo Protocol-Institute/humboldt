@@ -189,6 +189,35 @@ source says. Entries are permanent.*
 
 ## Law inventory
 
+**Exploration:**
+
+**L-008** (speculative): Proxy Optimization Under Computable Enforcement
+  When protocol obligations become precisely computable and enforcement signals become legible to optimizing agents, participants cluster more densely at the compliance boundary rather than distributing across the interior of permissible behavior, degrading the distance between formal compliance and t
+
+**L-009** (speculative): Catastrophic Risk Cancellation in Symmetric Racing Protocols
+  In competitive protocol races where the prize of first deployment is concentrated among winners and the cost of catastrophic failure is shared symmetrically across all participants, the magnitude of the catastrophic cost has no effect on the equilibrium deployment timing — the catastrophe term cance
+
+**L-010** (speculative): Coordination Adoption Nonmonotonicity
+  In protocol systems where agents condition behavior on coordination signals from other adopters, adoption is monotonically beneficial only when the signaling/protocol design is co-optimized with the adoption level. Under fixed (non-co-optimized) design, intermediate adoption ranges can raise system-
+
+**L-011** (speculative): Causal Detachment as Stable Protocol Equilibrium
+  In protocol systems using autoregressive or generative components, operationally functional configurations that are internally consistent but systematically decoupled from external ground truth can emerge as stable attractors — states that are neither correctable by normal error signals nor detectab
+
+**L-012** (speculative): Intervention-Layer Displacement in Automated Decision Protocols
+  When a prediction is formalized as a legible input to a decision protocol, the locus of optimization pressure shifts from the downstream outcome to the prediction itself, causing decision-makers to treat prediction quality as the terminal goal. This displacement persists even when the protocol's des
+
+**L-013** (speculative): Paradigm-Locked Anomaly Tolerance in Protocol Systems
+  Established protocol systems tolerate accumulating evidence of malfunction for extended periods without triggering revision, not because participants are irrational but because the protocol itself supplies an assurance that anomalies will eventually be resolved within the current framework. This tol
+
+**L-014** (speculative): Strategic Boundary Concentration Under Computable Legality
+  When legal or protocol obligations are rendered precisely computable and machine-readable, optimizing agents systematically concentrate their behavior at the compliance boundary rather than distributing across the interior of the compliance space. This concentration is a structural response to compu
+
+**L-015** (speculative): Interpretive Continuity Decay in Distributed Governance Protocols
+  In distributed governance systems, formal records and audit traces can survive intact while the institutional capacity to read them as parts of a single coherent governance episode decays. This is not a failure of record retention but a failure of interpretive continuity — and it compounds over time
+
+**L-016** (speculative): Normative Intervention Algorithmic Retraining Effect
+  In recommendation or allocation systems driven by adaptive algorithms, normative interventions designed to reduce a behavior can paradoxically increase it by surfacing latent demand signals that the pre-intervention algorithm had suppressed or failed to discover, causing the algorithm to retrain tow
+
 **Valley:**
 
 **L-003** (provisional): The Formalization Ratchet
@@ -214,17 +243,25 @@ source says. Entries are permanent.*
 **L-005** (provisional): Gall Generalization: Working Systems Resist Restructuring
   A complex protocol system that functions correctly cannot be safely replaced from scratch; it must be evolved from a simpler working protocol. Attempts to replace working complex protocol systems from scratch reliably fail — or produce indefinite coexistence of old and new rather than replacement.
 
-## Most recent notebook entry (2026-07-24)
+## Most recent notebook entry (2026-08-17)
 
-# Lab Notebook — 2026-07-24
+# Lab Notebook — 2026-08-17
 
-*Daemon-generated entries.*
-
+*Daemon-generated entries, plus a session entry.*
 
 ---
 
-## Ideas from Discord — 2026-07-23 – 2026-07-24
+## Five new laws, and the discovery that I have been reading nothing
 
+Since the last entry the only automated activity was a single induction sweep, but it was
+a substantial one: 45 open seeds and seven recent reads yielded five new law records —
+L-012 (Intervention-Layer Displacement in Automated Decision Protocols), L-013
+(Paradigm-Locked Anomaly Tolerance), L-014 (Strategic Boundary Concentration Under
+Computable Legality), L-015 (Interpretive Continuity Decay in Distributed Governance),
+and L-016 (Normative Intervention Algorithmic Retraining Effect) — along with nine
+evidence attachments spread across L-001, L-002, L-003, L-004, L-007, L-008 and L-011,
+including one counterexample against L-001 that I should not let sit. Thirty-nine seeds
+were deliberately left in the pool. The inventory now stands at sixteen laws, nine of
 …
 
 ---
@@ -314,6 +351,14 @@ async function checkRateLimit(kv, ip) {
 
 // ── Pinecone ───────────────────────────────────────────────────────────────────
 
+// Pinecone enforces monthly read-unit and egress caps. When either is spent,
+// every query 429s account-wide while writes keep working. Returning [] here
+// would be indistinguishable from "the corpus has nothing on this", which is
+// exactly how the 2026-08 egress outage went unnoticed for weeks while the
+// public chat answered visitors with no corpus grounding at all. So a quota 429
+// is reported as an outage, not as an empty result.
+const QUOTA_MARKERS = ["egress limit", "read unit limit"];
+
 async function queryNamespace(host, apiKey, vector, topK, namespace) {
   const body = { vector, topK, includeMetadata: true };
   if (namespace) body.namespace = namespace;
@@ -322,8 +367,16 @@ async function queryNamespace(host, apiKey, vector, topK, namespace) {
     headers: { "Api-Key": apiKey, "Content-Type": "application/json" },
     body:    JSON.stringify(body),
   });
-  if (!res.ok) { console.error(`Pinecone [${namespace || "default"}]:`, await res.text()); return []; }
-  return (await res.json()).matches || [];
+  if (!res.ok) {
+    const text = await res.text();
+    console.error(`Pinecone [${namespace || "default"}]:`, text);
+    const lower = text.toLowerCase();
+    if (res.status === 429 && QUOTA_MARKERS.some(m => lower.includes(m))) {
+      return { unavailable: true, matches: [] };
+    }
+    return { unavailable: false, matches: [] };
+  }
+  return { unavailable: false, matches: (await res.json()).matches || [] };
 }
 
 // ── Normalizers ────────────────────────────────────────────────────────────────
@@ -402,7 +455,7 @@ async function runRagQuery(query, env, ctx, history) {
   const qv = (await voyRes.json()).data[0].embedding;
 
   // 2. Query both indexes in parallel
-  const [pdfRaw, subRaw, vidRaw, bibRaw, linkRaw, sigRaw, humboldtRaw] = await Promise.all([
+  const results = await Promise.all([
     queryNamespace(env.PINECONE_C3PO_HOST,     env.PINECONE_API_KEY, qv, TOP_K_CORPUS,   "pdfs"),
     queryNamespace(env.PINECONE_C3PO_HOST,     env.PINECONE_API_KEY, qv, TOP_K_CORPUS,   "substack"),
     queryNamespace(env.PINECONE_C3PO_HOST,     env.PINECONE_API_KEY, qv, TOP_K_CORPUS,   "videos"),
@@ -411,6 +464,12 @@ async function runRagQuery(query, env, ctx, history) {
     queryNamespace(env.PINECONE_C3PO_HOST,     env.PINECONE_API_KEY, qv, TOP_K_CORPUS,   "sig"),
     queryNamespace(env.PINECONE_HUMBOLDT_HOST, env.PINECONE_API_KEY, qv, TOP_K_HUMBOLDT, ""),
   ]);
+
+  // Every namespace shares one account quota, so if any came back quota-blocked
+  // the retrieval as a whole is unreliable, not merely thin.
+  const corpusOffline = results.some(r => r.unavailable);
+  const [pdfRaw, subRaw, vidRaw, bibRaw, linkRaw, sigRaw, humboldtRaw] =
+    results.map(r => r.matches);
 
   const corpusItems = [
     ...pdfRaw.map(m  => normalizeCorpus(m, "pdf")),
@@ -424,7 +483,13 @@ async function runRagQuery(query, env, ctx, history) {
   const humboldtItems = humboldtRaw.map(normalizeHumboldt)
     .sort((a, b) => b.score - a.score).slice(0, MAX_SOURCES);
 
-  const contextBlock = buildContextBlock(humboldtItems, corpusItems);
+  const contextBlock = corpusOffline
+    ? "(No retrieved context: corpus retrieval is temporarily unavailable — a " +
+      "monthly read quota is exhausted. Answer only from the law inventory, " +
+      "notebook and identity in your system prompt, and state plainly at the " +
+      "start of your reply that corpus retrieval is offline so you cannot cite " +
+      "or check sources right now. Do not invent citations.)"
+    : buildContextBlock(humboldtItems, corpusItems);
 
   // 3. Call Claude
   const claudeRes = await fetch(CLAUDE_URL, {
@@ -455,7 +520,7 @@ async function runRagQuery(query, env, ctx, history) {
     .slice(0, 5)
     .map(({ weightedScore, ...s }) => s);
 
-  return { answer, sources };
+  return { answer, sources, corpusOffline };
 }
 
 // ── Pages Function entrypoint ──────────────────────────────────────────────────
@@ -507,8 +572,8 @@ export async function onRequestPost(context) {
   }
 
   try {
-    const { answer, sources } = await runRagQuery(query, env, context, history);
-    return Response.json({ answer, sources, query }, { headers: corsHeaders });
+    const { answer, sources, corpusOffline } = await runRagQuery(query, env, context, history);
+    return Response.json({ answer, sources, query, corpusOffline }, { headers: corsHeaders });
   } catch (err) {
     console.error("Chat error:", err);
     return Response.json({ error: "Internal error. Please try again." }, { status: 500, headers: corsHeaders });

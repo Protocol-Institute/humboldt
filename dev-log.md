@@ -6,6 +6,88 @@ Most recent entry first.
 
 ---
 
+## 2026-08-17 (session 30) — Law-event publish hook; Pinecone **read** outage found; read breaker built
+
+**Tracks active:** T1 (induction sweep) / T2 (publish hook, read breaker)
+**Daemon PID:** 24438 (running, unpaused; restarted at wrapup to load this session's fixes — was 1189)
+
+Two threads, one of which reframed the other.
+
+**Publish hook + law-event Discord (the ON DECK item, §9 quiet mode).** New
+`agent/law_notify.py`, wired into `induct.py` (law created) and `assess.py`
+(PROMOTE/DEMOTE). The design decision worth recording: publishing and announcing are
+gated *separately*. The first cut coupled them per-event, which a dry-run exposed as
+broken — a single sweep can create five laws, so a 2/day Discord cap would have left laws
+3–5 never published to the site at all. Restructured to queue/flush: a sweep queues an
+event per changed law, `flush()` deploys the site once, then announces up to the cap.
+Site freshness is not rate-limited; channel noise is. Pause gate blocks announcing but not
+publishing, and does not burn a cap slot.
+
+**A real bug I shipped, and the deploy-target lesson.** I built flush() around "publish
+before post so every announced link resolves" and treated `publish_site() == True` as
+proof of that. It isn't: `wrangler pages deploy` makes a *preview* deployment off any
+non-`main` branch and still returns success. The live sweep therefore posted two
+#new-nature messages linking to law anchors that don't exist in production. Both deleted
+(operator call), cap slots refunded. Added `publish_site.is_production_deploy()`;
+`flush()` now publishes always but announces only from the production branch.
+
+This surfaced a **pre-existing** problem worth more than the bug: production has only ever
+been deployed from `main` (17 deployments) — the `redesign-2026-08` branch has produced 8,
+**all Preview**, including every automatic `publish_site` the daemon has run since the
+branch opened. The public site has been stale for the branch's entire life, and the
+session-26 claim that the new design was deployed to humboldt.protocol-institute.org is
+wrong; that went to a preview URL. Not fixed this session — it is a Phase 5 cutover
+decision, not a side effect of a notification bug.
+
+**Pinecone reads are exhausted, not writes.** Operator was right and my first diagnosis
+was wrong. `[429] You've reached your egress limit for the current month (1000000000
+bytes)` — account-level, so both indexes. Upserts and `describe_index_stats` keep working,
+which is exactly why every health signal looked fine: they are all writes or stats. Rule
+recorded in the plan: **a quota check must exercise `query`, not `describe`.** There are
+two independent monthly caps — read units (hit 2026-07-22/23) and egress (now).
+
+The severity was not the outage but its representation. Zero egress errors in the logs
+because the read paths swallowed them and continued with `chunks = []`, which is
+indistinguishable from "the corpus has nothing." Consequences: two of three Discord
+mention paths (`except Exception: pass`) answered ungrounded and silent; the public site
+chat did the same for visitors; and `assess` — the promotion gate — would have weighed an
+empty evidence slot and still emitted PROMOTE/HOLD/DEMOTE into a law's permanent history.
+
+Plan written to `plans/read-outage-2026-08.md`. Implemented this session:
+- `agent/read_budget.py` — breaker over `data/read-pause.json` (gitignored). Auto-trips on
+  a quota 429 (distinguished from ordinary rate limiting), self-clears past the date.
+  Deliberately separate from `daemon/pause.py`: that means "don't speak", this means "you
+  may speak, but you have no corpus", and it applies to CLI as much as the daemon.
+- `agent/retrieval.py` — single chokepoint. Raises `RetrievalUnavailable`, **never returns
+  `[]`**; the empty-list conflation is the whole bug. Gates before the Voyage embedding so
+  a known outage costs nothing.
+- `assess` refuses rather than verdicting blind, with an explicit `--no-corpus` opt-out.
+- Discord mention paths disclose the outage in-reply instead of bluffing; both bare
+  `except: pass` replaced. `investigate`/`hypothesize`/`assess_evidence` fail fast.
+- `humboldt-site/functions/chat.js` distinguishes a quota 429 from an empty result and
+  surfaces `corpusOffline` → system-prompt instruction + a UI notice.
+- CLI: `read-status` / `read-pause` / `read-unpause`.
+
+Verified against the genuinely exhausted quota: the breaker tripped itself and set
+2026-09-01. Worth preserving deliberately — **`induct` does not retrieve**, so law creation
+kept working through the outage (the sweep below ran mid-outage). Only promotion stops.
+
+**T1 output:** induction sweep created **L-012–L-016** (16 laws total, 9 at exploration)
+plus 9 evidence attachments, including an open counterexample to **L-001** — which matters
+more than the five new laws, since L-001 is heavy-lift/supported. All 16 validate.
+
+**Open (next session):**
+- Plan Step 5 (read status in `daemon status` / digests) not done; I stopped mid-edit.
+- Plan Step 4 (prevention) must land **before 2026-09-01** or the reset restarts the clock.
+  Prime suspect: `include_metadata=True` shipping full chunk text on every match.
+  Operator already trimmed `NS_BROAD_PLUS` 6→5 namespaces (`ce7f838`).
+- Supervisor review of L-012–L-016; assess the L-001 counterexample first when reads return.
+- Public site stale on `main` — Phase 5 cutover decision.
+- `agent/references.py` still reads dead `research/hypotheses/`/`research/laws/` paths.
+- `research/agenda.md` still on pre-redesign vocabulary.
+
+---
+
 ## 2026-08-10 (session 29) — Phase 2 triage/reads rework; daemon DM-spam bug found and fixed
 
 **Tracks active:** T2

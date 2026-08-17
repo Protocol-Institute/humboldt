@@ -19,3 +19,17 @@
 {"timestamp": "2026-08-03T18:23:19.423841+00:00", "event": "assessed-hold", "law": "L-010", "detail": "Two specific gaps must be closed before PROMOTE is possible: (1) DOMAIN CONFIRMATION \u2014 retrieve and read arxiv-2606.0316"}
 {"timestamp": "2026-08-03T18:23:57.717029+00:00", "event": "assessed-hold", "law": "L-011", "detail": "Single-source dependency: the law rests entirely on arxiv-2606.03636 (Tembine). The advance trigger explicitly requires "}
 {"timestamp": "2026-08-03T18:26:26.063153+00:00", "event": "assessed-hold", "law": "L-008", "detail": "Primary gap (unchanged from supervisor review): a measured boundary-clustering result \u2014 boundary- mass increase or equiv"}
+{"timestamp": "2026-08-17T19:56:06.202732+00:00", "event": "law-created", "law": "L-012", "detail": "Intervention-Layer Displacement in Automated Decision Protocols", "stage": "exploration", "origin": "discovered"}
+{"timestamp": "2026-08-17T19:56:06.216249+00:00", "event": "law-created", "law": "L-013", "detail": "Paradigm-Locked Anomaly Tolerance in Protocol Systems", "stage": "exploration", "origin": "discovered"}
+{"timestamp": "2026-08-17T19:56:06.228200+00:00", "event": "law-created", "law": "L-014", "detail": "Strategic Boundary Concentration Under Computable Legality", "stage": "exploration", "origin": "discovered"}
+{"timestamp": "2026-08-17T19:56:06.236079+00:00", "event": "law-created", "law": "L-015", "detail": "Interpretive Continuity Decay in Distributed Governance Protocols", "stage": "exploration", "origin": "discovered"}
+{"timestamp": "2026-08-17T19:56:06.243449+00:00", "event": "law-created", "law": "L-016", "detail": "Normative Intervention Algorithmic Retraining Effect", "stage": "exploration", "origin": "discovered"}
+{"timestamp": "2026-08-17T19:56:06.248876+00:00", "event": "evidence", "law": "L-008", "detail": "The claim that computable enforcement causes boundary clustering; the mechanism by which legibility enables optimization-to-boundary"}
+{"timestamp": "2026-08-17T19:56:06.260998+00:00", "event": "evidence", "law": "L-008", "detail": "Whether computable enforcement reduces or displaces proxy capture"}
+{"timestamp": "2026-08-17T19:56:06.275456+00:00", "event": "evidence", "law": "L-004", "detail": "The claim that measurable proxies degrade underlying goals under optimization pressure; specifically the prediction-to-outcome decoupling in automated decision systems"}
+{"timestamp": "2026-08-17T19:56:06.289541+00:00", "event": "evidence", "law": "L-002", "detail": "Hardness asymmetry when communicating parties are strategic agents rather than specified programs"}
+{"timestamp": "2026-08-17T19:56:06.304177+00:00", "event": "evidence", "law": "L-007", "detail": "reference seed-031; seed-027"}
+{"timestamp": "2026-08-17T19:56:06.321145+00:00", "event": "evidence", "law": "L-003", "detail": "The irreversibility of the formalization transition and the atrophy of informal capacity"}
+{"timestamp": "2026-08-17T19:56:06.342427+00:00", "event": "counterexample", "law": "L-001", "detail": "Whether ossification is a necessary consequence of formalization or an independent variable"}
+{"timestamp": "2026-08-17T19:56:06.356160+00:00", "event": "evidence", "law": "L-011", "detail": "Whether causal detachment is a stable attractor in agentic systems using generative components"}
+{"timestamp": "2026-08-17T19:56:06.369549+00:00", "event": "evidence", "law": "L-006", "detail": "reference arxiv-2606.01874 (deep read)"}

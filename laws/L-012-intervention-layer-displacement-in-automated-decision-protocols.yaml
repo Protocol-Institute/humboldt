@@ -1,0 +1,73 @@
+id: L-012
+title: Intervention-Layer Displacement in Automated Decision Protocols
+slug: intervention-layer-displacement-in-automated-decision-protocols
+stage: exploration
+status: active
+origin: discovered
+source: null
+confidence: speculative
+statement: >
+  When a prediction is formalized as a legible input to a decision protocol, the locus of optimization
+  pressure shifts from the downstream outcome to the prediction itself, causing decision-makers
+  to treat prediction quality as the terminal goal. This displacement persists even when the
+  protocol's designers intend the prediction as an intermediate variable, because legibility
+  makes the prediction measurable and the outcome is not.
+mechanism: >
+  Formalization makes the prediction auditable and manageable while the true outcome (recidivism,
+  recovery, success) remains distant, stochastic, and multi-determined. Institutional actors
+  — deploying organizations, oversight bodies, procurement processes — can evaluate prediction
+  accuracy; they cannot evaluate outcome causation on the same timescale. The optimization target
+  therefore migrates to the legible intermediate. This is a specific structural instance of
+  Goodhart dynamics, distinguished by the causal chain: the proxy is not selected because it
+  correlates with the goal but because it *structurally precedes* the goal in the protocol architecture
+  and is therefore the last controllable variable.
+justification: >
+  seed-058 documents this pattern across criminal justice, clinical triage, and educational
+  allocation settings. The shallow read of arxiv-2606.25668 confirms the decoupling empirically
+  but treats it as a design problem rather than naming the structural driver. seed-016 (stopping-rule
+  substitution) provides the Rittel-Webber grounding: the protocol declares a solution boundary,
+  and the prediction score becomes that boundary. Distinguishable from L-004 (Goodhart Generalization)
+  because the mechanism is not optimization pressure per se but causal-chain position: the proxy
+  is upstream of the outcome in the protocol's own execution graph, making displacement structurally
+  reliable regardless of optimization intensity.
+examples:
+  - domain: Criminal justice / pretrial risk assessment
+    description: COMPAS and successor risk-assessment instruments are evaluated by courts 
+      and vendors on AUC and calibration metrics. Jurisdictions that adopt them report on 
+      prediction accuracy in oversight reviews; recidivism outcomes are tracked separately
+      and rarely linked back to the instrument in governance cycles. Decision-makers treat
+      a 'high-risk' score as a decision rather than an input.
+    source: seed-058; arxiv-2606.25668
+  - domain: Clinical triage
+    description: Sepsis prediction algorithms deployed in hospital EHRs shift nursing 
+      workflow toward alert response rates (sensitivity/specificity of the alert) rather 
+      than sepsis mortality reduction, because alert performance is auditable in real time
+      while mortality attribution requires multi-week analysis.
+    source: seed-058
+counterexamples: []
+open_questions: []
+falsification: >
+  A deployed decision protocol in which prediction accuracy improvements reliably and proportionally
+  improve measured downstream outcomes across multiple independent evaluation cycles, without
+  institutional pressure to decouple the two, would refute the claim that displacement is structurally
+  driven rather than contingent on measurement practice.
+references: []
+seeds:
+  - seed-058
+related: []
+triggers:
+  advance: >
+    Mechanism confirmed in 2+ genuinely independent deployment domains with evidence that the
+    displacement occurs even when the deploying organization explicitly tracks downstream outcomes
+    — i.e., that legibility of the intermediate is sufficient to cause displacement even under
+    outcome-awareness.
+  challenge: >
+    A documented case in which formalizing a prediction as a protocol input increased institutional
+    attention to the downstream outcome rather than to prediction quality, with a plausible
+    account of why the causal-chain-position mechanism did not fire.
+history:
+  - date: '2026-08-17'
+    event: created
+    detail: induction sweep — seed-058 documents this pattern across criminal justice, 
+      clinical triage, and educational allocation settings. The shallow read of 
+      arxiv-2606.25668 confirms…

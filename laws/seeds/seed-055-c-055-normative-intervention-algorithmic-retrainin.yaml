@@ -1,12 +1,16 @@
 id: seed-055
 title: C-055-normative-intervention-algorithmic-retraining
-text: 'A platform "sleep reminder" campaign designed to reduce late-night engagement paradoxically
+text: 'A platform "sleep reminder" campaign designed to reduce late-night engagement
+  paradoxically
 
-  increased it by 14.75%, with effects persisting weeks after the campaign ended. The
+  increased it by 14.75%, with effects persisting weeks after the campaign ended.
+  The
 
-  mechanism: the intervention revealed latent user demand for celebrity content that the
+  mechanism: the intervention revealed latent user demand for celebrity content that
+  the
 
-  baseline recommender algorithm had under-supplied. User behavioral responses to the
+  baseline recommender algorithm had under-supplied. User behavioral responses to
+  the
 
   campaign became training signals for the post-campaign recommendation policy, reinforcing
 
@@ -18,9 +22,11 @@ text: 'A platform "sleep reminder" campaign designed to reduce late-night engage
 
   instance in the governance domain: the intervention measure (campaign content exposure)
 
-  becomes a training signal that the system optimizes against, inverting the intended effect.
+  becomes a training signal that the system optimizes against, inverting the intended
+  effect.
 
-  For protocol research: regulatory interventions in adaptive systems may produce durable
+  For protocol research: regulatory interventions in adaptive systems may produce
+  durable
 
   unintended consequences by retraining the system''s underlying optimization target,
 
@@ -34,4 +40,5 @@ type: curiosity
 connections:
 - F-003
 - CL-002
-status: open
+status: promoted
+promoted_to: L-016

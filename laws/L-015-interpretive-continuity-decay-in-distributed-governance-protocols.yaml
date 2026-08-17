@@ -1,0 +1,69 @@
+id: L-015
+title: Interpretive Continuity Decay in Distributed Governance Protocols
+slug: interpretive-continuity-decay-in-distributed-governance-protocols
+stage: exploration
+status: active
+origin: discovered
+source: null
+confidence: speculative
+statement: >
+  In distributed governance systems, formal records and audit traces can survive intact while
+  the institutional capacity to read them as parts of a single coherent governance episode decays.
+  This is not a failure of record retention but a failure of interpretive continuity — and it
+  compounds over time as the personnel, tacit knowledge, and institutional context required
+  to reconstruct meaning disperse.
+mechanism: >
+  Records encode decisions; interpretability requires context that is not encoded in the records
+  themselves. The context — who the actors were, what the alternatives were, what was treated
+  as given — is held partly in tacit knowledge distributed across the people who made the decisions.
+  As those people leave, as organizational structures change, and as the protocol environment
+  shifts, the records become syntactically intact but semantically orphaned. This is structurally
+  distinct from record loss: the khipu (Andean knotted record) problem is that the reading practice
+  died while the records survived. In AI governance contexts, this failure mode is accelerated
+  by high turnover, distributed teams, and rapid protocol iteration.
+justification: >
+  seed-051 (khipu problem) provides the core observation and the name. The failure mode is distinct
+  from existing laws: it is not about trust accumulation (L-007), ossification (L-001), or causal
+  detachment (L-011). It concerns the temporal decay of the interpretive apparatus required
+  to use records for governance purposes. The mechanism generalizes beyond AI systems to any
+  distributed governance protocol with high personnel turnover and tacit-knowledge-intensive
+  decision-making.
+examples:
+  - domain: AI governance — audit trace decay
+    description: Audit logs from an AI system's training and deployment decisions survive 
+      in storage, but the team that made the decisions has turned over. Later 
+      investigators can read the logs but cannot reconstruct what the alternatives were, 
+      what risk assessments were made informally, or what tacit norms governed the 
+      decisions. The logs are complete; the governance episode is unrecoverable.
+    source: seed-051
+  - domain: Historical record — Andean khipu
+    description: Khipu (knotted string records) survive in museums but the reading 
+      practice died with the communities that made them. The records are physically 
+      intact; the interpretive community that could read them no longer exists.
+    source: seed-051
+counterexamples: []
+open_questions: []
+falsification: >
+  A distributed governance protocol in which records are consistently interpretable by successors
+  who had no participation in the original decisions, even after complete personnel turnover,
+  with no degradation in governance quality, would refute the claim that interpretive continuity
+  decays independently of record quality.
+references: []
+seeds:
+  - seed-051
+related: []
+triggers:
+  advance: >
+    Two or more independent governance contexts with documented evidence that record quality
+    was high but governance reconstruction by successor teams failed in ways attributable to
+    interpretive continuity loss rather than record gaps — with the distinction between these
+    failure modes verified by independent assessment.
+  challenge: >
+    A distributed governance system with high personnel turnover that maintains interpretive
+    continuity over multiple generations of personnel, attributable to a specific protocol feature
+    that transfers context without tacit knowledge.
+history:
+  - date: '2026-08-17'
+    event: created
+    detail: 'induction sweep — seed-051 (khipu problem) provides the core observation and the
+      name. The failure mode is distinct from existing laws: it is not about trust accumulation…'

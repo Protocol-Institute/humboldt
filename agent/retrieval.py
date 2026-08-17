@@ -14,6 +14,9 @@ from typing import Optional
 import voyageai
 from pinecone import Pinecone
 
+from agent.read_budget import RetrievalUnavailable  # re-exported for callers
+from agent import read_budget as _budget
+
 
 # Namespace groups for different retrieval tasks
 NS_FORMAL = ["pdfs", "bibliography"]
@@ -56,6 +59,20 @@ def embed(text: str) -> list[float]:
     return result.embeddings[0]
 
 
+def _query(idx, kwargs):
+    """Run one Pinecone query, converting a monthly-quota 429 into a tripped
+    breaker + RetrievalUnavailable. Other errors propagate untouched — a
+    transient fault should not take the corpus offline for the rest of the month.
+    """
+    try:
+        return idx.query(**kwargs)
+    except Exception as e:  # noqa: BLE001
+        if _budget.is_quota_error(e):
+            until = _budget.trip(e)
+            raise RetrievalUnavailable(_budget.reason(), until) from e
+        raise
+
+
 def query_pinecone(
     query: str,
     namespaces: list[str] = NS_FORMAL,
@@ -66,7 +83,16 @@ def query_pinecone(
 
     Corpus namespaces (pdfs, substack, etc.) are queried on the c3po index.
     The 'humboldt' sentinel routes to the dedicated humboldt index.
+
+    Raises RetrievalUnavailable when corpus reads are offline — never returns an
+    empty list for that case. An empty list means "the corpus has nothing on
+    this"; conflating the two is what hid the 2026-08 egress outage for weeks.
     """
+    # Gate before any network call: if the breaker is already tripped there is
+    # no point spending a Voyage embedding on a query we cannot run.
+    if _budget.is_paused():
+        raise RetrievalUnavailable(_budget.reason(), _budget.paused_until())
+
     vector = embed(query)
 
     corpus_ns = [ns for ns in namespaces if ns != _HUMBOLDT_NS]
@@ -80,7 +106,7 @@ def query_pinecone(
             kwargs = dict(vector=vector, top_k=top_k, include_metadata=True, namespace=ns)
             if filter:
                 kwargs["filter"] = filter
-            resp = idx.query(**kwargs)
+            resp = _query(idx, kwargs)
             for match in resp.matches:
                 all_results.append({
                     "score": match.score,
@@ -94,7 +120,7 @@ def query_pinecone(
         kwargs = dict(vector=vector, top_k=top_k, include_metadata=True)
         if filter:
             kwargs["filter"] = filter
-        resp = hidx.query(**kwargs)
+        resp = _query(hidx, kwargs)
         for match in resp.matches:
             all_results.append({
                 "score": match.score,

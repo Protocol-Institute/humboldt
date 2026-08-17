@@ -21,8 +21,37 @@ readers; triage tags `content`/`meta` and creates `bib-NNNN` entries; shallow-re
 for real (11 evidence sources across 7 laws → `bib-NNNN`). Both session-28 defects
 (empty triggers, transient parse error) fixed in the same pass. See `dev-log.md` 2026-08-10.
 
-**Next — [SONNET] session:** publish hook + law-event Discord plumbing (§9 quiet mode) —
-wire law create/promote/challenge → `publish-site` + one Discord law-event post.
+~~**Next — [SONNET] session:** publish hook + law-event Discord plumbing.~~
+**DONE (session 30, 2026-08-17).** `agent/law_notify.py` — queue/flush: one site deploy
+per sweep, Discord announcements capped at 2/day, pause-gated, and gated on
+`publish_site.is_production_deploy()`.
+
+---
+
+## 🚨 ON DECK — corpus reads offline until 2026-09-01
+
+**Plan: `plans/read-outage-2026-08.md`.** Pinecone's monthly *egress* cap is exhausted
+(account-level, both indexes). Steps 1–3 landed session 30. Remaining, in order:
+
+1. **[H] Step 4 — prevention. Must land BEFORE 2026-09-01**, or the reset just restarts
+   the clock. Prime suspect: `include_metadata=True` returns full chunk text on every
+   match, multiplied by namespaces × top_k × queries, on every Discord reply and daily
+   review. Candidate fix: return ids+scores, hydrate text from disk. Operator already
+   trimmed `NS_BROAD_PLUS` 6→5 (`ce7f838`). Also: add egress accounting to
+   `daemon/costs.py` so spend is visible before exhaustion.
+2. **[M] Step 5 — monitoring.** Surface `read_budget.status_line()` in `daemon status`
+   and the weekly digest. Stopped mid-edit in session 30 (`agent/humboldt.py` ~line 550).
+
+**Also found session 30 — public site is stale [H].** Production only ever deploys from
+`main` (17 deployments); the whole `redesign-2026-08` branch has produced 8, **all
+Preview** — including every automatic `publish_site` the daemon runs after a notebook
+entry. So humboldt.protocol-institute.org has not reflected the redesign at any point, and
+the session-26 note claiming otherwise is wrong. Deciding when to cut production over is a
+Phase 5 call, not a bug fix.
+
+**Track 1 queue:** supervisor review of L-012–L-016 (session-28 shape); assess the **open
+counterexample on L-001** first when reads return — it is heavy-lift/supported, so it
+outranks the five new exploration laws.
 
 **Also found this session, not yet fixed:** `agent/references.py` still reads the dead
 `research/hypotheses/`/`research/laws/` path — same bug class as the triage/shallow-read

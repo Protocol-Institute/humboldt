@@ -1,0 +1,73 @@
+id: L-013
+title: Paradigm-Locked Anomaly Tolerance in Protocol Systems
+slug: paradigm-locked-anomaly-tolerance-in-protocol-systems
+stage: exploration
+status: active
+origin: discovered
+source: null
+confidence: speculative
+statement: >
+  Established protocol systems tolerate accumulating evidence of malfunction for extended periods
+  without triggering revision, not because participants are irrational but because the protocol
+  itself supplies an assurance that anomalies will eventually be resolved within the current
+  framework. This tolerance is bounded: it collapses when a credible alternative protocol is
+  available, not when the anomaly count reaches a threshold.
+mechanism: >
+  A working protocol generates a generalized expectation — analogous to Kuhn's normal-science
+  assurance — that apparent failures reflect implementation error, edge cases, or insufficient
+  data rather than structural deficiency. This expectation is self-reinforcing: participants
+  who have sunk expertise, capital, and organizational structure into the protocol have rational
+  reasons to interpret anomalies charitably. The assurance is withdrawn not by evidence weight
+  but by the availability of a rival: until a rival exists, abandonment carries certain coordination
+  cost with uncertain benefit. This mechanism predicts that anomaly tolerance is a function
+  of rival availability, not anomaly accumulation — distinguishing it from simple status-quo
+  bias.
+justification: >
+  seeds-028, 031, and 027 together construct this pattern from Kuhn's analysis of normal science.
+  seed-031 is the pivotal one: it specifies that crisis without a rival produces malaise, not
+  revolution. This is not simply L-007 (Trust Ratchet), which concerns age-based trust accumulation;
+  this law concerns the *conditional* nature of the collapse — the rival-dependency — which
+  is a mechanistically distinct claim. seed-027 (Planck principle) provides an institutional-memory
+  corollary: when rival availability is blocked by cohort structure, tolerance extends until
+  personnel turnover.
+examples:
+  - domain: Scientific protocol — phlogiston chemistry
+    description: Anomalies in phlogiston theory (negative weight of phlogiston, failure to
+      account for quantitative composition) accumulated for decades. The theory was not 
+      abandoned when anomalies accumulated but when Lavoisier assembled a rival framework.
+      Prior to that, practitioners treated the anomalies as puzzles within the framework.
+    source: seed-031; seed-028
+  - domain: Financial clearing protocol — pre-2008 CDO risk models
+    description: Risk models used by ratings agencies and banks accumulated anomalous 
+      signals (correlation breakdowns in stress scenarios, model-vs-reality divergence in 
+      subprime performance) for years. Abandonment was not triggered by anomaly 
+      accumulation but by the crystallization of a credible alternative understanding of 
+      correlated default risk — available only in retrospect.
+    source: seed-031 (structural analogy)
+counterexamples: []
+open_questions: []
+falsification: >
+  A documented case in which a functioning protocol was abandoned due to anomaly accumulation
+  alone, in the absence of a credible rival protocol, would refute the rival-dependency claim.
+  Abandonment into a void (no replacement) is different from abandonment into a rival.
+references: []
+seeds:
+  - seed-028
+  - seed-031
+related: []
+triggers:
+  advance: >
+    Two or more independent protocol domains (non-scientific) in which the timeline of anomaly
+    accumulation versus the arrival of a credible rival is documented, showing that revision
+    lagged anomaly accumulation but accelerated upon rival arrival — with the rival-dependency
+    mechanism clearly separable from coordination-cost explanations.
+  challenge: >
+    A documented case in which a protocol was revised or abandoned primarily in response to
+    anomaly accumulation, with explicit rejection of available rivals on grounds other than
+    the anomalies themselves.
+history:
+  - date: '2026-08-17'
+    event: created
+    detail: "induction sweep — seeds-028, 031, and 027 together construct this pattern from
+      Kuhn's analysis of normal science. seed-031 is the pivotal one: it specifies that crisis
+      without a…"

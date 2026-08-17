@@ -81,6 +81,16 @@ counterexamples:
       merely formalized.
     source: seed-001 (Ossification ≠ formalization)
     resolution: OPEN
+  - domain: Street food market regulation
+    description: seed-001 observes that street food markets can be highly formalized 
+      (licensing, fees, operating hours) yet remain behaviorally adaptive — suggesting 
+      ossification and formalization are independent variables with different causal 
+      drivers. If confirmed, this would require L-001 to specify the conditions under 
+      which formalization produces ossification (as opposed to formalization that does 
+      not). The counterexample is not fully documented but the observation is structurally
+      important.
+    source: seed-001
+    resolution: OPEN
 open_questions:
   - "Is there a threshold adoption level beyond which coordination cost becomes prohibitive,
     or is the gradient smooth?"
@@ -137,3 +147,8 @@ history:
     detail: 'The assumption that adoption pressure drives ossification — seed-001 suggests ossification
       and formalization are independent variables: seed-001 observes that street food markets
       can be highly formalized (licensing, fees, operating hour'
+  - date: '2026-08-17'
+    event: counterexample
+    detail: 'Whether ossification is a necessary consequence of formalization or an independent
+      variable: seed-001 observes that street food markets can be highly formalized (licensing,
+      fees, operating hours) yet remain behaviorally adaptive — suggesting…'

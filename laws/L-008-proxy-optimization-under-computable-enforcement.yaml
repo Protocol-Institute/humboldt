@@ -38,6 +38,25 @@ examples:
       adjacent channels when one distortion channel is closed by a precisely specified 
       rule, reproducing the incentive geometry at the nearest unmonitored boundary.
     source: bib-0183
+  - domain: Regulatory compliance simulation
+    description: arxiv-2606.04617 (He) provides an ABM/RL simulation showing that when 
+      legal obligations are rendered precisely computable (Rules-as-Code), optimizing 
+      agents cluster at the compliance boundary through imitation and systematic search. 
+      The estimand distinction between conduct boundary mass and signal boundary mass is 
+      the key methodological contribution — aggregate compliance signals can be stable 
+      while the behavioral distribution has shifted entirely to the boundary. This 
+      sharpens L-008 by identifying *rule computability* (not just enforcement legibility)
+      as the upstream enabling condition.
+    source: arxiv-2606.04617
+  - domain: Multi-agent hardware design
+    description: "arxiv-2606.25532 shows that embedding hard physical legibility constraints
+      (thermal limits, fab rules, energy bounds) into agentic search reduces hallucination/causal-detachment
+      failures. However, the constraints are pre-formalized in the problem setup — the paper
+      does not investigate what happens when agents optimize against the formalization itself.
+      This is a partial confirmation of L-008's mechanism (legible enforcement reduces capture)
+      with an important boundary: the result holds when constraints are externally imposed and
+      not themselves subject to optimization pressure."
+    source: arxiv-2606.25532 (shallow read 2026-08-10)
 counterexamples: []
 open_questions:
   - "Primary gap (unchanged from supervisor review): a measured boundary-clustering result —
@@ -100,3 +119,14 @@ history:
     event: edited
     detail: 'sources resolved to bibliography ids: arxiv-2605.30680 (Wang et al., Medi-Sim)
       → bib-0183'
+  - date: '2026-08-17'
+    event: evidence
+    detail: 'The claim that computable enforcement causes boundary clustering; the mechanism
+      by which legibility enables optimization-to-boundary: arxiv-2606.04617 (He) provides an
+      ABM/RL simulation showing that when legal obligations are rendered precisely computable
+      (Rules-as-Code), optimizing agents…'
+  - date: '2026-08-17'
+    event: evidence
+    detail: 'Whether computable enforcement reduces or displaces proxy capture: arxiv-2606.25532
+      shows that embedding hard physical legibility constraints (thermal limits, fab rules,
+      energy bounds) into agentic search reduces…'

@@ -130,6 +130,21 @@ python3 -m agent.humboldt induct --since YYYY-MM-DD    # override the read curso
 python3 -m agent.humboldt assess L-003               # assess one law (promote/hold/demote)
 python3 -m agent.humboldt assess L-003 --dry-run     # call model, apply nothing
 python3 -m agent.humboldt assess --all               # assess every active law
+python3 -m agent.humboldt assess L-003 --no-corpus   # assess on the record alone (see below)
+
+# ── Corpus-read circuit breaker (session 30, agent/read_budget.py) ──
+# Pinecone enforces TWO independent monthly caps on reads — read units and egress bytes.
+# Either one 429s every query account-wide while upserts and describe_index_stats keep
+# working, so a quota check MUST exercise `query`, not `describe`.
+# State: data/read-pause.json (gitignored). Auto-trips on a quota 429; self-clears.
+# Distinct from `daemon pause`: that means "don't speak", this means "you may speak but
+# you have no corpus". Retrieval raises RetrievalUnavailable — it never returns [], since
+# an empty list is indistinguishable from "the corpus has nothing" (the 2026-08 bug).
+# While tripped: `assess` refuses (--no-corpus overrides), investigate/hypothesize exit 1,
+# Discord replies and the site chat disclose the outage. `induct` is UNAFFECTED (no reads).
+python3 -m agent.humboldt read-status                  # are corpus reads available?
+python3 -m agent.humboldt read-pause <YYYY-MM-DD> [why] # force reads offline
+python3 -m agent.humboldt read-unpause                 # clear the pause
 
 # Generate candidate laws for a topic (no file output)
 python3 -m agent.humboldt hypothesize "coordination cost"
@@ -214,6 +229,12 @@ python3 -m agent.humboldt behaviors graph                          # text summar
 python3 -m agent.humboldt behaviors admin                          # start local admin web UI (localhost:7878)
 python3 -m agent.humboldt behaviors log <id> [--arc ARC] [--note] # record a behavior visit to log.jsonl
 python3 -m agent.humboldt behaviors supervisory                    # analyze log; suggest weight updates
+
+# ⚠ Deploy target: `wrangler pages deploy` infers the branch from git and makes a
+# PREVIEW deployment off anything other than `main`, returning success either way.
+# publish-site succeeding does NOT mean humboldt.protocol-institute.org changed — the
+# whole redesign-2026-08 branch has only ever deployed to preview URLs. Check with
+# agent.publish_site.is_production_deploy(); law_notify refuses to announce off-branch.
 
 # Publish the humboldt-site to Cloudflare Pages (humboldt.protocol-institute.org)
 # Rebuilds all pages (notebook, research, reading, architecture, about, chat) and deploys.
