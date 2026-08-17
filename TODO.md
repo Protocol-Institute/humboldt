@@ -230,6 +230,15 @@ CF credentials (`CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`) added to `.env`
 
 ## Track 3 — Artificial Researcher Template
 
+- **[M]** **Capability-outage pattern → template (from session 30).** Generalizable beyond
+  Humboldt: any artificial researcher with a retrieval dependency needs (a) a typed
+  outage exception that is *never* an empty result — an empty list reads as "nothing
+  found" and hides the failure; (b) a breaker that trips itself on the provider's quota
+  error and records the reset date; (c) a distinction between "don't speak" (operator
+  pause) and "speak without grounding, and disclose it"; (d) refusal for the one operation
+  whose whole value is evidence-testing. See `agent/read_budget.py` +
+  `plans/read-outage-2026-08.md`.
+
 - **[M]** Update `_template/` to reflect current architecture (IDENTITY/LINEAGE/MEMORY/METHOD/BOOTSTRAP) — `SOUL-template.md` is superseded.
 - **[M]** Add ingest pattern to template — augmented chunk text (title+section prefix) is the generalizable design decision; capture in `_template/`.
 - **[L]** Copy M-001 through M-003 to `_template/methods/` in generic form — strip PI specifics.
