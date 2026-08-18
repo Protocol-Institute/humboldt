@@ -21,8 +21,18 @@ const VOYAGE_URL      = "https://api.voyageai.com/v1/embeddings";
 const CLAUDE_MODEL    = "claude-sonnet-4-6";
 const CLAUDE_URL      = "https://api.anthropic.com/v1/messages";
 const ANTHROPIC_VER   = "2023-06-01";
-const TOP_K_CORPUS    = 8;
-const TOP_K_HUMBOLDT  = 10;
+// Pinecone bills a monthly *egress* cap (1GB) that this Worker spends from the
+// same account as the Python agent, and every match returns up to 2000 chars of
+// chunk text. This path fans out over 7 namespaces per question, so it was the
+// single largest consumer: 6x8 + 10 = 58 matches pulled to fill MAX_SOURCES=8
+// corpus + 8 Humboldt slots. Right-sized 2026-08-18 to 6x4 + 8 = 32, which
+// still leaves 3x headroom on the corpus merge. See plans/read-outage-2026-08.md.
+const TOP_K_CORPUS    = 4;
+const TOP_K_HUMBOLDT  = 8;
+// Cached retrieval (not the answer) keyed by question — a public chat gets the
+// same questions repeatedly, and thread follow-ups re-query near-identical text.
+// 24h so the daily re-ingest of Humboldt's own namespace stays visible.
+const RAG_CACHE_TTL   = 24 * 3600;
 const MAX_SOURCES     = 8;
 const MAX_TOKENS      = 1200;
 const RATE_LIMIT_MAX  = 20;
@@ -306,15 +316,21 @@ function ptDateStr() {
   return new Date(Date.now() - 8 * 3600 * 1000).toISOString().slice(0, 10);
 }
 
-async function trackRequest(kv, claudeUsage) {
+async function trackRequest(kv, claudeUsage, egressBytes = 0, fromCache = false) {
   if (!kv) return;
   const dayKey  = "stats:day:"      + ptDateStr();
   const lifeKey = "stats:lifetime";
-  const [ds, ls] = await Promise.all([
+  // Pinecone's egress cap is monthly and account-wide, so it needs its own
+  // month-keyed counter — the daily/lifetime buckets above cannot answer
+  // "how much of this month's 1GB has the public chat spent".
+  const monKey  = "egress:" + new Date().toISOString().slice(0, 7);
+  const [ds, ls, ms] = await Promise.all([
     kv.get(dayKey,  "json"),
     kv.get(lifeKey, "json"),
+    kv.get(monKey,  "json"),
   ]);
-  const zero = { reqs: 0, in_tok: 0, cache_create_tok: 0, cache_read_tok: 0, out_tok: 0 };
+  const zero = { reqs: 0, in_tok: 0, cache_create_tok: 0, cache_read_tok: 0, out_tok: 0,
+                 egress_bytes: 0 };
   const d = { ...zero, ...(ds || {}) };
   const l = { ...zero, ...(ls || {}) };
   for (const s of [d, l]) {
@@ -323,11 +339,20 @@ async function trackRequest(kv, claudeUsage) {
     s.cache_create_tok += claudeUsage?.cache_creation_input_tokens || 0;
     s.cache_read_tok   += claudeUsage?.cache_read_input_tokens     || 0;
     s.out_tok          += claudeUsage?.output_tokens               || 0;
+    s.egress_bytes     += egressBytes;
   }
+  // Read-modify-write, so concurrent chats can lose an increment. Undercounting
+  // a trend indicator is acceptable; blocking a reply on a counter is not.
+  const m = { bytes: 0, reqs: 0, cache_hits: 0, ...(ms || {}) };
+  m.reqs  += 1;
+  m.bytes += egressBytes;
+  if (fromCache) m.cache_hits += 1;   // zero bytes because the cache answered,
+                                      // not because the retrieval came back empty
   const dayCost = calcCost(d);
   await Promise.all([
     kv.put(dayKey,  JSON.stringify(d), { expirationTtl: 30 * 24 * 3600 }),
     kv.put(lifeKey, JSON.stringify(l)),
+    kv.put(monKey,  JSON.stringify(m), { expirationTtl: 90 * 24 * 3600 }),
   ]);
 
   // Circuit breaker at $4/hour or $30/day
@@ -367,16 +392,29 @@ async function queryNamespace(host, apiKey, vector, topK, namespace) {
     headers: { "Api-Key": apiKey, "Content-Type": "application/json" },
     body:    JSON.stringify(body),
   });
+  const text = await res.text();
   if (!res.ok) {
-    const text = await res.text();
     console.error(`Pinecone [${namespace || "default"}]:`, text);
     const lower = text.toLowerCase();
     if (res.status === 429 && QUOTA_MARKERS.some(m => lower.includes(m))) {
-      return { unavailable: true, matches: [] };
+      return { unavailable: true, matches: [], bytes: 0 };
     }
-    return { unavailable: false, matches: [] };
+    return { unavailable: false, matches: [], bytes: 0 };
   }
-  return { unavailable: false, matches: (await res.json()).matches || [] };
+  // Response length is the actual egress spent on this namespace — exact here,
+  // unlike the Python side which can only estimate from parsed metadata.
+  return { unavailable: false, matches: JSON.parse(text).matches || [], bytes: text.length };
+}
+
+// Retrieval cache. Keyed by the question, not the embedding: hashing 1024
+// floats costs more than hashing the text and two identical questions embed
+// identically anyway. Caches only successful retrievals — an outage is never
+// stored, so a cache hit can never mean "reads were down when we asked".
+async function ragCacheKey(query) {
+  const digest = await crypto.subtle.digest(
+    "SHA-256", new TextEncoder().encode(query.trim().toLowerCase()));
+  return "rag:v1:" + [...new Uint8Array(digest)].slice(0, 12)
+    .map(b => b.toString(16).padStart(2, "0")).join("");
 }
 
 // ── Normalizers ────────────────────────────────────────────────────────────────
@@ -445,6 +483,19 @@ function buildContextBlock(humboldtItems, corpusItems) {
 // ── RAG query ──────────────────────────────────────────────────────────────────
 
 async function runRagQuery(query, env, ctx, history) {
+  const kv = env.RATE_LIMIT || null;
+
+  // 0. Cached retrieval? A hit skips the Voyage embed and all 7 Pinecone
+  //    queries — the whole per-question egress bill for a repeat question.
+  const cacheKey = kv ? await ragCacheKey(query) : null;
+  if (cacheKey) {
+    const cached = await kv.get(cacheKey, "json").catch(() => null);
+    if (cached) {
+      return runRagCompletion(query, env, ctx, history,
+                              cached.humboldtItems, cached.corpusItems, false, 0, true);
+    }
+  }
+
   // 1. Embed
   const voyRes = await fetch(VOYAGE_URL, {
     method:  "POST",
@@ -468,6 +519,7 @@ async function runRagQuery(query, env, ctx, history) {
   // Every namespace shares one account quota, so if any came back quota-blocked
   // the retrieval as a whole is unreliable, not merely thin.
   const corpusOffline = results.some(r => r.unavailable);
+  const egressBytes = results.reduce((n, r) => n + (r.bytes || 0), 0);
   const [pdfRaw, subRaw, vidRaw, bibRaw, linkRaw, sigRaw, humboldtRaw] =
     results.map(r => r.matches);
 
@@ -483,6 +535,21 @@ async function runRagQuery(query, env, ctx, history) {
   const humboldtItems = humboldtRaw.map(normalizeHumboldt)
     .sort((a, b) => b.score - a.score).slice(0, MAX_SOURCES);
 
+  // Cache the *selected* items, not the raw matches — excerpts are already
+  // truncated to 500 chars and capped at MAX_SOURCES, so the stored value is
+  // small. Never cache an outage.
+  if (cacheKey && !corpusOffline && ctx) {
+    ctx.waitUntil(kv.put(cacheKey, JSON.stringify({ humboldtItems, corpusItems }),
+                         { expirationTtl: RAG_CACHE_TTL }).catch(() => {}));
+  }
+
+  return runRagCompletion(query, env, ctx, history,
+                          humboldtItems, corpusItems, corpusOffline, egressBytes, false);
+}
+
+async function runRagCompletion(query, env, ctx, history,
+                                humboldtItems, corpusItems, corpusOffline, egressBytes,
+                                fromCache) {
   const contextBlock = corpusOffline
     ? "(No retrieved context: corpus retrieval is temporarily unavailable — a " +
       "monthly read quota is exhausted. Answer only from the law inventory, " +
@@ -513,7 +580,7 @@ async function runRagQuery(query, env, ctx, history) {
   if (!claudeRes.ok) throw new Error("Claude error");
   const claudeBody = await claudeRes.json();
   const answer = claudeBody.content?.[0]?.text || "";
-  if (ctx) ctx.waitUntil(trackRequest(env.RATE_LIMIT, claudeBody.usage));
+  if (ctx) ctx.waitUntil(trackRequest(env.RATE_LIMIT, claudeBody.usage, egressBytes, fromCache));
 
   const sources = [...humboldtItems, ...corpusItems]
     .sort((a, b) => b.score - a.score)

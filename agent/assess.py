@@ -68,7 +68,8 @@ def _retrieve_new_evidence(law) -> str:
     if not queries:
         return "(no query could be formed from the law record)"
     try:
-        chunks = ret.multi_retrieve(queries, namespaces=ret.NS_BROAD, top_k_each=8)
+        chunks = ret.multi_retrieve(queries, namespaces=ret.NS_BROAD,
+                                    top_k_each=ret.ASSESS_TOP_K, op="assess")
     except ret.RetrievalUnavailable as e:
         # Only reachable under --no-corpus; assess() refuses up front otherwise.
         # Stated flatly so the verdict prompt cannot mistake it for a thin corpus.

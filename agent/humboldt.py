@@ -85,7 +85,8 @@ def cmd_investigate(topic: str, namespaces: list[str] = ret.NS_BROAD):
 
     # Retrieve from corpus
     print(f"Retrieving from corpus (namespaces: {namespaces})...")
-    chunks = ret.multi_retrieve(queries, namespaces=namespaces, top_k_each=8)
+    chunks = ret.multi_retrieve(queries, namespaces=namespaces, top_k_each=8,
+                                op="investigate")
     print(f"Retrieved {len(chunks)} unique chunks.\n")
 
     if not chunks:
@@ -137,12 +138,56 @@ def cmd_assess_law(target: str, dry_run: bool = False, no_corpus: bool = False):
 
 
 def cmd_read_status():
-    """Show whether corpus reads are available (Pinecone monthly quota breaker)."""
+    """Show whether corpus reads are available (Pinecone monthly quota breaker)
+    and how much of the monthly egress cap has been spent so far."""
     from agent import read_budget as rb
+    from agent import read_cache, read_egress
     print(rb.status_line())
     info = rb.load()
     if info.get("tripped"):
         print(f"  tripped: {info['tripped']}")
+
+    print(read_egress.status_line())
+    s = read_egress.summary()
+    if s["queries"] or s["cache_hits"]:
+        line = f"  {s['queries']} queries, {s['matches']} matches"
+        if s["cache_hits"]:
+            line += (f", {s['cache_hits']} cache hits "
+                     f"(~{s['saved_bytes'] / 1_000_000:.1f}MB not spent)")
+        print(line)
+        for ns, n in list(s["by_namespace"].items())[:8]:
+            print(f"    {ns:<16} {n / 1_000_000:>8.1f}MB")
+        if s["by_op"]:
+            print("  by path:")
+            for op, n in list(s["by_op"].items())[:8]:
+                print(f"    {op:<16} {n / 1_000_000:>8.1f}MB")
+    # The Worker spends from the same account quota and keeps its own counter,
+    # so the Python total above is always a partial picture.
+    print("\n  Site chat (Cloudflare Worker) egress is counted separately in KV:")
+    print("    npx wrangler kv key get --binding=RATE_LIMIT "
+          f"'egress:{read_egress.month_key()}' --remote")
+
+    cs = read_cache.stats()
+    print(f"\n  read cache: {cs['entries']} entries, {cs['bytes'] / 1_000_000:.1f}MB on disk")
+
+
+def cmd_read_cache(action: str = "status"):
+    """Inspect or drop the retrieval cache.
+
+    `clear` is the escape hatch for the one way caching can mislead: corpus
+    entries live 30 days, so a query cached before a fresh PI ingest will keep
+    answering without the new material. Clear after any large c3po ingest.
+    """
+    from agent import read_cache
+    if action == "clear":
+        print(f"Cleared {read_cache.clear()} cached retrieval(s).")
+    elif action == "prune":
+        print(f"Pruned {read_cache.prune()} expired/overflow entr(ies).")
+    else:
+        s = read_cache.stats()
+        print(f"read cache: {s['entries']} entries, {s['bytes'] / 1_000_000:.1f}MB on disk")
+        print(f"  TTL: {read_cache.TTL_CORPUS // 86400}d corpus, "
+              f"{read_cache.TTL_HUMBOLDT // 86400}d humboldt namespace")
 
 
 def cmd_read_pause(until: str, reason: str = "operator"):
@@ -183,7 +228,8 @@ def cmd_assess_evidence(law_id: str, namespaces: list[str] = ret.NS_ALL):
         for d in law["domains"][:2]:
             queries.append(f"{law.get('name', '')} {d}")
 
-    chunks = ret.multi_retrieve(queries, namespaces=namespaces, top_k_each=10)
+    chunks = ret.multi_retrieve(queries, namespaces=namespaces, top_k_each=10,
+                                op="hypothesize")
     print(f"Retrieved {len(chunks)} unique chunks.\n")
 
     system, user = prompts.evidence_prompt(soul, statement, chunks[:20])
@@ -549,6 +595,14 @@ def cmd_daemon_status():
         active_pause = paused_until()
         print(f"  Paused                  : {'until ' + active_pause if active_pause else 'no'}")
 
+    # Corpus reads are a separate capability from the daemon pause — the daemon
+    # can be running and talkative while having no corpus at all. Both belong
+    # here, or the operator has to infer an outage from odd output.
+    from agent import read_budget, read_egress
+    print("\n=== Corpus reads ===\n")
+    print(f"  {read_budget.status_line()}")
+    print(f"  {read_egress.status_line()}")
+
     from daemon import costs
     t = costs.totals()
     print("\n=== API costs (cumulative) ===\n")
@@ -805,7 +859,8 @@ Usage:
   python3 -m agent.humboldt assess <L-NNN> --dry-run     # call model, apply nothing
   python3 -m agent.humboldt assess --all                 # assess every active law
   python3 -m agent.humboldt assess <L-NNN> --no-corpus   # assess on the record alone (reads offline)
-  python3 -m agent.humboldt read-status                  # are corpus reads available?
+  python3 -m agent.humboldt read-status                  # reads available? + monthly egress spend
+  python3 -m agent.humboldt read-cache [status|clear|prune]  # retrieval cache (clear after a c3po ingest)
   python3 -m agent.humboldt read-pause <YYYY-MM-DD> [why] # force corpus reads offline
   python3 -m agent.humboldt read-unpause                 # clear the read pause
   python3 -m agent.humboldt theorize                     # find unification opportunities
@@ -887,6 +942,8 @@ def main():
                        no_corpus="--no-corpus" in rest)
     elif cmd == "read-status":
         cmd_read_status()
+    elif cmd == "read-cache":
+        cmd_read_cache(rest[0] if rest else "status")
     elif cmd == "read-pause":
         if not rest:
             print("Usage: humboldt read-pause <YYYY-MM-DD> [reason]")

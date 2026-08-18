@@ -1,6 +1,9 @@
 # Read Outage — Pinecone egress exhaustion, 2026-08
 
-**Status:** PLAN — awaiting supervisor approval
+**Status:** Steps 1–5 COMPLETE (Steps 1–3 session 30, Steps 4–5 session 31, 2026-08-18).
+Remaining work is verification: the prevention measures were built while reads were
+hard-blocked, so **none of them has run against live Pinecone traffic.** First real
+exercise is the 2026-09-01 reset — watch `humboldt read-status` in the days after.
 **Opened:** 2026-08-17 (session 30)
 **Expected clear:** 2026-09-01 (monthly quota reset)
 
@@ -142,28 +145,62 @@ by accident a month later.
   propagate a flag → system-prompt banner + a visible notice in the chat UI.
   **Ship this first** (external exposure, and it is independent of the Python work).
 
-### Step 4 — prevention, before the September reset
+### Step 4 — prevention, before the September reset  ✅ DONE 2026-08-18 (session 31)
 
-1GB/month is a lot to burn; without a root-cause fix this recurs. Suspected driver:
-`multi_retrieve` with `include_metadata=True` returns **full chunk text** on every match,
-multiplied across namespaces × `top_k_each` × queries-per-call, on every composed Discord
-reply and every daily review.
+The confirmed driver was over-fetching: every path pulled 3–6× more matches than its
+consumer formatted, and each match carries up to 2000 chars of chunk text
+(`agent/ingest.py`). Egress is `namespaces × top_k × queries`, and nothing measured it.
 
-Already mitigated by the operator this session (`ce7f838`): `NS_BROAD_PLUS` trimmed 6→5
-namespaces, dropping `bibliography` and `discord_links` from the per-reply path.
+**The one candidate that had to be dropped:** "return ids + scores, hydrate text from
+disk" cannot be done via a second Pinecone call. `Index.fetch()` has no `include_values`
+switch — it *always* returns the 1024-float vector, which is larger than the chunk text it
+would save. Query-then-fetch would have increased egress. Disk hydration only works where
+the text is already local (the `humboldt` namespace), and there it is subsumed by caching.
 
-Remaining candidates, cheapest first:
-- Stop shipping full text through metadata — return ids + scores, hydrate text from disk
-  (the shallow-reads/notes are local files anyway). Likely the single largest win.
-- Lower `top_k_each` on the high-frequency reply path (currently 5).
-- Cache retrieval results per query hash — Discord threads re-query near-identical text.
-- Add egress accounting to `daemon/costs.py` so spend is visible before it is exhausted,
-  and surface it in the weekly digest.
+Landed instead:
 
-### Step 5 — monitoring
+1. **Right-sizing** — matched `top_k` to what each consumer actually formats:
 
-Add read-availability to the weekly digest and `daemon status`, so the operator sees
-"corpus reads: OFFLINE until 2026-09-01" rather than inferring it from odd output.
+   | path | before | after | consumer uses |
+   |---|---|---|---|
+   | Discord reply (`REPLY_TOP_K`) | 5 ns × 5 = 25 | 5 × 3 = **15** | 4 own + 4 PI |
+   | site chat (`chat.js`) | 6×8 + 10 = 58 | 6×4 + 8 = **32** | 8 + 8 |
+   | `assess` (`ASSESS_TOP_K`) | 2 q × 6 ns × 8 = 96 | 2 × 6 × 4 = **48** | `chunks[:10]` |
+
+   `investigate`/`hypothesize` were left alone: human-invoked, infrequent, and breadth is
+   the point of them.
+
+2. **Caching** — `agent/read_cache.py` (disk, `data/read-cache/`) and a KV cache in
+   `chat.js`. Keyed per *namespace* on the Python side so callers with different namespace
+   sets share what they have in common; 30d TTL for corpus namespaces, 1d for `humboldt`
+   (re-ingested daily). A full cache hit also skips the Voyage embedding. Outages are
+   never cached, so a hit can never mean "reads were down when we asked".
+
+3. **Accounting** — `agent/read_egress.py` logs bytes per query to
+   `data/read-egress.jsonl`, attributed by namespace *and* by calling path (`op=`), so a
+   runaway consumer is findable rather than inferable. The Worker counts its own exact
+   wire bytes into KV `egress:YYYY-MM`. Python's number is an estimate and a **lower
+   bound** — it cannot see the Worker, which is why the two are reported separately
+   rather than summed into a false total.
+
+Escape hatch: `humboldt read-cache clear` — a 30-day corpus TTL means a query cached
+before a large c3po ingest keeps answering without the new material.
+
+### Step 5 — monitoring  ✅ DONE 2026-08-18 (session 31)
+
+- `humboldt read-status` — breaker state, month-to-date egress vs the 1GB cap, per-
+  namespace and per-path breakdown, cache savings, and the `wrangler` command for the
+  Worker's KV counter.
+- `humboldt daemon status` — a "Corpus reads" section, because the daemon can be running
+  and talkative while having no corpus at all.
+- `task_read_budget_watch` (daemon, 24h) — DMs the operator **once per month per event**
+  on crossing 70% of the egress cap, and on the breaker tripping. This is the only signal
+  in the system that fires while there is still budget left to protect; everything else
+  reports spend after the fact. Pause-gated like every other Discord side effect, but
+  always logged at WARNING so a paused daemon still leaves the evidence.
+
+Not addressed: the digest surface. The weekly digest is a *public* #new-nature research
+post, so operator telemetry does not belong in it — the DM watcher is the right channel.
 
 ---
 

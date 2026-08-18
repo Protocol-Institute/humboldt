@@ -108,6 +108,7 @@ class HumboldtBot(discord.Client):
         self.task_feed_digest.start()
         self.task_conversation_review.start()
         self.task_weekly_digest.start()
+        self.task_read_budget_watch.start()
         # SIGUSR1 triggers a graceful hot-reload: saves state, then re-execs
         self.loop.add_signal_handler(signal.SIGUSR1, self._schedule_reload)
         # new-nature uses a manual loop for adaptive check intervals
@@ -242,7 +243,7 @@ class HumboldtBot(discord.Client):
             from agent import retrieval as ret
             try:
                 chunks = await self.loop.run_in_executor(
-                    None, lambda: ret.multi_retrieve([content], namespaces=ret.NS_BROAD_PLUS, top_k_each=5)
+                    None, lambda: ret.multi_retrieve([content], namespaces=ret.NS_BROAD_PLUS, top_k_each=ret.REPLY_TOP_K, op="discord_mention")
                 )
             except ret.RetrievalUnavailable as e:
                 corpus_offline = True
@@ -350,7 +351,7 @@ class HumboldtBot(discord.Client):
                     from agent import retrieval as ret
                     try:
                         chunks = await self.loop.run_in_executor(
-                            None, lambda c=content: ret.multi_retrieve([c], namespaces=ret.NS_BROAD_PLUS, top_k_each=5)
+                            None, lambda c=content: ret.multi_retrieve([c], namespaces=ret.NS_BROAD_PLUS, top_k_each=ret.REPLY_TOP_K, op="discord_mention")
                         )
                     except ret.RetrievalUnavailable as e:
                         corpus_offline = True
@@ -457,7 +458,7 @@ class HumboldtBot(discord.Client):
         try:
             loop = asyncio.get_event_loop()
             chunks = await loop.run_in_executor(
-                None, lambda: ret.multi_retrieve([content], namespaces=ret.NS_BROAD_PLUS, top_k_each=5)
+                None, lambda: ret.multi_retrieve([content], namespaces=ret.NS_BROAD_PLUS, top_k_each=ret.REPLY_TOP_K, op="discord_mention")
             )
         except ret.RetrievalUnavailable as e:
             corpus_offline = True
@@ -1070,4 +1071,69 @@ class HumboldtBot(discord.Client):
 
     @task_feed_digest.before_loop
     async def before_task_feed_digest(self):
+        await self.wait_until_ready()
+
+    # ── Corpus read budget ───────────────────────────────────────────────────
+
+    @tasks.loop(hours=24)
+    async def task_read_budget_watch(self):
+        """
+        Watch the Pinecone monthly read budget and DM the operator on the two
+        events that matter: crossing the egress warn threshold, and the breaker
+        tripping.
+
+        This exists because the 2026-08 outage was found by accident weeks
+        late. Every other signal in this system reports *spend after the fact*;
+        this is the only one that fires while there is still budget left to
+        protect. Alerts once per month per event — a daily nag would train the
+        operator to ignore it.
+
+        Pause-gated for consistency with every other Discord side effect (see
+        feedback on pause completeness), but always logged at WARNING so a
+        paused daemon still leaves the evidence in daemon.log.
+        """
+        from agent import read_budget as rb
+        from agent import read_egress as re_
+
+        state = st.load()
+        month = re_.month_key()
+        alerts = []
+
+        until = rb.paused_until()
+        if until and state.get("read_outage_alerted_until") != until:
+            alerts.append(f"⚠️ **Corpus reads are OFFLINE until {until}.**\n{rb.reason()[:300]}")
+            state["read_outage_alerted_until"] = until
+
+        s = re_.summary(month)
+        if (s["fraction"] >= re_.WARN_FRACTION
+                and state.get("read_egress_warned_month") != month):
+            alerts.append(
+                f"⚠️ **Pinecone read egress at {s['fraction'] * 100:.0f}% of the "
+                f"monthly cap** ({month}, Python paths only — the site chat "
+                f"Worker counts separately in KV).\n"
+                f"Top paths: " + ", ".join(
+                    f"{op} {n / 1_000_000:.0f}MB" for op, n in list(s["by_op"].items())[:3])
+            )
+            state["read_egress_warned_month"] = month
+
+        if not alerts:
+            return
+
+        for a in alerts:
+            logger.warning(a.replace("\n", " ")[:300])
+
+        if pz.is_paused():
+            st.save(state)  # still record it, so unpausing does not re-alert
+            return
+
+        try:
+            operator = await self.fetch_user(self.operator_id)
+            await operator.send("\n\n".join(alerts))
+        except Exception as e:  # noqa: BLE001
+            logger.error(f"Read-budget alert DM failed: {e}")
+            return
+        st.save(state)
+
+    @task_read_budget_watch.before_loop
+    async def before_task_read_budget_watch(self):
         await self.wait_until_ready()

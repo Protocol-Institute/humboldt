@@ -142,9 +142,27 @@ python3 -m agent.humboldt assess L-003 --no-corpus   # assess on the record alon
 # an empty list is indistinguishable from "the corpus has nothing" (the 2026-08 bug).
 # While tripped: `assess` refuses (--no-corpus overrides), investigate/hypothesize exit 1,
 # Discord replies and the site chat disclose the outage. `induct` is UNAFFECTED (no reads).
-python3 -m agent.humboldt read-status                  # are corpus reads available?
+python3 -m agent.humboldt read-status                  # reads available? + month-to-date egress
 python3 -m agent.humboldt read-pause <YYYY-MM-DD> [why] # force reads offline
 python3 -m agent.humboldt read-unpause                 # clear the pause
+
+# ── Egress prevention (session 31, plan Steps 4–5) ──
+# Egress = namespaces x top_k x queries, and every match ships up to 2000 chars of chunk
+# text, so over-fetching is what spends the 1GB/month cap. Three defenses:
+#  1. Right-sizing: ret.REPLY_TOP_K (Discord), ret.ASSESS_TOP_K, TOP_K_* in chat.js —
+#     each matched to what its consumer actually formats. Do not raise without checking
+#     the consumer. investigate/hypothesize are deliberately left broad.
+#  2. agent/read_cache.py — per-NAMESPACE disk cache (data/read-cache/, gitignored),
+#     30d corpus TTL / 1d humboldt TTL; a full hit also skips the Voyage embed. The
+#     Worker has an equivalent KV cache. Outages are never cached.
+#  3. agent/read_egress.py — bytes per query → data/read-egress.jsonl, attributed by
+#     namespace AND calling path (op=). Python's total is a LOWER BOUND: it cannot see
+#     the Cloudflare Worker, which counts its own exact bytes into KV `egress:YYYY-MM`.
+# NOTE: query-then-`fetch` to strip metadata does NOT work — Index.fetch() always returns
+# the 1024-float vector (no include_values switch), which is bigger than the text saved.
+python3 -m agent.humboldt read-cache [status|clear|prune]  # clear after a large c3po ingest
+# Daemon task_read_budget_watch DMs the operator at 70% of the cap and on a trip
+# (once per month per event, pause-gated, always logged at WARNING).
 
 # Generate candidate laws for a topic (no file output)
 python3 -m agent.humboldt hypothesize "coordination cost"
