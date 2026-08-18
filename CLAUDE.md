@@ -260,6 +260,18 @@ python3 -m agent.humboldt behaviors supervisory                    # analyze log
 # Run after any session that changes notebook, research, bibliography, or ARCHITECTURE.md.
 python3 -m agent.humboldt publish-site              # build + deploy to CF Pages
 python3 -m agent.humboldt publish-site --dry-run    # build only, no deploy
+
+# ── Conference talk (session 32, plans/talk-2026-09-23.md) ──
+# Composes a talk track from laws/*.yaml + talks/2026-09-23-new-nature/{brief.md,
+# slides.yaml} — freeze-immune, same property as `induct` (composition from records
+# is not retrieval). track.md is the source of truth for narration and is meant to
+# be hand-edited after generation; re-run `draft` only after laws or slides.yaml
+# change, and re-check timing after any edit — do not let track.md drift from the
+# records it was generated from.
+python3 -m agent.humboldt talk draft [--dry-run]        # laws + brief → track.md (Opus)
+python3 -m agent.humboldt talk check                    # word budgets + TTS hazard lint
+python3 -m agent.humboldt talk voice [--voice N] [--rate R]  # track.md → audio/*.mp3 (say → ffmpeg)
+python3 -m agent.humboldt talk time                     # ffprobe-measured runtime vs. targets
 ```
 
 ### Deep-read library

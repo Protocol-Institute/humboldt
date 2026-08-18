@@ -6,6 +6,73 @@ Most recent entry first.
 
 ---
 
+## 2026-08-18 (session 32) — Talk Phase A built: brief, slides, narration engine, track v1
+
+**Tracks active:** T2 (talk-project build, freeze-immune per session 31 plan)
+**Daemon PID:** 24438 (running, unpaused; untouched this session — nothing daemon-loaded changed)
+
+No Track 1 work — no reads, no law changes, no research inventory touched. Read the
+seven tier-1 law records (L-001 through L-007) to select case-study candidates, but that's
+consumption, not authorship.
+
+**Operator interview, one question at a time, per session 31's open blockers.** All four
+locked inputs from `plans/talk-2026-09-23.md` §1 resolved (Protocol Symposium 2026, PI
+audience already fluent in the vocabulary, Humboldt introduced up front as an artificial
+researcher, 16:9/Zoom/operator-driven). Two scope changes surfaced during the interview
+that the original plan didn't anticipate: the operator wants Humboldt's own metacognition
+(phase model, induct/assess pipeline) presented, not just the law inventory; and the talk
+slot turned out to have a separate 10-minute Q&A slot already allocated, which relaxed the
+10-minute ceiling to 20 available / 15 targeted. Asked which laws deserved case-study depth
+given the extra room — read the four "discovered" (non-imported) law records in full and
+recommended L-001 and L-002 as the pair with the most novel, generative content: L-001 for
+its live-unresolved counterexample and competing mechanism, L-002 for the ratio reframe and
+a same-week evidence addition. Operator confirmed both.
+
+**Built the full Phase A stack in one pass.** `brief.md` captures the interview inputs as
+the input record, not a plan restatement. `slides.yaml` expanded 12→15 slides: two new
+method-introduction slides ahead of the laws, L-001/L-002 each split into a "the law" +
+"the law under contest / the frontier" pair, and the original single counterexample slide
+shrank since two laws now carry their counterevidence live. Calibrated the word/duration
+budget at the same measured 155 wpm rate from session 31 (`say -v Daniel -r 140`), landing
+a 13:15 speech target against the new 15:00/20:00 target/cap.
+
+`prompts/talk.md` follows the `induct.md` pattern exactly (Fable-tier, supervisor-editable,
+explicit disqualifiers) but for narration instead of law drafting: the load-bearing
+instruction is that bullets are room anchors and narration is the argument, never a reading
+of the bullets. TTS-specific constraints are spelled out as hard rules, not suggestions —
+no bare law ids, no arXiv ids/URLs spoken as tokens, no long parentheticals, no em-dash
+chains — because a `say` voice can't perform what a human reader silently repairs.
+
+`agent/talk.py` — `draft` (Opus, `claude-opus-4-8`, matching `assess.py`'s heavy-lift-tier
+model choice), `check` (word budgets + regex hazard lint against `track.md`), `voice`
+(`say` → `ffmpeg` per slide), `time` (`ffprobe` measurement, never estimated). `track.md` is
+parsed back from its own `## NN — Title` headers rather than re-running the model each time
+— editing the markdown directly is the intended supervisor workflow, matching the plan's
+"track.md is the source of truth, edited after generation" design.
+
+**Ran it for real.** `talk draft` produced a first track; `talk check` caught two
+over-budget slides and two em-dash chains — fixed by hand (mechanical only, not a real
+edit pass) and re-ran clean: 1,750 words, ~11:15 estimated spoken, comfortable slack under
+target. Built a throwaway local review page (slides.yaml bullets next to track.md narration,
+side by side, word-count-vs-budget per slide) served on localhost for the operator to read
+before doing the real supervisor edit pass — shut down at session close, not part of the
+repo.
+
+Updated `plans/talk-2026-09-23.md` throughout: locked decisions, scope additions, §3/§4
+marked superseded by `slides.yaml`/`timing.json` as the live source of truth, Phase A
+checklist marked done, and a new risk 7 opened — live Q&A via the site chat means the
+talk content needs to land in Humboldt's retrievable context before 09-23, timed so it
+doesn't leak before the talk exists publicly. Not designed yet; deferred to Phase C/D.
+
+**Open (next session):** operator's substantive edit pass on `track.md` (voice/content, not
+mechanics) — session close was explicit that feedback comes next session. After that:
+Phase B (evidence refresh, needs reads back 09-01), Phase C (deck HTML, voice audition,
+Q&A-ingest design), Phase D (rehearsal, deploy decision). Also still outstanding from
+session 31: supervisor review of L-012–L-016, `agent/references.py` dead-path bug, and
+verifying the read-outage prevention work against live traffic once 09-01 arrives.
+
+---
+
 ## 2026-08-18 (session 31) — Egress prevention + monitoring (read-outage Steps 4–5); conference talk planned
 
 **Tracks active:** T2 (egress prevention, monitoring, talk-project planning)

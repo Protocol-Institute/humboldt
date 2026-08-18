@@ -907,6 +907,10 @@ Usage:
   python3 -m agent.humboldt bib stats                    # depth/kind/citation breakdown
   python3 -m agent.humboldt bib migrate [--dry-run]      # one-shot legacy-source migration
   python3 -m agent.humboldt bib backfill-references [--dry-run]  # law free-text refs → bib-NNNN ids
+  python3 -m agent.humboldt talk draft [--dry-run]        # laws + brief → track.md (Opus)
+  python3 -m agent.humboldt talk check                    # word budgets + TTS hazard lint
+  python3 -m agent.humboldt talk voice [--voice N] [--rate R]  # track.md → audio/*.mp3
+  python3 -m agent.humboldt talk time                     # measure rendered audio vs. targets
 """
 
 
@@ -1125,6 +1129,10 @@ def main():
         else:
             print(f"Unknown discord subcommand: {subcmd}")
             sys.exit(1)
+    elif cmd == "talk":
+        from . import talk as talk_mod
+        subcmd = rest[0] if rest else ""
+        talk_mod.cmd_talk(subcmd, rest[1:])
     elif cmd == "behaviors":
         from . import behaviors as beh
         subcmd = rest[0] if rest else "graph"

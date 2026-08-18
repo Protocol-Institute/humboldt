@@ -4,6 +4,36 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-08-18 (session 32) — Talk Phase A built (brief, slides, narration engine, track v1)
+
+**Daemon PID:** 24438 (running, unpaused) — untouched this session.
+
+- Interviewed the operator one question at a time to fill `plans/talk-2026-09-23.md`'s
+  open blockers; all four locked (conference, audience, framing, aspect ratio). Two scope
+  changes surfaced: add a metacognition/method section, and duration relaxed 10→20 min
+  available (15 targeted) since Q&A is a separate 10-minute slot. Operator picked L-001
+  and L-002 for expanded case-study treatment, on my recommendation.
+- Built the full Phase A stack: `talks/2026-09-23-new-nature/brief.md`, `slides.yaml`
+  (15 slides), `prompts/talk.md`, `agent/talk.py` (`draft`/`check`/`voice`/`time`), CLI
+  wired into `humboldt talk`.
+- Ran `talk draft` (Opus) → `talk check` caught 2 over-budget slides + 2 em-dash chains;
+  fixed by hand, re-ran clean. `track.md` v1: 1,750 words, ~11:15 estimated spoken —
+  comfortable slack under the 15:00 target. Not yet a real supervisor edit pass — that's
+  explicitly next session, per the operator.
+- Served a throwaway local review page (slides vs. narration, side by side) for the
+  operator to read; shut down at session close, not committed.
+- `plans/talk-2026-09-23.md` updated throughout — Phase A marked done, new risk 7 opened
+  (Q&A-via-site-chat needs the talk content ingested into Humboldt's context before
+  09-23, not yet designed).
+
+**Open:** operator's edit-pass feedback on `track.md`, expected next session. Then Phase
+B (evidence refresh, post-09-01), Phase C (deck + voice + Q&A-ingest design), Phase D
+(rehearsal + deploy decision). Carried over from session 31: supervisor review of
+L-012–L-016, `agent/references.py` dead-path bug, read-outage prevention unverified
+against live traffic (still offline until 09-01).
+
+---
+
 ## 2026-08-18 (session 31) — Egress prevention + monitoring; conference talk planned
 
 **Daemon PID:** 24438 (running, unpaused) — hot-reloaded mid-session; running this
