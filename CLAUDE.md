@@ -163,6 +163,17 @@ python3 -m agent.humboldt read-unpause                 # clear the pause
 python3 -m agent.humboldt read-cache [status|clear|prune]  # clear after a large c3po ingest
 # Daemon task_read_budget_watch DMs the operator at 70% of the cap and on a trip
 # (once per month per event, pause-gated, always logged at WARNING).
+#
+# This module is now the documented REFERENCE implementation for the read-side half of
+# a cross-project pattern — see ../admin/sop-pinecone-quota-management.md (2026-09-01).
+# c3po hit the same account-wide egress quota independently and ported this design into
+# api/worker.js rather than the two projects sharing code (no shared-package infra between
+# the repos; revisit if a third bot joins this Pinecone account). c3po's write-side guard
+# (ingest/utils.py _GuardedIndex) uses a MORE GENERAL quota-name regex than QUOTA_MARKERS
+# above (`reached your (.+) limit` vs. this file's hardcoded ("egress limit", "read unit
+# limit") tuple) — the hardcoded version is exactly the shape of bug that made the 2026-08
+# egress quota invisible for days the first time. Worth porting c3po's regex into
+# read_budget.py/chat.js next time either is touched.
 
 # Generate candidate laws for a topic (no file output)
 python3 -m agent.humboldt hypothesize "coordination cost"
