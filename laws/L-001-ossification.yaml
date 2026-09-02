@@ -97,6 +97,16 @@ open_questions:
   - "Is asymmetric power (enforcement nodes) a general modifier of the law or a special case
     exclusion?"
 
+  - "Resolve the mechanism contest before drafting the separation artifact. Two executable items:
+    (1) Find a discriminating case for seed-027 — a distributed protocol whose backward-incompatible
+    change rate can be measured against BOTH implementation count (coordination-cost prediction)
+    and practitioner-cohort turnover (Planck prediction); common law overturn timing vs. judicial
+    generational turnover is a candidate dataset. (2) Resolve seed-001 by specifying the third
+    variable: retrieve or construct evidence on what distinguishes street-food-market formalization
+    (adaptive) from TCP/IP formalization (ossified) — candidate: whether conforming implementations
+    are independently upgradeable (local adaptation) vs. requiring global simultaneity. Add
+    the resulting scoping condition to the statement. Until (1) and (2) are addressed, the advance
+    trigger's \"4+ independent domains\" claim is not clean."
 falsification: >
   A protocol achieving wide adoption that was subsequently modified — requiring true
   backward-incompatibility — with proportionally less difficulty than a narrowly-adopted
@@ -152,3 +162,7 @@ history:
     detail: 'Whether ossification is a necessary consequence of formalization or an independent
       variable: seed-001 observes that street food markets can be highly formalized (licensing,
       fees, operating hours) yet remain behaviorally adaptive — suggesting…'
+  - date: '2026-09-01'
+    event: edited
+    detail: 'assessment HOLD — gap: Resolve the mechanism contest before drafting the separation
+      artifact. Two executable items: (1) Find a discriminating case for seed-027 — a distribut'

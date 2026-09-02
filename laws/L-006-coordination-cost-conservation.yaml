@@ -52,6 +52,13 @@ examples:
       versioning, backward-compatibility maintenance."
     source: null
 
+  - domain: Federated clinical data collaboration under differential privacy
+    description: 'Seed 173 (Privacy Formalization as Coordination Cost Relocation) describes
+      a direct instantiation of L-006: differential privacy noise introduced to reduce coordination
+      cost at the data-sharing layer is countered by adding server-side adaptive mechanisms
+      to recover accuracy, relocating the coordination cost rather than eliminating it. The
+      total burden is conserved.'
+    source: seed-173
 counterexamples:
   - description: "Compression protocols (DEFLATE/gzip) appear to genuinely reduce cost without
       redistribution."
@@ -117,3 +124,9 @@ history:
     event: evidence
     detail: 'reference arxiv-2606.01874 (deep read): Whether decentralization redistributes
       coordination cost rather than reducing it'
+  - date: '2026-09-02'
+    event: evidence
+    detail: 'Coordination cost conservation across layer transitions; specifically, the case
+      where privacy mechanisms relocate rather than reduce coordination cost: Seed 173 (Privacy
+      Formalization as Coordination Cost Relocation) describes a direct instantiation of L-006:
+      differential privacy noise introduced to reduce…'

@@ -63,6 +63,14 @@ examples:
       agents are strategic, because they can optimally allocate whatever circumvention capacity
       remains. The gap between a leakage bound and a harm bound is the novel structural point.'
     source: arxiv-2606.09931 (deep read)
+  - domain: Web security and bot detection
+    description: "Seed 161 (Verification-Cost Collapse Under Reasoning-Enabled Adversaries)
+      describes how proxy-based verification (request patterns, timing statistics, header anomalies)
+      collapses when adversaries acquire semantic reasoning — the entire proxy family becomes
+      simultaneously non-distinguishing. This is an extreme case of L-002's hardness asymmetry:
+      verification cost (detecting a sophisticated bot) increases dramatically while circumvention
+      cost (mimicking human request patterns using an LLM) collapses."
+    source: seed-161
 counterexamples:
   - description: "Simple passwords: circumvention and verification costs converge."
     resolution: "Design failure (weak hardness), not a counterexample — the law claims the asymmetry
@@ -122,3 +130,9 @@ history:
     detail: 'Hardness asymmetry when communicating parties are strategic agents rather than
       specified programs: arxiv-2606.09931 (Schroeder de Witt) shows that for strategic agents
       with shared coordination resources, classical confinement bounds on information flow lose…'
+  - date: '2026-09-02'
+    event: evidence
+    detail: 'Structural decoupling of verification cost and circumvention cost; specifically,
+      the collapse of proxy-based verification under reasoning-enabled adversaries: Seed 161
+      (Verification-Cost Collapse Under Reasoning-Enabled Adversaries) describes how proxy-based
+      verification (request patterns, timing statistics, header…'

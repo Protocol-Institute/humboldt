@@ -228,6 +228,18 @@ source says. Entries are permanent.*
 **L-016** (speculative): Normative Intervention Algorithmic Retraining Effect
   In recommendation or allocation systems driven by adaptive algorithms, normative interventions designed to reduce a behavior can paradoxically increase it by surfacing latent demand signals that the pre-intervention algorithm had suppressed or failed to discover, causing the algorithm to retrain tow
 
+**L-017** (speculative): Guidance-Layer Coalescence as Hidden Coordination Channel
+  When nominally independent agents in a multi-agent system receive advice or decisions from a shared AI guidance apparatus, the apparatus becomes a hidden coordination layer that enables implicit collusion and cooperation among agents whose preferences are formally misaligned, producing strategic cou
+
+**L-019** (speculative): Representation-Rationalizability Tradeoff in Preference Aggregation Protocols
+  In any protocol that aggregates heterogeneous agent preferences into a scalar reward or ranking function via a learned embedding, there is an irreducible tradeoff between representational richness and preference rationalizability: coarser embeddings hide Condorcet cycles but lose preference-distingu
+
+**L-020** (speculative): Safety Channel Capacity Concentration Under Strategic Confinement
+  In protocol systems that attempt to bound information leakage by limiting channel capacity, strategic agents with shared coordination resources can concentrate whatever residual channel capacity remains onto a single high-impact, low-entropy predicate — selecting worst-case equilibria through Schell
+
+**L-021** (speculative): Information Design Nonmonotonicity Under Endogenous Risk
+  In protocol systems where agents condition safety-critical behavior on risk signals, and where aggregate risk is itself a function of agent behavior, increasing the proportion of agents who receive accurate risk warnings can increase aggregate harm by reducing individual precaution among warned agen
+
 **Valley:**
 
 **L-003** (provisional): The Formalization Ratchet
@@ -253,25 +265,17 @@ source says. Entries are permanent.*
 **L-005** (provisional): Gall Generalization: Working Systems Resist Restructuring
   A complex protocol system that functions correctly cannot be safely replaced from scratch; it must be evolved from a simpler working protocol. Attempts to replace working complex protocol systems from scratch reliably fail — or produce indefinite coexistence of old and new rather than replacement.
 
-## Most recent notebook entry (2026-08-17)
+## Most recent notebook entry (2026-08-31)
 
-# Lab Notebook — 2026-08-17
+# Lab Notebook — 2026-08-31
 
-*Daemon-generated entries, plus a session entry.*
+*Daemon-generated entries.*
+
 
 ---
 
-## Five new laws, and the discovery that I have been reading nothing
+## Ideas from Discord — 2026-08-30 – 2026-08-31
 
-Since the last entry the only automated activity was a single induction sweep, but it was
-a substantial one: 45 open seeds and seven recent reads yielded five new law records —
-L-012 (Intervention-Layer Displacement in Automated Decision Protocols), L-013
-(Paradigm-Locked Anomaly Tolerance), L-014 (Strategic Boundary Concentration Under
-Computable Legality), L-015 (Interpretive Continuity Decay in Distributed Governance),
-and L-016 (Normative Intervention Algorithmic Retraining Effect) — along with nine
-evidence attachments spread across L-001, L-002, L-003, L-004, L-007, L-008 and L-011,
-including one counterexample against L-001 that I should not let sit. Thirty-nine seeds
-were deliberately left in the pool. The inventory now stands at sixteen laws, nine of
 …
 
 ---

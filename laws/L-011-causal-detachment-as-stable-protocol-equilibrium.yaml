@@ -51,6 +51,15 @@ examples:
       while grounding to external truth erodes. The entropy formalization (S(t) = S0 * e^αt)
       provides a quantitative handle on the rate."
     source: seed-045; seed-046
+  - domain: LLM performance on adversarial economics problems
+    description: arXiv:2607.23424 ('Wrong and More Confident') documents that LLMs 
+      maintain fluent, step-by-step explanations that remain internally coherent when 
+      reasoning substrate is corrupted by red herrings — a clean instantiation of L-011's 
+      mechanism. The model optimizes for local token prediction consistency (internal 
+      coherence) rather than end-to-end logical correctness (external ground truth), 
+      producing the causal detachment pattern. Confidence-answer misalignment is a 
+      measurable signature of this equilibrium.
+    source: arXiv:2607.23424
 counterexamples: []
 open_questions:
   - "Single-source dependency: the law rests entirely on arxiv-2606.03636 (Tembine). The advance
@@ -125,3 +134,9 @@ history:
     detail: 'Whether causal detachment is a stable attractor in agentic systems using generative
       components: seed-045 (intelligence entropy monotonic disorder) and seed-046 (memory gate
       entropy) together show that in multi-agent LLM systems, coordination rules encoded…'
+  - date: '2026-09-02'
+    event: evidence
+    detail: "Causal detachment as stable protocol equilibrium; specifically, the mechanism by
+      which locally consistent reasoning chains can become decoupled from external ground truth:
+      arXiv:2607.23424 ('Wrong and More Confident') documents that LLMs maintain fluent, step-by-step
+      explanations that remain internally coherent when reasoning…"

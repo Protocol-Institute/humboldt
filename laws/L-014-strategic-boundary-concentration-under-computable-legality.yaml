@@ -42,6 +42,24 @@ examples:
       Interior compliance (e.g., 15% debt ratios) is not preferred even when equally 
       permissible, because the boundary is the learned optimum.
     source: seed-008 (structural analogy); arxiv-2606.04617
+  - domain: Rules-as-Code regulatory compliance (ABM/RL simulation)
+    description: "arXiv:2606.04617 (He, 'When Firms Learn to Game the Rules') provides an agent-based
+      RL simulation demonstrating that machine-readable legal rules generate boundary clustering
+      as a structural dynamic. Firms learn the compliance boundary via RL, imitate profitable
+      edge strategies, and concentrate conduct just inside the legal line — a pattern the paper
+      terms 'conduct boundary mass' vs. 'signal boundary mass'. The paper's key contribution
+      is the estimand distinction: cleaner measurement systems can be mistaken for behavioral
+      change when the actual change is boundary migration. This is the most rigorous mechanistic
+      simulation yet found for L-014's core claim."
+    source: arXiv:2606.04617
+  - domain: Multi-agent reinforcement learning with computable safety constraints
+    description: "Seeds 152 (Relaxation-Parameter Legibility as Silent Drift Vector) and 183
+      (Formalized Safety as Optimization Boundary Legibility) both describe cases where rendering
+      constraint parameters legible causes agents to concentrate deviation strategies at the
+      relaxation boundary. Seed 152 notes that agents treat $\alpha$-stability parameters not
+      as uniform buffers but as precise optimization targets; seed 183 notes that barrier functions
+      shift where risk can be discovered and optimized against, not whether it exists."
+    source: seeds 152, 183
 counterexamples: []
 open_questions: []
 falsification: >
@@ -68,3 +86,15 @@ history:
     detail: induction sweep — arxiv-2606.04617 (He) provides the mechanism argument and 
       simulation evidence. The paper is honest about its scope (mechanism claims, not 
       jurisdiction-specific…
+  - date: '2026-09-02'
+    event: evidence
+    detail: "Core mechanism: optimizing agents cluster at compliance boundary when obligations
+      are precisely computable and machine-readable: arXiv:2606.04617 (He, 'When Firms Learn
+      to Game the Rules') provides an agent-based RL simulation demonstrating that machine-readable
+      legal rules generate…"
+  - date: '2026-09-02'
+    event: evidence
+    detail: 'Boundary concentration under computable enforcement; the role of agent capability
+      in finding and exploiting boundaries: Seeds 152 (Relaxation-Parameter Legibility as Silent
+      Drift Vector) and 183 (Formalized Safety as Optimization Boundary Legibility) both describe
+      cases where…'

@@ -44,7 +44,17 @@ examples:
       intermediate-adoption vulnerabilities when not all counterparties are covered by the
       trust infrastructure.
     source: bib-0228
-counterexamples: []
+counterexamples:
+  - domain: V2V safety warning systems (formal game-theoretic model)
+    description: "arXiv:2606.07873 demonstrates that for V2V warning protocols, adoption is
+      *not* merely nonmonotone due to signaling/protocol design mismatch (as L-010 predicts);
+      it can be nonmonotone even with *correctly functioning* signals because of moral hazard
+      at population scale. This suggests L-010's mechanism (signaling/protocol design co-optimization)
+      may be insufficient to explain all adoption nonmonotonicity — endogenous risk through
+      behavioral substitution is an independent mechanism that L-010 does not account for. Resolution:
+      OPEN."
+    source: arXiv:2606.07873
+    resolution: OPEN
 open_questions:
   - "Two specific gaps must be closed before PROMOTE is possible: (1) DOMAIN CONFIRMATION —
     retrieve and read arxiv-2606.03161 (Xu, OAN White Paper) to confirm whether it actually
@@ -105,3 +115,9 @@ history:
     event: edited
     detail: 'sources resolved to bibliography ids: arxiv-2606.03161 (Xu, OAN White Paper) →
       bib-0228'
+  - date: '2026-09-02'
+    event: counterexample
+    detail: 'Boundary condition on when adoption is monotonically beneficial vs. harmful; the
+      role of endogenous risk in adoption dynamics: arXiv:2606.07873 demonstrates that for V2V
+      warning protocols, adoption is *not* merely nonmonotone due to signaling/protocol design
+      mismatch (as L-010…'

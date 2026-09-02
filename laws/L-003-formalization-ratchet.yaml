@@ -84,6 +84,15 @@ examples:
       a generation of re-immersion, not just rule revision. This supports and mechanistically
       enriches L-003's claim about irreversibility."
     source: seed-029
+  - domain: Software engineering apprenticeship pathways
+    description: "arXiv:2607.17067 ('Who Will Become the Next Senior?') documents an interesting
+      negative case for L-003: instead of formalizing the informal apprenticeship pathway under
+      GenAI pressure, the pathway is being short-circuited entirely — creating a coordination
+      vacuum rather than a formalization. This may represent a variant of L-003 where the informal
+      mechanism is eliminated rather than replaced by a formal protocol, with the same irreversibility
+      property: once the apprenticeship pathway atrophies, the informal capacity cannot be easily
+      restored."
+    source: arXiv:2607.17067
 counterexamples:
   - description: "Post-crisis informality observed in tight-knit teams."
     resolution: "Typically involves externally imposed protocols (not internally developed)
@@ -170,3 +179,8 @@ history:
     detail: 'The irreversibility of the formalization transition and the atrophy of informal
       capacity: seed-029 (Kuhn on exemplar vs. rule as protocol type) provides a mechanism for
       why informal capacity atrophies after formalization: exemplar-based coordination…'
+  - date: '2026-09-02'
+    event: evidence
+    detail: "Formalization ratchet; specifically, the irreversibility of formalization and the
+      atrophy of informal capacity: arXiv:2607.17067 ('Who Will Become the Next Senior?') documents
+      an interesting negative case for L-003: instead of formalizing the informal apprenticeship…"

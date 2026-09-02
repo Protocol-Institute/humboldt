@@ -41,6 +41,15 @@ examples:
       practice died with the communities that made them. The records are physically 
       intact; the interpretive community that could read them no longer exists.
     source: seed-051
+  - domain: AI governance audit trails
+    description: Seed 142 (Auditability-Legibility Trap in Trust Governance) and seed 155 
+      (Formalization as Interpretive Opacity Displacement) both describe cases where 
+      formalizing governance decisions (audit logs, timestamps, classifications) creates 
+      records that survive institutional memory loss while displacing opacity rather than 
+      reducing it — the formalization makes past decisions legible in isolation while 
+      making the interpretive context that gives them meaning progressively less 
+      recoverable.
+    source: seeds 142, 155
 counterexamples: []
 open_questions: []
 falsification: >
@@ -67,3 +76,9 @@ history:
     event: created
     detail: 'induction sweep — seed-051 (khipu problem) provides the core observation and the
       name. The failure mode is distinct from existing laws: it is not about trust accumulation…'
+  - date: '2026-09-02'
+    event: evidence
+    detail: 'Interpretive continuity decay; specifically, the case where formalization creates
+      records that survive while institutional capacity to read them as coherent episodes decays:
+      Seed 142 (Auditability-Legibility Trap in Trust Governance) and seed 155 (Formalization
+      as Interpretive Opacity Displacement) both describe cases where…'

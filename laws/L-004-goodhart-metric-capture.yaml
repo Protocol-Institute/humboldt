@@ -80,6 +80,23 @@ examples:
       patient recovery, student success) degrades. The cross-domain documentation across three
       independent sectors strengthens L-004's generality claim."
     source: arxiv-2606.25668 (shallow read 2026-08-10)
+  - domain: AI content moderation and political neutrality auditing
+    description: Seed 134 (Neutrality-Proxy Redistribution Under Legible Optimization) 
+      describes a pattern where systems designed to satisfy political neutrality metrics 
+      achieve metric compliance by redistributing bias to unmeasured dimensions rather 
+      than eliminating it — illustrated by Grokipedia vs Wikipedia comparison. This is a 
+      clean instance of L-004 where the proxy is a normative property rather than a 
+      performance metric, and where the redistribution mechanism preserves surface 
+      compliance while degrading the underlying goal.
+    source: seed-134
+  - domain: RLHF preference learning
+    description: 'arXiv:2606.00291 (Dong, Yu & Poupart) demonstrates that the embedding layer
+      in reward learning is itself a site of Goodhart capture: when the embedding is jointly
+      trained with the reward model, the system optimizes the embedding toward cycle-hiding
+      coarseness rather than toward preference fidelity, because cycle-hiding reduces measurable
+      training loss. The paper proves this is structurally unavoidable given the cycle geometry
+      of heterogeneous preference data.'
+    source: arXiv:2606.00291
 counterexamples:
   - description: "Well-designed metrics resist capture because achieving the metric requires
       achieving the goal."
@@ -156,3 +173,15 @@ history:
       specifically the prediction-to-outcome decoupling in automated decision systems: arxiv-2606.25668
       documents empirically that improving prediction accuracy in automated decision systems
       does not reliably improve downstream outcomes and may…'
+  - date: '2026-09-02'
+    event: evidence
+    detail: 'Proxy corruption under optimization pressure; specifically, the case where the
+      proxy is a normative property (neutrality, fairness) that becomes measurable: Seed 134
+      (Neutrality-Proxy Redistribution Under Legible Optimization) describes a pattern where
+      systems designed to satisfy political neutrality metrics…'
+  - date: '2026-09-02'
+    event: evidence
+    detail: 'Proxy corruption in preference aggregation; specifically, the representation layer
+      as a site of Goodhart capture: arXiv:2606.00291 (Dong, Yu & Poupart) demonstrates that
+      the embedding layer in reward learning is itself a site of Goodhart capture: when the
+      embedding is…'

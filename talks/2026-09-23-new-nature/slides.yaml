@@ -211,8 +211,17 @@ slides:
     word_budget: 103
     bullets:
       - "Every law on this stage has a stated falsification condition"
-      - "Nine more laws in exploration — not shown, not yet law-shaped"
-      - "Next: the open counterexample on L-001, once corpus reads are back"
+      - "Thirteen more laws in exploration — not shown, not yet law-shaped"
+      - "Ossification's counterexample: assessed, held, and now has two named tests"
+    notes: >
+      Counts updated 2026-09-02 after a backlog sweep and induction run: exploration
+      laws went 9 → 13 (L-017, L-019, L-020, L-021 added; a fifth proposal was rejected
+      as a self-retracted duplicate). The old third bullet promised the L-001
+      counterexample as future work "once corpus reads are back" — reads returned
+      2026-09-01 and the assessment ran the same day, verdict HOLD, so the honest
+      version reports the result: it is still open, but it now has two executable
+      tests rather than being merely unresolved. Re-check both numbers before 09-23 if
+      another induction sweep runs (plan risk 6).
 
   - id: "15"
     title: "Where this lives"

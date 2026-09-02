@@ -44,6 +44,13 @@ examples:
       accumulation but by the crystallization of a credible alternative understanding of 
       correlated default risk — available only in retrospect.
     source: seed-031 (structural analogy)
+  - domain: Biosecurity risk classification protocols
+    description: Seed 133 (Metric Formalization as Paradigm Lock in Safety Protocols) 
+      describes how tiered biological risk metrics become the optimization target rather 
+      than the safety goal, and how established protocol systems tolerate accumulating 
+      evidence of metric failure without triggering revision — because the metric is now 
+      infrastructure that audit, reporting, and liability have been built around.
+    source: seed-133
 counterexamples: []
 open_questions: []
 falsification: >
@@ -71,3 +78,9 @@ history:
     detail: "induction sweep — seeds-028, 031, and 027 together construct this pattern from
       Kuhn's analysis of normal science. seed-031 is the pivotal one: it specifies that crisis
       without a…"
+  - date: '2026-09-02'
+    event: evidence
+    detail: 'Paradigm-locked anomaly tolerance; specifically, the mechanism by which safety
+      metrics become locked as infrastructure even when they demonstrably fail to prevent the
+      original harm: Seed 133 (Metric Formalization as Paradigm Lock in Safety Protocols) describes
+      how tiered biological risk metrics become the optimization target rather than…'
