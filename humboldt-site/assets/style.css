@@ -97,7 +97,10 @@ td {
   display: flex;
   align-items: center;
   gap: 2rem;
-  height: 52px;
+  /* min-height, not height: the links wrap once the nav carries eight items, and a
+     fixed height let the wrapped row overflow the sticky header's box and land on
+     top of the page content instead of growing the header. */
+  min-height: 52px;
 }
 
 .nav-brand {
@@ -125,7 +128,11 @@ td {
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: #666;
-  padding: 0.35rem 0.75rem;
+  /* Tightened from 0.75rem when /supervision/ made this an eight-item nav: at
+     0.75rem the row wrapped, and a two-row sticky header covers body text on
+     scroll. Revisit if a ninth item is added — past that, the nav needs a
+     different structure, not smaller padding. */
+  padding: 0.35rem 0.55rem;
   border-radius: 3px;
   text-decoration: none;
   transition: background 0.15s, color 0.15s;

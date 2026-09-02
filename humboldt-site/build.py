@@ -45,6 +45,7 @@ PAGES = [
     ("/bibliography/", "Bibliography"),
     ("/reading/",      "Reading"),
     ("/architecture/", "Architecture"),
+    ("/supervision/",  "Supervision"),
     ("/about/",        "About"),
 ]
 
@@ -159,6 +160,135 @@ def _build_about() -> None:
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(_page("About", "/about/", body))
     print("  About → dist/about/index.html")
+
+
+# ── Supervision protocol ──────────────────────────────────────────────────────
+
+def _build_supervision() -> None:
+    """The supervisor's operating protocol — cadence, surfaces, and the decisions
+    that cannot be delegated.
+
+    Deliberately generic: every identifier on this page is a placeholder
+    (L-NNN, q-NNNN, seed-NNN, @handle). It documents the *shape* of supervising an
+    artificial researcher, not the current state of this one — that lives on
+    /laws/, /notebook/ and the private console. Keep it that way when editing:
+    the moment it carries real pending items it becomes a status page that goes
+    stale, instead of a protocol that stays true.
+    """
+    body = """\
+    <div class="page-header">
+      <h1>Supervision Protocol</h1>
+      <p class="page-tagline">How a human supervises an artificial researcher — what runs unattended, what needs a decision, and when. Written for one supervisor of one researcher; offered as a pattern for anyone building the same thing.</p>
+    </div>
+
+    <div class="about-body">
+
+      <p>Humboldt runs a research funnel largely on its own: it gathers material, triages it, reads at two depths, induces candidate laws, tests them against their own promotion conditions, and publishes what survives. None of that requires a human in the loop.</p>
+
+      <p>What <em>does</em> require a human is narrow, and it is worth naming precisely — an artificial researcher that needs constant attention is not autonomous, and one that needs none is not supervised. The supervisor is a <strong>PhD advisor</strong>, not an operator: setting direction, ruling on what counts as knowledge, and reading the instruments — not running the machinery.</p>
+
+      <p class="note-block">Every identifier below is a placeholder. <code>L-NNN</code> is a law, <code>q-NNNN</code> a queue entry, <code>seed-NNN</code> a research fragment, <code>@handle</code> a community member. This page describes the protocol, not today's state.</p>
+
+      <h2>The division of labour</h2>
+
+      <table class="sup-table two-col">
+        <tr><th>Runs unattended</th><th>Needs the supervisor</th></tr>
+        <tr>
+          <td>Intake, triage, shallow reads, induction sweeps, assessments, publication, falsification monitoring</td>
+          <td>What counts as a law · identity and voice · anything irreversible or externally visible · resolving a contested mechanism</td>
+        </tr>
+      </table>
+
+      <h2>Cadence</h2>
+
+      <p>Four rhythms, in descending frequency. The weekly beat is the real one; the daily glance exists only to catch a stopped machine early.</p>
+
+      <h3>Daily — about two minutes</h3>
+      <ul>
+        <li><strong>Open the console dashboard.</strong> Four things, all visible at once: is the daemon alive, is it paused, are corpus reads available, and is spend tracking under the daily cap.</li>
+        <li>If all four are green, stop. There is nothing else to do daily, and looking for work here is how supervision becomes operation.</li>
+      </ul>
+
+      <h3>Weekly — about twenty minutes</h3>
+      <ul>
+        <li><strong>Read the analytics report.</strong> Law events this week against the trailing four; funnel throughput; queue depths and their <em>trend</em>, which matters more than their level.</li>
+        <li><strong>Work the approval queue.</strong> Approve, edit-then-approve, or reject each pending entry with a one-line rationale. Nothing the researcher drafts about its own behaviour runs before this step.</li>
+        <li><strong>Scan the flags.</strong> A <em>prune candidate</em> is a behaviour that has stopped earning its place. A <em>split candidate</em> is one consuming an outsized share, or a queue growing week over week. A <em>stalled law</em> is one with no history event in six weeks — usually a prompt to assess it, occasionally a prompt to let it go.</li>
+      </ul>
+
+      <h3>Per research session</h3>
+      <ul>
+        <li><strong>Open:</strong> read the last two notebook entries and the automated-activity queue — what happened while you were away — then pick the session's focus from the current arc position rather than from a backlog.</li>
+        <li><strong>Close:</strong> notebook entry, agenda update, development log, commit, push. The log entry is not optional on short or inconclusive sessions; those are the ones whose reasoning is hardest to reconstruct later.</li>
+      </ul>
+
+      <h3>Event-driven — when the system asks</h3>
+      <ul>
+        <li><strong>A hard brief arrives.</strong> Some proposals cannot be auto-drafted: they change what counts as evidence, touch identity, spend differently, or cannot be undone. These arrive as a structured brief naming the specific questions only a supervisor can answer. Answering the questions is usually enough — the request then re-enters as a routine one.</li>
+        <li><strong>A law is created without a real test.</strong> When induction omits a law's promotion or challenge condition, a placeholder is written and flagged. Rewrite it before the next assessment, or the assessment grades boilerplate.</li>
+        <li><strong>A budget threshold trips.</strong> Metered dependencies warn while budget remains, not after it is gone. Treat the warning as the event.</li>
+        <li><strong>Something wants to go outside.</strong> Publishing, announcing, merging, deploying. See below.</li>
+      </ul>
+
+      <h2>The decisions that cannot be delegated</h2>
+
+      <p>Four kinds. Everything else is machinery.</p>
+
+      <table class="sup-table">
+        <tr><th>Decision</th><th>Why it stays human</th><th>Looks like</th></tr>
+        <tr><td>What counts as a law</td><td>The epistemic bar is the research programme. Move it and every record silently re-grades.</td><td>Rewriting <code>L-NNN</code>'s promotion condition; ruling on whether an example is genuinely independent evidence</td></tr>
+        <tr><td>Identity and voice</td><td>A researcher that edits its own persona is no longer the same researcher between sessions.</td><td>Changes to identity, method, or lineage documents</td></tr>
+        <tr><td>Irreversible or outward-facing acts</td><td>Reversible mistakes are learning. Irreversible ones are the supervisor's to authorise.</td><td>Merging, publishing to the live site, announcing a result, deleting a record</td></tr>
+        <tr><td>Contested mechanisms</td><td>When two accounts explain the same evidence, choosing the discriminating test is the research act itself.</td><td>Deciding what case would separate rival explanations for <code>L-NNN</code></td></tr>
+      </table>
+
+      <h2>Where each thing lives</h2>
+
+      <table class="sup-table">
+        <tr><th>Surface</th><th>Carries</th><th>Reach it by</th></tr>
+        <tr><td>Public site</td><td>Published output — laws, notebook, reading, bibliography. Read-only.</td><td>This site</td></tr>
+        <tr><td>Supervisor console</td><td>Dashboard, law editor, behaviour graph, approval queue, analytics. Read–write.</td><td>Bound to localhost; reached over an SSH tunnel to the research server</td></tr>
+        <tr><td>Command line</td><td>Everything the console does, plus the engines themselves</td><td>A session on the server or a local checkout</td></tr>
+        <tr><td>Community channel</td><td>Conversation, and law events when they occur</td><td>The Protocol Institute Discord</td></tr>
+        <tr><td>Version control</td><td>The audit trail. Every automated write is a commit.</td><td>The public repository</td></tr>
+      </table>
+
+      <p>The console is deliberately not on this site. Published output is for everyone; the controls are for one person, and putting them behind a public URL would mean building an authentication system to protect something an SSH tunnel already protects.</p>
+
+      <h2>Standing rules</h2>
+
+      <ul>
+        <li><strong>Flags are proposals, never actions.</strong> The researcher can propose changing how it works. It cannot make the change. That asymmetry is the whole safety model.</li>
+        <li><strong>Approval and application are separate.</strong> Approving records a judgement; applying enacts it. Keeping them apart leaves room to review a judgement before it takes effect.</li>
+        <li><strong>Every request names what it relieves.</strong> A proposal that adds capability without connecting to existing work is rejected by default. Unconnected additions are what stub graveyards are made of.</li>
+        <li><strong>Pausing is not stopping.</strong> A paused researcher keeps its state and stops acting outward. Anything that can be observed from outside is gated; anything internal continues.</li>
+        <li><strong>An empty result is never a silent one.</strong> When a capability is unavailable, the researcher says so rather than returning nothing — a silent zero is indistinguishable from a finding of none.</li>
+      </ul>
+
+      <p class="note-block">This protocol is itself under revision, and revisions are logged like everything else. If it describes a supervision burden that has grown rather than shrunk, that is a finding about the system, not a failure of the document.</p>
+
+    </div>"""
+
+    extra_css = """
+    .note-block { background: #f5f5f2; border-left: 3px solid #2A6B6B;
+      padding: 0.9rem 1.15rem; margin: 1.6rem 0; font-size: 0.92rem; color: #555; }
+    .note-block code { background: #e8e8e2; }
+    .sup-table { margin: 1.2rem 0 2rem; font-size: 0.88rem; }
+    .sup-table th { border-bottom: 2px solid #2A6B6B; padding: 0.4rem 1rem 0.4rem 0;
+      color: #2A6B6B; font-weight: 500; vertical-align: bottom; }
+    .sup-table td { padding: 0.55rem 1rem 0.55rem 0; vertical-align: top; line-height: 1.5; }
+    .sup-table tr td:first-child { font-weight: 500; color: #1A1A1A; width: 26%; }
+    /* The 26% label column suits the three-column tables (term / why / example);
+       in the two-column one both sides are prose and need an even split. */
+    .sup-table.two-col tr td:first-child { width: 50%; font-weight: 400; color: #1A1A1A; }
+    .sup-table.two-col td { padding-right: 1.5rem; }
+    .about-body h3 { color: #2A6B6B; margin-top: 1.7rem; }
+    """
+
+    out = _DIST / "supervision" / "index.html"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(_page("Supervision Protocol", "/supervision/", body, extra_css=extra_css))
+    print("  Supervision → dist/supervision/index.html")
 
 
 # ── Notebook ──────────────────────────────────────────────────────────────────
@@ -743,6 +873,7 @@ def build() -> None:
     _DIST.mkdir(parents=True, exist_ok=True)
     print("Building humboldt-site...")
     _build_about()
+    _build_supervision()
     _build_notebook()
     _build_laws()
     _build_bibliography()

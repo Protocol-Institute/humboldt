@@ -59,6 +59,18 @@ metacognition slides; L-008–L-016 excluded as too speculative to present as ca
 
 **Freeze-immune** — composition from law records is not retrieval, so Phase A proceeded now.
 
+0. **[H] NEXT SESSION — Phase B′: publish the talk publicly, then refine it in public.**
+   Operator decision 2026-09-02 (`plans/talk-2026-09-23.md` §5.6). Two priorities:
+   (a) put the talk on the **live** site at `/talks/2026-09-23-new-nature/`, real domain;
+   (b) iterate it over **multiple rounds of public review and comment**, replacing the
+   single private supervisor edit pass that has been pending since session 32.
+   **This reopens risk 3.** The production URL was scheduled to arrive with the Phase 5
+   merge on 09-16 — too late for multiple rounds before 09-23. The talk deploy must be
+   decoupled from the Phase 5 merge; recommendation is to cherry-pick the page onto
+   `main` rather than merge the untested redesign early. Decide that first: it determines
+   which branch `_build_talk_page()` targets. Also: build the page **text-first, without
+   audio** (inverts §5.5's dependency chain), and pick a comment channel before round one.
+
 1. ~~**[H] Phase A (by 08-25):**~~ **DONE (session 32, 2026-08-18)**, ahead of target.
    `brief.md`, `slides.yaml` (15 slides), `prompts/talk.md`, `agent/talk.py`
    (`draft`/`check`/`voice`/`time`) all built; `track.md` v1 generated and `check`-clean.
