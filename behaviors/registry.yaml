@@ -1,328 +1,269 @@
 # Humboldt Behavior Registry
 #
-# Canonical inventory of all named behaviors.
+# Canonical inventory of all named behaviors. Rewritten 2026-09-01 (redesign Phase 3)
+# against the pruned keep-list in plans/redesign-2026-08.md §6.1: the eight funnel
+# stages (§5) plus orient / respond / graph-evolve / supervisory. The previous
+# 26-behavior registry — boot-000/001 and ~14 never-implemented stubs (Backpocket
+# Viewing, Curiosity Browsing, Field Trip, Bullshit Detector, Cross-Training, Dyson
+# Design, Design Fictions, …) — is deleted, not carried as dead weight. Good ideas
+# among them re-enter as behavior requests through the definition pipeline
+# (§6.3, behaviors/definition-rubric.md), which is what the approval queue is for.
 #
-# Classification:
-#   supervised — triggered explicitly by the operator via CLI or live session
-#   live       — can run autonomously during a Claude Code session
-#   daemon     — runs outside live sessions (Discord bot, scheduled tasks)
+# Entry schema (§6.2) — every entry must be complete enough to run, or to hand to a
+# definition session:
 #
-# State:
-#   stub        — defined, not yet implemented
-#   prototyping — partially implemented; in active development
-#   production  — running reliably; considered stable
+#   id           stable slug; matches the behavior_id written to behaviors/log.jsonl
+#   name         human label
+#   phase        Double Freytag phase this behavior serves (see mdp.yaml `phases`)
+#   status       active | proposed | retired
+#                  active   — built and running
+#                  proposed — specified here, not yet implemented; entrypoint is the
+#                             intended path, not an existing file
+#                  retired  — kept for log provenance; never scheduled
+#   defined_by   claude-sonnet | claude-opus | supervisor
+#   trigger      plain-language firing condition, supervisor-editable
+#   action.entrypoint  module:function that runs it
+#   action.model       runtime model tier, or null for code-only behaviors
+#   action.prompt      prompt file, or null when the prompt is inline in the module
+#   produces     event vocabulary this behavior appends to the log / events spine
+#   utilization  `auto` — filled by analytics (Phase 4) from behaviors/log.jsonl
 #
-# Phase: primary Double Freytag phase this behavior serves.
-#   liminal      — between arcs; wandering, capacity-building, reorientation
-#   exploration  — active curiosity; cheap-trick seeking; reading; observation
-#   sensemaking  — pattern recognition; hypothesis formation
-#   valley       — candidate law development; stress-testing
-#   heavy_lift   — theory synthesis (no behaviors yet)
-#   retrospective — falsification monitoring (no behaviors yet)
-#   daemon       — always-on background processes; outside research phase flow
-#
-# Boot behaviors are triggered deterministically by the bootstrap sequence.
-# All others use behavior-### IDs with random 3-char hashes.
+# NOTE ON action.model: nothing reads this field yet. The live values are the module
+# constants (INDUCT_MODEL, _TRIAGE_MODEL, ASSESS_MODEL_ROUTINE/HARD, …) and this
+# registry records what those constants actually say today — deliberately NOT the
+# aspirational ids in the §6.2 spec example, so the registry does not quietly disagree
+# with what runs. When the console starts reading this field (Phase 3/4), the module
+# constants become the fallback, and any drift surfaces then rather than silently.
 
 behaviors:
 
-  # ── Boot sequence ──────────────────────────────────────────────────────────
+  # ── Funnel stage 1–4: intake and reading ───────────────────────────────────
 
-  - id: boot-000
-    name: Wakeup Sequence
-    description: Establish situation awareness before any decisions — read notebook, scan inbox, check agenda, review law/hypothesis inventory.
-    classification: supervised
-    state: production
-    phase: liminal
-    source: BOOTSTRAP.md
-    implementation: sequential file reads; LLM-free; produces orientation state for boot-001
-
-  - id: boot-001
-    name: OODA Decision Gate
-    description: After orientation, decide whether to run a routine session or trigger re-orientation; then select and execute behaviors accordingly.
-    classification: supervised
-    state: stub
-    phase: liminal
-    source: methods/M-000-ooda.md
-    implementation: LLM decision call with research state context; routes to other behaviors; re-orientation thresholds not yet formalized
-
-  # ── Generative ─────────────────────────────────────────────────────────────
-
-  - id: behavior-p7q
-    name: Backpocket Viewing
-    description: >
-      Maintain a standing set of long-horizon research questions (research/questions.md)
-      and check all new input against them. Unlike Curiosity Browsing (which samples
-      existing artifacts looking for connections), Backpocket Viewing is a filter applied
-      to the incoming stream — every new item is checked against the question list for
-      resonance. Inspired by Feynman's practice of carrying a dozen favorite problems
-      and testing every new result against them. Outputs: a resonance annotation on the
-      item (which question it touches and how), a notebook observation when a strong
-      match arrives, or — occasionally — a C item if the match surfaces a genuinely new
-      angle on a standing question. Peers with Random Links (behavior-q2n) in the
-      exploration phase.
-    classification: live
-    state: stub
+  - id: intake
+    name: Intake
     phase: exploration
-    backing_store: research/questions.md
-    implementation: >
-      Load research/questions.md question list; for each new input item (triage output,
-      shallow read, inbox scan), Haiku prompt: "Does this item resonate with any of
-      these standing questions? If yes, name the question and describe the connection
-      in one sentence." Threshold: resonance must be specific (names the question +
-      explains the connection) not vague. Strong matches (Haiku scores ≥ 0.7) escalate
-      to Sonnet for a fuller resonance note written to the notebook. Very strong matches
-      (operator-flagged or Sonnet scores ≥ 0.9) can open a new C item.
+    status: active
+    defined_by: supervisor
+    trigger: "Continuous — RSS feeds polled every 6h; Discord capture on #new-nature activity; thread
+      replies harvested daily; operator drops any time"
+    action:
+      entrypoint: daemon/discord_client.py:task_feeds
+      model:
+      prompt:
+    produces: [inbox-item]
+    utilization: auto
+    notes: >
+      Three companion paths write the same inbox/ surface and are part of this stage:
+      daemon/capture.py (Discord idea/link capture), daemon/thread_farmer.py (notebook
+      announcement thread replies), and manual operator drops. Code-only — no LLM call
+      on the ingest path itself.
 
-  - id: behavior-c7r
-    name: Curiosity Browsing
-    description: >
-      Randomly sample the curiosity collection (research/c/) when stuck or between
-      arcs, looking for connections that might spark a cheap trick. Operates in the
-      liminal passage and late exploration phases. Outputs: a connection note in the
-      notebook, a new C item capturing the observation, or — rarely — a cheap trick
-      that opens a new DS arc. Feeds into Random Links (behavior-q2n) and
-      Forced Connection downstream behaviors.
-    classification: live
-    state: stub
-    phase: liminal
-    implementation: >
-      Sample 3-5 C items at random from research/c/ (weighted toward recently added
-      and unconnected items); also sample 1-2 active CL items for cross-phase
-      connection attempts. Haiku prompt: "Do any of these feel structurally related?
-      Is there a pattern here that could organize an inquiry?" If a connection
-      registers as potentially cheap-trick-level, escalate to Sonnet. Otherwise
-      write a brief C item noting the connection and status: open.
-
-  - id: behavior-q2n
-    name: Random Links
-    description: Force structural connection between two disparate inputs to surface candidate law hypotheses.
-    classification: live
-    state: production
+  - id: triage
+    name: Triage
     phase: exploration
-    legacy_id: M-001
-    source: methods/M-001-random-links.md
-    implementation: pick two corpus items by semantic distance; Sonnet prompt generates law candidates from forced analogy
+    status: active
+    defined_by: supervisor
+    trigger: "Daily; or on session request when inbox depth exceeds ~200 items"
+    action:
+      entrypoint: agent/triage.py:triage_feed
+      model: claude-haiku-4-5-20251001
+      prompt:
+    produces: [bib-entry, triage-report]
+    utilization: auto
+    notes: >
+      Scores inbox items in batches of 15 against the law inventory and seed pool
+      (agent/funnel_context.py). Every non-discard item is tagged content|meta and gets
+      a bib-NNNN entry at read_depth: listed. triage_discord is the same behavior over
+      inbox/discord-*.md with a higher discard bar.
 
-  - id: behavior-f8p
-    name: Canonical Domains
-    description: Maintain a set of deeply understood home domains as analogy reservoirs and stress-test beds for candidate laws.
-    classification: live
-    state: stub
+  - id: shallow-read
+    name: Shallow Read
     phase: exploration
-    legacy_id: M-002
-    source: methods/M-002-canonical-domains.md
-    implementation: domain list in canonical-domains.yaml; LLM cross-domain analogy + Pinecone corpus queries
+    status: active
+    defined_by: supervisor
+    trigger: "Daily, consuming the most recent triage report's non-discard items"
+    action:
+      entrypoint: agent/shallow_read.py:shallow_read
+      model: claude-haiku-4-5-20251001
+      prompt:
+    produces: [shallow-note, bib-entry, seed, graph-proposal]
+    utilization: auto
+    notes: >
+      Writes bibliography/shallow-reads/YYYY-MM-DD-{slug}.md, upgrades the bib entry to
+      read_depth: shallow, emits a seed into laws/seeds/ when the note is law-shaped, and
+      decides store-only vs escalate-to-deep. Per §5, `meta`-tagged items terminate in a
+      graph-change proposal instead of a seed — that path is not built yet (see
+      graph-evolve, status: proposed).
 
-  - id: behavior-y2g
-    name: Dyson Design
-    description: Push parameters to asymptotic extremes to reveal deep structural properties of a law candidate.
-    classification: live
-    state: stub
-    phase: valley
-    legacy_id: M-011
-    source: methods/M-011-dyson-design.md
-    implementation: LLM prompt with explicit extreme-regime instruction; output → candidate law refinement
-
-  - id: behavior-r4k
-    name: Thought Experiments
-    description: Construct imaginary scenarios to probe the limits and implications of a law or concept.
-    classification: live
-    state: stub
-    phase: sensemaking
-    legacy_id: M-012
-    source: methods/M-012-thought-experiments.md
-    implementation: LLM scenario generation + implication tracing; tests boundary conditions of law candidates
-
-  - id: behavior-c9p
-    name: Design Fictions
-    description: Imagine artifacts that don't yet exist to make abstract protocol dynamics concrete and examinable.
-    classification: live
-    state: stub
-    phase: valley
-    legacy_id: M-013
-    source: methods/M-013-design-fictions.md
-    implementation: LLM narrative generation around fictional artifact; output to notebook or inbox
-
-  - id: behavior-m7v
-    name: Cross-Training
-    description: Engage with domains far from the primary research agenda to build unexpected analogy sources.
-    classification: supervised
-    state: stub
-    phase: liminal
-    legacy_id: M-014
-    source: methods/M-014-cross-training.md
-    implementation: read cross-domain source; LLM extracts structural analogies; embed into bibliography namespace
-
-  - id: behavior-h4v
-    name: Field Trip
-    description: Observe protocols operating in the wild — live protocol events, real governance sessions, live coordination failures.
-    classification: supervised
-    state: stub
-    phase: exploration
-    legacy_id: M-007
-    source: methods/M-007-field-trip.md
-    implementation: live observation notes written to inbox; LLM synthesis into candidate observations
-
-  - id: behavior-s5j
-    name: Open Source Exploration
-    description: Hunt for high-signal sources — feeds, journals, communities — to add to the research intake pipeline.
-    classification: live
-    state: stub
-    phase: liminal
-    legacy_id: M-018
-    source: methods/M-018-open-source-exploration.md
-    implementation: LLM gap analysis vs current feeds; score candidates (relevance/novelty/access); operator approval gate before config update
-
-  # ── Analytical ─────────────────────────────────────────────────────────────
-
-  - id: behavior-t5m
+  - id: deep-read
     name: Deep Read
-    description: Fully internalize the intellectual structure of an exceptional source over multiple sessions — absorb a way of thinking, not just facts.
-    classification: supervised
-    state: prototyping
     phase: exploration
-    legacy_id: M-003
-    source: methods/M-003-deep-read.md
-    implementation: read actual PDF page ranges (no training memory); Sonnet extracts candidate laws + synthesis; embed + store in humboldt namespace
+    status: active
+    defined_by: supervisor
+    trigger: "Session-gated by design (quality over throughput); or batch-deepread on operator/remote
+      trigger to clear the escalated queue"
+    action:
+      entrypoint: agent/humboldt.py:cmd_deepread
+      model: claude-opus-4-8
+      prompt:
+    produces: [deep-note, bib-entry, seed, graph-proposal]
+    utilization: auto
+    notes: >
+      Must read the actual PDF in bibliography/deep-reads/, never training memory — the
+      standing M-003 rule. The one intentionally session-gated funnel stage (§5); the
+      batch path exists for queue-clearing and can run server-side after cutover.
 
-  - id: behavior-j6d
-    name: Bullshit Detector
-    description: Rapidly assess whether incoming research or an argument deserves serious attention.
-    classification: live
-    state: stub
-    phase: exploration
-    legacy_id: M-008
-    source: methods/M-008-bullshit-detector.md
-    implementation: Haiku fast filter; returns confidence + red flags; gates deeper engagement
+  # ── Funnel stage 5–6: the epistemic core ───────────────────────────────────
 
-  - id: behavior-n1s
-    name: Visual Thinking
-    description: Use diagrams and spatial layouts to reveal structure that prose conceals.
-    classification: supervised
-    state: stub
+  - id: induct
+    name: Law Induction Sweep
     phase: sensemaking
-    legacy_id: M-009
-    source: methods/M-009-visual-thinking.md
-    implementation: LLM generates ASCII/Mermaid diagrams; used within sessions to clarify candidate law structure
+    status: active
+    defined_by: supervisor
+    trigger: "Weekly; or >=10 unconsumed seeds; or on session request"
+    action:
+      entrypoint: agent/induct.py:induct
+      model: claude-sonnet-4-6
+      prompt: prompts/induct.md
+    produces: [law-created, evidence, counterexample]
+    utilization: auto
+    notes: >
+      Freeze-immune — composes from seeds, reads-since-cursor and the law inventory, and
+      performs no corpus retrieval, so it runs during a read outage. Drafting nothing is a
+      valid sweep outcome.
 
-  - id: behavior-z8l
-    name: Fermi Estimation
-    description: Quick order-of-magnitude reasoning to bound claims and test their plausibility quantitatively.
-    classification: live
-    state: stub
-    phase: sensemaking
-    legacy_id: M-010
-    source: methods/M-010-fermi-estimation.md
-    implementation: LLM-assisted numerical reasoning; produces bounding estimates for law scope claims
+  - id: assess
+    name: Law Assessment
+    phase: valley
+    status: active
+    defined_by: supervisor
+    trigger: "Weekly per active law; or on session request; or when a law accumulates >=3 new evidence
+      attachments since its last assessment"
+    action:
+      entrypoint: agent/assess.py:assess
+      model: claude-sonnet-4-6
+      prompt: prompts/assess.md
+    produces: [promoted, demoted, assessed-hold, counterexample]
+    utilization: auto
+    notes: >
+      Two-tier: ASSESS_MODEL_ROUTINE (sonnet) for exploration/sensemaking/valley laws,
+      ASSESS_MODEL_HARD (claude-opus-4-8) for heavy-lift and retrospective. Refuses to run
+      while the corpus-read breaker is tripped unless --no-corpus is passed — an
+      evidence test on an empty evidence slot is worse than no test.
 
-  # ── Meta ───────────────────────────────────────────────────────────────────
+  # ── Funnel stage 7–8: output and monitoring ────────────────────────────────
 
-  - id: behavior-w3x
-    name: Reading Prioritization
-    description: Decide what to read next and how deeply — matching reading investments to the current research agenda.
-    classification: live
-    state: stub
-    phase: exploration
-    legacy_id: M-004
-    source: methods/M-004-reading-prioritization.md
-    implementation: scan bibliography + inbox; Sonnet prioritizes by research agenda fit + phase position
+  - id: publish
+    name: Publish
+    phase: heavy_lift
+    status: active
+    defined_by: supervisor
+    trigger: "On law event (creation, promotion, demotion, falsification); batched to one site deploy
+      per sweep, Discord announcements capped at 2/day"
+    action:
+      entrypoint: agent/law_notify.py:flush
+      model:
+      prompt:
+    produces: [site-deploy, discord-post]
+    utilization: auto
+    notes: >
+      Pause-gated, and gated on publish_site.is_production_deploy() — refuses to announce
+      a law event when the deploy would land on a Preview URL rather than the public site.
+      Sits in heavy_lift because publication is the delivery mechanism of the separation
+      event, which is what the heavy-lift -> retrospective transition requires.
 
-  - id: behavior-k7r
-    name: Explore-Exploit
-    description: Decide when to open new research territory vs. deepen existing findings — manage the exploration/exploitation tradeoff.
-    classification: live
-    state: stub
+  - id: monitor
+    name: Falsification Monitor
+    phase: retrospective
+    status: proposed
+    defined_by: supervisor
+    trigger: "Weekly, over retrospective-stage laws only — new corpus material since the law's last monitor
+      pass"
+    action:
+      entrypoint: agent/monitor.py:monitor
+      model: claude-haiku-4-5-20251001
+      prompt: prompts/monitor.md
+    produces: [challenged, challenge-flag]
+    utilization: auto
+    notes: >
+      NOT BUILT — no agent/monitor.py, no prompts/monitor.md. Its input set is also
+      currently empty: no law has reached retrospective stage (nothing has had a
+      separation event), so this behavior has had nothing to do. Haiku screens for
+      candidate challenges, escalating to Sonnet to draft the actual challenge; flags
+      cycle back through `assess`. Build when the first law reaches retrospective.
+
+  # ── Non-funnel: orientation, conversation, and the meta loop ───────────────
+
+  - id: orient
+    name: Orientation
     phase: liminal
-    legacy_id: M-005
-    source: methods/M-005-explore-exploit.md
-    implementation: check research inventory age + diversity; LLM allocation recommendation; informs session planning
+    status: proposed
+    defined_by: supervisor
+    trigger: "Start of every session; and on daemon startup after an outage longer than a few hours"
+    action:
+      entrypoint: agent/orient.py:orient
+      model: claude-sonnet-4-6
+      prompt: prompts/orient.md
+    produces: [orientation-state]
+    utilization: auto
+    notes: >
+      NOT BUILT as code. Replaces boot-000 (Wakeup Sequence) and boot-001 (OODA Decision
+      Gate) from the retired registry: boot-000's file-reading ritual currently lives in
+      CLAUDE.md's Session Rituals and runs by hand each session; boot-001's decision gate
+      was never implemented. Reads state (laws, queues, agenda, pre-notebook) and picks
+      the session's focus. Until built, the CLAUDE.md ritual is the live implementation.
 
-  - id: behavior-d3w
-    name: Stress-Relax
-    description: Deliberately shift between high-constraint synthesis and open-ended association to tune research cognition.
-    classification: live
-    state: stub
-    phase: sensemaking
-    legacy_id: M-015
-    source: methods/M-015-stress-relax.md
-    implementation: LLM meta-prompt switches cognitive mode; used when research output feels stuck or narrowing
+  - id: respond
+    name: Discord Response
+    phase: any
+    status: active
+    defined_by: supervisor
+    trigger: "On @mention in Discord, relevance-gated — Humboldt answers when it has something corpus-grounded
+      to add, not whenever addressed"
+    action:
+      entrypoint: daemon/presence.py:generate_mention_response
+      model: claude-sonnet-4-6
+      prompt:
+    produces: [discord-post]
+    utilization: auto
+    notes: >
+      Out of the phase flow (phase: any) — a conversation can happen at any arc position.
+      Discloses the outage when the corpus-read breaker is tripped rather than answering
+      ungrounded. The §9 relevance-gate rework is Phase 5 work; proactive self-initiated
+      posting stays disabled (_PROACTIVE_ENGAGEMENT_ENABLED = False) until then.
 
-  - id: behavior-x6b
-    name: Researcher Calibration
-    description: Monitor Humboldt's own development as a researcher; trigger reorientation when method/philosophy improvement opportunities are detected.
-    classification: live
-    state: stub
-    phase: sensemaking
-    legacy_id: M-016
-    source: methods/M-016-researcher-calibration.md
-    implementation: LLM self-assessment against research quality criteria; writes calibration notes to notebook
+  - id: graph-evolve
+    name: Graph Evolution
+    phase: retrospective
+    status: proposed
+    defined_by: supervisor
+    trigger: "On a meta read producing a graph-change proposal; or on an analytics prune/split flag"
+    action:
+      entrypoint: agent/graph_evolve.py:propose
+      model: claude-sonnet-4-6
+      prompt: prompts/graph-evolve.md
+    produces: [graph-proposal, queue-entry]
+    utilization: auto
+    notes: >
+      NOT BUILT. The mechanism by which meta reads change how Humboldt works (§6.4):
+      classifies each request SIMPLE/HARD per behaviors/definition-rubric.md, drafts the
+      full registry entry for SIMPLE ones, writes a structured brief for HARD ones, and
+      files either into behaviors/queue.yaml. Nothing it drafts runs before supervisor
+      approval in the console.
 
-  - id: behavior-p1f
-    name: Research Time Management
-    description: Manage the rhythm of research attention by reading the natural arc structure of inquiry — when to dwell, move, close, or open.
-    classification: live
-    state: prototyping
-    phase: liminal
-    legacy_id: M-017
-    source: methods/M-017-research-time-management.md
-    implementation: arc-phase check (exploration/sensemaking/valley/heavy_lift/retrospective); LLM phase diagnosis; shapes session behavior selection
-
-  # ── Social ─────────────────────────────────────────────────────────────────
-
-  - id: behavior-b9c
-    name: Research Conversations
-    description: Have Discord conversations that advance Humboldt's research while being genuinely useful to the other party.
-    classification: live
-    state: prototyping
-    phase: exploration
-    legacy_id: M-006
-    source: methods/M-006-research-conversations.md
-    implementation: Discord @mention handler; Sonnet response with slim/rich context; person model lookup for history
-
-  # ── Daemon ─────────────────────────────────────────────────────────────────
-
-  - id: behavior-e2h
-    name: Feed Intake
-    description: Fetch RSS feeds on schedule; write each item to inbox as a structured file for triage.
-    classification: daemon
-    state: production
-    phase: daemon
-    source: daemon/discord_client.py (task_feeds)
-    implementation: feedparser RSS fetch; write inbox/feed-*.md per item; runs every 6h via daemon scheduler
-
-  - id: behavior-a8r
-    name: Conversation Synthesis
-    description: Harvest recent Discord #new-nature messages; synthesize research takeaways into a notebook section; promote inbox links to bibliography.
-    classification: daemon
-    state: production
-    phase: daemon
-    source: daemon/conversation_review.py
-    implementation: Discord message harvest; Sonnet synthesis call (max 400 tokens); append to notebook; promote discord-link-*.md → bibliography/references.yaml; git commit + push; runs daily
-
-  - id: behavior-o4t
-    name: Idea and Link Capture
-    description: During live Discord conversations, notice and save ideas bearing on active hypotheses and external links cited by participants.
-    classification: daemon
-    state: stub
-    phase: daemon
-    source: daemon/discord_client.py (on_message — not yet built)
-    implementation: detect in on_message + task_new_nature response path; Haiku extraction call; write inbox/discord-idea-*.md and inbox/discord-link-*.md
-
-  - id: behavior-g7u
-    name: Notebook Publish
-    description: Detect new notebook entries; generate a one-sentence Discord announcement; post to #new-nature with a discussion thread; push rendered HTML to PI website.
-    classification: daemon
-    state: production
-    phase: daemon
-    source: daemon/presence.py + daemon/discord_client.py (task_notebook)
-    implementation: poll notebook/ for new entries; Sonnet one-liner generation; Discord post + thread; render index.yaml → humboldt-notebook.html; git push website repo
-
-  - id: behavior-v3c
-    name: Thread Farming
-    description: Harvest replies from #new-nature discussion threads on notebook announcement posts; write to inbox for Conversation Synthesis to process.
-    classification: daemon
-    state: production
-    phase: daemon
-    source: daemon/thread_farmer.py
-    implementation: fetch thread replies via Discord API; write inbox/discord-thread-*.md; runs daily alongside Conversation Synthesis
+  - id: supervisory
+    name: Supervisory Sweep
+    phase: retrospective
+    status: active
+    defined_by: supervisor
+    trigger: "Weekly"
+    action:
+      entrypoint: agent/behaviors.py:cmd_supervisory
+      model:
+      prompt:
+    produces: [analytics-report, queue-entry]
+    utilization: auto
+    notes: >
+      Currently a CLI-only transition-weight analysis over behaviors/log.jsonl. Phase 4
+      widens it to the full §8 sweep — utilization, queue depths, prune/split flags, KPI
+      report to analytics/weekly-YYYY-MM-DD.yaml — and surfaces it in the console.

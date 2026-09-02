@@ -6,13 +6,34 @@ Priority: **[H]** urgent, **[M]** soon, **[L]** when convenient.
 
 ---
 
-## 🎯 ON DECK — Redesign Phase 2 wrap-up (next session)
+## 🎯 ON DECK — Redesign Phase 4 (analytics)
 
-> Spec: `plans/redesign-2026-08.md`. Session 29 (2026-08-10) closed the `triage.py`/
-> `reads.py` rework — the last big Phase 2 item. **Daemon unpaused 2026-08-10** (early —
-> was through 08-15) once this session's fixes were live; normal Discord posting/querying
-> has resumed. Re-pause manually if Phase 5 (server cutover = "off-laptop") work needs
-> the daemon quiet again.
+> Spec: `plans/redesign-2026-08.md` §8, §13.
+>
+> **Phase 3 [OPUS] work DONE 2026-09-01 (session 33).** Registry pruned 26 → 12
+> behaviors; `mdp.yaml` v2 (22 directional edges, every one triggered); approval queue
+> (`agent/approval_queue.py`, `behaviors/queue.yaml`); supervisor console
+> (`agent/console.py` + `behaviors/console.html`, all six views, browser-verified).
+> `humboldt console` / `humboldt queue …`; `behaviors admin` retired.
+> **[SONNET] UI polish is the one Phase 3 item still open** — the console works; this is
+> styling and form refinement, not completion.
+>
+> **[H] Phase 4 must start with instrumentation, not aggregation.** Only `induct` and
+> `assess` call `funnel_log.behavior_visit` — the other 7 active behaviors have logged
+> zero visits ever, so utilization, prune/split flags, and the supervisory loop are all
+> reasoning from a 2-of-9 sample. Wire `behavior_visit` into intake, triage, shallow-read,
+> deep-read, publish, respond, supervisory *before* building `analytics.py`, or Phase 4
+> ships confident numbers computed from nothing.
+>
+> **Target dates set 2026-09-01** (operator decision — don't skip phases, but land Phase 5
+> by the conference talk since the VM cutover gets demoed alongside it):
+> Phase 3 by **09-06** → Phase 4 by **09-10** → Phase 5 (cutover + merge to `main` + first
+> production deploy) by **09-16**, coinciding with `plans/talk-2026-09-23.md` Phase D. See
+> `plans/redesign-2026-08.md` §13 for why that date is shared, not coincidental — the merge
+> is also the talk's persistent-page production deploy (talk plan risk 3).
+>
+> Daemon unpaused 2026-08-10; normal Discord posting/querying has resumed. Re-pause
+> manually if Phase 5 (server cutover = "off-laptop") work needs the daemon quiet again.
 
 ~~**`triage.py` / `reads.py` rework [OPUS].**~~ **DONE (session 29, 2026-08-10).**
 `agent/funnel_context.py` (new) replaces the stale `research/laws/`/`research/hypotheses/`

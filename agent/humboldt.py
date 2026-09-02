@@ -1133,11 +1133,59 @@ def main():
         from . import talk as talk_mod
         subcmd = rest[0] if rest else ""
         talk_mod.cmd_talk(subcmd, rest[1:])
+    elif cmd == "console":
+        from . import console as console_mod
+        port = 7878
+        push = "--push" in rest
+        no_open = "--no-open" in rest
+        if "--port" in rest:
+            i = rest.index("--port")
+            if i + 1 < len(rest):
+                port = int(rest[i + 1])
+        console_mod.run_console(port=port, push=push, open_browser=not no_open)
+    elif cmd == "queue":
+        from . import approval_queue as q
+        subcmd = rest[0] if rest else "list"
+        if subcmd == "list":
+            status = None
+            if "--status" in rest:
+                i = rest.index("--status")
+                if i + 1 < len(rest):
+                    status = rest[i + 1]
+            q.cmd_list(status=status)
+        elif subcmd == "show" and rest[1:]:
+            q.cmd_show(rest[1])
+        elif subcmd in ("approve", "reject", "apply") and rest[1:]:
+            qid = rest[1]
+            rationale = ""
+            if "--why" in rest:
+                i = rest.index("--why")
+                if i + 1 < len(rest):
+                    rationale = rest[i + 1]
+            try:
+                if subcmd == "approve":
+                    q.approve(qid, rationale=rationale)
+                    print(f"{qid} approved. Apply with: humboldt queue apply {qid}")
+                elif subcmd == "reject":
+                    q.reject(qid, rationale=rationale)
+                    print(f"{qid} rejected.")
+                else:
+                    print(f"{qid} applied → behavior {q.apply_approved(qid)}")
+            except (KeyError, ValueError) as exc:
+                print(f"Error: {exc}")
+                sys.exit(1)
+        else:
+            print("Usage: humboldt queue [list [--status S] | show <q-NNNN> | "
+                  "approve <q-NNNN> [--why TEXT] | reject <q-NNNN> [--why TEXT] | "
+                  "apply <q-NNNN>]")
+            sys.exit(1)
     elif cmd == "behaviors":
         from . import behaviors as beh
         subcmd = rest[0] if rest else "graph"
         if subcmd == "admin":
-            beh.run_admin()
+            print("`behaviors admin` is retired — the supervisor console replaces it.")
+            print("Run: python3 -m agent.humboldt console")
+            sys.exit(1)
         elif subcmd == "graph":
             beh.cmd_graph()
         elif subcmd == "log":

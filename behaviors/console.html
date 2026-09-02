@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Humboldt Console</title>
+<style>
+  :root{
+    --bg:#12141a; --panel:#181b23; --panel-2:#1e222c; --line:#2a2f3b;
+    --ink:#e6e9ef; --muted:#98a0b3; --faint:#6b7386;
+    --accent:#4ec9b0; --accent-dim:#1f4b45;
+    --warn:#e2b341; --bad:#e06c75; --good:#7fb069;
+    --liminal:#8b949e; --exploration:#58a6ff; --sensemaking:#bc8cff;
+    --valley:#3fb950; --heavy_lift:#f78166; --retrospective:#f1e05a; --any:#6e7681;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);
+       font:14px/1.5 ui-sans-serif,-apple-system,"Segoe UI",sans-serif}
+  code,.mono,pre{font-family:ui-monospace,"SF Mono",Menlo,monospace}
+
+  header{display:flex;align-items:center;gap:20px;padding:12px 20px;
+         border-bottom:1px solid var(--line);background:var(--panel);
+         position:sticky;top:0;z-index:10}
+  .brand{font-weight:600;letter-spacing:-.01em}
+  .brand span{color:var(--accent)}
+  nav{display:flex;gap:2px;margin-left:auto;flex-wrap:wrap}
+  nav button{background:none;border:1px solid transparent;color:var(--muted);
+             padding:5px 12px;border-radius:6px;cursor:pointer;font:inherit}
+  nav button:hover{color:var(--ink);background:var(--panel-2)}
+  nav button.on{color:var(--accent);border-color:var(--accent-dim);background:var(--accent-dim)}
+  .chip{font-size:11px;padding:2px 8px;border-radius:20px;border:1px solid var(--line);
+        color:var(--muted);white-space:nowrap}
+  .chip.live{color:var(--good);border-color:#2c4a2c}
+  .chip.off{color:var(--bad);border-color:#4a2c2c}
+
+  main{padding:20px;max-width:1400px;margin:0 auto}
+  .view{display:none}.view.on{display:block}
+  h2{font-size:15px;font-weight:600;margin:0 0 12px;color:var(--ink)}
+  h3{font-size:12px;text-transform:uppercase;letter-spacing:.07em;
+     color:var(--faint);margin:22px 0 8px;font-weight:600}
+
+  .grid{display:grid;gap:14px}
+  .g4{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+  .g2{grid-template-columns:repeat(auto-fit,minmax(340px,1fr))}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px 16px}
+  .stat{font-size:26px;font-weight:600;font-variant-numeric:tabular-nums}
+  .stat small{font-size:12px;color:var(--faint);font-weight:400;margin-left:4px}
+  .label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint)}
+
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{text-align:left;color:var(--faint);font-size:11px;text-transform:uppercase;
+     letter-spacing:.05em;padding:6px 10px 6px 0;border-bottom:1px solid var(--line);font-weight:600}
+  td{padding:7px 10px 7px 0;border-bottom:1px solid var(--line);vertical-align:top}
+  tr.click{cursor:pointer}tr.click:hover td{background:var(--panel-2)}
+  .num{font-variant-numeric:tabular-nums;text-align:right}
+
+  .tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:4px;
+       border:1px solid var(--line);color:var(--muted)}
+  .tag.active,.tag.supported{color:var(--good);border-color:#2c4a2c}
+  .tag.proposed,.tag.provisional{color:var(--warn);border-color:#4a3f2c}
+  .tag.speculative,.tag.retired{color:var(--faint)}
+  .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+
+  button.act{background:var(--panel-2);border:1px solid var(--line);color:var(--ink);
+             padding:5px 12px;border-radius:6px;cursor:pointer;font:inherit;font-size:12px}
+  button.act:hover{border-color:var(--accent);color:var(--accent)}
+  button.act.danger:hover{border-color:var(--bad);color:var(--bad)}
+  button.act:disabled{opacity:.4;cursor:not-allowed}
+  input,textarea,select{background:var(--bg);border:1px solid var(--line);color:var(--ink);
+        border-radius:6px;padding:6px 9px;font:inherit;width:100%}
+  textarea{font-family:ui-monospace,Menlo,monospace;font-size:12px;line-height:1.5;resize:vertical}
+  input:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent)}
+  .row{display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap}
+
+  .msg{padding:8px 12px;border-radius:6px;font-size:12px;margin-top:10px;display:none}
+  .msg.show{display:block}
+  .msg.ok{background:#17301f;color:var(--good);border:1px solid #2c4a2c}
+  .msg.err{background:#30191b;color:var(--bad);border:1px solid #4a2c2c}
+
+  .empty{color:var(--faint);font-size:13px;padding:18px 0;font-style:italic}
+  .bar{height:6px;background:var(--panel-2);border-radius:3px;overflow:hidden;margin-top:5px}
+  .bar i{display:block;height:100%;background:var(--accent);border-radius:3px}
+  svg{display:block;max-width:100%}
+  .edge{stroke:var(--line);fill:none;marker-end:url(#arw)}
+  .edge:hover{stroke:var(--accent);stroke-width:2}
+  .edge.fb{stroke-dasharray:4 3}
+  .nodebox{cursor:pointer}
+  .nodebox:hover rect{stroke:var(--accent)}
+  details{margin-top:8px}
+  summary{cursor:pointer;color:var(--muted);font-size:12px}
+  pre.yaml{background:var(--bg);border:1px solid var(--line);border-radius:6px;
+           padding:10px;overflow:auto;font-size:12px;max-height:340px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">Humboldt <span>console</span></div>
+  <span class="chip" id="branch">—</span>
+  <span class="chip" id="daemonChip">daemon —</span>
+  <span class="chip" id="readsChip">reads —</span>
+  <nav>
+    <button class="on" data-v="dash">Dashboard</button>
+    <button data-v="laws">Laws</button>
+    <button data-v="graph">Graph</button>
+    <button data-v="queue">Queue <span id="qBadge"></span></button>
+    <button data-v="analytics">Analytics</button>
+    <button data-v="people">People</button>
+  </nav>
+</header>
+
+<main>
+  <section class="view on" id="v-dash">
+    <div class="grid g4">
+      <div class="card"><div class="label">Laws</div><div class="stat" id="dLaws">—</div></div>
+      <div class="card"><div class="label">Law events · 7d</div><div class="stat" id="dEvents">—</div></div>
+      <div class="card"><div class="label">Queue pending</div><div class="stat" id="dQueue">—</div></div>
+      <div class="card"><div class="label">Spend today</div><div class="stat" id="dCost">—</div></div>
+    </div>
+
+    <h3>Law accumulation — the KPI</h3>
+    <div class="card"><div id="kpi"></div></div>
+
+    <div class="grid g2" style="margin-top:14px">
+      <div class="card">
+        <h2>Funnel queue depths</h2>
+        <table id="depths"></table>
+      </div>
+      <div class="card">
+        <h2>Stage distribution</h2>
+        <table id="stages"></table>
+      </div>
+    </div>
+
+    <h3>Recent law events</h3>
+    <div class="card"><table id="activity"></table></div>
+  </section>
+
+  <section class="view" id="v-laws">
+    <h2>Law records</h2>
+    <table id="lawTable"></table>
+    <div id="lawEditor"></div>
+  </section>
+
+  <section class="view" id="v-graph">
+    <h2>Behavior graph</h2>
+    <div class="card"><div id="graphSvg"></div></div>
+    <div id="nodeEditor"></div>
+    <div id="edgeEditor"></div>
+  </section>
+
+  <section class="view" id="v-queue">
+    <h2>Approval queue</h2>
+    <p class="label" style="margin-bottom:12px">Nothing a behavior drafts runs before approval.</p>
+    <div id="queueList"></div>
+  </section>
+
+  <section class="view" id="v-analytics">
+    <h2>Analytics</h2>
+    <div id="flags"></div>
+    <h3>Behavior utilization</h3>
+    <div class="card"><table id="util"></table></div>
+    <p class="empty" id="anNote"></p>
+  </section>
+
+  <section class="view" id="v-people">
+    <h2>Interlocutors</h2>
+    <div class="card"><table id="peopleTable"></table></div>
+  </section>
+</main>
+
+<script>
+const PHASES=["liminal","exploration","sensemaking","valley","heavy_lift","retrospective","any"];
+const PC=p=>getComputedStyle(document.documentElement).getPropertyValue("--"+p).trim()||"#888";
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const api=(u,o)=>fetch(u,o).then(r=>r.json());
+let STATE={},BEH={},MDP={};
+
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("on",x===b));
+  document.querySelectorAll(".view").forEach(v=>v.classList.toggle("on",v.id==="v-"+b.dataset.v));
+  ({laws:loadLaws,graph:loadGraph,queue:loadQueue,analytics:loadAnalytics,people:loadPeople}[b.dataset.v]||(()=>{}))();
+});
+
+function flash(el,text,ok){el.className="msg "+(ok?"ok":"err")+" show";el.textContent=text;
+  setTimeout(()=>el.classList.remove("show"),4000);}
+
+// ── Dashboard ──────────────────────────────────────────────────────────────
+async function loadDash(){
+  const s=await api("/api/state");STATE=s;
+  $("#branch").textContent=s.branch||"—";
+  const d=s.daemon||{};
+  const dc=$("#daemonChip");
+  dc.textContent="daemon "+(d.running?"live · "+d.pid:"down")+(d.paused?" · paused "+d.paused:"");
+  dc.className="chip "+(d.running&&!d.paused?"live":"off");
+  const rc=$("#readsChip");
+  rc.textContent=d.reads?("reads offline → "+d.reads):"reads available";
+  rc.className="chip "+(d.reads?"off":"live");
+
+  $("#dLaws").textContent=s.laws_total??"—";
+  $("#dEvents").textContent=s.events_7d??"—";
+  $("#dQueue").textContent=s.queue_pending??"—";
+  $("#dCost").innerHTML=d.cost_today!=null
+    ?("$"+d.cost_today.toFixed(2)+(d.cost_limit?"<small>/ $"+d.cost_limit+"</small>":"")):"—";
+  $("#qBadge").textContent=s.queue_pending?" ("+s.queue_pending+")":"";
+
+  $("#depths").innerHTML="<tr><th>Boundary</th><th>Consumer</th><th class='num'>Depth</th></tr>"+
+    (s.queue_depths||[]).map(d=>`<tr><td>${esc(d.boundary)}</td>
+      <td><code>${esc(d.consumer)}</code></td>
+      <td class="num">${d.depth} <span style="color:var(--faint)">${esc(d.unit)}</span></td></tr>`).join("");
+
+  const st=s.laws_by_stage||{};
+  const mx=Math.max(1,...Object.values(st));
+  $("#stages").innerHTML="<tr><th>Stage</th><th class='num'>Laws</th></tr>"+
+    Object.entries(st).map(([k,v])=>`<tr><td>${esc(k)}<div class="bar"><i style="width:${v/mx*100}%"></i></div></td>
+      <td class="num">${v}</td></tr>`).join("");
+
+  $("#activity").innerHTML=(s.activity||[]).length
+    ?"<tr><th>When</th><th>Event</th><th>Law</th><th>Detail</th></tr>"+
+      s.activity.map(e=>`<tr><td class="mono" style="color:var(--faint)">${esc((e.timestamp||"").slice(0,10))}</td>
+        <td><span class="tag">${esc(e.event)}</span></td><td class="mono">${esc(e.law||"")}</td>
+        <td style="color:var(--muted)">${esc((e.detail||"").slice(0,90))}</td></tr>`).join("")
+    :"<tr><td class='empty'>No law events in the last 7 days.</td></tr>";
+
+  drawKpi(await api("/api/events"));
+}
+
+function drawKpi(events){
+  const box=$("#kpi");
+  if(!events.length){box.innerHTML="<p class='empty'>No law events recorded yet.</p>";return;}
+  const byDay={};
+  events.forEach(e=>{const d=(e.timestamp||"").slice(0,10);if(d)byDay[d]=(byDay[d]||0)+1;});
+  const days=Object.keys(byDay).sort();
+  if(!days.length){box.innerHTML="<p class='empty'>No dated events.</p>";return;}
+  const start=new Date(days[0]),end=new Date(days[days.length-1]);
+  const span=[];for(let d=new Date(start);d<=end;d.setDate(d.getDate()+1))span.push(d.toISOString().slice(0,10));
+  const W=Math.max(600,span.length*9),H=110,P=26,mx=Math.max(...Object.values(byDay));
+  const bw=Math.max(3,(W-P*2)/span.length-2);
+  let bars="",cum=0,pts=[];
+  span.forEach((d,i)=>{
+    const v=byDay[d]||0;cum+=v;
+    const x=P+i*((W-P*2)/span.length),h=v/mx*(H-40);
+    if(v)bars+=`<rect x="${x}" y="${H-20-h}" width="${bw}" height="${h}" fill="${PC('accent')}" opacity=".75"><title>${d}: ${v}</title></rect>`;
+    pts.push([x+bw/2,H-20-(cum/events.length)*(H-40)]);
+  });
+  box.innerHTML=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:${H}px">
+    <polyline points="${pts.map(p=>p.join(",")).join(" ")}" fill="none" stroke="${PC('exploration')}" stroke-width="1.5" opacity=".8"/>
+    ${bars}
+    <line x1="${P}" y1="${H-20}" x2="${W-P}" y2="${H-20}" stroke="${PC('line')}"/>
+    <text x="${P}" y="${H-6}" fill="${PC('faint')}" font-size="10">${span[0]}</text>
+    <text x="${W-P}" y="${H-6}" fill="${PC('faint')}" font-size="10" text-anchor="end">${span[span.length-1]}</text>
+  </svg>
+  <p class="label" style="margin-top:6px">Bars: events per day · line: cumulative (${events.length} total)</p>`;
+}
+
+// ── Laws ───────────────────────────────────────────────────────────────────
+async function loadLaws(){
+  const laws=await api("/api/laws");
+  $("#lawTable").innerHTML="<tr><th>ID</th><th>Title</th><th>Stage</th><th>Confidence</th>"+
+    "<th>Origin</th><th class='num'>Ex</th><th class='num'>Counter</th><th>Last event</th></tr>"+
+    laws.map(l=>`<tr class="click" data-id="${esc(l.id)}">
+      <td class="mono">${esc(l.id)}</td><td>${esc(l.title)}</td>
+      <td><span class="dot" style="background:${PC(l.stage==='heavy-lift'?'heavy_lift':l.stage)}"></span>${esc(l.stage)}</td>
+      <td><span class="tag ${esc(l.confidence)}">${esc(l.confidence)}</span></td>
+      <td style="color:var(--muted)">${esc(l.origin)}</td>
+      <td class="num">${l.examples}</td><td class="num">${l.counterexamples}</td>
+      <td style="color:var(--faint)">${esc(l.last_event||"")} ${esc(l.last_date||"")}</td></tr>`).join("");
+  document.querySelectorAll("#lawTable tr.click").forEach(tr=>tr.onclick=()=>editLaw(tr.dataset.id));
+}
+
+async function editLaw(id){
+  const law=await api("/api/laws/"+id);
+  const box=$("#lawEditor");
+  box.innerHTML=`<div class="card" style="margin-top:16px">
+    <h2>${esc(id)} <span class="label">${esc(law.path)}</span></h2>
+    <textarea id="lawYaml" rows="22">${esc(law.yaml)}</textarea>
+    <div class="row">
+      <input id="lawNote" placeholder="History note — what changed and why (required for the audit trail)">
+      <button class="act" id="lawSave">Save</button>
+      <button class="act" id="lawClose">Close</button>
+    </div>
+    <div class="msg" id="lawMsg"></div>
+    <p class="label" style="margin-top:8px">Validated against the stage machine before writing; committed as [console].</p>
+  </div>`;
+  box.scrollIntoView({behavior:"smooth",block:"start"});
+  $("#lawClose").onclick=()=>box.innerHTML="";
+  $("#lawSave").onclick=async()=>{
+    const r=await api("/api/laws/"+id,{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({yaml:$("#lawYaml").value,note:$("#lawNote").value})});
+    if(r.ok)flash($("#lawMsg"),"Saved — "+(r.git||"no git change"),true);
+    else flash($("#lawMsg"),(r.error||"failed")+(r.problems?": "+r.problems.join("; "):""),false);
+    if(r.ok)loadLaws();
+  };
+}
+
+// ── Graph ──────────────────────────────────────────────────────────────────
+async function loadGraph(){
+  const d=await api("/api/behaviors");BEH=d.behaviors;MDP=d.mdp;
+  const byPhase={};PHASES.forEach(p=>byPhase[p]=[]);
+  BEH.forEach(b=>(byPhase[b.phase]||(byPhase[b.phase]=[])).push(b));
+
+  const RH=92,W=980,pos={};
+  let y=20,rows=[];
+  PHASES.forEach(p=>{
+    const list=byPhase[p]||[];if(!list.length)return;
+    list.forEach((b,i)=>{
+      const cw=W/(list.length+1);
+      pos[b.id]={x:cw*(i+1),y:y+34,phase:p};
+    });
+    rows.push({phase:p,y:y,n:list.length});
+    y+=RH;
+  });
+  const H=y+10;
+  const maxV=Math.max(1,...BEH.map(b=>b.visits||0));
+
+  let edges="";
+  (MDP.transitions||[]).forEach((t,i)=>{
+    const a=pos[t.from],b=pos[t.to];if(!a||!b)return;
+    const cls="edge"+(t.feedback?" fb":"");
+    const mx=(a.x+b.x)/2, my=(a.y+b.y)/2;
+    const bend=a.y===b.y?28:0;
+    edges+=`<path class="${cls}" data-i="${i}" d="M${a.x},${a.y+16} Q${mx},${my+bend} ${b.x},${b.y-16}"
+      stroke-width="${0.8+(t.weight||0.3)*2.4}"><title>${esc(t.from)} → ${esc(t.to)}\n${esc(t.trigger||"")}</title></path>`;
+  });
+
+  let nodes="";
+  BEH.forEach(b=>{
+    const p=pos[b.id];if(!p)return;
+    const w=Math.max(84,b.id.length*8+22),op=b.status==="active"?1:.45;
+    const fill=b.visits?PC(b.phase)+"33":"transparent";
+    nodes+=`<g class="nodebox" data-id="${esc(b.id)}" opacity="${op}">
+      <rect x="${p.x-w/2}" y="${p.y-16}" width="${w}" height="32" rx="6"
+        fill="${fill}" stroke="${PC(b.phase)}" stroke-width="1.4"/>
+      <text x="${p.x}" y="${p.y+4}" text-anchor="middle" fill="${PC('ink')}"
+        font-size="12" font-family="ui-monospace,Menlo,monospace">${esc(b.id)}</text>
+      <title>${esc(b.name)} — ${esc(b.status)} · ${b.visits||0} visits</title></g>`;
+  });
+
+  let bands=rows.map(r=>`<text x="6" y="${r.y+38}" fill="${PC(r.phase)}" font-size="10"
+      opacity=".8" text-transform="uppercase">${r.phase}</text>`).join("");
+
+  $("#graphSvg").innerHTML=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:${H}px">
+    <defs><marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5"
+      orient="auto-start-reverse"><path d="M0,1 L9,5 L0,9" fill="${PC('line')}"/></marker></defs>
+    ${bands}${edges}${nodes}</svg>
+    <p class="label" style="margin-top:8px">Dashed = feedback edge · box fill = has logged visits ·
+      faded = proposed (not built) · edge width = weight · hover an edge for its trigger</p>`;
+
+  document.querySelectorAll(".nodebox").forEach(g=>g.onclick=()=>editNode(g.dataset.id));
+  document.querySelectorAll(".edge").forEach(p=>p.onclick=()=>editEdge(+p.dataset.i));
+}
+
+function editNode(id){
+  const b=BEH.find(x=>x.id===id);if(!b)return;
+  const box=$("#nodeEditor");
+  box.innerHTML=`<div class="card" style="margin-top:16px">
+    <h2>${esc(b.id)} — ${esc(b.name)} <span class="tag ${esc(b.status)}">${esc(b.status)}</span></h2>
+    <p class="label">Phase ${esc(b.phase)} · ${b.visits||0} logged visits · defined by ${esc(b.defined_by)}</p>
+    <div style="margin-top:10px"><div class="label">Trigger</div>
+      <textarea id="nTrig" rows="2">${esc(b.trigger)}</textarea></div>
+    <div class="row">
+      <div style="flex:1"><div class="label">Status</div>
+        <select id="nStatus">${["active","proposed","retired"].map(s=>
+          `<option ${s===b.status?"selected":""}>${s}</option>`).join("")}</select></div>
+      <div style="flex:2"><div class="label">Model</div>
+        <input id="nModel" value="${esc(b.action?.model??"")}" placeholder="(code only)"></div>
+      <div style="flex:2"><div class="label">Prompt file</div>
+        <input id="nPrompt" value="${esc(b.action?.prompt??"")}" placeholder="(inline)"></div>
+    </div>
+    <div style="margin-top:8px"><div class="label">Entrypoint</div>
+      <input id="nEntry" value="${esc(b.action?.entrypoint??"")}"></div>
+    ${b.notes?`<details><summary>Notes</summary><p style="color:var(--muted);margin-top:6px">${esc(b.notes)}</p></details>`:""}
+    <div class="row"><button class="act" id="nSave">Save behavior</button>
+      <button class="act" id="nClose">Close</button></div>
+    <div class="msg" id="nMsg"></div></div>`;
+  box.scrollIntoView({behavior:"smooth",block:"nearest"});
+  $("#nClose").onclick=()=>box.innerHTML="";
+  $("#nSave").onclick=async()=>{
+    const r=await api("/api/behaviors/"+id,{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({trigger:$("#nTrig").value,status:$("#nStatus").value,
+        action:{entrypoint:$("#nEntry").value,model:$("#nModel").value||null,
+                prompt:$("#nPrompt").value||null}})});
+    if(r.ok){flash($("#nMsg"),"Saved — "+(r.git||"no git change"),true);loadGraph();}
+    else flash($("#nMsg"),r.error||"failed",false);
+  };
+}
+
+function editEdge(i){
+  const t=(MDP.transitions||[])[i];if(!t)return;
+  const box=$("#edgeEditor");
+  box.innerHTML=`<div class="card" style="margin-top:16px">
+    <h2><code>${esc(t.from)}</code> → <code>${esc(t.to)}</code></h2>
+    <p class="label">${t.cross_phase?"cross-phase":"within-phase"}${t.feedback?" · feedback":""}${t.cycle_back?" · cycle-back":""}</p>
+    <div style="margin-top:10px"><div class="label">Trigger — when does this edge fire?</div>
+      <textarea id="eTrig" rows="2">${esc(t.trigger||"")}</textarea></div>
+    <div class="row"><div style="flex:1"><div class="label">Weight</div>
+      <input id="eW" type="number" step="0.05" min="0" max="1" value="${t.weight}"></div></div>
+    <div class="row"><button class="act" id="eSave">Save edge</button>
+      <button class="act" id="eClose">Close</button></div>
+    <div class="msg" id="eMsg"></div></div>`;
+  box.scrollIntoView({behavior:"smooth",block:"nearest"});
+  $("#eClose").onclick=()=>box.innerHTML="";
+  $("#eSave").onclick=async()=>{
+    const r=await api("/api/mdp",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({transitions:[{from:t.from,to:t.to,
+        weight:parseFloat($("#eW").value),trigger:$("#eTrig").value}]})});
+    if(r.ok){flash($("#eMsg"),"Saved — "+(r.git||"no git change"),true);loadGraph();}
+    else flash($("#eMsg"),(r.error||"failed")+(r.problems?": "+r.problems.join("; "):""),false);
+  };
+}
+
+// ── Queue ──────────────────────────────────────────────────────────────────
+async function loadQueue(){
+  const d=await api("/api/queue");
+  const q=d.queue||[];
+  const box=$("#queueList");
+  if(!q.length){box.innerHTML="<p class='empty'>Queue is empty. Behavior requests arrive from meta reads, analytics flags, sessions, or you.</p>";return;}
+  box.innerHTML=q.map(e=>{
+    const pend=e.status==="pending",appr=e.status==="approved";
+    return `<div class="card" style="margin-bottom:12px">
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <code>${esc(e.id)}</code>
+        <span class="tag ${e.kind==='hard'?'proposed':''}">${esc(e.kind)}</span>
+        <span class="tag ${esc(e.status)}">${esc(e.status)}</span>
+        <strong>${esc(e.title)}</strong>
+        <span class="label" style="margin-left:auto">filed ${esc(e.filed)} by ${esc(e.filed_by)}</span>
+      </div>
+      <p class="label" style="margin-top:8px">Relieves / feeds: <span style="color:var(--muted)">${esc(e.relieves||"—")}</span></p>
+      ${e.rationale?`<p style="color:var(--muted);font-size:13px;margin-top:6px">
+        <b>Need:</b> ${esc(e.rationale.need)}<br><b>Why simple:</b> ${esc(e.rationale.why_simple)}
+        <br><b>Precedent:</b> ${esc(e.rationale.precedent)}</p>`:""}
+      ${e.brief?`<p style="color:var(--muted);font-size:13px;margin-top:6px">
+        <b>Request:</b> ${esc(e.brief.request)}<br>
+        <b>Why hard:</b> ${(e.brief.why_hard||[]).map(esc).join("; ")}<br>
+        <b>Claude would:</b> ${esc(e.brief.claude_would)}</p>
+        ${(e.brief.questions||[]).length?`<p class="label" style="margin-top:6px">Questions only you can answer</p>
+        <ul style="color:var(--warn);font-size:13px;margin-left:18px">${e.brief.questions.map(q=>`<li>${esc(q)}</li>`).join("")}</ul>`:""}`:""}
+      ${e.draft?`<details><summary>Drafted registry entry</summary>
+        <pre class="yaml">${esc(JSON.stringify(e.draft,null,2))}</pre></details>`:""}
+      ${pend?`<div class="row"><input id="qr-${e.id}" placeholder="Decision rationale (one line, goes into the log)">
+        <button class="act" onclick="qAct('${e.id}','approve')">Approve</button>
+        <button class="act danger" onclick="qAct('${e.id}','reject')">Reject</button></div>`:""}
+      ${appr&&e.kind==="simple"?`<div class="row">
+        <button class="act" onclick="qAct('${e.id}','apply')">Apply to registry</button>
+        <span class="label">Approval and application are separate — review the approval first.</span></div>`:""}
+      ${appr&&e.kind==="hard"?`<p class="label" style="margin-top:8px;color:var(--warn)">
+        HARD briefs are never auto-applied. Re-file as SIMPLE with your answers as constraints.</p>`:""}
+      <div class="msg" id="qm-${e.id}"></div></div>`;
+  }).join("");
+}
+
+async function qAct(id,action){
+  const rat=document.getElementById("qr-"+id);
+  const r=await api(`/api/queue/${id}/${action}`,{method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({rationale:rat?rat.value:""})});
+  const m=document.getElementById("qm-"+id);
+  if(r.ok){flash(m,(r.applied?"Applied as "+r.applied+" — ":"Done — ")+(r.git||""),true);
+    setTimeout(()=>{loadQueue();loadDash();},700);}
+  else flash(m,r.error||"failed",false);
+}
+
+// ── Analytics ──────────────────────────────────────────────────────────────
+async function loadAnalytics(){
+  const a=await api("/api/analytics");
+  $("#flags").innerHTML=(a.flags||[]).length
+    ?a.flags.map(f=>`<div class="card" style="margin-bottom:8px;border-left:3px solid var(--warn)">
+       <code>${esc(f.behavior)}</code> <span style="color:var(--muted)">${esc(f.message)}</span></div>`).join("")
+    :"<div class='card' style='border-left:3px solid var(--good)'>No flags.</div>";
+  const mx=Math.max(1,...a.behaviors.map(b=>b.visits));
+  $("#util").innerHTML="<tr><th>Behavior</th><th>Phase</th><th>Status</th><th class='num'>Visits</th></tr>"+
+    a.behaviors.map(b=>`<tr><td><code>${esc(b.id)}</code><div class="bar"><i style="width:${b.visits/mx*100}%"></i></div></td>
+      <td><span class="dot" style="background:${PC(b.phase)}"></span>${esc(b.phase)}</td>
+      <td><span class="tag ${esc(b.status)}">${esc(b.status)}</span></td>
+      <td class="num">${b.visits}</td></tr>`).join("");
+  $("#anNote").textContent=a.note+"  ("+a.log_entries+" log entries)";
+}
+
+// ── People ─────────────────────────────────────────────────────────────────
+async function loadPeople(){
+  const p=await api("/api/people");
+  $("#peopleTable").innerHTML=p.length
+    ?"<tr><th>Handle</th><th class='num'>Interactions</th><th>Trust</th><th>Model</th><th>Last seen</th></tr>"+
+      p.map(x=>`<tr><td><b>${esc(x.handle)}</b></td><td class="num">${x.interactions}</td>
+        <td>${esc(x.trust??"—")}</td><td style="color:var(--muted)">${esc(x.model||"")}</td>
+        <td style="color:var(--faint)">${esc((x.last_seen||"").slice(0,10))}</td></tr>`).join("")
+    :"<tr><td class='empty'>No interlocutor models recorded yet.</td></tr>";
+}
+
+loadDash();
+setInterval(loadDash,60000);
+</script>
+</body>
+</html>

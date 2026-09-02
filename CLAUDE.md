@@ -252,12 +252,41 @@ python3 -m agent.humboldt discord sweep
 python3 -m agent.humboldt discord sweep --since 2026-05-01  # since a date (UTC)
 python3 -m agent.humboldt discord sweep --limit 500          # cap at N messages
 
-# Behavior graph — MDP visualization and supervisory loop
-# Graph definition: behaviors/mdp.yaml  Log: behaviors/log.jsonl
+# ── Supervisor console (Phase 3, session 33) — agent/console.py ──
+# One web app (localhost:7878) replacing `behaviors admin` + behaviors/admin.html.
+# Six views: Dashboard (KPI chart, funnel queue depths, daemon/pause/read state),
+# Laws (table → validated YAML editor), Graph (phase-flow SVG; click node = behavior
+# editor, click edge = trigger/weight editor), Queue (approval queue), Analytics,
+# People. Reads/writes repo YAML directly — every save is a git-visible file edit.
+# After cutover it runs on the exe.dev VM, reached by SSH tunnel (`ssh humboldt-console`).
+# ⚠ A save commits THE WHOLE FILE it wrote, tagged [console] — commit your own work
+#   before opening the console mid-session or it gets swept into a [console] commit.
+python3 -m agent.humboldt console                    # start console, open browser
+python3 -m agent.humboldt console --port N --no-open # alternate port, no browser
+python3 -m agent.humboldt console --push             # also `git push` each save (server mode)
+
+# Approval queue — nothing a behavior drafts runs before supervisor approval.
+# Storage: behaviors/queue.yaml. Rubric: behaviors/definition-rubric.md (SIMPLE/HARD).
+# approve and apply are separate steps so an approval can be reviewed before it lands.
+python3 -m agent.humboldt queue list [--status pending|approved|rejected|applied]
+python3 -m agent.humboldt queue show q-0001
+python3 -m agent.humboldt queue approve q-0001 [--why TEXT]
+python3 -m agent.humboldt queue reject  q-0001 [--why TEXT]
+python3 -m agent.humboldt queue apply   q-0001   # writes the draft into registry.yaml
+
+# Behavior graph — registry + MDP
+# behaviors/registry.yaml — 12 behaviors as of Phase 3 (was 26; ~14 stubs deleted per
+#   §6.1): the 8 funnel stages (intake, triage, shallow-read, deep-read, induct, assess,
+#   publish, monitor) + orient, respond, graph-evolve, supervisory. Five are `proposed`
+#   (not built): monitor, orient, graph-evolve — plus see notes: fields for what exists.
+# behaviors/mdp.yaml — v2, 22 directional edges. EVERY edge requires a `trigger`;
+#   `behaviors graph` warns on any that lack one and the console refuses to save one.
 python3 -m agent.humboldt behaviors graph                          # text summary: phases, nodes, edge counts
-python3 -m agent.humboldt behaviors admin                          # start local admin web UI (localhost:7878)
 python3 -m agent.humboldt behaviors log <id> [--arc ARC] [--note] # record a behavior visit to log.jsonl
 python3 -m agent.humboldt behaviors supervisory                    # analyze log; suggest weight updates
+# ⚠ Only `induct` and `assess` call funnel_log.behavior_visit today, so utilization is
+#   blind for the other 7 active behaviors — the console's Analytics view flags this.
+#   Instrumenting them is Phase 4 work.
 
 # ⚠ Deploy target: `wrangler pages deploy` infers the branch from git and makes a
 # PREVIEW deployment off anything other than `main`, returning success either way.

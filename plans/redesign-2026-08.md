@@ -527,6 +527,27 @@ Work happens on a branch (`redesign-2026-08`); the daemon stays paused (through
 2026-08-15, extend if needed) until Phase 5 lands. Each phase is one or two sessions and
 ends in a working state.
 
+**Target dates set 2026-09-01** (operator decision: don't skip phases, but get Phase 5
+done by the conference talk — `plans/talk-2026-09-23.md` — since the VM cutover will be
+demoed alongside the talk itself):
+
+| Phase | Target | Note |
+|---|---|---|
+| 3 — Graph + console | **2026-09-06** | [FABLE] deliverables already done (2026-08-01 pre-work); this is pure [OPUS]/[SONNET] execution against a locked spec. |
+| 4 — Analytics | **2026-09-10** | |
+| 5 — Daemon quiet mode + server cutover | **2026-09-16** | Coincides with the talk's own Phase D (`plans/talk-2026-09-23.md` §7) rehearsal-complete target — not a coincidence, see below. |
+
+**This date is load-bearing for both projects, not two separate deadlines.** Per this
+section's rollback-safety rule, `redesign-2026-08` merges to `main` only after Phase 5 —
+which is also the first time `redesign-2026-08` has ever produced a *production* deploy
+(`project_site_deploy_preview_trap`). The talk's persistent page
+(`plans/talk-2026-09-23.md` §5.5) needs exactly that production deploy to exist at
+`humboldt.protocol-institute.org/talks/…` (talk plan risk 3, now load-bearing). So one
+milestone — merge + cutover + first production deploy — unblocks both: the daemon goes
+off-laptop, and the talk's real URL comes into existence, on the same day. 09-16→09-23
+is shared buffer for both efforts: talk rehearsal, and Phase 6 shakedown (running the
+inbox backlog through the funnel on the server as the acceptance test).
+
 ### Build-tier legend
 
 Which model implements each workstream. (Distinct from the *runtime* tiers in §5 —
@@ -578,12 +599,37 @@ Opus/Sonnet work.
   - **[OPUS]** `triage.py`/`reads.py` rework (content/meta tagging, bib wiring, seed
     emission).
   - **[SONNET]** Publish hook + law-event plumbing.
-- **Phase 3 — Graph + console.** *The supervisor can steer.*
-  - **[FABLE]** Registry prune decisions; behavior-spec and transition-trigger
-    semantics; the definition-triage rubric (`definition-rubric.md`).
-  - **[OPUS]** Console server; laws/graph/queue editor logic; approval-queue format
-    and application of approved changes.
-  - **[SONNET]** UI polish: forms, dashboard, D3 view refresh, styling.
+- **Phase 3 — Graph + console.** *The supervisor can steer.* — **[OPUS] work DONE
+  2026-09-01 (session 33)**; [SONNET] polish outstanding.
+  - ~~**[FABLE]** Registry prune decisions; behavior-spec and transition-trigger
+    semantics; the definition-triage rubric (`definition-rubric.md`).~~ Done 2026-08-01
+    (pre-work); executed this session.
+  - ~~**[OPUS]** Console server; laws/graph/queue editor logic; approval-queue format
+    and application of approved changes.~~ **DONE.** `behaviors/registry.yaml` rewritten
+    26 → 12 behaviors per §6.1 (8 funnel stages + orient/respond/graph-evolve/
+    supervisory; 5 of the 12 are `proposed`, i.e. specified but not built).
+    `behaviors/mdp.yaml` v2: 22 directional edges, **every one carrying a `trigger`**,
+    virtual placeholder nodes deleted (every phase now has a real behavior).
+    `agent/approval_queue.py` + `behaviors/queue.yaml` — SIMPLE/HARD filing per the
+    rubric, approve/reject/apply as separate steps, HARD briefs never auto-applied.
+    `agent/console.py` + `behaviors/console.html` — all six §7 views, verified in-browser.
+    CLI: `humboldt console`, `humboldt queue …`; `behaviors admin` retired with a pointer.
+  - **[SONNET]** UI polish: forms, dashboard, D3 view refresh, styling. *Still open,
+    but the console is functional as-is — this is polish, not completion.*
+
+  **Found by building it** (the console's own analytics view surfaced these):
+  1. **Only `induct` and `assess` call `funnel_log.behavior_visit`.** The other seven
+     active behaviors are invisible to utilization — the graph cannot learn from
+     traffic it cannot see, which undercuts the whole supervisory loop. Instrument
+     them in Phase 4; that is a precondition for the §8 analytics being meaningful,
+     not a nice-to-have.
+  2. **Registry `action.model` values disagree with the §6.2 spec example.** The live
+     module constants say `claude-sonnet-4-6` / `claude-opus-4-8`; the spec example
+     says `claude-sonnet-5`. The registry records the *live* values deliberately, so
+     the drift is visible rather than silent. Nothing reads the field yet — when the
+     console starts to, reconcile then.
+  3. **Console commits whole files, not diffs.** Correct on the server (sole writer),
+     hazardous on a laptop mid-session. Documented in the module docstring and CLAUDE.md.
 - **Phase 4 — Analytics.** *The graph is observable.*
   - **[OPUS]** Flag heuristics (prune/split/stall thresholds) + weekly supervisory
     report design (supervisor reviews the heuristics before they ship).
