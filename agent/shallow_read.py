@@ -122,6 +122,21 @@ def _output_filename(title: str) -> str:
     return f"{date.today().isoformat()}-{_slugify(title)}.md"
 
 
+def _existing_note(out_dir: Path, title: str) -> Path | None:
+    """Find an already-written note for this title under ANY date prefix.
+
+    The skip check used to be ``_output_filename(title).exists()``, which embeds
+    ``date.today()`` — so it only ever matched notes written *today*. Any run that
+    crossed midnight (a long backlog sweep, or one paused and resumed the next day)
+    silently re-read and re-paid for every item it had already done, and left a
+    second copy of each note differing only in date prefix. Found 2026-09-02 with 45
+    duplicated slugs on disk, most dating back to the June sweeps.
+
+    Matching on the slug under a fixed-width date glob makes the skip date-agnostic.
+    """
+    return next(iter(sorted(out_dir.glob(f"????-??-??-{_slugify(title)}.md"))), None)
+
+
 # ── Prompt construction ───────────────────────────────────────────────────────
 
 _SEED_BLOCK = """## Seed
@@ -481,8 +496,9 @@ def shallow_read(triage_path: str, dry_run: bool = False,
         title = inbox.get("title") or item["title"]
         outfile = out_dir / _output_filename(title)
 
-        if outfile.exists():
-            print(f"  [{i}/{len(items)}] skip (exists): {outfile.name}")
+        prior = _existing_note(out_dir, title)
+        if prior is not None:
+            print(f"  [{i}/{len(items)}] skip (exists): {prior.name}")
             skipped += 1
             continue
 

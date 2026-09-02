@@ -314,6 +314,18 @@ def validate(law) -> list[str]:
         if not law.get(field):
             problems.append(f"{lid}: missing required field {field!r}")
 
+    # Substance fields. Checked separately from the identity fields above because a
+    # record can be structurally well-formed and still not be a *law*: L-018 (2026-09-02)
+    # passed validation with an empty mechanism and empty falsification, having been
+    # written by an induction sweep that retracted it mid-generation. A claim with no
+    # stated mechanism, or no stated way to be wrong, fails METHOD.md regardless of how
+    # complete its metadata is — so the checker has to look at both.
+    for field in ("mechanism", "falsification"):
+        if not str(law.get(field) or "").strip():
+            problems.append(
+                f"{lid}: {field} is empty — a law needs a stated mechanism and a "
+                "checkable falsification condition")
+
     stage = law.get("stage")
     if stage and stage not in STAGES:
         problems.append(f"{lid}: invalid stage {stage!r}")

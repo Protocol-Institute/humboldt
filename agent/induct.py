@@ -218,6 +218,35 @@ _DEFAULT_CHALLENGE = (
 )
 
 
+def _reject_reason(nl: dict) -> str | None:
+    """Why this proposed law should NOT become a record, or None to proceed.
+
+    Added 2026-09-02 after a sweep created L-018 as a hollow shell: the model had
+    worked out mid-generation that its own proposal duplicated L-014, wrote
+    "RETRACTED — this duplicates L-014. Filing as evidence instead." into the
+    justification, and correctly filed the evidence onto L-014 — but ``_apply_new_law``
+    created the record anyway, with empty mechanism, empty falsification and no
+    examples. Nothing downstream caught it: ``laws validate`` passed it, the site
+    published it, and the ingest embedded it.
+
+    Two independent guards, because they fail differently:
+      * an explicit self-retraction in the justification — the model knows it was wrong
+      * an empty mechanism or falsification — a claim with no stated mechanism and no
+        way to be wrong is not a candidate law under METHOD.md, whatever the model
+        called it
+    """
+    justification = str(nl.get("justification") or "")
+    if re.match(r"\s*RETRACTED\b", justification, re.I):
+        return f"self-retracted by induction: {_clip(justification, 120)}"
+
+    missing = [f for f in ("mechanism", "falsification")
+               if not str(nl.get(f) or "").strip()]
+    if missing:
+        return (f"no {' and no '.join(missing)} — a law needs a stated mechanism and a "
+                "way to be wrong (METHOD.md)")
+    return None
+
+
 def _apply_triggers(law, nl: dict) -> bool:
     """Set the law's advance/challenge triggers from the induction verdict.
 
@@ -377,18 +406,30 @@ def induct(dry_run: bool = False, since: str | None = None) -> None:
         print(f"! could not parse induction response: {e}\n\n{text[:1500]}")
         return
 
-    new_laws = result.get("new_laws") or []
+    proposed = result.get("new_laws") or []
     evidence = result.get("evidence") or []
     left = result.get("leave") or []
 
+    # Drop proposals that should never become records (self-retracted, or with no
+    # mechanism / no falsification). Their evidence attachments are unaffected —
+    # they are applied separately below, which is where a retracted duplicate's
+    # material is supposed to land anyway.
+    new_laws, rejected = [], []
+    for nl in proposed:
+        reason = _reject_reason(nl)
+        (rejected if reason else new_laws).append((nl, reason) if reason else nl)
+
     print(f"\nDecision: {len(new_laws)} new law(s), {len(evidence)} evidence attachment(s), "
-          f"{len(left)} seed(s) deliberately left.")
+          f"{len(left)} seed(s) deliberately left"
+          + (f", {len(rejected)} proposal(s) rejected." if rejected else "."))
     for nl in new_laws:
         trig = nl.get("triggers") or {}
         missing = [k for k in ("advance", "challenge")
                    if not str(trig.get(k) or "").strip()]
         flag = f"  [! no {'/'.join(missing)} trigger — placeholder]" if missing else ""
         print(f"  + NEW: {nl.get('title', '')}{flag}")
+    for nl, reason in rejected:
+        print(f"  ✗ REJECTED: {nl.get('title', '')}\n      {reason}")
     for ev in evidence:
         print(f"  ~ EVIDENCE → {ev.get('law')}: {ev.get('kind')} — {str(ev.get('bears_on',''))[:60]}")
 
