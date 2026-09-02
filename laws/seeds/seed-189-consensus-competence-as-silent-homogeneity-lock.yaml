@@ -1,0 +1,16 @@
+id: seed-189
+title: Consensus Competence as Silent Homogeneity Lock
+text: 'In decentralized learning systems where trust and status are allocated based on peer agreement
+  rather than external ground truth, agents optimize for *consistency within the peer network* rather
+  than correspondence to reality. Over time, this creates a feedback loop in which heterodox but accurate
+  beliefs are systematically down-weighted, while coordinated errors become self-reinforcing. The system
+  appears to solve the centralized-proxy problem (L-004) but instead instantiates a distributed variant:
+  many agents agreeing on a legible collective signal (consensus rank) rather than one authority imposing
+  a metric. The coordination cost is conserved, but now includes silent error amplification.'
+source: bibliography/shallow-reads/2026-09-02-decentralised-consensus-learning-networks-sme-rotation-witho.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-006
+status: open

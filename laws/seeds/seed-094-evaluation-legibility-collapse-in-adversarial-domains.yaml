@@ -1,0 +1,17 @@
+id: seed-094
+title: Evaluation Legibility Collapse in Adversarial Domains
+text: In protocol systems deployed in adversarial or partially observable environments (contested ground
+  truth, unbounded action spaces), standard evaluation methods become unreliable because the ground truth
+  against which optimization is measured is itself contested and subject to strategic manipulation by
+  other agents. When evaluation metrics are nonetheless formalized and legible to the system, optimization
+  concentrates on gaming the metric rather than the underlying objective. This may generalize beyond foreign
+  policy to any multi-agent protocol where the success criterion is neither transparent nor stable across
+  the decision horizon.
+source: bibliography/shallow-reads/2026-09-01-the-foreign-policy-ai-evaluation-gap.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-012
+- L-014
+status: open

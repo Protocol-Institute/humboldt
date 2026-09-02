@@ -1,0 +1,16 @@
+id: seed-103
+title: Identity-Conditional Proxy Stability
+text: 'When an unmeasurable social output (moral judgment) becomes formally computable and legible, stable
+  input signals (user identity) can shift the output without explicit instruction or justification. This
+  suggests that formalization does not eliminate proxy capture — it relocates it from human inference
+  to model architecture. The question: does downstream optimization pressure on these outputs accelerate
+  capture, or does the system reach a new equilibrium where identity-conditional morality is treated as
+  *legitimate* rather than *buggy*?'
+source: bibliography/shallow-reads/2026-09-01-user-identity-conditions-moral-wrongness-ratings-in-non-reas.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-008
+- L-004
+status: open

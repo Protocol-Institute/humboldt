@@ -1,0 +1,17 @@
+id: seed-236
+title: Preference-Shape Hiding in Position Allocation Protocols
+text: When a protocol allocates scarce positions or resources based on a legible signal (bid, score, priority)
+  that was designed to capture *value magnitude* but agents have heterogeneous *preference structures*
+  (e.g., some value only position A; others value A and B equally), the single signal cannot simultaneously
+  reveal both dimensions. Agents then have incentive to misrepresent preference shape via the available
+  signal channel, collapsing the protocol's information capacity. This may generalize to any computable
+  allocation rule where the preference heterogeneity is structurally orthogonal to the dimensionality
+  of the legible input space.
+source: bibliography/shallow-reads/2026-09-02-order-auctions-with-private-position-preferences.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-008
+status: open

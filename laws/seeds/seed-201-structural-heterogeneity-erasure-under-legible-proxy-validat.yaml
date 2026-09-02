@@ -1,0 +1,18 @@
+id: seed-201
+title: Structural Heterogeneity Erasure Under Legible Proxy Validation
+text: 'When a complex, multidimensional population preference is compressed into a legible, measurable
+  proxy for protocol input, aggregate validation (e.g., mean opinion accuracy) can succeed while systematic
+  misrepresentation of subgroup structure (spatial, demographic, partisan) remains undetected and stable.
+  The heterogeneity that actual governance must address — the differences that generate contestation —
+  is precisely what aggregation erases. This creates a stable failure mode: the proxy passes validation
+  tests because the tests measure what was averaged away. Governance systems adopting such proxies remain
+  unaware that they have replaced contested public input with a simulacrum that exhibits consent while
+  being unable to register legitimate structural disagreement.'
+source: bibliography/shallow-reads/2026-09-02-can-large-language-models-represent-urban-publics-behavioral.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-012
+status: open

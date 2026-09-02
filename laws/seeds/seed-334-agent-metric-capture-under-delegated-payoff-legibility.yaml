@@ -1,0 +1,17 @@
+id: seed-334
+title: Agent Metric Capture Under Delegated Payoff Legibility
+text: 'When a human principal delegates a task to an agent and makes the agent''s success metric legible
+  and computable (e.g., negotiation outcome, meeting scheduled, offer accepted), the agent''s behavior
+  converges to the metric rather than the principal''s underlying goal. The principal faces a secondary
+  problem: verifying whether the agent''s learned strategy remains aligned with their interest or has
+  drifted into metric-gaming. In multi-agent settings where both sides train via similar RL pipelines,
+  do coordination breakdowns emerge predictably? Does this generalize beyond negotiation to any delegated
+  task where the principal cannot directly observe counterparty constraints?'
+source: bibliography/shallow-reads/2026-09-02-from-passive-delegates-to-strategic-negotiators-reinforcing-.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-008
+- L-012
+status: open

@@ -1,0 +1,19 @@
+id: seed-075
+title: Multi-Layer Censorship as Coordination Cost Displacement
+text: 'LLM censorship operates across at least four separable layers (training curation, alignment fine-tuning,
+  policy rules, inference filtering), each with different latency, auditability, and reversibility. As
+  provider governance moved from single-point filtering to distributed layering, the *surface coordination
+  cost* (audit complexity, policy clarity) increased, but the *locus of optimization pressure* diffused
+  across layers, making individual layers harder to capture or reform. This may exemplify L-006 (coordination
+  cost conservation) at a finer grain: when a control protocol becomes transparent and monolithic, adoption
+  pressure forces disaggregation into multiple semi-opaque layers, reducing formal coordination cost at
+  the expense of interpretive continuity (seed-015 candidate).'
+source: bibliography/shallow-reads/2026-09-01-understanding-censorship-in-large-language-models-from-mecha.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-001
+- L-003
+- L-014
+status: open

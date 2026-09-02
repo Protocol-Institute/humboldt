@@ -1,0 +1,18 @@
+id: seed-373
+title: Route Legibility as Diversity Collapse Under Symmetric Adoption
+text: 'When a navigational or allocation decision is formalized as a computable recommendation and exposed
+  symmetrically to all agents under adoption pressure, the decision-space diversity contracts even when
+  individual outcomes improve locally. The mechanism is not congestion per se, but the elimination of
+  natural variation (different route knowledge, different preferences, random choice) that previously
+  distributed load. Generalization hypothesis: any protocol that replaces distributed heuristic choice
+  with a centralized legible signal will induce concentration, independent of traffic domain — applies
+  to job queuing, resource pools, cache allocation. The critical condition is symmetric visibility of
+  the signal across the adopter population.'
+source: bibliography/shallow-reads/2026-09-02-the-traffic-concentration-effects-of-urban-navigation-servic.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-012
+status: open

@@ -1,0 +1,17 @@
+id: seed-060
+title: Prediction-legibility asymmetry in demand-constrained allocation
+text: 'In allocation protocols where supply is genuinely scarce and intermittent (short-lived job slots),
+  optimizing the prediction accuracy of user preference (what users will engage with) can systematically
+  drift away from optimizing supply-demand matching. The prediction target becomes legible and computable;
+  the ground truth (whether a job slot will actually exist when the user acts) is not. This creates a
+  stable decoupling: platforms can improve recommendation metrics without improving allocation efficiency.
+  The pattern may generalize to any protocol where prediction is used as a decision input in a system
+  with endogenous, time-varying scarcity.'
+source: bibliography/shallow-reads/2026-09-01-designing-recommendation-exposure-and-favorite-lists-a-field.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-012
+- L-016
+status: open

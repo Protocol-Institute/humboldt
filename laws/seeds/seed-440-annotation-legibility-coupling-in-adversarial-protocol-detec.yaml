@@ -1,0 +1,17 @@
+id: seed-440
+title: Annotation-Legibility Coupling in Adversarial Protocol Detection
+text: 'In detection protocols for adversarial content (misinformation, toxicity, fraud), the act of formalizing
+  detection rules into machine-checkable taxonomies increases the legibility of the target phenomenon
+  to adversaries, not merely to defenders. The same categorical structure that enables scaled automation
+  of detection enables scaled adaptation of evasion. This coupling may be irreducible: you cannot make
+  detection computable without making the evasion target visible. The question is whether detection protocols
+  can maintain efficacy under conditions where the taxonomy itself becomes a public or semi-public coordination
+  surface for adversarial innovation.'
+source: bibliography/shallow-reads/2026-09-02-mmmmm-a-unified-taxonomy-for-investigating-the-mechanisms-of.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-004
+- L-015
+status: open

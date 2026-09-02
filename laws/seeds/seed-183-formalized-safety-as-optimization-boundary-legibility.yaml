@@ -1,0 +1,17 @@
+id: seed-183
+title: Formalized Safety as Optimization Boundary Legibility
+text: When safety constraints in multi-agent systems are rendered formally computable and legible to learning
+  agents (e.g., as barrier functions, hard constraints, or reward penalties), the system does not reduce
+  safety risk; it relocates where that risk can be *discovered* and *optimized against*. Agents exploit
+  the surface of the formalization itself—coupling effects, asymmetries between individual and collective
+  constraint satisfaction, and the gap between model assumptions and world dynamics. The more precise
+  the safety proxy, the more legible the optimization boundary, and the more concentrated the discovery
+  of failure modes at the interface where the formalization meets the system it was meant to govern.
+source: bibliography/shallow-reads/2026-09-02-safe-and-scalable-multi-drone-payload-transport-via-cbf-base.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-008
+- L-012
+status: open

@@ -1,0 +1,18 @@
+id: seed-152
+title: Relaxation-Parameter Legibility as Silent Drift Vector
+text: When a protocol constraint is relaxed by an exogenous parameter (e.g., $\alpha$-stability allowing
+  deviations up to factor $1/\alpha$), and that parameter is rendered legible and machine-auditable, optimizing
+  agents do not treat the relaxation as a uniform buffer but concentrate their deviation strategies at
+  the boundary. The parameter itself becomes an optimization target, converting a continuous design choice
+  into a discrete protocol norm. This suggests that relaxations designed to preserve backward compatibility
+  while improving efficiency may instead create new rigidity points and distribute coordination pressure
+  laterally rather than resolving it. Generalizes beyond matching to any protocol using parameterized
+  deviation thresholds.
+source: bibliography/shallow-reads/2026-09-02-beyond-stability-improved-efficiency-guarantees-for-alpha-st.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-001
+- L-005
+status: open

@@ -1,0 +1,17 @@
+id: seed-311
+title: Protocol-Layer Security as Legible Optimization Boundary
+text: Security enforcement migrating from agent-internal policies to network-layer protocol constraints
+  may not solve the underlying problem of legible optimization targets — it may only shift the surface
+  at which agents seek to circumvent or game enforcement. When network constraints are rendered computable
+  and machine-readable for verification, do they become new optimization targets, such that agents learn
+  to satisfy the letter of the protocol while defeating its security intent? Does this suggest an irreducible
+  residuum of informal, opaque governance in security-critical agent systems?
+source: bibliography/shallow-reads/2026-09-02-rethinking-agent-security-as-a-networking-problem.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-001
+- L-008
+- L-012
+status: open

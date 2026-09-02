@@ -1,0 +1,16 @@
+id: seed-310
+title: Expressiveness-Disambiguation Lock in Voting Protocol Formalization
+text: 'When voting protocols add expressive dimensions (e.g., negative votes), protocol designers must
+  formally disambiguate competing interpretations of new preference signals. Each disambiguation choice
+  locks in different equilibrium behaviors and fairness guarantees. The proliferation of axiomatically
+  sound but semantically distinct formalizations may itself create coordination cost (agents and implementers
+  must agree on which interpretation governs) that is not recovered by gains in expressiveness. This suggests
+  a cost-hidden pathway through which L-003 operates: formalization under expressiveness pressure produces
+  multiple valid formal solutions, forcing an additional meta-level coordination choice.'
+source: bibliography/shallow-reads/2026-09-02-proportional-committee-elections-with-positive-and-negative-.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-003
+status: open

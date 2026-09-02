@@ -1,0 +1,17 @@
+id: seed-125
+title: Communication Threshold as Task-Structure Invariant
+text: 'In decomposed multi-agent reasoning systems, the optimal communication volume is determined by
+  problem factorability, not by agent count or reasoning capacity. Below a threshold of task interdependence,
+  added communication reduces accuracy; above it, communication enables coordination gains. This suggests
+  coordination cost is not conserved but *structured by the decomposition grammar itself* — the shape
+  of the task, not the coordination mechanism, determines whether communication is load or asset. If this
+  pattern holds across protocol domains (not just LLM reasoning), it would reframe L-006 as a conditional
+  law: conservation holds only within a fixed decomposition scheme; scheme change redistributes costs
+  unpredictably.'
+source: bibliography/shallow-reads/2026-09-01-benefits-and-limitations-of-communication-in-multi-agent-rea.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-006
+status: open

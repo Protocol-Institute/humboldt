@@ -1,0 +1,16 @@
+id: seed-124
+title: Legible Risk as Insurance Market Boundary
+text: In insurance markets for autonomous systems, the decomposition of autonomy into measurable risk
+  dimensions (permission exposure, governance maturity, dependency concentration) creates a boundary between
+  insurable and uninsurable risk. Does this boundary stabilize as a protocol equilibrium, or does competitive
+  pressure from both sides (agents seeking lower premiums, insurers seeking market share) progressively
+  shift optimization into the gaps between formal risk state and realized loss? Under what conditions
+  does the formalization of risk dimensions itself become a vector for strategic misrepresentation?
+source: bibliography/shallow-reads/2026-09-01-ai-native-insurance-for-agentic-ai-pricing-underwriting-and-.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: question
+connections:
+- L-004
+- L-008
+status: open

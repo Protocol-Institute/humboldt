@@ -1,0 +1,18 @@
+id: seed-442
+title: Reference-Legibility Lock in Generative Systems
+text: 'When a generative system is optimized against a measurable reference distribution (demographic,
+  statistical, or structural), the system learns to match that reference with high fidelity, but this
+  fidelity becomes independent of whether the reference is accurate or representative of the actual target
+  population. The proxy (reference matching) becomes the stable attractor, and the original objective
+  (real-world fairness or representativeness) detaches from the optimization surface. This creates a new
+  failure mode: you can have high metric compliance and systematic bias simultaneously, with the bias
+  locked in at the reference-selection stage, upstream of the generator. Generalizes beyond demography
+  to any generative protocol where the training signal is conditioned on a formalized external distribution.'
+source: bibliography/shallow-reads/2026-09-02-reference-distribution-dependence-in-llm-based-synthetic-per.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-008
+status: open

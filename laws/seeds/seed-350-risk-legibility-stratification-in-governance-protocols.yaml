@@ -1,0 +1,18 @@
+id: seed-350
+title: Risk Legibility Stratification in Governance Protocols
+text: 'When protocol governance systems render some risk dimensions computable and leave others informal,
+  the system stabilizes into a two-tier risk landscape: formalized risks (subject to enforcement, resource
+  allocation, and accountability) and orphaned risks (identified but unactionable, systematically deprioritized).
+  This stratification is not resolved by adding additional risk frameworks; parallel frameworks create
+  competing legibility signals, intensifying the pressure to concentrate resources on the computable tier.
+  The mechanism generalizes: any safety or governance protocol that treats formalization and enforcement
+  as coupled operations will systematically displace unmeasurable risks into an invisible residual category,
+  and this displacement is stable under optimization pressure.'
+source: bibliography/shallow-reads/2026-09-02-orphan-risks-at-the-frontier-of-artificial-intelligence-what.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: insight
+connections:
+- L-004
+- L-014
+status: open

@@ -1,0 +1,17 @@
+id: seed-143
+title: Forensic Legibility Mandate Disconnect — Verification Without Threshold
+text: When regulatory bodies mandate a technical mechanism (e.g., watermarking) and render compliance
+  legible and computable (verifiable presence of watermark), the system can lock in place even if the
+  mechanism cannot meet the underlying forensic or evidentiary standard it was meant to serve. The legal
+  obligation becomes decoupled from the functional requirement. The system is now in a state where enforcement
+  points to a legible signal (watermark presence/absence) that does not reliably indicate the target condition
+  (true origin). This pattern may generalize to any domain where law formalizes a proxy before the proxy's
+  reliability is empirically validated at the threshold where it will be used.
+source: bibliography/shallow-reads/2026-09-02-ai-watermark-evidence-fails-forensic-readiness-an-empirical-.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-002
+- L-014
+status: open

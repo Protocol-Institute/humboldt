@@ -1,0 +1,15 @@
+id: seed-429
+title: Monetary-Abstraction Cost Recovery as Hidden Coordination Layer Formation
+text: When a protocol removes its primary legible transfer mechanism (monetary or formal credit), does
+  the total coordination cost remain constant by migrating to an unmeasured layer (reputation, reciprocity,
+  formal obligation accumulation)? If so, is there a predictable signature in mechanism efficiency loss
+  that reveals the *structure* of the replacement layer—i.e., can we infer the existence and properties
+  of informal coordination by measuring the shape of the efficiency frontier across different non-monetary
+  allocation designs?
+source: bibliography/shallow-reads/2026-09-02-near-optimal-mechanisms-for-resource-allocation-without-mone.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-006
+status: open

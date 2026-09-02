@@ -1,0 +1,18 @@
+id: seed-268
+title: Proxy Legibility Without Validity Binding in Safety-Critical Benchmarks
+text: 'When a benchmark operationalizes an unmeasurable safety property (appropriate nuclear decision-making)
+  as a computable proxy (consistency across scenarios), high performance on the proxy may decouple from
+  the ground truth under three conditions: (1) when models are fine-tuned to optimize the proxy; (2) when
+  the proxy encodes domain-specific but non-generalizable consistency patterns; (3) when the scenario
+  set and the real world diverge in ways the benchmark cannot capture. The more legible the proxy, the
+  more optimization pressure it attracts, and the more likely decoupling becomes. This suggests that transparency
+  in safety benchmarks can paradoxically reduce safety if the benchmark becomes a target of computable
+  enforcement rather than a diagnostic tool.'
+source: bibliography/shallow-reads/2026-09-02-the-nuclear-decision-making-benchmark-evaluating-frontier-ll.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-004
+- L-008
+status: open

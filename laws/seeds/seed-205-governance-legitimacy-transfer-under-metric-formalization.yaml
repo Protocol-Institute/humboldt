@@ -1,0 +1,17 @@
+id: seed-205
+title: Governance Legitimacy Transfer Under Metric Formalization
+text: When normative governance objectives are formalized as computable, differentiable metrics and embedded
+  as constraints in optimization problems, governance authority is silently transferred from regulatory
+  judgment to metric-architecture designers. This creates a secondary governance layer—the design of the
+  proxy itself—that operates with less transparency and contestability than formal regulation. Under conditions
+  of scaling or pressure to automate enforcement, this displacement is difficult to reverse; the metric
+  becomes the ground truth even as its original status was merely *instrumental*. This pattern generalizes
+  beyond welfare metrics to any domain where governance is converted from deliberative to computable form.
+source: bibliography/shallow-reads/2026-09-02-the-human-utility-factor-a-computable-welfare-metric-that-re.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-004
+- L-012
+status: open

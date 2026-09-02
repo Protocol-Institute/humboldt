@@ -1,0 +1,19 @@
+id: seed-242
+title: Formalization Cost Asymmetry in Resource-Constrained Protocols
+text: 'When a protocol must formalize task-critical semantics that are sparse or non-canonical in a low-resource
+  linguistic/computational environment, the cost of that formalization is paid in failure rate rather
+  than in computational overhead. The information loss is not random: it concentrates on task context,
+  intent, and edge-case semantics — precisely the dimensions that are over-represented in high-resource
+  environments because they have been iterated on through prior failures. This suggests a generalization:
+  *formal protocols in resource-asymmetric settings do not simply copy high-resource solutions with higher
+  latency; they systematically lose categories of information that were never formalized because they
+  were never scarce in the original domain.* This pattern likely holds across multimodal, multilingual,
+  and cross-institutional protocol adoption.'
+source: bibliography/shallow-reads/2026-09-02-an-actionable-diagnosis-of-multilingual-multi-agent-planning.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-003
+- L-015
+status: open

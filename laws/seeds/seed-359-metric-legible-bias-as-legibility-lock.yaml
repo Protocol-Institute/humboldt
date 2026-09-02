@@ -1,0 +1,17 @@
+id: seed-359
+title: Metric-Legible Bias as Legibility Lock
+text: In representation and classification systems, formalizing structural bias into a computable metric
+  creates the appearance of auditability without shifting the optimization target away from the bias-producing
+  protocol. The metric becomes a legible proxy that allows stakeholders to declare the problem "measured"
+  and "addressable" while the underlying data architecture and training objective remain unchanged. This
+  is a special case of L-004 where the proxy (cultural sensitivity score) becomes easier to optimize than
+  the original goal (genuine epistemic pluralism), resulting in metric satisfaction without epistemic
+  repair.
+source: bibliography/shallow-reads/2026-09-02-computational-orientalism-measuring-structural-discourse-bia.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-013
+status: open

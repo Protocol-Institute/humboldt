@@ -1,0 +1,17 @@
+id: seed-221
+title: Formalization-Locked Allocation Under Non-Tradeable Legibility
+text: 'When a protocol formalizes and makes legible the allocation of a scarce resource (e.g., orbital
+  position, spectrum) without creating tradeable property rights or market-clearing mechanisms, optimizing
+  agents concentrate at the formalized boundaries that maximize reachable value. The regime exhibits simultaneous
+  efficiency-loss and resistance-to-change: the protocol works well enough that replacement is dangerous
+  (L-005), but the absence of price signals ensures that allocation remains suboptimal and strategic boundary
+  concentration persists. This pattern should recur wherever administrative formalization precedes marketization,
+  or where political/safety constraints prevent market mechanisms from operating on formally legible resources.'
+source: bibliography/shallow-reads/2026-09-02-competitive-satellite-placement-and-the-economic-geography-o.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-001
+- L-014
+status: open

@@ -1,0 +1,18 @@
+id: seed-344
+title: Surplus-Rule Rigidity Under Nested Formalization
+text: 'In systems where players bind via hierarchical nested agreements and must agree on internal surplus
+  allocation before the agreement becomes active, the sharing rule becomes a load-bearing constraint on
+  both formation and stability. Once a sharing rule is formalized and a coalition operates under it, changing
+  the rule requires unbinding the agreement—triggering cascade dissolution of all child agreements. This
+  creates a form of ossification specific to formalization depth: the deeper the nesting, the more costly
+  rule renegotiation becomes, even when all members would benefit from a different allocation. The mechanism
+  generalizes to any protocol system where formal terms become prerequisites for activation and unwinding
+  those terms triggers cascading structural collapse.'
+source: bibliography/shallow-reads/2026-09-02-does-the-grand-coalition-form-persistence-arrival-and-the-ro.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-003
+- L-010
+status: open

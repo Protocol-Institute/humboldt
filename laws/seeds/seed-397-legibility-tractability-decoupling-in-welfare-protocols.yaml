@@ -1,0 +1,16 @@
+id: seed-397
+title: Legibility-Tractability Decoupling in Welfare Protocols
+text: In allocation protocols where agent preferences are formalized as machine-readable ordinals (e.g.,
+  lexicographic valuations), preference legibility increases while protocol tractability may remain invariant
+  or worsen. Simplifying the *representation* of preferences does not simplify the *computation* of optimal
+  allocations. This suggests that protocol "ease" is not a function of preference transparency alone,
+  but of the structural properties of the welfare objective under preference constraints — a gap between
+  agent clarity and system solvability.
+source: bibliography/shallow-reads/2026-09-02-easier-but-not-easy-nash-welfare-under-lexicographic-valuati.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-008
+status: open

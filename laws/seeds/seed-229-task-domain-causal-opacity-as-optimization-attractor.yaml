@@ -1,0 +1,16 @@
+id: seed-229
+title: Task-Domain Causal Opacity as Optimization Attractor
+text: 'In multimodal or multi-task systems optimized for legible task-specific performance, cross-domain
+  causal coherence decays without penalizing within-domain accuracy. Systems that achieve high task performance
+  while maintaining structural incoherence across domains suggest that causal integration may not be a
+  natural convergence target under local task loss functions. This raises the question: is cross-task
+  coherence actively suppressed by task-specific optimization, or merely unselected? And does this pattern
+  hold in other protocol-driven multiagent or multimodal systems where performance is measured within
+  task-local scopes?'
+source: bibliography/shallow-reads/2026-09-02-cross-task-dissociation-in-frontier-vision-language-model-th.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: insight
+connections:
+- L-011
+status: open

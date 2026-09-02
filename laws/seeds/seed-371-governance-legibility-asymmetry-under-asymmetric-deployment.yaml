@@ -1,0 +1,18 @@
+id: seed-371
+title: Governance Legibility Asymmetry Under Asymmetric Deployment
+text: When AI capability deployment is concentrated geographically but governance is distributed across
+  jurisdictions, the legibility and enforceability of governance rules may become asymmetrically coupled
+  to builder location rather than jurisdiction of rule origin. Jurisdictions without frontier builders
+  may formalize rules that are unobservable and unenforceable against the entities they target, while
+  simultaneously creating legible compliance signals for actors *outside* the primary capability chain.
+  This may create a ratchet where formalization increases (observable compliance burden) while effectiveness
+  decreases (unobserved evasion by primary actors). Worth tracking whether provision heterogeneity correlates
+  with builder proximity or whether formalization is itself the coordination goal regardless of enforcement.
+source: bibliography/shallow-reads/2026-09-02-mapping-general-purpose-ai-governance-in-twenty-ai-middle-po.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-001
+- L-003
+status: open

@@ -1,0 +1,17 @@
+id: seed-304
+title: Legibility-Induced Consensus Gradient in Distributed Inference
+text: 'In multi-agent systems where outputs are sequentially visible before final commitment, receptivity
+  to peer assertion increases monotonically with assertion legibility (visibility, latency, frequency
+  of reinforcement) independent of correctness. This creates a stable frontier: agents cannot simultaneously
+  resist wrong majorities and capture benefits of correct coordination without protocol-layer intervention
+  (e.g., masking, commitment timing, signal aggregation rules). The frontier appears invariant across
+  model scales and architectures, suggesting it may reflect a fundamental trade-off in any protocol where
+  verification signals come from peer behavior rather than ground truth.'
+source: bibliography/shallow-reads/2026-09-02-conformity-mitigations-in-large-language-models-lie-on-a-sin.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-010
+- L-004
+status: open

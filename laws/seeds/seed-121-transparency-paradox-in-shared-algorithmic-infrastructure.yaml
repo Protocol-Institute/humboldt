@@ -1,0 +1,17 @@
+id: seed-121
+title: Transparency Paradox in Shared Algorithmic Infrastructure
+text: 'When competing agents delegate decisions to shared algorithmic infrastructure, regulatory increases
+  in observability of common state variables can strengthen rather than weaken coordination outcomes.
+  The mechanism is not human conspiracy but automated joint optimization of legible shared metrics. This
+  suggests a general principle: in systems where the optimizing agent is algorithmic and non-rival (multiple
+  competitors share the same inference), information transparency that increases legibility of shared
+  state *increases* rather than decreases collusive pressure. The paradox dissolves if we recognize that
+  "competition" assumed human asymmetric information; algorithmic delegation reverses the asymmetry by
+  making internal decision variables perfectly legible to all downstream users of the same algorithm.'
+source: bibliography/shallow-reads/2026-09-01-shared-bidding-algorithms-and-competition-evidence-from-elec.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-004
+status: open

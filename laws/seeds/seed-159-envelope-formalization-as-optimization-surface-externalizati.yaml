@@ -1,0 +1,17 @@
+id: seed-159
+title: Envelope Formalization as Optimization Surface Externalization
+text: When commercial protocols formalize fuzzy coordination requirements (trust, eligibility, intent)
+  into a canonical decision envelope with computable verification signatures, optimization pressure migrates
+  from the informal norm layer to the formal boundary layer. Agents begin optimizing against the legible
+  envelope predicates rather than the original policy, rendering the formalization itself a new coordination
+  cost that must be absorbed elsewhere in the system. This suggests that moving trust-critical obligations
+  from informal to formal representation does not reduce coordination cost — it displaces it to the envelope's
+  interpretation and maintenance layers.
+source: bibliography/shallow-reads/2026-09-02-a-decision-centered-reference-architecture-for-trustworthy-a.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-008
+- L-014
+status: open

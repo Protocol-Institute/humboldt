@@ -1,0 +1,16 @@
+id: seed-378
+title: Metric Collapse Under Formalized Plurality Rules
+text: 'When a coordination rule (electoral, resource-allocation, or priority-setting) is formalized to
+  be computationally deterministic, the rule must select a single metric or hierarchy of metrics to resolve
+  ties and edge cases. Under adoption, political actors or protocol participants learn the metric''s pathologies
+  and optimize around them. Crucially: the rule cannot be adjusted in real time without returning to informality.
+  The formalized rule thus locks in a specific metric bias, and once locked, generates recurring anomalies
+  that are difficult to repair without reopening the entire protocol. This is distinct from Goodhart''s
+  law—it is the *ossification of an arbitrary metric choice* under the pressure of adoption.'
+source: bibliography/shallow-reads/2026-09-02-can-ranked-choice-voting-elect-the-least-popular-candidate.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-003
+status: open

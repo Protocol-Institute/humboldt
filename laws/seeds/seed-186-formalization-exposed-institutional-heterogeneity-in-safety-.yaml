@@ -1,0 +1,20 @@
+id: seed-186
+title: Formalization-Exposed Institutional Heterogeneity in Safety-Critical Domains
+text: When safety-critical coordination norms are formalized into legible, machine-readable documents
+  for integration into automated systems, the formalization process exposes pre-existing heterogeneity
+  in institutional practice that informal coordination had successfully masked. This heterogeneity is
+  not created by formalization or by downstream optimization pressure; it is *revealed* by it. The regulatory
+  and operational assumption that "grounding in local institutional knowledge" eliminates ambiguity fails
+  when that local knowledge was never actually coordinated across institutional peers. In safety-critical
+  domains (medicine, finance, critical infrastructure), this pattern suggests that formalization for automation
+  may force resolution of coordination deficits that were previously stable under informality, creating
+  acute governance crises at the moment of legibility. This generalizes beyond patient education to any
+  distributed institution-of-institutions attempting to deploy unified automated systems.
+source: bibliography/shallow-reads/2026-09-02-auditing-institutional-heterogeneity-for-generative-ai-in-pa.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-015
+status: open

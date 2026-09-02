@@ -1,0 +1,18 @@
+id: seed-262
+title: Parallelism Grain as Coordination Cost Displacement
+text: 'In multi-agent systems using distributed inference, the choice of parallelism granularity (solution-path-level
+  vs. component-level) appears to displace coordination cost across inference layers rather than reduce
+  total cost. Finer-grain parallelism reduces decision latency but increases inter-agent message overhead
+  and state reconciliation; coarser-grain parallelism centralizes decisions but increases redundant computation.
+  This suggests a deeper regularity: in systems where inference or decision-making can be decomposed at
+  multiple scales, optimizing one scale''s efficiency transfers rather than eliminates coordination burden.
+  Worth testing whether this holds in governance protocols, scheduling systems, or other structured multi-agent
+  domains.'
+source: bibliography/shallow-reads/2026-09-02-a-two-tier-perspective-on-inference-time-parallelism-in-mult.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-006
+- L-010
+status: open

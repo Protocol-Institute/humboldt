@@ -1,0 +1,17 @@
+id: seed-168
+title: Trilemma Lock Under Heterogeneous Proxy Targets
+text: When a protocol safety function must simultaneously optimize for two conflicting legibility targets
+  — measurable harm-prevention (metric-driven) and unmeasurable user autonomy (context-dependent) — and
+  the enforcement layer is positioned downstream of generation, the system locks into three mutually exclusive
+  failure modes rather than trading off. The trilemma may not be structural to the problem but rather
+  to the *layer at which enforcement is applied*. This suggests that intervention-layer displacement (L-012)
+  does not merely displace optimization pressure but may create irreducible objective conflicts that lower-layer
+  enforcement cannot resolve.
+source: bibliography/shallow-reads/2026-09-02-adaptive-capitulation-a-structural-failure-mode-of-llm-respo.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-012
+status: open

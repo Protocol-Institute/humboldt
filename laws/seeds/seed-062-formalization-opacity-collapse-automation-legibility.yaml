@@ -1,0 +1,16 @@
+id: seed-062
+title: Formalization Opacity Collapse — Automation Legibility
+text: When a protocol rule transitions from human judgment (opaque, adaptive, implicit boundary conditions)
+  to automated enforcement (legible, fixed, formally defined), the enforcement system itself becomes an
+  optimization target. The rule does not change; the surface it presents to strategic agents does. This
+  creates a class of "clearly-defined rules that resist automation" — not because the rule is ambiguous,
+  but because formalization strips away the adaptive opacity that bounded optimization in the human regime.
+  The pattern generalizes to any protocol where enforcement legibility is new.
+source: bibliography/shallow-reads/2026-09-01-inside-baseball-the-automated-ball-strike-system-as-an-objec.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-004
+- L-008
+status: open

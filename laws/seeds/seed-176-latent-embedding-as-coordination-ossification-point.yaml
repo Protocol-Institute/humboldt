@@ -1,0 +1,16 @@
+id: seed-176
+title: Latent Embedding as Coordination Ossification Point
+text: In hierarchical coordination systems using compact latent embeddings to coordinate decentralized
+  agents, the embedding space itself becomes a governance lock and optimization target. Once agents are
+  trained to condition behavior on a specific embedding structure, the space resists modification independent
+  of intersection safety performance—the embedding architecture becomes harder to change than the coordination
+  goal it was designed to serve. This may represent a formalization of coordination that creates new ossification
+  surfaces rather than reducing them.
+source: bibliography/shallow-reads/2026-09-02-compact-latent-coordination-for-autonomous-vehicles-at-unsig.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-010
+- L-006
+status: open

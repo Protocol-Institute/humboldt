@@ -1,0 +1,17 @@
+id: seed-425
+title: Boundary-Retaining Design as Empirical Question
+text: Systems designed to retain human authority over decisions while automating evidence assembly assume
+  the boundary remains stable and that legible evidence does not itself become an optimization target.
+  In practice, does the introduction of legible, ranked, and explainable evidence outputs *increase* clinician
+  reliance on system rankings as decision proxies, even when formal authority is retained? This would
+  suggest that governance constraints on system output are insufficient to prevent decision displacement—the
+  locus of optimization moves to the information layer itself. The pattern may generalize to any hybrid
+  human-AI system where one party retains nominal authority but the other produces legible, actionable
+  summaries.
+source: bibliography/shallow-reads/2026-09-02-caregraph-an-auditable-hybrid-ai-framework-for-evidence-grou.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-012
+status: open

@@ -1,0 +1,18 @@
+id: seed-439
+title: Violation Informativeness as Learning Regime Stratification
+text: 'In protocol systems where compliance is learned via feedback on violations, the granularity and
+  specificity of violation signals stratifies the speed and confidence of learner inference. Richer violation
+  feedback (which candidates, which groups harmed, magnitude of violation) accelerates convergence but
+  may also accelerate convergence to locally legible but globally unstable equilibria. The oracle''s adversarial
+  selection of *which* violation to reveal introduces a hidden layer of protocol design: the choice of
+  feedback informativeness itself becomes an optimization pressure point. This may generalize to any adaptive
+  protocol where the entity generating feedback (auditor, enforcement agent, monitor) has agency over
+  *what* signals to make visible.'
+source: bibliography/shallow-reads/2026-09-02-learning-proportional-committees-from-violation-feedback.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-003
+- L-010
+status: open

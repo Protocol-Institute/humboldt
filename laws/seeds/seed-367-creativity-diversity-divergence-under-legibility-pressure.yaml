@@ -1,0 +1,17 @@
+id: seed-367
+title: Creativity-Diversity Divergence Under Legibility Pressure
+text: 'LLM creative outputs may converge toward similarity not because of architectural constraints, but
+  because verifiable evaluation of "good" creative work is harder than verifiable evaluation of correctness,
+  and under adoption pressure, systems migrate toward measurable proxies (fluency, coherence, safety compliance)
+  that are more amenable to automated optimization and ranking. If true, this would reflect a more general
+  pattern: open-ended tasks remain diverse only when evaluation is informal or decentralized; formalization
+  of evaluation criteria under scaling pressure drives convergence toward the legible dimensions. Worth
+  tracking whether this holds across other generative domains (image, music, design).'
+source: bibliography/shallow-reads/2026-09-02-are-llms-becoming-similarly-creative-evidence-from-three-yea.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: insight
+connections:
+- L-001
+- L-013
+status: open

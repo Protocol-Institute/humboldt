@@ -1,0 +1,19 @@
+id: seed-215
+title: Explanation-Authority Decoupling Under Legible Machine Judgment
+text: 'When AI systems become standard tools in expert commentary (Go, chess, sports analysis, medical
+  imaging review), expert communities preserve interpretive authority by decoupling *explanation* (narrative,
+  context, attribution) from *judgment* (the legible machine output). The expert no longer decides move
+  quality or diagnosis, but retains exclusive right to explain *why* that judgment is correct, contextually
+  meaningful, or applicable. This creates a stable, long-running equilibrium: the formal record (AI output)
+  is unchanged and survives audit intact, while the institutional interpretation of that record drifts,
+  reframes anomalies, and absorbs contradictions through narrative recontextualization. This mechanism
+  appears to generalize across domains where legible judgment (prediction, evaluation, classification)
+  becomes automated while explanation and meaning-making remain human-controlled.'
+source: bibliography/shallow-reads/2026-09-02-when-ai-becomes-routine-a-decade-of-public-ai-mediation-in-k.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: insight
+connections:
+- L-013
+- L-015
+status: open

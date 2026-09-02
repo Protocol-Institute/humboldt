@@ -1,0 +1,16 @@
+id: seed-231
+title: Imprecision as Consensus Decoupling Surface
+text: 'In multi-agent coordination protocols, introducing imprecision in shared representations (beliefs,
+  signals, decision rules) can improve consensus formation by reducing sensitivity to minor disagreements.
+  But imprecision also decouples consensus achievement from correctness — agents may converge on a unified
+  wrong answer. Does this trade-off remain favorable under optimization pressure (when agents learn to
+  exploit imprecision as a legible target), and does the stability of imprecision-mediated consensus depend
+  on whether agents remain unaware that consensus has decoupled from ground truth? Generalizes: precision
+  thresholds in protocols may function as hidden correctness-consensus trade-offs.'
+source: bibliography/shallow-reads/2026-09-02-imprecise-belief-fusion-improves-multi-agent-social-learning.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-010
+status: open

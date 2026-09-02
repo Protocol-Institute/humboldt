@@ -1,0 +1,16 @@
+id: seed-272
+title: Defensive Legibility Convergence
+text: 'When agent strategies are designed to be robust against worst-case (fully adversarial) conditions,
+  and when those strategies are legible to other agents, all agents converge on mutually defensive configurations
+  that satisfy individual robustness guarantees but collectively underperform relative to coordinated
+  play. The mechanism is not coordination failure but *over-coordination on asymmetric risk*: agents coordinate
+  on defense against a threat distribution that exists only in design assumptions, not in actual deployment.
+  This pattern may generalize to any protocol system where design robustness assumptions are symmetric
+  across agents but differ from the true interaction structure.'
+source: bibliography/shallow-reads/2026-09-02-analyzing-the-interaction-of-optimal-strategies-in-mean-payo.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-009
+status: open

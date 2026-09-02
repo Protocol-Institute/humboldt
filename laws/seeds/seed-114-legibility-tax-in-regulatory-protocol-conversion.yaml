@@ -1,0 +1,17 @@
+id: seed-114
+title: Legibility Tax in Regulatory Protocol Conversion
+text: 'When regulatory obligations are converted from natural language rules into computable compliance
+  mappings for automated decision systems, the mapping process itself imposes an unobserved cost: rules
+  that are ambiguous, context-sensitive, or intentionally under-specified in natural language become over-specified
+  or lose interpretive flexibility when rendered as algorithms. Firms may meet the letter of the computable
+  rule while violating the intent of the original regulation. This suggests a general pattern: formalization
+  of governance rules trades interpretive continuity for computational tractability, creating hidden compliance
+  drift.'
+source: bibliography/shallow-reads/2026-09-01-sequential-compliance-decisions-of-firms-on-cross-border-dat.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-003
+- L-006
+status: open

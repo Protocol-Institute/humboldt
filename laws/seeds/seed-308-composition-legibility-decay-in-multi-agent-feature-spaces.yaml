@@ -1,0 +1,17 @@
+id: seed-308
+title: Composition Legibility Decay in Multi-Agent Feature Spaces
+text: 'In systems where agents compose behaviors from a shared library using individual optimization (each
+  agent independently selecting which library policies to blend), coordination safety cannot be guaranteed
+  by composition rules alone — the composition decision itself becomes decoupled from the joint behavioral
+  consequence. This suggests a broader pattern: legibility of *individual* decisions in multi-agent contexts
+  does not preserve legibility of *collective* outcomes. The gap widens under dynamic objectives, where
+  recomposition frequency increases and agents have no mechanism to validate that others'' independent
+  compositions preserve the prior coordination equilibrium.'
+source: bibliography/shallow-reads/2026-09-02-is-per-agent-policy-composition-safe-rethinking-successor-fe.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-005
+- L-012
+status: open

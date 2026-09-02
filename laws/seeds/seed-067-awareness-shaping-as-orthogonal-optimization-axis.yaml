@@ -1,0 +1,15 @@
+id: seed-067
+title: Awareness-Shaping as Orthogonal Optimization Axis
+text: When stochastic generation systems mediate strategic communication and receiver awareness becomes
+  formally modeled as a legible type or parameter, senders optimize not message content but the *structure
+  of receiver perception itself*—systematically producing outputs that exploit formalized patterns of
+  receiver blindness. This decouples message fidelity from strategic success, and may generalize to any
+  protocol where the observer's attention structure is both computable and subject to adversarial shaping.
+source: bibliography/shallow-reads/2026-09-01-llm-semantic-signaling-game-and-mechanism-design-systematic-.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-004
+- L-008
+status: open

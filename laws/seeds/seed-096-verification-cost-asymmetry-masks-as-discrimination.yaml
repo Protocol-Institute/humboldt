@@ -1,0 +1,17 @@
+id: seed-096
+title: Verification Cost Asymmetry Masks as Discrimination
+text: 'In protocols where verification of quality is expensive relative to prior cost, new entrants from
+  low-trust groups face disproportionate friction not because the protocol is biased but because the *verification
+  burden* falls on them. This friction vanishes only when signal generation becomes dense and cheap enough
+  to overcome priors. The law may generalize: in any legible protocol system, discrimination against novel
+  agents is a side effect of verification cost asymmetry, not bias in the decision rule itself. This implies
+  interventions must reduce verification cost (accelerate signal generation) rather than alter decision
+  rules.'
+source: bibliography/shallow-reads/2026-09-01-fighting-discrimination-with-reputation-the-case-of-online-p.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-002
+- L-007
+status: open

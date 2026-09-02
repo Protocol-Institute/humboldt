@@ -1,0 +1,17 @@
+id: seed-219
+title: Preference Formalism as Coordination Substrate Lock
+text: 'When organizational consensus protocols replace informal norms with explicit preference models
+  and incentive compatibility constraints, the system becomes dependent on the stability of *preference
+  legibility itself* — the ability to specify, communicate, and enforce what agents want. Over time, agents
+  optimize for *being well-modeled* rather than for the original informal goals. The protocol locks into
+  the preference ontology used at formalization time, making subsequent norm drift invisible to the mechanism.
+  This may generalize beyond mechanism design: any system that formalizes motivation as a legible input
+  to coordination machinery becomes hostage to the accuracy and completeness of that model.'
+source: bibliography/shallow-reads/2026-09-02-beyond-byzantine-an-organizational-consensus-algorithm-for-s.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-003
+- L-006
+status: open

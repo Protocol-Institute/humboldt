@@ -1,0 +1,16 @@
+id: seed-162
+title: Fee-Structure Proxy Stability Under Value Legibility
+text: Percentage-fee mechanisms make payoff extraction a linear function of realized value, which is more
+  transparent than fixed or utility-contingent fees. But they also make the definition and computation
+  of "value" a critical legibility chokepoint. When value itself becomes a computable quantity subject
+  to formal audit, does the optimization pressure shift from outcome-gaming to value-reporting and value-definition
+  gaming? And does the stability of percentage-fee IC depend on value being unmeasurable or ambiguous
+  enough that agents cannot coordinate false value claims?
+source: bibliography/shallow-reads/2026-09-02-fairness-and-incentive-compatibility-via-percentage-fees.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-004
+- L-008
+status: open

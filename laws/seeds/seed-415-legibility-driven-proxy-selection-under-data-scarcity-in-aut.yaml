@@ -1,0 +1,18 @@
+id: seed-415
+title: Legibility-Driven Proxy Selection Under Data Scarcity in Automated Decision Systems
+text: In automated decision systems (LLMs, classifiers) applied to domains with sparse or asymmetric training
+  data, the system preferentially optimizes toward proxies that are learnable from available data rather
+  than proxies aligned with the original intent. Under data scarcity, measurable equality/fairness heuristics
+  become more stable and convergent than intent-aligned but data-sparse objectives, creating a systematic
+  divergence between formalized decision protocols and domain-expert judgment. This occurs not as a malfunction
+  but as a stable attractor in the loss landscape. The mechanism generalizes beyond medical decisions
+  to any high-stakes domain where expertise relies on contextual, sparse-data reasoning (rare regulatory
+  cases, edge-case legal judgment, novel engineering problems).
+source: bibliography/shallow-reads/2026-09-02-rare-diseases-common-dilemmas-llms-prioritize-equal-resource.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-012
+status: open

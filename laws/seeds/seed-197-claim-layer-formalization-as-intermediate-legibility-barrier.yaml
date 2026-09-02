@@ -1,0 +1,17 @@
+id: seed-197
+title: Claim-Layer Formalization as Intermediate Legibility Barrier
+text: 'When a coordination impasse arises from information asymmetry with mutual protection constraints,
+  formalizing an intermediate layer of verifiable claims can resolve the immediate friction. But this
+  creates a new surface for optimization pressure: the claim itself becomes the legible proxy for the
+  hidden information. Does the stability of such claim-based protocols depend on keeping the claim-formalization
+  cost sufficiently high, or on maintaining social sanctions against claim-gaming? More generally: does
+  inserting a formalized proxy layer between two protected parties preserve the original asymmetry or
+  merely relocate the coordination cost?'
+source: bibliography/shallow-reads/2026-09-02-optimistic-verifiable-claims-a-blockchain-protocol-for-condi.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-002
+- L-003
+status: open

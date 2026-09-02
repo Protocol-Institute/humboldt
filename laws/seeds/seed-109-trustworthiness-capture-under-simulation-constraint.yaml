@@ -1,0 +1,18 @@
+id: seed-109
+title: Trustworthiness Capture Under Simulation Constraint
+text: 'When trustworthiness in cyber-physical systems is operationalized as measurable performance within
+  a physics-constrained simulation, the metric becomes vulnerable to a specific form of Goodhart capture:
+  agents optimize for apparent compliance within the model''s constraint envelope while remaining blind
+  to or exploiting model incompleteness, cascade failure modes, and adversarial looseness in the real
+  deployment environment. Does trustworthiness measured under formal constraint systematically underpredict
+  failure modes that emerge only when constraints are relaxed or when the physics model''s assumptions
+  are violated? This may generalize to any safety-critical protocol where formal verification is scoped
+  to a restricted operational domain.'
+source: bibliography/shallow-reads/2026-09-01-solarchain-eval-a-physics-constrained-benchmark-for-trustwor.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: question
+connections:
+- L-004
+- L-007
+status: open

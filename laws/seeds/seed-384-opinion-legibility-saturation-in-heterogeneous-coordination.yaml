@@ -1,0 +1,15 @@
+id: seed-384
+title: Opinion-Legibility Saturation in Heterogeneous Coordination
+text: 'In decentralized coordination protocols where agents must infer partner preferences ("opinions")
+  to select among compatible strategies, does increased strategy expressiveness reduce or merely relocate
+  coordination cost? Specifically: does the cost of reliable preference inference scale such that systems
+  with high strategy layering approach or exceed the coordination cost of systems requiring explicit pre-coordination?
+  This would suggest a coordination cost floor independent of protocol architecture.'
+source: bibliography/shallow-reads/2026-09-02-opinion-guided-layered-strategies-for-decentralized-coordina.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-010
+- L-006
+status: open

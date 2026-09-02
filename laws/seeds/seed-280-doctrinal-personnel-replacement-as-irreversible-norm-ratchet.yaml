@@ -1,0 +1,19 @@
+id: seed-280
+title: Doctrinal Personnel Replacement as Irreversible Norm Ratchet
+text: When a formal institution's governing personnel are replaced by appointees aligned to an alternative
+  normative framework (doctrinal, ideological, or otherwise), informal coordination norms embedded in
+  that institution (curriculum content, resource allocation, behavioral expectations) shift durably even
+  after the appointing authority leaves office. The shift persists because it is encoded in new personnel
+  continuity and formalized institutional memory, and reversal requires explicit countervailing action
+  by a successor. This suggests that **appointment-driven protocol capture** is a stable equilibrium in
+  governance systems where formal authority to hire survives longer than electoral mandates. The mechanism
+  may generalize beyond religious appointment to any ideologically motivated bureaucratic reshaping (e.g.,
+  algorithmic audit standards, loan underwriting criteria, content moderation policies).
+source: bibliography/shallow-reads/2026-09-02-religious-mayors-school-appointments-and-teenage-pregnancy.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-003
+- L-013
+status: open

@@ -1,0 +1,17 @@
+id: seed-285
+title: VLM Evaluator Drift in Open-Ended Evolution
+text: 'When a generative or language model is used as a legible fitness evaluator in an open-ended search
+  process, the evaluator''s judgments may drift away from the training distribution of the model, causing
+  silent failure or adversarial capture. This is distinct from standard proxy capture — it is *evaluator
+  capture*: the evolved system optimizes for output patterns that exploit the model''s artifacts rather
+  than the intended behavioral property. Does this pattern appear in any protocol system using adaptive
+  models for evaluation, allocation, or enforcement, independent of whether the underlying objective is
+  aesthetic, functional, or normative?'
+source: bibliography/shallow-reads/2026-09-02-an-evolutionary-model-of-animats-with-vlm-based-subjective-e.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-004
+- L-008
+status: open

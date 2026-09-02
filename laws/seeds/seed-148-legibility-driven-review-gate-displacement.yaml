@@ -1,0 +1,17 @@
+id: seed-148
+title: Legibility-Driven Review Gate Displacement
+text: When contribution volume scales beyond maintainer review capacity, projects formalize governance
+  by making contribution properties (risk, evidence, accountability state) legible and machine-readable.
+  This shifts the optimization pressure from *correctness assessment* to *compliance with legibility requirements*.
+  Agents and contributors then optimize for the formal markers (audit trails, risk labels, evidence slots)
+  rather than the underlying properties those markers were meant to signal. The governance infrastructure
+  designed to enable assessment becomes a new optimization target, decoupling form from intent—a candidate
+  instance of L-012 and L-008 under domain-specific conditions.
+source: bibliography/shallow-reads/2026-09-02-making-agent-mediated-contributions-governable-a-project-lev.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-001
+- L-003
+status: open

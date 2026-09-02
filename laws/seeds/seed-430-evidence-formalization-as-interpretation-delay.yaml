@@ -1,0 +1,18 @@
+id: seed-430
+title: Evidence-Formalization as Interpretation Delay
+text: In cross-organizational accountability protocols, the shift from live-system mediation to offline-verifiable
+  evidence bundles displaces the coordination cost from real-time consensus-building to post-hoc interpretation.
+  Preserved evidence that is formally structured and cryptographically bound can survive organizational
+  and personnel turnover intact, but the institutional and contextual understanding required to *interpret*
+  that evidence under conditions of dispute may decay faster than the evidence itself. This creates a
+  regime where formal auditability is high but practical accountability is diffuse—the bundle is legible
+  but its meaning is not. This may generalize to any protocol where formalization increases evidence durability
+  but does not increase interpretive continuity across organizational or temporal boundaries.
+source: bibliography/shallow-reads/2026-09-02-offline-verifiable-accountability-for-cross-organization-age.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-001
+- L-007
+status: open

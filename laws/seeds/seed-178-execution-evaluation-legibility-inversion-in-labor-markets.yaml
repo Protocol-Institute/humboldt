@@ -1,0 +1,19 @@
+id: seed-178
+title: Execution–Evaluation Legibility Inversion in Labor Markets
+text: 'When task automata are classified by execution legibility (whether AI can perform the task) rather
+  than evaluation legibility (whether AI can verify correctness), institutional actors optimize hiring,
+  education, and job design around the legible dimension. This creates a ratchet: as execution share becomes
+  a standard occupational measure, labor markets treat it as a ground truth of vulnerability, even though
+  it is a proxy for a mismatch between what is easily predicted and what is consequential. The measure
+  itself may drive task bundling and role hollowing that increases actual evaluation opacity while appearing
+  to increase automata-readiness. This generalizes beyond labor to any domain where a protocol introduces
+  a proxy for human judgment and agents gain access to that proxy before gaining access to mechanisms
+  for verifying the proxy''s fidelity.'
+source: bibliography/shallow-reads/2026-09-02-execution-and-evaluation-a-new-occupational-measure-and-long.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-012
+status: open

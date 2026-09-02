@@ -1,0 +1,18 @@
+id: seed-071
+title: Expressiveness Floor in Coordination Protocols — Governance as Irreducible Residual
+text: 'Coordination protocols that are task-sufficient (message passing, capability discovery, identity)
+  become governance-insufficient when deployed in contexts requiring collective binding decisions. The
+  gap is not incidental but structural: governance functions (membership rules, deliberation norms, enforcement
+  legitimacy) require expressiveness that pure task protocols systematically lack. This suggests a lower
+  bound: protocols designed for efficiency in one layer (task coordination) cannot be extended to adjacent
+  layers (governance coordination) without either redesign or cost displacement. The regularity may generalize:
+  any protocol optimized for narrow functional expressiveness will fail to accommodate contextual or normative
+  constraints that emerge only under multi-agent deployment at scale.'
+source: bibliography/shallow-reads/2026-09-01-governance-gaps-in-agent-interoperability-protocols-what-mcp.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-006
+- L-015
+status: open

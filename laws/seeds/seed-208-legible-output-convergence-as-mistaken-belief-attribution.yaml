@@ -1,0 +1,20 @@
+id: seed-208
+title: Legible-Output Convergence as Mistaken-Belief Attribution
+text: 'In networked systems of learned models (LLMs, classifiers, etc.), observed convergence in outputs
+  under interaction may reflect neither belief updating nor causal alignment, but rather convergence to
+  high-probability continuations under shared training distributions. When agents are evaluated on output
+  legibility (what they "say") rather than internal state consistency, mechanisms that produce synchronized
+  outputs—shared learned correlations, role-induced prompt biasing, network positional effects—become
+  invisible. This creates a persistent misattribution: stable disagreement or anomaly tolerance is interpreted
+  as paradigm lock, when it may be deterministic inference from asymmetric input legibility. Generalizes
+  beyond LLMs to any protocol system where the observable layer (outputs, decisions, formal records) decouples
+  from the generative layer (training, architecture, inference path).'
+source: bibliography/shallow-reads/2026-09-02-belief-coevolution-in-a-social-network-of-generalist-and-spe.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-010
+- L-011
+- L-013
+status: open

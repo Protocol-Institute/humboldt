@@ -1,0 +1,18 @@
+id: seed-400
+title: Legibility-Boundary Optimization Displacement in Resource Markets
+text: 'When a common-pool resource transitions from informal coordination to formal rights markets, optimization
+  pressure concentrates at the boundary between what the market protocol can legibly measure (extraction
+  volume, timing, point of withdrawal) and what remains latent or unmeasurable (true recharge dynamics,
+  subsurface heterogeneity, cross-boundary flows). Agents behave rationally within the formalized protocol
+  while strategic effort on unmeasured margins accumulates. This creates a persistent stability illusion:
+  the market appears to function and clear, but total depletion risk may increase monotonically with legibility.
+  The mechanism should generalize to any common-pool or safety-critical system where formalization is
+  partial and the unmeasured residual contains concentrated risk.'
+source: bibliography/shallow-reads/2026-09-02-groundwater-management-combating-the-sinking-feeling.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-006
+- L-014
+status: open

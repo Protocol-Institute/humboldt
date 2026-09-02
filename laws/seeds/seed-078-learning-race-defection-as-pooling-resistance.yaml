@@ -1,0 +1,19 @@
+id: seed-078
+title: Learning-Race Defection as Pooling Resistance
+text: 'In learning-by-deployment architectures, agents under pooled data regimes face incentives to defect
+  by fragmenting data access (proprietary learning) to prevent competitor learning, even when pooling
+  is collectively optimal. This defection is not irrational preference drift but a structural consequence
+  of asymmetric learning appropriation: shared data generates collective value but individual competitive
+  disadvantage. The motif recurs across data-cooperatives, open-source learning systems, and safety-critical
+  protocol auditing — agents systematize boundary closure to preserve informational rent. Worth tracking
+  whether this is a special case of L-014 (Strategic Boundary Concentration) under computable learning
+  signals.'
+source: bibliography/shallow-reads/2026-09-01-data-sharing-and-competition-in-learning-by-deploying-indust.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: motif
+connections:
+- L-001
+- L-006
+- L-010
+status: open

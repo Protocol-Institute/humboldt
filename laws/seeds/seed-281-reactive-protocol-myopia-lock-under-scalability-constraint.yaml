@@ -1,0 +1,18 @@
+id: seed-281
+title: Reactive Protocol Myopia Lock Under Scalability Constraint
+text: 'In coordination protocols where operational scale and real-time responsiveness are hard constraints,
+  reactive (memoryless or short-memory) implementations achieve dominance because they minimize per-agent
+  decision latency and global synchronization. Any attempt to introduce long-horizon reasoning must be
+  layered *atop* the reactive substrate rather than replacing it, because the reactive layer itself becomes
+  a load-bearing infrastructure component. This creates a structural lock: the protocol becomes ossified
+  toward myopia not because of adoption inertia alone, but because alternatives require parallelization
+  or asynchronous planning that violates the real-time constraint. The lock generalizes to any protocol
+  class where coordination cost is bounded by latency rather than total computation.'
+source: bibliography/shallow-reads/2026-09-02-scalable-long-horizon-planning-with-staggered-updates-for-li.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-001
+- L-005
+status: open

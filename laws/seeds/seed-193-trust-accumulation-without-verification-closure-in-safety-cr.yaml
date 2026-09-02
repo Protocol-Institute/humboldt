@@ -1,0 +1,19 @@
+id: seed-193
+title: Trust Accumulation Without Verification Closure in Safety-Critical Protocol Adoption
+text: 'In safety-critical domains (clinical AI deployment), institutional trial registration and deployment
+  volume can grow without formal closure of validation cycles or systematic protocol restructuring. The
+  proliferation of unvalidated epistemic roles and workflow positions suggests that trust in AI capability
+  is being anchored to adoption velocity and institutional commitment rather than to completion of verification
+  requirements. This dynamic may be endemic to systems where verification is continuous (ongoing trials)
+  rather than gated (deployment blocked until closure), allowing coordination pressure to accumulate while
+  governance remains open-ended. The pattern generalizes: any protocol system where actors can commit
+  resources and institutional reputation to deployment *before* validation is complete will exhibit misalignment
+  between adoption momentum and verification maturity.'
+source: bibliography/shallow-reads/2026-09-02-the-clinical-trial-pipeline-reveals-the-next-wave-of-artific.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-007
+- L-013
+status: open

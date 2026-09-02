@@ -1,0 +1,18 @@
+id: seed-086
+title: Social-to-Legible Conversion in Recovery Protocols
+text: 'When distributed systems lack centralized recovery infrastructure, they delegate recovery to formalized
+  social structures (designated custodians, threshold signatures across trust network). This formalization
+  makes the social graph machine-readable and operationally stable but simultaneously freezes it: changing
+  who can be a custodian or under what conditions recovery is permitted requires protocol migration that
+  breaks incumbent trust chains. Recovery protocols thus exhibit a dual ossification: the protocol itself
+  hardens (L-001), and the social structure it formalizes becomes resistant to renegotiation, even when
+  social relationships themselves remain fluid. This pattern may generalize to any protocol system that
+  externalizes fault tolerance to a formally-specified social layer.'
+source: bibliography/shallow-reads/2026-09-01-securing-people-and-their-machines-against-major-faults.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-001
+- L-007
+status: open

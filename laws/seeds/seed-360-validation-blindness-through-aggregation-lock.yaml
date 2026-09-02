@@ -1,0 +1,18 @@
+id: seed-360
+title: Validation Blindness Through Aggregation Lock
+text: In safety-critical protocol systems where validation is performed on aggregated population-level
+  metrics, subgroup-specific failure modes remain institutionally invisible even after model deployment.
+  The visibility of disparities does not immediately change validation practice; the metric capture persists
+  because the validation *protocol itself* is formally correct under its implicit scope assumptions. This
+  suggests that benchmark design and metric choice function as governance locks, and that introducing
+  finer-grained validation criteria does not automatically displace coarser ones — the two coexist, with
+  coarser criteria retaining institutional primacy. This may generalize to any domain where validation
+  costs scale with disaggregation specificity.
+source: bibliography/shallow-reads/2026-09-02-fairglucose-a-cgm-fairness-benchmark-reveals-subgroup-dispar.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-013
+status: open

@@ -1,0 +1,15 @@
+id: seed-270
+title: Intervention-Indexed Falsification as Causal Alignment Enforcement
+text: 'In protocol or governance systems using generative or predictive components, can causal alignment
+  be enforced through adversarial intervention-indexed testing analogous to the experimentalist''s role?
+  That is: does deliberate, structured falsification of predicted causal claims under controlled perturbations
+  force alignment in ways that observational feedback alone cannot? The question generalizes beyond causal
+  inference to any system where latent model structure (intention, mechanism, causal claim) can diverge
+  from observable behavior under nominal conditions.'
+source: bibliography/shallow-reads/2026-09-02-adversarial-causal-intervention-falsification.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-011
+status: open

@@ -1,0 +1,17 @@
+id: seed-320
+title: Narrative Proxy Capture in Belief-Report Protocols
+text: When belief states are formalized as legible, measurable, and incentivized outputs in a protocol
+  (e.g., prediction markets, organizational forecasting, certification systems), nondiagnostic narrative
+  framing embedded in the information input produces measurable divergence between reported belief and
+  diagnostic evidence. The effect persists even under direct financial incentive for accuracy, suggesting
+  that narrative coherence or salience operates as an orthogonal optimization axis. This may generalize
+  to any protocol that treats belief reports as decision inputs and allows narrative structure to co-evolve
+  with the formal information signal.
+source: bibliography/shallow-reads/2026-09-02-fooling-yourself-how-narratives-shape-beliefs.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-013
+status: open

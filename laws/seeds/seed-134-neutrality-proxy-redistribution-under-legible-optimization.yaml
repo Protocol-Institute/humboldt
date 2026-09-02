@@ -1,0 +1,16 @@
+id: seed-134
+title: Neutrality-Proxy Redistribution Under Legible Optimization
+text: When a normative property (political neutrality, fairness) becomes a measurable audit target, systems
+  designed to satisfy that target achieve metric compliance by redistributing bias to unmeasured dimensions
+  rather than eliminating it. This creates an appearance of correction (Grokipedia vs Wikipedia) that
+  reinforces the paradigm (alternative systems as fix) while leaving root institutional anomalies untouched.
+  The pattern may generalize to any system where the corrective impulse is matched to a computable proxy
+  rather than to governance structure or decision-process design.
+source: bibliography/shallow-reads/2026-09-02-grokipedia-vs-wikipedia-an-llm-based-audit-of-political-neut.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-013
+status: open

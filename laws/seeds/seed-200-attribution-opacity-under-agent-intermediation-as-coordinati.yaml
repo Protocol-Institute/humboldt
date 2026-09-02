@@ -1,0 +1,18 @@
+id: seed-200
+title: Attribution Opacity Under Agent Intermediation as Coordination Inversion
+text: 'When agents operate within the formation phase of contributions (synthesis, reformulation, drafting)
+  rather than at their boundaries, responsibility and originality become invisible not because records
+  are absent but because the causal pathway from human intent to collective output becomes opaque in ways
+  audit trails cannot resolve. This differs from traditional delegation: the intermediary does not execute
+  a legible instruction but *transforms* the input substrate itself. This may represent a stable equilibrium
+  where formal accountability structures (who approved what, who contributed what) survive intact while
+  operational accountability (who is responsible for the quality and originality of the output) dissolves
+  — a coordination inversion where the protocol records grow more detailed while governance capacity shrinks.'
+source: bibliography/shallow-reads/2026-09-02-nobody-did-this-contribution-originality-and-accountability-.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-003
+- L-015
+status: open

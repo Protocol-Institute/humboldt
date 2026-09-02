@@ -1,0 +1,16 @@
+id: seed-250
+title: Impossibility Persistence Under Formalization
+text: Classical coordination problems (quota + monotonicity in apportionment) that were informally managed
+  at small scales become formally impossible to satisfy once encoded as hard constraints at intermediate
+  scales. The incompatibility is not discovered by formalization—it persists across all scales—but formalization
+  makes *non-compliance visible and costly*. This suggests a class of protocols where formal specification
+  doesn't create new conflict but does eliminate workarounds. Track whether impossibility results under
+  formalization predict governance deadlock or rapid rule abandonment.
+source: bibliography/shallow-reads/2026-09-02-quota-and-population-monotonicity-across-house-sizes-are-inc.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-006
+- L-003
+status: open

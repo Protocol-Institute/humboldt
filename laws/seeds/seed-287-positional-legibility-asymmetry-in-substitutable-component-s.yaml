@@ -1,0 +1,18 @@
+id: seed-287
+title: Positional Legibility Asymmetry in Substitutable Component Systems
+text: In multi-call or multi-stage systems using substitutable components (models, modules, agents), the
+  utility of a component is not computable from its intrinsic properties alone — it depends critically
+  on (1) its position in the execution graph and (2) its informational or functional relationship to upstream
+  and downstream stages. When this dependency structure is made explicit and optimized over, the apparent
+  "tier" or quality ranking of the component can reverse or become context-dependent. This suggests that
+  any protocol system where components or agents are ranked by a single metric will experience metric
+  collapse when deployment context becomes computable — a special case of proxy capture under asymmetric
+  observability.
+source: bibliography/shallow-reads/2026-09-02-beyond-tier-labels-role-and-deployment-dependent-model-subst.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-006
+- L-012
+status: open

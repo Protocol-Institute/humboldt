@@ -1,0 +1,15 @@
+id: seed-274
+title: Coordination-Cost Externalization Through Product Architecture
+text: When a protocol agent faces a coordination constraint (duration matching, inventory balance, regulatory
+  capital adequacy) and cannot eliminate the cost through internal optimization, cost displacement occurs
+  through changes to the *product or service menu* offered to downstream actors. The cost is not destroyed;
+  it reappears as markup distortion, supply reallocation, or quality degradation. This may be a general
+  mechanism in multi-layer systems where a constraint at one layer is not independently solvable and becomes
+  leveraged into market-facing behavior.
+source: bibliography/shallow-reads/2026-09-02-from-long-to-short-how-interest-rates-shape-life-insurance-m.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-006
+status: open

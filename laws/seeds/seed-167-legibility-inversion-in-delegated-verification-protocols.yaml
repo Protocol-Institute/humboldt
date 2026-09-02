@@ -1,0 +1,13 @@
+id: seed-167
+title: Legibility Inversion in Delegated Verification Protocols
+text: In multi-stage protocols where verification (detection) and action (enforcement) are delegated to
+  separate
+source: bibliography/shallow-reads/2026-09-02-they-ll-verify-they-just-won-t-act-how-authority-framing-and.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: insight
+connections:
+- L-001
+- L-014
+- L-002
+status: open

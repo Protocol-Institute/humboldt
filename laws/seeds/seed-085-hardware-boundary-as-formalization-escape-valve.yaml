@@ -1,0 +1,20 @@
+id: seed-085
+title: Hardware Boundary as Formalization Escape Valve
+text: 'When coordination formalization reaches the limits of software legibility or verification cost,
+  safety-critical systems exhibit pressure to push enforcement boundaries into hardware/firmware layers
+  where verification is opaque to operators and modification is blocked by physical constraints rather
+  than protocol logic. This may represent a pattern in which formalization does not eliminate informal
+  coordination but rather displaces it: coordination norms that cannot be captured in machine-verifiable
+  form become embedded in hardware design, firmware implementation, or human-operator training that exists
+  outside formal audit. The pattern suggests that formalization ratchet (L-003) may interact with a "boundary-hiding
+  effect" where unsolved coordination problems are relocated to layers where they become harder to inspect
+  and revise, creating a false sense of determinism while shifting the site of social negotiation rather
+  than eliminating it.'
+source: bibliography/shallow-reads/2026-09-01-hardware-enforced-semantic-coordination-for-safety-critical-.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-007
+- L-003
+status: open

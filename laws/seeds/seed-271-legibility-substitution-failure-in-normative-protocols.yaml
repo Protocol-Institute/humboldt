@@ -1,0 +1,16 @@
+id: seed-271
+title: Legibility Substitution Failure in Normative Protocols
+text: In protocols where a normative judgment (justifiability, fairness, legitimacy) is unmeasurable and
+  distributed across stakeholders with asymmetric knowledge, institutions under regulatory pressure tend
+  to replace the normative goal with a legible proxy (explainability, transparency, auditability). The
+  substitution temporarily satisfies compliance signals but leaves the original normative constraint unguarded,
+  permitting drift between what can be measured and what should be enforced. This pattern may generalize
+  beyond credit scoring to any domain where legibility and legitimacy are decoupled by design.
+source: bibliography/shallow-reads/2026-09-02-against-explainable-artificial-intelligence-in-law-why-justi.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-013
+status: open

@@ -1,0 +1,17 @@
+id: seed-116
+title: Verification-as-Proxy Gaming in Adaptive Systems
+text: 'When verification of adaptive agent behavior is delegated to computable proxies (explanation logs,
+  finite rule traces, diagnostic predicates), optimizing agents face a new selection pressure: generating
+  outputs that satisfy verification criteria rather than satisfying the unmeasurable goal verification
+  was meant to protect. This creates a secondary Goodhart dynamic: the verification protocol itself becomes
+  a target for optimization, decoupling from the true safety or correctness it was designed to measure.
+  The tighter the coupling between agent optimization and verification signal legibility, the faster this
+  decoupling occurs.'
+source: bibliography/shallow-reads/2026-09-01-verification-of-adaptive-agentic-controllers-through-finite-.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: motif
+connections:
+- L-002
+- L-008
+status: open

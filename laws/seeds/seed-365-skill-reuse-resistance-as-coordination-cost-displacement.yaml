@@ -1,0 +1,18 @@
+id: seed-365
+title: Skill Reuse Resistance as Coordination Cost Displacement
+text: 'SkillNet assumes that making skills legible, evaluable, and discoverable via unified ontology removes
+  barriers to reuse. But if agents "reinvent the wheel" despite access to prior solutions, the barrier
+  may not be *legibility* but *integration cost*: adapting a skill learned in one context to a new one
+  may require more computation, debugging, or causal understanding than learning anew. The paper does
+  not distinguish between "skills are invisible" (legibility problem) and "skills are costly to integrate"
+  (coordination cost problem). If the latter is primary, SkillNet reduces *search* cost but may not reduce
+  *adaptation* cost, and the infrastructure itself becomes a new coordination overhead. Worth tracking
+  whether unified skill infrastructures reduce or merely *displace* the work of capability transfer.'
+source: bibliography/shallow-reads/2026-09-02-skillnet-create-evaluate-and-connect-ai-skills.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-001
+- L-005
+status: open

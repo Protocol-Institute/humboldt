@@ -1,0 +1,18 @@
+id: seed-222
+title: Visibility-Decoupled Adoption Clustering in Frictionless Protocols
+text: In protocol systems where search friction is eliminated and all options are equally legible (campaigns
+  visible to all users, no algorithmic hiding), adoption can remain geographically or demographically
+  clustered without invoking information asymmetry or search cost. This suggests clustering is driven
+  by a coordination or preference mechanism *orthogonal to legibility*. In contexts where adoption spreads
+  via social networks or ties rather than centralized matching, visibility reduction may be necessary
+  but not sufficient for equilibration — the protocol system may inherit clustering from its substrate
+  (geography, social structure) independently of its own design. This pattern may generalize to any protocol
+  attempting to aggregate dispersed preference without addressing the structural conditions (network topology,
+  information flows) that shape local vs. global adoption decisions.
+source: bibliography/shallow-reads/2026-09-02-geography-in-online-capital-allocation-evidence-from-equity-.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-010
+status: open

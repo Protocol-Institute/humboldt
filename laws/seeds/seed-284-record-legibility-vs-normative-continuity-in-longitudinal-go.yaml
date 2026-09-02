@@ -1,0 +1,17 @@
+id: seed-284
+title: Record Legibility vs. Normative Continuity in Longitudinal Governance
+text: In distributed governance protocols where decisions are path-dependent (each turn conditions on
+  prior turns), formal records and audit trails can remain intact and machine-readable across arbitrarily
+  long timescales, while the normative interpretation or pragmatic meaning of earlier commitments decays
+  or becomes inaccessible to new participants. This creates a stable failure mode where protocol *formality*
+  (and thus LLM-tractability) increases while institutional *coherence* decreases. Does this decay follow
+  a predictable curve? Can it be detected through drift in argument patterns, or only through institutional
+  failure?
+source: bibliography/shallow-reads/2026-09-02-tradeverse-a-longitudinal-benchmark-of-political-negotiation.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-003
+- L-015
+status: open

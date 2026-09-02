@@ -1,0 +1,17 @@
+id: seed-382
+title: Infrastructure Concentration Attraction Under Protocol Adoption Scaling
+text: In protocols that achieve widespread adoption while maintaining technical decentralization, structural
+  concentration emerges not primarily through governance centralization but through infrastructure dependency
+  clustering—liquidity pools, oracle feeds, relay networks, and cross-chain bridges become de facto concentration
+  attractors. This concentration accelerates when adoption pressure forces coordination across protocol
+  layers (e.g., single-chain to cross-chain), because layer-bridging infrastructure has higher entry costs
+  and oligopolistic properties. The phenomenon should generalize to any adopted protocol that delegates
+  critical functions to third-party infrastructure, regardless of governance tokenomics.
+source: bibliography/shallow-reads/2026-09-02-is-decentralized-finance-actually-decentralized-an-interdisc.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-001
+- L-006
+status: open

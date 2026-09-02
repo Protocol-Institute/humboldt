@@ -1,0 +1,17 @@
+id: seed-305
+title: Memory-Cost Asymmetry Under Continuous Deployment
+text: 'In deployed long-horizon agent systems, the cost of validating stored insights (re-checking applicability,
+  re-testing against current context) exceeds the cost of occasional inference failures caused by stale
+  memory, creating a rational tolerance for memory pollution. The protocol system will accumulate degraded
+  memories because the operational regime incentivizes speed over verification. This tolerance persists
+  until either: (a) failure density crosses a threshold visible to external oversight, or (b) the cost
+  of maintaining parallel memory validation infrastructure becomes lower than the cost of absorbed inference
+  errors. This may generalize to any protocol layer in which verification latency is front-loaded and
+  failure cost is distributed and delayed.'
+source: bibliography/shallow-reads/2026-09-02-evograph-mem-failure-aware-editable-graph-memory-for-long-te.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-013
+status: open

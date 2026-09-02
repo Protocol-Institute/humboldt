@@ -1,0 +1,18 @@
+id: seed-188
+title: Schema Formalization Costs in Agentic Coordination
+text: 'When protocol schema knowledge transitions from legible, mutable, prompt-injected form to learned,
+  post-trained form, schema evolution becomes harder and inference becomes cheaper. This is not merely
+  a speed-accuracy tradeoff — it is a *localization of coordination cost*: flexibility is traded for consistency.
+  The question is whether learned schemas create "handler-lodged" brittleness where the agent becomes
+  unable to operate under schema drift, and whether distributed teams lose the ability to coordinate around
+  schema changes once knowledge is embedded in model weights rather than documentary records. This pattern
+  may generalize beyond coding agents to any system where coordination knowledge moves from explicit to
+  embedded form.'
+source: bibliography/shallow-reads/2026-09-02-craft-learn-the-schema-execute-the-plan.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-003
+- L-012
+status: open

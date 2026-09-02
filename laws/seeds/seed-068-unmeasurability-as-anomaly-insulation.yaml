@@ -1,0 +1,16 @@
+id: seed-068
+title: Unmeasurability as Anomaly Insulation
+text: 'In protocol systems where the core performance claim (e.g., "decentralization") resists precise
+  formalization or measurement, accumulated evidence of failure can persist indefinitely without triggering
+  structural revision. The inability to legibly measure the anomaly becomes a stabilizing feature: the
+  protocol system remains in a state of plausible deniability, allowing adoption and reputation to continue
+  despite operational contradiction. This extends paradigm-locked anomaly tolerance by suggesting that
+  measurement failure is not incidental but may be functionally preserved under adoption pressure.'
+source: bibliography/shallow-reads/2026-09-01-rethinking-collaborative-trust-for-verifiably-decentralized-.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-001
+- L-013
+status: open

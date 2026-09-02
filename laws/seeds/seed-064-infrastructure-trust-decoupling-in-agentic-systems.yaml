@@ -1,0 +1,15 @@
+id: seed-064
+title: Infrastructure-Trust Decoupling in Agentic Systems
+text: 'In safety-critical protocols, trust accumulates through operational age and stability (L-007).
+  But when the operational substrate itself is continuously modified (as in LLM agent retraining), does
+  the trust ratchet still operate, or does algorithmic change break the causal chain between age and reliability?
+  Specifically: can institutional trust in agentic infrastructure survive when the agents themselves are
+  not stable entities but targets of continuous optimization? This would generalize beyond agent governance
+  to any protocol where the enforcer or executor is itself a learning system.'
+source: bibliography/shallow-reads/2026-09-01-pingquanqi-equalizer-a-cross-domain-sociotechnical-framework.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: question
+connections:
+- L-007
+status: open

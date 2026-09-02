@@ -1,0 +1,15 @@
+id: seed-347
+title: Opacity-Compressed Coordination in Heterogeneous Agent Systems
+text: When multi-agent systems constrain information visibility (conclusions-only writes, read-only state
+  coupling), coordination cost does not vanish but compresses into secondary legibility signals (plateau
+  detection, threshold-triggered drafting). The tighter the information constraint, the more elaborate
+  the signal-detection layer becomes. This suggests that coordination bottlenecks may be *reframed* as
+  inference problems rather than solved—shifting burden from agent-to-agent communication into system-level
+  state-watching, with potential fragility under asymmetric observation failure.
+source: bibliography/shallow-reads/2026-09-02-kernelarc-a-multi-agent-framework-for-gpu-kernel-optimizatio.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-006
+status: open

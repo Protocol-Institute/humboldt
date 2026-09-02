@@ -1,0 +1,17 @@
+id: seed-238
+title: Capability-Coordination Inversion in Scaled Collaborative Protocols
+text: 'In human-AI collaborative protocols, isolated capability scaling (measured on held-out test sets
+  or single-agent benchmarks) may decouple from or invert joint system performance when human agents must
+  interpret, integrate, or defer to AI outputs. The decoupling is sharper when: (a) the human decision
+  boundary is formalized as a protocol with legible AI inputs; (b) human interpretability costs scale
+  sublinearly with AI capability; or (c) coordination overhead (latency, disagreement, authority negotiation)
+  is not metrically captured in capability measures. This suggests that scaling laws are protocol-relative,
+  not capability-absolute — a system may be simultaneously "more capable" and "worse at coordination"
+  under the same capability scale.'
+source: bibliography/shallow-reads/2026-09-02-the-scaling-paradox-in-human-ai-collaboration.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-012
+status: open

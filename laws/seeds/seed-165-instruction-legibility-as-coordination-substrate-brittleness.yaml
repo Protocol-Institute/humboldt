@@ -1,0 +1,18 @@
+id: seed-165
+title: Instruction Legibility as Coordination Substrate Brittleness
+text: In mixed multi-agent systems where some agents receive explicit instructions and others infer strategy
+  from observing instructed agents' actions, coordination adoption by uninstructed agents may depend on
+  instruction *legibility* (clarity, consistency, frequency of control signals) rather than instruction
+  *validity*. If uninstructed agents converge on mimicking control signals that are legible rather than
+  functional, or if they adopt partial/corrupted interpretations of observed strategies, the system may
+  achieve apparent coordination while operating on misaligned strategy models. Does coordination stability
+  in such systems require instruction signals to be both legible and semantically aligned with uninstructed
+  agents' actual inference process? When does legibility decouple from function?
+source: bibliography/shallow-reads/2026-09-02-strategy-following-multi-agent-deep-reinforcement-learning-c.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-003
+- L-010
+status: open

@@ -1,0 +1,16 @@
+id: seed-414
+title: Progress-Legibility Displacement in Cascading Allocators
+text: 'When allocation or routing decisions in multi-stage protocols are moved from static to adaptive
+  (progress-conditioned) layers, the coordination cost does not reduce; instead, it is conserved and relocated
+  to the monitoring and state-legibility infrastructure. A second-order effect: formalizing progress as
+  a computable signal creates a new optimization target orthogonal to the original task. Agents operating
+  within such systems may converge on progress-signal optimization rather than task completion, particularly
+  under high pressure or misalignment between progress metrics and actual task success.'
+source: bibliography/shallow-reads/2026-09-02-progrouter-online-progress-guided-orchestration-for-multi-ag.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-006
+- L-008
+status: open

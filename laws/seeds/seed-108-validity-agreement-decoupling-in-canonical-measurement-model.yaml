@@ -1,0 +1,16 @@
+id: seed-108
+title: Validity-Agreement Decoupling in Canonical Measurement Models
+text: When a model is adopted as the official measurement instrument for a theoretical construct within
+  a community (especially a national or institutional community), agreement with that model becomes progressively
+  conflated with validity of the measurement itself. The closer the model approximates human coder agreement,
+  the stronger the pressure to treat it as the canonical standard — yet agreement and validity remain
+  independent properties. Once institutionalized, questioning the model's validity becomes institutionally
+  costly, and communities accumulate technical debt in measurement reliability without triggering revision
+  pressure.
+source: bibliography/shallow-reads/2026-09-01-validity-of-llms-as-data-annotators-amalia-on-authority.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-004
+status: open

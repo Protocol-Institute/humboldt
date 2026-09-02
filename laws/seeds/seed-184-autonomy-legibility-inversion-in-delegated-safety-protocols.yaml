@@ -1,0 +1,16 @@
+id: seed-184
+title: Autonomy Legibility Inversion in Delegated Safety Protocols
+text: 'In safety-critical protocols designed for users with cognitive or physical limitations, the system''s
+  legibility (transparency of recommendations and reasoning) and the user''s legibility (observability
+  of their preferences and decision capacity) are in tension: increasing system transparency to improve
+  user trust may increase system authority and decrease user involvement in risk judgment, particularly
+  when the protocol''s predictions are formalized as actionable recommendations. This inversion may be
+  invisible to the system designer if success is measured only in reduced adverse events rather than in
+  user agency preservation.'
+source: bibliography/shallow-reads/2026-09-02-safestep-ai-powered-travel-assistance-for-elderly-people-wit.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-012
+status: open

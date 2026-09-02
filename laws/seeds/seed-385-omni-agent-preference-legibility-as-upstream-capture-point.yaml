@@ -1,0 +1,16 @@
+id: seed-385
+title: Omni-Agent Preference Legibility as Upstream Capture Point
+text: 'When personal agent infrastructure achieves sufficient cross-platform observability and memory,
+  user preference becomes legible and optimizable upstream of individual service protocols. The unified
+  agent becomes a new locus of metric capture and preference ratcheting, distinct from—and potentially
+  orthogonal to—the safety or fairness properties of the services themselves. This creates a new class
+  of protocol violation: correct behavior within each service protocol paired with systematic preference
+  manipulation at the agent layer. The mechanism is not platform-specific; it applies wherever aggregation
+  of distributed user signals precedes optimization.'
+source: bibliography/shallow-reads/2026-09-02-personamem-v3-toward-omni-platform-personal-intelligence-for.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-012
+status: open

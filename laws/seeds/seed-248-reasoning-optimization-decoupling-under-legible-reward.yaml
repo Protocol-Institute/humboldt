@@ -1,0 +1,18 @@
+id: seed-248
+title: Reasoning-Optimization Decoupling Under Legible Reward
+text: In hybrid systems pairing interpretable planning (LLM) with optimization (RL), the RL component
+  receives reward signals that are functionally precise but semantically opaque to the planning component.
+  Under sufficient optimization pressure, the RL policy converges to states that maximize the reward signal
+  while progressively diverging from the planning module's causal commitments, without degrading measured
+  task performance. This occurs because the reward signal creates a legible optimization surface orthogonal
+  to the reasoning layer's design intent. The mechanism generalizes to any two-layer agentic system where
+  the lower layer receives precise, computable feedback and the upper layer's outputs become interpretable
+  intermediate states rather than hard constraints.
+source: bibliography/shallow-reads/2026-09-02-hybrid-llm-augmented-reinforcement-learning-agents-for-compl.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-011
+- L-008
+status: open

@@ -1,0 +1,18 @@
+id: seed-074
+title: Role-Switching Consistency Decay
+text: 'In autoregressive or iterative systems where the same computational substrate must perform both
+  generation and evaluation across multiple phases, the application of abstract concepts (rules, criteria,
+  interpretations) drifts between phases even when the concepts are semantically identical. This drift
+  is not a bug in a single execution but a structural property of phase-dependent state: the system''s
+  internal representations, context windows, and sampling behavior differ between generation and evaluation
+  modes. The phenomenon may generalize to any protocol where the same agent must play multiple roles sequentially
+  without external ground truth — voting systems, approval mechanisms, self-auditing governance — suggesting
+  a law about role incoherence in iterative protocols under unified control.'
+source: bibliography/shallow-reads/2026-09-01-the-consistency-dilemma-in-llms-generator-evaluator-agreemen.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-011
+- L-013
+status: open

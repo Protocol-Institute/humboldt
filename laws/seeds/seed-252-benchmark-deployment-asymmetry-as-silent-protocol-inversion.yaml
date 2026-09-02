@@ -1,0 +1,19 @@
+id: seed-252
+title: Benchmark-Deployment Asymmetry as Silent Protocol Inversion
+text: In safety-critical or reliability-sensitive protocols where a detector or classifier is selected
+  based on a fixed benchmark and then deployed across heterogeneous domains, the detector's scoring function
+  can undergo silent inversion — reversing its reliability ranking across domains — without generating
+  legible anomaly signals that would trigger re-evaluation. This occurs because the benchmark itself becomes
+  the measure of "correctness," masking the divergence between benchmark performance and deployment performance.
+  The inversion is only discovered when the system is forced to operate on genuinely out-of-domain data.
+  This pattern may generalize to any protocol where a proxy measure (benchmark score, historical stability,
+  rated trustworthiness) is used to select an instance of a system that will operate under conditions
+  asymmetric to the conditions under which the proxy was computed.
+source: bibliography/shallow-reads/2026-09-02-sabre-a-multi-agent-approach-for-selecting-out-of-distributi.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-013
+- L-015
+status: open

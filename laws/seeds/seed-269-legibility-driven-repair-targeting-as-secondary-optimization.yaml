@@ -1,0 +1,17 @@
+id: seed-269
+title: Legibility-Driven Repair Targeting as Secondary Optimization Surface
+text: When iterative optimization of agentic systems shifts from agent-candidate organization to explicit
+  persistent issue state, the issue taxonomy itself becomes a legible decision substrate. Systems may
+  then optimize to cluster problems within tractable issue categories, defer rare or cross-cutting issues,
+  or route problems toward interventions that are cheap to execute *relative to issue legibility* rather
+  than relative to actual repair efficacy. Does making coordination work (issue tracking) legible cause
+  the optimization pressure to move orthogonally—from "solve the agent problem" to "solve the issues that
+  fit the issue schema"?
+source: bibliography/shallow-reads/2026-09-02-adias-automated-design-of-interactive-agentic-systems.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-012
+- L-016
+status: open

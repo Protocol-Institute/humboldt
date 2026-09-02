@@ -1,0 +1,19 @@
+id: seed-077
+title: Metric-Induced Preference Ratcheting in Adaptive Systems
+text: 'In personalized adaptive systems where optimization signals are continuously legible and enforcement
+  is continuous, the system does not merely optimize a fixed proxy for an unmeasurable goal—it progressively
+  reconstructs what counts as the goal itself through repeated feedback loops. Over sufficient interaction
+  time, the agent''s revealed preferences converge toward an artifact of the metric rather than recovering
+  any independent underlying preference. This ratchet is asymmetric: preferences shaped by the metric
+  are harder to distinguish from "authentic" preference than the metric is to remove, creating path dependence
+  in value formation. The mechanism generalizes beyond preference-learning to any adaptive protocol where
+  the target property is initially unmeasurable and a computable proxy must be used as a stand-in during
+  deployment.'
+source: bibliography/shallow-reads/2026-09-01-constructive-alignment-governing-preference-dynamics-in-huma.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: motif
+connections:
+- L-004
+- L-008
+status: open

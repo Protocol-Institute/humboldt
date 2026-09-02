@@ -1,0 +1,16 @@
+id: seed-435
+title: Domain-Locked Metric Incommensurability in Multi-Regime Protocol Systems
+text: When a single intervention (e.g., regulation, detection, labeling) is applied across domains with
+  structurally different causal models of harm, the metric used to assess efficacy becomes domain-specific
+  and non-transferable. Experts disagree not because they lack evidence but because they are optimizing
+  against incommensurable threat models encoded in their choice of metric. This suggests that protocol
+  unification across domains with different causal structures does not resolve via better metrics, but
+  reproduces disagreement at each new consolidation layer — a possible instance of L-006 (Coordination
+  Cost Conservation) where the cost of metric alignment is shifted rather than eliminated.
+source: bibliography/shallow-reads/2026-09-02-experts-disagree-on-how-to-fight-ai-disinformation-but-agree.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+status: open

@@ -1,0 +1,18 @@
+id: seed-076
+title: Handler-Lodged Ossification in Opaque Protocols
+text: In safety-critical protocols where opacity prevents formal verification, trust accumulates in the
+  human-handler relationship rather than in the protocol itself. Under these conditions, protocol modification
+  or replacement encounters resistance not from technical switching costs but from the erosion of relational
+  trust and handler expertise—the handler becomes the irreplaceable artifact. This predicts that opaque
+  safety-critical systems defended by handler competence will resist restructuring even when technical
+  alternatives exist, because the cost of ossification is now borne by institutional dependency on a specific
+  human interpreter rather than by protocol adoption lock-in. The mechanism should generalize wherever
+  formal auditability is absent and human judgment becomes the locus of accountability.
+source: bibliography/shallow-reads/2026-09-01-ai-trust-and-teaming-the-humans-as-handlers-approach-for-aut.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: motif
+connections:
+- L-007
+- L-001
+status: open

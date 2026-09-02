@@ -1,0 +1,16 @@
+id: seed-408
+title: Experience Graph as Irreversible Coordination Lock
+text: 'In self-evolving agentic systems that formalize and retain execution history (via experience graphs,
+  audit logs, or learned priors), the agent becomes progressively unable to discover solutions that violate
+  the categorical or causal assumptions embedded in prior records, even when such violations would improve
+  global outcome. The formalization of "what worked" becomes a constraint on "what can be tried." This
+  is distinct from Gall''s resistance to restructuring: it is active optimization *toward* the shape of
+  the past, mediated through legibility.'
+source: bibliography/shallow-reads/2026-09-02-beyond-scaling-self-evolving-llm-agents-for-hardware-kernel-.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-005
+- L-012
+status: open

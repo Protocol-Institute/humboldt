@@ -1,0 +1,16 @@
+id: seed-348
+title: Legibility Amplification Without Root Decoupling
+text: 'Protocol systems that accumulate unmeasurable coordination failures (e.g., alert fatigue, information
+  overload) under optimization pressure often generate secondary protocols that increase legibility or
+  queryability of the corrupted signal, rather than restructuring the primary protocol. These intermediary
+  legibility layers can stabilize the system locally while preserving the conditions that generated the
+  original failure, creating a new optimization surface at the translation boundary. This may be a general
+  mechanism of protocol drift: *making a bad signal more readable does not reduce optimization pressure;
+  it displaces it*.'
+source: bibliography/shallow-reads/2026-09-02-mitre-sage-a-multi-agent-cybersecurity-question-answering-mo.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-004
+status: open

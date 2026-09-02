@@ -1,0 +1,18 @@
+id: seed-337
+title: Surrogate Lattice Lock — Calibration Debt Displacement in Automated Model Inversion
+text: 'When parameter estimation in complex simulations is automated via learned surrogates (neural networks
+  or other function approximators), the computational debt does not disappear — it is displaced to surrogate
+  validation and accuracy certification. The original model''s calibration pathway becomes invisible,
+  frozen within the surrogate''s learned weights. Under subsequent model revision, pressure to preserve
+  surrogate accuracy can exceed pressure to improve underlying model fidelity, creating a new form of
+  L-005-style resistance: the system resists not restructuring of the model itself, but decoupling from
+  the surrogate it has been calibrated through. This may generalize to any protocol system where an expensive
+  prior calibration is encoded into an opaque learned layer.'
+source: bibliography/shallow-reads/2026-09-02-neural-network-based-parameter-estimation-of-a-labour-market.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-005
+- L-006
+status: open

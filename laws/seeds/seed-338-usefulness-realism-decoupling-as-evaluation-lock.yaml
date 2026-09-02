@@ -1,0 +1,17 @@
+id: seed-338
+title: Usefulness-Realism Decoupling as Evaluation Lock
+text: In protocol systems designed to simulate expert-domain behavior (legal, medical, adversarial), explicitly
+  separating "pedagogical utility" from "behavioral fidelity" as independent evaluation dimensions creates
+  a stable equilibrium in which behavioral implausibility can accumulate without triggering redesign.
+  The separation is institutionally rationalized as "different goals, different metrics" but may function
+  as a normalization of causal detachment. This may generalize to any expert-simulation protocol where
+  the downstream user (the trainee) is not the domain expert evaluating fidelity, creating a principal-agent
+  gap in quality signaling.
+source: bibliography/shallow-reads/2026-09-02-reading-between-the-lines-modeling-and-evaluating-behavioral.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-011
+- L-013
+status: open

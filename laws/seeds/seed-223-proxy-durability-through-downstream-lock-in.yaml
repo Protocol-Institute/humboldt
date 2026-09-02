@@ -1,0 +1,17 @@
+id: seed-223
+title: Proxy Durability Through Downstream Lock-In
+text: In systems where a measurable proxy achieves widespread downstream adoption (in models, policies,
+  or research), the proxy persists even after documented errors are discovered, because the cost of switching
+  or correcting is distributed across many dependent systems rather than concentrated in the proxy provider.
+  The proxy becomes irreplaceable not because it is accurate, but because the coordination cost of migration
+  is higher than the cost of operating with known bias. This is distinct from L-004 (metric capture) —
+  here the proxy has *already* been captured; what sustains it is adoption stickiness, not continued optimization
+  pressure.
+source: bibliography/shallow-reads/2026-09-02-hidden-errors-in-big-data-the-case-of-property-records.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-007
+status: open

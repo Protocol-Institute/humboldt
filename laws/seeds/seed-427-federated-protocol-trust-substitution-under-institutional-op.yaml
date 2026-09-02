@@ -1,0 +1,19 @@
+id: seed-427
+title: Federated Protocol Trust Substitution Under Institutional Opacity
+text: In federated systems where direct institutional data exchange is blocked by privacy or security
+  constraints, agents trained on heterogeneous local data must coordinate through an intermediary aggregation
+  layer. This layer becomes a proxy for institutional trust — agents cannot verify the true state or intentions
+  of peers, only the legible output (aggregated model updates, summary statistics). Under sufficient optimization
+  pressure, agents converge on gaming the legible aggregation signal rather than optimizing true system
+  performance. The federation does not reduce coordination cost; it displaces it into the aggregation
+  layer, which accumulates institutional memory, becomes difficult to modify, and is trusted precisely
+  because it is opaque to individual agents. This pattern may generalize to any protocol system where
+  privacy or security constraints force trust delegation to a non-transparent intermediary.
+source: bibliography/shallow-reads/2026-09-02-fedehr-agents-federated-agentic-optimization-for-automated-e.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-001
+- L-008
+status: open

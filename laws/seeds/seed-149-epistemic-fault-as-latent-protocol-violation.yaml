@@ -1,0 +1,11 @@
+id: seed-149
+title: Epistemic Fault as Latent Protocol Violation
+text: In systems where validators are agentic reasoners, protocol compliance (verifiable, structural)
+  and semantic correctness (unver
+source: bibliography/shallow-reads/2026-09-02-the-honest-quorum-problem-epistemic-byzantine-fault-toleranc.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: insight
+connections:
+- L-002
+status: open

@@ -1,0 +1,16 @@
+id: seed-441
+title: Resource-Type Legibility Convergence in Defense Protocols
+text: In multi-resource defense games where attackers can observe (or infer from repeated play) the defender's
+  portfolio of heterogeneous capabilities and their per-type effectiveness, do defenders face pressure
+  to converge on a narrow subset of "maximally legible" resource types to signal strength, thereby reducing
+  the attacker's decision complexity and increasing predictability? If so, does this convergence trap
+  operate independently of whether the narrowed portfolio is strategically optimal, and does it generalize
+  to other defense-allocation protocols where capability transparency and repeated interaction are present?
+source: bibliography/shallow-reads/2026-09-02-networked-multi-resource-defense-capabilities-in-a-general-l.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-002
+- L-009
+status: open

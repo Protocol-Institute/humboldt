@@ -1,0 +1,16 @@
+id: seed-079
+title: Externalization as Paradigm Preservation
+text: When a deployed system exhibits recurring, documentable failures that are predictable but expensive
+  to fix at source, the institutional response under resource constraints is to formalize an external
+  correction layer rather than restructure the primary system. This preserves the paradigm (the VLM remains
+  untouched) while appearing to solve the problem (failures are now managed). The externalizable failure
+  becomes tolerable indefinitely because correction becomes a routine, legible protocol. This pattern
+  may generalize to any complex system where the cost of internal restructuring exceeds the cost of managing
+  external symptoms.
+source: bibliography/shallow-reads/2026-09-01-m2note-continual-evolution-of-vision-language-models-via-mis.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-013
+status: open

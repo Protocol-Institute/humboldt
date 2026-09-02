@@ -1,0 +1,18 @@
+id: seed-190
+title: Stochastic Evasion of Deterministic Boundaries
+text: 'Access control protocols designed around deterministic action models face systematic enforcement
+  degradation when applied to stochastic agents whose internal state and decision process are opaque but
+  whose actions are legible and attributable. The mismatch is not purely technical but structural: boundary
+  rules become increasingly fine-grained in response, but fine-grained rules applied to stochastic systems
+  either reduce agent autonomy to near-determinism (defeating the purpose of agentic deployment) or maintain
+  autonomy while accepting uncontrollable false-positive and false-negative error rates at the boundary.
+  This tension may generalize to any protocol system where the observed behavior is computable but the
+  generating process is not.'
+source: bibliography/shallow-reads/2026-09-02-decentralized-granular-access-control-for-agentic-ai-systems.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-002
+- L-014
+status: open

@@ -1,0 +1,17 @@
+id: seed-142
+title: Auditability-Legibility Trap in Trust Governance
+text: 'When trustworthiness judgments in safety-critical protocols are formalized to enable auditable
+  documentation, does the increase in legibility of *past decisions* prevent or accelerate the decay of
+  *interpretive context* about those decisions? Specifically: do agents optimize to satisfy the auditability
+  criteria rather than preserve the reasoning conditions under which trustworthiness was judged? This
+  would represent a variant of L-015 where the remedy (formalization + auditability) creates the pathology
+  (institutional amnesia about *why* a decision was made, even though *that* a decision was made is perfectly
+  recorded).'
+source: bibliography/shallow-reads/2026-09-02-a-methodology-for-auditable-trustworthiness-levels-in-ai-lif.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-007
+- L-015
+status: open

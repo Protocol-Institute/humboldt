@@ -1,0 +1,16 @@
+id: seed-405
+title: Epistemic Infrastructure Lock-In Under Computable Public Space
+text: When municipal decision-making becomes dependent on algorithmic definition of public-space properties
+  (occupancy, safety, livability), the city's future governance capacity becomes constrained not by the
+  quality of those definitions but by the switching cost of changing them. Co-design and pluralism at
+  the *interface layer* do not reduce the formalization ratchet — they may legitimize and stabilize it.
+  The question is whether governance pluralism can exist at the boundary when the substrate beneath is
+  already ossified.
+source: bibliography/shallow-reads/2026-09-02-the-urban-right-to-ai-pluralistic-co-design-and-governance-o.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-014
+- L-015
+status: open

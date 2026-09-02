@@ -1,0 +1,18 @@
+id: seed-232
+title: Memory-Legibility Lag in Distributed Agentic Protocols
+text: 'In multi-agent coordination systems where memory is formalized as a persistent substrate and agents
+  rely on read-retrieve cycles, the time gap between write and read creates an unobservable causal channel:
+  a single corrupted write can propagate to multiple agents and downstream decisions before any single
+  agent''s local observation window can connect that write to their own behavior shift. This decoupling
+  persists longest when verification is deferred to read-time rather than embedded in write-time protocol
+  constraints. The generalization: any protocol layer that outsources state verification to retrieval
+  rather than embedding it in state commitment will accumulate latent corruptions that remain invisible
+  until their effects cross multiple trust boundaries simultaneously.'
+source: bibliography/shallow-reads/2026-09-02-maple-guard-memory-aware-link-enforcement-against-memory-lin.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-011
+- L-015
+status: open

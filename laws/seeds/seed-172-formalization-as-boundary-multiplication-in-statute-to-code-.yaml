@@ -1,0 +1,18 @@
+id: seed-172
+title: Formalization as Boundary Multiplication in Statute-to-Code Translation
+text: When natural-language legal text is formalized into executable protocol, the requirement of computational
+  determinism does not *resolve* ambiguity — it *multiplies* it by forcing explicit choices at points
+  where the statute permits interpretive slack. Each formally admissible reading becomes an independent
+  implementation branch, and these branches can produce materially divergent outcomes from identical inputs.
+  The "correct" algorithm is underdetermined by the source text; formalization requires *prior commitment*
+  to an interpretive frame. In distributed or adversarial governance contexts, this turns the formalization
+  choice itself into a strategic control point, where opacity about which interpretation was chosen becomes
+  a form of power. This suggests that computable legality does not eliminate interpretive authority —
+  it *concentrates* and *formalizes* it.
+source: bibliography/shallow-reads/2026-09-02-one-vote-several-parliaments-an-empirical-analysis-of-the-al.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-014
+status: open

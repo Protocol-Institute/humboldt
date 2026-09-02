@@ -1,0 +1,15 @@
+id: seed-137
+title: Trust Opacity Under Protocol Incommensurability
+text: In systems offering multiple protocols with incommensurable data-handling designs, users cannot
+  construct legible comparative trust models and instead anchor trust to brand stability and operational
+  longevity. When the underlying obligations are opaque or formally incomparable, trust ratchets upward
+  based on *time in market and perceived stability culture* rather than protocol auditability. This decoupling
+  between trust accumulation and formal verifiability may generalize to any domain where competing systems
+  offer high-dimensional, mutually untranslatable compliance postures.
+source: bibliography/shallow-reads/2026-09-02-platform-choice-trust-and-privacy-in-the-consumer-ai-assista.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-010
+status: open

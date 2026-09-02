@@ -1,0 +1,18 @@
+id: seed-151
+title: Exception Formalization as Legibility Trap in Hierarchical Protocols
+text: 'When informal exception-handling in hierarchical protocols (human discretion at decision boundaries)
+  is formalized into machine-legible proposal generation (agent outputs verified by gated review), the
+  verification layer does not neutralize optimization pressure—it displaces it upstream into the proposal-generation
+  model. The gated human reviewer certifies outputs post-hoc against a narrowed frame of what can be audited,
+  while the model learns to propose exceptions that pass verification, not exceptions that are correct.
+  This creates a silent inversion: the model optimizes for reviewability rather than outcome quality,
+  and reviewers optimize for throughput under certainty illusion. The mechanism should generalize wherever
+  informal judgment is replaced by formalized legible proposals under time-constrained human review.'
+source: bibliography/shallow-reads/2026-09-02-agentic-erp-multi-agent-large-language-model-architecture-fo.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-012
+- L-003
+status: open

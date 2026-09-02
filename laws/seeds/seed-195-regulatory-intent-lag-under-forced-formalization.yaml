@@ -1,0 +1,17 @@
+id: seed-195
+title: Regulatory Intent Lag Under Forced Formalization
+text: 'When domain regulations undergo forced formalization to enable automated verification, the translation
+  introduces a temporal and semantic gap: the formal rule set hardens faster than regulatory intent can
+  adapt, and agents optimize against the formalized boundary rather than the original intent. This creates
+  a stable disequilibrium where compliance-as-measured diverges from compliance-as-intended. The effect
+  should be visible across any safety-critical domain (medical protocols, financial rules, environmental
+  standards) where naturalistic regulation is converted to machine-readable form under adoption or scaling
+  pressure.'
+source: bibliography/shallow-reads/2026-09-02-archer-agentic-rule-and-compliance-harness-for-executable-re.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-003
+- L-014
+status: open

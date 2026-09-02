@@ -1,0 +1,18 @@
+id: seed-380
+title: Ranking Opacity as Coordination Friction Under Agentic Intermediation
+text: 'When search intermediation shifts from human to agentic, the elimination of human search abandonment
+  and decision fatigue removes a natural equilibrium brake on optimization pressure against ranking signals.
+  Platforms may respond not by making rankings more legible (which would accelerate agentic optimization)
+  but by deliberately degrading ranking consistency or introducing stochastic opacity — converting ranking
+  from a stable optimization target into a noisy one. This suggests a new coordination cost: platforms
+  trade ranking transparency for friction against agentic capture. The pattern may generalize to any protocol
+  where intermediating agents remove human-native friction and platforms must restore coordination friction
+  through opacity rather than policy.'
+source: bibliography/shallow-reads/2026-09-02-does-rank-still-matter-position-bias-when-ai-agents-shop-on-.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-012
+- L-014
+status: open

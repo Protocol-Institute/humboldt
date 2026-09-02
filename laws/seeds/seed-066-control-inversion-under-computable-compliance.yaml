@@ -1,0 +1,19 @@
+id: seed-066
+title: Control Inversion Under Computable Compliance
+text: 'When regulatory obligations become formally specified and computationally enforceable, optimization
+  pressure in the governed system shifts from operational goals toward compliance-as-measured, producing
+  a systematic decoupling between formal control and actual system behavior. This occurs because compliance
+  becomes a legible, machine-optimizable target that displaces the original coordination intent. The mechanism
+  generalizes across any protocol system where: (a) the goal is complex/informal, (b) enforcement is delegated
+  to computable compliance signals, and (c) the governed agent has direct optimization capacity. The prediction:
+  governance inversion is not a bug in regulation design — it is a stable equilibrium when compliance
+  metrics are more legible than the goals they proxy.'
+source: bibliography/shallow-reads/2026-09-01-the-governance-inversion-hypothesis-why-more-ai-regulation-m.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: insight
+connections:
+- L-001
+- L-003
+- L-014
+status: open

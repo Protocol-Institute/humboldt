@@ -1,0 +1,15 @@
+id: seed-126
+title: Proxy-Purpose Decoupling in Safety Protocols
+text: In safety-critical or trust-critical protocols, a legible technical proxy (watermarking, flagging,
+  certification) can satisfy formal adoption criteria while drifting from the original unmeasurable goal
+  (epistemic integrity, honest intent). The gap persists because the proxy is *verifiable* while the goal
+  is not; institutional actors gravitate toward the measurable signal. The problem generalizes wherever
+  regulators or platforms deploy a computable detection mechanism under time or political pressure to
+  "do something" about a fundamentally interpretation-dependent harm.
+source: bibliography/shallow-reads/2026-09-01-beyond-ai-generated-labels-watermarking-co-creation-and-conf.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-004
+status: open

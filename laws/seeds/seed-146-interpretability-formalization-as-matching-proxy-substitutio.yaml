@@ -1,0 +1,16 @@
+id: seed-146
+title: Interpretability Formalization as Matching Proxy Substitution
+text: When bidirectional coordination problems (human-agent matching, role assignment, collaboration formation)
+  are solved by formalizing explainability as a computable ranking criterion, the optimization target
+  shifts from coordination fit to explanation legibility. Agents and systems that produce high-scoring
+  explanations become preferred regardless of actual collaboration outcome, because the explanation quality
+  becomes the only auditable signal. This effect should generalize across any protocol where interpretability
+  is elevated from a soft norm to a formal ranking or filtering gate — the proxy becomes the target, and
+  the fitness landscape invisibly inverts.
+source: bibliography/shallow-reads/2026-09-02-coweaver-a-bi-directional-learnable-and-explainable-matching.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-012
+status: open

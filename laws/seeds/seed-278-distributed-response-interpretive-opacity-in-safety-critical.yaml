@@ -1,0 +1,15 @@
+id: seed-278
+title: Distributed-Response Interpretive Opacity in Safety-Critical Protocols
+text: In distributed incident-response systems for automated or autonomous assets, do formal audit and
+  forensic protocols survive operationally intact while the *interpretive consensus* required to act on
+  them decays across responder teams and organizations? If so, does this decay correlate with the degree
+  of formalization (i.e., more legible protocols → faster divergence in meaning) or with the distance
+  between enforcement layers and field context?
+source: bibliography/shallow-reads/2026-09-02-organizational-and-socio-technical-challenges-in-uav-inciden.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-013
+- L-015
+status: open

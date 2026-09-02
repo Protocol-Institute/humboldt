@@ -1,0 +1,17 @@
+id: seed-130
+title: Heterogeneous Sufficiency as Boundary Displacement, Not Elimination
+text: 'In protocols that decentralize access control policy to downstream verifiers (RPs) and render proof
+  sufficiency legible and machine-readable, strategic optimization pressure does not disappear — it relocates
+  from the identity provider to the RP population. Under adoption and competition, RPs face incentives
+  to either converge on a common sufficiency standard (reducing heterogeneity to pooled consensus) or
+  to claim lower sufficiency thresholds to capture marginal users, driving down effective assurance across
+  the system. Heterogeneous sufficiency may thus preserve L-014 boundary concentration while creating
+  a secondary form of pressure: competitive lowering of the legible bar.'
+source: bibliography/shallow-reads/2026-09-02-xchk-bring-your-own-identity-heterogeneous-assurance-with-ve.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-014
+- L-002
+status: open

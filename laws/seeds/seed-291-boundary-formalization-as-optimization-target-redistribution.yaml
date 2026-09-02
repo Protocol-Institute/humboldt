@@ -1,0 +1,17 @@
+id: seed-291
+title: Boundary Formalization as Optimization Target Redistribution
+text: When governance pressure on a protocol (e.g., GenAI use restrictions) is resolved by formalizing
+  the boundary via computable rules (e.g., ECD outcome classification), the optimization surface does
+  not disappear — it relocates from *behavior* to *classification*. Agents optimize which category a task
+  falls into, or which outcome it claims to serve, rather than internalizing the boundary itself. The
+  formalization simultaneously makes enforcement cheaper and makes the rule itself a resource to be gamed.
+  This pattern likely generalizes across any domain where governance pressure is met with legibility/formalization
+  as a solution.
+source: bibliography/shallow-reads/2026-09-02-positioning-generative-artificial-intelligence-in-stem-asses.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-003
+- L-014
+status: open

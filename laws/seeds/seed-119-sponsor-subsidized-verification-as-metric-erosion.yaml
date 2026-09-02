@@ -1,0 +1,15 @@
+id: seed-119
+title: Sponsor-Subsidized Verification as Metric Erosion
+text: 'In protocol systems where a third party (facilitator, sponsor, infrastructure provider) absorbs
+  the cost of verification or signal generation, legible counts of that signal decouple from ground truth
+  at scale. This differs from mere metric capture: the signal remains cryptographically valid and formally
+  correct, but causality and authenticity become invisible while cost barriers to forgery collapse. Protocols
+  designed for transparency can thus enable uninformative metrics when the economic incentives favor volume
+  over fidelity and when the sponsor has stake in adoption narratives.'
+source: bibliography/shallow-reads/2026-09-01-how-agentic-is-agentic-commerce-a-population-scale-measureme.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-001
+status: open

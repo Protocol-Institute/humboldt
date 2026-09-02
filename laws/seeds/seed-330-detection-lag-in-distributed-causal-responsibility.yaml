@@ -1,0 +1,17 @@
+id: seed-330
+title: Detection Lag in Distributed Causal Responsibility
+text: In agentic systems where the generation process is autoregressive and the task specification is
+  static, drift detection latency increases with the distance between the specification layer and the
+  execution layer. When detection must be performed post-hoc via auxiliary models (as in this framework),
+  the auxiliary model must itself be shielded from the same drift mechanisms affecting the primary agent.
+  This suggests drift detection may itself become the new locus of optimization pressure rather than solving
+  the underlying decoupling. The framework is sound engineering; the pattern worth tracking is whether
+  auxiliary-layer solutions preserve or merely displace the causal detachment problem.
+source: bibliography/shallow-reads/2026-09-02-a-graph-based-reinforcement-learning-framework-for-structure.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-011
+- L-013
+status: open

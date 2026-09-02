@@ -1,0 +1,17 @@
+id: seed-170
+title: Convergence Paradox in Safety-Critical Arbitration
+text: In multi-agent safety protocols using disagreement as a monitoring signal, independent improvement
+  of base agents tends to produce convergence toward the same decision boundary. This eliminates disagreement
+  precisely at the point where correlated failure modes (shared biases, shared blindnesses in training
+  data) become most concentrated and most dangerous. Safety monitoring thus degrades as constituent agents
+  improve. This may generalize to any safety protocol where the detection mechanism is built on heterogeneity
+  of approach rather than on explicit specification of hazards, particularly where agents share training
+  substrate or optimization objectives.
+source: bibliography/shallow-reads/2026-09-02-harnessing-disagreement-detecting-correlated-agreement-blind.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-013
+- L-009
+status: open

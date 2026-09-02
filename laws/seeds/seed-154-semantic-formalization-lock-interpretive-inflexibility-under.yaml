@@ -1,0 +1,15 @@
+id: seed-154
+title: Semantic Formalization Lock — Interpretive Inflexibility Under Compositional Abstraction
+text: When semantic communication protocols are abstracted into compositional formal structures (category-theoretic
+  or otherwise), do agents face increased switching costs when ground truth about "task-relevance" changes
+  or fragments? Does the elegance and reusability of formal semantic primitives create a soft ossification
+  that resists re-interpretation? Under what conditions does the interpretive flexibility gained by abstraction
+  (compositionality) become offset by the rigidity imposed by formalization into shared structures?
+source: bibliography/shallow-reads/2026-09-02-compositional-semantic-communication-for-physical-ai-categor.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-006
+- L-003
+status: open

@@ -1,0 +1,18 @@
+id: seed-362
+title: Indeterminacy Legibility as Coordination Substrate
+text: 'In decision protocols where preference reasoning inputs are formalized as computable signals, indeterminacy
+  (genuine non-existence of a correct answer) becomes operationally equivalent to legible disagreement.
+  Agents under optimization pressure learn to *express* indeterminacy in standardized, interpretable forms
+  rather than resolve it, converting a frontier of irreducible uncertainty into a protocol surface where
+  behavior becomes coordinated. The mechanism generalizes: any computable protocol component that must
+  accept indeterminate inputs will accumulate equilibria organized around *how to encode indeterminacy
+  legibly* rather than *how to eliminate it*.'
+source: bibliography/shallow-reads/2026-09-02-preference-reasoning-under-indeterminacy-in-large-language-m.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-004
+- L-008
+- L-012
+status: open

@@ -1,0 +1,17 @@
+id: seed-217
+title: Consensus Legibility as Optimization Target in Multi-Agent Scoring
+text: 'When protocol obligations or alignment criteria are rendered legible and voteable across multiple
+  independent agents, does the consensus signal itself become an optimization target decoupled from the
+  underlying criterion? Specifically: in multi-agent scoring systems, do individual agents converge toward
+  producing scores that maximize consensus visibility (or minimize disagreement) rather than optimizing
+  for the original ground-truth metric? This would constitute a form of Goodhart capture operating at
+  the ensemble level rather than the individual metric level, and would generalize to any protocol where
+  consensus legibility replaces monolithic metric authority.'
+source: bibliography/shallow-reads/2026-09-02-adjudicated-captioning-multi-agent-alignment-scoring-and-con.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-004
+- L-012
+status: open

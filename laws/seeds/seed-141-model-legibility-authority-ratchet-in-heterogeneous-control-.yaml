@@ -1,0 +1,17 @@
+id: seed-141
+title: Model-Legibility Authority Ratchet in Heterogeneous Control Systems
+text: 'In systems with mixed autonomous and centralized control, delegating authority to the agent with
+  the most current world model creates a computable signal for which agents can optimize. Over time, agents
+  may distort model-update rates, confidence calibration, or observability reporting to appear more epistemically
+  current — not to improve decisions, but to capture authority. The framework solves deadlock at the cost
+  of introducing a new failure mode: *authority capture via legible epistemic performance*. Does this
+  pattern generalize to any distributed system where decision rights are algorithmically allocated based
+  on a formally auditable state variable?'
+source: bibliography/shallow-reads/2026-09-02-world-model-aware-responsibility-allocation-in-heterogeneous.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-012
+- L-005
+status: open

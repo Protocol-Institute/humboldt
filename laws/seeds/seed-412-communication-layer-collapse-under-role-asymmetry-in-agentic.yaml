@@ -1,0 +1,19 @@
+id: seed-412
+title: Communication-Layer Collapse Under Role Asymmetry in Agentic Systems
+text: In multi-agent systems where specialized roles produce legible signals that aggregate into final
+  decisions, adversarial pressure concentrates on high-leverage communication nodes rather than distributing
+  across the system. The vulnerability is not uniformly distributed; corrupting a signal from a role with
+  high decision weight (e.g., risk assessment agent) achieves disproportionate effect relative to roles
+  with low weight. This suggests that agentic systems may spontaneously develop *role-differentiated trust
+  hierarchies* under deployment, and that the mapping from role weight to attack surface may be stable
+  across architectures. Whether this generalizes to other multi-layer decision systems (humans + algorithms,
+  distributed governance, supply chain validation) is an open question.
+source: bibliography/shallow-reads/2026-09-02-poisoning-agentic-alpha-adversarial-vulnerabilities-across-r.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-008
+- L-009
+- L-014
+status: open

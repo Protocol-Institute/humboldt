@@ -1,0 +1,17 @@
+id: seed-257
+title: Proxy Compression Under Tool Availability Asymmetry
+text: When a productivity-relevant capability (reasoning, knowledge retrieval, pattern completion) is
+  offloaded to an external tool with uniform availability, gaps in the original capability compress in
+  measurement, but the compression is conditional on continued tool access and may be reversible. If institutions
+  then optimize to close the measured gap (via hiring, assignment, or wage equalization), they risk creating
+  structural dependency on the tool while misattributing the gap closure to capability convergence rather
+  than tool substitution. The gap does not narrow; the locus of the disparity shifts upstream (to tool
+  access, tool literacy, or tool-free performance) and becomes invisible to the original metric.
+source: bibliography/shallow-reads/2026-09-02-does-generative-ai-narrow-education-based-productivity-gaps-.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-008
+status: open

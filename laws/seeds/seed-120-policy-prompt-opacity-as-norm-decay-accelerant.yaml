@@ -1,0 +1,18 @@
+id: seed-120
+title: Policy-Prompt Opacity as Norm Decay Accelerant
+text: 'When governance rules are encoded as natural language prompts to AI systems, the interpretive gap
+  between formal policy text and operative enforcement widens faster than in human-mediated systems. This
+  occurs because: (1) the AI has no access to the historical reasoning or edge-case discussions that shaped
+  the norm, (2) communities cannot easily audit or reverse-engineer the AI''s interpretation, and (3)
+  attempted corrections to the prompt often produce second-order drift. The mechanism generalizes beyond
+  content moderation to any protocol system where formalized rules are delegated to optimizing agents
+  without shared institutional memory — regulatory systems, resource allocation, audit protocols. The
+  decay rate depends on both the complexity of the policy and the opacity of the enforcement system.'
+source: bibliography/shallow-reads/2026-09-01-it-is-not-enough-to-give-your-moderation-rules-to-chatgpt-po.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-003
+- L-015
+status: open

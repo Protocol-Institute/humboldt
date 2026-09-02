@@ -1,0 +1,18 @@
+id: seed-317
+title: Formalized Independence as Invisible Assumption Lock
+text: 'In protocol systems where reliability or safety is formalized through a compositional mathematical
+  framework (products, conditional independence, layer separation), the foundational assumptions of that
+  framework become invisible to optimization and verification procedures that operate within the formalism.
+  When those assumptions are empirically falsified, the system exhibits high tolerance for the anomaly
+  because: (1) testing the assumption is not part of the protocol''s legible workflow; (2) the formalism
+  itself is mathematically self-contained and does not require external validation; (3) departure from
+  the framework carries switching costs. This suggests that formalization creates anomaly insulation proportional
+  to the elegance and closure of the mathematical system. The mechanism generalizes to any protocol where
+  assumptions are baked into the formalism rather than surfaced as testable conditions.'
+source: bibliography/shallow-reads/2026-09-02-agent-behavioral-contracts-ii-certifying-compositional-relia.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: insight
+connections:
+- L-013
+status: open

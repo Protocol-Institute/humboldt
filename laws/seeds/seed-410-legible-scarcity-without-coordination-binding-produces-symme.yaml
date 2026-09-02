@@ -1,0 +1,17 @@
+id: seed-410
+title: Legible Scarcity Without Coordination Binding Produces Symmetric Over-Appropriation
+text: In multi-agent protocols operating over shared depletable resources, when the resource state is
+  legible to all agents, optimization pressure is local (each agent maximizes its own objective), and
+  coordination enforcement is absent or weak, agents will synchronously over-appropriate the resource
+  independent of aggregate demand or protocol structure. This occurs not from racing for a concentrated
+  prize but from each agent treating the shared resource as a commons with no private cost to depletion.
+  The pattern should generalize to any domain where legible scarcity meets uncoordinated optimization—token
+  pools, bandwidth, database query budgets, attention in recommendation systems.
+source: bibliography/shallow-reads/2026-09-02-draining-the-energy-commons-self-defeating-over-appropriatio.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: insight
+connections:
+- L-006
+- L-009
+status: open

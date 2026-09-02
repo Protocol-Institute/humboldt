@@ -1,0 +1,16 @@
+id: seed-244
+title: Expressiveness-Cooperation Plateau Under Legibility
+text: 'In game-theoretic models, cooperation emerges more reliably as strategy spaces expand toward completeness,
+  suggesting an expressiveness floor below which cooperation cannot be reliably achieved. However, when
+  strategy spaces become *machine-legible* and subject to real-time optimization pressure (as in protocolized
+  systems), this relationship may invert: beyond a threshold of formalized expressiveness, cooperation
+  pathways become targets for metric capture and strategic boundary concentration. Does there exist a
+  "sweet spot" of expressiveness—complete enough to sustain cooperation equilibria, but opaque enough
+  to resist decomposition into optimizable subgoals?'
+source: bibliography/shallow-reads/2026-09-02-complete-strategy-spaces-reveal-hidden-pathways-to-cooperati.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-010
+status: open

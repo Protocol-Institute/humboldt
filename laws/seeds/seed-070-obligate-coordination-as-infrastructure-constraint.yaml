@@ -1,0 +1,15 @@
+id: seed-070
+title: Obligate-Coordination-as-Infrastructure-Constraint
+text: In protocol systems where shared state is both necessary for task completion and subject to exogenous
+  decay or pressure, agents will spontaneously develop coordination norms *independent of incentive alignment*.
+  The norm-generation process exhibits oscillation before settling. This suggests that obligation to coordinate
+  can be engineered structurally rather than incentivized behaviorally — a distinction relevant to how
+  AI-mediated systems might enforce cooperation in adversarial or heterogeneous-goal domains where traditional
+  incentive design fails. Warrants testing in asymmetric and multi-objective settings.
+source: bibliography/shallow-reads/2026-09-01-emergent-culture-in-minimal-llm-systems.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-010
+status: open

@@ -1,0 +1,16 @@
+id: seed-198
+title: Semantic Legibility as Governance Displacement in Fragmented Objectives
+text: 'In multi-agent systems where harmful objectives can be fragmented into locally-plausible subtasks,
+  moving governance from agent-level auditing to information-flow control does not eliminate the fragmentation
+  incentive — it relocates it to the semantic layer. The adversarial pressure shifts from task-decomposition
+  evasion to intent-obfuscation in semantic representations. This pattern generalizes: computable governance
+  layers attract optimization pressure at the level of *representation legibility* rather than behavior
+  legibility, creating a new frontier for adversarial decomposition.'
+source: bibliography/shallow-reads/2026-09-02-safeflow-semantic-information-flow-control-for-blocking-mali.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-008
+- L-012
+status: open

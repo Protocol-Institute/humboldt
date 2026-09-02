@@ -1,0 +1,16 @@
+id: seed-204
+title: Iteration Velocity as Ossification Accelerant
+text: 'Tool-driven acceleration of protocol testing and iteration cycles may decouple formalization maturity
+  from deployment readiness. When empirical validation becomes fast relative to governance and stability
+  assessment, protocols can reach adoption scale before informal institutional knowledge about failure
+  modes and edge cases accumulates. The speed of the testbed becomes a new parameter in the ossification
+  dynamic: faster cycles to market create conditions for earlier lock-in without proportional increase
+  in operational wisdom.'
+source: bibliography/shallow-reads/2026-09-02-pramana-a-composable-domain-specific-backend-for-empirical-n.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-001
+- L-003
+status: open

@@ -1,0 +1,18 @@
+id: seed-239
+title: Symmetry-Locked Blindness in Computable Proxies
+text: 'Anonymous (symmetric) value functions in graded-participation games are structurally incapable
+  of detecting information present in the game structure itself — specifically, asymmetries in coalition
+  formation across participation levels. This blindness is not a function of computational cost or incomplete
+  data; it is built into the symmetry constraint itself. When such proxies are formalized as legible enforcement
+  signals in automated protocols, the system inherits this blindness as a permanent structural property,
+  and agents optimizing against the protocol will discover and exploit it. The mechanism generalizes beyond
+  game theory: any computable proxy that enforces symmetry constraints on asymmetric underlying domains
+  will have systematic gaps in what it can observe or enforce.'
+source: bibliography/shallow-reads/2026-09-02-what-multichoice-values-cannot-see-the-information-content-o.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-008
+status: open

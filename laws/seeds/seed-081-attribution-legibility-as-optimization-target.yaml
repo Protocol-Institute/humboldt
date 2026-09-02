@@ -1,0 +1,16 @@
+id: seed-081
+title: Attribution Legibility as Optimization Target
+text: In generative systems where creator compensation is tied to a computable attribution score, the
+  attribution metric itself becomes the primary optimization surface for strategic agents. This displaces
+  the coordination problem from *how much to pay* to *how attribution is measured and verified*. The metric
+  cannot remain a neutral measurement tool once it becomes economically legible; agents will exploit definitional
+  ambiguities in the attribution scheme faster than governance can formalize them. The coordination cost
+  is conserved but concentrated in the layer that was supposed to solve the coordination problem.
+source: bibliography/shallow-reads/2026-09-01-what-s-a-credit-worth-a-market-framework-for-attribution-awa.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: motif
+connections:
+- L-004
+- L-006
+status: open

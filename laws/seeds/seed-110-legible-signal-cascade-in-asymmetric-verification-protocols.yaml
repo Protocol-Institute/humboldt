@@ -1,0 +1,18 @@
+id: seed-110
+title: Legible-Signal Cascade in Asymmetric-Verification Protocols
+text: 'In protocols where agents must coordinate under asymmetric information and verification is costly,
+  observable cascades (runs, withdrawals, exits) can be triggered by legible upstream signals (macro news,
+  contagion reports) that are only weakly coupled to ground truth about the target system. The cascade
+  is a rational response to information constraint, but it creates a self-reinforcing feedback loop independent
+  of the signal''s predictive validity. This pattern should generalize beyond banking to any multi-agent
+  protocol where (a) individual agents lack direct verification, (b) macro or systemic signals are highly
+  legible, and (c) individual decisions are contingent on coordination beliefs. Modern ML recommendation
+  and allocation systems exhibit this structure: cascades of preference or allocation can be triggered
+  by upstream model outputs that carry high noise but high legibility to downstream optimizers.'
+source: bibliography/shallow-reads/2026-09-01-bank-runs-with-and-without-bank-failure.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: motif
+connections:
+- L-010
+status: open

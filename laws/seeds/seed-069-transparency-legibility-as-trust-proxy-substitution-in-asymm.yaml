@@ -1,0 +1,16 @@
+id: seed-069
+title: Transparency-Legibility as Trust Proxy Substitution in Asymmetric-Knowledge Protocols
+text: 'In high-stakes protocols where end-users cannot independently verify decision correctness (asymmetric
+  knowledge), intermediate step visibility can substitute for outcome confidence, increasing trust independent
+  of actual decision validity. This effect may be strongest in adoption phase (low operational history)
+  and may invert or degrade as agents gain experience with system failures. The mechanism suggests legibility
+  of *process* becomes a measurable proxy for unmeasurable *safety*, creating a new point of vulnerability
+  under L-004 (Goodhart): physicians may come to trust systems that are *transparent* rather than *correct*,
+  especially under time pressure or when errors are costly but delayed in manifestation.'
+source: bibliography/shallow-reads/2026-09-01-agentic-ai-enhances-physician-trust-in-clinical-decision-mak.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-007
+status: open

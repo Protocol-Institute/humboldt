@@ -1,0 +1,18 @@
+id: seed-182
+title: Audit Externalization as Governance Displacement
+text: 'When AI governance is conducted by external auditing bodies (consultancies, academic teams, international
+  standards bodies) rather than embedded in the deploying institution''s decision cycle, audit findings
+  can accumulate without institutional integration. The audit becomes a formality decoupled from decision-making
+  authority — the report is filed but not acted upon because the locus of responsibility has been displaced
+  outward. This is distinct from simple capacity failure: it is a structural inversion where formal scrutiny
+  increases while operational consequence decreases. This may generalize to any protocol system where
+  verification is outsourced to non-stakeholders while control remains with stakeholders unmotivated to
+  change.'
+source: bibliography/shallow-reads/2026-09-02-open-veins-of-algorithmic-auditing-why-ai-assessment-lags-be.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-013
+- L-015
+status: open

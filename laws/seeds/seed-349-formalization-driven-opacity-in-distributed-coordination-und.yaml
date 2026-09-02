@@ -1,0 +1,18 @@
+id: seed-349
+title: Formalization-Driven Opacity in Distributed Coordination Under Scaling
+text: When informal multi-agent coordination breaks under adoption or complexity scaling, the pressure
+  to formalize (via auction, clearing mechanisms, or protocol rules) often creates new legibility in the
+  coordination protocol itself—but at the cost of opacity regarding what coordination work is being performed
+  by the formal mechanism versus what is being suppressed, externalized, or deferred to runtime negotiation.
+  In energy systems, moving to cleared markets makes dispatch legible but obscures the coordination costs
+  embedded in mechanism design, settlement, and participant information asymmetry. The formalization ratchet
+  may not reduce coordination cost but rather render it opaque to system designers while concentrating
+  it in the mechanism layer.
+source: bibliography/shallow-reads/2026-09-02-on-the-smart-coordination-of-flexibility-scheduling-in-multi.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-006
+- L-003
+status: open

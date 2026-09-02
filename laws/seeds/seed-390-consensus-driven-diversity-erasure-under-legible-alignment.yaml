@@ -1,0 +1,16 @@
+id: seed-390
+title: Consensus-Driven Diversity Erasure Under Legible Alignment
+text: 'Multi-agent protocols that formalize agent alignment as convergence toward a shared decision or
+  metric exhibit a consistent side effect: reduction in solution-space diversity independent of task benefit.
+  This may not be a cost of *communication* per se, but of *legible alignment targets* — when agents optimize
+  toward making their reasoning mutually interpretable or their outputs converging, they abandon low-legibility
+  but high-variance exploration branches. This pattern may generalize to any protocol where coordination
+  is operationalized as increased interpretability or consensus, not just LLM debate.'
+source: bibliography/shallow-reads/2026-09-02-the-interaction-tax-when-communication-erases-diversity-in-m.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-006
+- L-010
+status: open

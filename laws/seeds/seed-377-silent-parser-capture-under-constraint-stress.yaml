@@ -1,0 +1,15 @@
+id: seed-377
+title: Silent Parser Capture Under Constraint Stress
+text: In protocol systems where model or agent output is automatically parsed into a fixed semantic space
+  (game moves, classification labels, structured decisions), silent failure modes—where empty or truncated
+  output is replaced by default actions—can corrupt the metric without triggering anomaly signals. The
+  legibility of the formalized output boundary masks degradation in the underlying reasoning. This suggests
+  that measurement corruption in artificial systems scales not with optimization pressure on models, but
+  with the invisibility of the instrumentation layer to auditors.
+source: bibliography/shallow-reads/2026-09-02-auditing-game-theoretic-measures-of-strategic-reasoning-in-l.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+status: open

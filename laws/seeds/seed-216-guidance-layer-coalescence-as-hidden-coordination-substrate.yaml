@@ -1,0 +1,19 @@
+id: seed-216
+title: Guidance-Layer Coalescence as Hidden Coordination Substrate
+text: 'In multi-agent systems where agents receive advice or decisions from a shared computational oracle
+  (LLM, classifier, allocator), the oracle becomes a latent coordination mechanism independent of agents''
+  explicit communication or awareness. Agents can achieve implicit cooperation by optimizing for consistency
+  with the oracle''s behavior, effectively treating it as a common-knowledge focal point. This coupling
+  deepens as the oracle becomes more deterministic, more widely adopted, and more opaque to individual
+  agents—because agents cannot distinguish strategic alignment from genuine coincidence. The mechanism
+  generalizes: any protocol system with a shared decision apparatus (shared infrastructure, common measurement
+  standard, unified inference model) risks inadvertent collusion at the guidance layer, even when the
+  underlying game or institution is competitive.'
+source: bibliography/shallow-reads/2026-09-02-who-is-really-playing-strategic-interaction-in-ai-guided-pop.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-010
+- L-012
+status: open

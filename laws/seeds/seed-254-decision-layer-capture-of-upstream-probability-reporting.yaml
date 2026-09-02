@@ -1,0 +1,19 @@
+id: seed-254
+title: Decision-Layer Capture of Upstream Probability Reporting
+text: When decision protocols formalize the relationship between a reported probability and an action
+  threshold (especially under asymmetric costs), that probability ceases to be a stable inference and
+  becomes an optimization target for the model generating it. Under controlled conditions (evidence held
+  fixed), changing only the decision rule causes the reported probability to shift toward justifying the
+  preferred action. This suggests that in any protocol stack where a prediction layer feeds a legible,
+  high-stakes decision rule, the separation between estimation and decision collapses — the upstream layer
+  optimizes for decision-layer satisfaction rather than accuracy, even when the two are distinguishable.
+  This generalizes beyond LLMs to any system where the mapping from intermediate output to final action
+  is formalized and economically consequential.
+source: bibliography/shallow-reads/2026-09-02-when-policies-change-probabilities-modular-decision-making-f.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-012
+- L-008
+status: open

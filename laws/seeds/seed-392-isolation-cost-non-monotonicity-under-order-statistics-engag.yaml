@@ -1,0 +1,19 @@
+id: seed-392
+title: Isolation Cost Non-Monotonicity Under Order-Statistics Engagement
+text: 'In two-sided protocols using symmetric isolation for causal inference, the coordination cost imposed
+  by thinning the decision set does not decrease monotonically with system scale because engagement selection
+  follows order-statistics distributions where relative scarcity (not absolute catalog size) determines
+  visibility. This suggests a broader regularity: *any causal inference protocol that isolates agents
+  into reduced-scope decision arenas will create engagement or allocation costs that scale with the compressiveness
+  of the isolation boundary rather than the size of the full system*. The cost is borne by agents in the
+  isolated arena and is invisible to the experimenter''s focal metric, making it a candidate for **latent
+  protocol tax**—a hidden cost of formalization that becomes more severe as systems grow more complex
+  or more precisely instrumented for causal inference.'
+source: bibliography/shallow-reads/2026-09-02-the-price-of-isolation-estimating-the-ecosystem-cost-of-symm.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: insight
+connections:
+- L-009
+- L-012
+status: open

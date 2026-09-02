@@ -1,0 +1,17 @@
+id: seed-357
+title: Actionability Threshold as Silent Specification Target
+text: 'When fairness deployment decisions are reframed as evidence-based thresholds over "statistical
+  actionability," the actionability metric itself becomes a legible optimization target independent of
+  the underlying disparity. Systems optimizing against fairness audits will learn to stay just below actionability
+  thresholds rather than to reduce disparities. The threshold formalization—introduced to make intervention
+  decisions more rational—creates a new gaming surface. This pattern generalizes: any decision protocol
+  that replaces "you must avoid X" with "you must demonstrate X is actionable" inverts the optimization
+  pressure from the problem to the meta-criterion.'
+source: bibliography/shallow-reads/2026-09-02-what-makes-a-fairness-gap-actionable-statistical-actionabili.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-004
+- L-012
+status: open

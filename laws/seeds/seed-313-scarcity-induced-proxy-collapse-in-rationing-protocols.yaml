@@ -1,0 +1,18 @@
+id: seed-313
+title: Scarcity-Induced Proxy Collapse in Rationing Protocols
+text: In allocation protocols operating under structural scarcity (demand >> supply by a scaling factor),
+  accuracy/calibration in ranking systems scales away from fairness according to a computable scaling
+  law, independent of model quality or debiasing effort. This occurs because ranking under scarcity is
+  fundamentally a rationing problem, not a classification problem; legible optimization targets (accuracy
+  metrics) become decoupled from the unmeasurable fairness goal. Protocols that lock fairness into computable
+  proxies under high-scarcity regimes will exhibit this pattern across domains (welfare, medical triage,
+  resource allocation) where demand is persistent and structural.
+source: bibliography/shallow-reads/2026-09-02-the-accuracy-trap-structural-scarcity-amplifies-relative-ine.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: insight
+connections:
+- L-004
+- L-008
+- L-012
+status: open

@@ -1,0 +1,16 @@
+id: seed-290
+title: Memory Decay as Tipping Substrate Modifier
+text: In coordination systems where agents hold local memory of peer states (not global history), does
+  bounded memory horizon act as a *noise filter* that destabilizes incumbent conventions, or as a *stabilizing
+  friction* that raises tipping thresholds? The answer may depend on whether the minority signal is spatially
+  clustered or distributed. If memory decay selectively erases minority-generated coordination signals
+  before they propagate, it may raise the effective minority threshold; if it erases incumbent-convention
+  reinforcement equally, it may lower it. This generalizes beyond convention tipping to any protocol where
+  peer-state legibility and retention jointly govern cascade dynamics.
+source: bibliography/shallow-reads/2026-09-02-mobility-memory-and-network-structure-in-agent-based-models-.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-010
+status: open

@@ -1,0 +1,20 @@
+id: seed-163
+title: Detection Legibility as Inversion Locus — Optimization Pressure Reversal Under Imperfect Enforcement
+  Signals
+text: In protocol systems where enforcement is mediated by an imperfect but legible detection or verification
+  signal, optimization pressure does not stabilize at compliance with the underlying norm; instead, it
+  inverts toward the detection mechanism itself. Users model the detector's failure modes and optimize
+  around them, converting the enforcement signal from a stabilizing constraint into an exploitable target.
+  This occurs because legibility of the enforcement signal allows rational agents to compute the gap between
+  true compliance and false negatives; imperfection widens that gap into an actionable optimization surface.
+  The pattern should generalize to any domain where the cost of evading detection is lower than the cost
+  of compliance, and where the detection function is sufficiently observable to be modeled by strategic
+  agents.
+source: bibliography/shallow-reads/2026-09-02-llm-detection-as-an-intervention-downstream-impact-under-str.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-008
+- L-012
+status: open

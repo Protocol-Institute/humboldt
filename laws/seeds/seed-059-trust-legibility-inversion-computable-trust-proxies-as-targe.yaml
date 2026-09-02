@@ -1,0 +1,17 @@
+id: seed-059
+title: Trust Legibility Inversion — Computable Trust Proxies as Targets
+text: 'In trustless protocol systems where trust obligations are rendered precisely computable and on-chain
+  reputation becomes machine-legible and enforceable, optimizing agents will preferentially invest in
+  gaming the measurable trust signal rather than building underlying trustworthiness. The more transparent
+  and formally verifiable the trust layer, the faster the decoupling between reputation scores and actual
+  behavior on unmeasured dimensions. This suggests a hard constraint: permissionless trust systems cannot
+  simultaneously achieve legibility, computability, and predictive validity — at least one must degrade
+  under adoption pressure.'
+source: bibliography/shallow-reads/2026-09-01-can-trustless-agents-be-trusted-an-empirical-study-of-the-er.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-007
+- L-008
+status: open

@@ -1,0 +1,17 @@
+id: seed-292
+title: Repeated-Game Security Disjunction in Legible Enforcement
+text: In protocols where enforcement signals (slashing, penalties, proof requirements) are rendered computable
+  and legible, one-shot rationality conditions are necessary but not sufficient for security under repeated
+  play with the same stake. The gap between single-interaction and multi-interaction payoff structures
+  creates an exploitation surface invisible to stateless verification models. This generalizes beyond
+  restaking to any protocol where agents repeatedly interact under a fixed enforcement rule that was validated
+  only for one-shot play; the legibility that enables automated punishment also enables time-stratified
+  arbitrage of the penalty function.
+source: bibliography/shallow-reads/2026-09-02-repeated-game-security-for-restaking-based-verifiable-infere.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: insight
+connections:
+- L-007
+- L-013
+status: open

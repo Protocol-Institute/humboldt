@@ -1,0 +1,17 @@
+id: seed-249
+title: Mechanism Opacity as Temporary Equilibrium Substrate in Conversational Protocols
+text: In mechanisms embedding decisions within generative sequences (e.g., ad insertion in LLM responses),
+  truthfulness proofs depend on agents' inability to predict or influence the decision boundary. Once
+  the mechanism operates at scale, agents can infer the stopping rule from empirical conversation traces,
+  converting a hidden decision layer into a legible optimization target. The mechanism remains formally
+  sound but operationally unstable—the equilibrium was contingent on asymmetric information about the
+  decision rule itself, not on the rule's incentive structure. This suggests that conversational-protocol
+  mechanisms require continuous re-formalization as agent knowledge of the decision boundary grows.
+source: bibliography/shallow-reads/2026-09-02-llm-osda-an-optimal-stopping-dynamic-auction-for-native-adve.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-008
+- L-012
+status: open

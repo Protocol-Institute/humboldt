@@ -1,0 +1,17 @@
+id: seed-233
+title: Legibility-Cost Trade in Adaptive Capacity
+text: Systems that formalize adaptive capacity via measurable proxies (credentials, skill taxonomies)
+  may systematically suppress the structural properties (complexity, diversity, weak-tie bridging) that
+  generate actual adaptability. When institutions optimize hiring and training around legible skill signals,
+  they create selection pressure away from precisely those portfolios most resistant to technological
+  disruption. This may generalize beyond labor markets to any protocol system where adaptive capacity
+  is orthogonal to audit legibility — the more formally you measure fitness-to-survive, the more you select
+  for fitness-to-measurement.
+source: bibliography/shallow-reads/2026-09-02-navigating-the-skill-diversity-frontier-how-skill-complexity.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-003
+- L-004
+status: open

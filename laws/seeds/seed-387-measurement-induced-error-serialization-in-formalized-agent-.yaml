@@ -1,0 +1,16 @@
+id: seed-387
+title: Measurement-Induced Error Serialization in Formalized Agent Chains
+text: In multi-agent systems where inter-agent dependencies are rendered legible through explicit message-passing
+  and where error signals become measurable, errors in intermediate outputs serialize forward through
+  downstream agents rather than remaining absorbed or reinterpreted. This may occur because (a) formalization
+  removes the informal error-correction and context-negotiation that occur in natural coordination, and
+  (b) agents optimizing under computable error signals inherit upstream signals without re-evaluation.
+  The pattern likely generalizes to any protocol system where communication is mediated by formalized
+  intermediates (logs, structured data, machine-readable formats) rather than latent or negotiated coordination.
+source: bibliography/shallow-reads/2026-09-02-propuq-mas-propagation-aware-uncertainty-quantification-for-.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-011
+status: open

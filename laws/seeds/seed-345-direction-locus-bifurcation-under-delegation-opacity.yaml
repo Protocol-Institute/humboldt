@@ -1,0 +1,17 @@
+id: seed-345
+title: Direction-Locus Bifurcation Under Delegation Opacity
+text: 'In systems delegating cognitive execution to agentic or generative components, human direction
+  can be stationed either at task specification (pre-execution, high formalization burden) or at output
+  correction (post-execution, high sampling/iteration cost). The choice between modes appears to track
+  system opacity: where the agent''s internal reasoning is opaque or expensive to predict, governance
+  pressure shifts from instruction to intervention. This may generalize to any protocol system where the
+  executor''s decision process is latent or black-boxed — governance must either over-specify inputs or
+  over-sample outputs, creating a stability-vs.-cost trade-off independent of the AI substrate.'
+source: bibliography/shallow-reads/2026-09-02-governing-delegation-to-generative-artificial-intelligence-h.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-012
+- L-003
+status: open

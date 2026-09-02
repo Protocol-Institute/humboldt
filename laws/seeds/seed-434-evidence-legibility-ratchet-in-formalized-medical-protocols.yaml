@@ -1,0 +1,18 @@
+id: seed-434
+title: Evidence Legibility Ratchet in Formalized Medical Protocols
+text: 'When clinical or safety-critical decision protocols are externalized into formally structured representations
+  (graphs, databases, decision trees), the set of clinically relevant information compresses to the set
+  that is structurable into that representation. Under deployment pressure, optimization of the formalized
+  layer (accuracy of graph encoding, completeness of evidence nodes) becomes decoupled from optimization
+  of the actual outcome (correct referral, patient safety). Protocols that solve the formalization problem
+  may worsen the clinical outcome problem if the formalization is lossy with respect to the decision-critical
+  features that resist legibility. This suggests a general law: formalization in safety-critical domains
+  creates a permanent asymmetry between legible and non-legible evidence, and systems optimized on legibility
+  will systematically degrade handling of non-legible but outcome-critical signals.'
+source: bibliography/shallow-reads/2026-09-02-evidence-logic-and-compliance-multi-agent-structured-graph-r.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-012
+status: open

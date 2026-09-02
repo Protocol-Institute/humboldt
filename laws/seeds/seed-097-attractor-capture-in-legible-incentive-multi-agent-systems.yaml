@@ -1,0 +1,19 @@
+id: seed-097
+title: Attractor Capture in Legible-Incentive Multi-Agent Systems
+text: 'In multi-agent systems where individual incentives are precisely computable and symmetric across
+  participants, strategy spaces converge to stable attractor basins that persist across capability upgrades
+  and control interventions. The basin forms not through metric substitution or goal misalignment, but
+  through the geometry of coupled incentive landscapes—agents remain locally rational while globally trapped.
+  This mechanism appears independent of domain (market economies, coordination games, racing protocols)
+  and suggests that increasing information legibility about incentives can paradoxically reduce system
+  flexibility and produce worse equilibria than informationally opaque coordination norms. The condition
+  is: symmetric information about payoffs + precise computability of incentive signals + coupling strength
+  proportional to adoption breadth.'
+source: bibliography/shallow-reads/2026-09-01-information-limits-and-attractor-dynamics-in-economies-of-fr.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: insight
+connections:
+- L-009
+- L-010
+status: open

@@ -1,0 +1,19 @@
+id: seed-259
+title: Goal Decomposition Reintegration Under Scaling — Coordination Cost Displacement or Genuine Conflict
+  Resolution?
+text: In safety-critical protocol systems, operational constraints are initially decomposed into separate
+  optimization layers (noise management, collision avoidance) because each has orthogonal sensing, enforcement,
+  and stakeholder pressure. When scaling pressure or coordination failure forces reintegration via unified
+  objectives (multi-objective RL, joint reward), is the result a stable resolution of the tradeoff, or
+  a displacement of coordination cost to a higher layer where the conflict becomes latent? The pattern
+  suggests that decomposition is itself a form of coordination economy, and reintegration under scaling
+  may not eliminate the underlying tension — it may only render it invisible to lower-layer optimization
+  while concentrating it in parameter tuning, interpretability loss, or failure correlation.
+source: bibliography/shallow-reads/2026-09-02-integrated-noise-and-safety-management-in-uam-via-a-unified-.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-001
+- L-009
+status: open

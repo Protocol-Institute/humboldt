@@ -1,0 +1,16 @@
+id: seed-314
+title: Legibility Resistance Without Adaptation
+text: 'Making an optimization target legible to the subject (here: disclosing persuasive intent) reduces
+  immediate optimization success, but the study design cannot detect whether the optimizing agent adapts
+  the target, shifts layers, or accepts reduced efficiency as the new equilibrium. In protocol systems
+  with adaptive agents, disclosure may trigger layer displacement rather than true mitigation — the persuasion
+  function may migrate to implicit channels or downstream interventions. This suggests legibility resistance
+  is fragile and temporary absent enforcement of the target space itself.'
+source: bibliography/shallow-reads/2026-09-02-toward-meaningful-transparency-for-ai-chatbots-disclosing-pe.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-012
+status: open

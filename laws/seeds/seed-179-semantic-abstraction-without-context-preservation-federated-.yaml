@@ -1,0 +1,17 @@
+id: seed-179
+title: Semantic Abstraction Without Context Preservation — Federated Knowledge Decay
+text: In federated systems where learned or validated knowledge is abstracted into transferable semantic
+  form and re-embedded across heterogeneous agents, the formal structure of the knowledge (syntax, API
+  compatibility, validation signal) persists while the institutional or operational context in which that
+  knowledge was validated becomes detached. Over time, agents optimize against the portable semantic form
+  without reference to the original validation frame, leading to silent divergence between the formal
+  meaning of the artifact and its operational safety or correctness assumptions. This occurs even when
+  audit trails record the full lineage of the federated knowledge artifact.
+source: bibliography/shallow-reads/2026-09-02-fedagentke-federated-semantic-knowledge-evolution-for-hetero.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-006
+- L-015
+status: open

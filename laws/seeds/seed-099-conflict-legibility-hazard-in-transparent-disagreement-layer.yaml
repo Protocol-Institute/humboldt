@@ -1,0 +1,16 @@
+id: seed-099
+title: Conflict-Legibility Hazard in Transparent Disagreement Layers
+text: In distributed multi-agent systems, making conflicting observations explicitly legible and formally
+  correctable via deterministic handles may displace optimization pressure from merge semantics to agent-side
+  correction logic, creating new failure modes where agents exploit correction predicates rather than
+  resolving genuine disagreement. Does conflict transparency reduce or *increase* coordination cost when
+  agents can see and act on disagreement signals? Under what conditions do explicit conflict objects become
+  targets for strategic boundary optimization (as in L-014)?
+source: bibliography/shallow-reads/2026-09-01-statefuse-deterministic-conflict-preserving-memory-for-multi.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: question
+connections:
+- L-015
+- L-006
+status: open

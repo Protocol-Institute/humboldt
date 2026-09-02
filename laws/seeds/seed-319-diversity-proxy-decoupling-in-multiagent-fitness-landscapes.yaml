@@ -1,0 +1,15 @@
+id: seed-319
+title: Diversity Proxy Decoupling in Multiagent Fitness Landscapes
+text: 'When behavioral diversity is rendered computable and reintegrated as an optimization objective
+  in multiagent policy selection, the system optimizes for diversity-as-measured rather than diversity-as-functional.
+  The entropy proxy may drive convergence on policies that maximize entropy under the current fitness
+  landscape while remaining brittle under external condition shifts or misaligned with the original coordination
+  constraint. This suggests a general pattern: legibility-driven augmentation of fitness functions risks
+  decoupling the proxy from its semantic purpose, especially under scaling or deployment to novel environments.'
+source: bibliography/shallow-reads/2026-09-02-entropy-augmented-multi-objective-policy-optimization-in-mul.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-048
+status: open

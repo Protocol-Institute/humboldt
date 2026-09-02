@@ -1,0 +1,18 @@
+id: seed-306
+title: Verifiability Lock in Delegated Authority Systems
+text: In protocol systems where oversight authority is distributed (e.g., regulator, auditor, institutional
+  risk officer), the system becomes locked to the *intersection* of what each verifier can legibly audit,
+  not the union of what each can oversee. As agentic systems decompose decisions across multiple opaque
+  substeps, the verifiability requirement does not push toward better explanations—it pushes toward *narrower
+  decision scope and slower deployment cycles*. This creates a stable equilibrium where the governance
+  constraint is not "make the system safer" but "make it explainable to the slowest verifier on the critical
+  path." The mechanism generalizes to any multi-agent delegated authority system under distributed verification
+  burden.
+source: bibliography/shallow-reads/2026-09-02-governing-agentic-ai-in-fintech.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-001
+- L-012
+status: open

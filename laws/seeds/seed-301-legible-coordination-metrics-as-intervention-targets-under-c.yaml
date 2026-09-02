@@ -1,0 +1,15 @@
+id: seed-301
+title: Legible Coordination Metrics as Intervention Targets Under Closed Feedback
+text: 'When team communication patterns become legible enough to predict performance, and this legibility
+  is fed back as an intervention signal, teams face an optimization choice: improve underlying coordination,
+  or optimize the communication metric itself. Under what conditions do teams select for metric conformance
+  over task performance? Does early intervention (at 10% task progress) accelerate this drift, or does
+  the short feedback horizon prevent full metric capture? The generalization: any predictive proxy of
+  coordination quality becomes a target for strategic communication once the prediction is deployed.'
+source: bibliography/shallow-reads/2026-09-02-tribe-predicting-team-performance-via-communication-behavior.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-010
+status: open

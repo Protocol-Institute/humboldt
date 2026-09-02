@@ -1,0 +1,17 @@
+id: seed-061
+title: Proof Architecture as Governance Lock
+text: In protocol systems where governing specifications are coupled to an explicit, shared, stakeholder-legible
+  proof architecture (defining what evidence counts and what suffices), anomalies trigger specification
+  revision or formal scope-narrowing. In systems where proof surfaces remain implicit, informal, or stakeholder-specific,
+  anomalies persist as acceptable "variation" without triggering protocol redesign. The rigidity of the
+  proof architecture—not the specification itself—becomes the binding constraint on protocol evolution.
+  This suggests that governance sclerosis in AI systems may be preventable through structural proof-architecture
+  design rather than through procedural intervention.
+source: bibliography/shallow-reads/2026-09-01-fifty-years-of-specification-completeness-what-aviation-cert.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: insight
+connections:
+- L-001
+- L-013
+status: open

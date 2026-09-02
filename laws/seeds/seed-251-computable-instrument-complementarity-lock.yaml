@@ -1,0 +1,19 @@
+id: seed-251
+title: Computable-Instrument Complementarity Lock
+text: When a protocol system uses multiple precisely-computable control instruments (e.g., fees, ranking
+  weights, allocation rules) to achieve a single strategic objective, these instruments tend to become
+  strategic complements rather than substitutes, even when regulators intend them to be independent levers.
+  The complementarity arises because both instruments are legible to the optimizing agent simultaneously,
+  creating a joint optimization surface. This structure means that regulatory constraint on one instrument
+  does not redistribute pressure toward the other—it curbs both—but also suggests that the instruments
+  themselves may become harder to decouple from operational systems once cemented as a coupled configuration.
+  Generalizes to any multi-instrument protocol (tax-transfer systems, lending-pricing pairs, credential-allocation
+  bundles) where the principal assumes independence but the agent sees simultaneity.
+source: bibliography/shallow-reads/2026-09-02-raising-rivals-costs-on-hybrid-platforms-the-complementarity.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-001
+- L-014
+status: open

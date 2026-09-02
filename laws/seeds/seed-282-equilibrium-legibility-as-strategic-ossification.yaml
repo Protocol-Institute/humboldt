@@ -1,0 +1,16 @@
+id: seed-282
+title: Equilibrium Legibility as Strategic Ossification
+text: 'When a game-playing agent is optimized to follow a formally computed equilibrium (mixed or pure),
+  does the formalization itself constrain subsequent learning or adaptation to novel game variants or
+  multi-agent feedback loops? Specifically: does conditioning on solver outputs create a form of early
+  protocol lock in which the agent becomes insensitive to information that would normally trigger re-equilibration?
+  This mirrors L-001 (ossification under adoption pressure) but operates at the level of individual agent
+  cognition rather than coordination norms.'
+source: bibliography/shallow-reads/2026-09-02-solver-guided-reasoning-for-mixed-equilibrium-strategies.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-008
+- L-012
+status: open

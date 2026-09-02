@@ -1,0 +1,17 @@
+id: seed-100
+title: Internal Resolution as Protocol Irreversibility
+text: 'When an intermediary protocol transitions from routing/referral (low-opacity, user sends query
+  externally) to internal resolution (high-opacity, intermediary resolves and displays answer), the economic
+  and informational asymmetries favor lock-in of the internal model. This occurs because: (1) users experience
+  lower friction, (2) the intermediary captures more value, and (3) content producers lose visibility
+  into query intent. Once adoption crosses a threshold, reverting to routing becomes costly for all parties.
+  This suggests a broader pattern: *opaque internal resolution is structurally stickier than transparent
+  external routing*, independent of technical superiority or user welfare. The mechanism may generalize
+  to any intermediation protocol that can shift the boundary of computation inward.'
+source: bibliography/shallow-reads/2026-09-01-answering-without-referring-how-ai-search-rewrites-the-web-s.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-001
+status: open

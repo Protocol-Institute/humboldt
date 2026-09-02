@@ -1,0 +1,18 @@
+id: seed-090
+title: Factorization as Capture Displacement, Not Elimination
+text: 'When advice-evaluation protocols are factorized to prevent self-scoring, does the optimization
+  pressure migrate from the adviser-scorer loop to the decision-maker–external-labeler loop? Under what
+  conditions does externalized labeling introduce *new* misalignment (e.g., label drift, institutional
+  capture of the labeler, systematic inversion of ground truth) that exceeds the original self-resolution
+  hazard? The generalization: architectural separation of measurement from decision in any protocol system
+  may relocate rather than resolve Goodhart capture—the relevant question is not whether factorization
+  works in isolation, but whether it is stable under pressure to optimize the new boundary.'
+source: bibliography/shallow-reads/2026-09-01-beyond-self-resolution-settlement-factorization-for-robust-n.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: question
+connections:
+- L-004
+- L-008
+- L-012
+status: open

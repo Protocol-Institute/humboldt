@@ -1,0 +1,18 @@
+id: seed-325
+title: Formalized Power Metrics as Delegation Attractors
+text: 'In delegation-based governance protocols, the formalization and publication of a power metric (e.g.,
+  centrality score) creates a legible optimization target for delegators, displacing strategic behavior
+  away from reputation or competence signals and toward network position. This generates a two-layer distortion:
+  (1) delegators preferentially select high-centrality nodes to maximize their own indirect influence
+  (positive feedback); (2) centrality scores become decoupled from the actual decision quality or trustworthiness
+  they were intended to proxy. The effect is strongest when the metric is simple, machine-readable, and
+  widely circulated. This pattern likely generalizes to any governance protocol where influence is formalized
+  as a computable quantity and agents can condition behavior on it.'
+source: bibliography/shallow-reads/2026-09-02-power-in-liquid-democracy-a-network-centrality-approach.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-010
+- L-015
+status: open

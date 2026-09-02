@@ -1,0 +1,16 @@
+id: seed-117
+title: Equilibrium Opacity in Delegation Protocols
+text: 'In delegation systems where agents form cycles under uncertainty, the equilibrium state is stable
+  but opaque to third-party evaluation: cycles appear as protocol failure (unused voting power) when measured
+  against formal specifications, but are rational under strategic uncertainty about other agents'' delegation
+  choices. This suggests a more general pattern: protocol systems can have multiple stable equilibria,
+  some of which are invisible or hostile to audit and verification from outside the coordination loop.
+  The stability of "wrong-looking" equilibria may depend on the cost of detecting and communicating deviations
+  relative to the cost of reverting to the formally correct path.'
+source: bibliography/shallow-reads/2026-09-01-cycles-in-liquid-democracy-a-game-theoretic-justification.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-010
+status: open

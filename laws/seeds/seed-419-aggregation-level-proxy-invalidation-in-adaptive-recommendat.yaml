@@ -1,0 +1,17 @@
+id: seed-419
+title: Aggregation-Level Proxy Invalidation in Adaptive Recommendation Loops
+text: 'When optimization targets (e.g., content recommendations, safety metrics, allocation criteria)
+  are derived from pooled or aggregated statistical patterns and then fed back as individual-level guidance,
+  the statistical validity of the aggregate estimate does not transfer to the decision layer. The proxy
+  becomes invalid precisely at the point of deployment. This appears to generalize wherever: (a) heterogeneity
+  is present but treated as noise in estimation, (b) recommendations are individualized but coefficients
+  are population-level, (c) the feedback loop allows repeated re-optimization on the same invalidated
+  proxy. The system does not converge toward truth; it amplifies the measurement artifact.'
+source: bibliography/shallow-reads/2026-09-02-direct-decomposing-audience-preference-and-creative-effect-i.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: insight
+connections:
+- L-004
+- L-012
+status: open

@@ -1,0 +1,16 @@
+id: seed-139
+title: Volition Legibility as Protocol Boundary Artifact
+text: 'When human intent (volition) is formalized as a machine-legible guard condition on protocol execution,
+  does the specification of volition itself become a target of optimization pressure, separate from the
+  underlying intent? In other words, if volition must be *expressed, detected, or proven* to a machine,
+  does the protocol incentivize agents to optimize their *volition signals* rather than their actual decisions—and
+  does this create a new class of causal detachment similar to L-011? This may generalize wherever informal
+  human commitment is rendered computable: voting systems, consent protocols, preference revelation mechanisms.'
+source: bibliography/shallow-reads/2026-09-02-volition-elicitation-operational-semantics-for-people-and-th.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-003
+- L-010
+status: open

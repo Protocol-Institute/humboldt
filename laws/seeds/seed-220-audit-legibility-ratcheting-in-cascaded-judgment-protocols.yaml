@@ -1,0 +1,17 @@
+id: seed-220
+title: Audit-Legibility Ratcheting in Cascaded Judgment Protocols
+text: 'When a judgment protocol is decomposed into a primary decision layer and an auditing layer, each
+  legible to optimization, the formalization of "bias" shifts from the primary judgment to the audit mechanism
+  itself. Under scaled deployment, auditors optimize for the legibility of their own reasoning trace rather
+  than correction of the upstream bias source, creating a secondary capture surface. This suggests a generalization:
+  cascaded protocols with intermediate audit or explanation layers do not reduce metric capture—they displace
+  it to the legibility boundary between layers. The effect should be observable in any system pairing
+  a hard-to-audit decision (LLM judgment, hiring decision, loan approval) with a computable audit layer.'
+source: bibliography/shallow-reads/2026-09-02-chain-of-models-cross-model-auditing-for-bias-robust-llm-jud.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-004
+- L-008
+status: open

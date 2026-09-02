@@ -1,0 +1,17 @@
+id: seed-449
+title: Implementation Variance Decay as Formalization Signature
+text: In protocol systems, measurable variance in independent implementations decays monotonically with
+  installed base size, but this decay does not indicate semantic convergence—it indicates that coordination
+  costs have shifted from explicit negotiation (early, high variance) to implicit conformity enforcement
+  (late, low variance). The decay curve's shape and terminal floor are determined by task complexity and
+  formalization pressure, not by consensus quality. Protocols with high terminal variance may be healthier
+  (interpretive diversity preserved) than protocols with low variance (diversity suppressed into informal
+  shadow-protocols).
+source: bibliography/shallow-reads/2026-09-02-idea-variance-in-interpretations-across-implementers-decays-.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-001
+- L-006
+status: open

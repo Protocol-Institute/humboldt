@@ -1,0 +1,18 @@
+id: seed-341
+title: Legible-Attribute Dominance in Intermediated Choice Under Asymmetric Quality Information
+text: 'When an intermediation protocol (LLM-assisted recommendation, algorithmic allocation) formalizes
+  choice into a legible, auditable decision space, recommending systems converge toward measurable and
+  verifiable attributes (reputation scores, demographic markers, easily tokenizable signals) at the expense
+  of unmeasurable quality signals (clinical judgment, relational trust, contextual fit). This occurs not
+  necessarily due to training data bias alone, but because legibility itself creates an optimization attractor:
+  only attributes that can be formalized, audited, and debugged become decision-relevant in practice.
+  The pattern should generalize across intermediation protocols whenever quality is genuinely hard to
+  formalize but compliance/auditability is easy.'
+source: bibliography/shallow-reads/2026-09-02-whose-doctor-does-the-ai-recommend-an-algorithm-audit-of-rep.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-008
+- L-012
+status: open

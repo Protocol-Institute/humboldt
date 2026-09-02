@@ -1,0 +1,16 @@
+id: seed-421
+title: Formalized Dependency Topology as Coordination Lock
+text: 'When noise-induced coordination failures are addressed by formalizing task-dependency structure
+  into machine-readable grouping schemes, the formalization itself becomes difficult to revise without
+  disrupting the aggregation protocol. Task topology, once legible and enforced by the aggregation layer,
+  may resist later modification independent of whether the topology was optimal. The question: does rendering
+  coordination structure computable for noise resilience increase ossification of that structure relative
+  to informal coordination?'
+source: bibliography/shallow-reads/2026-09-02-sigma-structured-noise-effect-aware-grouped-multi-agent-aggr.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-003
+- L-006
+status: open

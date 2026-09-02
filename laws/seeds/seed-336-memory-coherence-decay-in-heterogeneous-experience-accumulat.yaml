@@ -1,0 +1,17 @@
+id: seed-336
+title: Memory Coherence Decay in Heterogeneous Experience Accumulation
+text: 'Persistent agentic systems that accumulate user-specific experiences over long horizons (months
+  to years) face a stability problem: the more varied and context-dependent the experience stream, the
+  more difficult it becomes to maintain a unified causal model of user intent. The system may become operationally
+  useful (predicting next actions, filling context) while becoming internally incoherent (unable to explain
+  why its memory was structured this way, or what ground truth it is tracking). This mirrors causal detachment
+  in autoregressive systems but operates at the memory architecture level. The regularity may generalize
+  to any protocol that accumulates heterogeneous evidence under pressure to remain responsive and personalized.'
+source: bibliography/shallow-reads/2026-09-02-mobilemem-learning-from-a-year-of-mobile-experiences.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-011
+- L-006
+status: open

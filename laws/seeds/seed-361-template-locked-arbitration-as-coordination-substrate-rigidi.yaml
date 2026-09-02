@@ -1,0 +1,17 @@
+id: seed-361
+title: Template-Locked Arbitration as Coordination Substrate Rigidity
+text: 'In distributed multi-agent resource protocols using hierarchical template-based supervisors, the
+  formal guarantees of exclusivity and nonblockingness become coupled to the template structure itself;
+  agents cannot negotiate or adapt the arbitration logic without full re-synthesis. This creates a coupling
+  where operational correctness becomes inseparable from template fidelity, potentially locking the coordination
+  substrate to its initial design even as agent populations, resource constraints, or failure modes evolve.
+  The pattern generalizes to any protocol system where distributed enforcement is achieved by replicating
+  a formal decision structure: correctness guarantees become hostage to structural immutability.'
+source: bibliography/shallow-reads/2026-09-02-model-predictive-supervisory-control-for-hierarchical-and-di.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-006
+- L-009
+status: open

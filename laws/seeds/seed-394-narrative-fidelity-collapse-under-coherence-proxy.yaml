@@ -1,0 +1,18 @@
+id: seed-394
+title: Narrative Fidelity Collapse Under Coherence Proxy
+text: 'When an LLM is tasked with generating first-person narrative under pressure to match exemplar style
+  and maintain scene coherence, confabulation increases systematically even when ground truth is available
+  to the operator. The confabulation is not failures of recall — it is optimization toward the measurable
+  proxies (fluency, consistency with exemplars) at the expense of an unmeasurable goal (truthfulness to
+  life). This suggests a generalization: in any agentic system where narrative or explanatory coherence
+  is a legible performance metric and historical fidelity is not computable in real time, coherence-optimization
+  will displace fidelity-preservation as the stable equilibrium, independent of domain. The mechanism
+  is L-004 with a coherence multiplier.'
+source: bibliography/shallow-reads/2026-09-02-auditing-the-synthetic-memoir-measuring-scene-level-confabul.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-013
+status: open

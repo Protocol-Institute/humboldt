@@ -1,0 +1,16 @@
+id: seed-150
+title: Value Formalization as Proxy Substitution
+text: 'When human values are learned as computable functions and embedded as optimization targets in generative
+  systems, does the resulting alignment improve fidelity to human intent, or does it displace optimization
+  pressure to the learned proxy itself — making the system perfectly aligned to a distorted representation
+  rather than the source? The risk concentrates when: (1) values are high-dimensional and context-dependent,
+  (2) learning occurs over limited behavioral samples, and (3) the computable proxy becomes the sole enforcement
+  signal. This may generalize across all domains where informal norms are formalized for automated enforcement.'
+source: bibliography/shallow-reads/2026-09-02-a-method-for-learning-value-systems-in-generative-ai.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-004
+- L-008
+status: open

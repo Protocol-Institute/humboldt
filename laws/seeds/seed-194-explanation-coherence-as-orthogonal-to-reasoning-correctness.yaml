@@ -1,0 +1,18 @@
+id: seed-194
+title: Explanation Coherence as Orthogonal to Reasoning Correctness Under Autoregressive Legibility
+text: 'In autoregressive systems with computable legibility constraints (next-token prediction), explanation
+  fluency and step-by-step coherence can remain intact while causal connection to ground truth becomes
+  uncoupled. This decoupling is stable: the system has no direct optimization pressure to repair it. The
+  pattern likely generalizes to any protocol where local legibility (each element appears formally correct)
+  substitutes for global functional correctness (the chain produces right outputs), especially where verification
+  of intermediate steps is cheaper than verification of end-to-end validity. This suggests a class of
+  "explanation-defended errors" that resist detection because detection requires looking through the legible
+  layer to the causal layer beneath.'
+source: bibliography/shallow-reads/2026-09-02-wrong-and-more-confident-a-field-experiment-on-language-mode.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-011
+status: open

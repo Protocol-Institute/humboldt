@@ -1,0 +1,15 @@
+id: seed-123
+title: Perception Formalization as Opacity Amplification
+text: 'When multi-agent coordination systems formalize agents'' subjective misperceptions of the game
+  structure as legible inputs to decision or learning algorithms, does the formal representation of misalignment
+  stabilize the system (by making disagreements explicit and traceable) or destabilize it (by enabling
+  each agent to optimize its model of what others believe, decoupling belief dynamics from ground truth)?
+  In particular: do nested belief formalisms enable or prevent agents from detecting when their coordinated
+  behavior rests on incommensurable interpretations of the same protocol?'
+source: bibliography/shallow-reads/2026-09-01-a-survey-on-hypergame-theory-modelling-misaligned-perception.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: question
+connections:
+- L-003
+status: open

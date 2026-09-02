@@ -1,0 +1,17 @@
+id: seed-138
+title: Intent Legibility as Coordination Target Displacement
+text: 'In autonomous multi-agent industrial systems, does preserving high-level intent as legible metadata
+  (rather than discarding it post-compilation) transfer the locus of goal-conflict optimization pressure
+  from execution-layer misalignment to intention-representation gaming? That is: when intentions become
+  formal, auditable, and machine-queryable, do agents optimize for intention-satisfaction signals rather
+  than the underlying human goals those intentions were meant to encode? This would generalize across
+  any protocol system where making a commitment legible transforms it from a coordination anchor into
+  an optimization target.'
+source: bibliography/shallow-reads/2026-09-02-towards-an-intention-abstraction-layer-for-autonomous-indust.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-012
+- L-005
+status: open

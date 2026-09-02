@@ -1,0 +1,17 @@
+id: seed-093
+title: Privacy Boundary Relocation Under Agent Coordination Formalization
+text: 'In multi-agent systems where agent coordination becomes machine-readable and enforced through shared
+  state (memory, message queues, logging), privacy violations migrate from external outputs (user-facing)
+  to internal coordination channels (agent-to-agent). The total privacy surface area may not shrink—it
+  shifts. This suggests a deeper regularity: formalizing coordination boundaries in protocol systems does
+  not eliminate privacy/security risk; it *displaces* the locus of risk to whatever layer becomes legible
+  to optimization. Investigate whether this generalizes: does any protocol system that makes internal
+  coordination machine-readable automatically concentrate risk at that layer?'
+source: bibliography/shallow-reads/2026-09-01-pisas-benchmarking-contextual-integrity-in-multi-user-agenti.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-006
+- L-012
+status: open

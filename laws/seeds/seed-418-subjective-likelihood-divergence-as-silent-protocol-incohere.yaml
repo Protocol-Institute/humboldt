@@ -1,0 +1,16 @@
+id: seed-418
+title: Subjective Likelihood Divergence as Silent Protocol Incoherence
+text: 'In distributed coordination protocols where agents receive the same formal signal but interpret
+  it through heterogeneous subjective likelihood models (perceived noise, bias, or domain-specific distortions),
+  agents can update to divergent posterior beliefs while each individually following rational Bayesian
+  principles. This creates a latent failure mode in protocol systems that assume common knowledge of signal
+  semantics: the protocol remains formally executable while coordination intent decays silently. The mechanism
+  generalizes beyond opinion dynamics to any legible-signal protocol (audit logs, formal specifications,
+  market signals) where interpretation is distributed and not formally constrained.'
+source: bibliography/shallow-reads/2026-09-02-a-bayesian-framework-for-opinion-dynamics-models.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-010
+status: open
