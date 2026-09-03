@@ -4,6 +4,47 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-09-03 (session 33) — Phase 3 built; backlog cleared; 3 defects fixed; talk regenerated
+
+**Daemon PID:** 1869 (running, unpaused). PID changed from 24438 — restarted uncleanly
+during the two-week gap; last clean-shutdown marker is still 2026-08-18.
+
+- **Reads returned 09-01** and were verified against live traffic, not assumed: a real
+  query returned matches and the egress ledger attributed it by namespace and calling
+  path. Session-31 prevention work items (a) and (b) confirmed; (c) — cache hits from
+  live Discord traffic — still pending. Whole session used ~86KB of the 1GB cap.
+- **Redesign Phase 3 [OPUS] DONE**, ahead of its 09-06 target: registry 26 → 12 behaviors,
+  `mdp.yaml` v2 (22 edges, all triggered), approval queue, supervisor console with all six
+  views. `humboldt console` / `humboldt queue …`. [SONNET] UI polish still open.
+- **Backlog cleared:** inbox 1,379 → 61. 1,332 triaged, 837 shallow reads, 325 seeds,
+  30 deep-read escalations, 228 discards archived.
+- **Induction sweep:** +4 laws (L-017, L-019, L-020, L-021), 11 evidence attachments.
+  A fifth proposal self-retracted as a duplicate of L-014 but was created anyway as an
+  empty record — deleted; `induct` and `laws.validate` both now refuse that shape.
+- **L-001 assessed: HOLD.** Its open counterexample is now *testable* rather than merely
+  unresolved — two named discriminating tests recorded in `research/agenda.md`.
+- **Three defects fixed**, all found by running rather than reading: shallow-read's
+  date-scoped resume (silently re-reading across midnight since June — 45 duplicate slugs
+  on disk), induct creating retracted proposals, and `laws.validate` accepting a record
+  with no mechanism and no falsification condition.
+- **Talk track regenerated** from the changed records (exploration count 9 → 13; both
+  ossification slides now report the assessment as a result). `talk check` clean, 1,792 words.
+- **New `/supervision/` page** — supervisor cheat sheet, deliberately generic. Fixed a
+  latent sticky-nav CSS bug it exposed.
+- **Pushed** 20 commits, including 16 daemon conversation-review commits from 08-19–08-31
+  that had never reached the remote. Repo is public; verified Discord-attribution practice
+  was already established before pushing.
+
+**Open:** publish the talk publicly + open review rounds (operator's next priority) —
+blocked on the production-deploy decision, since this branch only produces Preview deploys
+and both the talk page and `/supervision/` are meant to be public; recommendation is
+cherry-pick onto `main`. Then Phase 4, which must start with behavior instrumentation
+(7 of 9 behaviors log nothing). Also: 9 unreviewed exploration laws, seed starvation
+(434 seeds / 60-wide newest-first window), 43 pre-existing duplicate shallow-reads, and
+whether L-006's clinical-federated example counts as non-software evidence.
+
+---
+
 ## 2026-08-18 (session 32) — Talk Phase A built (brief, slides, narration engine, track v1)
 
 **Daemon PID:** 24438 (running, unpaused) — untouched this session.

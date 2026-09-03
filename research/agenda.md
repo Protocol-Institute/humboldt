@@ -10,35 +10,57 @@ phase vocabulary and tempo signatures.*
 
 ---
 
-## Current state — 2026-08-17 (session 30)
+## Current state — 2026-09-03 (session 33)
 
 > **Note:** the buckets below still use the pre-redesign vocabulary (T-/DS-/CL- ids).
 > The live artifacts are now `laws/L-NNN-*.yaml`. Reconciling this file to the law
 > records is an open task — see `TODO.md`. The block here is the accurate near-term queue.
 
-**Blocked until 2026-09-01 — corpus reads offline.** Pinecone's monthly egress quota is
-exhausted; `assess` refuses to run rather than verdict on an empty evidence slot (see
-`plans/read-outage-2026-08.md`). Anything requiring retrieval waits. Induction is
-unaffected and continues.
+**Reads are back** (2026-09-01), and the 1,379-item outage backlog is cleared: 1,332
+items triaged, 837 shallow reads, 325 new seeds, 30 escalated for deep reading.
 
-**Awaiting supervisor review — 5 new laws from the 2026-08-17 induction sweep:**
-- **L-012** Intervention-Layer Displacement in Automated Decision Protocols
-- **L-013** Paradigm-Locked Anomaly Tolerance in Protocol Systems
-- **L-014** Strategic Boundary Concentration Under Computable Legality
-- **L-015** Interpretive Continuity Decay in Distributed Governance Protocols
-- **L-016** Normative Intervention Algorithmic Retraining Effect
+**L-001 assessed — verdict HOLD, and this is now the top research item.** The street-food
+counterexample stopped being merely unresolved and became testable. Two executable items,
+in priority order:
 
-All five are exploration/speculative with model-drafted triggers. Same review shape as
-L-008–011 got in session 28: check the statement doesn't overclaim its seed, hand-set the
-advance/challenge triggers, and give each an executable gap in `open_questions`.
+1. **Separate the two mechanisms.** Find a distributed protocol whose backward-incompatible
+   change rate can be measured against *both* implementation count (the coordination-cost
+   prediction) and practitioner-cohort turnover (the Planck/cohort-replacement prediction).
+   Candidate dataset: common-law overturn timing vs. judicial generational turnover.
+2. **Name the third variable.** What distinguishes street-food formalization (stays
+   adaptive) from TCP/IP formalization (ossifies)? Leading candidate: whether conforming
+   implementations are independently upgradeable or must move in global lockstep. The
+   resulting scoping condition goes into the statement.
 
-**Open counterexample to chase:** the sweep attached a counterexample to **L-001**
-(whether ossification is a necessary consequence of formalization). L-001 is at
-heavy-lift/supported — a live counterexample there matters more than five new
-exploration-stage laws. Assess it first when reads return.
+Until both are addressed the advance trigger's "4+ independent domains" claim is not clean,
+so no separation artifact should be drafted for L-001.
 
-**Also queued:** L-008 gained two further examples, L-002/L-003/L-004/L-011 one each,
-L-006 and L-007 a reference each.
+**Awaiting supervisor review — now 9 laws, not 5.** L-012–L-016 (session 30, still
+unreviewed) plus L-017, L-019, L-020, L-021 from the 2026-09-02 sweep. All are
+exploration/speculative with model-drafted triggers. Review shape unchanged: check the
+statement doesn't overclaim its seed, hand-set the advance/challenge triggers, give each
+an executable gap in `open_questions`.
+
+**Retracted:** a fifth proposal from the 09-02 sweep (boundary clustering under adaptive
+agents) duplicated L-014 and was withdrawn in its own justification; its evidence was
+filed to L-014 and the empty record deleted. `induct` and `laws.validate` now both refuse
+that shape.
+
+**Evidence added 09-02:** L-014 ×2, L-004 ×2, and one each to L-002, L-003, L-006, L-010
+(a counterexample), L-011, L-013, L-015.
+
+**Open question for the supervisor, blocking a talk claim:** L-006 (Coordination Cost
+Conservation) gained a fifth example — federated clinical data collaboration under
+differential privacy. It is a clinical/institutional domain implemented in software.
+Whether it counts as genuinely non-software evidence decides whether L-006 may stop being
+presented as software-scoped.
+
+**Structural problem, new:** 434 open seeds against an induction window of 60 selected
+newest-first. Older seeds are unreachable rather than deprioritized — the pool discards by
+recency without any judgment that the discarded material was not worth keeping. Needs
+aging or sampling; more sweeps at this window size only re-read the front.
+
+**Unread:** 30 deep-read escalations from the backlog sweep.
 
 ---
 

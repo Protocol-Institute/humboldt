@@ -6,6 +6,102 @@ Most recent entry first.
 
 ---
 
+## 2026-09-03 (session 33) — Redesign Phase 3 built; outage backlog cleared; three defects fixed
+
+**Tracks active:** T1 (assessment, induction, talk content) / T2 (Phase 3, bug fixes,
+supervision page) / T3 (noted below, nothing extracted)
+**Daemon PID:** 1869 (running, unpaused). Note the PID changed from 24438 — the daemon
+restarted uncleanly at some point during the two-week gap; last *clean* shutdown marker
+is still 2026-08-18. Not investigated; worth a look if it recurs.
+
+**Reads returned.** The read-pause self-cleared as designed once the date passed. Verified
+against live traffic rather than assumed: a real query returned 6 matches, and the
+session-31 egress ledger recorded it with correct namespace *and* calling-path attribution.
+That closes items (a) and (b) of the TODO's "verify at the reset" list. Item (c) — cache
+hits from real Discord traffic — still needs live daemon usage. Total egress for the whole
+session's work was ~86KB of the 1GB cap, because shallow reads work from inbox text and do
+no retrieval; the quota that caused the outage is barely touched by clearing its consequences.
+
+**Redesign Phase 3 [OPUS] complete**, 3 days ahead of its 09-06 target. `registry.yaml`
+26 → 12 behaviors per the locked §6.1 keep-list; `mdp.yaml` v2 with 22 directional edges,
+every one carrying a required `trigger`, virtual placeholder nodes deleted;
+`agent/approval_queue.py` + `behaviors/queue.yaml` implementing the SIMPLE/HARD rubric with
+approve and apply as separate steps; `agent/console.py` + `behaviors/console.html` with all
+six §7 views, verified in-browser rather than assumed. `behaviors admin` retired with a
+pointer. Remaining Phase 3 item is the [SONNET] UI polish pass.
+
+Two deliberate deviations, both documented in-module: the console **commits but does not
+push** by default (auto-pushing every save from a laptop is a surprising outward-facing
+side effect; `--push` is the server mode), and it **commits whole files, not diffs** —
+correct on the server where it is the sole writer, hazardous on a laptop mid-session. I hit
+the second myself: a test save swept the entire in-progress graph rewrite into a
+`[console] tune transition weights` commit. Undone with a soft reset, nothing lost, but it
+is exactly the failure the docstring now warns about.
+
+**Backlog cleared.** 1,332 items triaged, 837 shallow reads, 325 seeds, 228 discards
+archived, inbox 1,379 → 61. Ran as a background fork initially; the fork twice ended its
+turn after launching work instead of waiting on it, which cost two round-trips. For a long
+sequential job with no judgment calls, a plain background Bash job with a completion
+notification was the better tool and is what I used after the first stall.
+
+**Three defects, all found by running the thing rather than reading it:**
+
+1. `shallow_read`'s skip check was `_output_filename(title).exists()`, and that helper
+   embeds `date.today()`. "Idempotent, safe to resume" was therefore only true *within one
+   calendar day*. The sweep was paused overnight at the operator's request and resumed the
+   next morning, at which point it began re-reading from item one. Caught after 2 duplicates.
+   45 duplicated slugs already existed on disk, most from the June sweeps — this has been
+   silently recurring since then. Fixed by matching the slug under a fixed-width date glob.
+2. `induct` created a law from a proposal the model had *retracted mid-generation* —
+   the justification literally read "RETRACTED — this duplicates L-014, filing as evidence
+   instead," the evidence was filed to L-014 correctly, and the empty shell was written
+   anyway. Now guarded on two independent signals: explicit self-retraction, and a missing
+   mechanism or falsification. They fail differently and neither subsumes the other.
+3. `laws.validate` passed that shell as valid, because it only checked identity fields. A
+   record can be structurally well-formed and not be a law. Now also requires non-empty
+   mechanism and falsification; verified before tightening that L-018 was the only record
+   in the inventory that would newly fail.
+
+The through-line worth keeping: **a self-correction is worth nothing unless something
+downstream is arranged to hear it.** Defect 2 is that failure exactly.
+
+**Supervision page.** New `/supervision/` on the site — cadences, the four
+non-delegable decisions, a surface map, standing rules. Deliberately generic: placeholder
+identifiers only, documenting the shape of supervision rather than current state, with a
+docstring note explaining why it must stay that way. Adding it as the eighth nav item
+exposed a latent CSS bug — `.nav-inner` had a fixed `height: 52px`, so the wrapped second
+row overflowed the sticky header and rendered on top of page content. Any eighth item would
+have triggered it. Now `min-height`.
+
+**Commits and push.** Four commits split by concern (Phase 3 / fixes / catch-up output /
+research results), then a fifth for the supervision page. Pushed — which surfaced that the
+repo is **public** and that **16 daemon conversation-review commits from 08-19 to 08-31 had
+never reached the remote**. Worth watching: the daemon commits locally and something is not
+pushing. Confirmed before pushing that Discord-derived items carry `**Author:**` handles and
+that 39 such files were *already* public, so this was established practice rather than a
+change in posture — but it was checked, not assumed.
+
+**T3 (template):** nothing extracted this session. Two candidates noted for later, neither
+ripe: the retraction-not-heard pattern from defect 2, and the recency-starved queue from the
+seed pool. Both want a second instance before generalizing.
+
+**Open (next session):**
+- **Publish the talk publicly and open it to review rounds** — the operator's stated next
+  priority (`plans/talk-2026-09-23.md` §5.6, Phase B′). Blocked on the deploy decision below.
+- **Decide the production-deploy route.** Both the talk page and `/supervision/` are meant
+  to be public, and this branch can only produce Preview deploys. Recommendation is
+  cherry-picking onto `main` rather than merging the untested redesign early.
+- Phase 4 analytics — **instrumentation first**: 7 of 9 active behaviors never call
+  `funnel_log.behavior_visit`, so any flag computed today is reasoning from a 2-of-9 sample.
+- Phase 3 [SONNET] UI polish.
+- Supervisor review of 9 unreviewed exploration laws (L-012–L-016, L-017, L-019–L-021).
+- Seed starvation: 434 seeds against a 60-wide newest-first window.
+- The 43 pre-existing duplicate shallow-reads — deferred deliberately; their seeds may
+  already be cited by law records, so deleting blind could orphan evidence.
+- L-006's clinical-federated example: does it count as non-software evidence?
+
+---
+
 ## 2026-08-18 (session 32) — Talk Phase A built: brief, slides, narration engine, track v1
 
 **Tracks active:** T2 (talk-project build, freeze-immune per session 31 plan)
