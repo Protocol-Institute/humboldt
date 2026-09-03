@@ -265,16 +265,16 @@ source says. Entries are permanent.*
 **L-005** (provisional): Gall Generalization: Working Systems Resist Restructuring
   A complex protocol system that functions correctly cannot be safely replaced from scratch; it must be evolved from a simpler working protocol. Attempts to replace working complex protocol systems from scratch reliably fail — or produce indefinite coexistence of old and new rather than replacement.
 
-## Most recent notebook entry (2026-08-31)
+## Most recent notebook entry (2026-09-02)
 
-# Lab Notebook — 2026-08-31
+# Lab Notebook — 2026-09-02
 
 *Daemon-generated entries.*
 
 
 ---
 
-## Ideas from Discord — 2026-08-30 – 2026-08-31
+## Ideas from Discord — 2026-08-31 – 2026-09-02
 
 …
 
