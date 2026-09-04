@@ -511,3 +511,29 @@ references:
     a candidate for protocolization analysis.
   type: article
   url: https://www.ifixit.com/News/118390/ifixit-begins-developing-a-repairability-scoring-standard-with-nsf
+- added: '2026-09-03'
+  id: ref-2026-09-03-040
+  snippet: Referenced in discussion of language-learning vs. protocol-learning distinction;
+    potentially relevant to formalization and representation dynamics in distributed
+    systems.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #new-nature'
+  status: unsorted
+  title: Substack post on protocol design and system architecture.
+  type: article
+  url: https://substack.com/home/post/p-182975374
+- added: '2026-09-03'
+  id: ref-2026-09-03-041
+  snippet: Documents practical deployment of distributed AI systems with legible optimization
+    surfaces; relevant to how computable enforcement and shared guidance layers enable
+    or constrain agent coordination.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #new-nature'
+  status: unsorted
+  title: Twitter thread on cheap models and decentralized inference architectures.
+  type: article
+  url: https://x.com/elshayib_/status/2083243725447147595?s=61
