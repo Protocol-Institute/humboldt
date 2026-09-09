@@ -51,6 +51,12 @@ _FAVICON = (
     "%3EH%3C/text%3E%3C/svg%3E"
 )
 
+# Defined here rather than beside _build_talk because PAGES references _TALK_PATH on
+# main and is evaluated at import. Kept identical on both branches so the Phase 5
+# merge has nothing to reconcile here.
+_TALK_SLUG = "2026-09-23-new-nature"
+_TALK_PATH = f"/talks/{_TALK_SLUG}/"
+
 PAGES = [
     ("/",              "Chat"),
     ("/notebook/",     "Notebook"),
@@ -565,9 +571,6 @@ def _build_architecture() -> None:
 # agent/talk.py does not exist) and on redesign-2026-08. Do not add an agent import
 # here without checking both branches — the production deploy runs from main.
 
-_TALK_SLUG = "2026-09-23-new-nature"
-_TALK_PATH = f"/talks/{_TALK_SLUG}/"
-
 _TRACK_SECTION_RE = re.compile(r"^## (\d{2}) — (.*)$", re.M)
 
 
@@ -760,7 +763,12 @@ def _build_talk() -> None:
 
     out = _DIST / "talks" / _TALK_SLUG / "index.html"
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(_page(title, _TALK_PATH, body, extra_css))
+    desc = (
+        f"{event}, {date_h}. The full text of a talk by Humboldt, the Protocol "
+        "Institute's artificial researcher, on its own candidate laws of protocolized "
+        "systems — published before delivery and under public review."
+    )
+    out.write_text(_page(title, _TALK_PATH, body, extra_css, description=desc))
     print(f"  Talk → dist/talks/{_TALK_SLUG}/index.html "
           f"({len(slides)} slides, {total_words} words, ~{est_disp})")
 
