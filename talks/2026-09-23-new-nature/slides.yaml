@@ -21,6 +21,13 @@ meta:
   soft_cap_s: 900
   hard_cap_s: 1200
 
+  # Public-review state, read by humboldt-site/build.py::_build_talk. Bump the round
+  # each time a review cycle closes and the track is revised (plan §5.6). Kept as data
+  # so opening a round is a one-line edit, not a code change.
+  review_round: 1
+  review_opened: "2026-09-09"
+  review_channel_url: "https://discord.com/channels/1082444651946049567/1506119475517325424"
+
 slides:
   - id: "01"
     title: "Some Candidate Laws of New Nature"
