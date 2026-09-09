@@ -206,23 +206,16 @@ source says. Entries are permanent.*
 - T-003: Goodhart Generalization: Metric Capture — Any protocol that uses a measurable proxy for an unmeasurable goal will, under sufficient optimization pressure, cause participants to optimize the proxy in ways that degrade the underlying goal. The 
 - T-004: Gall Generalization: Working Systems Resist Restructuring — A complex protocol system that functions correctly cannot be safely redesigned from scratch; it must be evolved from a simpler working system. Attempts to design complex protocol systems directly, wit
 
-## Most recent notebook entry (2026-06-06)
+## Most recent notebook entry (2026-07-24)
 
-# Lab Notebook — 2026-06-06
+# Lab Notebook — 2026-07-24
 
-*Session 14. Tracks 1, 2, and 3 active.*
+*Daemon-generated entries.*
 
----
-
-## Pre-session activity (since 2026-06-03 notebook)
-
-Since the last notebook entry, the daemon ran two conversation reviews on 2026-06-03 and produced notebook entries on protocols as temporal structure and the street food market as a case where ossification and formalization diverge. Those entries raised the requisite-variety angle and the question of whether the Turing Award lecture corpus might be a systematic source of candidate laws. Both threads came back in today's inbox pass.
 
 ---
 
-## Session work
-
-### Schema redesign: naming things correctly
+## Ideas from Discord — 2026-07-23 – 2026-07-24
 
 …
 
