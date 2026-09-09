@@ -14,9 +14,14 @@ Two append-only sinks, deliberately kept separate for now:
 Why two files rather than the single log.jsonl §8 envisions: the current
 supervisory reader would KeyError on a law-event line lacking ``behavior_id``,
 and folding many per-law events into log.jsonl as pseudo-visits would inflate
-the behaviour transition counts. Phase 4 (analytics.py) unifies the spine; until
-then this keeps both readers honest. The law record's own append-only ``history``
+the behaviour transition counts. The law record's own append-only ``history``
 remains the per-law source of truth — events.jsonl is the cross-law view.
+
+**The split is now permanent** (operator decision 2026-09-09, plan §8 "Decisions
+locked"). This docstring previously said Phase 4 would unify the spine; it will
+not. A ``run_id`` minted per sweep and carried onto that sweep's law events gives
+the causality unification was wanted for, without putting three different units in
+one file. Rows written before that date carry no ``run_id``.
 """
 
 from __future__ import annotations

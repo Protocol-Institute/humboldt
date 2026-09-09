@@ -346,6 +346,54 @@ The weekly `supervisory` behavior computes and writes `analytics/weekly-YYYY-MM-
 Flags are proposals, never auto-applied — the graph changes only through the approval
 queue.
 
+### Decisions locked 2026-09-09 (session 34)
+
+Taken with the operator against real ledger data (`humboldt analytics utilization`),
+before writing the instrumentation — the call sites encode all five, so settling them
+afterwards would have meant writing them twice. Three revise what §8 says above; the
+text above is kept as written so the change is visible rather than silent.
+
+1. **One invocation = one sweep or run**, not one item and not one API call. Matches what
+   `induct`/`assess` already emit, so no migration, and keeps the MDP's transition counts
+   about behaviour-to-behaviour movement rather than item churn. Per-item volume is not
+   lost — it moves into `outputs`.
+
+2. **`outputs` is a dict of counts keyed by the behaviour's registry `produces:` types**,
+   e.g. `{"shallow-note": 2009, "seed": 325}`. The prune flag becomes `sum(outputs) == 0`,
+   and a behaviour that keeps running while one output type dies becomes visible, which a
+   single total would hide. Keys are validatable against the registry.
+   **Cost is deliberately NOT stored on the visit.** `analytics/op-behavior-map.yaml`
+   already attributes `daemon/costs.jsonl` by op label, which is exact and — unlike a
+   timestamp join — stays correct while the daemon runs tasks concurrently.
+
+3. **REVISES §8 and `funnel_log`'s docstring: the spine stays split.** `log.jsonl` and
+   `events.jsonl` keep their separate units; a `run_id` minted per sweep and carried onto
+   that sweep's law events supplies the causality that unification was wanted for
+   ("which `induct` run created L-021?"). Unifying would have put three units in one file
+   and forced a rewrite of the supervisory reader, which indexes `behavior_id`/`phase`
+   directly. Old rows simply have no `run_id`; nothing migrates.
+
+4. **EXTENDS §6.1: a 13th behaviour, `review`.** `daemon/conversation_review.py` has run
+   daily since session 9 — 99 calls, $1.20 — and the 26 → 12 prune kept no entry for it;
+   `person_notebook` has the same gap. It has its own trigger, entrypoint and outputs, so
+   it is a behaviour by every criterion §6.2 uses. Folding it into `publish` would have
+   filed its Discord-read and reference-promotion half under a heavy-lift behaviour where
+   no flag would look for it; splitting it across intake/publish would have double-counted
+   invocations and implied an MDP transition nothing schedules. Needs `mdp.yaml` edges,
+   each with a trigger.
+
+5. **REVISES §8's prune rule: self-relative baseline, not a global window.** Flag when a
+   behaviour's trailing-4-week rate collapses against *its own* trailing-6-month rate.
+   The stated rule ("zero invocations in 4 weeks") flags `deep-read` and `supervisory` on
+   day one — both make no model calls by construction — and would flag `assess` (8 calls
+   in 90 days) in any quiet month. A self-relative test needs no exempt list to
+   hand-maintain and no per-behaviour cadence that nobody can honestly write for
+   event-driven behaviours. Validation: it would have caught the July `respond` collapse
+   (the proactive-engagement disable) without firing on any of the above.
+   **Still open — the one number:** the collapse threshold and window lengths are not yet
+   chosen. They are now calibratable against months of real data rather than guessed; do
+   that before the flag ships.
+
 ---
 
 ## 9. Discord persona — quiet mode
