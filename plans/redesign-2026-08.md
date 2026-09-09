@@ -521,6 +521,66 @@ gotchas the laptop copy lives with).
 - **Deploys are pulls:** code changes reach the server via the same pull path + daemon
   hot-reload (SIGUSR1) or systemd restart. No separate deploy machinery.
 
+### 12.2b Console access and the VM credential split (addendum, 2026-09-09)
+
+Supersedes §12.3's "console over an SSH tunnel" for routine supervision. Operator
+decision: requiring a terminal and an SSH alias for every approval made supervision
+depend on being at the laptop, which is friction in the one place the design least wants
+it. The tunnel stays available; it stops being the only route.
+
+**Access model — named people, not PI's admin table.** Supervisors are named
+individuals, initially the operator alone. exe.dev's own primitives cover this exactly:
+
+```
+share set-private humboldt              # already the default
+share add humboldt <supervisor-email>   # web-only: that VM's HTTPS proxy, no shell
+```
+
+The console binds to the VM's proxy port and is reached at `https://humboldt.exe.xyz`,
+authenticated by exe.dev. **No Cloudflare Tunnel, no Pages Function, no D1 binding, no
+reuse of `pi_session`** — all of which an earlier draft of this addendum proposed before
+`share` was found. Reusing PI's `is_admin` table would only be worth its cost if console
+access had to track that table dynamically; with named supervisors it does not.
+Revisit only if supervisors become a changing set.
+
+**Two service users, because secrets are files.** Running the console as a non-root user
+is not mainly about filesystem permissions — it is about which secrets the process can
+read. The two services need almost disjoint credentials:
+
+| Credential | daemon | console |
+|---|---|---|
+| Anthropic, Voyage, Pinecone (+ both hosts) | yes | **no** |
+| Discord bot token and channel ids | yes | **no** |
+| Cloudflare API token (site deploys) | yes | **no** |
+| c3po worker URL + MCP key | yes | **no** |
+| Repo working tree | yes | yes |
+| GitHub push credential | yes | yes |
+
+So: `humboldt-daemon` and `humboldt-console` as separate users, each with its own
+`.env` at `chmod 600`, sharing only the checkout and the push credential. A console
+compromise then costs the repository — bad, recoverable through git — rather than the
+Discord identity, the Anthropic bill and the Pinecone indexes.
+
+**Neither service runs as `exedev`.** The default user has passwordless sudo, so a
+service running as `exedev` is VM-superuser the moment it is compromised, whatever the
+network path. This is the single most important line in this addendum and it applies to
+the SSH-tunnel topology just as much as to the web-exposed one.
+
+**The GitHub credential is a per-repo deploy key**, not `gh auth login`. Both services
+commit and push, so a push credential must exist on the box; the requirement is that it
+reaches `Protocol-Institute/humboldt` and nothing else. See `Code/warnings-exe.md`
+policy 6 for why, and for the two assertions that verify it.
+
+**The console must enforce its own authentication.** It currently assumes localhost and
+authenticates nobody. exe.dev's gate is the outer door; an app that trusts its proxy is
+one `set-public` away from open. It should also record *which* supervisor performed each
+action — for an approval queue, who approved a change is part of the record, and today
+that is not captured at all.
+
+**Sequencing.** Phase 5 lands the daemon and console on the VM under the two-user split;
+`share add` is one command after that. Phase 5 alone gets supervision off the laptop,
+which is the larger half of the friction.
+
 ### 12.3 Process management and access
 
 - **systemd units** replace the Mac launchd plist: `humboldt-daemon.service` and
