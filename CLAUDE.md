@@ -175,6 +175,25 @@ python3 -m agent.humboldt read-cache [status|clear|prune]  # clear after a large
 # egress quota invisible for days the first time. Worth porting c3po's regex into
 # read_budget.py/chat.js next time either is touched.
 
+# ── Analytics (Phase 4, session 34) — agent/analytics.py + analytics/op-behavior-map.yaml ──
+# Retrospective per-behavior utilization, read from ledgers that ALREADY exist rather
+# than waiting for behavior_visit to accumulate. daemon/costs.jsonl has logged every
+# model call under a free-form `op` label since May (8,089 records); the map joins those
+# labels to registry behavior ids. behaviors/log.jsonl, by contrast, holds 9 lines.
+# THREE UNITS, deliberately not summed: `calls` = API calls (a sweep makes several),
+# `visits` = behavior invocations (only induct/assess emit them), `events` = law events.
+# `calls` is a busy-ness proxy, never an invocation count — and it is structurally 0 for
+# deep-read (runs via the Read tool in-session) and supervisory (pure local compute).
+# A prune heuristic must not read those zeros as disuse; see behaviors_without_ops.
+# ⚠ `feed_triage` (the ledger's biggest line) is INTAKE — daemon-side feed scoring in
+#   presence.check_feed_relevance. The triage behavior is `triage_feed`, ~30x smaller.
+#   The names are inverted; do not merge them.
+python3 -m agent.humboldt analytics utilization [DAYS|all]  # default 90d
+python3 -m agent.humboldt analytics monthly                 # monthly spend by behavior
+# Ops absent from the map are reported, not silently dropped. Ops mapped to `behavior:
+# null` are real recurring work with no registry entry (conversation_review is the big
+# one) — an open supervisor decision, not a bug.
+
 # Generate candidate laws for a topic (no file output)
 python3 -m agent.humboldt hypothesize "coordination cost"
 

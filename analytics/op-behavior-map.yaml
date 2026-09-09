@@ -1,0 +1,130 @@
+# op → behavior map (redesign §8, Phase 4)
+#
+# daemon/costs.jsonl records one line per API call, keyed by a free-form `op` label.
+# behaviors/registry.yaml keys everything by behavior id. This file joins the two, so
+# months of already-recorded cost and call-frequency data can be read as per-behavior
+# utilization instead of waiting for funnel_log.behavior_visit to accumulate from
+# scratch. As of 2026-09-09 costs.jsonl holds 8,089 records; behaviors/log.jsonl holds 9.
+#
+# A call is NOT an invocation. One `induct` sweep makes several API calls, so these
+# counts measure API traffic and spend, not how often a behavior ran. Invocation counts
+# come from behavior_visit once the seven uninstrumented entrypoints are wired. Both are
+# needed; neither substitutes for the other.
+#
+# `behavior: null` means deliberately unmapped, not unclassified — the reason is on the
+# record. Keep those entries: an op that vanishes from this file becomes invisible rather
+# than flagged, and agent/analytics.py reports any op it finds that is absent here.
+#
+# emitted_by is the verified call site as of 2026-09-09. Re-check it when moving code;
+# nothing enforces it.
+
+version: 1
+updated: "2026-09-09"
+
+ops:
+
+  # ── intake ──
+  feed_triage:
+    behavior: intake
+    emitted_by: daemon/presence.py:check_feed_relevance
+    note: >
+      Named backwards, and it is the single largest line in the ledger, so read it
+      carefully: this is the daemon scoring INCOMING feed items for relevance before
+      they reach inbox/, which is intake. It is not the triage behavior. The triage
+      behavior is `triage_feed` below, with ~30x fewer calls. Do not merge the two.
+
+  discord_capture:
+    behavior: intake
+    emitted_by: daemon/capture.py:extract_captures
+    note: Extracts ideas/links from Discord messages into inbox/ items.
+
+  # ── triage ──
+  triage_feed:
+    behavior: triage
+    emitted_by: agent/triage.py:_triage_batch
+    note: One call per batch of 15 inbox items, not one per run or per item.
+
+  triage_discord:
+    behavior: triage
+    emitted_by: agent/triage.py:_triage_discord_batch
+    note: Same behavior over inbox/discord-*.md, higher discard bar.
+
+  # ── shallow-read ──
+  shallow_read:
+    behavior: shallow-read
+    emitted_by: agent/shallow_read.py:shallow_read
+    note: One call per item read.
+
+  # ── induct / assess ──
+  induct:
+    behavior: induct
+    emitted_by: agent/synthesizer.py:synthesize_full (operation="induct")
+  assess:
+    behavior: assess
+    emitted_by: agent/synthesizer.py:synthesize_full (operation="assess")
+
+  # ── respond ──
+  mention_response:
+    behavior: respond
+    emitted_by: daemon/presence.py:generate_mention_response
+  new_nature_check:
+    behavior: respond
+    emitted_by: daemon/presence.py:generate_new_nature_response
+    note: >
+      Proactive channel engagement, disabled 2026-07-24 (_PROACTIVE_ENGAGEMENT_ENABLED
+      = False). Counts here are historical; expect zero after that date. Do not read the
+      flatline as a stalled behavior.
+
+  # ── publish ──
+  notebook_post:
+    behavior: publish
+    emitted_by: daemon/presence.py:generate_notebook_post
+  weekly_digest_post:
+    behavior: publish
+    emitted_by: daemon/presence.py:generate_weekly_digest_post
+  feed_digest_post:
+    behavior: publish
+    emitted_by: daemon/presence.py:generate_feed_digest_post
+
+  # ── deliberately unmapped ──
+  conversation_review:
+    behavior: null
+    emitted_by: daemon/conversation_review.py:generate_notebook_synthesis
+    note: >
+      The autonomous-daemon Layer 1 loop: reads Discord, writes a notebook entry, promotes
+      references. It spans intake and publish and matches neither cleanly. The §6.1 prune
+      kept 12 behaviors and this loop was not among them, so it currently runs daily
+      without a behavior to account for it. Needs a supervisor decision: fold into
+      publish, split across intake/publish, or admit a 13th behavior.
+
+  person_notebook:
+    behavior: null
+    emitted_by: agent/person_notebook.py:generate_person_notebook_entry
+    note: Same gap as conversation_review — a real recurring process with no registry entry.
+  person_notebook_entry:
+    behavior: null
+    emitted_by: daemon/presence.py:generate_person_notebook_entry
+    note: Duplicate label for the same work as person_notebook, from the daemon path.
+
+  talk-draft:
+    behavior: null
+    emitted_by: agent/talk.py:draft (operation="talk-draft")
+    note: >
+      One-off conference-talk composition, not a funnel behavior. Unmapped on purpose;
+      revisit only if presenting becomes recurring work.
+
+# Behaviors with no ops in the ledger at all. Recorded here so analytics can distinguish
+# "ran and cost nothing" from "never observed", which the flag heuristics must not
+# conflate — a prune flag fired on one of these would be measuring the instrumentation,
+# not the behavior.
+behaviors_without_ops:
+  deep-read: >
+    Deep reads run through the Read tool inside a Claude Code session, so they never make
+    an API call this ledger can see. Cost and frequency are structurally invisible here
+    and always will be. behavior_visit is the ONLY route to observing deep-read.
+  supervisory: >
+    agent/behaviors.py:cmd_supervisory is pure local computation, no model call. Same
+    situation as deep-read: only behavior_visit can see it.
+  monitor:      Not built (status proposed).
+  orient:       Not built (status proposed).
+  graph-evolve: Not built (status proposed).

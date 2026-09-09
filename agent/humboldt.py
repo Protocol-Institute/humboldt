@@ -859,6 +859,8 @@ Usage:
   python3 -m agent.humboldt assess <L-NNN> --dry-run     # call model, apply nothing
   python3 -m agent.humboldt assess --all                 # assess every active law
   python3 -m agent.humboldt assess <L-NNN> --no-corpus   # assess on the record alone (reads offline)
+  python3 -m agent.humboldt analytics utilization [DAYS|all]  # per-behavior calls/spend/visits
+  python3 -m agent.humboldt analytics monthly            # monthly spend by behavior
   python3 -m agent.humboldt read-status                  # reads available? + monthly egress spend
   python3 -m agent.humboldt read-cache [status|clear|prune]  # retrieval cache (clear after a c3po ingest)
   python3 -m agent.humboldt read-pause <YYYY-MM-DD> [why] # force corpus reads offline
@@ -1179,6 +1181,10 @@ def main():
                   "approve <q-NNNN> [--why TEXT] | reject <q-NNNN> [--why TEXT] | "
                   "apply <q-NNNN>]")
             sys.exit(1)
+    elif cmd == "analytics":
+        from .analytics import cmd_analytics
+        cmd_analytics(rest[0] if rest else "utilization", rest[1:])
+
     elif cmd == "behaviors":
         from . import behaviors as beh
         subcmd = rest[0] if rest else "graph"
