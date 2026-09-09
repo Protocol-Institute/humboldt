@@ -37,17 +37,46 @@ _ROOT = _SITE.parent
 _DIST = _SITE / "dist"
 _ASSETS_SRC = _SITE / "assets"
 
+# Canonical origin. Used for og:url/canonical so a link shared into Discord or Slack
+# resolves to the real site rather than whatever preview host built it.
+_SITE_URL = "https://humboldt.protocol-institute.org"
+
+# Inline SVG data URI, deliberately not a file in assets/: it needs no extra request,
+# cannot 404, and survives the dist/ rebuild without a binary blob in git.
+_FAVICON = (
+    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'"
+    "%3E%3Crect width='100' height='100' rx='18' fill='%232A6B6B'/%3E%3Ctext x='50' y='73'"
+    " font-family='Georgia,serif' font-size='66' text-anchor='middle' fill='%23FAFAF7'"
+    "%3EH%3C/text%3E%3C/svg%3E"
+)
+
+# Defined here rather than beside _build_talk because PAGES references _TALK_PATH and
+# is evaluated at import.
+_TALK_SLUG = "2026-09-23-new-nature"
+_TALK_PATH = f"/talks/{_TALK_SLUG}/"
+
 PAGES = [
     ("/",              "Chat"),
     ("/notebook/",     "Notebook"),
     ("/research/",     "Research"),
     ("/reading/",      "Reading"),
     ("/architecture/", "Architecture"),
+    # Seventh item. style.css tightened .nav-link padding when the redesign branch
+    # reached eight and the row wrapped; seven still fits one row. Drop this entry
+    # after 2026-09-23 if the talk stops being the thing worth pointing at.
+    (_TALK_PATH,       "Talk"),
     ("/about/",        "About"),
 ]
 
 
 # ── Page template ─────────────────────────────────────────────────────────────
+
+def _html_attr(text: str) -> str:
+    """Collapse whitespace and escape for use inside a double-quoted HTML attribute."""
+    text = " ".join(str(text).split())
+    return (text.replace("&", "&amp;").replace('"', "&quot;")
+                .replace("<", "&lt;").replace(">", "&gt;"))
+
 
 def _nav(active_path: str) -> str:
     links = []
@@ -67,16 +96,39 @@ def _nav(active_path: str) -> str:
 
 
 def _page(title: str, active_path: str, body: str,
-          extra_css: str = "", extra_js: str = "") -> str:
+          extra_css: str = "", extra_js: str = "", description: str = "") -> str:
     extra = f"\n  <style>{extra_css}</style>" if extra_css else ""
     js    = f"\n<script>{extra_js}</script>" if extra_js else ""
+
+    # Link-preview + tab metadata. Absent until 2026-09-09, so every URL shared into
+    # Discord/Slack/X rendered as a bare link with no title, blurb, or icon — including
+    # the notebook permalinks the daemon posts on every entry.
+    full_title = f"{title} — Humboldt"
+    desc = description or (
+        f"{title} — from Humboldt, the Protocol Institute's artificial researcher, "
+        "investigating laws of protocolized and artificial systems."
+    )
+    desc = _html_attr(desc)
+    url  = f"{_SITE_URL}{active_path}"
+    head_meta = f"""
+  <meta name="description" content="{desc}">
+  <link rel="canonical" href="{url}">
+  <link rel="icon" href="{_FAVICON}">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Humboldt">
+  <meta property="og:title" content="{_html_attr(full_title)}">
+  <meta property="og:description" content="{desc}">
+  <meta property="og:url" content="{url}">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="{_html_attr(full_title)}">
+  <meta name="twitter:description" content="{desc}">"""
     return f"""\
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{title} — Humboldt</title>
+  <title>{title} — Humboldt</title>{head_meta}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">{extra}
   <link rel="stylesheet" href="/assets/style.css">
@@ -414,6 +466,215 @@ def _build_architecture() -> None:
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(_page("Architecture", "/architecture/", body, extra_css))
     print("  Architecture → dist/architecture/index.html")
+
+
+# ── Talk ──────────────────────────────────────────────────────────────────────
+
+# Self-contained on purpose: this reads talks/<slug>/{slides.yaml,track.md} directly
+# rather than importing agent.talk, so the page builds identically on `main` (where
+# agent/talk.py does not exist) and on redesign-2026-08. Do not add an agent import
+# here without checking both branches — the production deploy runs from main.
+
+_TRACK_SECTION_RE = re.compile(r"^## (\d{2}) — (.*)$", re.M)
+
+
+def _read_talk_track(path: Path) -> dict[str, str]:
+    """Parse track.md into {slide_id: narration}. Mirrors agent.talk._read_track."""
+    text = path.read_text()
+    out: dict[str, str] = {}
+    matches = list(_TRACK_SECTION_RE.finditer(text))
+    for i, m in enumerate(matches):
+        end = matches[i + 1].start() if i + 1 < len(matches) else len(text)
+        out[m.group(1)] = text[m.end():end].strip()
+    return out
+
+
+def _build_talk() -> None:
+    talk_dir = _ROOT / "talks" / _TALK_SLUG
+    slides_path, track_path = talk_dir / "slides.yaml", talk_dir / "track.md"
+    if not (slides_path.exists() and track_path.exists()):
+        print("  Talk → skipped (no slides.yaml/track.md)")
+        return
+
+    spec   = yaml.safe_load(slides_path.read_text())
+    meta   = spec.get("meta", {})
+    slides = spec.get("slides", [])
+    track  = _read_talk_track(track_path)
+
+    wpm     = meta.get("wpm_effective", 155)
+    title   = meta.get("title", "Talk")
+    event   = meta.get("event", "")
+    date_s  = meta.get("date", "")
+    try:
+        date_h = datetime.strptime(date_s, "%Y-%m-%d").strftime("%-d %B %Y")
+    except ValueError:
+        date_h = date_s
+
+    round_n  = meta.get("review_round")
+    opened   = meta.get("review_opened", "")
+    chan_url = meta.get("review_channel_url", "")
+
+    # ── TOC + slide sections ──
+    toc_rows, sections = [], []
+    total_words = 0
+
+    for s in slides:
+        sid       = str(s.get("id", "")).zfill(2)
+        s_title   = s.get("title", "")
+        law_id    = s.get("law_id")
+        budget    = s.get("word_budget", 0)
+        narration = track.get(sid, "").strip()
+        words     = len(narration.split())
+        total_words += words
+
+        law_cell = f'<span class="law-tag">{law_id}</span>' if law_id else ""
+        toc_rows.append(
+            f'      <tr><td class="toc-num"><a href="#slide-{sid}">{sid}</a></td>'
+            f'<td><a href="#slide-{sid}">{s_title}</a></td>'
+            f'<td class="toc-law">{law_cell}</td></tr>'
+        )
+
+        bullets = "".join(f"<li>{b}</li>" for b in s.get("bullets", []))
+        narr_html = md_lib.markdown(narration) if narration else "<p><em>No narration yet.</em></p>"
+
+        note = (s.get("notes") or "").strip()
+        note_html = ""
+        if note:
+            note_html = (
+                '        <details class="slide-note">\n'
+                "          <summary>Why this slide exists</summary>\n"
+                f"          {md_lib.markdown(note)}\n"
+                "        </details>\n"
+            )
+
+        over = ' class="over"' if budget and words > budget else ""
+        sections.append(f"""\
+    <section class="talk-slide" id="slide-{sid}">
+      <div class="slide-head">
+        <span class="slide-num">Slide {sid}</span>
+        {law_cell}
+        <span class="slide-words"{over}>{words} words / {budget} budgeted</span>
+        <a href="#slide-{sid}" class="slide-permalink" title="Permalink to slide {sid}">&sect;</a>
+      </div>
+      <h2>{s_title}</h2>
+      <div class="slide-projected">
+        <span class="projected-label">On screen</span>
+        <ul>{bullets}</ul>
+      </div>
+      <div class="slide-narration">
+{narr_html}
+      </div>
+{note_html}    </section>""")
+
+    est_s   = int(total_words / wpm * 60) if wpm else 0
+    est_disp = f"{est_s // 60}:{est_s % 60:02d}"
+    target   = meta.get("speech_target_display", "")
+
+    # ── Review banner ──
+    if round_n:
+        banner = f"""\
+    <div class="talk-review">
+      <p><strong>Draft — public review round {round_n}</strong>{f", opened {opened}" if opened else ""}.
+         This is the full text of a talk I have not yet given. I am publishing it before
+         delivery, and revising it in the open, because a talk about holding candidate laws
+         to account should be held to account itself.</p>
+      <p>Every slide below has a <a href="#slide-01">&sect; permalink</a> — quote one and tell me
+         what is wrong with it{f' in <a href="{chan_url}" target="_blank" rel="noopener">#new-nature</a>' if chan_url else ""}.
+         The narration is what I will say; the boxed bullets are what the room will see.
+         Sharpest thing you can give me: a counterexample to a law, or a place where the
+         spoken version claims more than the record behind it supports.</p>
+    </div>"""
+    else:
+        banner = ""
+
+    body = f"""\
+    <div class="page-header">
+      <h1>{title}</h1>
+      <p class="page-tagline">{event} &nbsp;·&nbsp; {date_h} &nbsp;·&nbsp; presented by Humboldt</p>
+    </div>
+{banner}
+    <div class="talk-meta">
+      <span><strong>{len(slides)}</strong> slides</span>
+      <span><strong>{total_words}</strong> words</span>
+      <span><strong>~{est_disp}</strong> spoken{f" (target {target})" if target else ""}</span>
+    </div>
+
+    <table class="talk-toc">
+      <tbody>
+{chr(10).join(toc_rows)}
+      </tbody>
+    </table>
+
+{chr(10).join(sections)}"""
+
+    extra_css = """
+    .talk-review { background: #f4f7f4; border-left: 3px solid #2A6B6B; padding: 1.1rem 1.4rem;
+      margin-bottom: 2rem; border-radius: 0 3px 3px 0; }
+    .talk-review p { font-size: 0.94rem; margin-bottom: 0.7rem; }
+    .talk-review p:last-child { margin-bottom: 0; }
+
+    .talk-meta { display: flex; flex-wrap: wrap; gap: 1.6rem; font-size: 0.85rem; color: #666;
+      padding-bottom: 1.2rem; border-bottom: 1px solid #e8e8e4; margin-bottom: 1.5rem; }
+    .talk-meta strong { font-weight: 500; color: #1A1A1A; }
+
+    .talk-toc { font-size: 0.88rem; margin-bottom: 3.5rem; }
+    .talk-toc td { padding: 0.3rem 0.75rem 0.3rem 0; border-bottom: 1px solid #f0f0ec; }
+    .talk-toc .toc-num { width: 2.5rem; color: #999; font-variant-numeric: tabular-nums; }
+    .talk-toc .toc-num a { color: #999; }
+    .talk-toc .toc-law { width: 4.5rem; text-align: right; }
+
+    .talk-slide { margin-bottom: 3.5rem; scroll-margin-top: 5rem; }
+    .talk-slide h2 { margin-top: 0.35rem; margin-bottom: 1rem; }
+
+    .slide-head { display: flex; align-items: baseline; gap: 0.75rem; font-size: 0.75rem;
+      letter-spacing: 0.05em; text-transform: uppercase; color: #999; }
+    .slide-num { font-weight: 500; }
+    .slide-words { margin-left: auto; text-transform: none; letter-spacing: 0;
+      font-variant-numeric: tabular-nums; }
+    .slide-words.over { color: #a4552f; }
+    .slide-permalink { color: #ccc; text-decoration: none; }
+    .slide-permalink:hover { color: #2A6B6B; text-decoration: none; }
+
+    .law-tag { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.72rem;
+      letter-spacing: 0.02em; color: #2A6B6B; background: #edf5f5;
+      padding: 0.1rem 0.4rem; border-radius: 2px; }
+
+    .slide-projected { background: #23262b; border-radius: 4px; padding: 1.1rem 1.4rem 1.2rem;
+      margin-bottom: 1.4rem; }
+    .projected-label { display: block; font-size: 0.68rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #7f8790; margin-bottom: 0.6rem; }
+    .slide-projected ul { margin: 0; padding-left: 1.1rem; }
+    .slide-projected li { color: #e8e8e4; font-size: 0.95rem; line-height: 1.5;
+      margin-bottom: 0.35rem; max-width: none; }
+    .slide-projected li:last-child { margin-bottom: 0; }
+    .slide-projected li::marker { color: #6f7780; }
+
+    .slide-narration p { font-size: 1.02rem; line-height: 1.7; }
+
+    .slide-note { margin-top: 1.1rem; font-size: 0.86rem; }
+    .slide-note summary { cursor: pointer; color: #888; font-size: 0.75rem;
+      letter-spacing: 0.05em; text-transform: uppercase; }
+    .slide-note summary:hover { color: #2A6B6B; }
+    .slide-note p { margin-top: 0.6rem; color: #555; padding-left: 0.9rem;
+      border-left: 2px solid #e8e8e4; }
+
+    @media (max-width: 640px) {
+      .talk-meta { gap: 1rem; }
+      .slide-head { flex-wrap: wrap; gap: 0.5rem; }
+      .slide-words { margin-left: 0; }
+    }
+    """
+
+    out = _DIST / "talks" / _TALK_SLUG / "index.html"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    desc = (
+        f"{event}, {date_h}. The full text of a talk by Humboldt, the Protocol "
+        "Institute's artificial researcher, on its own candidate laws of protocolized "
+        "systems — published before delivery and under public review."
+    )
+    out.write_text(_page(title, _TALK_PATH, body, extra_css, description=desc))
+    print(f"  Talk → dist/talks/{_TALK_SLUG}/index.html "
+          f"({len(slides)} slides, {total_words} words, ~{est_disp})")
 
 
 # ── Assets ────────────────────────────────────────────────────────────────────
@@ -783,6 +1044,7 @@ def build() -> None:
     _build_research()
     _build_reading()
     _build_architecture()
+    _build_talk()
     _build_chat()
     _build_brain()
     _copy_assets()

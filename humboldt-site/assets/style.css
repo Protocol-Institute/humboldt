@@ -193,3 +193,29 @@ td {
   .container  { padding: 0 1.25rem; }
   .page-main  { padding: 2rem 0 4rem; }
 }
+
+/* ── Anchored links ──
+   Every permalink on this site (notebook #entry-YYYY-MM-DD, talk #slide-NN, reading
+   #read-slug) scrolled its target to y=0 — directly underneath the sticky header,
+   which covers it. The Discord announcements the daemon posts on each notebook entry
+   link straight to those anchors, so the first thing a reader saw was the entry with
+   its date line hidden. scroll-margin-top parks the target below the header instead. */
+
+:target { scroll-margin-top: 5rem; }
+
+html { scroll-behavior: smooth; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+/* ── Focus ──
+   The reset removed the UA outline without replacing it, leaving keyboard navigation
+   with no visible position. :focus-visible restores it for keyboard users only, so
+   mouse clicks stay unringed. */
+
+:focus-visible {
+  outline: 2px solid #2A6B6B;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
