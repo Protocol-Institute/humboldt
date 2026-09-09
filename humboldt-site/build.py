@@ -431,24 +431,65 @@ def _build_reading() -> None:
 
 # ── Architecture ──────────────────────────────────────────────────────────────
 
-def _build_architecture() -> None:
-    arch_text = (_ROOT / "ARCHITECTURE.md").read_text()
-    html = md_lib.markdown(arch_text, extensions=["tables", "fenced_code"])
-    # Demote headings: h1→h2, h2→h3, h3→h4
+def _render_arch_md(path: Path) -> str:
+    """Markdown → HTML with headings demoted one level (the page supplies the h1)."""
+    html = md_lib.markdown(path.read_text(), extensions=["tables", "fenced_code"])
     html = html.replace("<h3>", "<h4>").replace("</h3>", "</h4>")
     html = html.replace("<h2>", "<h3>").replace("</h2>", "</h3>")
     html = html.replace("<h1>", "<h2>").replace("</h1>", "</h2>")
+    return html
+
+
+def _build_architecture() -> None:
+    """Two versions on one page, as tabs.
+
+    Deliberately tabs rather than a second nav entry: style.css documents eight nav
+    items as the point where the row wraps, and a ninth needs a different nav
+    structure, not more tightening. The two documents are also genuinely one subject —
+    v1 is what is deployed, v2 is what it is being rebuilt into — so putting them side
+    by side is better than filing them apart.
+    """
+    v1 = _render_arch_md(_ROOT / "ARCHITECTURE.md")
+    v2_path = _ROOT / "ARCHITECTURE-V2.md"
+    v2 = _render_arch_md(v2_path) if v2_path.exists() else ""
+
+    if v2:
+        tabs = """
+    <div class="arch-tabs" role="tablist">
+      <button class="arch-tab active" role="tab" aria-selected="true"  data-panel="v2">Version 2 — the redesign</button>
+      <button class="arch-tab"        role="tab" aria-selected="false" data-panel="v1">Version 1 — as deployed</button>
+    </div>"""
+        panels = f"""
+    <div class="arch-body arch-panel" id="panel-v2">
+{v2}
+    </div>
+    <div class="arch-body arch-panel" id="panel-v1" hidden>
+{v1}
+    </div>"""
+        tagline = ("Two architectures, deliberately shown together: version 1 is what runs "
+                   "in production today, version 2 is what the current redesign is rebuilding "
+                   "it into. They converge when the redesign merges.")
+    else:
+        tabs, panels = "", f'\n    <div class="arch-body arch-panel">\n{v1}\n    </div>'
+        tagline = ("How Humboldt works — persona assembly, behavior inventory, research "
+                   "schema, data flow, and daemon layer.")
 
     body = f"""\
     <div class="page-header">
       <h1>Architecture</h1>
-      <p class="page-tagline">How Humboldt works — persona assembly, behavior inventory, research schema, data flow, and daemon layer.</p>
-    </div>
-    <div class="arch-body">
-{html}
-    </div>"""
+      <p class="page-tagline">{tagline}</p>
+    </div>{tabs}{panels}"""
 
     extra_css = """
+    .arch-tabs { display: flex; gap: 0.4rem; flex-wrap: wrap; margin: -1.5rem 0 2.25rem;
+      border-bottom: 1px solid #e8e8e4; }
+    .arch-tab { font-family: inherit; font-size: 0.8rem; letter-spacing: 0.04em;
+      text-transform: uppercase; color: #777; background: none; border: none;
+      border-bottom: 2px solid transparent; padding: 0.55rem 0.7rem; cursor: pointer;
+      margin-bottom: -1px; transition: color 0.15s, border-color 0.15s; }
+    .arch-tab:hover { color: #2A6B6B; }
+    .arch-tab.active { color: #2A6B6B; border-bottom-color: #2A6B6B; font-weight: 500; }
+
     .arch-body h2 { margin-top: 2.5rem; }
     .arch-body h3 { margin-top: 1.8rem; }
     .arch-body h4 { margin-top: 1.4rem; font-size: 1rem; }
@@ -460,12 +501,55 @@ def _build_architecture() -> None:
     .arch-body code { font-family: monospace; font-size: 0.88em; }
     .arch-body ul, .arch-body ol { padding-left: 1.4rem; margin-bottom: 1rem; }
     .arch-body li { margin-bottom: 0.25rem; }
+    .arch-body blockquote { border-left: 3px solid #2A6B6B; padding-left: 1rem;
+      margin: 1.2rem 0; color: #444; font-style: italic; }
+    """
+
+    # Tabs degrade to both panels visible without JS: the hidden attribute is only
+    # applied by the script below, so a no-JS reader gets v2 followed by v1.
+    # Tabs degrade to both panels visible without JS: the `hidden` attribute on the v1
+    # panel is the one thing set server-side, so a no-JS reader sees v2 in full and can
+    # still reach v1 via the file in the repo.
+    #
+    # hashchange matters as much as load here: /architecture/ -> /architecture/#v1 is a
+    # SAME-DOCUMENT navigation, so the page does not reload and a load-only handler never
+    # fires. Anyone following a #v1 link while already on the page would get nothing.
+    extra_js = """
+    function showArchPanel(want, scroll) {
+      document.querySelectorAll('.arch-tab').forEach(function (t) {
+        var on = t.dataset.panel === want;
+        t.classList.toggle('active', on);
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      document.querySelectorAll('.arch-panel').forEach(function (p) {
+        p.hidden = (p.id !== 'panel-' + want);
+      });
+      if (scroll) window.scrollTo({ top: 0 });
+    }
+
+    document.querySelectorAll('.arch-tab').forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        showArchPanel(tab.dataset.panel, true);
+        history.replaceState(null, '', '#' + tab.dataset.panel);
+      });
+    });
+
+    window.addEventListener('hashchange', function () {
+      var want = location.hash.slice(1);
+      if (want === 'v1' || want === 'v2') showArchPanel(want, true);
+    });
+
+    if (location.hash === '#v1') showArchPanel('v1', false);
     """
 
     out = _DIST / "architecture" / "index.html"
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(_page("Architecture", "/architecture/", body, extra_css))
-    print("  Architecture → dist/architecture/index.html")
+    desc = ("How Humboldt works: the deployed architecture and the funnel redesign "
+            "replacing it — law records, the eight-stage funnel, the behavior graph, "
+            "and the analytics that tune it.")
+    out.write_text(_page("Architecture", "/architecture/", body, extra_css,
+                         extra_js, description=desc))
+    print(f"  Architecture → dist/architecture/index.html ({'v1+v2 tabs' if v2 else 'v1 only'})")
 
 
 # ── Talk ──────────────────────────────────────────────────────────────────────
