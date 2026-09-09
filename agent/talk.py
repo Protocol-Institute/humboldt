@@ -296,6 +296,93 @@ def check() -> bool:
 
 # ── voice ─────────────────────────────────────────────────────────────────────
 
+# ── prosody ───────────────────────────────────────────────────────────────────
+#
+# `say` reads punctuation as a hint rather than an instruction: a uniform short gap at a
+# full stop, nothing at a paragraph break. Over twelve minutes that is what produces the
+# drone — the content has structure the delivery does not.
+#
+# `say`'s own [[slnc N]] markers look like the fix, and are not: measured 2026-09-09 on
+# this machine, the presence of any embedded command makes `-r` unreliable (rate 110 and
+# 140 produced byte-identical durations), and embedded [[rate N]] is ignored outright.
+# So we render each sentence separately at a known rate and splice real silence between
+# the clips with ffmpeg. That keeps rate control, and makes pause length exact rather
+# than whatever the synthesiser feels like.
+#
+# Values are longer than they look right on the page; a pause that reads as excessive in
+# text is roughly correct aloud, especially before a sentence that changes direction.
+
+PAUSE_PARAGRAPH = 850    # a new beat within the slide — the speaker resets
+PAUSE_SENTENCE  = 450    # full stop, question mark
+PAUSE_COMMA     = 0      # left to the synthesiser; splicing every comma sounds robotic
+
+_ABBREV = re.compile(r"\b(?:e\.g|i\.e|cf|vs|etc|Dr|Mr|Ms|St|approx)\.$", re.I)
+
+
+def split_for_speech(text: str) -> list[tuple[str, int]]:
+    """Narration -> [(sentence, pause_ms_after), ...].
+
+    Sentence splitting avoids decimals ("2603.25979") and common abbreviations, both of
+    which appear in this talk and would otherwise be spliced mid-number.
+    """
+    out: list[tuple[str, int]] = []
+    paragraphs = [p.strip() for p in re.split(r"\n\s*\n", text) if p.strip()]
+    for pi, para in enumerate(paragraphs):
+        para = " ".join(para.split())
+        parts = [x.strip() for x in
+                 re.split(r"(?<=[.!?])\s+(?=[\"\u201c(]?[A-Z])", para) if x.strip()]
+        for si, sent in enumerate(parts):
+            last_in_para = si == len(parts) - 1
+            last_overall = last_in_para and pi == len(paragraphs) - 1
+            if last_overall:
+                pause = 0
+            elif last_in_para:
+                pause = PAUSE_PARAGRAPH
+            elif _ABBREV.search(sent):
+                pause = 0          # not a real sentence end; let it run on
+            else:
+                pause = PAUSE_SENTENCE
+            out.append((sent, pause))
+    return out
+
+
+def _render_clip(text: str, voice_name: str, rate: int, dest: Path) -> None:
+    aiff = dest.with_suffix(".aiff")
+    subprocess.run(["say", "-v", voice_name, "-r", str(rate), "-o", str(aiff), text],
+                   check=True)
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(aiff),
+                    "-ar", "44100", "-ac", "1", str(dest)], check=True)
+    aiff.unlink()
+
+
+def _silence(ms: int, dest: Path) -> None:
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "lavfi",
+                    "-i", "anullsrc=r=44100:cl=mono", "-t", f"{ms / 1000:.3f}",
+                    str(dest)], check=True)
+
+
+def render_narration(text: str, voice_name: str, rate: int, out_mp3: Path) -> None:
+    """Render one slide's narration with spliced pauses."""
+    import tempfile
+    pieces = split_for_speech(text)
+    with tempfile.TemporaryDirectory() as td:
+        td = Path(td)
+        parts: list[Path] = []
+        for i, (sent, pause) in enumerate(pieces):
+            clip = td / f"c{i:03d}.wav"
+            _render_clip(sent, voice_name, rate, clip)
+            parts.append(clip)
+            if pause:
+                sil = td / f"s{i:03d}.wav"
+                _silence(pause, sil)
+                parts.append(sil)
+        listing = td / "list.txt"
+        listing.write_text("".join(f"file '{p}'\n" for p in parts))
+        subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat",
+                        "-safe", "0", "-i", str(listing), "-b:a", "96k",
+                        str(out_mp3)], check=True)
+
+
 def voice(voice_name: str = DEFAULT_VOICE, rate: int = DEFAULT_RATE) -> None:
     slides = _load_slides()
     narration = _read_track()
@@ -307,17 +394,8 @@ def voice(voice_name: str = DEFAULT_VOICE, rate: int = DEFAULT_RATE) -> None:
         if not text or text.startswith("**MISSING"):
             print(f"  ! {sid}: skipped, no narration")
             continue
-        aiff = _AUDIO_DIR / f"slide-{sid}.aiff"
         mp3 = _AUDIO_DIR / f"slide-{sid}.mp3"
-        subprocess.run(
-            ["say", "-v", voice_name, "-r", str(rate), "-o", str(aiff), text],
-            check=True,
-        )
-        subprocess.run(
-            ["ffmpeg", "-y", "-loglevel", "error", "-i", str(aiff), str(mp3)],
-            check=True,
-        )
-        aiff.unlink()
+        render_narration(text, voice_name, rate, mp3)
         print(f"  {sid}: {mp3.name}")
     print(f"\nVoiced with '{voice_name}' at rate {rate}. Run `humboldt talk time` to measure.")
 
