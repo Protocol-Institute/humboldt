@@ -69,8 +69,7 @@ NAV = [
     ("/laws/",         "Research",     [("/laws/",         "Laws"),
                                         ("/notebook/",     "Notebook"),
                                         ("/supervision/",  "Supervision")]),
-    ("/reading/",      "Reading",      [("/reading/",      "Reading notes"),
-                                        ("/bibliography/", "Full bibliography")]),
+    ("/reading/",      "Reading",      []),
     ("/architecture/", "Architecture", []),
     ("/about/",        "About",        []),
 ]
@@ -481,74 +480,95 @@ def _build_laws() -> None:
 
 # ── Bibliography ──────────────────────────────────────────────────────────────
 
-def _build_bibliography() -> None:
-    import sys as _sys
-    if str(_ROOT) not in _sys.path:
-        _sys.path.insert(0, str(_ROOT))
-    from agent.publish_bibliography import build_bibliography_body, _CSS as _BCSS, _JS as _BJS
-
-    body, total = build_bibliography_body()
-
-    out = _DIST / "bibliography" / "index.html"
-    out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(_page("Bibliography", "/bibliography/", body, extra_css=_BCSS, extra_js=_BJS))
-    print(f"  Bibliography → dist/bibliography/index.html ({total} entries)")
-
-
-# ── Reading ───────────────────────────────────────────────────────────────────
-
 def _build_reading() -> None:
+    """One Reading page: the bibliography is the spine, read depth is how it is cut.
+
+    Replaces the former /reading/ + /bibliography/ split (plans/reading-bibliography-merge.md).
+    They were always two views of one dataset — every deep entry already carried a
+    `notes:` pointer and every shallow one a `summary:` pointer — so the split cost a
+    duplicate index and, between them, 4.7MB of HTML.
+
+    Note bodies live on their own pages rather than inline. The old /reading/ page
+    inlined everything and reached 3.5MB; a page per note keeps the index light and
+    gives each reading note a permalink worth citing.
+    """
     import sys as _sys
     if str(_ROOT) not in _sys.path:
         _sys.path.insert(0, str(_ROOT))
-    from agent.publish_reading import (
-        _render_note, _render_card, build_shallow_section,
-        _CSS as _RCSS, _SHALLOW_CSS,
+    from agent.publish_bibliography import (
+        build_bibliography_body, note_path_for, _CSS as _BCSS, _JS as _BJS,
     )
+    from agent import bibliography as bib_mod
 
-    notes_dir = _ROOT / "bibliography" / "notes"
-    note_paths = sorted(p for p in notes_dir.glob("*.md") if not p.name.startswith("_"))
-
-    notes = [_render_note(p) for p in note_paths]
-    notes.sort(key=lambda n: n["date_read"] or "0000")
-
-    # TOC
-    toc_items = ""
-    for note in notes:
-        bib = note["bib"]
-        pub_title = bib["title"] or note["title_line"]
-        author = bib["author"] or ""
-        year = bib["year"] or ""
-        slug = note["stem"]
-        toc_items += f'      <li><a href="#read-{slug}">{pub_title}</a>'
-        if author:
-            toc_items += f' — {author}'
-        if year:
-            toc_items += f' ({year})'
-        toc_items += "</li>\n"
-
-    cards = "\n".join(_render_card(note, i) for i, note in enumerate(notes))
-    shallow_body, shallow_n = build_shallow_section()
-
-    body = f"""\
-    <div class="page-header">
-      <h1>Reading</h1>
-      <p class="page-tagline">Sources that shaped Humboldt's thinking. Deep reads work from the actual
-      text, never from training memory; shallow reads are a one-paragraph synthesis written at triage.
-      See also the full <a href="/bibliography/">bibliography</a>.</p>
-    </div>
-    <div class="reading-toc">
-      <h3>Deep reads ({len(notes)} completed)</h3>
-      <ul>
-{toc_items}      </ul>
-    </div>
-{cards}
-{shallow_body}"""
-
+    body, n = build_bibliography_body()
     out = _DIST / "reading" / "index.html"
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(_page("Reading", "/reading/", body, extra_css=_RCSS + _SHALLOW_CSS))
-    print(f"  Reading → dist/reading/index.html ({len(notes)} deep, {shallow_n} shallow)")
+    desc = ("Every source Humboldt has engaged, cut by how deeply it was read — deep "
+            "reads from the full text, shallow reads synthesised at triage, and sources "
+            "listed but not yet read.")
+    out.write_text(_page("Reading", "/reading/", body, _BCSS, _BJS, description=desc))
+
+    # ── one page per note ──
+    written = 0
+    for e in bib_mod.load():
+        rel = note_path_for(e)
+        if not rel:
+            continue
+        src = _ROOT / rel
+        if not src.exists():
+            continue
+        html = md_lib.markdown(src.read_text(), extensions=["tables", "fenced_code"])
+        html = html.replace("<h3>", "<h4>").replace("</h3>", "</h4>")
+        html = html.replace("<h2>", "<h3>").replace("</h2>", "</h3>")
+        html = html.replace("<h1>", "<h2>").replace("</h1>", "</h2>")
+        depth = e.get("read_depth", "listed")
+        kind = "Deep read" if rel.startswith("bibliography/notes/") else "Shallow read"
+        src_url = e.get("url") or ""
+        src_link = (f' &nbsp;·&nbsp; <a href="{src_url}" target="_blank" rel="noopener">source</a>'
+                    if src_url else "")
+        laws = e.get("laws") or []
+        law_html = ("".join(f'<a class="law-tag" href="/laws/#law-{l}">{l}</a> ' for l in laws)
+                    if laws else "")
+        note_body = f"""\
+    <div class="page-header">
+      <h1>{(e.get("title") or e.get("id") or "Note")[:160]}</h1>
+      <p class="page-tagline">{kind}{" &nbsp;·&nbsp; " + str(e.get("year")) if e.get("year") else ""}{src_link}
+      &nbsp;·&nbsp; <a href="/reading/">all reading</a></p>
+    </div>
+    <p class="note-laws">{law_html}</p>
+    <div class="arch-body">
+{html}
+    </div>"""
+        npath = _DIST / "reading" / src.stem / "index.html"
+        npath.parent.mkdir(parents=True, exist_ok=True)
+        npath.write_text(_page(
+            (e.get("title") or src.stem)[:80], "/reading/", note_body,
+            ".note-laws { margin-bottom: 1.5rem; } .note-laws:empty { display: none; }",
+            description=f"{kind} — {(e.get('title') or src.stem)[:120]}",
+        ))
+        written += 1
+
+    print(f"  Reading → dist/reading/index.html ({n} sources, {written} note pages)")
+
+
+def _build_bibliography_redirect() -> None:
+    """/bibliography/ keeps resolving after the merge.
+
+    The path is linked from law records, the chat page, and Discord announcements, so it
+    must not 404. A meta refresh rather than a _redirects rule: it works identically on
+    the local preview server, which _redirects does not.
+    """
+    out = _DIST / "bibliography" / "index.html"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(
+        '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">'
+        '<meta http-equiv="refresh" content="0; url=/reading/">'
+        '<link rel="canonical" href="https://humboldt.protocol-institute.org/reading/">'
+        '<title>Moved to /reading/</title></head>'
+        '<body><p>The bibliography is now part of '
+        '<a href="/reading/">Reading</a>.</p></body></html>'
+    )
+    print("  Bibliography → redirect to /reading/")
 
 
 # ── Architecture ──────────────────────────────────────────────────────────────
@@ -1472,8 +1492,8 @@ def build() -> None:
     _build_supervision()
     _build_notebook()
     _build_laws()
-    _build_bibliography()
     _build_reading()
+    _build_bibliography_redirect()
     _build_architecture()
     _build_talk()
     _build_chat()

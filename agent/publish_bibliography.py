@@ -28,15 +28,27 @@ def _esc(s) -> str:
     return _html.escape(str(s or ""), quote=True)
 
 
+def note_path_for(e: dict) -> str | None:
+    """Repo-relative path of the best note for an entry, or None.
+
+    `notes` (the deep read) wins over `summary` (the shallow synthesis it was escalated
+    from) — most deep entries carry both, and the deep read is the fuller record.
+    """
+    for field in ("notes", "summary"):
+        v = str(e.get(field) or "")
+        if v.startswith("bibliography/"):
+            return v
+    return None
+
+
 def _title_link(e: dict) -> str:
     title = _esc(e.get("title") or e.get("id", "untitled"))[:140]
-    depth = e.get("read_depth", "listed")
-    if depth == "deep" and e.get("notes"):
-        stem = Path(e["notes"]).stem
-        return f'<a href="/reading/#read-{stem}">{title}</a>'
-    if depth == "shallow" and e.get("summary"):
-        stem = Path(e["summary"]).stem
-        return f'<a href="/reading/#shallow-{stem}">{title}</a>'
+    note = note_path_for(e)
+    if note:
+        # Each note is its own page under /reading/. Previously these were anchors into
+        # one page that had grown to 3.5MB of HTML; a page per note also gives every
+        # reading note a stable permalink to cite.
+        return f'<a href="/reading/{Path(note).stem}/">{title}</a>'
     url = e.get("url")
     if url:
         return f'<a href="{_esc(url)}" target="_blank" rel="noopener">{title}</a>'
