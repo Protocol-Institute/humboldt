@@ -85,46 +85,51 @@ Only one secret is shared. This is what makes the two-user split worth doing.
 | `DISCORD_BOT_TOKEN` + the four Discord ids | ✓ | |
 | `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID` | ✓ | |
 | `C3PO_WORKER_URL`, `C3PO_MCP_KEY` | ✓ | |
-| GitHub push | own deploy key | own deploy key |
+| GitHub push | own scoped PAT | own scoped PAT |
 
 The console needs no model, vector, chat or deploy credential. It edits YAML and commits.
 If a future console feature appears to need one of these, that is a signal the feature
 belongs in a behaviour the daemon runs, not in the console.
 
-### 4.2 GitHub: two deploy keys, not one PAT
+### 4.2 GitHub credentials — scoped PAT, because deploy keys are unavailable
 
 **Do not use `gh auth login`.** That authenticates as the account and reaches every repo
-the account can reach — the c3po incident. Use per-repo deploy keys: a deploy key is
-bound to one repository by GitHub itself and cannot be widened without issuing a new key.
+the account can reach — incident 2026-09-09-01, where exactly that arrangement on
+`c3po-vm` held admin and push on every Protocol-Institute repo *and* on personal repos.
 
-Two keys rather than one, so console access can be revoked without stopping the daemon,
-and so the GitHub audit log attributes pushes to the right service:
+**Corrected 2026-09-09.** This section previously specified two per-repo deploy keys.
+That is not executable here: while remediating the c3po incident, `POST /repos/{repo}/keys`
+returned **`422 Deploy keys are disabled for this repository`** for all three PI repos,
+and succeeded on a personal repo — the restriction is an org-wide policy on
+Protocol-Institute. Deploy keys remain the better primitive in principle (bound to one
+repo by GitHub, unwidenable), so revisit if that policy is ever relaxed.
 
-```bash
-# on the VM, as each service user
-sudo -u humboldt-daemon  ssh-keygen -t ed25519 -N '' -f /etc/humboldt/daemon-deploy
-sudo -u humboldt-console ssh-keygen -t ed25519 -N '' -f /etc/humboldt/console-deploy
-```
+**What to use instead**, matching what c3po landed on: **a fine-grained PAT scoped to
+`Protocol-Institute/humboldt` only, `Contents: write` and nothing else.** No admin, no
+other repositories, no personal repositories, and a fixed expiry.
 
-Add both `.pub` files at **GitHub → Protocol-Institute/humboldt → Settings → Deploy keys
-→ Add deploy key**, each with *Allow write access* checked. Label them
-`humboldt-vm-daemon` / `humboldt-vm-console`. Record both in
+The properties this must preserve, which are the reason the section existed:
+
+- **One repo.** The scope selector, not the token type, is where privilege lives — a
+  fine-grained PAT issued against *All repositories* is functionally a classic PAT while
+  looking like the safe kind. That misreading is the root cause in the c3po incident.
+- **Contents: write only.** Enough to push; not enough to open a PR, change settings, or
+  read anything else. If some future need appears to require more, prefer moving that
+  work into a GitHub Actions workflow with its own `GITHUB_TOKEN` — which is how c3po
+  removed its PR-creation need rather than re-granting the permission.
+- **An expiry.** A credential that never expires is one nobody ever revisits.
+
+**One token or two?** Two deploy keys were specified so console access could be revoked
+without stopping the daemon. Two PATs give the same property and are worth it for the same
+reason; if that is judged not worth the management overhead, one shared token is
+acceptable *provided* §3's user split still holds, since the file is then readable by both
+service users and the split stops bounding the blast radius at the credential.
+
+Store the token in the per-service env file (`/etc/humboldt/{daemon,console}.env`,
+`chmod 600`), never in a remote URL, and configure git to read it from there. Record it in
 `protocol-institute/admin/keys.md` with the VM as deployment location, per the PI key
-policy.
-
-Remote and per-user SSH config:
-
-```
-# ~/.ssh/config for each service user
-Host github-humboldt
-  HostName github.com
-  User git
-  IdentitiesOnly yes
-  IdentityFile /etc/humboldt/<daemon|console>-deploy
-
-# then, once:
-git -C /srv/humboldt/repo remote set-url origin git@github-humboldt:Protocol-Institute/humboldt.git
-```
+policy — and record the token that is **actually deployed**: the c3po incident found the
+registry describing a narrow credential while the VM ran an entirely different, wide one.
 
 Set a distinct git identity per service so `git log` shows which one wrote:
 
@@ -210,11 +215,14 @@ rather than discovered. These are the assertions from `Code/warnings-exe.md` pol
 # 1. the VM cannot reach the exe.dev account
 ssh -o BatchMode=yes exe.dev whoami                      # must FAIL
 
-# 2. the deploy keys reach exactly one repo
-GIT_SSH_COMMAND='ssh -i /etc/humboldt/daemon-deploy' \
-  git ls-remote git@github.com:Protocol-Institute/humboldt.git >/dev/null   # must SUCCEED
-GIT_SSH_COMMAND='ssh -i /etc/humboldt/daemon-deploy' \
-  git ls-remote git@github.com:Protocol-Institute/website.git  2>&1 | grep -q denied  # must DENY
+# 2. the token reaches exactly one repo, and only to write contents
+curl -sf -H "Authorization: Bearer $GITHUB_TOKEN" \
+  https://api.github.com/repos/Protocol-Institute/humboldt >/dev/null   # must SUCCEED
+curl -so /dev/null -w '%{http_code}' -H "Authorization: Bearer $GITHUB_TOKEN" \
+  https://api.github.com/repos/Protocol-Institute/website               # must be 404
+# and it must not be able to act on the repo beyond contents:
+curl -so /dev/null -w '%{http_code}' -H "Authorization: Bearer $GITHUB_TOKEN" \
+  https://api.github.com/repos/Protocol-Institute/humboldt/collaborators # must be 403/404
 
 # 3. no account-scoped GitHub credential exists on the box
 which gh && gh auth status 2>&1 | grep -q "Logged in" && echo "FAIL: gh is authenticated"
@@ -235,7 +243,7 @@ verified one.
 
 ## 8. Cutover sequence
 
-1. Provision users, directories, env files, deploy keys (§3–4). Do not start services.
+1. Provision users, directories, env files, scoped tokens (§3–4). Do not start services.
 2. Clone, create `.venv`, install deps. Verify `laws validate all` and
    `analytics utilization` run as `humboldt-console`.
 3. Run §7 verification **before** exposing anything. Fix failures now.
@@ -249,8 +257,7 @@ verified one.
 9. Re-run §7. Record the VM as a deployment location in `../admin/keys.md`; update the
    inventory row in `Code/warnings-exe.md`.
 
-**Rollback:** stop both units, unpause the laptop daemon, revoke the two deploy keys on
-GitHub. The repo is the source of truth and the VM holds no unique state, so rollback
+**Rollback:** stop both units, unpause the laptop daemon, revoke the tokens on GitHub. The repo is the source of truth and the VM holds no unique state, so rollback
 costs only the time since cutover.
 
 ---

@@ -4,6 +4,36 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-09-09 (session 34) — Redesign merged to production; talk playable; Phase 4 decisions locked
+
+**Daemon PID:** 1869 (running, unpaused). Untouched this session.
+
+- **`redesign-2026-08` merged to `main` and deployed.** The public site is now the
+  redesign: 20 law records, 2,019 sources, 74 notebook entries, /supervision/,
+  architecture v1+v2 tabs. Brought forward from Phase 5 because the talk opens with a
+  live site tour.
+- **Talk is deliverable.** Audio generated (12:12 measured vs 13:15 target); the page
+  carries an embedded auto-advancing player, so delivery is screenshare-and-press-play.
+  Live at `/talks/2026-09-23-new-nature/`.
+- **Build-hygiene bug fixed** — `build()` never cleared `dist/`, so branch-built pages
+  had been shipping to production by accident for weeks.
+- **Phase 4 groundwork:** `analytics/op-behavior-map.yaml` + `agent/analytics.py` give
+  months of retrospective per-behavior utilization from `costs.jsonl` (8,089 records)
+  rather than waiting on `behavior_visit` (9 records). Five schema decisions locked with
+  the operator; three revise the spec.
+- **Incident 2026-09-09-01 (High)** filed against c3po — org-wide GitHub token on
+  `c3po-vm`. `Code/warnings-exe.md` policy 6 rewritten around credential scope.
+- **Site consolidation:** /reading/ + /bibliography/ merged (index 4.7MB → 1.1MB, 1,970
+  note permalinks); nav 9 items → 5.
+- **45 orphan shallow-read files removed**, deletion gated on provable safety.
+
+**Open:** talk voice blocked on operator downloading macOS Premium voices
+(`plans/talk-2026-09-23.md` §5.8); Phase 4 instrumentation; Phase 5 runbook ready with
+§4.2 corrected to a scoped PAT; 6 duplicate bibliography records; ARCHITECTURE.md v1
+still pre-redesign.
+
+---
+
 ## 2026-09-03 (session 33) — Phase 3 built; backlog cleared; 3 defects fixed; talk regenerated
 
 **Daemon PID:** 1869 (running, unpaused). PID changed from 24438 — restarted uncleanly

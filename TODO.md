@@ -6,6 +6,34 @@ Priority: **[H]** urgent, **[M]** soon, **[L]** when convenient.
 
 ---
 
+## ⏸ RESUME HERE — session 34 paused 2026-09-09
+
+**1. [H] Talk voice.** Blocked on one operator action: download macOS Premium/Enhanced
+voices (System Settings → Accessibility → Spoken Content → System Voice → Manage Voices).
+Full detail and the next-session steps in `plans/talk-2026-09-23.md` §5.8. Pacing is
+already fixed; only timbre is open. **14 days to the talk as of the pause.**
+
+**2. [H] Phase 4 — instrumentation.** All five schema decisions are locked
+(`plans/redesign-2026-08.md` §8 "Decisions locked 2026-09-09"). The remaining work, in
+order: wire `behavior_visit` into the seven uninstrumented entrypoints (registry names
+every one), add `run_id` correlation, then the flag heuristics. **One number still to
+choose:** the collapse threshold for the self-relative prune test — now calibratable
+against real data via `humboldt analytics utilization`, so pick it empirically.
+
+**3. [M] Phase 5.** `plans/phase5-vm-cutover.md` is the runbook. §4.2 corrected
+2026-09-09: deploy keys are **disabled org-wide** on Protocol-Institute, so it specifies a
+scoped fine-grained PAT instead (matching what c3po landed on).
+
+**4. [M] Reading page follow-up.** Six slugs still have two shallow-read files each, both
+referenced, by two *different* bibliography entries — Discord ideas re-triaged later and
+given a second entry. A duplicate-records question, not a duplicate-files one; laws may
+cite either id, so which id survives is a supervisor call.
+
+**5. [L] Site.** The 49 `read_depth: listed` sources are a real backlog signal — registered
+but never read — now visible on `/reading/`.
+
+---
+
 ## 🎯 ON DECK — Redesign Phase 4 (analytics)
 
 > Spec: `plans/redesign-2026-08.md` §8, §13.

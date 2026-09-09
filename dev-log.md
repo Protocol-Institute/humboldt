@@ -6,6 +6,89 @@ Most recent entry first.
 
 ---
 
+## 2026-09-09 (session 34) — Talk published + played; redesign merged to production; Phase 4 decisions locked
+
+**Tracks active:** T2 (site, merge, analytics groundwork, security) / T3 (nothing extracted)
+**Daemon PID:** 1869 (running, unpaused, untouched this session)
+
+**The redesign is the public site.** Merged `redesign-2026-08` to `main` and deployed —
+brought forward from the Phase 5 milestone because the 09-23 talk opens with a live tour
+and production was still showing the pre-redesign site. §13 gated the merge on Phase 5 for
+*daemon* rollback safety, and the daemon is not on the VM, so that reasoning did not bite
+for the site half. Public site went from the retired CL- schema to 20 law records, 2,019
+sources, a 74-entry notebook, /supervision/, and architecture v1+v2 tabs.
+
+**A build-hygiene bug had been serving that content by accident for weeks.** `build()`
+never cleared `dist/`, which is gitignored and therefore survives branch switches, so a
+build on one branch left its pages behind for the next branch's deploy to ship. /laws/,
+/bibliography/ and /supervision/ were live, branch-built, orphaned from main's nav, beside
+a /research/ page showing the old schema. Fixed — deploys must be a function of the
+checkout alone. Worth noting the fix made things temporarily *worse* before the merge
+fixed them properly: a clean deploy from main would have deleted those pages.
+
+**The talk is deliverable.** `talk voice` run for the first time; measured 12:12 against a
+13:15 target. The page now carries an embedded 16:9 player above the transcript that
+auto-advances through the slides, so delivery on 09-23 is screenshare-and-press-play. That
+retires the separate deck Phase C called for and makes the persistent page and the
+delivered talk the same artifact, which is a stronger guarantee than keeping them in sync.
+
+**Phase 4's premise turned out to be half wrong**, and finding that out was the session's
+most useful hour. Utilization was described as blind because only induct and assess call
+`behavior_visit`. True of *invocations*; false of API traffic — `daemon/costs.jsonl` has
+logged 8,089 calls under `op` labels since May while `behaviors/log.jsonl` holds 9 lines.
+`analytics/op-behavior-map.yaml` joins them, verified by AST against every emit site rather
+than inferred from label names, which mattered: `feed_triage` (the ledger's largest line,
+4,597 calls) is **intake**, not triage; the triage behavior is `triage_feed` at 187. The
+names are inverted. Two active behaviors — deep-read and supervisory — make no model calls
+at all by construction, so their zeros are structural and a prune flag pointed at them
+would be measuring the instrumentation.
+
+That data then let five schema decisions be taken against evidence instead of guesses
+(plan §8). Three revise the spec: the event spine stays **split** with a `run_id` rather
+than unifying as §8 promised; a **13th behavior** `review` accounts for a daily loop
+running since session 9 with no registry entry; and the prune flag uses a **self-relative
+baseline** rather than §8's global window, which as written would fire on deep-read and
+supervisory on day one. `funnel_log`'s docstring carried the unification promise, so it was
+corrected in the same commit — leaving it would have been the next person's bug.
+
+**Security: an incident in a neighbouring project.** Establishing Humboldt's VM credential
+model surfaced that `c3po-vm` held a GitHub token with admin+push on every PI repo,
+readable by `exedev`, which has passwordless sudo. Filed as 2026-09-09-01 (High). The
+durable fix was rewriting `Code/warnings-exe.md` policy 6 around credential *scope* rather
+than mechanism, with assertions that test the property directly (`ssh exe.dev whoami` must
+fail from a VM) rather than proxying it through "no key files" — my first draft made
+exactly that mistake and would have failed the moment a legitimate deploy key existed.
+
+**Two data defects fixed, one deliberately not.** 45 orphan shallow-read files removed,
+fallout from the date-scoped resume bug. Deletion was gated on provable safety rather than
+a filename rule, which mattered: 6 of them had no same-slug sibling and were only shown to
+be duplicates by comparing normalised URLs (6/6 identical arXiv). Left alone: 6 slugs with
+two files each referenced by two *different* bibliography entries — a duplicate-records
+question where laws may cite either id, so which survives is the supervisor's call.
+
+**Site consolidation.** /reading/ and /bibliography/ merged. The plan left page weight open
+to be settled by measuring; measuring changed the design — /reading/ was already 3.5MB, so
+inlining notes was out and the fallback (a page per note) was selected. Index 4,681KB →
+1,143KB, and 1,970 notes each gained a permalink worth citing. Nav went 9 items → 5 via
+grouping, after the previous fix had been shrinking the type, which does not scale.
+
+**Voice work is paused mid-stream**, deliberately. Pacing is fixed — `say` inserts no pause
+at a paragraph break, and its own `[[slnc]]` markers turn out to break `-r`, so pauses are
+spliced with ffmpeg instead. Timbre is not fixed and cannot be here: all 43 installed
+English voices are legacy compact ones, several of them phantoms that silently fall back.
+Blocked on an operator GUI action to download Premium voices.
+
+**Open (next session):**
+- Talk voice: audition Premium voices once downloaded (`plans/talk-2026-09-23.md` §5.8)
+- Phase 4: instrument the seven entrypoints, then `run_id`, then flag heuristics; pick the
+  prune threshold empirically from `analytics utilization`
+- Phase 5: runbook ready; §4.2 now specifies a scoped PAT (deploy keys are disabled
+  org-wide on Protocol-Institute)
+- The 6 duplicate bibliography records
+- `ARCHITECTURE.md` (v1) still describes the pre-redesign system; Phase 6 rewrite
+
+---
+
 ## 2026-09-03 (session 33) — Redesign Phase 3 built; outage backlog cleared; three defects fixed
 
 **Tracks active:** T1 (assessment, induction, talk content) / T2 (Phase 3, bug fixes,
