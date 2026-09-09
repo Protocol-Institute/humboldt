@@ -12,6 +12,7 @@ Usage:
 import re
 import subprocess
 import sys
+from functools import lru_cache
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -405,9 +406,22 @@ def _build_html(notes: list[dict]) -> str:
 # publish_reading() path above) — shallow reads are lighter records (819 files) and
 # get a lighter rendering: one line + a short excerpt, not the full note body.
 
+@lru_cache(maxsize=1)
+def _current_law_ids() -> frozenset[str]:
+    """Law ids, loaded once per process.
+
+    laws.load_all() is a ruamel *round-trip* parse of every laws/L-*.yaml. Calling it
+    per shallow read was 2,009 x 20 round-trip parses on a full build — the site build
+    stopped completing at all once session 33's backlog sweep took shallow reads from
+    ~170 to 2,009. Cached for the life of the build process, which is the only scope
+    that matters here: nothing mutates law files mid-build.
+    """
+    from agent import laws as laws_mod
+    return frozenset(l["id"] for l in laws_mod.load_all())
+
+
 def _parse_shallow_light(path: Path) -> dict:
     from agent import bibliography as bib_mod
-    from agent import laws as laws_mod
 
     text = path.read_text()
     title_m = re.search(r"^#\s+(.+)$", text, re.MULTILINE)
@@ -422,7 +436,7 @@ def _parse_shallow_light(path: Path) -> dict:
 
     conn_m = re.search(r"^\*\*Connected to:\*\*\s*(.+)$", text, re.MULTILINE)
     raw_tokens = re.split(r"[,\s]+", conn_m.group(1).strip()) if conn_m else []
-    current_ids = {l["id"] for l in laws_mod.load_all()}
+    current_ids = _current_law_ids()
     mapped, _raw = bib_mod.map_law_tokens(raw_tokens, current_ids)
 
     esc_m = re.search(r"^\*\*Escalation:\*\*\s*(\S+)", text, re.MULTILINE)
