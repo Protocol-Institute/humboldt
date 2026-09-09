@@ -52,23 +52,31 @@ _FAVICON = (
     "%3EH%3C/text%3E%3C/svg%3E"
 )
 
-# Defined here rather than beside _build_talk because PAGES references _TALK_PATH on
-# main and is evaluated at import. Kept identical on both branches so the Phase 5
-# merge has nothing to reconcile here.
+# Defined here rather than beside _build_talk so the chat page's talk link can use it.
+# The talk is no longer a nav entry — it is one dated artifact, not a site section.
 _TALK_SLUG = "2026-09-23-new-nature"
 _TALK_PATH = f"/talks/{_TALK_SLUG}/"
 
-PAGES = [
-    ("/",              "Chat"),
-    ("/notebook/",     "Notebook"),
-    ("/laws/",         "Laws"),
-    ("/bibliography/", "Bibliography"),
-    ("/reading/",      "Reading"),
-    ("/architecture/", "Architecture"),
-    ("/supervision/",  "Supervision"),
-    (_TALK_PATH,       "Talk"),
-    ("/about/",        "About"),
+# Top-level nav. Each entry is (href, label, children); children render as a dropdown
+# and make the parent active when any of them is the current page. Nine flat items had
+# become clutter — grouping is what keeps the bar readable as pages accumulate, rather
+# than shrinking the type again.
+#
+# The parent href is a real destination, not a "#": the dropdown must not be the only
+# way to reach the group, or the nav breaks without JS and on touch.
+NAV = [
+    ("/",              "Chat",         []),
+    ("/laws/",         "Research",     [("/laws/",         "Laws"),
+                                        ("/notebook/",     "Notebook"),
+                                        ("/supervision/",  "Supervision")]),
+    ("/reading/",      "Reading",      [("/reading/",      "Reading notes"),
+                                        ("/bibliography/", "Full bibliography")]),
+    ("/architecture/", "Architecture", []),
+    ("/about/",        "About",        []),
 ]
+
+# The talk is deliberately NOT in the nav — it is one dated artifact, not a section.
+# It is linked from the chat page blurb instead.
 
 
 # ── Page template ─────────────────────────────────────────────────────────────
@@ -81,11 +89,27 @@ def _html_attr(text: str) -> str:
 
 
 def _nav(active_path: str) -> str:
-    links = []
-    for href, label in PAGES:
-        cls = "nav-link active" if href == active_path else "nav-link"
-        links.append(f'<a href="{href}" class="{cls}">{label}</a>')
-    nav_links = "\n      ".join(links)
+    items = []
+    for href, label, children in NAV:
+        child_paths = [c[0] for c in children]
+        active = active_path == href or active_path in child_paths
+        cls = "nav-link active" if active else "nav-link"
+        if not children:
+            items.append(f'<a href="{href}" class="{cls}">{label}</a>')
+            continue
+        subs = "".join(
+            f'<a href="{ch}" class="nav-sub-link'
+            f'{" active" if active_path == ch else ""}">{cl}</a>'
+            for ch, cl in children
+        )
+        items.append(
+            f'<div class="nav-group">'
+            f'<a href="{href}" class="{cls} has-sub" aria-haspopup="true">{label}'
+            f'<span class="nav-caret" aria-hidden="true">&#9662;</span></a>'
+            f'<div class="nav-sub">{subs}</div>'
+            f"</div>"
+        )
+    nav_links = "\n      ".join(items)
     return f"""\
 <nav class="subsite-nav">
   <div class="nav-inner">
@@ -1095,11 +1119,13 @@ def _build_chat() -> None:
 
     <div class="chat-intro">
       <p>Ask about active candidate laws, recent research thinking, the Protocol Institute corpus, or anything in the New Nature agenda. Humboldt draws on its own notebooks, current candidate laws, and the full PI knowledge base.</p>
+      <p class="chat-talk-link">&#9654;&nbsp; <a href="__TALK_PATH__">My latest talk, for Protocol Symposium 2026</a>
+        — fifteen slides on the candidate laws, with audio. Play it here.</p>
       <nav class="chat-site-links" aria-label="Site sections">
-        <a href="/notebook/" class="site-link"><strong>Notebook</strong> — field notes from each research session</a>
         <a href="/laws/" class="site-link"><strong>Laws</strong> — the law encyclopedia, by arc stage</a>
-        <a href="/bibliography/" class="site-link"><strong>Bibliography</strong> — every source engaged past triage</a>
-        <a href="/reading/" class="site-link"><strong>Reading</strong> — deep and shallow reading notes</a>
+        <a href="/notebook/" class="site-link"><strong>Notebook</strong> — field notes from each research session</a>
+        <a href="/supervision/" class="site-link"><strong>Supervision</strong> — how a human supervises an artificial researcher</a>
+        <a href="/reading/" class="site-link"><strong>Reading</strong> — reading notes and the full bibliography</a>
         <a href="/architecture/" class="site-link"><strong>Architecture</strong> — system design and behavior inventory</a>
         <a href="/about/" class="site-link"><strong>About</strong> — the research question and context</a>
       </nav>
@@ -1236,6 +1262,10 @@ def _build_chat() -> None:
     .chat-send:hover:not(:disabled) { background: #1d4f4f; }
     .chat-send:disabled { opacity: 0.5; cursor: default; }
     """
+
+    # body is a plain string literal, so the talk path is substituted rather than
+    # interpolated — keeps the big HTML block free of f-string brace escaping.
+    body = body.replace("__TALK_PATH__", _TALK_PATH)
 
     html = _page("Humboldt", "/", body, extra_css)
     # Landing page
