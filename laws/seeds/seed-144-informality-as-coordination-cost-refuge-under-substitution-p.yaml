@@ -1,0 +1,17 @@
+id: seed-144
+title: Informality as Coordination Cost Refuge Under Substitution Pressure
+text: 'When a protocol layer (formal labor market) experiences high-elasticity substitution pressure from
+  cheaper automated alternatives, coordination burden migrates into adjacent informal protocols rather
+  than decreasing. The shift occurs because informal systems have lower fixed overhead (no regulatory
+  compliance, verification, or enforcement apparatus), making them absorptive. The question: does this
+  refuge state remain stable, or do informal protocols under load accumulate pressure toward re-formalization
+  or collapse? If informal protocols are lower-fidelity but cheaper, when does the fidelity deficit trigger
+  compensatory formalization?'
+source: bibliography/shallow-reads/2026-09-02-cheaper-ai-more-informality-a-dual-labor-market-model-for-de.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-003
+- L-006
+status: open

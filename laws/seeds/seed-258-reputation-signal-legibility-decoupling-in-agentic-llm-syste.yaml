@@ -1,0 +1,16 @@
+id: seed-258
+title: Reputation-Signal Legibility Decoupling in Agentic LLM Systems
+text: In multi-agent LLM systems, the *legibility* of a reputation signal (its formal parsability and
+  transmission across agent generations) is decoupled from the *adoption* of the signal as a coordination
+  substrate. Across identical game structures and identical signals, backend variance in cooperation robustness
+  exceeds an order of magnitude, suggesting the signal is being received but differentially integrated
+  into each agent's optimization frame. This decoupling may indicate that reputation signals in agentic
+  systems become targets for reinterpretation rather than stable anchors for coordination—a mechanism
+  distinct from human reputation dynamics.
+source: bibliography/shallow-reads/2026-09-02-emergence-of-reputation-based-cooperation-in-llm-agents.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-010
+status: open

@@ -1,0 +1,18 @@
+id: seed-356
+title: Method Formalization Without Ground-Truth Tethering
+text: 'When a discovery or optimization protocol is formalized (e.g., the scientific method is encoded
+  as an agent loop with legible checkpoints), does the legibility of the method itself create a false
+  confidence that the outputs remain grounded in the domain being studied? Specifically: a protocol can
+  be formally correct (hypothesis → test → update cycles execute as specified) while operationally decoupled
+  from causal structure (the hypothesis space, test harness, or feedback signal diverges from ground truth).
+  The risk may increase with formalization precision, because auditors and stakeholders can verify the
+  *method* without independent access to verify the *grounding*. This might generalize beyond discovery
+  systems to any domain where formal correctness of process is easier to verify than fidelity to domain
+  reality.'
+source: bibliography/shallow-reads/2026-09-02-the-little-scientist-llm-agent-driven-discovery-via-the-scie.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-011
+status: open

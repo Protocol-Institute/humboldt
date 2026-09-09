@@ -5,8 +5,9 @@ Generates dist/ from source data in the humboldt repo:
   dist/index.html              — Chat (landing page)
   dist/chat/index.html         — Chat (alias)
   dist/notebook/index.html     — Lab notebook
-  dist/research/index.html     — Research status
-  dist/reading/index.html      — Deep reads
+  dist/laws/index.html         — Law encyclopedia (laws/L-NNN-*.yaml)
+  dist/bibliography/index.html — Canonical bibliography
+  dist/reading/index.html      — Deep + shallow reads
   dist/architecture/index.html — Architecture
   dist/about/index.html        — About
   dist/brain/index.html        — Behavior MDP graph (static, read-only)
@@ -21,6 +22,7 @@ Usage:
   python3 build.py --serve     # generate + serve on localhost:8765
 """
 
+import json
 import re
 import sys
 import shutil
@@ -50,20 +52,20 @@ _FAVICON = (
     "%3EH%3C/text%3E%3C/svg%3E"
 )
 
-# Defined here rather than beside _build_talk because PAGES references _TALK_PATH and
-# is evaluated at import.
+# Defined here rather than beside _build_talk because PAGES references _TALK_PATH on
+# main and is evaluated at import. Kept identical on both branches so the Phase 5
+# merge has nothing to reconcile here.
 _TALK_SLUG = "2026-09-23-new-nature"
 _TALK_PATH = f"/talks/{_TALK_SLUG}/"
 
 PAGES = [
     ("/",              "Chat"),
     ("/notebook/",     "Notebook"),
-    ("/research/",     "Research"),
+    ("/laws/",         "Laws"),
+    ("/bibliography/", "Bibliography"),
     ("/reading/",      "Reading"),
     ("/architecture/", "Architecture"),
-    # Seventh item. style.css tightened .nav-link padding when the redesign branch
-    # reached eight and the row wrapped; seven still fits one row. Drop this entry
-    # after 2026-09-23 if the talk stops being the thing worth pointing at.
+    ("/supervision/",  "Supervision"),
     (_TALK_PATH,       "Talk"),
     ("/about/",        "About"),
 ]
@@ -183,9 +185,9 @@ def _build_about() -> None:
 
       <h2>Current inventory</h2>
 
-      <p>As of 2026, Humboldt's active inventory includes three candidate laws under investigation and four falsification monitors for registered laws, following the Double Freytag arc model.</p>
+      <p>Humboldt's single research artifact is the <strong>law record</strong> — one YAML file per candidate law, moving through the Double Freytag arc (exploration → sensemaking → valley → heavy-lift → retrospective) as evidence accumulates. The encyclopedia publishes every stage, clearly badged; falsified laws stay published, labeled, as negative results.</p>
 
-      <p><a href="/research/">View research status →</a></p>
+      <p><a href="/laws/">Browse the law encyclopedia →</a></p>
 
       <h2>Lab notebook</h2>
 
@@ -197,7 +199,7 @@ def _build_about() -> None:
 
       <p>Humboldt operates through a documented set of <strong>behaviors</strong> — named, repeatable procedures for generating hypotheses, testing them, managing research attention, and running autonomously between sessions. It runs as a persistent daemon with a Discord presence in the Protocol Institute community.</p>
 
-      <p><a href="/architecture/">Read the architecture →</a> &nbsp;·&nbsp; <a href="/reading/">Deep reading notes →</a></p>
+      <p><a href="/architecture/">Read the architecture →</a> &nbsp;·&nbsp; <a href="/reading/">Reading notes →</a> &nbsp;·&nbsp; <a href="/bibliography/">Bibliography →</a></p>
 
       <h2>Status</h2>
 
@@ -209,6 +211,135 @@ def _build_about() -> None:
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(_page("About", "/about/", body))
     print("  About → dist/about/index.html")
+
+
+# ── Supervision protocol ──────────────────────────────────────────────────────
+
+def _build_supervision() -> None:
+    """The supervisor's operating protocol — cadence, surfaces, and the decisions
+    that cannot be delegated.
+
+    Deliberately generic: every identifier on this page is a placeholder
+    (L-NNN, q-NNNN, seed-NNN, @handle). It documents the *shape* of supervising an
+    artificial researcher, not the current state of this one — that lives on
+    /laws/, /notebook/ and the private console. Keep it that way when editing:
+    the moment it carries real pending items it becomes a status page that goes
+    stale, instead of a protocol that stays true.
+    """
+    body = """\
+    <div class="page-header">
+      <h1>Supervision Protocol</h1>
+      <p class="page-tagline">How a human supervises an artificial researcher — what runs unattended, what needs a decision, and when. Written for one supervisor of one researcher; offered as a pattern for anyone building the same thing.</p>
+    </div>
+
+    <div class="about-body">
+
+      <p>Humboldt runs a research funnel largely on its own: it gathers material, triages it, reads at two depths, induces candidate laws, tests them against their own promotion conditions, and publishes what survives. None of that requires a human in the loop.</p>
+
+      <p>What <em>does</em> require a human is narrow, and it is worth naming precisely — an artificial researcher that needs constant attention is not autonomous, and one that needs none is not supervised. The supervisor is a <strong>PhD advisor</strong>, not an operator: setting direction, ruling on what counts as knowledge, and reading the instruments — not running the machinery.</p>
+
+      <p class="note-block">Every identifier below is a placeholder. <code>L-NNN</code> is a law, <code>q-NNNN</code> a queue entry, <code>seed-NNN</code> a research fragment, <code>@handle</code> a community member. This page describes the protocol, not today's state.</p>
+
+      <h2>The division of labour</h2>
+
+      <table class="sup-table two-col">
+        <tr><th>Runs unattended</th><th>Needs the supervisor</th></tr>
+        <tr>
+          <td>Intake, triage, shallow reads, induction sweeps, assessments, publication, falsification monitoring</td>
+          <td>What counts as a law · identity and voice · anything irreversible or externally visible · resolving a contested mechanism</td>
+        </tr>
+      </table>
+
+      <h2>Cadence</h2>
+
+      <p>Four rhythms, in descending frequency. The weekly beat is the real one; the daily glance exists only to catch a stopped machine early.</p>
+
+      <h3>Daily — about two minutes</h3>
+      <ul>
+        <li><strong>Open the console dashboard.</strong> Four things, all visible at once: is the daemon alive, is it paused, are corpus reads available, and is spend tracking under the daily cap.</li>
+        <li>If all four are green, stop. There is nothing else to do daily, and looking for work here is how supervision becomes operation.</li>
+      </ul>
+
+      <h3>Weekly — about twenty minutes</h3>
+      <ul>
+        <li><strong>Read the analytics report.</strong> Law events this week against the trailing four; funnel throughput; queue depths and their <em>trend</em>, which matters more than their level.</li>
+        <li><strong>Work the approval queue.</strong> Approve, edit-then-approve, or reject each pending entry with a one-line rationale. Nothing the researcher drafts about its own behaviour runs before this step.</li>
+        <li><strong>Scan the flags.</strong> A <em>prune candidate</em> is a behaviour that has stopped earning its place. A <em>split candidate</em> is one consuming an outsized share, or a queue growing week over week. A <em>stalled law</em> is one with no history event in six weeks — usually a prompt to assess it, occasionally a prompt to let it go.</li>
+      </ul>
+
+      <h3>Per research session</h3>
+      <ul>
+        <li><strong>Open:</strong> read the last two notebook entries and the automated-activity queue — what happened while you were away — then pick the session's focus from the current arc position rather than from a backlog.</li>
+        <li><strong>Close:</strong> notebook entry, agenda update, development log, commit, push. The log entry is not optional on short or inconclusive sessions; those are the ones whose reasoning is hardest to reconstruct later.</li>
+      </ul>
+
+      <h3>Event-driven — when the system asks</h3>
+      <ul>
+        <li><strong>A hard brief arrives.</strong> Some proposals cannot be auto-drafted: they change what counts as evidence, touch identity, spend differently, or cannot be undone. These arrive as a structured brief naming the specific questions only a supervisor can answer. Answering the questions is usually enough — the request then re-enters as a routine one.</li>
+        <li><strong>A law is created without a real test.</strong> When induction omits a law's promotion or challenge condition, a placeholder is written and flagged. Rewrite it before the next assessment, or the assessment grades boilerplate.</li>
+        <li><strong>A budget threshold trips.</strong> Metered dependencies warn while budget remains, not after it is gone. Treat the warning as the event.</li>
+        <li><strong>Something wants to go outside.</strong> Publishing, announcing, merging, deploying. See below.</li>
+      </ul>
+
+      <h2>The decisions that cannot be delegated</h2>
+
+      <p>Four kinds. Everything else is machinery.</p>
+
+      <table class="sup-table">
+        <tr><th>Decision</th><th>Why it stays human</th><th>Looks like</th></tr>
+        <tr><td>What counts as a law</td><td>The epistemic bar is the research programme. Move it and every record silently re-grades.</td><td>Rewriting <code>L-NNN</code>'s promotion condition; ruling on whether an example is genuinely independent evidence</td></tr>
+        <tr><td>Identity and voice</td><td>A researcher that edits its own persona is no longer the same researcher between sessions.</td><td>Changes to identity, method, or lineage documents</td></tr>
+        <tr><td>Irreversible or outward-facing acts</td><td>Reversible mistakes are learning. Irreversible ones are the supervisor's to authorise.</td><td>Merging, publishing to the live site, announcing a result, deleting a record</td></tr>
+        <tr><td>Contested mechanisms</td><td>When two accounts explain the same evidence, choosing the discriminating test is the research act itself.</td><td>Deciding what case would separate rival explanations for <code>L-NNN</code></td></tr>
+      </table>
+
+      <h2>Where each thing lives</h2>
+
+      <table class="sup-table">
+        <tr><th>Surface</th><th>Carries</th><th>Reach it by</th></tr>
+        <tr><td>Public site</td><td>Published output — laws, notebook, reading, bibliography. Read-only.</td><td>This site</td></tr>
+        <tr><td>Supervisor console</td><td>Dashboard, law editor, behaviour graph, approval queue, analytics. Read–write.</td><td>Bound to localhost; reached over an SSH tunnel to the research server</td></tr>
+        <tr><td>Command line</td><td>Everything the console does, plus the engines themselves</td><td>A session on the server or a local checkout</td></tr>
+        <tr><td>Community channel</td><td>Conversation, and law events when they occur</td><td>The Protocol Institute Discord</td></tr>
+        <tr><td>Version control</td><td>The audit trail. Every automated write is a commit.</td><td>The public repository</td></tr>
+      </table>
+
+      <p>The console is deliberately not on this site. Published output is for everyone; the controls are for one person, and putting them behind a public URL would mean building an authentication system to protect something an SSH tunnel already protects.</p>
+
+      <h2>Standing rules</h2>
+
+      <ul>
+        <li><strong>Flags are proposals, never actions.</strong> The researcher can propose changing how it works. It cannot make the change. That asymmetry is the whole safety model.</li>
+        <li><strong>Approval and application are separate.</strong> Approving records a judgement; applying enacts it. Keeping them apart leaves room to review a judgement before it takes effect.</li>
+        <li><strong>Every request names what it relieves.</strong> A proposal that adds capability without connecting to existing work is rejected by default. Unconnected additions are what stub graveyards are made of.</li>
+        <li><strong>Pausing is not stopping.</strong> A paused researcher keeps its state and stops acting outward. Anything that can be observed from outside is gated; anything internal continues.</li>
+        <li><strong>An empty result is never a silent one.</strong> When a capability is unavailable, the researcher says so rather than returning nothing — a silent zero is indistinguishable from a finding of none.</li>
+      </ul>
+
+      <p class="note-block">This protocol is itself under revision, and revisions are logged like everything else. If it describes a supervision burden that has grown rather than shrunk, that is a finding about the system, not a failure of the document.</p>
+
+    </div>"""
+
+    extra_css = """
+    .note-block { background: #f5f5f2; border-left: 3px solid #2A6B6B;
+      padding: 0.9rem 1.15rem; margin: 1.6rem 0; font-size: 0.92rem; color: #555; }
+    .note-block code { background: #e8e8e2; }
+    .sup-table { margin: 1.2rem 0 2rem; font-size: 0.88rem; }
+    .sup-table th { border-bottom: 2px solid #2A6B6B; padding: 0.4rem 1rem 0.4rem 0;
+      color: #2A6B6B; font-weight: 500; vertical-align: bottom; }
+    .sup-table td { padding: 0.55rem 1rem 0.55rem 0; vertical-align: top; line-height: 1.5; }
+    .sup-table tr td:first-child { font-weight: 500; color: #1A1A1A; width: 26%; }
+    /* The 26% label column suits the three-column tables (term / why / example);
+       in the two-column one both sides are prose and need an even split. */
+    .sup-table.two-col tr td:first-child { width: 50%; font-weight: 400; color: #1A1A1A; }
+    .sup-table.two-col td { padding-right: 1.5rem; }
+    .about-body h3 { color: #2A6B6B; margin-top: 1.7rem; }
+    """
+
+    out = _DIST / "supervision" / "index.html"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(_page("Supervision Protocol", "/supervision/", body, extra_css=extra_css))
+    print("  Supervision → dist/supervision/index.html")
 
 
 # ── Notebook ──────────────────────────────────────────────────────────────────
@@ -308,73 +439,36 @@ def _build_notebook() -> None:
     print(f"  Notebook → dist/notebook/index.html ({len(nb_files)} entries)")
 
 
-# ── Research ──────────────────────────────────────────────────────────────────
+# ── Laws (encyclopedia) ─────────────────────────────────────────────────────────
 
-def _build_research() -> None:
+def _build_laws() -> None:
     import sys as _sys
     if str(_ROOT) not in _sys.path:
         _sys.path.insert(0, str(_ROOT))
-    from agent.publish_research import (
-        _build_svg, _phase_rows, _phase_header, _empty, _all_items,
-        _curiosity_carousel,
-        _CSS as _RCSS, _JS as _RJS,
-    )
+    from agent.publish_laws import build_laws_body, _CSS as _LCSS, _JS as _LJS
 
-    all_items = _all_items()
-    svg_html  = _build_svg(all_items)
-    total     = len(all_items)
+    body, total, stage_counts = build_laws_body()
 
-    cur_n, cur_carousel = _curiosity_carousel()
-    sns_n, sns_r = _phase_rows("h",       "status",          "active", name_key="id")
-    val_n, val_r = _phase_rows("cl",      "research_status", "active")
-    hlt_n, hlt_r = _phase_rows("theories","research_status", "active")
-    ret_n, ret_r = _phase_rows("f",       "status",          "active")
-
-    from datetime import datetime as _dt, timezone as _tz
-    now = _dt.now(_tz.utc).strftime("%Y-%m-%d")
-
-    body = f"""\
-    <div class="page-header">
-      <h1>Research Status</h1>
-      <p class="page-tagline">Research inventory by arc phase — the Double Freytag model of inquiry (<em>Tempo</em>, Rao 2011). Hover a dot for details. See also the <a href="/brain/">behavior graph</a> — the Markov process that governs how Humboldt moves between research behaviors.</p>
-    </div>
-
-{svg_html}
-
-    <div class="legend">
-      <div class="legend-item"><span class="dot dot-green"></span> Active / ongoing</div>
-      <div class="legend-item"><span class="dot dot-yellow"></span> Stagnant or superseded</div>
-      <div class="legend-item"><span class="dot dot-red"></span> Blocked or refuted</div>
-    </div>
-
-    {cur_carousel}
-
-    <table class="research-table">
-      <thead>
-        <tr><th style="width:24px"></th><th style="width:70px">ID</th>
-        <th style="width:220px">Name / Type</th><th>Description</th></tr>
-      </thead>
-      <tbody>
-        {_phase_header("Sensemaking",   "Hypotheses — post-cheap-trick; building toward a falsifiable claim", sns_n)}
-        {sns_r}
-        {_phase_header("Valley",        "Candidate Laws — evidence accumulation; no external validation yet", val_n)}
-        {val_r}
-        {_phase_header("Heavy Lift",    "Theories — synthesis committed; approaching separation event", hlt_n)}
-        {hlt_r}
-        {_phase_header("Retrospective", "Falsification Monitors — registered; monitored for counterexamples", ret_n)}
-        {ret_r}
-      </tbody>
-    </table>
-
-    <p class="updated-note">{total} items across all phases. Generated {now}.
-    Source: <a href="https://github.com/Protocol-Institute/humboldt/tree/main/research"
-    target="_blank" rel="noopener">research/ on GitHub</a>.</p>"""
-
-    out = _DIST / "research" / "index.html"
+    out = _DIST / "laws" / "index.html"
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(_page("Research Status", "/research/", body,
-                         extra_css=_RCSS, extra_js=_RJS))
-    print(f"  Research → dist/research/index.html ({total} items)")
+    out.write_text(_page("Law Encyclopedia", "/laws/", body, extra_css=_LCSS, extra_js=_LJS))
+    print(f"  Laws → dist/laws/index.html ({total} laws: {stage_counts})")
+
+
+# ── Bibliography ──────────────────────────────────────────────────────────────
+
+def _build_bibliography() -> None:
+    import sys as _sys
+    if str(_ROOT) not in _sys.path:
+        _sys.path.insert(0, str(_ROOT))
+    from agent.publish_bibliography import build_bibliography_body, _CSS as _BCSS, _JS as _BJS
+
+    body, total = build_bibliography_body()
+
+    out = _DIST / "bibliography" / "index.html"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(_page("Bibliography", "/bibliography/", body, extra_css=_BCSS, extra_js=_BJS))
+    print(f"  Bibliography → dist/bibliography/index.html ({total} entries)")
 
 
 # ── Reading ───────────────────────────────────────────────────────────────────
@@ -383,13 +477,13 @@ def _build_reading() -> None:
     import sys as _sys
     if str(_ROOT) not in _sys.path:
         _sys.path.insert(0, str(_ROOT))
-    from agent.publish_reading import _render_note, _render_card, _CSS as _RCSS
+    from agent.publish_reading import (
+        _render_note, _render_card, build_shallow_section,
+        _CSS as _RCSS, _SHALLOW_CSS,
+    )
 
     notes_dir = _ROOT / "bibliography" / "notes"
     note_paths = sorted(p for p in notes_dir.glob("*.md") if not p.name.startswith("_"))
-    if not note_paths:
-        print("  Reading → no notes found")
-        return
 
     notes = [_render_note(p) for p in note_paths]
     notes.sort(key=lambda n: n["date_read"] or "0000")
@@ -410,23 +504,27 @@ def _build_reading() -> None:
         toc_items += "</li>\n"
 
     cards = "\n".join(_render_card(note, i) for i, note in enumerate(notes))
+    shallow_body, shallow_n = build_shallow_section()
 
     body = f"""\
     <div class="page-header">
-      <h1>Deep Reading</h1>
-      <p class="page-tagline">Notes from behavior-t5m — sources that changed how Humboldt thinks, read from the actual text, never from training memory.</p>
+      <h1>Reading</h1>
+      <p class="page-tagline">Sources that shaped Humboldt's thinking. Deep reads work from the actual
+      text, never from training memory; shallow reads are a one-paragraph synthesis written at triage.
+      See also the full <a href="/bibliography/">bibliography</a>.</p>
     </div>
     <div class="reading-toc">
-      <h3>Sources ({len(notes)} completed)</h3>
+      <h3>Deep reads ({len(notes)} completed)</h3>
       <ul>
 {toc_items}      </ul>
     </div>
-{cards}"""
+{cards}
+{shallow_body}"""
 
     out = _DIST / "reading" / "index.html"
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(_page("Deep Reading", "/reading/", body, extra_css=_RCSS))
-    print(f"  Reading → dist/reading/index.html ({len(notes)} notes)")
+    out.write_text(_page("Reading", "/reading/", body, extra_css=_RCSS + _SHALLOW_CSS))
+    print(f"  Reading → dist/reading/index.html ({len(notes)} deep, {shallow_n} shallow)")
 
 
 # ── Architecture ──────────────────────────────────────────────────────────────
@@ -598,6 +696,10 @@ def _build_talk() -> None:
     opened   = meta.get("review_opened", "")
     chan_url = meta.get("review_channel_url", "")
 
+    # Defined before the slide loop: the per-slide jump buttons in the transcript are
+    # only rendered when audio exists.
+    audio_dir = talk_dir / "audio"
+
     # ── TOC + slide sections ──
     toc_rows, sections = [], []
     total_words = 0
@@ -618,6 +720,8 @@ def _build_talk() -> None:
             f'<td class="toc-law">{law_cell}</td></tr>'
         )
 
+        jump = (f'<button class="slide-jump" data-slide="{sid}" '
+                f'title="Play from slide {sid}">&#9654;</button>' ) if audio_dir.exists() else ""
         bullets = "".join(f"<li>{b}</li>" for b in s.get("bullets", []))
         narr_html = md_lib.markdown(narration) if narration else "<p><em>No narration yet.</em></p>"
 
@@ -638,7 +742,7 @@ def _build_talk() -> None:
         <span class="slide-num">Slide {sid}</span>
         {law_cell}
         <span class="slide-words"{over}>{words} words / {budget} budgeted</span>
-        <a href="#slide-{sid}" class="slide-permalink" title="Permalink to slide {sid}">&sect;</a>
+        {jump}<a href="#slide-{sid}" class="slide-permalink" title="Permalink to slide {sid}">&sect;</a>
       </div>
       <h2>{s_title}</h2>
       <div class="slide-projected">
@@ -649,6 +753,56 @@ def _build_talk() -> None:
 {narr_html}
       </div>
 {note_html}    </section>""")
+
+    # ── Player: slide deck + per-slide audio ──
+    # Present only when `talk voice` has produced audio. The page is meant to work as a
+    # text document first (plan §5.6 is text-first), so everything below degrades to the
+    # transcript alone when audio/ is absent.
+    timing = {}
+    tpath = talk_dir / "timing.json"
+    if tpath.exists():
+        timing = {t["id"]: t.get("duration_s", 0)
+                  for t in (json.loads(tpath.read_text()).get("slides") or [])}
+
+    deck = []
+    for s_ in slides:
+        sid = str(s_.get("id", "")).zfill(2)
+        mp3 = audio_dir / f"slide-{sid}.mp3"
+        deck.append({
+            "id": sid,
+            "title": s_.get("title", ""),
+            "law": s_.get("law_id") or "",
+            "bullets": list(s_.get("bullets") or []),
+            "audio": f"audio/slide-{sid}.mp3" if mp3.exists() else None,
+            "dur": round(float(timing.get(sid, 0)), 1),
+        })
+    has_audio = any(d["audio"] for d in deck)
+    total_dur = int(sum(d["dur"] for d in deck))
+
+    player = ""
+    if has_audio:
+        player = f"""
+    <div class="talk-player" id="talk-player">
+      <div class="stage" id="stage">
+        <div class="stage-inner">
+          <div class="stage-meta">
+            <span id="stage-num">Slide 01</span>
+            <span id="stage-law"></span>
+          </div>
+          <h2 id="stage-title"></h2>
+          <ul id="stage-bullets"></ul>
+        </div>
+      </div>
+      <div class="player-bar">
+        <button id="pp" class="pbtn pbtn-main" aria-label="Play talk">&#9654;&nbsp; Play talk</button>
+        <button id="prev" class="pbtn" aria-label="Previous slide">&#9664;</button>
+        <button id="next" class="pbtn" aria-label="Next slide">&#9654;</button>
+        <span class="ptime"><span id="elapsed">0:00</span> / {total_dur // 60}:{total_dur % 60:02d}</span>
+        <div class="pprogress"><div class="pprogress-fill" id="pfill"></div></div>
+        <button id="fs" class="pbtn" aria-label="Full screen">&#9974;</button>
+      </div>
+      <audio id="talk-audio" preload="none"></audio>
+    </div>"""
 
     est_s   = int(total_words / wpm * 60) if wpm else 0
     est_disp = f"{est_s // 60}:{est_s % 60:02d}"
@@ -676,6 +830,7 @@ def _build_talk() -> None:
       <h1>{title}</h1>
       <p class="page-tagline">{event} &nbsp;·&nbsp; {date_h} &nbsp;·&nbsp; presented by Humboldt</p>
     </div>
+{player}
 {banner}
     <div class="talk-meta">
       <span><strong>{len(slides)}</strong> slides</span>
@@ -692,6 +847,46 @@ def _build_talk() -> None:
 {chr(10).join(sections)}"""
 
     extra_css = """
+    /* ── Player ── */
+    .talk-player { margin: 0 0 2.5rem; }
+    .stage { background: #23262b; border-radius: 5px; aspect-ratio: 16 / 9;
+      display: flex; align-items: center; overflow: hidden; }
+    .stage-inner { padding: clamp(1.2rem, 3.2vw, 2.6rem); width: 100%; }
+    .stage-meta { display: flex; gap: 0.7rem; align-items: baseline; font-size: 0.7rem;
+      letter-spacing: 0.1em; text-transform: uppercase; color: #7f8790;
+      margin-bottom: 0.7rem; }
+    .stage-meta .law-tag { background: #2f343a; color: #8fb8b8; }
+    #stage-title { font-size: clamp(1.15rem, 3.1vw, 2.1rem); color: #FAFAF7;
+      margin: 0 0 clamp(0.7rem, 1.8vw, 1.3rem); line-height: 1.2; }
+    #stage-bullets { margin: 0; padding-left: 1.2rem; }
+    #stage-bullets li { color: #d8dade; max-width: none; margin-bottom: 0.5rem;
+      font-size: clamp(0.8rem, 1.65vw, 1.05rem); line-height: 1.45; }
+    #stage-bullets li::marker { color: #6f7780; }
+
+    .player-bar { display: flex; align-items: center; gap: 0.6rem; margin-top: 0.85rem;
+      flex-wrap: wrap; }
+    .pbtn { font-family: inherit; font-size: 0.82rem; color: #444; background: #f0f0ec;
+      border: 1px solid #e0e0da; border-radius: 3px; padding: 0.42rem 0.7rem;
+      cursor: pointer; transition: background 0.15s, color 0.15s; line-height: 1; }
+    .pbtn:hover { background: #e6ece9; color: #2A6B6B; }
+    .pbtn-main { background: #2A6B6B; border-color: #2A6B6B; color: #FAFAF7;
+      font-weight: 500; min-width: 8.5rem; }
+    .pbtn-main:hover { background: #1d4f4f; color: #FAFAF7; }
+    .ptime { font-size: 0.78rem; color: #888; font-variant-numeric: tabular-nums;
+      white-space: nowrap; }
+    .pprogress { flex: 1 1 6rem; height: 3px; background: #e8e8e4; border-radius: 2px;
+      overflow: hidden; min-width: 4rem; }
+    .pprogress-fill { height: 100%; width: 0; background: #2A6B6B; transition: width 0.25s linear; }
+
+    .stage:fullscreen { border-radius: 0; aspect-ratio: auto; height: 100%; }
+    .stage:fullscreen #stage-title { font-size: clamp(2rem, 5.5vw, 4.2rem); }
+    .stage:fullscreen #stage-bullets li { font-size: clamp(1rem, 2.6vw, 2rem); }
+    .stage:fullscreen .stage-meta { font-size: clamp(0.8rem, 1.4vw, 1.1rem); }
+
+    .slide-jump { background: none; border: none; cursor: pointer; padding: 0;
+      color: #ccc; font-size: 0.8rem; font-family: inherit; }
+    .slide-jump:hover { color: #2A6B6B; }
+
     .talk-review { background: #f4f7f4; border-left: 3px solid #2A6B6B; padding: 1.1rem 1.4rem;
       margin-bottom: 2rem; border-radius: 0 3px 3px 0; }
     .talk-review p { font-size: 0.94rem; margin-bottom: 0.7rem; }
@@ -749,14 +944,130 @@ def _build_talk() -> None:
     }
     """
 
+    # Player behaviour. Audio advances the deck: each slide's clip plays, then `ended`
+    # moves to the next and plays it. The browser's autoplay gate is satisfied because
+    # the first play() comes from the operator's click, and that user activation carries
+    # through the subsequent programmatic plays.
+    extra_js = ""
+    if has_audio:
+        extra_js = "var DECK = " + json.dumps(deck) + ";\n" + """
+    (function () {
+      var i = 0, playing = false;   // kept in sync by the play/pause listeners below
+      var au = document.getElementById('talk-audio');
+      var pp = document.getElementById('pp');
+      var elapsedEl = document.getElementById('elapsed');
+      var fill = document.getElementById('pfill');
+      var before = DECK.map(function (_, n) {
+        return DECK.slice(0, n).reduce(function (a, d) { return a + d.dur; }, 0);
+      });
+      var total = DECK.reduce(function (a, d) { return a + d.dur; }, 0);
+
+      function fmt(t) {
+        t = Math.max(0, Math.round(t));
+        return Math.floor(t / 60) + ':' + ('0' + (t % 60)).slice(-2);
+      }
+
+      function render() {
+        var d = DECK[i];
+        document.getElementById('stage-num').textContent = 'Slide ' + d.id;
+        document.getElementById('stage-law').innerHTML =
+          d.law ? '<span class="law-tag">' + d.law + '</span>' : '';
+        document.getElementById('stage-title').textContent = d.title;
+        var ul = document.getElementById('stage-bullets');
+        ul.innerHTML = '';
+        d.bullets.forEach(function (b) {
+          var li = document.createElement('li');
+          li.textContent = b;
+          ul.appendChild(li);
+        });
+      }
+
+      function tick() {
+        var cur = before[i] + (au.currentTime || 0);
+        elapsedEl.textContent = fmt(cur);
+        fill.style.width = (total ? (cur / total * 100) : 0) + '%';
+      }
+
+      function load(n, autoplay) {
+        // `playing` mirrors the element; read it from there rather than tracking it.
+        i = Math.max(0, Math.min(DECK.length - 1, n));
+        render();
+        if (!DECK[i].audio) return;
+        au.src = DECK[i].audio;
+        if (autoplay) { au.play().catch(function () { setPlaying(false); }); }
+        tick();
+      }
+
+      function setPlaying(on) {
+        playing = on;
+        pp.innerHTML = on ? '&#10073;&#10073;&nbsp; Pause' : '&#9654;&nbsp; Play talk';
+        pp.setAttribute('aria-label', on ? 'Pause talk' : 'Play talk');
+      }
+
+      // Label is driven by the element's own play/pause events, never by the play()
+      // promise. That promise can stay pending indefinitely while a clip buffers (and
+      // does exactly that when no audio output device is available), which would leave
+      // the button reading 'Play' after a click that did in fact start playback.
+      au.addEventListener('play',  function () { setPlaying(true); });
+      au.addEventListener('pause', function () { setPlaying(false); });
+
+      pp.addEventListener('click', function () {
+        if (!au.paused) { au.pause(); return; }
+        if (!au.src) load(i, false);
+        au.play().catch(function () { setPlaying(false); });
+      });
+      document.getElementById('next').addEventListener('click', function () { load(i + 1, playing); });
+      document.getElementById('prev').addEventListener('click', function () { load(i - 1, playing); });
+
+      au.addEventListener('timeupdate', tick);
+      au.addEventListener('ended', function () {
+        if (i < DECK.length - 1) { load(i + 1, true); }
+        else { setPlaying(false); fill.style.width = '100%'; }
+      });
+
+      document.getElementById('fs').addEventListener('click', function () {
+        var st = document.getElementById('stage');
+        if (document.fullscreenElement) { document.exitFullscreen(); }
+        else if (st.requestFullscreen) { st.requestFullscreen(); }
+      });
+
+      // Jump the player to a slide from the transcript below.
+      document.querySelectorAll('.slide-jump').forEach(function (b) {
+        b.addEventListener('click', function () {
+          var n = DECK.findIndex(function (d) { return d.id === b.dataset.slide; });
+          if (n < 0) return;
+          load(n, true);
+          setPlaying(true);
+          document.getElementById('talk-player').scrollIntoView({ block: 'start' });
+        });
+      });
+
+      // Space toggles play, arrows step — but not while the reader is in a form field.
+      document.addEventListener('keydown', function (e) {
+        var tag = (e.target.tagName || '').toLowerCase();
+        if (tag === 'input' || tag === 'textarea') return;
+        if (e.code === 'Space') { e.preventDefault(); pp.click(); }
+        if (e.code === 'ArrowRight') { load(i + 1, playing); }
+        if (e.code === 'ArrowLeft') { load(i - 1, playing); }
+      });
+
+      render();
+    })();
+    """
+
     out = _DIST / "talks" / _TALK_SLUG / "index.html"
     out.parent.mkdir(parents=True, exist_ok=True)
+    if has_audio:
+        dest_audio = out.parent / "audio"
+        dest_audio.mkdir(exist_ok=True)
+        for mp3 in sorted(audio_dir.glob("*.mp3")):
+            shutil.copy2(mp3, dest_audio / mp3.name)
     desc = (
         f"{event}, {date_h}. The full text of a talk by Humboldt, the Protocol "
         "Institute's artificial researcher, on its own candidate laws of protocolized "
         "systems — published before delivery and under public review."
     )
-    out.write_text(_page(title, _TALK_PATH, body, extra_css, description=desc))
+    out.write_text(_page(title, _TALK_PATH, body, extra_css, extra_js, description=desc))
     print(f"  Talk → dist/talks/{_TALK_SLUG}/index.html "
           f"({len(slides)} slides, {total_words} words, ~{est_disp})")
 
@@ -777,15 +1088,18 @@ def _build_chat() -> None:
     body = """\
     <div class="page-header">
       <h1>Humboldt</h1>
-      <p class="page-tagline">An artificial researcher investigating the structural laws of protocolized and artificial systems.</p>
+      <p class="page-tagline">An artificial researcher investigating the structural laws of protocolized
+      and artificial systems. Ask it about any law in its inventory — what supports it, what would break it,
+      and which ones it is least sure of.</p>
     </div>
 
     <div class="chat-intro">
       <p>Ask about active candidate laws, recent research thinking, the Protocol Institute corpus, or anything in the New Nature agenda. Humboldt draws on its own notebooks, current candidate laws, and the full PI knowledge base.</p>
       <nav class="chat-site-links" aria-label="Site sections">
         <a href="/notebook/" class="site-link"><strong>Notebook</strong> — field notes from each research session</a>
-        <a href="/research/" class="site-link"><strong>Research</strong> — candidate laws and arc inventory</a>
-        <a href="/reading/" class="site-link"><strong>Reading</strong> — deep reading notes from source texts</a>
+        <a href="/laws/" class="site-link"><strong>Laws</strong> — the law encyclopedia, by arc stage</a>
+        <a href="/bibliography/" class="site-link"><strong>Bibliography</strong> — every source engaged past triage</a>
+        <a href="/reading/" class="site-link"><strong>Reading</strong> — deep and shallow reading notes</a>
         <a href="/architecture/" class="site-link"><strong>Architecture</strong> — system design and behavior inventory</a>
         <a href="/about/" class="site-link"><strong>About</strong> — the research question and context</a>
       </nav>
@@ -844,6 +1158,17 @@ def _build_chat() -> None:
             thinking.textContent = "Error: " + data.error;
           } else {
             thinking.textContent = data.answer;
+            // Corpus retrieval can be offline (monthly Pinecone read quota).
+            // Say so in the UI — an ungrounded answer must never look like a
+            // normally-sourced one.
+            if (data.corpusOffline) {
+              const notice = document.createElement("div");
+              notice.className = "corpus-notice";
+              notice.textContent = "Corpus retrieval is temporarily offline — "
+                + "this answer draws only on Humboldt's own law records and notebook, "
+                + "without source lookup.";
+              thinking.appendChild(notice);
+            }
             history.push({ role: "user",      content: query       });
             history.push({ role: "assistant",  content: data.answer });
             if (history.length > 16) history = history.slice(-16);
@@ -864,6 +1189,11 @@ def _build_chat() -> None:
     </script>"""
 
     extra_css = """
+    .corpus-notice {
+      margin-top: 0.75rem; padding: 0.5rem 0.75rem;
+      border-left: 3px solid #b5892a; background: #fdf8ec;
+      font-size: 0.82rem; line-height: 1.45; color: #6b5518;
+    }
     .chat-intro { max-width: 680px; margin-bottom: 2rem; }
     .chat-intro p { margin-bottom: 1rem; }
     .chat-site-links {
@@ -994,48 +1324,26 @@ def _assemble_system_prompt() -> str:
     lineage_raw = (_ROOT / "LINEAGE.md").read_text() if (_ROOT / "LINEAGE.md").exists() else ""
     lineage = (lineage_raw[:1200].rsplit("\n", 1)[0] + "\n…") if len(lineage_raw) > 1200 else lineage_raw
 
-    # CL inventory
-    cl_blocks = []
-    for p in sorted((_ROOT / "research" / "cl").glob("CL-*.yaml")):
-        try:
-            item = yaml.safe_load(p.read_text())
-            if not item: continue
-            lid       = item.get("id", "")
-            title     = item.get("title", "")
-            statement = (item.get("statement") or "").strip().replace("\n", " ")
-            confidence = item.get("confidence", "candidate")
-            cl_blocks.append(f"**{lid}** ({confidence}): {title}\n  {statement[:300]}")
-        except Exception:
-            pass
-    cl_str = "\n\n".join(cl_blocks) if cl_blocks else "(none yet)"
+    # Law inventory (laws/L-NNN-*.yaml), grouped by Double Freytag stage.
+    import sys as _sys
+    if str(_ROOT) not in _sys.path:
+        _sys.path.insert(0, str(_ROOT))
+    from agent import laws as laws_mod
+    from agent.publish_laws import STAGE_LABEL, STAGES
 
-    # F inventory
-    f_lines = []
-    for p in sorted((_ROOT / "research" / "f").glob("F-*.yaml")):
-        try:
-            item = yaml.safe_load(p.read_text())
-            if not item: continue
-            f_lines.append(f"- {item.get('id')}: {item.get('title', '')}")
-        except Exception:
-            pass
-
-    # T inventory (established / heavy-lift)
-    t_lines = []
-    for p in sorted((_ROOT / "research" / "theories").glob("T-*.yaml")):
-        try:
-            item = yaml.safe_load(p.read_text())
-            if not item: continue
-            statement = (item.get("statement") or "").strip().replace("\n", " ")[:200]
-            t_lines.append(f"- {item.get('id')}: {item.get('name', '')} — {statement}")
-        except Exception:
-            pass
-
-    inventory_parts = [f"**Candidate laws (valley phase):**\n\n{cl_str}"]
-    if f_lines:
-        inventory_parts.append("**Falsification monitors:**\n" + "\n".join(f_lines))
-    if t_lines:
-        inventory_parts.append("**Registered laws (heavy lift / retrospective):**\n" + "\n".join(t_lines))
-    inventory_str = "\n\n".join(inventory_parts)
+    all_laws = laws_mod.load_all()
+    inventory_parts = []
+    for stage in STAGES:
+        stage_laws = [l for l in all_laws if l.get("stage") == stage]
+        if not stage_laws:
+            continue
+        lines = []
+        for law in stage_laws:
+            statement = (law.get("statement") or "").strip().replace("\n", " ")
+            flag = "" if law.get("status") == "active" else f" [{law.get('status')}]"
+            lines.append(f"**{law['id']}** ({law.get('confidence')}){flag}: {law.get('title', '')}\n  {statement[:300]}")
+        inventory_parts.append(f"**{STAGE_LABEL[stage]}:**\n\n" + "\n\n".join(lines))
+    inventory_str = "\n\n".join(inventory_parts) if inventory_parts else "(no laws recorded yet)"
 
     # Recent notebook
     nb_entries = sorted((_ROOT / "notebook").glob("????-??-??.md"), reverse=True)
@@ -1054,7 +1362,7 @@ def _assemble_system_prompt() -> str:
 
 ---
 
-## Research inventory
+## Law inventory
 
 {inventory_str}
 
@@ -1121,11 +1429,20 @@ def _inject_system_prompt() -> None:
 # ── Main ──────────────────────────────────────────────────────────────────────
 
 def build() -> None:
+    # Clear dist/ first. It is gitignored, so it survives branch switches — which means
+    # a build on one branch left its pages behind for the next branch's deploy to ship.
+    # That silently put redesign-branch pages (/laws/, /bibliography/, /supervision/)
+    # onto production alongside main's, orphaned from main's nav, in Sept 2026. Deploys
+    # must be a function of the checkout alone.
+    if _DIST.exists():
+        shutil.rmtree(_DIST)
     _DIST.mkdir(parents=True, exist_ok=True)
     print("Building humboldt-site...")
     _build_about()
+    _build_supervision()
     _build_notebook()
-    _build_research()
+    _build_laws()
+    _build_bibliography()
     _build_reading()
     _build_architecture()
     _build_talk()

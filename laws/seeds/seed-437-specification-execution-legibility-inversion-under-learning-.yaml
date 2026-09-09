@@ -1,0 +1,18 @@
+id: seed-437
+title: Specification-Execution Legibility Inversion Under Learning-Based Protocol Enforcement
+text: 'When a formal protocol specification (e.g., STL, temporal logic) is enforced via a learned model
+  rather than optimization or explicit simulation, legibility inverts: the specification remains human-readable
+  but the mechanism that enforces it becomes a black box. This creates a stable configuration where auditors
+  can verify the *stated* obligation but not the *actual* behavior, and where modifications to the protocol
+  require full retraining rather than parameter adjustment. This may generalize to any protocol enforcement
+  layer that substitutes learning for interpretable mechanism, particularly in multi-agent or safety-critical
+  domains where the cost of misalignment is high but the cost of opaque enforcement appears lower than
+  formal verification.'
+source: bibliography/shallow-reads/2026-09-02-generalizable-multi-agent-planning-from-signal-temporal-logi.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-003
+- L-005
+status: open

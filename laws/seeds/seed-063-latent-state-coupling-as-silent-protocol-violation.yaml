@@ -1,0 +1,17 @@
+id: seed-063
+title: Latent-State Coupling as Silent Protocol Violation
+text: 'In systems with shared latent state (context windows, embedding spaces, attention mechanisms),
+  compositional modules exhibit systematic behavioral coupling despite formal independence declarations.
+  This coupling is undetectable under single-module testing and becomes visible only under comparative
+  intervention (editing one module, observing downstream drift). The mechanism generalizes beyond prompt
+  systems to any architecture where decision-relevant state is not formally partitioned: the operational
+  boundaries of a protocol module do not align with its causal scope. Systems remain functionally correct
+  under this condition, making the coupling stable and resistant to detection until intervention occurs.'
+source: bibliography/shallow-reads/2026-09-01-instruction-bleed-cross-module-interference-in-prompt-compos.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-011
+- L-012
+status: open

@@ -1,0 +1,39 @@
+id: seed-057
+title: C-057-compliance-by-construction-vs-guardrail
+text: 'The paper proposes "compliance-by-construction" as a complementary paradigm to
+
+  guardrail-based monitoring: rather than monitoring for violations after the fact,
+
+  the regulatory process model itself constrains the agent''s action space such that
+
+  non-compliant execution paths are architecturally impossible. The symbolic process
+
+  model determines what steps are enabled at each state; the LLM determines how to
+
+  execute them. This parallels the "physical gates" vs. "memory gates" distinction
+
+  from C-046: compliance embedded in the execution substrate (process model) rather
+
+  than in the agent''s memory (prompts, instructions) is not subject to the same
+
+  entropy dynamics that erode memory-based compliance. Relevant to CL-001: compliance-
+
+  by-construction prevents the formalization ratchet from operating by making deviations
+
+  structurally impossible rather than normatively prohibited — but this only works
+
+  when the regulated domain has pre-existing formal symbolic structure (regulations,
+
+  typed process models, SOPs) that can be made executable. Evidence quality: conceptual
+
+  with domain-specific grounding (pharmaceutical quality management); no empirical
+
+  implementation results yet reported.'
+source: arxiv-2606.13405.pdf
+origin: C-057
+surfaced: '2026-06-13'
+type: curiosity
+connections:
+- CL-001
+- C-046
+status: open

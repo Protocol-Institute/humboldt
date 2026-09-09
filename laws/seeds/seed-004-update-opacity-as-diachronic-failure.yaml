@@ -1,0 +1,17 @@
+id: seed-004
+title: Update opacity as diachronic failure
+text: 'Adaptive deployed systems generate a distinct epistemic failure mode: users cannot track
+
+  why identical inputs produce different outputs across model updates. This is not a static
+
+  interpretability problem but a diachronic one — the failure accumulates over time as
+
+  users'' mental models drift from the actual system. Governance cannot function without
+
+  some form of temporal epistemic transparency.'
+source: bibliography/shallow-reads/2026-06-06-update-opacity-epistemic-accessibility-and-governance-under-.md
+origin: C-004
+surfaced: '2026-06-06'
+type: insight
+connections: []
+status: open

@@ -1,0 +1,18 @@
+id: seed-156
+title: Piecewise Linearity as Coordination Codification Lock
+text: 'Microeconomic protocols (contracts, auctions, bid structures) tend to be formalized as piecewise-linear
+  functions under conditions of scaling, opacity (hidden information), and enforcement legibility. Once
+  a protocol is legible as piecewise-linear, optimization pressure concentrates on boundary exploitation
+  rather than renegotiation of the pieces themselves. This suggests that **piecewise linearity is not
+  a natural representation of economic relationships, but a coordination lock imposed by the joint requirements
+  of formality, computability, and enforceability**. The law-shaped question: do all protocols that achieve
+  sufficient scale and enforcement pressure converge toward piecewise-linear formalization, independent
+  of the underlying phenomenon they govern?'
+source: bibliography/shallow-reads/2026-09-02-regret-minimization-for-piecewise-linear-rewards-contracts-a.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-002
+status: open

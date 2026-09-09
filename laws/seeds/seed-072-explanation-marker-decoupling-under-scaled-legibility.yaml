@@ -1,0 +1,17 @@
+id: seed-072
+title: Explanation-Marker Decoupling Under Scaled Legibility
+text: 'When explanation quality is rendered computable via pattern extraction and fed into decision workflows
+  as a legible signal, does forecaster behavior bifurcate—optimizing for marker conformity independent
+  of judgment accuracy? In forecasting tournaments, outcome feedback is delayed and outcome-tied, suppressing
+  this risk. But in advisory or recommendation settings where explanation markers feed directly into trust
+  or selection decisions, markers may become decoupled from the reasoning they ostensibly measure. The
+  generalization: any protocol that makes reasoning *legible* without making it *verifiable* creates a
+  new optimization surface orthogonal to the original goal.'
+source: bibliography/shallow-reads/2026-09-01-measuring-judgment-quality-in-natural-language-explanations-.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: question
+connections:
+- L-004
+- L-012
+status: open

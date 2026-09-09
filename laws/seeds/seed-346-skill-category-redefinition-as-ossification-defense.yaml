@@ -1,0 +1,17 @@
+id: seed-346
+title: Skill-Category Redefinition as Ossification Defense
+text: 'When a widely-adopted capability-augmentation protocol (GenAI) threatens to collapse demand for
+  a measurable proxy (cognitive-skill hiring signals), firms may preserve apparent metric values by expanding
+  the definition of the proxy category rather than accepting its deprecation. This keeps job-posting signals
+  stable while the underlying work content shifts. The mechanism: formalization of hiring criteria creates
+  institutional inertia that privileges definitional continuity over metric recomputation. This may generalize
+  to any protocol system where hiring, credentialing, or role-matching depends on stable categorical buckets
+  and stakeholders face reputational or coordination costs from reclassification.'
+source: bibliography/shallow-reads/2026-09-02-how-generative-ai-adoption-alters-the-demand-for-cognitive-a.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-008
+status: open

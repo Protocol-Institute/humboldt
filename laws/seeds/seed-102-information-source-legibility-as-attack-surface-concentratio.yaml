@@ -1,0 +1,15 @@
+id: seed-102
+title: Information-Source Legibility as Attack Surface Concentration
+text: 'In protocol systems where agent decisions are routed through legible, externally-sourced information
+  layers (retrieval, web access, structured feeds), safety degrades monotonically with access expansion
+  not because of a failure of the agent, but because the information source becomes a concentrated, observable
+  optimization target for adversaries. The degradation follows from the formalization of the input layer,
+  not the output logic. This may generalize: any protocol that couples decision-making to an external,
+  measurable information feed creates a new boundary across which adversarial pressure concentrates.'
+source: bibliography/shallow-reads/2026-09-01-safety-degradation-in-ai-agents.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-008
+status: open

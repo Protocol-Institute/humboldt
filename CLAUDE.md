@@ -30,7 +30,7 @@ source .venv/bin/activate
 Install deps:
 
 ```bash
-pip install voyageai pinecone anthropic python-dotenv pyyaml rich pypdf markdown
+pip install voyageai pinecone anthropic python-dotenv pyyaml ruamel.yaml rich pypdf markdown
 ```
 
 ---
@@ -100,8 +100,99 @@ python3 -m agent.humboldt investigate "protocol ossification"
 # Display current law inventory
 python3 -m agent.humboldt inventory
 
-# Assess evidence for a specific law
-python3 -m agent.humboldt assess F-001
+# ── Redesign 2026-08 (branch redesign-2026-08) — law encyclopedia + bibliography ──
+# The unified law record (laws/L-NNN-*.yaml) replaces the C/H/CL/T/F artifacts.
+# agent/laws.py = CRUD/validation/stage-machine/history (ruamel round-trip).
+python3 -m agent.humboldt laws list [--stage S] [--status S]   # inventory table
+python3 -m agent.humboldt laws show L-003                       # full record
+python3 -m agent.humboldt laws validate [L-003 | all]           # schema + stage-machine
+
+# Canonical bibliography (bibliography/bibliography.yaml). agent/bibliography.py.
+python3 -m agent.humboldt bib list [--depth D] [--kind K] [--year Y]
+python3 -m agent.humboldt bib show bib-0042
+python3 -m agent.humboldt bib stats
+python3 -m agent.humboldt bib migrate [--dry-run]   # one-shot legacy-source migration
+python3 -m agent.humboldt bib backfill-references [--dry-run]
+        # one-shot: law free-text `references:` and examples[].source → bib-NNNN ids
+        # where a confident match exists (arXiv id / read-file path / url / title).
+        # Ran 2026-08-10: 11 evidence sources resolved across 7 laws; the 21
+        # free-text `references:` entries name literatures, not works, so they stay.
+
+# ── Funnel engines (Phase 2) — agent/induct.py + agent/assess.py ──
+# induct  = stage 5: seeds + reads-since-cursor + inventory → new laws / evidence (Sonnet).
+# assess  = stage 6/8: one law vs its advance trigger → PROMOTE/HOLD/DEMOTE, applied via
+#           the laws.py stage machine (Sonnet routine; Opus for heavy-lift/retrospective).
+# Both consume the Fable prompts in prompts/{induct,assess}.md. Events → analytics/events.jsonl
+# + behaviors/log.jsonl (via agent/funnel_log.py). NOT yet daemon-wired (Phase 5).
+python3 -m agent.humboldt induct                     # run the induction sweep
+python3 -m agent.humboldt induct --dry-run           # call model, apply nothing
+python3 -m agent.humboldt induct --since YYYY-MM-DD    # override the read cursor
+python3 -m agent.humboldt assess L-003               # assess one law (promote/hold/demote)
+python3 -m agent.humboldt assess L-003 --dry-run     # call model, apply nothing
+python3 -m agent.humboldt assess --all               # assess every active law
+python3 -m agent.humboldt assess L-003 --no-corpus   # assess on the record alone (see below)
+
+# ── Corpus-read circuit breaker (session 30, agent/read_budget.py) ──
+# Pinecone enforces TWO independent monthly caps on reads — read units and egress bytes.
+# Either one 429s every query account-wide while upserts and describe_index_stats keep
+# working, so a quota check MUST exercise `query`, not `describe`.
+# State: data/read-pause.json (gitignored). Auto-trips on a quota 429; self-clears.
+# Distinct from `daemon pause`: that means "don't speak", this means "you may speak but
+# you have no corpus". Retrieval raises RetrievalUnavailable — it never returns [], since
+# an empty list is indistinguishable from "the corpus has nothing" (the 2026-08 bug).
+# While tripped: `assess` refuses (--no-corpus overrides), investigate/hypothesize exit 1,
+# Discord replies and the site chat disclose the outage. `induct` is UNAFFECTED (no reads).
+python3 -m agent.humboldt read-status                  # reads available? + month-to-date egress
+python3 -m agent.humboldt read-pause <YYYY-MM-DD> [why] # force reads offline
+python3 -m agent.humboldt read-unpause                 # clear the pause
+
+# ── Egress prevention (session 31, plan Steps 4–5) ──
+# Egress = namespaces x top_k x queries, and every match ships up to 2000 chars of chunk
+# text, so over-fetching is what spends the 1GB/month cap. Three defenses:
+#  1. Right-sizing: ret.REPLY_TOP_K (Discord), ret.ASSESS_TOP_K, TOP_K_* in chat.js —
+#     each matched to what its consumer actually formats. Do not raise without checking
+#     the consumer. investigate/hypothesize are deliberately left broad.
+#  2. agent/read_cache.py — per-NAMESPACE disk cache (data/read-cache/, gitignored),
+#     30d corpus TTL / 1d humboldt TTL; a full hit also skips the Voyage embed. The
+#     Worker has an equivalent KV cache. Outages are never cached.
+#  3. agent/read_egress.py — bytes per query → data/read-egress.jsonl, attributed by
+#     namespace AND calling path (op=). Python's total is a LOWER BOUND: it cannot see
+#     the Cloudflare Worker, which counts its own exact bytes into KV `egress:YYYY-MM`.
+# NOTE: query-then-`fetch` to strip metadata does NOT work — Index.fetch() always returns
+# the 1024-float vector (no include_values switch), which is bigger than the text saved.
+python3 -m agent.humboldt read-cache [status|clear|prune]  # clear after a large c3po ingest
+# Daemon task_read_budget_watch DMs the operator at 70% of the cap and on a trip
+# (once per month per event, pause-gated, always logged at WARNING).
+#
+# This module is now the documented REFERENCE implementation for the read-side half of
+# a cross-project pattern — see ../admin/sop-pinecone-quota-management.md (2026-09-01).
+# c3po hit the same account-wide egress quota independently and ported this design into
+# api/worker.js rather than the two projects sharing code (no shared-package infra between
+# the repos; revisit if a third bot joins this Pinecone account). c3po's write-side guard
+# (ingest/utils.py _GuardedIndex) uses a MORE GENERAL quota-name regex than QUOTA_MARKERS
+# above (`reached your (.+) limit` vs. this file's hardcoded ("egress limit", "read unit
+# limit") tuple) — the hardcoded version is exactly the shape of bug that made the 2026-08
+# egress quota invisible for days the first time. Worth porting c3po's regex into
+# read_budget.py/chat.js next time either is touched.
+
+# ── Analytics (Phase 4, session 34) — agent/analytics.py + analytics/op-behavior-map.yaml ──
+# Retrospective per-behavior utilization, read from ledgers that ALREADY exist rather
+# than waiting for behavior_visit to accumulate. daemon/costs.jsonl has logged every
+# model call under a free-form `op` label since May (8,089 records); the map joins those
+# labels to registry behavior ids. behaviors/log.jsonl, by contrast, holds 9 lines.
+# THREE UNITS, deliberately not summed: `calls` = API calls (a sweep makes several),
+# `visits` = behavior invocations (only induct/assess emit them), `events` = law events.
+# `calls` is a busy-ness proxy, never an invocation count — and it is structurally 0 for
+# deep-read (runs via the Read tool in-session) and supervisory (pure local compute).
+# A prune heuristic must not read those zeros as disuse; see behaviors_without_ops.
+# ⚠ `feed_triage` (the ledger's biggest line) is INTAKE — daemon-side feed scoring in
+#   presence.check_feed_relevance. The triage behavior is `triage_feed`, ~30x smaller.
+#   The names are inverted; do not merge them.
+python3 -m agent.humboldt analytics utilization [DAYS|all]  # default 90d
+python3 -m agent.humboldt analytics monthly                 # monthly spend by behavior
+# Ops absent from the map are reported, not silently dropped. Ops mapped to `behavior:
+# null` are real recurring work with no registry entry (conversation_review is the big
+# one) — an open supervisor decision, not a bug.
 
 # Generate candidate laws for a topic (no file output)
 python3 -m agent.humboldt hypothesize "coordination cost"
@@ -125,21 +216,33 @@ python3 -m agent.humboldt pre-notebook mark-consumed # advance cursor after writ
 # Run after each session that adds any of the above
 python3 -m agent.humboldt ingest
 
-# Triage inbox/feed-*.md items against current laws and hypotheses
-# Produces a discard / shallow report (uses Haiku); depth decisions deferred to shallow-read
+# ── Funnel stages 2–3 (reworked 2026-08-10 for the redesign) ──
+# Context comes from laws/*.yaml + laws/seeds/ via agent/funnel_context.py — the
+# old research/laws/ + research/hypotheses/ readers are gone. Every non-discard
+# item is tagged content|meta and gets a bib-NNNN entry at read_depth: listed.
+
+# Triage inbox/feed-*.md items against the law inventory and seed pool (Haiku)
 python3 -m agent.humboldt triage-feed
 python3 -m agent.humboldt triage-feed --output inbox/triage-YYYY-MM-DD.md
+python3 -m agent.humboldt triage-feed --limit N     # first N items only (cheap test)
+python3 -m agent.humboldt triage-feed --dry-run     # call the model, write nothing
 
 # Shallow-read all non-discard items from a triage report (uses Haiku)
-# Humboldt writes a synthesis note and decides: store-only or escalate-to-deep
+# Writes a synthesis note; upgrades the bib entry to read_depth: shallow with
+# summary: pointing at the note; emits a seed into laws/seeds/ when the note
+# surfaces something law-shaped (never for kind: meta items); decides
+# store-only vs escalate-to-deep. Skips the Pinecone ingest while paused.
 # Output: bibliography/shallow-reads/YYYY-MM-DD-{title-slug}.md (idempotent)
 python3 -m agent.humboldt shallow-read --from-triage inbox/triage-YYYY-MM-DD.md
+python3 -m agent.humboldt shallow-read --from-triage inbox/triage-YYYY-MM-DD.md --limit N
 python3 -m agent.humboldt shallow-read --from-triage inbox/triage-YYYY-MM-DD.md --dry-run
 
 # Triage inbox/discord-*.md items (ideas + links from Discord)
-# Produces a discard / shallow report (uses Haiku, higher discard bar than feed triage)
+# Produces a discard / shallow report (uses Haiku, higher discard bar than feed triage).
+# Meta items are tagged, not discarded — the old "discard research meta-process" rule is gone.
 python3 -m agent.humboldt triage-discord
 python3 -m agent.humboldt triage-discord --output inbox/triage-discord-YYYY-MM-DD.md
+python3 -m agent.humboldt triage-discord --limit N / --dry-run
 
 # Inbox lifecycle management
 python3 -m agent.humboldt inbox status                    # show inbox composition + processed count
@@ -168,12 +271,47 @@ python3 -m agent.humboldt discord sweep
 python3 -m agent.humboldt discord sweep --since 2026-05-01  # since a date (UTC)
 python3 -m agent.humboldt discord sweep --limit 500          # cap at N messages
 
-# Behavior graph — MDP visualization and supervisory loop
-# Graph definition: behaviors/mdp.yaml  Log: behaviors/log.jsonl
+# ── Supervisor console (Phase 3, session 33) — agent/console.py ──
+# One web app (localhost:7878) replacing `behaviors admin` + behaviors/admin.html.
+# Six views: Dashboard (KPI chart, funnel queue depths, daemon/pause/read state),
+# Laws (table → validated YAML editor), Graph (phase-flow SVG; click node = behavior
+# editor, click edge = trigger/weight editor), Queue (approval queue), Analytics,
+# People. Reads/writes repo YAML directly — every save is a git-visible file edit.
+# After cutover it runs on the exe.dev VM, reached by SSH tunnel (`ssh humboldt-console`).
+# ⚠ A save commits THE WHOLE FILE it wrote, tagged [console] — commit your own work
+#   before opening the console mid-session or it gets swept into a [console] commit.
+python3 -m agent.humboldt console                    # start console, open browser
+python3 -m agent.humboldt console --port N --no-open # alternate port, no browser
+python3 -m agent.humboldt console --push             # also `git push` each save (server mode)
+
+# Approval queue — nothing a behavior drafts runs before supervisor approval.
+# Storage: behaviors/queue.yaml. Rubric: behaviors/definition-rubric.md (SIMPLE/HARD).
+# approve and apply are separate steps so an approval can be reviewed before it lands.
+python3 -m agent.humboldt queue list [--status pending|approved|rejected|applied]
+python3 -m agent.humboldt queue show q-0001
+python3 -m agent.humboldt queue approve q-0001 [--why TEXT]
+python3 -m agent.humboldt queue reject  q-0001 [--why TEXT]
+python3 -m agent.humboldt queue apply   q-0001   # writes the draft into registry.yaml
+
+# Behavior graph — registry + MDP
+# behaviors/registry.yaml — 12 behaviors as of Phase 3 (was 26; ~14 stubs deleted per
+#   §6.1): the 8 funnel stages (intake, triage, shallow-read, deep-read, induct, assess,
+#   publish, monitor) + orient, respond, graph-evolve, supervisory. Five are `proposed`
+#   (not built): monitor, orient, graph-evolve — plus see notes: fields for what exists.
+# behaviors/mdp.yaml — v2, 22 directional edges. EVERY edge requires a `trigger`;
+#   `behaviors graph` warns on any that lack one and the console refuses to save one.
 python3 -m agent.humboldt behaviors graph                          # text summary: phases, nodes, edge counts
-python3 -m agent.humboldt behaviors admin                          # start local admin web UI (localhost:7878)
 python3 -m agent.humboldt behaviors log <id> [--arc ARC] [--note] # record a behavior visit to log.jsonl
 python3 -m agent.humboldt behaviors supervisory                    # analyze log; suggest weight updates
+# ⚠ Only `induct` and `assess` call funnel_log.behavior_visit today, so utilization is
+#   blind for the other 7 active behaviors — the console's Analytics view flags this.
+#   Instrumenting them is Phase 4 work.
+
+# ⚠ Deploy target: `wrangler pages deploy` infers the branch from git and makes a
+# PREVIEW deployment off anything other than `main`, returning success either way.
+# publish-site succeeding does NOT mean humboldt.protocol-institute.org changed — the
+# whole redesign-2026-08 branch has only ever deployed to preview URLs. Check with
+# agent.publish_site.is_production_deploy(); law_notify refuses to announce off-branch.
 
 # Publish the humboldt-site to Cloudflare Pages (humboldt.protocol-institute.org)
 # Rebuilds all pages (notebook, research, reading, architecture, about, chat) and deploys.
@@ -181,6 +319,18 @@ python3 -m agent.humboldt behaviors supervisory                    # analyze log
 # Run after any session that changes notebook, research, bibliography, or ARCHITECTURE.md.
 python3 -m agent.humboldt publish-site              # build + deploy to CF Pages
 python3 -m agent.humboldt publish-site --dry-run    # build only, no deploy
+
+# ── Conference talk (session 32, plans/talk-2026-09-23.md) ──
+# Composes a talk track from laws/*.yaml + talks/2026-09-23-new-nature/{brief.md,
+# slides.yaml} — freeze-immune, same property as `induct` (composition from records
+# is not retrieval). track.md is the source of truth for narration and is meant to
+# be hand-edited after generation; re-run `draft` only after laws or slides.yaml
+# change, and re-check timing after any edit — do not let track.md drift from the
+# records it was generated from.
+python3 -m agent.humboldt talk draft [--dry-run]        # laws + brief → track.md (Opus)
+python3 -m agent.humboldt talk check                    # word budgets + TTS hazard lint
+python3 -m agent.humboldt talk voice [--voice N] [--rate R]  # track.md → audio/*.mp3 (say → ffmpeg)
+python3 -m agent.humboldt talk time                     # ffprobe-measured runtime vs. targets
 ```
 
 ### Deep-read library
@@ -192,6 +342,15 @@ Source PDFs live in `bibliography/deep-reads/`. Drop new documents there; the `l
 ---
 
 ## Research Inventory
+
+> **⚠ Superseded by the 2026-08 redesign (branch `redesign-2026-08`, Phase 1 done).**
+> The C/H/CL/T/F typed-artifact system below is retired. The unified **law record**
+> (`laws/L-NNN-*.yaml`, schema `laws/_schema.yaml`) is now the single research artifact;
+> `laws/seeds/` is the holding pen (migrated from `research/c/`); `bibliography/bibliography.yaml`
+> is the canonical bibliography. The old `research/` subtree (`cl/ ds/ theories/ f/ h/
+> questions.md`) is archived at `research/_archive/`; only `research/agenda.md` stays live.
+> The section below is kept for reference until the Phase 6 doc rewrite. See
+> `plans/redesign-2026-08.md`.
 
 `research/` is the core output — always commit it. The schema follows the Double Freytag
 phase model (Rao, *Tempo*). Each phase produces a typed artifact; the DS file is the

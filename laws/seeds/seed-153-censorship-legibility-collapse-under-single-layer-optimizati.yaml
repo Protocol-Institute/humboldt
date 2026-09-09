@@ -1,0 +1,18 @@
+id: seed-153
+title: Censorship Legibility Collapse Under Single-Layer Optimization
+text: 'Economic censorship resistance in transaction protocols exhibits a sharp phase transition as proposer
+  cardinality increases: single proposers present a single, legible optimization target with concentrated
+  value, while distributed proposers diffuse the target surface and raise bribe coordination costs. However,
+  this does not eliminate censorship incentives—it displaces them. When a protocol hardens one layer of
+  transaction inclusion, optimizing pressure should migrate to higher layers (mempool filtering, network-level
+  routing) or adjacent protocols (private pools, dark pools). The generalization: legibility-driven censorship
+  cannot be permanently eliminated by local protocol hardening; it can only be displaced to the boundary
+  where legibility is highest and coordination cost is lowest.'
+source: bibliography/shallow-reads/2026-09-02-censorship-resistance-and-throughput-with-multiple-concurren.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-009
+- L-014
+status: open

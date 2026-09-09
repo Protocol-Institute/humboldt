@@ -1,0 +1,23 @@
+# Supervisor approval queue (redesign §6.3; managed by agent/approval_queue.py).
+#
+# Every change to how Humboldt works enters here before it runs — behavior requests
+# from meta reads, analytics prune/split flags, sessions, and the supervisor.
+# Classification per behaviors/definition-rubric.md:
+#
+#   kind: simple   Claude drafted the complete registry entry. Supervisor approves,
+#                  edits-then-approves, or rejects. `apply_approved` then writes it
+#                  into registry.yaml as status: proposed.
+#   kind: hard     A structured brief for the supervisor design queue. Never
+#                  auto-applied. Answering `brief.questions` usually demotes it to a
+#                  SIMPLE re-file with those answers as constraints.
+#
+# status: pending → approved → applied, or pending → rejected.
+# Approval and application are separate steps on purpose: an approval can be reviewed
+# (and reverted) before it changes the registry.
+#
+# Anti-accumulation rule: every entry names the behavior it relieves, replaces, or
+# feeds. Requests that add a node without connecting to the funnel are rejected by
+# default — that is what the 26-behavior stub graveyard was made of.
+
+version: 1
+queue: []

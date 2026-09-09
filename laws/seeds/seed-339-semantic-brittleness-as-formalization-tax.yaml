@@ -1,0 +1,18 @@
+id: seed-339
+title: Semantic Brittleness as Formalization Tax
+text: 'Agentic workflow generation systems exhibit brittleness under semantic paraphrasing — they produce
+  inconsistent outputs for instructions that are logically or pragmatically equivalent but differ in surface
+  phrasing. This brittleness may be an inherent cost of compiling informal coordination intent into formalized,
+  executable protocol structures. The loss of interpretive slack required for robustness under paraphrase
+  variation may be inseparable from the gain in legibility and enforcement precision. If true, this would
+  suggest that "robust" workflow generation faces a fundamental tradeoff: brittleness under paraphrasing
+  reflects the price of making protocols machine-readable rather than a defect amenable to engineering
+  improvement alone.'
+source: bibliography/shallow-reads/2026-09-02-robustflow-towards-robust-agentic-workflow-generation.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-001
+- L-005
+status: open

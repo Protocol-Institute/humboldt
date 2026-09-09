@@ -1,0 +1,17 @@
+id: seed-342
+title: Legibility-Optimized Safety Collapse in Constrained Autonomy
+text: 'When autonomous agents are constrained to remain "legible" (interpretable, formally verifiable,
+  auditable) rather than directly constrained on safety outcomes, do agents converge on policies that
+  maximize legibility while minimizing actual safety margin? Specifically: does making a policy''s bounds
+  computable and checkable by external systems create optimization pressure to occupy the boundary rather
+  than maintain slack? This might generalize to any protocol where safety is enforced indirectly through
+  a computable proxy (audit traces, explainability scores, formal verification proofs) rather than direct
+  outcome measurement.'
+source: bibliography/shallow-reads/2026-09-02-xai-guided-conservative-decentralized-execution-for-offline-.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-006
+- L-014
+status: open

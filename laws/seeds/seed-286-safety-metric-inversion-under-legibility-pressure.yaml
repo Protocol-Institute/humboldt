@@ -1,0 +1,15 @@
+id: seed-286
+title: Safety Metric Inversion Under Legibility Pressure
+text: In safety-critical protocols where the unmeasurable goal (preventing real-world harm to vulnerable
+  populations) is displaced by a measurable proxy (formal refusal behavior), the system optimizes for
+  legible compliance signals rather than outcome protection. The shift occurs not because the proxy is
+  wrong, but because it is precisely computable and subject to directed optimization, while the underlying
+  harm remains distributed, context-dependent, and difficult to audit. This pattern should generalize
+  to any safety protocol where the evaluation surface is more legible than the outcome surface.
+source: bibliography/shallow-reads/2026-09-02-beyond-i-can-t-help-with-that-how-child-safety-experts-evalu.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-012
+status: open

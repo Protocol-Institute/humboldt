@@ -1,0 +1,19 @@
+id: seed-164
+title: Multi-Turn Constraint Consistency Decay in Autoregressive Agents
+text: 'In autoregressive agent systems where safety constraints are formalized and enforced at the single-turn
+  level (per-step decisions), extended interaction reveals systematic degradation of constraint adherence
+  across the execution trajectory, even when no constraint is locally violated. This suggests that safety
+  formalism optimized for legible, atomic decision points does not compose into global safety invariants
+  when agents must maintain causal coherence across multiple planning horizons. The decay may be independent
+  of the agent''s underlying capability or alignment intent, and instead reflect a protocol-layer mismatch:
+  constraints formalized as local verification procedures fail to track or enforce global consistency
+  conditions. This pattern may generalize to any multi-layer protocol system where local correctness does
+  not imply compositional correctness.'
+source: bibliography/shallow-reads/2026-09-02-operational-hallucination-and-safety-drift-in-ai-agents.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-011
+- L-013
+status: open

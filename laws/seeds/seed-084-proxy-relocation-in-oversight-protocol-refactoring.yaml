@@ -1,0 +1,15 @@
+id: seed-084
+title: Proxy Relocation in Oversight Protocol Refactoring
+text: Attempts to repair proxy misalignment in oversight protocols by changing the protocol structure
+  (debate → mediation, adversarial → collaborative) do not eliminate the underlying asymmetry; they relocate
+  which signals become legible and optimizable. A new set of measurable proxies (mediator efficiency,
+  consensus speed, dialogue smoothness) emerges under the collaborative framing, each capable of diverging
+  from the original epistemic goal. Protocol refactoring under L-004 pressure may be systematically unable
+  to solve proxy capture—it can only trade one capture regime for another.
+source: bibliography/shallow-reads/2026-09-01-collaborative-disagreement-resolution-for-scalable-oversight.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-004
+status: open

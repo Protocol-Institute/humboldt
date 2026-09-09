@@ -1,0 +1,16 @@
+id: seed-277
+title: Coordination-Layer Formalization as Cost Displacement in Incompatible Protocol Stacks
+text: When two protocol layers (e.g., day-ahead and real-time markets) are formally incompatible in their
+  settlement logic, organizations do not restructure; instead, they create an intermediate formalized
+  layer (benchmark curves, proxy rules) that absorbs the coordination burden. This displaces but does
+  not eliminate friction — the new layer becomes subject to its own metric capture and proxy collapse
+  under conditions of asymmetry or stress. The mechanism generalizes across any protocol stack where wholesale
+  restructuring violates institutional or regulatory constraints.
+source: bibliography/shallow-reads/2026-09-02-optimizing-bidding-curves-for-renewable-energy-in-two-settle.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-006
+- L-009
+status: open

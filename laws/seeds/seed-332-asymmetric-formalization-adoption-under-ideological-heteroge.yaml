@@ -1,0 +1,19 @@
+id: seed-332
+title: Asymmetric Formalization Adoption Under Ideological Heterogeneity
+text: 'Shared language technologies (recommendation, moderation, content filtering) may not induce uniform
+  formalization pressure across heterogeneous ideological communities. In this case, conservative discourse
+  contracted while progressive discourse diversified following the same technology deployment window.
+  This suggests either (a) differential adoption rates by ideology, (b) differential susceptibility to
+  legible metrics among ideological groups, or (c) asymmetric enforcement of protocol norms by platform
+  operators. The generalization: formalization ratchets may be *ideologically selective* — protocols that
+  formalize unmeasurable norms (discourse quality, political balance, authenticity) may capture and homogenize
+  the ideological group for which the measurable proxy most tightly aligns with lived practice, while
+  leaving others less constrained. Testable in other domains with asymmetric agent populations and shared
+  measurement infrastructure.'
+source: bibliography/shallow-reads/2026-09-02-asymmetric-discourse-homogenization-and-shared-language-tech.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-003
+status: open

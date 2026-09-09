@@ -1,0 +1,19 @@
+id: seed-161
+title: Verification-Cost Collapse Under Reasoning-Enabled Adversaries
+text: In protocol systems where defense is built on legible, measurable proxies for adversarial intent
+  (request patterns, timing statistics, header anomalies), the introduction of adversaries with reasoning
+  and semantic understanding renders the entire proxy family simultaneously non-distinguishing. The verification
+  cost does not increase — it becomes undefined, because the adversary no longer produces the observable
+  signatures the protocol was designed to detect. This is distinct from L-008's optimization-pressure
+  displacement; it is a category error in the threat model itself, and it appears robust across domains
+  where "automation detection" has been formalized around behavioral observables rather than intent or
+  capability.
+source: bibliography/shallow-reads/2026-09-02-broken-gates-re-evaluating-web-bot-defenses-in-the-age-of-ll.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-008
+- L-012
+- L-013
+status: open

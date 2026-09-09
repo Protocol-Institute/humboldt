@@ -1,0 +1,19 @@
+id: seed-298
+title: Alignment Legibility Asymmetry in Replicated Training Conditions
+text: 'When models trained under observationally similar conditions (scale, dataset provenance, institutional
+  context) diverge in cooperative equilibria despite being evaluated under identical, fully-formalized
+  game rules, the divergence suggests that "alignment" or cooperative disposition is not recoverable from
+  macro training parameters alone. Instead, cooperative behavior appears sensitive to latent implementation
+  details that do not surface in standard capability or safety benchmarks. This implies that protocol
+  systems attempting to enforce cooperative equilibria across agent types must either: (a) make implementation
+  internals legible (currently infeasible), (b) accept irreducible divergence in equilibrium, or (c) shift
+  coordination burden to mechanisms that operate above the agent level rather than depending on uniform
+  agent behavior. The pattern may generalize to any multi-agent protocol system where agents are internally
+  opaque but externally comparable.'
+source: bibliography/shallow-reads/2026-09-02-not-a-monolith-lab-level-divergence-in-the-cooperative-equil.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-010
+status: open

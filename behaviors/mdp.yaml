@@ -1,19 +1,34 @@
-# Humboldt Behavior MDP — Markov Decision Process graph
+# Humboldt Behavior MDP — transition graph
 #
-# Speculative initial weights (2026-06-09). Adjust via `humboldt behaviors admin`.
-# Supervisory loop learns from behaviors/log.jsonl.
+# Rewritten 2026-09-01 (redesign Phase 3) for the pruned 12-behavior registry.
+# Version 1 described the 26-behavior wander-space: 28 nodes, 72 mostly-bidirectional
+# edges, and two virtual placeholder nodes standing in for the empty heavy_lift and
+# retrospective phases. That graph modelled a researcher browsing its own capabilities.
 #
-# Edge semantics:
-#   weight      — unnormalized influence weight; normalized per source at runtime
-#   bidirectional — true = within-phase (same weight both directions); false = one-way
-#   cross_phase — true = inter-phase transition (forward only)
-#   cycle_back  — true = retrospective → liminal arc-restart edge
+# This graph models a funnel. Consequences, all deliberate:
 #
-# Constraint: within each phase, no absorbing states (every node has ≥1 within-phase
-# outgoing edge). Phase stuckness is allowed; permanent node stuckness is not.
-# Full graph is connected via the retrospective → liminal cycle-back.
+#   * Edges are directional. The old `bidirectional: true` convention is gone — material
+#     moves downstream, and the few upstream edges are real feedback loops (an assessment
+#     gap sending work back to reading; a monitor challenge re-opening an assessment),
+#     each named as such rather than implied by symmetry.
+#   * Every edge carries a `trigger` (§6.2) — a plain-language, supervisor-editable
+#     condition for when it fires. An edge without a trigger is an assertion that
+#     something happens for unstated reasons, which is what made v1's weights unfalsifiable.
+#   * No virtual nodes. Every phase now has at least one real behavior, so the
+#     hl-placeholder / re-placeholder scaffolding is deleted.
+#   * v1's "no absorbing states within a phase" constraint is dropped: five of the seven
+#     phases hold exactly one behavior, so within-phase cycling is not available and not
+#     wanted. The graph stays connected through the retrospective -> liminal cycle-back.
+#
+# Edge fields:
+#   from, to     behavior ids from registry.yaml
+#   weight       unnormalized influence; normalized per source at runtime
+#   trigger      REQUIRED — plain-language firing condition, supervisor-editable
+#   cross_phase  true when `from` and `to` sit in different phases
+#   cycle_back   true for the retrospective -> liminal arc-restart edges
+#   feedback     true for upstream edges (downstream stage sending work back up)
 
-version: 1
+version: 2
 
 # ── Phase definitions ────────────────────────────────────────────────────────
 
@@ -22,191 +37,235 @@ phases:
     name: Liminal Passage
     order: 0
     color: "#8b949e"
-    description: Between arcs — wandering, building analogy capacity, reorienting.
+    description: Between arcs — orientation, deciding what this session is for.
 
   - id: exploration
     name: Exploration
     order: 1
     color: "#58a6ff"
-    description: Active curiosity — random links, deep reads, field observation, social input.
+    description: Intake and reading — raw material in, notes and seeds out.
 
   - id: sensemaking
     name: Sensemaking
     order: 2
     color: "#bc8cff"
-    description: Pattern recognition — thought experiments, visualization, estimation.
+    description: Induction — seeds and reads become candidate laws.
 
   - id: valley
     name: Valley
     order: 3
     color: "#3fb950"
-    description: Candidate law development — stress-testing, design fiction, iteration.
+    description: Assessment — a law tested against its own advance and challenge triggers.
 
   - id: heavy_lift
     name: Heavy Lift
     order: 4
     color: "#f78166"
-    description: Theory synthesis. No behaviors implemented yet.
+    description: Publication — the separation event, a law addressed to an audience.
 
   - id: retrospective
     name: Retrospective
     order: 5
     color: "#f1e05a"
-    description: Falsification monitoring. No behaviors implemented yet.
+    description: Monitoring and meta — falsification watch, and evolution of the graph itself.
 
-  - id: daemon
-    name: Daemon
+  - id: any
+    name: Out of flow
     order: -1
-    color: "#3fb950"
-    description: Always-on background processes. Not part of research phase flow.
-
-# ── Virtual nodes for phases with no implemented behaviors ───────────────────
-
-virtual_nodes:
-  - id: hl-placeholder
-    name: Heavy Lift (TBD)
-    phase: heavy_lift
-    state: placeholder
-    description: No behaviors implemented for this phase yet. Represents the heavy synthesis work needed to move from candidate law to theory.
-
-  - id: re-placeholder
-    name: Retrospective (TBD)
-    phase: retrospective
-    state: placeholder
-    description: No behaviors implemented for this phase yet. Represents falsification monitoring and arc closing.
+    color: "#6e7681"
+    description: Behaviors with no fixed arc position — conversation happens at any phase.
 
 # ── Transition graph ─────────────────────────────────────────────────────────
-# Each entry: {from, to, weight, bidirectional, [cross_phase], [cycle_back]}
 
 transitions:
 
   # ════════════════════════════════════════════════════════
-  #  LIMINAL — within-phase (bidirectional)
+  #  LIMINAL — orientation dispatches to a stage
   # ════════════════════════════════════════════════════════
 
-  - {from: boot-000,      to: boot-001,       weight: 0.70, bidirectional: true}
-  - {from: boot-001,      to: behavior-k7r,   weight: 0.50, bidirectional: true}
-  - {from: boot-001,      to: behavior-p1f,   weight: 0.50, bidirectional: true}
-  - {from: boot-001,      to: behavior-m7v,   weight: 0.30, bidirectional: true}
-  - {from: behavior-k7r,  to: behavior-p1f,   weight: 0.40, bidirectional: true}
-  - {from: behavior-k7r,  to: behavior-c7r,   weight: 0.50, bidirectional: true}
-  - {from: behavior-k7r,  to: behavior-s5j,   weight: 0.40, bidirectional: true}
-  - {from: behavior-p1f,  to: behavior-c7r,   weight: 0.40, bidirectional: true}
-  - {from: behavior-c7r,  to: behavior-m7v,   weight: 0.30, bidirectional: true}
-  - {from: behavior-c7r,  to: behavior-s5j,   weight: 0.30, bidirectional: true}
-  - {from: behavior-m7v,  to: behavior-s5j,   weight: 0.30, bidirectional: true}
+  - from: orient
+    to: triage
+    weight: 0.50
+    cross_phase: true
+    trigger: "Orientation finds inbox depth to be the dominant backlog — more unprocessed items than the
+      daily schedule will clear"
+
+  - from: orient
+    to: deep-read
+    weight: 0.40
+    cross_phase: true
+    trigger: "Orientation selects a session deep read — the escalated queue holds a source worth full
+      attention"
+
+  - from: orient
+    to: induct
+    weight: 0.35
+    cross_phase: true
+    trigger: "Orientation finds the seed pool ready — enough unconsumed seeds that a sweep would produce
+      something"
+
+  - from: orient
+    to: assess
+    weight: 0.35
+    cross_phase: true
+    trigger: "Orientation finds a law whose advance trigger may now be within reach, or one carrying an
+      unresolved counterexample"
 
   # ════════════════════════════════════════════════════════
-  #  LIMINAL → EXPLORATION (cross-phase, one-directional)
+  #  EXPLORATION — within-phase, the reading pipeline
   # ════════════════════════════════════════════════════════
 
-  - {from: boot-001,      to: behavior-q2n,   weight: 0.40, bidirectional: false, cross_phase: true}
-  - {from: boot-001,      to: behavior-w3x,   weight: 0.30, bidirectional: false, cross_phase: true}
-  - {from: boot-001,      to: behavior-p7q,   weight: 0.30, bidirectional: false, cross_phase: true}
-  - {from: behavior-c7r,  to: behavior-q2n,   weight: 0.50, bidirectional: false, cross_phase: true}
-  - {from: behavior-c7r,  to: behavior-t5m,   weight: 0.30, bidirectional: false, cross_phase: true}
-  - {from: behavior-c7r,  to: behavior-j6d,   weight: 0.20, bidirectional: false, cross_phase: true}
-  - {from: behavior-k7r,  to: behavior-q2n,   weight: 0.40, bidirectional: false, cross_phase: true}
-  - {from: behavior-k7r,  to: behavior-f8p,   weight: 0.30, bidirectional: false, cross_phase: true}
-  - {from: behavior-k7r,  to: behavior-p7q,   weight: 0.30, bidirectional: false, cross_phase: true}
-  - {from: behavior-s5j,  to: behavior-w3x,   weight: 0.40, bidirectional: false, cross_phase: true}
-  - {from: behavior-s5j,  to: behavior-t5m,   weight: 0.30, bidirectional: false, cross_phase: true}
-  - {from: behavior-s5j,  to: behavior-p7q,   weight: 0.35, bidirectional: false, cross_phase: true}
-  - {from: behavior-m7v,  to: behavior-f8p,   weight: 0.40, bidirectional: false, cross_phase: true}
-  - {from: behavior-m7v,  to: behavior-h4v,   weight: 0.30, bidirectional: false, cross_phase: true}
-  - {from: behavior-p1f,  to: behavior-h4v,   weight: 0.30, bidirectional: false, cross_phase: true}
-  - {from: behavior-p1f,  to: behavior-b9c,   weight: 0.30, bidirectional: false, cross_phase: true}
+  - from: intake
+    to: triage
+    weight: 0.9
+    trigger: "Inbox holds items no triage report has scored"
+
+  - from: triage
+    to: shallow-read
+    weight: 0.85
+    trigger: "The most recent triage report has non-discard items not yet shallow-read"
+
+  - from: triage
+    to: deep-read
+    weight: 0.20
+    trigger: "Triage marked an item deep — high law-relevance, or a primary source a summary would waste"
+
+  - from: shallow-read
+    to: deep-read
+    weight: 0.25
+    trigger: "A shallow read escalated: its note says the argument needs the full text to evaluate"
 
   # ════════════════════════════════════════════════════════
-  #  EXPLORATION — within-phase (bidirectional)
+  #  EXPLORATION → SENSEMAKING — reading becomes law material
   # ════════════════════════════════════════════════════════
 
-  - {from: behavior-q2n,  to: behavior-f8p,   weight: 0.40, bidirectional: true}
-  - {from: behavior-q2n,  to: behavior-t5m,   weight: 0.30, bidirectional: true}
-  - {from: behavior-q2n,  to: behavior-j6d,   weight: 0.40, bidirectional: true}
-  - {from: behavior-q2n,  to: behavior-b9c,   weight: 0.30, bidirectional: true}
-  - {from: behavior-q2n,  to: behavior-p7q,   weight: 0.40, bidirectional: true}
-  - {from: behavior-f8p,  to: behavior-t5m,   weight: 0.40, bidirectional: true}
-  - {from: behavior-f8p,  to: behavior-h4v,   weight: 0.30, bidirectional: true}
-  - {from: behavior-f8p,  to: behavior-b9c,   weight: 0.30, bidirectional: true}
-  - {from: behavior-f8p,  to: behavior-p7q,   weight: 0.35, bidirectional: true}
-  - {from: behavior-t5m,  to: behavior-w3x,   weight: 0.50, bidirectional: true}
-  - {from: behavior-t5m,  to: behavior-b9c,   weight: 0.40, bidirectional: true}
-  - {from: behavior-t5m,  to: behavior-j6d,   weight: 0.30, bidirectional: true}
-  - {from: behavior-t5m,  to: behavior-p7q,   weight: 0.25, bidirectional: true}
-  - {from: behavior-j6d,  to: behavior-w3x,   weight: 0.40, bidirectional: true}
-  - {from: behavior-j6d,  to: behavior-b9c,   weight: 0.30, bidirectional: true}
-  - {from: behavior-j6d,  to: behavior-p7q,   weight: 0.30, bidirectional: true}
-  - {from: behavior-w3x,  to: behavior-h4v,   weight: 0.30, bidirectional: true}
-  - {from: behavior-h4v,  to: behavior-b9c,   weight: 0.50, bidirectional: true}
-  - {from: behavior-b9c,  to: behavior-p7q,   weight: 0.35, bidirectional: true}
+  - from: shallow-read
+    to: induct
+    weight: 0.60
+    cross_phase: true
+    trigger: "Seeds accumulated past the sweep threshold (>=10 unconsumed), or the weekly induction is
+      due"
+
+  - from: deep-read
+    to: induct
+    weight: 0.70
+    cross_phase: true
+    trigger: "A deep read produced seeds or evidence the last sweep did not see"
 
   # ════════════════════════════════════════════════════════
-  #  EXPLORATION → SENSEMAKING (cross-phase)
+  #  EXPLORATION → RETROSPECTIVE — the meta path (§5, §6.4)
   # ════════════════════════════════════════════════════════
 
-  - {from: behavior-q2n,  to: behavior-r4k,   weight: 0.40, bidirectional: false, cross_phase: true}
-  - {from: behavior-q2n,  to: behavior-n1s,   weight: 0.20, bidirectional: false, cross_phase: true}
-  - {from: behavior-p7q,  to: behavior-r4k,   weight: 0.30, bidirectional: false, cross_phase: true}
-  - {from: behavior-f8p,  to: behavior-n1s,   weight: 0.40, bidirectional: false, cross_phase: true}
-  - {from: behavior-f8p,  to: behavior-z8l,   weight: 0.30, bidirectional: false, cross_phase: true}
-  - {from: behavior-t5m,  to: behavior-r4k,   weight: 0.50, bidirectional: false, cross_phase: true}
-  - {from: behavior-t5m,  to: behavior-n1s,   weight: 0.30, bidirectional: false, cross_phase: true}
-  - {from: behavior-t5m,  to: behavior-z8l,   weight: 0.30, bidirectional: false, cross_phase: true}
-  - {from: behavior-j6d,  to: behavior-r4k,   weight: 0.30, bidirectional: false, cross_phase: true}
-  - {from: behavior-b9c,  to: behavior-r4k,   weight: 0.40, bidirectional: false, cross_phase: true}
-  - {from: behavior-b9c,  to: behavior-n1s,   weight: 0.20, bidirectional: false, cross_phase: true}
-  - {from: behavior-h4v,  to: behavior-n1s,   weight: 0.40, bidirectional: false, cross_phase: true}
-  - {from: behavior-h4v,  to: behavior-r4k,   weight: 0.30, bidirectional: false, cross_phase: true}
-  - {from: behavior-w3x,  to: behavior-r4k,   weight: 0.25, bidirectional: false, cross_phase: true}
+  - from: shallow-read
+    to: graph-evolve
+    weight: 0.20
+    cross_phase: true
+    trigger: "A meta-tagged shallow read terminated in a graph-change proposal instead of a seed"
+
+  - from: deep-read
+    to: graph-evolve
+    weight: 0.30
+    cross_phase: true
+    trigger: "A meta deep read produced a graph-change proposal — a new behavior request, trigger redefinition,
+      or prompt amendment"
 
   # ════════════════════════════════════════════════════════
-  #  SENSEMAKING — within-phase (bidirectional)
+  #  SENSEMAKING → VALLEY
   # ════════════════════════════════════════════════════════
 
-  - {from: behavior-r4k,  to: behavior-n1s,   weight: 0.50, bidirectional: true}
-  - {from: behavior-r4k,  to: behavior-z8l,   weight: 0.40, bidirectional: true}
-  - {from: behavior-r4k,  to: behavior-d3w,   weight: 0.30, bidirectional: true}
-  - {from: behavior-r4k,  to: behavior-x6b,   weight: 0.30, bidirectional: true}
-  - {from: behavior-n1s,  to: behavior-z8l,   weight: 0.40, bidirectional: true}
-  - {from: behavior-n1s,  to: behavior-x6b,   weight: 0.30, bidirectional: true}
-  - {from: behavior-z8l,  to: behavior-d3w,   weight: 0.40, bidirectional: true}
-  - {from: behavior-d3w,  to: behavior-x6b,   weight: 0.40, bidirectional: true}
+  - from: induct
+    to: assess
+    weight: 0.80
+    cross_phase: true
+    trigger: "A new law was created, or an existing law accumulated >=3 evidence attachments"
 
   # ════════════════════════════════════════════════════════
-  #  SENSEMAKING → VALLEY (cross-phase)
+  #  VALLEY → HEAVY LIFT
   # ════════════════════════════════════════════════════════
 
-  - {from: behavior-r4k,  to: behavior-y2g,   weight: 0.50, bidirectional: false, cross_phase: true}
-  - {from: behavior-r4k,  to: behavior-c9p,   weight: 0.30, bidirectional: false, cross_phase: true}
-  - {from: behavior-n1s,  to: behavior-y2g,   weight: 0.40, bidirectional: false, cross_phase: true}
-  - {from: behavior-n1s,  to: behavior-c9p,   weight: 0.30, bidirectional: false, cross_phase: true}
-  - {from: behavior-z8l,  to: behavior-y2g,   weight: 0.40, bidirectional: false, cross_phase: true}
-  - {from: behavior-x6b,  to: behavior-c9p,   weight: 0.30, bidirectional: false, cross_phase: true}
-  - {from: behavior-d3w,  to: behavior-r4k,   weight: 0.35, bidirectional: false, cross_phase: false}
+  - from: assess
+    to: publish
+    weight: 0.55
+    cross_phase: true
+    trigger: "An assessment produced a law event worth announcing — a promotion, demotion, or falsification"
 
   # ════════════════════════════════════════════════════════
-  #  VALLEY — within-phase (bidirectional)
+  #  VALLEY → EXPLORATION — the evidence-gap feedback loop
   # ════════════════════════════════════════════════════════
 
-  - {from: behavior-y2g,  to: behavior-c9p,   weight: 0.60, bidirectional: true}
+  - from: assess
+    to: deep-read
+    weight: 0.40
+    cross_phase: true
+    feedback: true
+    trigger: "An assessment held with a named evidence gap, and the gap identifies a specific source that
+      would close it"
+
+  - from: assess
+    to: triage
+    weight: 0.20
+    cross_phase: true
+    feedback: true
+    trigger: "An assessment held with an evidence gap no source on file addresses — the corpus needs new
+      material on the question"
 
   # ════════════════════════════════════════════════════════
-  #  VALLEY → HEAVY LIFT (cross-phase)
+  #  HEAVY LIFT → RETROSPECTIVE
   # ════════════════════════════════════════════════════════
 
-  - {from: behavior-y2g,  to: hl-placeholder,  weight: 0.20, bidirectional: false, cross_phase: true}
-  - {from: behavior-c9p,  to: hl-placeholder,  weight: 0.15, bidirectional: false, cross_phase: true}
+  - from: publish
+    to: monitor
+    weight: 0.60
+    cross_phase: true
+    trigger: "A published separation artifact moved a law to retrospective stage — it now needs a falsification
+      watch"
 
   # ════════════════════════════════════════════════════════
-  #  HEAVY LIFT → RETROSPECTIVE (cross-phase)
+  #  RETROSPECTIVE → VALLEY — challenge cycles back
   # ════════════════════════════════════════════════════════
 
-  - {from: hl-placeholder, to: re-placeholder, weight: 0.15, bidirectional: false, cross_phase: true}
+  - from: monitor
+    to: assess
+    weight: 0.70
+    cross_phase: true
+    feedback: true
+    trigger: "The monitor flagged new corpus material bearing against a retrospective law — the challenge
+      needs a full assessment"
 
   # ════════════════════════════════════════════════════════
-  #  RETROSPECTIVE → LIMINAL (cycle-back — closes the graph)
+  #  RETROSPECTIVE — within-phase, the meta loop
   # ════════════════════════════════════════════════════════
 
-  - {from: re-placeholder, to: behavior-c7r,   weight: 0.40, bidirectional: false, cycle_back: true}
-  - {from: re-placeholder, to: boot-001,       weight: 0.30, bidirectional: false, cycle_back: true}
+  - from: supervisory
+    to: graph-evolve
+    weight: 0.50
+    trigger: "The weekly sweep raised a prune, split, or stall flag against a behavior"
+
+  # ════════════════════════════════════════════════════════
+  #  RETROSPECTIVE → LIMINAL — cycle-back, closes the graph
+  # ════════════════════════════════════════════════════════
+
+  - from: graph-evolve
+    to: orient
+    weight: 0.40
+    cross_phase: true
+    cycle_back: true
+    trigger: "An approved graph change altered the registry — the next session orients against a changed
+      set of behaviors"
+
+  - from: supervisory
+    to: orient
+    weight: 0.45
+    cross_phase: true
+    cycle_back: true
+    trigger: "The weekly analytics report is ready for the supervisor to read at session start"
+
+  # ════════════════════════════════════════════════════════
+  #  OUT OF FLOW — conversation feeds the funnel
+  # ════════════════════════════════════════════════════════
+
+  - from: respond
+    to: intake
+    weight: 0.50
+    cross_phase: true
+    trigger: "A Discord conversation surfaced a link, argument, or idea worth capturing as an inbox item"

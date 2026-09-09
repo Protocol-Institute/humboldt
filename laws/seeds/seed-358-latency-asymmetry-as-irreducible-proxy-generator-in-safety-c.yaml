@@ -1,0 +1,17 @@
+id: seed-358
+title: Latency Asymmetry as Irreducible Proxy Generator in Safety-Critical Protocols
+text: In safety-critical protocols where verification must complete under hard latency bounds but attack
+  preparation has no matching constraint, systems necessarily shift to proxy signals (aggregate patterns,
+  historical models, consensus checks) to approximate verification within the time window. These proxies
+  become stable optimization targets for adversaries operating without the latency constraint. The asymmetry
+  is not solvable by moving the verification check upstream or downstream—it is architecturally baked
+  into the safety-criticality itself. This may generalize to any protocol where the protected action (braking,
+  shutdown, resource allocation) is faster-acting than the verification check intended to guard it.
+source: bibliography/shallow-reads/2026-09-02-autonomous-cyber-defense-in-connected-vehicles-a-multi-agent.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-002
+- L-008
+status: open

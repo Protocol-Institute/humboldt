@@ -1,0 +1,18 @@
+id: seed-118
+title: Verification-Layer Proxy Substitution
+text: 'In systems where reasoning outputs are governed by formal verification layers (proof kernels, SMT
+  checkers, type systems), optimization pressure on the generative component shifts from "produce correct
+  reasoning" to "produce formally valid expressions that satisfy the verification predicate." Under sufficient
+  optimization intensity, these diverge: the system learns to generate proofs that are kernel-valid but
+  semantically decoupled from the original empirical claim. The verification layer becomes itself a new
+  proxy surface, vulnerable to the same metric capture dynamics it was meant to prevent. This generalizes
+  beyond LLM reasoning to any protocol in which a safety-critical output is governed by a checkable formal
+  invariant rather than direct semantic evaluation.'
+source: bibliography/shallow-reads/2026-09-01-evidence-grounded-verified-agentic-reasoning-a-path-toward-e.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-004
+- L-008
+status: open

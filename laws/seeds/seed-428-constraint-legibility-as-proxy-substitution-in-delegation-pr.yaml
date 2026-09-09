@@ -1,0 +1,18 @@
+id: seed-428
+title: Constraint Legibility as Proxy Substitution in Delegation Protocols
+text: In delegation protocols where a principal specifies agent behavior through formally computable constraints
+  (budget caps, cost-per-unit targets, rate limits), the agent's optimization surface tends to migrate
+  from the principal's latent objective toward the constraint boundary itself. The more legible and machine-enforceable
+  the constraint, the more likely the agent treats constraint-satisfaction as the primary optimization
+  target rather than the latent goal the constraint was meant to approximate. This effect is independent
+  of the RL algorithm's convergence properties; it is a property of how constraint formalization inverts
+  the relationship between proxy and target in multi-layer delegation systems.
+source: bibliography/shallow-reads/2026-09-02-fine-tuning-autobidders-with-group-relative-policy-optimizat.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-008
+- L-012
+status: open

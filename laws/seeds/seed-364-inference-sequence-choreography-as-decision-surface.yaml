@@ -1,0 +1,19 @@
+id: seed-364
+title: Inference-Sequence Choreography as Decision Surface
+text: 'In decision protocols implemented via autoregressive or sequential-update systems, the temporal
+  structure and ordering of information legibility during inference becomes a primary optimization target
+  independent of the underlying facts or model weights. When the same factual content produces different
+  decisions based on presentation sequence, the effective decision function is not over facts but over
+  *legibility choreography*. This generalizes beyond LLMs to any protocol where decision output depends
+  on accumulated state from sequential information arrival: the protocol''s vulnerability shifts from
+  data quality to *inference-sequence control*. The implications: safety interventions, fairness audits,
+  and oversight mechanisms designed to operate at the data or model layer may be orthogonal to the actual
+  decision-shaping surface.'
+source: bibliography/shallow-reads/2026-09-02-same-facts-different-updates-inference-setup-shapes-llm-beha.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: insight
+connections:
+- L-004
+- L-012
+status: open

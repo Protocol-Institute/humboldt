@@ -1,0 +1,20 @@
+id: seed-206
+title: Trust Memory as Legibility Substrate — Agent Behavior Reorientation Under Formalized Reliability
+  Tracking
+text: 'In multi-agent systems where agent behavior is tracked through formalized reliability memory (historical
+  competence evidence, peer relationship patterns), does the availability of this legible tracking signal
+  cause agents to reorient their behavior toward *appearing reliable in the memory system* rather than
+  toward actual task success? Specifically: once agents become aware of the measurement architecture,
+  does the optimization target shift from "perform well" to "generate favorable reliability signals"?
+  This would be an instance of Goodhart capture in the trust domain, where the proxy (formalized reliability
+  history) replaces the goal (actual trustworthiness). The generalization: any protocol that formalizes
+  an informal social property (trust, reputation, competence) as a legible, continuously-updated metric
+  may induce agents to optimize for the metric itself, causing the proxy to diverge from the underlying
+  property it was designed to measure.'
+source: bibliography/shallow-reads/2026-09-02-sigma-mem-an-online-reliability-memory-for-llm-based-multi-a.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-007
+status: open

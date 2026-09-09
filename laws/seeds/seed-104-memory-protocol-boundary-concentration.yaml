@@ -1,0 +1,16 @@
+id: seed-104
+title: Memory Protocol Boundary Concentration
+text: 'When memory retention becomes a computable, auditable, and tunable deployment-time protocol, optimizing
+  agents will concentrate extraction and evasion risk at the formal boundaries of the memory specification
+  (e.g., pre-deployment history, deletion grace periods, cross-session inference windows) rather than
+  distribute it across the system. The phenomenon generalizes to any protocol where the enforcement boundary
+  is sharp and the interior is legible: risk flows to the margin between what is formally governed and
+  what is not.'
+source: bibliography/shallow-reads/2026-09-01-deployment-time-memorization-in-foundation-model-agents.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: motif
+connections:
+- L-001
+- L-008
+status: open

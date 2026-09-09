@@ -1,0 +1,18 @@
+id: seed-173
+title: Privacy Formalization as Coordination Cost Relocation
+text: 'When informal multi-agent protocols (e.g., clinical data collaboration) are formalized under privacy
+  constraints, the privacy mechanism itself does not reduce coordination cost — it relocates it to recovery
+  layers. In this case, differential privacy noise is countered by adding server-side adaptive optimization,
+  pushing coordination labor from data collection norms into model convergence mechanics. This suggests
+  a general pattern: hard constraints in protocol formalization create new optimization surfaces rather
+  than eliminating the underlying coordination burden. The question is whether this holds across other
+  high-stakes domains (finance, infrastructure, safety-critical systems) where informal trust must be
+  replaced with computable legality.'
+source: bibliography/shallow-reads/2026-09-02-recovering-clinical-utility-under-differential-privacy-empir.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-003
+- L-006
+status: open

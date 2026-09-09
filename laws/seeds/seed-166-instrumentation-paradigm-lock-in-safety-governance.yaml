@@ -1,0 +1,18 @@
+id: seed-166
+title: Instrumentation Paradigm Lock in Safety Governance
+text: 'Safety governance systems in protocol-based AI deployments become progressively locked to the failure
+  modes their instrumentation can detect and formalize. Failures that are distributed, normalized across
+  workflow layers, or lack single-point attribution surfaces are systematically tolerated not because
+  they are accepted as safe, but because the governance apparatus has no legible signal for them. This
+  creates a stability trap: as the system ages without dramatic failures, trust accumulates based on silence
+  from instrumentation rather than evidence of absence. The condition is sharpest in safety-critical domains
+  where formalization of metrics has been deepest, and the pattern should generalize wherever observability
+  is bought through selective measurement rather than comprehensive instrumentation.'
+source: bibliography/shallow-reads/2026-09-02-the-safety-failures-we-are-not-instrumenting-a-perspective-o.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-013
+- L-007
+status: open

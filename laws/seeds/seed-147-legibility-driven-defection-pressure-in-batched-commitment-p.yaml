@@ -1,0 +1,15 @@
+id: seed-147
+title: Legibility-Driven Defection Pressure in Batched Commitment Protocols
+text: In collective commitment protocols where individual identity is hidden until batch disclosure, the
+  moment of publication itself becomes a legible optimization point for adversaries. If retaliation cost
+  is constant but now concentrated on a known-size cohort at a known moment, the protocol may shift the
+  coordination problem from "which individuals to target early" to "how to deter the entire batch at publication
+  time." The mechanism solves cascade fragility but may create new concentration points for defection
+  incentives, particularly if publication delay creates credibility decay or if batch size becomes predictable.
+source: bibliography/shallow-reads/2026-09-02-failure-privacy-and-safe-collective-expression-with-social-a.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-010
+status: open

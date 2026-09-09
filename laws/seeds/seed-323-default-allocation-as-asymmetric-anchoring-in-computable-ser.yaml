@@ -1,0 +1,20 @@
+id: seed-323
+title: Default Allocation as Asymmetric Anchoring in Computable Service Protocols
+text: 'In service protocols where resource allocation is precisely computable and the default option is
+  presented as pre-set, users converge to the default allocation faster than to customized alternatives,
+  even when customization is costless. This occurs because: (1) the default carries implicit endorsement
+  from the provider (authority signal), (2) customization requires explicit departure from a legible baseline
+  (friction), and (3) the default becomes a coordination focal point for expectations about "normal" usage.
+  Over time, provider strategy shifts from optimizing the default allocation itself to optimizing the
+  *stickiness* of defaults — creating a secondary incentive to lock users into allocations that may no
+  longer reflect optimal pricing or reasoning quality. This pattern likely generalizes to any computable
+  resource-allocation protocol where one option is designated as default and users face asymmetric information
+  about downstream effects of customization.'
+source: bibliography/shallow-reads/2026-09-02-keep-customize-or-exit-default-design-and-token-pricing-in-l.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-001
+- L-008
+status: open

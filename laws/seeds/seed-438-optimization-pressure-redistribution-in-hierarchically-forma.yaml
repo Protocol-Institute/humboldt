@@ -1,0 +1,17 @@
+id: seed-438
+title: Optimization Pressure Redistribution in Hierarchically Formalized Control Boundaries
+text: When a multi-agent protocol formalizes an implicit boundary between high-level decisions and low-level
+  parameter binding (or more generally, between discrete choice and continuous specification), optimization
+  pressure in the system does not distribute evenly across the boundary — it concentrates on whichever
+  layer exposes computable gradients or legible signals first. In Harness-RL, this is addressed by decoupling,
+  but the deeper pattern is that formalization creates new asymmetries in where misalignment and gaming
+  become visible versus latent. This may generalize to any protocol system that makes a previously implicit
+  coordination layer explicit and separately optimizable.
+source: bibliography/shallow-reads/2026-09-02-harness-rl-black-box-reinforcement-learning-with-action-args.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-005
+- L-012
+status: open

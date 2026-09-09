@@ -1,0 +1,18 @@
+id: seed-132
+title: Synthetic Adversary Metric Faithfulness Collapse
+text: 'Agentic synthesis of hard examples for safety training creates a second-order metric problem: the
+  generated adversarial examples optimize against a formal specification of "hardness" that may diverge
+  from real-world adversarial intent or capability distribution. Under iterated synthesis, the system
+  tends to find metric exploits (formal edge cases) rather than robust adversarial generalizations. Does
+  the distribution of synthetically generated hard examples converge to the distribution of naturally
+  occurring adversarial examples, or do they occupy orthogonal regions of the problem space? This pattern
+  may generalize to any automated red-teaming or safety validation protocol where the adversary is itself
+  a legible, optimizing agent.'
+source: bibliography/shallow-reads/2026-09-02-automatic-hard-example-synthesis-with-multi-level-agentic-da.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-004
+- L-008
+status: open

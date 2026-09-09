@@ -1,0 +1,17 @@
+id: seed-312
+title: Robustness-Efficiency Inversion Under Adoption Conditionality
+text: 'In protocol systems where agent participation is conditional on beliefs about other agents'' persistence
+  (forward-looking coordination), efficiency-maximizing configurations become adoption-unstable because
+  members rationally defect when they forecast collective collapse. The system exhibits bistability: high-efficiency
+  low-robustness and low-efficiency high-robustness equilibria coexist, with no smooth interpolation.
+  This suggests a general pattern: *adoption stability and allocative efficiency are orthogonal objectives
+  in conditional-coordination systems*, not complementary. Whether this generalizes beyond coalitions
+  to credential systems, marketplace protocols, or governance networks requires investigation.'
+source: bibliography/shallow-reads/2026-09-02-robustness-over-efficiency-in-climate-coalitions-a-bistable-.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: insight
+connections:
+- L-006
+- L-010
+status: open

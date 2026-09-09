@@ -1,0 +1,17 @@
+id: seed-256
+title: Legibility-Driven Agenda Formalism as Pressure Displacement
+text: 'When agenda-setting power is formalized into a computable metric (e.g., an Agenda Democratization
+  Index), does the optimization boundary shift from the agenda itself to the metric''s design space, or
+  does formalization genuinely distribute agenda power? In systems where agenda curation was previously
+  implicit and distributed across human judgment, rendering it legible and measurable may concentrate
+  design power in whoever defines the index, while appearing to democratize. This suggests a variant of
+  L-014: not just legal boundaries become sites of strategic concentration, but measurement apparatus
+  itself.'
+source: bibliography/shallow-reads/2026-09-02-decentralization-of-agenda-setting-power-and-domain-selectiv.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-003
+- L-014
+status: open

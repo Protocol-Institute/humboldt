@@ -1,0 +1,17 @@
+id: seed-226
+title: Defensive Formalization as Boundary Displacement
+text: When a protocol defense is implemented by formalizing the detection boundary (e.g., equivalence
+  classes for duplicate detection, canonical-form reduction, or proof-of-work difficulty), the adversarial
+  pressure does not dissipate—it concentrates at the newly legible threshold. The defense transforms a
+  continuous or tacit gaming surface into a discrete, machine-readable target, making optimization by
+  sophisticated agents more efficient and predictable. The coordination cost is displaced to the layer
+  of understanding and exploiting the formal boundary itself. This suggests that formalization-as-defense
+  may be fundamentally limited in adversarial protocol environments.
+source: bibliography/shallow-reads/2026-09-02-quotient-semivalues-for-false-name-resistant-data-attributio.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-004
+- L-014
+status: open

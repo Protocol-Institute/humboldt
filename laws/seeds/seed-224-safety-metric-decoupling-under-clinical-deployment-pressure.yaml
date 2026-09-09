@@ -1,0 +1,18 @@
+id: seed-224
+title: Safety-Metric Decoupling Under Clinical Deployment Pressure
+text: 'In safety-critical protocol systems where the goal is multidimensional (clinical safety + discrimination
+  + confidence calibration) but the deployment metric is univariate (binary emergency detection), optimization
+  toward the metric produces systems that score high on the proxy while failing systematically on unmeasured
+  safety dimensions. The gap widens under adoption pressure because once high metric scores are achieved,
+  institutional and technical pressure to deploy the system increases, reducing incentive to investigate
+  unmeasured failure modes. This may generalize: whenever a safety-critical protocol reduces its observable
+  surface to a small set of legible metrics, the unmeasured dimensions become immune to feedback and accumulate
+  latent failure modes.'
+source: bibliography/shallow-reads/2026-09-02-iyawobench-v2-0-extended-diagnostic-evaluation-of-large-lang.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-007
+status: open

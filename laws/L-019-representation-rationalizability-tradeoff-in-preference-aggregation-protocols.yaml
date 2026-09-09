@@ -1,0 +1,77 @@
+id: L-019
+title: Representation-Rationalizability Tradeoff in Preference Aggregation Protocols
+slug: representation-rationalizability-tradeoff-in-preference-aggregation-protocols
+stage: exploration
+status: active
+origin: imported
+source: Arrow (1951) Social Choice and Individual Values — operationalized as engineering 
+  quantity in arXiv:2606.00291
+confidence: speculative
+statement: >
+  In any protocol that aggregates heterogeneous agent preferences into a scalar reward or ranking
+  function via a learned embedding, there is an irreducible tradeoff between representational
+  richness and preference rationalizability: coarser embeddings hide Condorcet cycles but lose
+  preference-distinguishing power, while richer embeddings preserve distinctions but expose
+  cycles that no scalar reward can rationalize. The minimum achievable aggregation error is
+  bounded below by the cycle geometry of the preference dataset, not by model capacity or training
+  procedure.
+mechanism: >
+  The embedding maps preference pairs into a representational space, determining which pairs
+  are treated as equivalent and which as distinct. Whether a pooled preference relation contains
+  Condorcet cycles (pairs A>B>C>A) depends on which distinctions the embedding preserves. Fine
+  embeddings that preserve all distinctions will expose latent cycles in the population's preferences;
+  coarse embeddings that merge distinctions will hide cycles but introduce representational
+  errors. These two failure modes trade off against each other as embedding richness varies,
+  and joint training of embedding and reward model cannot escape this tradeoff because the optimum
+  depends on the dataset's own cycle geometry, which is fixed. This is Arrow's impossibility
+  theorem operationalized as an engineering quantity.
+justification: >
+  Fed by deep read arXiv:2606.00291 ('The Representation-Rationalizability Tradeoff in Reward
+  Learning'), which proves the lower bound formally, extends it to DPO, and demonstrates joint
+  training does not automatically find the optimum. This is genuinely distinct from L-004 (Goodhart
+  Generalization): it is not about proxy corruption under optimization pressure, but about a
+  structural impossibility in preference aggregation that exists independently of optimization
+  pressure. It is also distinct from L-011 (Causal Detachment): the system does not decouple
+  from ground truth via autoregression; it is structurally prevented from rationalizing the
+  preference relation at all. The mechanism is novel — cycle geometry as the operative constraint
+  — and the pattern generalizes to any multi-stakeholder protocol using scalar reward learning.
+examples:
+  - domain: RLHF training for large language models
+    description: 'LLMs trained on human preference data via RLHF face a preference rationalizability
+      tradeoff: embeddings that distinguish all rater differences expose Condorcet cycles in
+      pooled preferences (different raters prefer A>B, B>C, C>A), while embeddings that smooth
+      over rater differences lose the ability to represent genuine preference distinctions.
+      The minimum loss is bounded by the cycle structure of the human rater pool, not by model
+      size.'
+    source: arXiv:2606.00291
+  - domain: Multi-stakeholder governance scoring
+    description: Any protocol that aggregates committee member preferences into a single 
+      ranking (e.g., grant review, journal acceptance, policy evaluation) faces the same 
+      structural tradeoff when those preferences are learned rather than elicited.
+    source: Structural analog from Arrow (1951)
+counterexamples: []
+open_questions: []
+falsification: >
+  A preference aggregation protocol that achieves zero excess loss on a dataset with documented
+  Condorcet cycles, without coarsening the embedding to the point of losing preference distinctions
+  — demonstrating that the lower bound can be escaped through architecture rather than being
+  dataset-geometry-determined.
+references: []
+seeds: []
+related: []
+triggers:
+  advance: >
+    Mechanism confirmed in 2+ genuinely independent preference aggregation domains (e.g., RLHF
+    and multi-stakeholder governance and ranked-choice voting implementations) with the cycle-geometry
+    lower bound measured empirically and shown to constrain achievable performance independent
+    of model capacity.
+  challenge: >
+    A documented case where joint embedding-reward training on a high-cycle dataset achieves
+    near-zero excess loss without embedding coarsening, demonstrating that the tradeoff can
+    be resolved through training procedure rather than being structurally imposed.
+history:
+  - date: '2026-09-02'
+    event: created
+    detail: induction sweep — Fed by deep read arXiv:2606.00291 ('The 
+      Representation-Rationalizability Tradeoff in Reward Learning'), which proves the 
+      lower bound formally, extends it to…

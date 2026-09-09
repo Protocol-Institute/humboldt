@@ -1,0 +1,16 @@
+id: seed-452
+title: Legitimacy Collapse Under Macro Formalization
+text: 'In protocol systems undergoing formalization or adoption scaling, does the space of *legitimate
+  behavioral variation* contract irreversibly at a system scale, even as informal workarounds or local
+  exceptions temporarily expand local variance? If so: is this a consequence of formalization itself (narrowing
+  the set of rule-compliant behaviors), or a consequence of enforcement legibility (narrowing which variations
+  escape detection and sanction)? The distinction matters: one is structural ossification, the other is
+  surveillance-driven conformity.'
+source: bibliography/shallow-reads/2026-09-02-idea-inverted-2nd-law-analog-while-entropy-increases-globall.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-006
+- L-001
+status: open

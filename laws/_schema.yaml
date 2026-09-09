@@ -1,0 +1,81 @@
+# Law record schema — the single research artifact type (redesign 2026-08, §3.1)
+# One YAML file per law: laws/L-NNN-<slug>.yaml
+# Replaces the C/H/CL/T/F typed-artifact system. Definitive as of 2026-08-01.
+
+# ── Identity ────────────────────────────────────────────────────────────────
+id: "L-NNN"              # assigned once, never reused, never renumbered
+title: ""                # short name, e.g. "Formalization Ratchet"
+slug: ""                 # url-safe, stable; encyclopedia anchor
+
+# ── Position ────────────────────────────────────────────────────────────────
+stage: exploration       # exploration | sensemaking | valley | heavy-lift | retrospective
+status: active           # active | challenged | falsified
+origin: discovered       # discovered | imported  (imported = source law from outside,
+                         #   protocol-theoretic generalization is Humboldt's work)
+source: null             # for imported laws: "Author (Year), Work"
+confidence: speculative  # speculative | provisional | supported | unfalsified
+                         # (METHOD.md levels; "unfalsified" only at retrospective —
+                         #  there is no "established")
+
+# ── Content ─────────────────────────────────────────────────────────────────
+statement: ""            # the law itself: 1–3 crisp, falsifiable sentences
+mechanism: ""            # the causal account: WHY the regularity holds
+justification: ""        # the case for belief: provenance of the idea, why the
+                         #   evidence pattern supports it, what would be surprising
+                         #   if it were false
+examples:                # supporting evidence, one entry per case
+  - domain: ""           #   independent domain (independence matters for promotion)
+    description: ""
+    source: null         # bib-NNNN once bibliography lands; free text until then
+counterexamples:         # challenges live here, never deleted — resolution recorded
+  - description: ""
+    resolution: ""       # how it was answered, or "OPEN"
+    source: null
+open_questions: []       # unresolved cruxes, each a single sentence
+falsification: ""        # what observation would refute the law (required from
+                         #   sensemaking stage onward)
+
+# ── Connections ─────────────────────────────────────────────────────────────
+references: []           # bib-NNNN ids (free text until bibliography.yaml exists)
+seeds: []                # seed ids that fed this law
+related: []              # other L-NNN ids, with optional " # why" comment
+
+# ── Lifecycle ───────────────────────────────────────────────────────────────
+triggers:                # supervisor-editable, plain language; assess evaluates them
+  advance: ""            # condition to promote one stage
+  challenge: ""          # condition that forces a cycle-back review
+history: []              # append-only: {date, event, detail}
+                         # events: created | evidence | counterexample | promoted |
+                         #   demoted | challenged | resolved | edited | migrated |
+                         #   falsified | published
+
+# ═══════════════════════════════════════════════════════════════════════════
+# STAGE MACHINE RULES (definitive)
+#
+# Stages retain Double Freytag semantics:
+#   exploration  — law-shaped idea registered; evidence anecdotal
+#   sensemaking  — statement + mechanism + falsification conditions all present
+#   valley       — evidence accumulation across domains; cruxes being worked
+#   heavy-lift   — evidence from 3+ independent domains; crux questions resolved
+#                  or scoped; separation artifact (publishable writeup) in progress
+#   retrospective— published and monitored; subject to periodic challenge attempts
+#
+# Transitions:
+#   1. ADVANCE moves exactly one stage forward, only via the assess behavior or
+#      the supervisor, only when the law's `advance` trigger is met, with the
+#      evidence cited in the history entry. No stage-skipping.
+#   2. CYCLE-BACK (challenge that survives assessment) may move to ANY earlier
+#      stage — set by whatever the surviving challenge actually breaks:
+#      a counterexample breaks evidence → valley; breaks the mechanism →
+#      sensemaking; breaks the statement itself → exploration.
+#      Status becomes `challenged` until the review completes, then `active`
+#      at the new stage.
+#   3. FALSIFIED is a status, not a stage: the law keeps its record and stays in
+#      the encyclopedia, labeled — falsified laws are first-class negative
+#      results. Only the supervisor confirms `falsified`.
+#   4. CONFIDENCE moves independently of stage but is capped by it:
+#      exploration ≤ speculative; sensemaking/valley ≤ provisional;
+#      heavy-lift ≤ supported; retrospective ≤ unfalsified.
+#   5. Every stage, status, or confidence change appends a history entry.
+#      Supervisor edits use event `edited`. Nothing is ever removed from history.
+# ═══════════════════════════════════════════════════════════════════════════

@@ -1,0 +1,19 @@
+id: seed-127
+title: Externality-Driven Commons Degradation in Signal-Generation Systems
+text: In systems where agents both consume and generate contributions to a shared signal pool, and where
+  AI can substitute for *production* of signals but not for *grounding* of signals in contextual particularity,
+  rational individual substitution produces collective signal degradation. The externality is invisible
+  at the individual level (each agent benefits from substitution) but cumulative at the collective level
+  (the commons loses ground-truth density). This pattern should generalize beyond knowledge commons to
+  any protocol system with learning externalities where automation can mimic output without preserving
+  input validity—recommendation systems, scientific review, legal precedent indexing, governance signal
+  aggregation. The degradation is path-dependent and can appear irreversible if ground-truth generation
+  capacity atrophies.
+source: bibliography/shallow-reads/2026-09-01-the-tragedy-of-the-cognitive-commons-collective-intelligence.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: insight
+connections:
+- L-045
+- seed-045
+status: open

@@ -1,0 +1,17 @@
+id: seed-386
+title: Scale-Driven Mechanism Saturation Under Fixed Information Bandwidth
+text: In agent coordination systems with bounded information-carrying capacity (attention, message slots,
+  observation depth), social mechanisms that depend on frequent agent interaction degrade monotonically
+  as population size grows, independent of protocol redesign, because the per-agent information budget
+  required to sustain the mechanism does not scale. This suggests a hard trade-off between population
+  size and mechanism fidelity that may generalize across any protocol system using finitary information
+  channels under broadcast or gossip constraints. The prediction is that mechanisms will fail not because
+  of cascading abandonment but because individual agents become information-starved.
+source: bibliography/shallow-reads/2026-09-02-predicting-the-scale-limits-of-social-mechanisms-in-agent-so.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-010
+- L-003
+status: open

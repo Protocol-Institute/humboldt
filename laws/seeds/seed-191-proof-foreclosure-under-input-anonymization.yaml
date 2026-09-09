@@ -1,0 +1,16 @@
+id: seed-191
+title: Proof Foreclosure Under Input Anonymization
+text: 'In protocol systems where optimization pressure (discrimination) and legal accountability both
+  depend on the same legible input stream (identity, history, demographics), removing input legibility
+  simultaneously disables both the harmful optimization and the proof mechanism for violation. This creates
+  a stable but brittle equilibrium: the protocol functions (no discrimination occurs), but doctrinal predicates
+  for enforcement become unreachable. Generalization candidate: in any regulatory protocol where the regulated
+  behavior and its detection share a common evidence base, deformalization of that base may foreclose
+  both the violation and its adjudication—transferring the coordination cost to proof rather than prevention.'
+source: bibliography/shallow-reads/2026-09-02-private-again-ai-agents-restore-anonymity-foreclosing-discri.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+status: open

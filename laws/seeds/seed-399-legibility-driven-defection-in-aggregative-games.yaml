@@ -1,0 +1,16 @@
+id: seed-399
+title: Legibility-Driven Defection in Aggregative Games
+text: In distributed aggregative games where agents' cost functions depend on a computable aggregate of
+  all agents' strategies, does the very legibility and precision of the aggregate signal create incentives
+  for agents to either (a) strategically misrepresent their local state to manipulate the aggregate, or
+  (b) defect from participation when the aggregate becomes a visible target for adversarial optimization?
+  The algorithm assumes agents are transparent to the aggregate mechanism; what changes when agents can
+  observe the aggregate and optimize against it in real time, potentially destabilizing the equilibrium
+  the algorithm seeks?
+source: bibliography/shallow-reads/2026-09-02-gradient-extrapolation-based-distributed-mirror-descent-algo.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-010
+status: open

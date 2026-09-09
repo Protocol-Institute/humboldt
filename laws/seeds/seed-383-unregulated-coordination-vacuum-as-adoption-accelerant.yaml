@@ -1,0 +1,18 @@
+id: seed-383
+title: Unregulated Coordination Vacuum as Adoption Accelerant
+text: 'In decentralized systems where the incumbent coordinator (diesel operator) lacks regulatory constraint
+  and exhibits market power, new participants (solar adopters) exit the coordination layer rather than
+  reform it. This produces rapid distributed adoption but transfers unresolved coordination burdens (balancing,
+  arbitrage, curtailment) to the adopter base with no mechanism to route solutions back to protocol design.
+  The pattern may generalize: when protocol oversight is absent or non-binding, agents optimize locally
+  against visible proxies (cost, autonomy) rather than negotiating collective constraints. The coordination
+  cost does not vanish; it fragments and accumulates as externality and inefficiency rather than informing
+  protocol evolution.'
+source: bibliography/shallow-reads/2026-09-02-market-power-and-distributed-solar-integration-in-microgrids.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-001
+- L-006
+status: open

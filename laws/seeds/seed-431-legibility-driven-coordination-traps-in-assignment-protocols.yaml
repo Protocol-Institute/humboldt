@@ -1,0 +1,17 @@
+id: seed-431
+title: Legibility-Driven Coordination Traps in Assignment Protocols
+text: 'In assignment protocols where selection is based on a computable, legible metric (test scores,
+  ranking), families or agents can calculate their exact marginal position and cost-to-compete. This legibility
+  enables fine-grained optimization but locks all participants into a symmetric arms race where individual
+  rationality produces collective irrationality (zero-return spending, fertility collapse). The trap persists
+  because exiting is individually catastrophic; it can only be broken by removing legibility itself (e.g.,
+  lottery-based assignment). Generalizes: any protocol where the optimization target is publicly computable
+  and the cost of non-participation is individually concentrated tends toward correlated failure at scale.'
+source: bibliography/shallow-reads/2026-09-02-the-race-for-elite-destinations-education-competition-and-lo.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-008
+status: open

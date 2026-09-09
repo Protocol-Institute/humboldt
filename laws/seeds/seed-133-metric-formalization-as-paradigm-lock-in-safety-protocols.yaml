@@ -1,0 +1,17 @@
+id: seed-133
+title: Metric Formalization as Paradigm Lock in Safety Protocols
+text: When a safety coordination problem is addressed by formalizing a tiered metric (e.g., "biological
+  risk tier"), the metric becomes the optimization target rather than the underlying safety goal. Established
+  protocol systems then tolerate accumulating evidence that the metric fails to prevent the original harm
+  (misuse still occurs; legitimate research still blocked) without triggering revision of the metric itself,
+  because the metric has become institutionalized as the standard of compliance. The formalization converts
+  a flexible coordination norm into a rigid, gameable target, which in turn insulates the system against
+  recognizing its own failure.
+source: bibliography/shallow-reads/2026-09-02-biotier-a-refusal-benchmark-for-targeted-biological-risk-mit.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-013
+status: open

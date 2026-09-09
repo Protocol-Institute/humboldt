@@ -1,0 +1,16 @@
+id: seed-321
+title: Representational Opacity Under Expressive Optimization
+text: In systems where the primary output is meaning-generation rather than resource allocation, fairness
+  interventions may become systematically ineffective because the optimization target (internal model
+  bias, token selection, latent representation) is not legibly connected to any measurable fairness proxy.
+  When the system's function is to *express* rather than to *decide*, does formalization of fairness criteria
+  become orthogonal to the actual locus of bias generation? Under what conditions does representational
+  fairness become uncomputable by design?
+source: bibliography/shallow-reads/2026-09-02-from-fair-representation-to-just-recognition-in-generative-a.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-004
+- L-012
+status: open

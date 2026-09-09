@@ -1,0 +1,17 @@
+id: seed-279
+title: Metric Legibility Displacement in Opaque Policy Signaling
+text: 'When a central bank''s implicit or qualitative communication signal (tone, intent, forward guidance)
+  is converted into a computable, market-readable metric via automated measurement (LLM-based or otherwise),
+  does the availability of that metric change the strategic structure of the signaling game itself? Specifically:
+  do optimizing market agents begin conditioning on the metric rather than the underlying policy, and
+  does this feedback loop cause the central bank to either ossify its communication (to preserve signal
+  consistency) or abandon transparency (to preserve signal privacy)? This would generalize beyond monetary
+  policy to any domain where informal or high-dimensional institutional signals are rendered legible and
+  market-actionable.'
+source: bibliography/shallow-reads/2026-09-02-reading-copom-s-tone-a-weighted-llm-framework-for-hawkish-do.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-004
+status: open

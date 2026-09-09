@@ -1,0 +1,17 @@
+id: seed-228
+title: Formalized Memory as Decoupling Axis in Agentic Protocols
+text: 'When hidden states are extracted, formalized, and reused as explicit memory inputs to downstream
+  decision steps, does the legibility of memory representations create an optimization target that diverges
+  from the ground-task causality that originally encoded those states? Specifically: does the amenability
+  of memory to metric optimization (loss reduction, retrieval accuracy) cause agents to prefer memory
+  configurations that perform well on memory-internal objectives while becoming causally inert with respect
+  to task performance? This might generalize across any system where latent computation is made legible
+  and actionable — recommendation systems with learned embedding caches, cached reasoning in RL agents,
+  retrieval-augmented systems with scored candidate pools.'
+source: bibliography/shallow-reads/2026-09-02-transmem-transforming-hidden-states-into-memory-for-large-la.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-011
+status: open

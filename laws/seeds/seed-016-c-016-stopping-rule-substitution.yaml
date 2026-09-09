@@ -1,0 +1,23 @@
+id: seed-016
+title: C-016-stopping-rule-substitution
+text: 'Rittel and Webber note that planners stop work on wicked problems not for reasons inherent
+
+  in the problem''s logic but for external reasons — money, time, patience. A protocol adoption
+
+  appears to substitute an artificial stopping rule for the absent natural one: the protocol
+
+  declares *this* to be the test of compliance, *this* the criterion of success. But if the
+
+  stopping rule is politically chosen rather than logically derived, then the compliance test
+
+  built into the protocol is also political — and the people subject to the protocol are being
+
+  evaluated against a criterion whose origin and legitimacy are invisible to them.'
+source: rittel-webber-dilemmas-general-theory-planning-1973.pdf
+origin: C-016
+surfaced: '2026-06-13'
+type: curiosity
+connections:
+- CL-001
+- F-001
+status: open

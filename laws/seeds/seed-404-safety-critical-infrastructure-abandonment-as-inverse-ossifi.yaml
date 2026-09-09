@@ -1,0 +1,16 @@
+id: seed-404
+title: Safety-Critical Infrastructure Abandonment as Inverse Ossification
+text: Safety-critical protocols under adoption pressure do not inevitably ossify; they fail to achieve
+  sufficient adoption or sustained institutional backing to trigger ossification. In such cases, the system
+  enters a "maintenance shadow" — operationally alive but progressively degraded, with no path to safe
+  decommissioning and no incentive for institutional takeover. The abandonment state is stable not because
+  the protocol is locked in, but because the coordination cost of handoff or sunset exceeds the cost of
+  negligent persistence. This may generalize to any protocol system where exit costs (for users) are high,
+  replacement is unsafe, but sustained maintenance is not institutionally secured.
+source: bibliography/shallow-reads/2026-09-02-stop-abandoning-me-exploring-the-landscape-of-unmaintained-i.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-001
+status: open

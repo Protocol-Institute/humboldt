@@ -1,0 +1,19 @@
+id: seed-315
+title: Routing Bottleneck Dominance in Distributed Reasoning Systems
+text: In multi-agent or distributed decision systems, the maximum collective reasoning capability is constrained
+  by min(agent capability, institutional routing capacity), not their sum. When evidence routing protocols
+  are fixed, adding agent capability yields diminishing or zero returns; institutional redesign becomes
+  the dominant intervention. This generalizes across human organizations, AI multi-agent systems, and
+  automated governance protocols wherever information asymmetry and evidence aggregation are present.
+  The bottleneck is legible (the routing rules exist) yet often invisible (optimization pressure defaults
+  to agent layer). Mechanisms include correlated evidence treated as independent, stale shared state,
+  and action interfaces that don't expose evidence quality signals back to the belief-formation layer.
+source: bibliography/shallow-reads/2026-09-02-when-do-institutions-beat-intelligence.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-003
+- L-006
+- L-015
+status: open

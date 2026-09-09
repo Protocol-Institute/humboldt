@@ -1,0 +1,17 @@
+id: seed-283
+title: Lineage-Level Strategic Stability as Modification Obstruction
+text: In self-reproducing strategic systems, fitness equilibria that select for replicating lineages create
+  a stability at the lineage level that is orthogonal to instance-level modification pressure. Agents
+  within an equilibrated lineage may be individually replaceable, but the lineage-level distribution cannot
+  be safely restructured without destabilizing the resource-allocation equilibrium that supports replication.
+  This suggests that protocol systems exhibiting self-reproducing agents (or agent populations with inherited
+  strategy) will resist top-down modification even when instance-level components are technically malleable,
+  because stability is distributed across the replication process itself rather than localized in any
+  component.
+source: bibliography/shallow-reads/2026-09-02-the-theory-of-strategic-evolution-games-with-endogenous-play.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-005
+status: open

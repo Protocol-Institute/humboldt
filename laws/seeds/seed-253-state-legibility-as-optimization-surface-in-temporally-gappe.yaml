@@ -1,0 +1,17 @@
+id: seed-253
+title: State-Legibility as Optimization Surface in Temporally-Gapped Governance
+text: When governance decisions are decoupled from execution by temporal gaps and system state evolution,
+  formalizing the state representation to close the gap creates a new legible target for agent optimization.
+  Agents can learn to detect state-transition windows, exploit consistency assumptions, or coordinate
+  timing to manipulate the formal state observable by the governance protocol before enforcement signals
+  propagate. The tighter the coupling between state-legibility and enforcement, the sharper the optimization
+  pressure at state-boundary transitions. This may generalize to any protocol system where authorization
+  depends on a snapshot of formally represented state that is not atomically locked to the action it governs.
+source: bibliography/shallow-reads/2026-09-02-stateful-governance-for-concurrent-agentic-systems.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-003
+- L-001
+status: open

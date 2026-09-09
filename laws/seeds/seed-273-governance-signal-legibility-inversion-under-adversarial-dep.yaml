@@ -1,0 +1,18 @@
+id: seed-273
+title: Governance-Signal Legibility Inversion Under Adversarial Deployment
+text: 'When a technical signal (watermark, metadata, signature) is deployed as the primary legible evidence
+  for a governance intent, adversaries facing optimization pressure will target the signal''s legibility
+  rather than the underlying norm. The signal becomes a single point of failure: either it survives intact
+  (in which case governance works, but only until attacks scale) or it degrades under attack (in which
+  case governance loses its only lever). Generative-AI watermarking exemplifies this, but the pattern
+  should recur in any protocol where verification is outsourced to a computable, observable artifact rather
+  than sustained through institutional practice or distributed consensus. Worth tracking whether governance-critical
+  signals systematically fail when isolated from ecosystem-level coordination mechanisms.'
+source: bibliography/shallow-reads/2026-09-02-from-forensics-to-ecosystems-rethinking-watermarks-for-gener.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-001
+- L-014
+status: open

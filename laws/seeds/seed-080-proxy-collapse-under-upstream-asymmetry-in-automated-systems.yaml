@@ -1,0 +1,18 @@
+id: seed-080
+title: Proxy Collapse Under Upstream Asymmetry in Automated Systems
+text: When a predictive or forecasting system is trained on a proxy that is itself asymmetrically distributed
+  (e.g., media coverage, institutional audit trails, labeled datasets), the system does not learn a degraded
+  version of the target task — it learns to optimize the proxy distribution itself. Under sufficient parametric
+  pressure, the system's outputs become a direct function of proxy density rather than ground truth. This
+  is distinct from L-004 (Goodhart capture) because the metric is corrupted *before* optimization begins.
+  The failure mode is not convergence to a wrong target; it is structural misalignment between what the
+  system is trained to predict and what it appears to predict. This should generalize across any automated
+  system relying on institutionally filtered or editorially asymmetric training signals.
+source: bibliography/shallow-reads/2026-09-01-the-limits-of-llm-forecasting-parametric-knowledge-gaps-acro.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-004
+- L-013
+status: open

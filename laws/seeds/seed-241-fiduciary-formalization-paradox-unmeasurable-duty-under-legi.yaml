@@ -1,0 +1,17 @@
+id: seed-241
+title: Fiduciary Formalization Paradox — Unmeasurable Duty Under Legible Enforcement
+text: 'When a fiduciary obligation (defined as fidelity to an unmeasurable goal) is embedded in a protocol
+  system requiring computable compliance signals, the enforcement layer necessarily selects for measurable
+  proxies of the duty. This creates a displacement: agents optimize for the legible fiduciary *marker*
+  (audit compliance, alignment score, disclosed reasoning) rather than the duty itself. Does this pattern
+  hold across other domains where normative or relational obligations are forced into protocol form? And
+  if so, does formalizing unmeasurable duties accelerate their conversion into metric-capture problems
+  rather than prevent it?'
+source: bibliography/shallow-reads/2026-09-02-ai-alignment-and-fiduciary-obligation.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-004
+- L-012
+status: open

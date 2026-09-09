@@ -1,0 +1,15 @@
+id: seed-210
+title: Intermediary Legibility as Silent Preference Capture
+text: 'In delegated allocation systems, making the intermediary''s decision process verifiable and auditable
+  (to satisfy fairness demands) creates a new optimization target: the intermediary can now manipulate
+  its allocation strategy within the space of "fair" outcomes that it can justify post-hoc. Does computable
+  fairness at the intermediary layer displace preference satisfaction from the end agents to the intermediary''s
+  institutional interests, while preserving the appearance of fairness?'
+source: bibliography/shallow-reads/2026-09-02-delegated-fair-division.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-006
+- L-012
+status: open

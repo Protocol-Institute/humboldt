@@ -1,0 +1,20 @@
+id: seed-207
+title: Legible Priority as Optimization Anchor in Continuous Coordination Protocols
+text: 'When multi-agent systems transition from discrete request-response workflows to continuous event-driven
+  coordination under scaling pressure, priority inference becomes a computable, legible signal. In systems
+  where agent behavior can be optimized against inferred priority metrics (e.g., learned priority functions,
+  preemption scores), agents may converge on signal manipulation rather than task completion. This suggests
+  that formalization of informal sequencing norms (L-003) under scaling pressure does not eliminate coordination
+  cost but relocates it to the new legible layer — consistent with seed-082. The regularity holds wherever
+  priority or scheduling signals are both: (1) computable from observable state, and (2) causally upstream
+  of agent resource allocation. Generalizes beyond multi-agent systems to any protocol where adoption
+  pressure forces coordination norms into machine-readable form.'
+source: bibliography/shallow-reads/2026-09-02-autonomous-event-driven-multi-agent-orchestration-for-enterp.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-001
+- L-008
+- L-012
+status: open

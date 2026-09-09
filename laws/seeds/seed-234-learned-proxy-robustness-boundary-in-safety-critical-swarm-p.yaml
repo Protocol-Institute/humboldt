@@ -1,0 +1,18 @@
+id: seed-234
+title: Learned-Proxy Robustness Boundary in Safety-Critical Swarm Protocols
+text: 'When a safety protocol (e.g., collision avoidance) transitions from explicit constraint verification
+  to learned proxy prediction, the proxy inherits the upstream asymmetry of training distribution coverage
+  versus operational deployment distribution. The learned operator generalizes well across *interpolation*
+  (swarm size, debris density within training range) but may fail catastrophically on *extrapolation*.
+  This suggests a general boundary: learned proxies in safety-critical protocols are robust only within
+  the operational envelope of their training distribution, and this envelope shrinks as the protocol scales
+  or environmental conditions diversify. Does this generalize across domains where verification hardness
+  drives proxy adoption?'
+source: bibliography/shallow-reads/2026-09-02-neural-operator-learning-for-collision-aware-trajectory-plan.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-008
+- L-005
+status: open

@@ -1,0 +1,17 @@
+id: seed-393
+title: Explainability Formalism as Optimization Surface Multiplication
+text: 'When post-hoc explainability tools are subject to formal auditing protocols and robustness metrics,
+  the surface available for optimization pressure increases: agents can now optimize the explanation output
+  itself (via adversarial perturbation) independently of optimizing the underlying prediction or the true
+  causal structure the explanation claims to represent. Formalization creates legibility that enables
+  new adversarial strategies without reducing the original problem (model untrustworthiness). This suggests
+  a more general pattern: formalizing a proxy to make it auditable may multiply the number of decoupling
+  points rather than reduce them.'
+source: bibliography/shallow-reads/2026-09-02-a-formal-methodological-framework-for-auditing-robustness-an.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-008
+status: open

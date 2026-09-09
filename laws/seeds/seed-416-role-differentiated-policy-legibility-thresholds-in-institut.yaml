@@ -1,0 +1,18 @@
+id: seed-416
+title: Role-Differentiated Policy Legibility Thresholds in Institutional AI Adoption
+text: 'Institutional adoption of AI across role-differentiated populations does not respond uniformly
+  to policy formalization. Different roles (faculty, students, admin) exhibit distinct *policy clarity
+  barriers*—suggesting that the legibility of protocol obligations is not objective but role-contingent,
+  dependent on how formalization interfaces with existing role-specific accountability structures. The
+  coordination gap may not be a lag in adoption, but a stable equilibrium in which formalization cannot
+  simultaneously satisfy heterogeneous legibility requirements. This points toward a generalization: in
+  multi-role institutional protocols, increased formalization may increase total coordination cost by
+  forcing role-specific translation layers rather than reducing it.'
+source: bibliography/shallow-reads/2026-09-02-the-ai-adaptation-gap-in-higher-education-students-faculty-a.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-008
+- L-012
+status: open

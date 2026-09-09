@@ -1,0 +1,17 @@
+id: seed-432
+title: Measurement-Resistant Bias Persistence in Training Protocols
+text: In large-scale training protocols where output bias is measurable and documented but orthogonal
+  to the primary optimization objective (next-token prediction), systematic preference drift emerges and
+  stabilizes without triggering architectural intervention. The bias persists across scaling and model
+  families because the training objective does not encode correction for it, and no secondary protocol
+  layer (e.g., preference-tuning, safety layer) has been formalized as *mandatory* rather than optional.
+  This suggests that measurement of anomalies in protocol systems does not automatically induce repair
+  when the anomaly is not encoded as a computable constraint within the primary objective function.
+source: bibliography/shallow-reads/2026-09-02-why-are-all-llms-obsessed-with-japanese-culture-on-the-hidde.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-013
+status: open

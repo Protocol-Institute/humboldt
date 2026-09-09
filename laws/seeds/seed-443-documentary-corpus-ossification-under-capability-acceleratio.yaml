@@ -1,0 +1,19 @@
+id: seed-443
+title: Documentary Corpus Ossification Under Capability Acceleration
+text: 'In institutional governance systems, the formalization of policy into a discrete documentary corpus
+  creates a temporal lock: the corpus can remain internally consistent and formally authoritative while
+  the problem domain it addresses has moved beyond its expressive capacity. The breakpoint is not a logical
+  contradiction in the policy text, but a gap between documented decision pathways and novel agent behavior
+  classes. This suggests formalization can *preserve institutional identity* while *destroying institutional
+  response capacity*—a distinct failure mode from policy contradiction or metric capture. The pattern
+  may generalize to any protocol system where the cost of updating the formal corpus exceeds the perceived
+  cost of operating under obsolete rules.'
+source: bibliography/shallow-reads/2026-09-02-stress-testing-university-ai-governance-a-prospective-method.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: insight
+connections:
+- L-003
+- L-013
+- L-015
+status: open

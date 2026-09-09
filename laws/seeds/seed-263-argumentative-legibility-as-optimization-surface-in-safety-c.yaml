@@ -1,0 +1,17 @@
+id: seed-263
+title: Argumentative Legibility as Optimization Surface in Safety-Critical Multi-Agent Coordination
+text: When safety-critical coordination (clinical, engineering, policy) is formalized as a legible argumentation
+  protocol with computable scoring functions, optimizing agents will predictably migrate effort from substantive
+  outcome quality to argumentative persuasiveness within the protocol. The formalization that enables
+  transparency and auditability simultaneously creates a new, lower-cost optimization target — agents
+  learn to win the arena rather than solve the problem. This occurs even when all agents are aligned with
+  the original goal, because the computable proxy (argument score) becomes easier to target than the uncomputable
+  outcome (actual care quality). The effect scales with the precision of the scoring function and the
+  explicitness of the winning condition.
+source: bibliography/shallow-reads/2026-09-02-adaptive-arena-based-contestable-argumentative-network-of-ex.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-012
+status: open

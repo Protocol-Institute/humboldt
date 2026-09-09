@@ -14,6 +14,10 @@ _DEFAULTS: dict = {
     "last_conversation_review": None,   # YYYY-MM-DD of last review pass
     "last_proactive_post_date": None,   # YYYY-MM-DD of last self-initiated #new-nature post
     "last_weekly_digest_date": None,    # YYYY-MM-DD of last weekly notebook digest post
+    "last_feed_digest_date": None,      # YYYY-MM-DD of last weekly feed-inbox digest DM
+    "law_notify_date": None,            # YYYY-MM-DD of the current law-event notify cap window
+    "law_notify_count": 0,              # law-event Discord posts sent so far in that window
+    "pending_feed_items": [],           # [{title, note}] accumulated since the last feed digest
     "paused_until": None,               # YYYY-MM-DD — offline for posting/querying through this date
     # Restart-safety fields
     "responded_mention_ids": [],        # Discord message IDs already replied to (capped at 500)

@@ -1,0 +1,17 @@
+id: seed-264
+title: Compliance Wrapper Paradox in Safety-Critical Silos
+text: 'In safety-critical domains (healthcare, aviation, finance), additive compliance wrapping preserves
+  existing point solutions while rendering coordination obligations legible and machine-readable. This
+  may satisfy immediate integration needs but creates a new optimization surface: agents can satisfy compliance
+  at the wrapper layer while internal silo logic remains unconstrained. The compliance layer becomes a
+  new proxy target (L-004 territory) and a candidate site for strategic boundary concentration (L-014).
+  The paradox: adding governance structure to protect fragmented systems may accelerate the very ossification
+  it aims to solve by making the wrapper itself the irreducible coordination cost.'
+source: bibliography/shallow-reads/2026-09-02-from-siloed-algorithms-to-compliance-first-agentic-platforms.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-001
+- L-005
+status: open

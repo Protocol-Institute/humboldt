@@ -1,0 +1,18 @@
+id: seed-423
+title: Formalized Fairness as Utility Laundering Scaffold
+text: When fairness metrics are formalized into testable, relaxable constraints with computable utility
+  thresholds, the protocol creates a legible zone for utility optimization that preserves fairness-appearance
+  while weakening fairness-substance. The framework does not prevent capture; it architectures permission
+  for it. In systems where fairness is the nominal constraint and utility is the optimization objective,
+  formalizing both as jointly-testable quantities tends to produce equilibria where fairness is satisfied
+  nominally (passing the test) while utility extraction proceeds maximally (within the test's tolerance).
+  This may generalize to any two-objective protocol where one objective is harder to measure than the
+  other and one objective has more concentrated payoff.
+source: bibliography/shallow-reads/2026-09-02-testing-fairness-with-utility-tradeoffs-a-wasserstein-projec.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-006
+status: open

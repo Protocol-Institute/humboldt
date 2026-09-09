@@ -1,0 +1,17 @@
+id: seed-355
+title: Capability-Boundary Legibility as Constraint Displacement
+text: 'When resource constraints in safety-critical protocols are formalized as task-correlated harness
+  allocations—making the boundary between permitted and forbidden actions legible and computable—optimization
+  pressure may not be eliminated but displaced upstream into task-type classification, requirement signaling,
+  and boundary-gaming. The savings from reducing over-provisioning may be offset by increased pressure
+  to manipulate or misclassify the formalized boundary itself. This suggests a deeper regularity: formalizing
+  a constraint does not remove the pressure to evade it; it relocates that pressure to whichever layer
+  remains unlegible.'
+source: bibliography/shallow-reads/2026-09-02-task-aware-harness-provisioning-for-llm-agents-in-mission-cr.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-012
+- L-014
+status: open

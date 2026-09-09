@@ -1,0 +1,16 @@
+id: seed-091
+title: Wager Proxy Capture in Confidence-Weighted Aggregation
+text: 'When agent reports in decentralized prediction systems are weighted by learned confidence wagers,
+  do agents under repeated play optimize for reportable high-confidence wagers rather than calibrated
+  accuracy, thereby degrading the aggregation function''s ability to discriminate quality? This would
+  be a domain-specific instance of L-004 (Goodhart Generalization) applied to confidence signals: the
+  proxy (wager amount) becomes optimizable independent of the target (prediction accuracy), especially
+  if ground truth feedback is sparse or delayed relative to wagering cycles.'
+source: bibliography/shallow-reads/2026-09-01-decentralized-aggregation-of-llm-predictions-via-wagering-me.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: question
+connections:
+- L-008
+- L-010
+status: open

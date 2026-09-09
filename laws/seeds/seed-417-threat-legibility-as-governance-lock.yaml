@@ -1,0 +1,16 @@
+id: seed-417
+title: Threat Legibility as Governance Lock
+text: When adversary models are formalized as computable taxonomies for protocol compliance (e.g., pre-release
+  safety evaluation), the taxonomy's dimensionality and boundaries become sticky governance infrastructure.
+  Refinement, amendment, or paradigm shift in threat modeling becomes coordination-costly, creating pressure
+  to route novel threat types into existing categories rather than expand the taxonomy. This produces
+  systematic undercounting of threats that don't fit the canonical profile — a form of paradigm-locked
+  anomaly tolerance (L-013) specific to formalized opponent modeling.
+source: bibliography/shallow-reads/2026-09-02-toward-a-threat-actor-profiling-taxonomy-for-pre-release-ris.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-008
+- L-014
+status: open

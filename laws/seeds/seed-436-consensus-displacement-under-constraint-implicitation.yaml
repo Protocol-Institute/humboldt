@@ -1,0 +1,17 @@
+id: seed-436
+title: Consensus Displacement Under Constraint Implicitation
+text: When shared constraints in a multi-agent protocol are embedded directly in each agent's update law
+  (rather than negotiated via consensus on a multiplier or dual variable), the coordination bottleneck
+  migrates from explicit signal exchange to implicit convergence verification. The cost of coordination
+  is not eliminated but transferred to the computational and communication overhead required to guarantee
+  constraint satisfaction across distributed asynchronous updates. This pattern may generalize to any
+  protocol where a shared obligation can be enforced locally if each agent's objective function is adjusted
+  to internalize the constraint, trading away legible agreement for operational compliance.
+source: bibliography/shallow-reads/2026-09-02-fully-distributed-gne-algorithms-for-multi-robot-placement-w.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-002
+- L-006
+status: open

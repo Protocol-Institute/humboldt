@@ -1,0 +1,15 @@
+id: seed-122
+title: Insurance Formalization as Adoption Accelerant
+text: Does formalizing and pricing risk in a protocol system (via insurance infrastructure) accelerate
+  adoption by externalizing tail risk to the pool, thereby lowering the perceived cost for individual
+  agents? And if so, does this reversal—where insurance *increases* racing pressure rather than dampening
+  it—create a new equilibrium in which the system-level catastrophic risk is higher despite individual
+  actor risk being lower? This would invert the historical role of insurance as a stabilizer.
+source: bibliography/shallow-reads/2026-09-01-underwriting-the-agent-economy-the-blueprint-for-an-ai-insur.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: question
+connections:
+- L-001
+- L-009
+status: open

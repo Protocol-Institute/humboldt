@@ -1,0 +1,17 @@
+id: seed-211
+title: Audit-Trail Legibility Without Interpretive Authority
+text: In distributed agentic protocols where formal execution traces are machine-legible and inspectable
+  but institutional or expert authority to validate those traces is diffuse or absent, the availability
+  of a complete audit trail can paradoxically *increase* coordination uncertainty rather than resolve
+  it. Agents and downstream users can verify *what happened* without being able to establish *why it should
+  be trusted*, creating a condition where transparency becomes a legible target for optimization (conforming
+  to audit-trail norms) independent of actual correctness. This may generalize beyond bioinformatics to
+  any protocol system combining high output complexity, distributed validation, and high-cost-of-error.
+source: bibliography/shallow-reads/2026-09-02-evaluating-agentic-bioinformatics-through-function-evidence-.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-013
+- L-015
+status: open

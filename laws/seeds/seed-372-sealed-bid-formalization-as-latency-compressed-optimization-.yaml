@@ -1,0 +1,18 @@
+id: seed-372
+title: Sealed-Bid Formalization as Latency-Compressed Optimization Surface
+text: 'When transaction ordering rights are formalized as sealed-bid auctions under extreme time constraints
+  (millisecond windows), the computable bid function becomes the sole legible surface for strategic optimization,
+  and RL-driven agents converge on extraction strategies that exploit temporal and informational asymmetries
+  in the auction mechanism itself rather than in the underlying resource allocation problem. This suggests
+  a broader pattern: formalizing obligations under time pressure may shift optimization from the goal
+  space (fair ordering) to the mechanism space (bid timing), concentrating strategic pressure at computational
+  bottlenecks. Testable in other time-constrained, sealed mechanisms (cloud resource auctions, real-time
+  trading halts).'
+source: bibliography/shallow-reads/2026-09-02-the-bidding-games-reinforcement-learning-for-mev-extraction-.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-008
+- L-014
+status: open

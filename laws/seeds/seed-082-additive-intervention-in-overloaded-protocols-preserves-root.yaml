@@ -1,0 +1,17 @@
+id: seed-082
+title: Additive Intervention in Overloaded Protocols Preserves Root Pressure
+text: 'When a protocol system reaches a failure state due to resource scarcity (courts overwhelmed by
+  default judgment volume), the introduction of a legible intervention layer (AI review tool) can reduce
+  local error rates without altering the load condition that generated errors in the first place. This
+  creates a stable trap: the new intervention becomes the expected minimum standard, load pressures re-equilibrate
+  at a higher level, and the cycle repeats. The protocol ossifies around the intervention rather than
+  restructuring to handle load. This may generalize to any safety-critical protocol where shortage drives
+  corner-cutting and tools are deployed to manage symptoms rather than supply.'
+source: bibliography/shallow-reads/2026-09-01-ai-assistance-for-human-review-of-default-judgments.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-012
+- L-013
+status: open

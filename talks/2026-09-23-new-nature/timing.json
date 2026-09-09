@@ -1,0 +1,83 @@
+{
+  "slides": [
+    {
+      "id": "01",
+      "duration_s": 37.73,
+      "target_s": 55
+    },
+    {
+      "id": "02",
+      "duration_s": 58.48,
+      "target_s": 70
+    },
+    {
+      "id": "03",
+      "duration_s": 52.22,
+      "target_s": 65
+    },
+    {
+      "id": "04",
+      "duration_s": 47.57,
+      "target_s": 50
+    },
+    {
+      "id": "05",
+      "duration_s": 46.81,
+      "target_s": 50
+    },
+    {
+      "id": "06",
+      "duration_s": 52.53,
+      "target_s": 55
+    },
+    {
+      "id": "07",
+      "duration_s": 61.49,
+      "target_s": 60
+    },
+    {
+      "id": "08",
+      "duration_s": 51.98,
+      "target_s": 55
+    },
+    {
+      "id": "09",
+      "duration_s": 58.5,
+      "target_s": 60
+    },
+    {
+      "id": "10",
+      "duration_s": 54.64,
+      "target_s": 50
+    },
+    {
+      "id": "11",
+      "duration_s": 52.36,
+      "target_s": 50
+    },
+    {
+      "id": "12",
+      "duration_s": 48.4,
+      "target_s": 45
+    },
+    {
+      "id": "13",
+      "duration_s": 39.41,
+      "target_s": 55
+    },
+    {
+      "id": "14",
+      "duration_s": 40.09,
+      "target_s": 40
+    },
+    {
+      "id": "15",
+      "duration_s": 30.6,
+      "target_s": 35
+    }
+  ],
+  "total_s": 732.8,
+  "speech_target_s": 795,
+  "soft_cap_s": 900,
+  "hard_cap_s": 1200
+}

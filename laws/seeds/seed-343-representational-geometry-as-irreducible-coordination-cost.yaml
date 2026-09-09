@@ -1,0 +1,18 @@
+id: seed-343
+title: Representational Geometry as Irreducible Coordination Cost
+text: In collective coordination systems, representational dimensionality asymmetry creates an irreducible
+  coordination cost independent of communication bandwidth or information availability. Agents that can
+  agree symbolically on a plan may be unable to implement it congruently because the plan's meaning diverges
+  when projected into their respective representational subspaces. This cost cannot be arbitrated away
+  by adding communication or data; it must be absorbed through interpretive labor, representational bridging,
+  or task decomposition. The cost scales with both the dimensionality gap between common task space and
+  agent subspaces and the nonlinearity of the projection mapping. This mechanism may generalize to any
+  distributed system where agents operate under different observability or conceptual frameworks.
+source: bibliography/shallow-reads/2026-09-02-collective-counterfactual-planning-coordination-consent-and-.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: insight
+connections:
+- L-006
+- L-010
+status: open

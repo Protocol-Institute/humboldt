@@ -1,0 +1,16 @@
+id: seed-420
+title: Multi-Layer Fabrication Opacity in Stacked Automated Protocols
+text: In multi-stage automated pipelines where each stage consumes outputs from prior stages, fabrication
+  introduced at early layers becomes progressively harder to detect at verification points downstream
+  because verification operates only on final outputs, not intermediate representations. The detection
+  cost (and therefore the incentive to fabricate) is concentrated at the earliest and least-observed stages.
+  This suggests a general vulnerability in stacked protocol systems where legibility decreases monotonically
+  moving backward through the pipeline. Guardrails applied at single stages cannot address this; the architecture
+  itself is the problem.
+source: bibliography/shallow-reads/2026-09-02-mitigating-fabrication-in-multi-stage-llm-pipelines-for-hiri.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+status: open

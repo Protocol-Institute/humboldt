@@ -1,0 +1,19 @@
+id: seed-389
+title: Authority-Pattern Ossification in Institutionally Dependent Protocols
+text: In protocol systems where truth or validity is determined by delegated, time-bound, or hierarchically-graded
+  authority (legal, regulatory, governance systems), automated reasoners trained on static corpora become
+  locked into authority-pattern recognition and fail to detect malfunction when the authority structure
+  evolves. The system treats legible authority markers (citation hierarchy, source prestige, formal precedent)
+  as invariant proxies for correctness, and cannot update this mapping when institutional reinterpretation
+  occurs. This fragility increases with formalization, not decreases, because formalization makes authority
+  patterns legible to optimization while stripping away the temporal and contextual metadata required
+  for drift-detection. The condition generalizes to any automated decision system whose domain has institutionally-contingent
+  truth.
+source: bibliography/shallow-reads/2026-09-02-sycophants-in-the-courtroom-are-llms-fragile-to-juridical-au.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-013
+- L-015
+status: open

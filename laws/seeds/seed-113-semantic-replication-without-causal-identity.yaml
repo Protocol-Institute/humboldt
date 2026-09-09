@@ -1,0 +1,17 @@
+id: seed-113
+title: Semantic Replication Without Causal Identity
+text: In distributed systems where agents use generative or stochastic reasoning components, correct operation
+  can require *epistemic* rather than *bitwise* equivalence — replicas may diverge in internal reasoning,
+  token sequences, and model states while maintaining semantic correctness and output agreement. This
+  is not a degradation of replication fidelity but an irreducible feature of certain protocol classes.
+  The stability and auditability of such systems depends on whether verification can be decoupled from
+  causal reproducibility, which may generalize to any protocol layer that treats reasoning as internal
+  and output as external.
+source: bibliography/shallow-reads/2026-09-01-replicating-belief-not-bits-epistemic-state-replication-for-.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: insight
+connections:
+- L-002
+- L-011
+status: open

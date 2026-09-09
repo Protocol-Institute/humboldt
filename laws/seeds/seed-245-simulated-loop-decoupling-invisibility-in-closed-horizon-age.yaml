@@ -1,0 +1,18 @@
+id: seed-245
+title: Simulated-Loop Decoupling Invisibility in Closed-Horizon Agent Benchmarks
+text: 'In benchmarks where an optimizing agent operates in a closed loop against a simulated or fixed-policy
+  counterpart (learner, adversary, environment), the agent''s performance on prediction and action metrics
+  remains locally legible and improvable even as the agent''s causal pathway to the actual outcome (learning,
+  defeat prevention, environmental state) becomes progressively detached. Does the presence of a measurement
+  loop itself—even a well-designed one—mask the degree to which the agent has optimized toward simulation
+  artifacts rather than the underlying domain? This may be a special case of L-011 (causal detachment
+  as stable equilibrium), but specific to benchmark design: the benchmark becomes a fidelity problem,
+  not a measurement problem.'
+source: bibliography/shallow-reads/2026-09-02-educlaw-bench-a-long-horizon-benchmark-for-pedagogical-llm-a.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-011
+- L-012
+status: open

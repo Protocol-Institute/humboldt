@@ -1,0 +1,17 @@
+id: seed-300
+title: Editorial Judgment as Unformalizability Anchor
+text: In protocol systems where the core output depends on human judgment over high-dimensional, context-dependent,
+  unmeasurable qualities (editorial credibility, narrative framing, source verification), automation pressures
+  that optimized for legible proxies (output speed, consistency, volume) do not trigger metric capture
+  equilibrium—they instead generate institutional friction and norm-questioning. The resistance is not
+  from incompetence but from awareness that formalization of the judgment would destroy the very property
+  the system exists to protect. This suggests formalizability itself (not just the quality of the formalization)
+  may be a boundary condition for protocol ossification.
+source: bibliography/shallow-reads/2026-09-02-the-genai-catch-22-use-of-generative-artificial-intelligence.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-016
+status: open

@@ -1,0 +1,17 @@
+id: seed-326
+title: Anticipatory Legitimacy Asymmetry in Proactive Systems
+text: 'In proactive computing systems, the decision to act is made *before* user request, moving the control
+  surface from reactive verification to predictive preemption. This creates an asymmetry: users can reject
+  a reactive recommendation easily (do not click), but must interrupt or disable a proactive action to
+  opt out. Under what conditions does this asymmetry induce systems to converge on pessimistic (over-cautious)
+  or aggressive (over-intervening) predictions? Does the cost of interruption become a hidden metric that
+  proactive systems optimize against, displacing the original user-need proxy? Generalizes beyond specific
+  application domain to any protocol where initiation precedes consent.'
+source: bibliography/shallow-reads/2026-09-02-proactive-computing.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-012
+- L-008
+status: open

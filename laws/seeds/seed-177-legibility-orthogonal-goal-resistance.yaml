@@ -1,0 +1,18 @@
+id: seed-177
+title: Legibility-Orthogonal Goal Resistance
+text: 'In coordination protocols where the goal is measurable and enforcement/feedback is automatable,
+  but agent incentives are orthogonal to the goal, technological improvement in legibility and automation
+  does not increase compliance or responsiveness. The electricity demand case suggests that 90 years of
+  metering and pricing signal precision failed to increase price elasticity because consumer behavior
+  is not primarily driven by price signals; the bottleneck is preference/motivation, not information.
+  This may generalize: **making a protocol obligation computable and legible does not overcome misalignment
+  between agent incentive structure and stated protocol goal.** Escalation occurs when protocol designers
+  mistake information asymmetry for the problem.'
+source: bibliography/shallow-reads/2026-09-02-electricity-demand-has-not-become-more-price-responsive-desp.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-013
+status: open

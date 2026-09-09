@@ -1,0 +1,18 @@
+id: seed-450
+title: Interpretation Variance as Compression vs. Convergence Signal
+text: 'In protocol systems, decreasing variance in implementer interpretations correlates with installed
+  base growth, but this variance decay is ambiguous: it may indicate genuine semantic convergence (shared
+  understanding), selective implementer exit (heterogeneous interpreters leave), or formalization-driven
+  conformity (legal cost of deviance rises). No single mechanism is implied. A mature measurement of protocol
+  convergence requires distinguishing variance decay caused by *forced alignment* (L-006 cost redistribution,
+  legibility-locking) from decay caused by *genuine consensus formation* (shared discovery of correct
+  interpretation). Empirical cases must isolate these by tracking implementer population, spec revision
+  frequency, and enforcement intensity concurrently with interpretation variance.'
+source: bibliography/shallow-reads/2026-09-02-idea-protocol-opinion-convergence-should-be-measured-as-vari.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-001
+- L-006
+status: open

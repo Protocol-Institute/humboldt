@@ -1,0 +1,23 @@
+id: seed-017
+title: C-017-or-methods-post-taming
+text: 'Rittel and Webber make an underappreciated point: Operations Research methods "become
+
+  operational only *after* the most important decisions have been made, i.e. after the
+
+  problem has already been tamed." This means the formal, optimizable body of a protocol
+
+  (the rules, the algorithm, the procedure) is OR-tractable precisely because the hard
+
+  wicked work — the political choice of formulation — was already made before it was written.
+
+  The protocol body looks like a technical artifact, but the significant act was invisible,
+
+  happening before the protocol existed.'
+source: rittel-webber-dilemmas-general-theory-planning-1973.pdf
+origin: C-017
+surfaced: '2026-06-13'
+type: insight
+connections:
+- CL-001
+- F-002
+status: open

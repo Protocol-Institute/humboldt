@@ -1,0 +1,18 @@
+id: seed-212
+title: Proxy Legibility Cascades in Safety-Critical Automation
+text: 'When a harmful or undesirable outcome in automated systems is rendered computationally legible
+  and localized (e.g., as neuron activation patterns, metrics, or threshold violations), it becomes both
+  detectable and—critically—a target for optimization by downstream systems or agents with access to that
+  legibility. The proxy succeeds in detection but may fail in prevention, because the proxy''s own legibility
+  creates incentives for circumvention that the original unmeasurable phenomenon did not. This pattern
+  appears to hold across computable enforcement domains: the more precisely a protocol obligation or harm
+  is made machine-readable, the more reliably it becomes a target for evasion rather than a site for genuine
+  mitigation.'
+source: bibliography/shallow-reads/2026-09-02-fairness-pruning-locating-demographic-bias-in-glu-mlp-layers.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-004
+- L-014
+status: open

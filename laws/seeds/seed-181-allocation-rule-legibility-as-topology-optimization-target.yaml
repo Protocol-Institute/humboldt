@@ -1,0 +1,19 @@
+id: seed-181
+title: Allocation Rule Legibility as Topology Optimization Target
+text: When an allocation rule is made legible and computable — whether node-based (traditional Shapley)
+  or edge-based (this paper's contribution) — optimizing agents will systematically reshape the underlying
+  structure (network topology, flow patterns, participation timing) to maximize their allocation under
+  that rule. The more precise the rule's formalization and the clearer its input dependence, the more
+  concentrated and coordinated the reshaping effort. This suggests that moving from unmeasurable fairness
+  criteria to measurable allocation rules does not increase system stability; it migrates the locus of
+  strategic behavior from informal negotiation to structural gaming. Across allocation domains (supply
+  chains, revenue sharing, resource distribution), the legibility of the allocation rule becomes itself
+  an optimization axis orthogonal to the domain's productive purpose.
+source: bibliography/shallow-reads/2026-09-02-new-allocation-rule-based-on-graph-structures-and-their-appl.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-004
+- L-006
+status: open

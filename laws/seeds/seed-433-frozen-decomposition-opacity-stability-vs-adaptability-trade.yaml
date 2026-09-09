@@ -1,0 +1,17 @@
+id: seed-433
+title: Frozen Decomposition Opacity — Stability vs. Adaptability Trade-Off in Layered Cognition
+text: 'When artificial cognitive systems are decomposed into frozen, immutable units with constrained
+  message interfaces, the system gains measurement stability (each cell is a fixed reference point) but
+  loses adaptive coherence—coordination pressure accumulates at the interface layer rather than distributing
+  through the system. This trade-off may generalize to any protocol system where structural components
+  are frozen for operational safety or audit purposes: immutability at the unit level induces pressure
+  concentration at the boundary. Worth tracking whether this is simply conservation of coordination cost
+  (L-006 variant) or a distinct pathology of *stratified* protocol architectures.'
+source: bibliography/shallow-reads/2026-09-02-cognitive-cells-a-compositional-framework-for-populations-of.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-005
+- L-011
+status: open

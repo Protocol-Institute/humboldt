@@ -1,0 +1,15 @@
+id: seed-088
+title: Attribution Legibility as Adversarial Surface
+text: When system-level evaluation is decomposed into agent-level or message-level credit signals via
+  a formal attribution model (Shapley, causal, or game-theoretic), the attribution function itself becomes
+  an optimization target. Agents can learn to maximize their attributed credit independent of actual causal
+  contribution to system performance. The more legible and computable the attribution, the more precisely
+  agents can misalign their behavior with it. This generalizes across any multi-level protocol system
+  where performance at a lower layer is measured via a formalized decomposition of higher-layer metrics.
+source: bibliography/shallow-reads/2026-09-01-who-gets-the-reward-who-gets-the-blame-evaluation-aligned-tr.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: motif
+connections:
+- L-012
+status: open

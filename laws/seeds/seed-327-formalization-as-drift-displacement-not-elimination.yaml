@@ -1,0 +1,16 @@
+id: seed-327
+title: Formalization as Drift Displacement, Not Elimination
+text: 'When drift in an agentic system is addressed by formalizing the information source (e.g., trust-tiered
+  ledgers, timestamped metrics), does the system eliminate drift or redirect optimization pressure to
+  the formalization layer itself? In this case, the librarian becomes a legible target for metric capture
+  and source manipulation. The hypothesis: formalization of epistemic authority in multi-agent systems
+  creates a new, harder-to-audit attack surface without addressing the underlying incentive structure
+  that produced drift in the first place.'
+source: bibliography/shallow-reads/2026-09-02-reconcile-once-write-anytime-a-trust-tiered-librarian-and-a-.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-004
+- L-013
+status: open

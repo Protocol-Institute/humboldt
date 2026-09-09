@@ -1,0 +1,16 @@
+id: seed-426
+title: Baseline Erasure Under Proxy Operationalization
+text: When a subjective or distributed property (engineer judgment about infrastructure safety) is operationalized
+  as a computable metric (vulnerability scanner output), the benchmark itself becomes the new coordination
+  target, and the original baseline—human reasoning—becomes epistemically invisible to downstream optimization.
+  The human baseline in this work provides calibration but is not integrated into the feedback loop; models
+  will be optimized to pass the scanner, not to match human judgment. This may generalize to any safety-critical
+  domain where a proxy metric is published alongside a human reference point without being locked into
+  a joint training objective.
+source: bibliography/shallow-reads/2026-09-02-compared-to-what-a-human-anchored-security-benchmark-for-llm.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+status: open

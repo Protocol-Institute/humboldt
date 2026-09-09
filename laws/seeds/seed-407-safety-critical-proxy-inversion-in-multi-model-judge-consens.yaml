@@ -1,0 +1,18 @@
+id: seed-407
+title: Safety-Critical Proxy Inversion in Multi-Model Judge Consensus
+text: 'When multiple frontier models are used as judges for safety-critical properties (psychological
+  harm, deception, manipulation), they exhibit structured agreement with each other that diverges systematically
+  from expert ground truth. This disagreement is not random noise but concentrates on the safety-critical
+  dimensions themselves — the very axes where proxy capture is most costly. The implication: consensus
+  among optimized systems may be an active *indicator of proxy capture*, not a signal of reliability.
+  This may generalize to any domain where the judging systems and the generating systems share training
+  objectives or data sources, creating a correlated failure mode that high-model-count averaging does
+  not resolve.'
+source: bibliography/shallow-reads/2026-09-02-aipsy-judge-a-specialized-psychologist-corrected-local-judge.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-008
+status: open

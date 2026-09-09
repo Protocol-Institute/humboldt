@@ -1,0 +1,17 @@
+id: seed-445
+title: Formalization as Load-Shedding Boundary — Structural Incompleteness
+text: 'Protocols under formalization pressure shed load into informal channels not because agents strategically
+  hide work, but because certain coordination functions lose efficacy when rendered legible and computable.
+  The boundary between what can be mathematized and what requires opaque, context-dependent negotiation
+  is not a gap in current formal systems but a structural limit: attempts to eliminate the informal remainder
+  trigger protocol failure. This suggests formalization creates *not just adoption friction but functional
+  asymmetry* — formal layers handle defined tasks; informal layers handle exception, context-reading,
+  and rapid recalibration that formalization cannot precompute without collapse.'
+source: bibliography/shallow-reads/2026-09-02-idea-the-interesting-parts-of-protocol-behavior-may-resist-f.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-001
+- L-003
+status: open

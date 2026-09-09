@@ -1,0 +1,20 @@
+id: seed-015
+title: C-015-taming-as-political-act
+text: 'Rittel and Webber argue that in wicked problems, the formulation of the problem is
+
+  simultaneously the specification of a solution direction — there is no neutral problem
+
+  statement. If every protocol is an attempt to tame a wicked problem by imposing a
+
+  definitive formulation, then the act of writing the protocol is already a political act,
+
+  but one that typically masquerades as administrative or technical. What happens to
+
+  political accountability when the political choice is hidden inside a formulation?'
+source: rittel-webber-dilemmas-general-theory-planning-1973.pdf
+origin: C-015
+surfaced: '2026-06-13'
+type: curiosity
+connections:
+- CL-001
+status: open

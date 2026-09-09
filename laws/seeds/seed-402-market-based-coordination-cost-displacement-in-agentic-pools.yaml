@@ -1,0 +1,17 @@
+id: seed-402
+title: Market-Based Coordination Cost Displacement in Agentic Pools
+text: Decentralized market mechanisms for agent orchestration do not eliminate coordination cost; they
+  displace it from centralized information aggregation into distributed bidding overhead and price discovery
+  latency. As agent pools grow and interaction becomes repeated, the conditions for emergent collusion
+  on pricing increase—agents observing the same cost structure and legible price signals face decreasing
+  incentive to bid competitively. This suggests that under scaling and repeated interaction, market-based
+  orchestration may converge toward collusive equilibria that functionally resemble centralized rationing,
+  but with opacity as to whether the convergence is coordination or accident. The regularity may generalize
+  to any protocol that substitutes legible prices for opaque allocation rules.
+source: bibliography/shallow-reads/2026-09-02-markets-not-planners-decentralized-orchestration-of-llm-agen.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-006
+status: open

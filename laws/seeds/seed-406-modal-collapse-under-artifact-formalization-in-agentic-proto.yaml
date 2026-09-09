@@ -1,0 +1,18 @@
+id: seed-406
+title: Modal Collapse Under Artifact Formalization in Agentic Protocols
+text: 'In multi-stage agentic protocols where hard constraints are encoded as natural language artifacts
+  (plans, handoff notes, memories) and passed between independent actors, constraint modal force (must
+  → may → might) decays monotonically across stage transitions even when semantic content is fully preserved.
+  This occurs because language formalization preserves topical retention but not deontic binding—downstream
+  agents interpret constraints as informational inputs rather than operational blocks. The mechanism generalizes
+  to any protocol where the formalization substrate (natural language, fuzzy predicates, probabilistic
+  outputs) allows reinterpretation by the receiving layer without explicit derogation. Result: protocols
+  achieve formal legibility while losing effective constraint power, creating a stable but brittle equilibrium
+  where violations are neither detectable nor classifiable as such.'
+source: bibliography/shallow-reads/2026-09-02-when-must-becomes-maybe-constraint-weakening-in-llm-agent-wo.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-003
+status: open

@@ -1,0 +1,18 @@
+id: seed-354
+title: Defensive Layer Migration in Disrupted Signaling Protocols
+text: When a protocol's verification substrate becomes compromised by an external capability shock (e.g.,
+  generative AI making the original task trivial), the protocol need not fail or be rewritten. Instead,
+  the *handler* can migrate the locus of verification to a higher or orthogonal layer where the disruptive
+  capability has lower penetrance. The signaling protocol persists unchanged; the task architecture shifts
+  to re-couple performance to the signal. This occurs without explicit rule change and is indistinguishable
+  from protocol stability to external observers. Generalizes to any two-layer credential system (credential
+  protocol + verification task substrate) where the substrate can be swapped while preserving the protocol
+  contract.
+source: bibliography/shallow-reads/2026-09-02-stranded-credentials-how-a-skill-signaling-market-absorbed-g.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-013
+status: open

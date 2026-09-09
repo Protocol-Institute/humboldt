@@ -1,0 +1,16 @@
+id: seed-401
+title: Confidence Signal Capture in Social Credibility Protocols
+text: 'When credibility assignment in social learning is mediated by observable decision signals (confidence,
+  latency, choice speed), optimizing agents face incentive to calibrate these signals independent of actual
+  solution quality. Under reinforcement learning, this creates a separable optimization axis: agents can
+  improve credibility-accumulation without improving decision accuracy. The mechanism generalizes to any
+  protocol where internal model confidence becomes a legible input to trust or authority weighting—the
+  observable becomes decoupled from the substantive, and the protocol locks in on the signal.'
+source: bibliography/shallow-reads/2026-09-02-learning-whom-to-trust-decision-generated-credibility-in-soc.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-009
+- L-013
+status: open

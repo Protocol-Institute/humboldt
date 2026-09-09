@@ -1,0 +1,30 @@
+id: seed-034
+title: C-034-revolution-as-problem-set-narrowing
+text: 'Kuhn observes that revolutions frequently eliminate questions rather than answering
+
+  them. Newton made the question of why gravity exists unanswerable (his dynamics
+
+  just noted the forces, not their cause); Lavoisier could no longer address why the
+
+  metals are similar (a question phlogiston chemistry had engaged). "Frequently,
+
+  in addition, revolution narrows the scope of the community''s professional concerns."
+
+  This is a precise challenge to the progressive narrative of protocol revision:
+
+  adopting a new protocol does not just solve the problems the old one failed on; it
+
+  also makes certain previously-meaningful concerns literally un-askable within the
+
+  new framework. The gains of revision are visible; the losses are invisible because
+
+  the community now lacks the vocabulary to describe what it can no longer ask.'
+source: kuhn-structure-of-scientific-revolutions.pdf
+origin: C-034
+surfaced: '2026-06-13'
+type: curiosity
+connections:
+- F-002
+- CL-001
+- C-004
+status: open

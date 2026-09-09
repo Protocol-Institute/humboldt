@@ -1,0 +1,15 @@
+id: seed-131
+title: Context Legibility as Failure Attribution Boundary
+text: 'In systems where core decision logic is opaque or computationally intractable to audit, failure
+  diagnosis and remediation migrate to the measurable context layer—instructions, memory, inputs, constraints.
+  This makes context engineering appear to be the failure source when it may instead be the only legible
+  surface available for intervention. The pattern generalizes: any protocol system where the core mechanism
+  is harder to observe or modify than its boundary conditions will exhibit systematic over-attribution
+  of failure to the boundary, independent of whether the boundary is actually causal to the failure.'
+source: bibliography/shallow-reads/2026-09-02-ai-agents-do-not-fail-alone-the-context-fails-first.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-012
+status: open

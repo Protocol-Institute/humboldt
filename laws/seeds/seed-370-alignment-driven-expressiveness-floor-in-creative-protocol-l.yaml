@@ -1,0 +1,15 @@
+id: seed-370
+title: Alignment-Driven Expressiveness Floor in Creative Protocol Layers
+text: When a protocol layer (LLM output) is aligned to suppress outputs that lack causal grounding or
+  external verification, does the protocol preserve an irreducible minimum expressiveness cost? That is,
+  does the requirement for factual fidelity force downstream tasks (hypothesis generation, creative exploration)
+  to maintain separate, unaligned generative capacity, effectively displacing rather than eliminating
+  the hallucination function? If so, this would generalize seed-071 (Expressiveness Floor in Coordination
+  Protocols) from governance systems to cognitive/generative protocols.
+source: bibliography/shallow-reads/2026-09-02-hallucination-as-a-feature-not-a-defect-evaluating-a-multi-a.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-011
+status: open

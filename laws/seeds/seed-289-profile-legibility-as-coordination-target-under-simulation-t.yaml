@@ -1,0 +1,16 @@
+id: seed-289
+title: Profile Legibility as Coordination Target Under Simulation Transparency
+text: When individual behavioral profiles become formalized and legible enough to support high-fidelity
+  agent simulation, what prevents strategic agents (users, platform actors, coordinated groups) from treating
+  the profile itself as an optimization target rather than a stable model of preference? In social systems
+  where simulation fidelity becomes public or discoverable, does the predictability of one's own profile
+  collapse as agents alter behavior to evade or manipulate the model? Does this create a ratchet where
+  only profiles that remain *opaque to formalization* retain stability — and if so, does the system progressively
+  lock out legitimate coordination signals in favor of unintelligible behavior?
+source: bibliography/shallow-reads/2026-09-02-knowing-you-is-everything-llm-agents-achieve-near-perfect-pr.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-010
+status: open

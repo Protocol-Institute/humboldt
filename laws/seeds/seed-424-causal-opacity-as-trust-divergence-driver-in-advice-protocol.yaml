@@ -1,0 +1,17 @@
+id: seed-424
+title: Causal Opacity as Trust-Divergence Driver in Advice Protocols
+text: In protocol systems where advice cannot be independently verified against ground truth—where outcome
+  depends on unobserved actions by distributed agents—user trust diverges rather than accumulating uniformly.
+  Trust trajectories split when users cannot construct a causal narrative linking advice to outcome. In
+  such settings, demographic and social factors become substitutes for mechanistic confidence, and the
+  polarity of divergence (deepening vs. erosion) may be determined by which proxy agents adopt. This suggests
+  that L-007's trust ratchet is conditional on causal legibility; when that is absent, trust becomes a
+  social/demographic equilibrium rather than a functional accumulation.
+source: bibliography/shallow-reads/2026-09-02-trusting-ai-in-competitive-markets.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-007
+- L-010
+status: open

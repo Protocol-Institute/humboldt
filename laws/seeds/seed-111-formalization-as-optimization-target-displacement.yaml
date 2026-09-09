@@ -1,0 +1,17 @@
+id: seed-111
+title: Formalization-as-Optimization-Target Displacement
+text: 'When informal coordinative requirements are converted to computable rule sets under scaling pressure,
+  the validation protocol itself becomes the optimization target for downstream agents. The original informal
+  intent (expressible in natural language but not machine-checkable) decouples from the formal rule set
+  (machine-checkable but lossy). Multi-agent correction loops then optimize for rule satisfaction rather
+  than intent satisfaction, creating a durable asymmetry: violation of rules is legible and correctable;
+  violation of original intent remains latent. This displacement is not a failure mode but a stable equilibrium
+  in systems where formalization is necessitated by scale rather than preceded by sufficient ontological
+  agreement.'
+source: bibliography/shallow-reads/2026-09-01-closed-loop-control-with-rule-aligned-small-language-models-.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: motif
+connections:
+- L-003
+status: open

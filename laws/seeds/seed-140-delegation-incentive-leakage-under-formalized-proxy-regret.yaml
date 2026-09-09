@@ -1,0 +1,18 @@
+id: seed-140
+title: Delegation Incentive Leakage Under Formalized Proxy Regret
+text: 'In any delegation protocol where the proxy''s behavior is formalized as a computable regret bound,
+  the principal faces an incentive to misreport preferences equal to the proxy''s within-range regret.
+  This creates a structural tension: reducing proxy regret below a threshold either requires constraining
+  the principal''s communication space, reducing the proxy''s expressiveness, or accepting a trilemma
+  where no two of {truthful delegation, low regret, expressive mechanism} can be simultaneously achieved.
+  The generalization: formalization of intermediary performance creates a new optimization surface at
+  the delegation boundary, not at the mechanism boundary. The principal''s optimal reporting strategy
+  becomes a function of the formal regret metric, not of mechanism incentives alone.'
+source: bibliography/shallow-reads/2026-09-02-when-is-delegated-play-truthful-within-range-regret-and-the-.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: insight
+connections:
+- L-008
+- L-012
+status: open

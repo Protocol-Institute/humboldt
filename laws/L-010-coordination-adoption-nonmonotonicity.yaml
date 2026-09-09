@@ -1,0 +1,123 @@
+id: L-010
+title: Coordination Adoption Nonmonotonicity
+slug: coordination-adoption-nonmonotonicity
+stage: exploration
+status: active
+origin: discovered
+source: null
+confidence: speculative
+statement: >
+  In protocol systems where agents condition behavior on coordination signals from other adopters,
+  adoption is monotonically beneficial only when the signaling/protocol design is co-optimized
+  with
+  the adoption level. Under fixed (non-co-optimized) design, intermediate adoption ranges can
+  raise
+  system-level failure rates above those at low or zero adoption, because signal-conditioned
+  behavioral change outpaces the safety gains from improved coverage.
+mechanism: >
+  When adopters of a coordination protocol receive signals that cause them to alter their behavior
+  (e.g., reducing precautionary behavior in response to warning signals), the safety benefit
+  of the signal depends on the accuracy and completeness of signal coverage. Under partial adoption
+  with fixed non-optimal signaling probabilities, the behavioral change induced in equipped
+  agents creates new failure modes — they rely on signals that are absent for unequipped counterparties.
+  The aggregate failure rate is a non-monotone function of adoption with a potential local maximum
+  in intermediate adoption ranges, before coverage becomes dense enough to support the signal-conditioned
+  behavior.
+justification: >
+  seed-050 (C-050-coordination-adoption-nonmonotonicity) provides the formal mechanism from
+  V2V communication research, with specific regions (R3 and R4) where this inversion holds.
+  This is a general structural property of any protocol where adoption triggers behavioral change
+  rather than just adding capability. It is distinguishable from L-001 (ossification under adoption)
+  because it concerns safety outcomes during the adoption curve, not governance cost. It is
+  cross-domain: vaccination hesitancy under partial coverage, security protocol adoption curves,
+  and network trust infrastructure (OAN paper, arxiv-2606.03161) all exhibit analogous intermediate-adoption
+  failure modes.
+examples:
+  - domain: Vehicle-to-vehicle communication
+    description: Under partial V2V adoption, equipped drivers condition on warning signals
+      and reduce precautionary behavior. In adoption regions R3 and R4, this increases 
+      equilibrium accident probability relative to lower adoption rates.
+    source: seed-050 (C-050-coordination-adoption-nonmonotonicity)
+  - domain: Network trust infrastructure
+    description: Agent trust protocols (e.g., OAN) that cause relying agents to reduce 
+      verification effort in response to trust signals create analogous 
+      intermediate-adoption vulnerabilities when not all counterparties are covered by the
+      trust infrastructure.
+    source: bib-0228
+counterexamples:
+  - domain: V2V safety warning systems (formal game-theoretic model)
+    description: "arXiv:2606.07873 demonstrates that for V2V warning protocols, adoption is
+      *not* merely nonmonotone due to signaling/protocol design mismatch (as L-010 predicts);
+      it can be nonmonotone even with *correctly functioning* signals because of moral hazard
+      at population scale. This suggests L-010's mechanism (signaling/protocol design co-optimization)
+      may be insufficient to explain all adoption nonmonotonicity — endogenous risk through
+      behavioral substitution is an independent mechanism that L-010 does not account for. Resolution:
+      OPEN."
+    source: arXiv:2606.07873
+    resolution: OPEN
+open_questions:
+  - "Two specific gaps must be closed before PROMOTE is possible: (1) DOMAIN CONFIRMATION —
+    retrieve and read arxiv-2606.03161 (Xu, OAN White Paper) to confirm whether it actually
+    contains a modeled or measured intermediate-adoption failure peak under fixed (non-co-optimized)
+    design. Currently this is asserted by analogy only. If it does not, the OAN entry should
+    be downgraded to [inference] and the law's second domain is absent. (2) SECOND INDEPENDENT
+    DOMAIN — identify at least one domain beyond V2V (and beyond OAN unless gap 1 is closed)
+    in which the signal-conditioned behavioral change under partial adoption produces a documented
+    failure-rate non-monotonicity. Candidate domains to search: (a) TCAS/aviation collision-avoidance
+    under partial fleet adoption — there is external literature on TCAS resolution advisory
+    compliance rates creating new failure modes during adoption; (b) vaccination partial-coverage
+    with risk-compensation behavior — peer-reviewed epidemiological literature on behavioral
+    disinhibition under partial vaccine coverage; (c) TLS/HTTPS mixed-content security warnings
+    — user habituation to warning dialogs under partial HTTPS adoption creating intermediate-adoption
+    vulnerability peaks. Each candidate must reproduce the fixed-design vs. co-optimized-design
+    distinction to count toward the advance trigger."
+falsification: >
+  The law would be falsified if, under fixed (non-co-optimized) design, the system-level failure
+  rate were strictly monotone decreasing in adoption across a broad class of signal-conditioned
+  coordination protocols — i.e. if no intermediate-adoption failure peak existed even when the
+  signaling policy is held fixed rather than optimized per adoption level. (The optimized-design
+  case is expected to be monotone and does not falsify the law.)
+references:
+  - bib-0228
+seeds:
+  - seed-050
+related:
+  - L-006
+triggers:
+  advance: >
+    The design-conditional nonmonotonicity confirmed in 2+ independent domains beyond V2V —
+    a
+    measured intermediate-adoption failure peak under fixed design in, e.g., a security-protocol
+    or vaccination/partial-coverage setting — each reproducing the fixed-design vs
+    co-optimized-design distinction.
+  challenge: >
+    A coordination protocol with signal-conditioned behavior in which fixed (non-co-optimized)
+    design still yields monotone-decreasing failure in adoption — showing the fixed-design caveat
+    is not what produces the nonmonotonicity — or evidence the V2V R3/R4 result does not survive
+    the corrected consistency equation.
+history:
+  - date: '2026-08-02'
+    event: created
+    detail: induction sweep — seed-050 (C-050-coordination-adoption-nonmonotonicity) 
+      provides the formal mechanism from V2V commun
+  - date: '2026-08-03'
+    event: edited
+    detail: 'supervisor review — statement tightened to design-conditional form (seed-050 shows
+      the perverse effect vanishes under co-optimized signaling, which the original statement
+      dropped); falsification aligned; related L-006 (boundary condition on Coordination Cost
+      Conservation); advance/challenge triggers set.'
+  - date: '2026-08-03'
+    event: edited
+    detail: 'assessment HOLD — gap: Two specific gaps must be closed before PROMOTE is possible:
+      (1) DOMAIN CONFIRMATION — retrieve and read arxiv-2606.03161 (Xu, OAN White Paper) to
+      con'
+  - date: '2026-08-10'
+    event: edited
+    detail: 'sources resolved to bibliography ids: arxiv-2606.03161 (Xu, OAN White Paper) →
+      bib-0228'
+  - date: '2026-09-02'
+    event: counterexample
+    detail: 'Boundary condition on when adoption is monotonically beneficial vs. harmful; the
+      role of endogenous risk in adoption dynamics: arXiv:2606.07873 demonstrates that for V2V
+      warning protocols, adoption is *not* merely nonmonotone due to signaling/protocol design
+      mismatch (as L-010…'

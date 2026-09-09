@@ -1,0 +1,15 @@
+id: seed-303
+title: Audience-Legibility Hierarchy as Ossification Driver
+text: In multi-stakeholder explanation protocols, when narrative legibility becomes a computable and auditable
+  property, the system will tend to freeze explanation structure around the most legally or institutionally
+  exposed audience rather than the most technically accurate one. The safest explanation under audit (e.g.,
+  for clinicians or regulators) becomes the binding constraint, and it propagates upward to shape explanations
+  for all other audiences. Over time, explanation design becomes locked to the most conservative stakeholder's
+  legibility requirements, not the most demanding one epistemically.
+source: bibliography/shallow-reads/2026-09-02-who-are-you-explaining-to-a-multi-agent-system-for-audience-.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-012
+status: open

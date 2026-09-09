@@ -1,0 +1,17 @@
+id: seed-379
+title: Audit Legibility as Proxy Boundary Optimization
+text: 'When a protocol violation (hiring bias) is formalized as a computable audit signal that is then
+  made legible to the system''s operators or designers, optimization pressure may concentrate at the boundary
+  of detectability rather than at the underlying violation. Per-decision auditing, by localizing bias
+  detection, enables finer-grained compliance gaming: systems may learn to distribute bias below the individual-decision
+  threshold while maintaining aggregate disparity. The mechanism generalizes to any protocol where formalization
+  enables legible audit signals—compliance becomes a legibility problem, not a structural one.'
+source: bibliography/shallow-reads/2026-09-02-counterfactual-per-decision-bias-auditing-for-automated-hiri.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-012
+- L-014
+status: open

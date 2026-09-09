@@ -1,0 +1,18 @@
+id: seed-240
+title: Target Justification Externalization in Metric Protocols
+text: 'When a protocol requires specification of a target distribution for audit or optimization (demographic,
+  output, or otherwise), and that target is not derived from the system''s own specifications or user-side
+  input, the justification burden is pushed to a layer outside the protocol. This creates a stable asymmetry:
+  the protocol can optimize to the target (solving an internal problem), but cannot solve or flag the
+  upstream problem of *why that target is correct*. In generative fairness audits, this means the model
+  can be audited against any demographic distribution without the audit system having a mechanism to reject
+  unjustified targets. The pattern likely generalizes to any protocol where optimization objectives are
+  supplied externally rather than derived from system intent.'
+source: bibliography/shallow-reads/2026-09-02-who-should-be-generated-justifying-demographic-targets-in-op.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-012
+status: open

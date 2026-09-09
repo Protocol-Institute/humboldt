@@ -43,14 +43,36 @@ def _load_inventory() -> str:
     return "\n\n".join(parts)
 
 
+def _opt(argv: list[str], flag: str) -> str | None:
+    """Return the value following ``flag`` in argv, or None if absent."""
+    if flag in argv:
+        i = argv.index(flag)
+        if i + 1 < len(argv):
+            return argv[i + 1]
+    return None
+
+
 def _session_log_path(slug: str) -> Path:
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     date = datetime.date.today().isoformat()
     return DATA_DIR / f"{date}-{slug}.md"
 
 
+def _require_corpus_reads() -> None:
+    """Exit cleanly on a corpus-read outage. These commands are retrieval all the
+    way down — without reads there is no degraded mode worth running, so fail
+    fast with the reset date instead of a Pinecone traceback."""
+    from agent import read_budget as rb
+    if rb.is_paused():
+        print(f"{rb.status_line()}\n"
+              f"This command is retrieval-based and cannot run without corpus access.\n"
+              f"`humboldt read-status` for detail; `humboldt read-unpause` to override.")
+        sys.exit(1)
+
+
 def cmd_investigate(topic: str, namespaces: list[str] = ret.NS_BROAD):
     """Open-ended investigation of a topic."""
+    _require_corpus_reads()
     soul = prompts.load_soul()
     print(f"\n=== HUMBOLDT: Investigating '{topic}' ===\n")
 
@@ -63,7 +85,8 @@ def cmd_investigate(topic: str, namespaces: list[str] = ret.NS_BROAD):
 
     # Retrieve from corpus
     print(f"Retrieving from corpus (namespaces: {namespaces})...")
-    chunks = ret.multi_retrieve(queries, namespaces=namespaces, top_k_each=8)
+    chunks = ret.multi_retrieve(queries, namespaces=namespaces, top_k_each=8,
+                                op="investigate")
     print(f"Retrieved {len(chunks)} unique chunks.\n")
 
     if not chunks:
@@ -92,14 +115,98 @@ def cmd_investigate(topic: str, namespaces: list[str] = ret.NS_BROAD):
 
 def cmd_hypothesize(topic: str):
     """Generate candidate law hypotheses without writing files."""
+    _require_corpus_reads()
     soul = prompts.load_soul()
     print(f"\n=== HUMBOLDT: Hypothesizing on '{topic}' ===\n")
     system, user = prompts.hypothesis_prompt(soul, topic)
     synth.synthesize_streaming(system, user)
 
 
-def cmd_assess(law_id: str, namespaces: list[str] = ret.NS_ALL):
-    """Gather evidence for a specific law."""
+def cmd_induct(dry_run: bool = False, since: str | None = None):
+    """Funnel stage 5 — induction sweep: seeds + recent reads → new laws / evidence."""
+    from agent.induct import induct
+    induct(dry_run=dry_run, since=since)
+
+
+def cmd_assess_law(target: str, dry_run: bool = False, no_corpus: bool = False):
+    """Funnel stage 6/8 — assess one law (L-NNN) or sweep all (--all)."""
+    from agent import assess as assess_mod
+    if target == "--all":
+        assess_mod.assess_all(dry_run=dry_run, no_corpus=no_corpus)
+    else:
+        assess_mod.assess(target, dry_run=dry_run, no_corpus=no_corpus)
+
+
+def cmd_read_status():
+    """Show whether corpus reads are available (Pinecone monthly quota breaker)
+    and how much of the monthly egress cap has been spent so far."""
+    from agent import read_budget as rb
+    from agent import read_cache, read_egress
+    print(rb.status_line())
+    info = rb.load()
+    if info.get("tripped"):
+        print(f"  tripped: {info['tripped']}")
+
+    print(read_egress.status_line())
+    s = read_egress.summary()
+    if s["queries"] or s["cache_hits"]:
+        line = f"  {s['queries']} queries, {s['matches']} matches"
+        if s["cache_hits"]:
+            line += (f", {s['cache_hits']} cache hits "
+                     f"(~{s['saved_bytes'] / 1_000_000:.1f}MB not spent)")
+        print(line)
+        for ns, n in list(s["by_namespace"].items())[:8]:
+            print(f"    {ns:<16} {n / 1_000_000:>8.1f}MB")
+        if s["by_op"]:
+            print("  by path:")
+            for op, n in list(s["by_op"].items())[:8]:
+                print(f"    {op:<16} {n / 1_000_000:>8.1f}MB")
+    # The Worker spends from the same account quota and keeps its own counter,
+    # so the Python total above is always a partial picture.
+    print("\n  Site chat (Cloudflare Worker) egress is counted separately in KV:")
+    print("    npx wrangler kv key get --binding=RATE_LIMIT "
+          f"'egress:{read_egress.month_key()}' --remote")
+
+    cs = read_cache.stats()
+    print(f"\n  read cache: {cs['entries']} entries, {cs['bytes'] / 1_000_000:.1f}MB on disk")
+
+
+def cmd_read_cache(action: str = "status"):
+    """Inspect or drop the retrieval cache.
+
+    `clear` is the escape hatch for the one way caching can mislead: corpus
+    entries live 30 days, so a query cached before a fresh PI ingest will keep
+    answering without the new material. Clear after any large c3po ingest.
+    """
+    from agent import read_cache
+    if action == "clear":
+        print(f"Cleared {read_cache.clear()} cached retrieval(s).")
+    elif action == "prune":
+        print(f"Pruned {read_cache.prune()} expired/overflow entr(ies).")
+    else:
+        s = read_cache.stats()
+        print(f"read cache: {s['entries']} entries, {s['bytes'] / 1_000_000:.1f}MB on disk")
+        print(f"  TTL: {read_cache.TTL_CORPUS // 86400}d corpus, "
+              f"{read_cache.TTL_HUMBOLDT // 86400}d humboldt namespace")
+
+
+def cmd_read_pause(until: str, reason: str = "operator"):
+    from agent import read_budget as rb
+    rb.set_pause(until, reason)
+    print(f"Corpus reads paused until {until} ({reason}).")
+
+
+def cmd_read_unpause():
+    from agent import read_budget as rb
+    rb.clear()
+    print("Corpus read pause cleared.")
+
+
+def cmd_assess_evidence(law_id: str, namespaces: list[str] = ret.NS_ALL):
+    """LEGACY (unbound) — retrieval-only evidence gather against research/laws/,
+    which is archived. Superseded by the `assess` funnel engine (agent/assess.py).
+    Kept as a retrieval helper reference; not wired into the CLI."""
+    _require_corpus_reads()
     soul = prompts.load_soul()
     law_files = list(LAWS_DIR.glob(f"{law_id}*.yaml"))
     if not law_files:
@@ -121,7 +228,8 @@ def cmd_assess(law_id: str, namespaces: list[str] = ret.NS_ALL):
         for d in law["domains"][:2]:
             queries.append(f"{law.get('name', '')} {d}")
 
-    chunks = ret.multi_retrieve(queries, namespaces=namespaces, top_k_each=10)
+    chunks = ret.multi_retrieve(queries, namespaces=namespaces, top_k_each=10,
+                                op="hypothesize")
     print(f"Retrieved {len(chunks)} unique chunks.\n")
 
     system, user = prompts.evidence_prompt(soul, statement, chunks[:20])
@@ -361,22 +469,25 @@ def cmd_ingest():
     ingest_all(verbose=True)
 
 
-def cmd_triage_feed(output: str | None = None):
-    """Triage inbox/feed-*.md items against current laws and hypotheses."""
+def cmd_triage_feed(output: str | None = None, limit: int | None = None,
+                    dry_run: bool = False):
+    """Triage inbox/feed-*.md items against the law inventory and seed pool."""
     from agent.triage import triage_feed
-    triage_feed(output_path=output)
+    triage_feed(output_path=output, limit=limit, dry_run=dry_run)
 
 
-def cmd_triage_discord(output: str | None = None):
-    """Triage inbox/discord-*.md items (ideas + links) against current laws and hypotheses."""
+def cmd_triage_discord(output: str | None = None, limit: int | None = None,
+                       dry_run: bool = False):
+    """Triage inbox/discord-*.md items (ideas + links) against laws and seeds."""
     from agent.triage import triage_discord
-    triage_discord(output_path=output)
+    triage_discord(output_path=output, limit=limit, dry_run=dry_run)
 
 
-def cmd_shallow_read(triage_path: str, dry_run: bool = False):
+def cmd_shallow_read(triage_path: str, dry_run: bool = False,
+                     limit: int | None = None):
     """Shallow-read all non-discard items from a triage report."""
     from agent.shallow_read import shallow_read
-    shallow_read(triage_path=triage_path, dry_run=dry_run)
+    shallow_read(triage_path=triage_path, dry_run=dry_run, limit=limit)
 
 
 def cmd_inbox_status():
@@ -483,6 +594,14 @@ def cmd_daemon_status():
         from daemon.pause import paused_until
         active_pause = paused_until()
         print(f"  Paused                  : {'until ' + active_pause if active_pause else 'no'}")
+
+    # Corpus reads are a separate capability from the daemon pause — the daemon
+    # can be running and talkative while having no corpus at all. Both belong
+    # here, or the operator has to infer an outage from odd output.
+    from agent import read_budget, read_egress
+    print("\n=== Corpus reads ===\n")
+    print(f"  {read_budget.status_line()}")
+    print(f"  {read_egress.status_line()}")
 
     from daemon import costs
     t = costs.totals()
@@ -733,7 +852,19 @@ USAGE = """
 Usage:
   python3 -m agent.humboldt investigate "<topic>"        # open-ended investigation
   python3 -m agent.humboldt hypothesize "<topic>"        # propose candidate laws (no files)
-  python3 -m agent.humboldt assess <law-id>              # gather evidence for a law
+  python3 -m agent.humboldt induct                       # funnel stage 5: seeds+reads → new laws/evidence
+  python3 -m agent.humboldt induct --dry-run             # call model, apply nothing
+  python3 -m agent.humboldt induct --since YYYY-MM-DD     # override the read cursor
+  python3 -m agent.humboldt assess <L-NNN>               # funnel stage 6/8: assess one law (promote/hold/demote)
+  python3 -m agent.humboldt assess <L-NNN> --dry-run     # call model, apply nothing
+  python3 -m agent.humboldt assess --all                 # assess every active law
+  python3 -m agent.humboldt assess <L-NNN> --no-corpus   # assess on the record alone (reads offline)
+  python3 -m agent.humboldt analytics utilization [DAYS|all]  # per-behavior calls/spend/visits
+  python3 -m agent.humboldt analytics monthly            # monthly spend by behavior
+  python3 -m agent.humboldt read-status                  # reads available? + monthly egress spend
+  python3 -m agent.humboldt read-cache [status|clear|prune]  # retrieval cache (clear after a c3po ingest)
+  python3 -m agent.humboldt read-pause <YYYY-MM-DD> [why] # force corpus reads offline
+  python3 -m agent.humboldt read-unpause                 # clear the read pause
   python3 -m agent.humboldt theorize                     # find unification opportunities
   python3 -m agent.humboldt inventory                    # show current law inventory
   python3 -m agent.humboldt library                      # list deep-read library
@@ -741,11 +872,14 @@ Usage:
   python3 -m agent.humboldt deepread "<name>" "<p1-p2>"  # deep-read page range
   python3 -m agent.humboldt batch-deepread               # deep-read all unread arxiv papers; write verdicts
   python3 -m agent.humboldt batch-deepread "arxiv-2606*" # subset by glob pattern
-  python3 -m agent.humboldt triage-feed                  # score inbox feed items → discard/shallow report
+  python3 -m agent.humboldt triage-feed                  # score inbox feed items → discard/shallow report + bib entries
   python3 -m agent.humboldt triage-feed --output FILE    # write triage report to file
+  python3 -m agent.humboldt triage-feed --limit N        # triage only the first N items
+  python3 -m agent.humboldt triage-feed --dry-run        # call the model, write no bibliography/report
   python3 -m agent.humboldt triage-discord               # score inbox discord items (ideas+links) → report
   python3 -m agent.humboldt triage-discord --output FILE # write discord triage report to file
   python3 -m agent.humboldt shallow-read --from-triage FILE   # shallow-read all non-discard items; deletes source files
+  python3 -m agent.humboldt shallow-read --from-triage FILE --limit N  # read only the first N items
   python3 -m agent.humboldt shallow-read --from-triage FILE --dry-run  # preview, no writes
   python3 -m agent.humboldt inbox status                      # show unprocessed inbox composition
   python3 -m agent.humboldt inbox archive-discards --from-triage FILE  # move discards → processed/; update people model
@@ -770,6 +904,15 @@ Usage:
   python3 -m agent.humboldt references sort              # classify unsorted → read/deep_read/discard
   python3 -m agent.humboldt references sort --dry-run    # preview sort decisions, no writes
   python3 -m agent.humboldt references promote           # manually promote inbox links → reference list
+  python3 -m agent.humboldt bib list [--depth D] [--kind K] [--year Y]   # canonical bibliography
+  python3 -m agent.humboldt bib show bib-0042            # one bibliography entry
+  python3 -m agent.humboldt bib stats                    # depth/kind/citation breakdown
+  python3 -m agent.humboldt bib migrate [--dry-run]      # one-shot legacy-source migration
+  python3 -m agent.humboldt bib backfill-references [--dry-run]  # law free-text refs → bib-NNNN ids
+  python3 -m agent.humboldt talk draft [--dry-run]        # laws + brief → track.md (Opus)
+  python3 -m agent.humboldt talk check                    # word budgets + TTS hazard lint
+  python3 -m agent.humboldt talk voice [--voice N] [--rate R]  # track.md → audio/*.mp3
+  python3 -m agent.humboldt talk time                     # measure rendered audio vs. targets
 """
 
 
@@ -792,11 +935,28 @@ def main():
             print("Usage: humboldt hypothesize \"<topic>\"")
             sys.exit(1)
         cmd_hypothesize(" ".join(rest))
+    elif cmd == "induct":
+        dry_run = "--dry-run" in rest
+        cmd_induct(dry_run=dry_run, since=_opt(rest, "--since"))
     elif cmd == "assess":
-        if not rest:
-            print("Usage: humboldt assess <law-id>  (e.g. L-001)")
+        target = next((a for a in rest if not a.startswith("--")), None)
+        if not target and "--all" not in rest:
+            print("Usage: humboldt assess <L-NNN> [--dry-run] [--no-corpus]  |  "
+                  "humboldt assess --all [--dry-run] [--no-corpus]")
             sys.exit(1)
-        cmd_assess(rest[0])
+        cmd_assess_law(target or "--all", dry_run="--dry-run" in rest,
+                       no_corpus="--no-corpus" in rest)
+    elif cmd == "read-status":
+        cmd_read_status()
+    elif cmd == "read-cache":
+        cmd_read_cache(rest[0] if rest else "status")
+    elif cmd == "read-pause":
+        if not rest:
+            print("Usage: humboldt read-pause <YYYY-MM-DD> [reason]")
+            sys.exit(1)
+        cmd_read_pause(rest[0], " ".join(rest[1:]) or "operator")
+    elif cmd == "read-unpause":
+        cmd_read_unpause()
     elif cmd == "theorize":
         cmd_theorize()
     elif cmd == "inventory":
@@ -814,30 +974,24 @@ def main():
         pattern = rest[0] if rest else "arxiv-*.pdf"
         cmd_batch_deepread(pattern)
     elif cmd == "triage-feed":
-        output = None
-        if "--output" in rest:
-            idx = rest.index("--output")
-            if idx + 1 < len(rest):
-                output = rest[idx + 1]
-        cmd_triage_feed(output=output)
+        limit = _opt(rest, "--limit")
+        cmd_triage_feed(output=_opt(rest, "--output"),
+                        limit=int(limit) if limit else None,
+                        dry_run="--dry-run" in rest)
     elif cmd == "triage-discord":
-        output = None
-        if "--output" in rest:
-            idx = rest.index("--output")
-            if idx + 1 < len(rest):
-                output = rest[idx + 1]
-        cmd_triage_discord(output=output)
+        limit = _opt(rest, "--limit")
+        cmd_triage_discord(output=_opt(rest, "--output"),
+                           limit=int(limit) if limit else None,
+                           dry_run="--dry-run" in rest)
     elif cmd == "shallow-read":
-        triage_path = None
-        dry_run = "--dry-run" in rest
-        if "--from-triage" in rest:
-            idx = rest.index("--from-triage")
-            if idx + 1 < len(rest):
-                triage_path = rest[idx + 1]
+        triage_path = _opt(rest, "--from-triage")
+        limit = _opt(rest, "--limit")
         if not triage_path:
-            print("Usage: humboldt shallow-read --from-triage <report-path>")
+            print("Usage: humboldt shallow-read --from-triage <report-path> "
+                  "[--limit N] [--dry-run]")
             sys.exit(1)
-        cmd_shallow_read(triage_path=triage_path, dry_run=dry_run)
+        cmd_shallow_read(triage_path=triage_path, dry_run="--dry-run" in rest,
+                         limit=int(limit) if limit else None)
     elif cmd == "inbox":
         subcmd = rest[0] if rest else "status"
         if subcmd == "status":
@@ -912,6 +1066,49 @@ def main():
         else:
             print(f"Unknown references subcommand: {subcmd}")
             sys.exit(1)
+    elif cmd == "laws":
+        from . import laws as laws_mod
+        subcmd = rest[0] if rest else "list"
+        if subcmd == "list":
+            stage = _opt(rest, "--stage")
+            status = _opt(rest, "--status")
+            laws_mod.cmd_list(stage=stage, status=status)
+        elif subcmd == "show":
+            if len(rest) < 2:
+                print("Usage: humboldt laws show <L-NNN>")
+                sys.exit(1)
+            laws_mod.cmd_show(rest[1])
+        elif subcmd == "validate":
+            laws_mod.cmd_validate(rest[1] if len(rest) > 1 else "all")
+        else:
+            print(f"Unknown laws subcommand: {subcmd}")
+            print("Available: list, show, validate")
+            sys.exit(1)
+    elif cmd == "bib":
+        from . import bibliography as bib_mod
+        subcmd = rest[0] if rest else "list"
+        if subcmd == "list":
+            year = _opt(rest, "--year")
+            bib_mod.cmd_list(
+                depth=_opt(rest, "--depth"),
+                kind=_opt(rest, "--kind"),
+                year=int(year) if year else None,
+            )
+        elif subcmd == "show":
+            if len(rest) < 2:
+                print("Usage: humboldt bib show <bib-NNNN>")
+                sys.exit(1)
+            bib_mod.cmd_show(rest[1])
+        elif subcmd == "stats":
+            bib_mod.cmd_stats()
+        elif subcmd == "migrate":
+            bib_mod.migrate(dry_run="--dry-run" in rest)
+        elif subcmd in ("backfill-references", "backfill"):
+            bib_mod.backfill_law_references(dry_run="--dry-run" in rest)
+        else:
+            print(f"Unknown bib subcommand: {subcmd}")
+            print("Available: list, show, stats, migrate, backfill-references")
+            sys.exit(1)
     elif cmd == "discord":
         subcmd = rest[0] if rest else ""
         if subcmd == "post":
@@ -934,11 +1131,67 @@ def main():
         else:
             print(f"Unknown discord subcommand: {subcmd}")
             sys.exit(1)
+    elif cmd == "talk":
+        from . import talk as talk_mod
+        subcmd = rest[0] if rest else ""
+        talk_mod.cmd_talk(subcmd, rest[1:])
+    elif cmd == "console":
+        from . import console as console_mod
+        port = 7878
+        push = "--push" in rest
+        no_open = "--no-open" in rest
+        if "--port" in rest:
+            i = rest.index("--port")
+            if i + 1 < len(rest):
+                port = int(rest[i + 1])
+        console_mod.run_console(port=port, push=push, open_browser=not no_open)
+    elif cmd == "queue":
+        from . import approval_queue as q
+        subcmd = rest[0] if rest else "list"
+        if subcmd == "list":
+            status = None
+            if "--status" in rest:
+                i = rest.index("--status")
+                if i + 1 < len(rest):
+                    status = rest[i + 1]
+            q.cmd_list(status=status)
+        elif subcmd == "show" and rest[1:]:
+            q.cmd_show(rest[1])
+        elif subcmd in ("approve", "reject", "apply") and rest[1:]:
+            qid = rest[1]
+            rationale = ""
+            if "--why" in rest:
+                i = rest.index("--why")
+                if i + 1 < len(rest):
+                    rationale = rest[i + 1]
+            try:
+                if subcmd == "approve":
+                    q.approve(qid, rationale=rationale)
+                    print(f"{qid} approved. Apply with: humboldt queue apply {qid}")
+                elif subcmd == "reject":
+                    q.reject(qid, rationale=rationale)
+                    print(f"{qid} rejected.")
+                else:
+                    print(f"{qid} applied → behavior {q.apply_approved(qid)}")
+            except (KeyError, ValueError) as exc:
+                print(f"Error: {exc}")
+                sys.exit(1)
+        else:
+            print("Usage: humboldt queue [list [--status S] | show <q-NNNN> | "
+                  "approve <q-NNNN> [--why TEXT] | reject <q-NNNN> [--why TEXT] | "
+                  "apply <q-NNNN>]")
+            sys.exit(1)
+    elif cmd == "analytics":
+        from .analytics import cmd_analytics
+        cmd_analytics(rest[0] if rest else "utilization", rest[1:])
+
     elif cmd == "behaviors":
         from . import behaviors as beh
         subcmd = rest[0] if rest else "graph"
         if subcmd == "admin":
-            beh.run_admin()
+            print("`behaviors admin` is retired — the supervisor console replaces it.")
+            print("Run: python3 -m agent.humboldt console")
+            sys.exit(1)
         elif subcmd == "graph":
             beh.cmd_graph()
         elif subcmd == "log":

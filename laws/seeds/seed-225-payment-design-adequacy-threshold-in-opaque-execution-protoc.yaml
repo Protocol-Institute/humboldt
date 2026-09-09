@@ -1,0 +1,18 @@
+id: seed-225
+title: Payment-Design Adequacy Threshold in Opaque Execution Protocols
+text: 'In protocol systems where execution remains structurally opaque to the client (black-box model
+  behavior, latency-masked computation, stochastic outputs), can payment-mechanism redesign alone deter
+  provider deception, or does it necessarily displace optimization pressure to unlegible layers? The problem
+  may be that computable enforcement creates legibility asymmetry: the verifier can measure aggregate
+  outcomes (token count, response latency) but cannot observe the provider''s counterfactual choice set
+  or internal routing. Under this condition, payment schemes may stabilize only until providers learn
+  to game the new metric definition itself—suggesting the coordination failure is structural to the API
+  protocol layer, not solvable by financial incentive realignment alone.'
+source: bibliography/shallow-reads/2026-09-02-pay-for-the-second-best-service-a-game-theoretic-approach-ag.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-001
+- L-008
+status: open

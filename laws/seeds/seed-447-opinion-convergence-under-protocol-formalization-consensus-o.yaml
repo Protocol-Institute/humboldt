@@ -1,0 +1,17 @@
+id: seed-447
+title: Opinion Convergence Under Protocol Formalization — Consensus or Silence?
+text: As protocols stabilize and formalize, does variance in stakeholder opinions about design legitimacy
+  and necessity decrease because (a) genuine consensus is achieved around correctness, (b) disagreement
+  becomes institutionally illegible or costly to express, or (c) the original design choices recede from
+  institutional memory faster than alternatives can be articulated? If (b) or (c), opinion "convergence"
+  may mask unresolved conflict stored in informal channels, legacy system debt, or latent design vulnerability.
+  Test by measuring opinion diversity in stakeholder populations across protocol age, formal specification
+  density, and institutional memory half-life.
+source: bibliography/shallow-reads/2026-09-02-idea-the-general-temporal-phenomenon-of-protocols-is-that-co.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-001
+- L-007
+status: open

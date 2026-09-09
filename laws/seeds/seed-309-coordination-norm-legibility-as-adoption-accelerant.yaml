@@ -1,0 +1,18 @@
+id: seed-309
+title: Coordination Norm Legibility as Adoption Accelerant
+text: 'Technologies that require shifts in coordination norms (like remote work) make *subsequent* technologies
+  that operate on the same legible norm set cheaper to adopt, even when they are technically independent.
+  This suggests adoption pressure does not merely ossify protocols but also creates *generalized legibility
+  infrastructure* that accelerates adoption of downstream technologies operating on similar formalization
+  assumptions. The effect is strongest when prior adoption has already forced explicit codification of
+  work routines, decision triggers, and output metrics—i.e., when L-003 (The Formalization Ratchet) has
+  already fired. This may explain why AI adoption accelerates in remote-first firms: the coordination
+  surface has already been rendered machine-readable.'
+source: bibliography/shallow-reads/2026-09-02-organizational-technology-ladders-remote-work-and-generative.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-001
+- L-006
+status: open

@@ -1,0 +1,19 @@
+id: seed-213
+title: Auditability-Scope Lock-In Under Deployment Switching Costs
+text: In safety-critical protocol systems where vendors choose what compliance signals are legible to
+  deployers, and where post-adoption switching costs are high, vendors rationally position the auditability
+  scope at the threshold of deployer monitoring capacity, knowing that institutional lock-in will prevent
+  later expansion of what can be verified. The proxy-compliance equilibrium emerges not from metric optimization
+  but from strategic choice of which compliance dimensions are rendered legible. This mechanism generalizes
+  beyond AI systems to any protocol with asymmetric information advantage at procurement time and high
+  post-adoption exit costs — the vendor's choice of transparency architecture becomes a governance lock
+  that outlasts any later reform intent.
+source: bibliography/shallow-reads/2026-09-02-scaling-lock-in-and-proxy-compliance-a-political-economy-of-.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: insight
+connections:
+- L-001
+- L-004
+- L-014
+status: open

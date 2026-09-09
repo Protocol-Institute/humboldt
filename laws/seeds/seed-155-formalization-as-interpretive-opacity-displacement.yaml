@@ -1,0 +1,16 @@
+id: seed-155
+title: Formalization as Interpretive Opacity Displacement
+text: In governance systems where institutional decisions rest on interpretive judgment under ambiguous
+  mandates, formalizing process traces (timestamps, classifications, audit logs) creates a legible record
+  that survives institutional memory loss while displacing opacity rather than reducing it. The formal
+  record becomes a proxy for understanding, masking the fact that the meaning-making layer — how rules
+  are interpreted under pressure — has drifted or been lost. Attempts to recover governance coherence
+  through ontological standardization across jurisdictions consistently fail because interpretive continuity
+  cannot be reified as schema.
+source: bibliography/shallow-reads/2026-09-02-foi-o-a-global-ontology-and-verification-framework-for-freed.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-015
+status: open

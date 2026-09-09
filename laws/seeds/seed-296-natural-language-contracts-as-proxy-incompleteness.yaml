@@ -1,0 +1,17 @@
+id: seed-296
+title: Natural Language Contracts as Proxy Incompleteness
+text: 'In systems where agents negotiate and execute time-extended contracts via natural language, does
+  agent success (measured as profit or clause compliance) correlate negatively with the preservation of
+  the informal, context-dependent interpretations that made the contract feasible to negotiate in the
+  first place? That is: do language-based agents succeed by eliminating ambiguity in ways that break the
+  contract''s actual function — its reliance on shared understanding that *cannot* be formalized? This
+  would instantiate a variant of Goodhart Generalization specific to legal/contractual domains, where
+  the measurable proxy (agent agreement rate, profit, formal compliance) selects against the unmeasurable
+  substrate (mutual intent, flexibility under unforeseen conditions, interpretive trust).'
+source: bibliography/shallow-reads/2026-09-02-evaluating-rational-contracting-in-natural-language.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-008
+status: open

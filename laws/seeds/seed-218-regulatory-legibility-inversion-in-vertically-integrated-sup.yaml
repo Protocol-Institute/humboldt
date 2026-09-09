@@ -1,0 +1,17 @@
+id: seed-218
+title: Regulatory Legibility Inversion in Vertically Integrated Supply Chains
+text: 'In supply chains with heterogeneous legibility across layers, regulatory attention and industrial
+  policy concentrate at upstream (capital-intensive, physically legible) nodes, while downstream (cognitively
+  complex, behaviorally opaque) nodes remain fragmented. This produces an inversion: the layer most visible
+  to formal oversight is least exposed to competitive pressure, while the layer least amenable to computable
+  specification remains most competitive. The mechanism may generalize beyond AI: any protocol stack where
+  formalizability varies across layers will see control accumulate at the *formalizable* boundary, not
+  necessarily at the functionally critical boundary.'
+source: bibliography/shallow-reads/2026-09-02-artificial-intelligence-supply-chain-chokepoints-and-the-rea.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-001
+- L-014
+status: open

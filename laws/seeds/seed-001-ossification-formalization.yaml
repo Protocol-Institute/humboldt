@@ -1,0 +1,19 @@
+id: seed-001
+title: Ossification ≠ formalization
+text: 'Street food markets can be highly formalized (licensing, fees, operating hours) yet remain
+
+  behaviorally adaptive — which suggests ossification and formalization are not coupled
+
+  phenomena but independent variables with different causal drivers. If true, then analyses
+
+  of T-001 and CL-001 may have conflated two distinct processes. What actually drives each,
+
+  and under what conditions do they co-vary vs. diverge?'
+source: bibliography/shallow-reads/2026-06-06-idea-ossification-and-formalization-are-independent-variable.md
+origin: C-001
+surfaced: '2026-06-06'
+type: insight
+connections:
+- T-001
+- CL-001
+status: open

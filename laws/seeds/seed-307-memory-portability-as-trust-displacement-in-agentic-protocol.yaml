@@ -1,0 +1,16 @@
+id: seed-307
+title: Memory Portability as Trust Displacement in Agentic Protocols
+text: 'When agentic systems are given persistent, machine-readable memory architectures that accumulate
+  operational experience, does trust migrate from the *quality of current judgment* to the *legibility
+  and volume of past records*? Under what conditions does formalized memory become a target for strategic
+  optimization rather than a faithful record of scientific learning? This generalizes beyond materials
+  science: any protocol system that shifts from informal institutional memory to formally legible memory
+  traces risks the collapse of opacity that currently separates trust *in the system* from trust *in what
+  the system is legibly optimizing for*.'
+source: bibliography/shallow-reads/2026-09-02-harnessing-agent-memory-to-build-lifelong-ai-partners-for-ma.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-007
+status: open

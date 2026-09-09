@@ -91,13 +91,20 @@ td {
 }
 
 .nav-inner {
-  max-width: 860px;
+  /* Wider than .container's 760px on purpose. The nav is a horizontal list of nine
+     items and does not want the body's reading measure; letting it run wider is what
+     keeps it on one row. Text columns stay at 760px. */
+  max-width: 1080px;
   margin: 0 auto;
   padding: 0 2rem;
   display: flex;
   align-items: center;
   gap: 2rem;
-  height: 52px;
+  /* min-height, not height: a fixed height let a wrapped row overflow the sticky
+     header's box and render on top of the page content instead of growing the header.
+     Keep min-height even now that the row fits — it is what makes wrapping safe on
+     narrow viewports. */
+  min-height: 52px;
 }
 
 .nav-brand {
@@ -121,11 +128,14 @@ td {
 }
 
 .nav-link {
-  font-size: 0.82rem;
-  letter-spacing: 0.05em;
+  font-size: 0.78rem;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
   color: #666;
-  padding: 0.35rem 0.75rem;
+  /* Sized together with .nav-inner's max-width to fit nine items on one row at
+     >=1150px. Below that it wraps, which min-height now handles gracefully. A tenth
+     item needs a different structure (grouping or a menu), not smaller type. */
+  padding: 0.3rem 0.45rem;
   border-radius: 3px;
   text-decoration: none;
   transition: background 0.15s, color 0.15s;

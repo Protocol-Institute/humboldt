@@ -1,0 +1,17 @@
+id: seed-398
+title: Metric Relaxation via Compensation Legibility
+text: When a fairness metric defined over in-kind allocations is extended to permit monetary compensation
+  at fixed market prices, the metric becomes easier to satisfy for some agent cohorts (those willing to
+  accept cash) while remaining tight for others. The introduction of a legible compensation channel may
+  displace fairness pressure from one allocation layer to another (goods → cash) rather than resolving
+  it, creating a two-tier fairness failure pattern invisible in single-metric analysis. This suggests
+  that fairness metrics under monetary coupling may exhibit hidden asymmetries in who bears residual unfairness
+  cost.
+source: bibliography/shallow-reads/2026-09-02-fair-allocation-with-optional-selling.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-008
+status: open

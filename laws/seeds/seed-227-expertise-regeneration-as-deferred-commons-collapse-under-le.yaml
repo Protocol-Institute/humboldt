@@ -1,0 +1,19 @@
+id: seed-227
+title: Expertise Regeneration as Deferred Commons Collapse Under Legibility Extraction
+text: In professional regimes where expert output becomes machine-legible and automatable, the informal
+  knowledge-transfer infrastructure (apprenticeship, tacit judgment formation, peer calibration) becomes
+  economically invisible and atrophies under rational optimization pressure. The collapse is not immediate—it
+  is deferred until the point at which a crisis (novel problem, system failure, or expertise shortage)
+  requires rapid regeneration of tacit expertise, at which point the institutional substrate has decayed
+  beyond rapid repair. This generalizes to any coordination system where renewal infrastructure is funded
+  by diffuse positive externalities rather than direct user demand, and where the externality becomes
+  difficult to measure once the core function is formalized and externalized.
+source: bibliography/shallow-reads/2026-09-02-the-tragedy-of-the-cognitive-commons-how-ai-could-disrupt-th.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-001
+- L-003
+- L-006
+status: open

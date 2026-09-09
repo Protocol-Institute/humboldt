@@ -1,0 +1,15 @@
+id: seed-448
+title: Opinion Bifurcation Under Protocol Hardening
+text: 'In protocol systems where formalization increases modification resistance, contested positions
+  do not converge to consensus but instead bifurcate into adoption-by-capitulation (apparent agreement
+  with the protocol) and structural dissent (alternative layers, forks, or workarounds). The total disagreement
+  cost is conserved and relocated to architectural boundaries rather than resolved. Testable hypothesis:
+  the ratio of layering events to protocol modification attempts in contested domains correlates with
+  the degree of underlying value disagreement, not with protocol quality.'
+source: bibliography/shallow-reads/2026-09-02-idea-contested-opinion-converges-through-capitulation-or-lay.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-001
+status: open

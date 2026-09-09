@@ -1,0 +1,18 @@
+id: seed-351
+title: Learner-Targeting as Legibility-Gated Intervention
+text: 'When a learning algorithm is legible and its dynamics computable, strategic agents can optimize
+  against it rather than against the environment; the tractability of this counter-optimization depends
+  on the structure of the game, not on the legibility itself. In systems where learning rules are formalized
+  and observable (e.g., protocol enforcement, algorithmic governance, audit-driven compliance), this creates
+  a new optimization tier: agents optimize against auditors, learners, or rule-detectors rather than against
+  the task. This may generalize beyond games to any protocol system where adaptation is formalized and
+  observable—institutional learning rules, regulatory feedback loops, ML-driven decision-making—but the
+  paper does not explore feedback effects or multi-layer dynamics.'
+source: bibliography/shallow-reads/2026-09-02-planning-against-learning-in-rank-1-games.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-008
+- L-012
+status: open

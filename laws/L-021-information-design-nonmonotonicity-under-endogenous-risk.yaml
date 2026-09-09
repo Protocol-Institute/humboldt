@@ -1,0 +1,76 @@
+id: L-021
+title: Information Design Nonmonotonicity Under Endogenous Risk
+slug: information-design-nonmonotonicity-under-endogenous-risk
+stage: exploration
+status: active
+origin: discovered
+source: null
+confidence: speculative
+statement: >
+  In protocol systems where agents condition safety-critical behavior on risk signals, and where
+  aggregate risk is itself a function of agent behavior, increasing the proportion of agents
+  who receive accurate risk warnings can increase aggregate harm by reducing individual precaution
+  among warned agents, who rationally substitute the warning signal for their own precautionary
+  effort. This effect is strongest when warned agents face convex costs of precaution and unwarned
+  agents face low baseline risk.
+mechanism: >
+  More precisely: V2V-type warning systems (and analogous protocols) create a moral hazard at
+  population scale. An individual warned driver (or agent) rationally adjusts behavior given
+  the signal. But if enough agents adjust by reducing precaution, the aggregate risk increases,
+  which in turn changes what the warning signal should say — creating a feedback loop where
+  warning adoption can push the system into a higher-risk equilibrium.
+justification: >
+  Fed by deep read arXiv:2606.07873 ('Adverse Effects of V2V Adoption on Road Safety'), which
+  proves this formally for vehicle-to-vehicle warning protocols and demonstrates it has counterintuitive
+  implications for adoption mandates. This is genuinely distinct from L-010 (Coordination Adoption
+  Nonmonotonicity): L-010 concerns how adoption level interacts with signaling design; this
+  law concerns how the warning signal itself induces endogenous risk through behavioral substitution.
+  The mechanism — moral hazard at population scale creating a non-monotone safety function —
+  is absent from the current inventory. The pattern generalizes to any safety protocol where
+  agents condition precautionary behavior on a warning signal that is itself sensitive to aggregate
+  precaution levels.
+examples:
+  - domain: Vehicle-to-vehicle (V2V) hazard warning systems
+    description: V2V adoption can reduce road safety at intermediate adoption levels 
+      because warned drivers substitute warning signals for their own precaution, 
+      increasing reckless driving among the warned population faster than the warnings 
+      reduce recklessness overall.
+    source: arXiv:2606.07873
+  - domain: Financial systemic risk monitoring
+    description: Banks receiving early warning signals from systemic risk monitors may 
+      reduce their individual capital buffers, reasoning that the warning gives them time 
+      to respond — increasing aggregate fragility if many banks receive warnings 
+      simultaneously.
+    source: Structural analog; mechanism prediction
+  - domain: Epidemic contact tracing apps
+    description: Users notified of exposure may reduce non-notified precautionary 
+      behaviors (masking, distancing) upon receiving a negative status signal, potentially
+      increasing transmission when negative-signal users outnumber those maintaining full 
+      precaution.
+    source: Structural analog; mechanism prediction
+counterexamples: []
+open_questions: []
+falsification: >
+  A documented safety warning system operating at intermediate adoption levels where warned
+  agents show no reduction in precautionary behavior relative to unwarned controls, demonstrating
+  that moral hazard substitution does not occur when warning signals are accurate and the precaution
+  cost structure is appropriate.
+references: []
+seeds: []
+related: []
+triggers:
+  advance: >
+    Mechanism confirmed in 2+ genuinely independent safety warning domains (e.g., traffic systems
+    and financial risk monitoring and public health) with empirical demonstration that intermediate
+    adoption produces worse outcomes than low adoption, with the boundary conditions on adoption
+    level and precaution cost structure stated.
+  challenge: >
+    A documented V2V-type deployment at intermediate adoption levels where aggregate accident
+    rates decline monotonically with adoption fraction, demonstrated under realistic conditions
+    where warned agents have opportunity to substitute the warning for precaution.
+history:
+  - date: '2026-09-02'
+    event: created
+    detail: induction sweep — Fed by deep read arXiv:2606.07873 ('Adverse Effects of V2V 
+      Adoption on Road Safety'), which proves this formally for vehicle-to-vehicle warning
+      protocols and…

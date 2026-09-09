@@ -1,0 +1,17 @@
+id: seed-340
+title: Identity Legibility as Social-Protocol Reclassification Trigger
+text: 'In shared coordination protocols (group messaging, collaborative platforms), the presence of persistent
+  identity markers (name, avatar, state history) on an agent causes systematic reclassification of that
+  agent from tool to social entity, independent of actual agency or capability transparency. This reclassification
+  alters coordination dynamics (trust, consent, emotional binding) without necessarily altering the agent''s
+  functional role. The mechanism may generalize: any protocol component with persistent identity becomes
+  subject to parasocial optimization pressure, creating a separation layer between functional task and
+  relational dynamics. Whether this displacement is reversible or constitutes a stable equilibrium across
+  task domains remains open.'
+source: bibliography/shallow-reads/2026-09-02-the-tool-to-entity-threshold-parasocial-dynamics-of-personal.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-011
+status: open

@@ -1,0 +1,17 @@
+id: seed-388
+title: Utility Model Legibility as Protocol Redesign Target
+text: 'When a protocol''s security is verified against attackers with *legible, computable utility functions*,
+  does the protocol designer''s ability to tune reward/cost parameters create an incentive for attackers
+  to influence the parameter-setting process itself, or to demonstrate violations whose utility is calculated
+  under adversarially-chosen metrics? In other words: does rational security verification, by formalizing
+  the attacker''s objective, convert the utility model into a new surface of strategic contestation? This
+  may generalize to any protocol system where compliance or security is verified via an explicitly computable
+  proxy for an unmeasurable good (trust, fairness, safety).'
+source: bibliography/shallow-reads/2026-09-02-rational-dolev-yao-attackers-decidable-incentive-aware-verif.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-004
+- L-008
+status: open

@@ -1,0 +1,19 @@
+id: seed-381
+title: Formalization of Intent Residuals — Generative Gap-Filling as Protocol Boundary Crystallization
+text: 'When protocol systems (contracts, specifications, governance rules) contain irreducible gaps—points
+  where formal language fails to capture the actual bargain or intent—those gaps have historically remained
+  unstructured coordination surfaces (informal negotiation, judicial discretion, custom). Introduction
+  of computable gap-filling (generative models trained on historical examples) formalizes the boundary
+  itself, converting discretionary residual into a legible, optimizable target. This triggers two opposing
+  pressures: (1) reduction in interpretive conflict through predictable completion, and (2) strategic
+  divergence between written intent and text-optimized contracts designed to exploit gap-filling patterns.
+  The mechanism generalizes wherever protocols must accommodate incommensurable human intent within computable
+  systems—specifications, governance charters, resource allocation rules. The question is whether formalization
+  of the residual eliminates ambiguity or merely relocates it upstream to the gap-filling model itself.'
+source: bibliography/shallow-reads/2026-09-02-generative-gap-filling.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-004
+status: open

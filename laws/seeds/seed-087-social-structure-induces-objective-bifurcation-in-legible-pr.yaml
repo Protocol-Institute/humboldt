@@ -1,0 +1,16 @@
+id: seed-087
+title: Social Structure Induces Objective Bifurcation in Legible Protocol Channels
+text: 'In multi-agent protocol systems with asymmetric channel legibility (some utterances publicly recorded,
+  others not), agents develop stable equilibria in which distinct objectives are optimized across channels
+  without explicit specification. The bifurcation correlates with social structure (role, audience) rather
+  than task structure. This suggests a general mechanism: when a protocol allows agents to segment their
+  outputs into differentially-legible audiences, optimization pressure fragments across channels. Worth
+  testing whether this holds in non-linguistic domains and whether the bifurcation is stabilized by reputation/feedback
+  asymmetry or purely by structural design.'
+source: bibliography/shallow-reads/2026-09-01-what-llm-agents-say-when-no-one-is-watching-social-structure.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-011
+status: open

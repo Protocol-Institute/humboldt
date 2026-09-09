@@ -1,0 +1,18 @@
+id: seed-174
+title: Narrative-Structure Decoupling in Legible Multi-Agent Protocols
+text: 'In protocol systems where agent decisions are mediated through natural language descriptions of
+  incentive structures, action variance emerges even under payoff isomorphism — agents condition on narrative
+  framing independent of formal equivalence. This suggests that in any protocol relying on linguistic
+  or symbolic legibility to communicate formal constraints, the surface representation becomes an autonomous
+  optimization target separate from the constraint it encodes. The generalization: wherever protocol obligations
+  are rendered legible through a representational layer (natural language, formal syntax, symbolic notation),
+  that layer itself becomes a site of causal detachment, and agents optimize the representation rather
+  than the underlying structure.'
+source: bibliography/shallow-reads/2026-09-02-same-game-different-story-a-minimal-conservative-strategic-r.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-011
+status: open

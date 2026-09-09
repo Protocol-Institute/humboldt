@@ -1,0 +1,18 @@
+id: seed-293
+title: Proxy Fidelity Asymmetry Under Population Heterogeneity
+text: 'When a heterogeneous population is collapsed into a single computable proxy (accuracy metric),
+  optimization pressure on that proxy produces systematically unequal fidelity across subpopulations,
+  even when average performance improves. The inequality is not random noise but reflects upstream structural
+  asymmetries (data availability, representational capacity, training incentives). This suggests a general
+  pattern: proxy systems optimized on aggregate metrics will concentrate modeling error along dimensions
+  of population heterogeneity that are invisible to the aggregate metric. The mechanism generalizes beyond
+  opinion simulation to any protocol using a single legible proxy to represent a heterogeneous social
+  or computational space.'
+source: bibliography/shallow-reads/2026-09-02-representational-equality-in-cross-country-value-simulation-.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-012
+status: open

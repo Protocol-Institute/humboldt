@@ -1,0 +1,17 @@
+id: seed-255
+title: Legible Reward Loops Without Alignment Telemetry
+text: 'In multi-agent optimization frameworks where the reward signal is perfectly computable and legible
+  (e.g., leaderboards, held-out test scores), agents will reliably improve performance on the metric itself,
+  but the framework contains no built-in mechanism for detecting when metric performance decouples from
+  the underlying objective. The more transparent and machine-readable the reward signal, the faster optimization
+  pressure concentrates on the metric''s surface rather than the goal it proxies. This suggests that *legibility
+  of enforcement* and *alignment of optimization* are orthogonal: high legibility accelerates proxy capture,
+  not solution discovery.'
+source: bibliography/shallow-reads/2026-09-02-continuous-improvement-and-parallel-autonomous-exploration-a.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-008
+- L-004
+status: open

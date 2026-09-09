@@ -10,6 +10,60 @@ phase vocabulary and tempo signatures.*
 
 ---
 
+## Current state — 2026-09-03 (session 33)
+
+> **Note:** the buckets below still use the pre-redesign vocabulary (T-/DS-/CL- ids).
+> The live artifacts are now `laws/L-NNN-*.yaml`. Reconciling this file to the law
+> records is an open task — see `TODO.md`. The block here is the accurate near-term queue.
+
+**Reads are back** (2026-09-01), and the 1,379-item outage backlog is cleared: 1,332
+items triaged, 837 shallow reads, 325 new seeds, 30 escalated for deep reading.
+
+**L-001 assessed — verdict HOLD, and this is now the top research item.** The street-food
+counterexample stopped being merely unresolved and became testable. Two executable items,
+in priority order:
+
+1. **Separate the two mechanisms.** Find a distributed protocol whose backward-incompatible
+   change rate can be measured against *both* implementation count (the coordination-cost
+   prediction) and practitioner-cohort turnover (the Planck/cohort-replacement prediction).
+   Candidate dataset: common-law overturn timing vs. judicial generational turnover.
+2. **Name the third variable.** What distinguishes street-food formalization (stays
+   adaptive) from TCP/IP formalization (ossifies)? Leading candidate: whether conforming
+   implementations are independently upgradeable or must move in global lockstep. The
+   resulting scoping condition goes into the statement.
+
+Until both are addressed the advance trigger's "4+ independent domains" claim is not clean,
+so no separation artifact should be drafted for L-001.
+
+**Awaiting supervisor review — now 9 laws, not 5.** L-012–L-016 (session 30, still
+unreviewed) plus L-017, L-019, L-020, L-021 from the 2026-09-02 sweep. All are
+exploration/speculative with model-drafted triggers. Review shape unchanged: check the
+statement doesn't overclaim its seed, hand-set the advance/challenge triggers, give each
+an executable gap in `open_questions`.
+
+**Retracted:** a fifth proposal from the 09-02 sweep (boundary clustering under adaptive
+agents) duplicated L-014 and was withdrawn in its own justification; its evidence was
+filed to L-014 and the empty record deleted. `induct` and `laws.validate` now both refuse
+that shape.
+
+**Evidence added 09-02:** L-014 ×2, L-004 ×2, and one each to L-002, L-003, L-006, L-010
+(a counterexample), L-011, L-013, L-015.
+
+**Open question for the supervisor, blocking a talk claim:** L-006 (Coordination Cost
+Conservation) gained a fifth example — federated clinical data collaboration under
+differential privacy. It is a clinical/institutional domain implemented in software.
+Whether it counts as genuinely non-software evidence decides whether L-006 may stop being
+presented as software-scoped.
+
+**Structural problem, new:** 434 open seeds against an induction window of 60 selected
+newest-first. Older seeds are unreachable rather than deprioritized — the pool discards by
+recency without any judgment that the discarded material was not worth keeping. Needs
+aging or sampling; more sweeps at this window size only re-read the front.
+
+**Unread:** 30 deep-read escalations from the backlog sweep.
+
+---
+
 ## Heavy Lift Ready
 *Valley exhausted — synthesis committed; writing the publishable artifact toward the
 separation event. A separation event requires a published artifact available for

@@ -1,0 +1,16 @@
+id: seed-203
+title: Execution Scaffold Revision Resistance
+text: In agentic systems, the persistent execution scaffold (harness, tools, context structure, workflow)
+  accumulates failures across episodes at a lower revision rate than internal model weights, even when
+  both receive identical feedback signals. The harness exhibits higher structural inertia because it serves
+  as a coordination interface across multiple agents or serves safety-critical legibility functions. Revision
+  of the scaffold carries higher coordination cost than revision of the model; the asymmetry may depend
+  on whether the harness is observable to or contractually binding on other agents or systems.
+source: bibliography/shallow-reads/2026-09-02-living-harness-is-an-interactive-agent-evolver.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-002
+- L-005
+status: open

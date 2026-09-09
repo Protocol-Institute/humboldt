@@ -1,0 +1,18 @@
+id: seed-098
+title: Sabotage Legibility Ratchet in Threshold Protocols
+text: 'In threshold team production under public commitment, formalizing the verification function does
+  not eliminate coalition exploitation — it renders the minimum sabotage set (the cheapest withholding
+  coalition) mathematically computable. Protocol designers must then price against this computable quantity,
+  which forces the fee structure to encode a model of the adversary''s cost. This creates a ratchet: as
+  protocols become more formally specified and verifiable, the strategic vulnerability surface becomes
+  more legible, and thus requires ever-more-refined defensive pricing. The total coordination cost is
+  conserved, but now must be paid continuously in mechanism design overhead rather than absorbed in informal
+  trust. This may be a special case of L-006 under conditions of high formalization and public auditability.'
+source: bibliography/shallow-reads/2026-09-01-slack-and-budget-breaking-in-threshold-team-production.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-006
+- L-003
+status: open

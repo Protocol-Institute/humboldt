@@ -1,0 +1,16 @@
+id: seed-318
+title: Causal Narrative Recovery as Legibility Theater in Autoregressive Systems
+text: When optimization of autoregressive multi-agent systems produces functionally correct but causally
+  opaque configurations, post-hoc causal inference methods may recover *plausible* causal narratives rather
+  than true causal structure. These recovered narratives become legible and transferable, but may fail
+  precisely when the system must generalize beyond the training regime — suggesting that "explainability"
+  under autoregressive generation is a form of legibility capture rather than genuine causal recovery.
+  Does the stability of recovered causal explanations inversely correlate with their usefulness for out-of-distribution
+  prediction?
+source: bibliography/shallow-reads/2026-09-02-discovering-efficient-and-explainable-communication-topologi.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-011
+status: open

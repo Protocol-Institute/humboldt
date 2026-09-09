@@ -1,0 +1,15 @@
+id: seed-209
+title: Absorbing-Boundary-Induced Rationality as Protocol Conservatism
+text: In protocol systems where failure states are absorbing (cannot be recovered from), agents rationally
+  compress exposure and reduce innovation velocity below theoretical optima. This is not risk aversion
+  or Goodhart pathology, but rational response to loss of ergodicity. The degree of conservatism scales
+  with proximity to absorbing boundary, time-to-horizon, and residual recovery value. In safety-critical
+  protocols (consensus, key management, payment finality), apparent ossification and resistance to upgrade
+  may reflect this mechanism more strongly than adoption-pressure lock-in alone.
+source: bibliography/shallow-reads/2026-09-02-boundary-induced-apparent-risk-aversion-in-nonergodic-multip.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-006
+status: open

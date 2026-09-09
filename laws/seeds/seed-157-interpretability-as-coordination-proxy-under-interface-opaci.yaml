@@ -1,0 +1,18 @@
+id: seed-157
+title: Interpretability as Coordination Proxy Under Interface Opacity
+text: 'When agents must coordinate across opaque interfaces without policy sharing, they shift optimization
+  pressure from *implementation transparency* toward *behavior predictability* — rendering internal decision
+  structure legible through revealed action patterns rather than code exposure. This suggests that under
+  sufficient interface heterogeneity and opacity constraints, interpretability functions as a *substitute*
+  for formalization, not a precursor to it. The generalization: systems under coordination pressure but
+  blocked from deep integration will accumulate *interpretive scaffolding* (diagnostics, signal protocols,
+  action-outcome mapping) as a conservation effect — the coordination cost is not eliminated, but displaced
+  into the inference and prediction layer.'
+source: bibliography/shallow-reads/2026-09-02-relic-revealed-principles-for-learning-interpretable-composa.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-001
+- L-005
+status: open

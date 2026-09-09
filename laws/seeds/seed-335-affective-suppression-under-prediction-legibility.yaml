@@ -1,0 +1,18 @@
+id: seed-335
+title: Affective Suppression Under Prediction Legibility
+text: 'When generative prediction systems become legible, explicit, and available as inputs to algorithmic
+  decision-making or social feedback, agents suppress signals that don''t map cleanly to the system''s
+  measurable axes — here, emotional intensity declines while ideological position becomes sharper. This
+  suggests that legibility itself acts as a coordination friction: unmeasurable or ambiguous signals (affect,
+  sincerity, emotional intensity) are downweighted by both the algorithm and peers who anticipate algorithmic
+  reading. The mechanism may generalize beyond discourse: any protocol system that formalizes prediction
+  as a legible input will see optimization pressure concentrate on legible dimensions while unmeasurable
+  dimensions atrophy.'
+source: bibliography/shallow-reads/2026-09-02-large-language-models-polarize-ideologically-but-moderate-af.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-012
+- L-003
+status: open

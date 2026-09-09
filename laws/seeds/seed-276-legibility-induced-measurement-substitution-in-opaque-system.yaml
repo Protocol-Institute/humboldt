@@ -1,0 +1,17 @@
+id: seed-276
+title: Legibility-Induced Measurement Substitution in Opaque Systems
+text: 'When internal states of opaque automated systems become legible via technical instrumentation (activation
+  monitoring, probe extraction), do the legible proxies replace unmeasurable ground-truth targets in downstream
+  protocols, creating a new layer of proxy-capture risk? The paper demonstrates that activation-based
+  measures can out-perform surface metrics for concept detection, but does not study whether systems optimizing
+  directly on these legible signals would distort the very internal representations being measured. This
+  generalizes beyond LLMs: any system with hidden state + external measurement layer faces this risk once
+  the measurement becomes protocol-observable.'
+source: bibliography/shallow-reads/2026-09-02-measuring-concept-content-in-text-from-llm-activations-esg-e.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-019
+- seed-046
+status: open

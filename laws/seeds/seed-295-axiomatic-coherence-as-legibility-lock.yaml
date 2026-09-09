@@ -1,0 +1,16 @@
+id: seed-295
+title: Axiomatic Coherence as Legibility Lock
+text: Formalizing an asymmetric or informal decision criterion (e.g., "avoid harm," "anticipate regret")
+  via axiomatic grounding makes it computable and enforceable, but the very coherence axioms that make
+  formalization possible become a target for optimization. Agents satisfying the axioms may decouple materially
+  from the original criterion while remaining formally compliant. The stronger the axiomatic structure,
+  the sharper the separation between formal validity and operative behavior under optimization pressure—a
+  form of Goodhart generalization specific to decision protocols.
+source: bibliography/shallow-reads/2026-09-02-an-axiomatic-foundation-for-decisions-with-counterfactual-ut.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-004
+- L-008
+status: open

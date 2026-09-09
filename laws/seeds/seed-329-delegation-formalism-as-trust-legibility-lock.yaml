@@ -1,0 +1,17 @@
+id: seed-329
+title: Delegation Formalism as Trust Legibility Lock
+text: 'When delegation is formalized as a transitive and single-channel structure (one trusted agent per
+  voter, approved set as closure), it converts diffuse trust into a computable, auditable preference profile.
+  This makes coordination verifiable but also fixes the trust topology against rewiring under uncertainty
+  or defection pressure. As adoption scales, agents may develop parallel or hidden delegation chains to
+  escape the formal constraint, creating a gap between the legible delegation graph and actual coordination.
+  The seed: *formal delegation protocols may exhibit a trade-off between interpretive coherence (in the
+  small) and coordination flexibility (under scaling or conflict).*'
+source: bibliography/shallow-reads/2026-09-02-representation-in-peer-selection-a-liquid-democracy-perspect.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-010
+- L-015
+status: open

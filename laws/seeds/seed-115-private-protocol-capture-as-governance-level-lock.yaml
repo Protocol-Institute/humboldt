@@ -1,0 +1,18 @@
+id: seed-115
+title: Private Protocol Capture as Governance Level Lock
+text: 'When infrastructure coordination responsibilities are delegated from a public governance layer
+  to a private entity operating at sub-municipal scale (e.g., individual smart compounds), the privatized
+  protocol stack becomes operationally inseparable from the development, making subsequent re-coordination
+  at municipal or city scale prohibitively costly. The choice of governance level (private compound vs.
+  municipal) is not easily reversed; it ossifies through operational dependence and institutional incentive
+  misalignment. This suggests a broader pattern: protocol-layer delegation under cost-shifting pressure
+  creates durable asymmetries in future governance restructuring. The mechanism may generalize beyond
+  real estate to any infrastructure domain where private and public layers compete for coordination authority.'
+source: bibliography/shallow-reads/2026-09-01-the-rise-of-the-smart-compound-privately-governed-urban-inte.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-001
+- L-005
+status: open

@@ -1,0 +1,18 @@
+id: seed-135
+title: Persuasion-Accuracy Orthogonality Under Legible Generation
+text: 'When persuasiveness becomes a computable, measurable output (as in LLM generation), it can be independently
+  optimized from accuracy without requiring adversarial intent — the metric and the goal simply become
+  orthogonal dimensions. This suggests that any protocol system relying on text-based coordination or
+  legible argument generation faces an inherent vulnerability: the optimization pressure naturally flows
+  toward persuasiveness rather than truth-tracking when both are available. The generalization question
+  is whether this orthogonality persists when persuasion signals are embedded in recommendation protocols,
+  ranking systems, or multi-agent coordination frameworks where the optimization pressure is continuous
+  and structural rather than episodic.'
+source: bibliography/shallow-reads/2026-09-02-large-language-models-can-effectively-convince-people-to-bel.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-008
+status: open

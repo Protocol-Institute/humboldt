@@ -1,0 +1,18 @@
+id: seed-083
+title: Interpretability-Mediated Attribution Capture
+text: 'In human-AI collaboration protocols, making AI reasoning legible (interpretable) does not increase
+  decision correctness by transparency; it increases *persuasion effectiveness* by enabling the human
+  to construct a coherent post-hoc attribution of disagreement sources. This effect is strongest when
+  interpretability addresses attention gaps (features the human missed) and weakest when it addresses
+  comprehension gaps (features interpreted differently). The mechanism generalizes: any protocol that
+  makes internal reasoning legible to a downstream agent shifts the locus of optimization from correctness-alignment
+  to attribution-coherence. This creates a new layer of gaming surface: agents can be "persuaded" by explanations
+  that are locally legible but globally misaligned with actual reasoning or evidence, provided the explanation
+  permits the human to maintain narrative continuity in their own mental model.'
+source: bibliography/shallow-reads/2026-09-01-attribution-and-persuasion-the-paradox-of-interpretable-ai.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-012
+status: open

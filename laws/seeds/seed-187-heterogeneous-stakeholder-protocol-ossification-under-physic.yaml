@@ -1,0 +1,18 @@
+id: seed-187
+title: Heterogeneous-Stakeholder Protocol Ossification Under Physical Constraint
+text: 'In protocol systems governing shared physical resources where stakeholders have asymmetric control
+  and verification authority (occupants cannot inspect operator decisions; regulators cannot observe real-time
+  occupant preferences), formal coordination rules tend to ossify around the most legible enforcement
+  layer rather than the most effective coordination mechanism. The built environment is a test domain:
+  as agent density increases, governance formalization will concentrate authority in layers with direct
+  observability of agent behavior (operators, systems logs), while displacing coordination costs onto
+  less-formalized layers (occupant negotiation, regulatory lag). Track whether formalization here reproduces
+  L-001 or produces novel resistance patterns.'
+source: bibliography/shallow-reads/2026-09-02-constitutional-governance-for-societies-of-ai-agents-in-the-.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-001
+- L-003
+status: open

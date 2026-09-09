@@ -1,0 +1,17 @@
+id: seed-368
+title: Control Tax as Proxy for Coordination Boundary Opacity
+text: 'When technical control over a system is partitioned between two agents with misaligned observability
+  (deployer sees outputs; provider sees internals), the safety assurance cost increases monotonically
+  with the size of the observability gap. This cost cannot be eliminated, only redistributed across layers:
+  instrumentation → logging → attestation → audit. In systems where the boundary is contractually fixed,
+  the control tax becomes a floor on the minimum coordination overhead, and agents optimize within this
+  constraint rather than seeking to breach it. This generalizes beyond AI deployment to any multi-agent
+  protocol where one party''s safety depends on another''s internal state but lacks direct access.'
+source: bibliography/shallow-reads/2026-09-02-bounded-sovereignty-and-the-control-tax-pricing-ai-oversight.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-001
+- L-006
+status: open

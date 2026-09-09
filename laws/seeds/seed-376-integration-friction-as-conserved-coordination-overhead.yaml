@@ -1,0 +1,16 @@
+id: seed-376
+title: Integration Friction as Conserved Coordination Overhead
+text: In protocol transitions from manual to automated execution (e.g., manual pentesting to agentic pentesting),
+  coordination cost does not decrease; it shifts from operator cognition to organizational orchestration,
+  compliance, and escalation overhead. The total friction—measured as engineering, legal, maintenance,
+  and organizational cost—appears to be *conserved* across the transition, suggesting a deeper law about
+  where coordination burden can be moved but not eliminated. This would generalize beyond security tooling
+  to any system undergoing formalization under adoption pressure.
+source: bibliography/shallow-reads/2026-09-02-agentic-security-a-systematization-of-tools-failure-modes-an.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-001
+- L-013
+status: open

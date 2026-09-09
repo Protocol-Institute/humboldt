@@ -1,0 +1,20 @@
+id: seed-353
+title: Trust Proxy Stacking Under Metric Dominance
+text: 'In markets with accumulated reputation history, institutional certification and reputation function
+  as substitute signals in distinct regions, but the boundary shifts monotonically toward reputation dominance
+  as history deepens. This suggests that once a legible reputation metric becomes sufficiently stable
+  and observable, it captures the trust-signaling function previously distributed across multiple costly
+  signals. The widening self-grading region with reputation age may indicate not improved seller quality
+  but selective market migration: low-reputation sellers remain locked into costly certification, while
+  high-reputation sellers escape to cheaper self-reporting. This creates a latent mechanism: reputation
+  metrics may stabilize market segmentation rather than reduce information asymmetry, and the "complementarity"
+  observed may be an artifact of reputation becoming the dominant optimization target for both buyers
+  and sellers.'
+source: bibliography/shallow-reads/2026-09-02-reputation-and-institutional-certification-as-complementary-.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-007
+- L-004
+status: open

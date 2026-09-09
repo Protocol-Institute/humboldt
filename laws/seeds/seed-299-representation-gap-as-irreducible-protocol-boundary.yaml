@@ -1,0 +1,17 @@
+id: seed-299
+title: Representation Gap as Irreducible Protocol Boundary
+text: 'When a protocol agent or decision rule is formalized in one representational system (reward structure,
+  state abstraction, action space), a sufficient mapping into an alternative formal framework cannot be
+  guaranteed to preserve relative performance or functional integrity. The gap is not a gap in clarity
+  or completeness — it is a structural feature of framework incommensurability. This may generalize beyond
+  RL: any protocol migration that requires re-encoding an agent''s optimization target into a new legible
+  substrate risks introducing a floor below which performance cannot be recovered without redesign at
+  the agent level, not the framework level.'
+source: bibliography/shallow-reads/2026-09-02-representation-and-invariance-in-reinforcement-learning.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-005
+- L-011
+status: open

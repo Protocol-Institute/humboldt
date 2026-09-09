@@ -1,0 +1,16 @@
+id: seed-316
+title: Reputation Tier as Computable Renewal Mechanism
+text: In repeated-game compliance models with formalized reputation tiers, trust accumulation is mechanically
+  restored by successful repeated rounds, independent of whether operational conditions have degraded
+  or environmental assumptions have shifted. The deterrence ratio treats reputation as a motivation-renewal
+  device rather than as an information filter, creating a risk that protocols with formally "good standing"
+  may exhibit latent functionality drift. This may generalize to any protocol system where trust recovery
+  is triggered by a computable compliance signal rather than by independent audit or capability re-verification.
+source: bibliography/shallow-reads/2026-09-02-a-repeated-game-framework-for-incentives-in-decentralized-in.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-001
+- L-007
+status: open

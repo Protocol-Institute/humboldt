@@ -1,0 +1,17 @@
+id: seed-214
+title: Protocol-Locked Strategic Embedding
+text: 'Agents trained on explicit formal protocols (here: normal-form games) develop task-specific strategic
+  embeddings that transfer unpredictably to structurally similar but formally distinct protocols, suggesting
+  that learned representations couple tightly to computable legible structure rather than to the underlying
+  problem invariants. If this pattern holds across protocol families (not just games), it would imply
+  that computable enforcement and formal specification, while enabling optimization, also create local
+  optimization traps that resist transfer. The regularity: *transfer asymmetry increases as a function
+  of formal legibility and decreases with domain abstraction*.'
+source: bibliography/shallow-reads/2026-09-02-strategy-not-payoffs-a-behavioural-embedding-of-normal-form-.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-008
+- L-010
+status: open

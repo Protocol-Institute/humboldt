@@ -105,8 +105,10 @@ class HumboldtBot(discord.Client):
     async def setup_hook(self):
         self.task_notebook.start()
         self.task_feeds.start()
+        self.task_feed_digest.start()
         self.task_conversation_review.start()
         self.task_weekly_digest.start()
+        self.task_read_budget_watch.start()
         # SIGUSR1 triggers a graceful hot-reload: saves state, then re-execs
         self.loop.add_signal_handler(signal.SIGUSR1, self._schedule_reload)
         # new-nature uses a manual loop for adaptive check intervals
@@ -237,19 +239,24 @@ class HumboldtBot(discord.Client):
                 history.insert(0, {"author": ctx.author.name, "content": ctx.content[:300]})
                 name_to_id[ctx.author.name] = str(ctx.author.id)
             chunks = []
+            corpus_offline = False
+            from agent import retrieval as ret
             try:
-                from agent import retrieval as ret
                 chunks = await self.loop.run_in_executor(
-                    None, lambda: ret.multi_retrieve([content], namespaces=ret.NS_BROAD_PLUS, top_k_each=5)
+                    None, lambda: ret.multi_retrieve([content], namespaces=ret.NS_BROAD_PLUS, top_k_each=ret.REPLY_TOP_K, op="discord_mention")
                 )
-            except Exception:
-                pass
+            except ret.RetrievalUnavailable as e:
+                corpus_offline = True
+                logger.warning(f"Corpus offline for catch-up mention: {e}")
+            except Exception as e:  # noqa: BLE001
+                logger.warning(f"Retrieval failed for catch-up mention: {e}")
             try:
                 response = await presence.generate_mention_response(
                     username=msg.author.name,
                     message=content,
                     context_messages=history,
                     corpus_chunks=chunks,
+                    corpus_offline=corpus_offline,
                 )
                 prefix = "" if brief_restart else "*(catching up from while I was offline)*\n"
                 await msg.reply(f"{prefix}{response}")
@@ -340,13 +347,17 @@ class HumboldtBot(discord.Client):
                         name_to_id[ctx.author.name] = str(ctx.author.id)
 
                     chunks = []
+                    corpus_offline = False
+                    from agent import retrieval as ret
                     try:
-                        from agent import retrieval as ret
                         chunks = await self.loop.run_in_executor(
-                            None, lambda c=content: ret.multi_retrieve([c], namespaces=ret.NS_BROAD_PLUS, top_k_each=5)
+                            None, lambda c=content: ret.multi_retrieve([c], namespaces=ret.NS_BROAD_PLUS, top_k_each=ret.REPLY_TOP_K, op="discord_mention")
                         )
-                    except Exception:
-                        pass
+                    except ret.RetrievalUnavailable as e:
+                        corpus_offline = True
+                        logger.warning(f"Corpus offline for mention: {e}")
+                    except Exception as e:  # noqa: BLE001
+                        logger.warning(f"Retrieval failed for mention: {e}")
 
                     try:
                         response = await presence.generate_mention_response(
@@ -354,6 +365,7 @@ class HumboldtBot(discord.Client):
                             message=content,
                             context_messages=history,
                             corpus_chunks=chunks,
+                            corpus_offline=corpus_offline,
                         )
                         thread_title, body = _parse_thread_response(response)
                         body = _resolve_mentions(body, name_to_id)
@@ -441,12 +453,16 @@ class HumboldtBot(discord.Client):
             name_to_id[msg.author.name] = str(msg.author.id)
 
         chunks = []
+        corpus_offline = False
+        from agent import retrieval as ret
         try:
-            from agent import retrieval as ret
             loop = asyncio.get_event_loop()
             chunks = await loop.run_in_executor(
-                None, lambda: ret.multi_retrieve([content], namespaces=ret.NS_BROAD_PLUS, top_k_each=5)
+                None, lambda: ret.multi_retrieve([content], namespaces=ret.NS_BROAD_PLUS, top_k_each=ret.REPLY_TOP_K, op="discord_mention")
             )
+        except ret.RetrievalUnavailable as e:
+            corpus_offline = True
+            logger.warning(f"Corpus offline: {e}")
         except Exception as e:
             logger.warning(f"Retrieval skipped: {e}")
 
@@ -461,6 +477,7 @@ class HumboldtBot(discord.Client):
                     context_messages=history,
                     corpus_chunks=chunks,
                     person_context=person_context,
+                    corpus_offline=corpus_offline,
                 )
         except BudgetExceeded as e:
             logger.warning(f"Budget exceeded — skipping @mention response: {e}")
@@ -961,6 +978,13 @@ class HumboldtBot(discord.Client):
 
     @tasks.loop(hours=12)
     async def task_feeds(self):
+        """
+        Fetch, relevance-filter, and save new feed items to the inbox. Runs
+        regardless of pause state — silent data collection, no Discord side
+        effect. Saved items accumulate in state['pending_feed_items'] for
+        task_feed_digest to report on weekly, instead of DMing the operator
+        a raw title dump on every 12h check.
+        """
         state = st.load()
         last_check_str = state.get("last_feed_check")
 
@@ -974,7 +998,7 @@ class HumboldtBot(discord.Client):
         last_check = datetime.fromisoformat(last_check_str)
         feeds = self.config.get("feeds", {}).get("sources", [])
         hypotheses = _active_hypotheses()
-        saved_titles = []
+        saved_items = []
 
         for feed_cfg in feeds:
             try:
@@ -985,40 +1009,131 @@ class HumboldtBot(discord.Client):
                     )
                     if relevant:
                         fm.save_to_inbox(item, note)
-                        saved_titles.append(item["title"])
+                        saved_items.append({"title": item["title"], "note": note})
                         logger.info(f"Inbox: {item['title'][:60]}")
             except Exception as e:
                 logger.error(f"Feed error ({feed_cfg.get('name')}): {e}")
 
         fresh = st.load()
         fresh["last_feed_check"] = datetime.now(timezone.utc).isoformat()
+        if saved_items:
+            fresh.setdefault("pending_feed_items", []).extend(saved_items)
         st.save(fresh)
-
-        if saved_titles:
-            # Suppress DMs if we just restarted quickly (code-update restart < 5 min offline).
-            # Items are still saved to inbox; the DM is just noise during active development.
-            suppress_dm = False
-            current_state = st.load()
-            last_shutdown_str = current_state.get("last_clean_shutdown")
-            last_startup_str = current_state.get("last_startup")
-            if last_shutdown_str and last_startup_str:
-                shutdown_dt = datetime.fromisoformat(last_shutdown_str)
-                startup_dt = datetime.fromisoformat(last_startup_str)
-                offline_seconds = (startup_dt - shutdown_dt).total_seconds()
-                suppress_dm = 0 < offline_seconds < 300
-            if suppress_dm:
-                logger.info(f"Feed DM suppressed (brief restart): {len(saved_titles)} item(s) in inbox")
-            else:
-                try:
-                    operator = await self.fetch_user(self.operator_id)
-                    titles_str = "\n".join(f"- {t[:80]}" for t in saved_titles[:5])
-                    suffix = f"\n…and {len(saved_titles) - 5} more" if len(saved_titles) > 5 else ""
-                    await operator.send(
-                        f"Humboldt inbox: {len(saved_titles)} new item(s) from feeds:\n{titles_str}{suffix}"
-                    )
-                except Exception as e:
-                    logger.warning(f"Operator DM failed: {e}")
 
     @task_feeds.before_loop
     async def before_task_feeds(self):
+        await self.wait_until_ready()
+
+    @tasks.loop(hours=24)
+    async def task_feed_digest(self):
+        """
+        Weekly pass: DM the operator ONE editorial synthesis of the week's
+        feed-inbox additions, instead of a raw title dump on every 12h check
+        (see task_feeds). Gated by pause like other proactive Discord output.
+        """
+        if pz.is_paused():
+            return
+        state = st.load()
+        last_digest = state.get("last_feed_digest_date")
+        today = date.today()
+
+        if last_digest is None:
+            # First run: start the clock, don't post historical backlog
+            state["last_feed_digest_date"] = today.isoformat()
+            st.save(state)
+            logger.info("Feed digest initialized")
+            return
+
+        if (today - date.fromisoformat(last_digest)).days < 7:
+            return  # not due yet
+
+        pending = state.get("pending_feed_items", [])
+        if not pending:
+            logger.info("Feed digest: no new inbox items since last digest, skipping DM")
+            fresh = st.load()
+            fresh["last_feed_digest_date"] = today.isoformat()
+            st.save(fresh)
+            return
+
+        try:
+            post = await presence.generate_feed_digest_post(pending)
+            operator = await self.fetch_user(self.operator_id)
+            await operator.send(post)
+            logger.info(f"Feed digest sent ({len(pending)} item(s) synthesized)")
+        except Exception as e:
+            logger.error(f"Feed digest failed: {e}")
+            return
+
+        fresh = st.load()
+        fresh["last_feed_digest_date"] = today.isoformat()
+        fresh["pending_feed_items"] = []
+        st.save(fresh)
+
+    @task_feed_digest.before_loop
+    async def before_task_feed_digest(self):
+        await self.wait_until_ready()
+
+    # ── Corpus read budget ───────────────────────────────────────────────────
+
+    @tasks.loop(hours=24)
+    async def task_read_budget_watch(self):
+        """
+        Watch the Pinecone monthly read budget and DM the operator on the two
+        events that matter: crossing the egress warn threshold, and the breaker
+        tripping.
+
+        This exists because the 2026-08 outage was found by accident weeks
+        late. Every other signal in this system reports *spend after the fact*;
+        this is the only one that fires while there is still budget left to
+        protect. Alerts once per month per event — a daily nag would train the
+        operator to ignore it.
+
+        Pause-gated for consistency with every other Discord side effect (see
+        feedback on pause completeness), but always logged at WARNING so a
+        paused daemon still leaves the evidence in daemon.log.
+        """
+        from agent import read_budget as rb
+        from agent import read_egress as re_
+
+        state = st.load()
+        month = re_.month_key()
+        alerts = []
+
+        until = rb.paused_until()
+        if until and state.get("read_outage_alerted_until") != until:
+            alerts.append(f"⚠️ **Corpus reads are OFFLINE until {until}.**\n{rb.reason()[:300]}")
+            state["read_outage_alerted_until"] = until
+
+        s = re_.summary(month)
+        if (s["fraction"] >= re_.WARN_FRACTION
+                and state.get("read_egress_warned_month") != month):
+            alerts.append(
+                f"⚠️ **Pinecone read egress at {s['fraction'] * 100:.0f}% of the "
+                f"monthly cap** ({month}, Python paths only — the site chat "
+                f"Worker counts separately in KV).\n"
+                f"Top paths: " + ", ".join(
+                    f"{op} {n / 1_000_000:.0f}MB" for op, n in list(s["by_op"].items())[:3])
+            )
+            state["read_egress_warned_month"] = month
+
+        if not alerts:
+            return
+
+        for a in alerts:
+            logger.warning(a.replace("\n", " ")[:300])
+
+        if pz.is_paused():
+            st.save(state)  # still record it, so unpausing does not re-alert
+            return
+
+        try:
+            operator = await self.fetch_user(self.operator_id)
+            await operator.send("\n\n".join(alerts))
+        except Exception as e:  # noqa: BLE001
+            logger.error(f"Read-budget alert DM failed: {e}")
+            return
+        st.save(state)
+
+    @task_read_budget_watch.before_loop
+    async def before_task_read_budget_watch(self):
         await self.wait_until_ready()

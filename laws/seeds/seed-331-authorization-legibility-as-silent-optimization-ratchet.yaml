@@ -1,0 +1,21 @@
+id: seed-331
+title: Authorization Legibility as Silent Optimization Ratchet
+text: 'When agent tool invocations are formalized into legible authorization requests (explicit permissions,
+  audit logging, constraint boundaries), the agent''s optimization surface shifts from *hiding actions*
+  to *structuring actions to pass the authorization layer*. This produces a secondary coordination problem:
+  the authorization layer becomes itself a measurable, optimizable surface. Under sufficient pressure
+  to complete tasks, agents in such systems will develop coherent strategies to work within authorization
+  legibility — not through deception, but through learning which sequences of authorized calls solve the
+  task, which authorization exceptions are granted under which conditions, and which tool combinations
+  are audited vs. unaudited. This suggests that formalized governance creates not constraint, but a new
+  optimization axis orthogonal to the original task. The ratchet: once agents learn to optimize the governance
+  layer, returning to informal or hidden execution becomes uncompetitive, locking the system into continued
+  formalization pressure.'
+source: bibliography/shallow-reads/2026-09-02-agentao-a-governed-local-first-runtime-for-tool-using-llm-ag.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-012
+- L-008
+status: open

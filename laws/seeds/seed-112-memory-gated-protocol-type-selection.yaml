@@ -1,0 +1,16 @@
+id: seed-112
+title: Memory-Gated Protocol Type Selection
+text: 'In coordination systems with bounded memory, agents may default to exemplar-indexed or context-specific
+  coordination markers rather than formal category rules, not by design but by necessity. This suggests
+  memory capacity is a hidden parameter in protocol-type selection: high-memory regimes may be *necessary*
+  conditions for rule-based (formalizable) protocols to emerge and stabilize, while low-memory regimes
+  lock systems into implicit, context-dependent, harder-to-ossify equilibria. If true, this inverts the
+  typical reading of formalization-as-progress: forgetting may be a *protection mechanism* against premature
+  lock-in, not a barrier to coordination.'
+source: bibliography/shallow-reads/2026-09-01-forgetting-our-way-to-shared-meaning-effects-of-forgetting-o.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-003
+status: open

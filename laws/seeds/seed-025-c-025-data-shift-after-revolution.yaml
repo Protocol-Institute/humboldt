@@ -1,0 +1,25 @@
+id: seed-025
+title: C-025-data-shift-after-revolution
+text: 'After Dalton''s paradigm was accepted, chemists "beat nature into line" — over nearly a
+
+  generation, measurements of compound ratios converged from observed values toward the
+
+  ratios demanded by atomic theory. The numerical data themselves shifted. This is not
+
+  a story about fraud or bias; it is about what counts as a careful measurement when
+
+  the paradigm has changed. What is the protocol analog? When a protocol is revised,
+
+  do compliance records, audit findings, and outcome measurements from the pre-revision
+
+  period get systematically reinterpreted — or do organizations quietly re-run prior
+
+  analyses under the new protocol until the numbers converge?'
+source: kuhn-structure-of-scientific-revolutions.pdf
+origin: C-025
+surfaced: '2026-06-13'
+type: curiosity
+connections:
+- F-002
+- CL-001
+status: open

@@ -1,0 +1,17 @@
+id: seed-374
+title: Endogenous Legibility Inversion in Competitive Execution Protocols
+text: 'When execution algorithms make their optimization targets (liquidity demand, pricing signals, counterparty
+  willingness) legible to reactive market makers through repeated interaction, the market maker''s adaptation
+  flips the assumed causal direction: liquidity ceases to be an exogenous supply function and becomes
+  a strategic response variable. This suggests a broader pattern: in any multi-agent protocol where one
+  agent''s assumption about the other''s stationarity becomes computable and observable, the observing
+  agent optimizes to break that stationarity, destabilizing the original single-agent model. The question
+  is whether this extends to governance protocols, authentication systems, and auditing frameworks where
+  similar legibility inversion could occur.'
+source: bibliography/shallow-reads/2026-09-02-abides-marl-a-multi-agent-reinforcement-learning-environment.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-009
+status: open

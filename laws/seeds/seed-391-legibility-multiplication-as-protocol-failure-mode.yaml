@@ -1,0 +1,16 @@
+id: seed-391
+title: Legibility Multiplication as Protocol Failure Mode
+text: When computational legibility makes a previously unmeasurable construct measurable via multiple
+  algorithmic pathways, protocol systems that depend on measurement consensus do not stabilize on a single
+  proxy—they fragment across incommensurable formalizations. Each formalization is individually defensible;
+  no measurement error explains divergence. This differs from Goodhart capture (single proxy, optimization
+  pressure) and creates a failure mode where shared measurement infrastructure paradoxically enables divergent
+  causal inference and decision outcomes. This risk is highest in safety-critical or high-stakes protocols
+  where measurement legibility is treated as equivalent to operational legitimacy.
+source: bibliography/shallow-reads/2026-09-02-the-measurement-revolution-credible-measurement-and-inferenc.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: insight
+connections:
+- L-004
+status: open

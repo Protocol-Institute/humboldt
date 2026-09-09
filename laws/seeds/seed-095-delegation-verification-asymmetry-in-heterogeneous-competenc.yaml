@@ -1,0 +1,17 @@
+id: seed-095
+title: Delegation-Verification Asymmetry in Heterogeneous-Competence Teams
+text: 'When an agent can execute code in languages a developer cannot fully verify, what prevents specification
+  drift or silent failure modes from accumulating? The paper shows developers adopt agentic execution
+  across unfamiliar languages at scale; it does not measure whether verification becomes a bottleneck,
+  whether trust in the agent''s execution substitutes for developer understanding, or whether teams coordinating
+  across such asymmetries develop new failure modes. This opens a question: does agentic delegation in
+  safety-critical systems create a *specification-verification gap* that violates or extends L-002 (Hardness
+  Asymmetry)?'
+source: bibliography/shallow-reads/2026-09-01-agentic-delegation-and-the-language-frontier-of-software-dev.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: question
+connections:
+- L-001
+- L-012
+status: open

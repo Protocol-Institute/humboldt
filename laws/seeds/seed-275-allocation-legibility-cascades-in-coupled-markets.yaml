@@ -1,0 +1,15 @@
+id: seed-275
+title: Allocation Legibility Cascades in Coupled Markets
+text: When allocation problems become legible and optimizable in one layer of a coupled system (school
+  investment), optimization pressure does not reduce total coordination burden but redistributes it to
+  adjacent layers that were previously latent (housing markets, residential sorting). The cascade continues
+  until legibility reaches a boundary where agents cannot optimize further without explicit governance
+  intervention. This suggests coordination costs are not reducible but only re-legibilizable.
+source: bibliography/shallow-reads/2026-09-02-learning-long-term-educational-investment-policies-under-res.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-006
+- L-012
+status: open

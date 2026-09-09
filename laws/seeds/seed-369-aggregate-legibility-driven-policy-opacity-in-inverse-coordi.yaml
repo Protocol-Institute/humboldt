@@ -1,0 +1,19 @@
+id: seed-369
+title: Aggregate-Legibility-Driven Policy Opacity in Inverse Coordination Problems
+text: When a protocol system is specified only through aggregate outcome statistics (verified at a population
+  level) rather than individual behavioral rules, and when those aggregates are under-determined by multiple
+  possible individual policies, the system will preferentially adopt opaque learned policies (e.g., trained
+  neural networks or language models) that match the aggregate target. The result is a protocol where
+  the governance layer (aggregate statistics) remains formally legible and auditable, while the execution
+  layer (individual decision logic) becomes irreducibly opaque. This is stable because the aggregate verification
+  function does not require or constrain the individual mechanism — only the outcome. The pattern generalizes
+  to any distributed system where privacy, scalability, or information asymmetry forces inference from
+  aggregate proxies rather than individual records.
+source: bibliography/shallow-reads/2026-09-02-distilling-aggregate-mobility-statistics-into-a-language-mod.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-006
+- L-015
+status: open

@@ -1,0 +1,18 @@
+id: seed-403
+title: Auditability as Prerequisite vs. Auditability as Target
+text: 'Deliberative polling systems that delegate argument selection to learned rankers face a legitimacy
+  crisis not because outcomes are wrong but because the selection mechanism is unreconstructible — voters
+  cannot contest what shaped their cognition. Rule-based auditable selection restores legitimacy by making
+  the filtering function recomputable. However, this does not investigate whether auditability itself
+  becomes a target under optimization (voters learning to exploit rule parameters; rule complexity creeping
+  beyond effective auditability). A generalized law might hold: *Systems that elevate auditability from
+  a side property to a hard constraint inadvertently create a new optimization surface — the parameters
+  and structure of the audit mechanism itself.* This mirrors L-014 (Strategic Boundary Concentration Under
+  Computable Legality) but inverted: legibility as the prize rather than the boundary.'
+source: bibliography/shallow-reads/2026-09-02-rules-before-oracles-auditable-user-configurable-argument-se.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-015
+status: open

@@ -1,0 +1,17 @@
+id: seed-169
+title: Trust Discontinuity in Formalized Safety-Critical Norms
+text: When informal, operationally-trusted safety coordination norms are formalized for machine enforcement,
+  does the trust function transfer to the formal representation, or is trust reset by the formalization
+  boundary itself? Under what conditions does the operationally-accumulated credibility of a norm survive
+  its encoding as a computable specification — and under what conditions is it replaced by confidence
+  in the formal system, creating a discontinuity? This may generalize beyond clinical pathways to any
+  migration of safety-critical coordination from human-legible implicit norms to machine-computable explicit
+  rules.
+source: bibliography/shallow-reads/2026-09-02-clinical-pathways-as-safety-specifications-for-physical-ai-i.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-007
+- L-003
+status: open

@@ -1,0 +1,17 @@
+id: seed-202
+title: Geometric Opacity as Proxy Deferral in Hierarchical Routing
+text: 'When routing decisions in agentic systems are rendered computable and legible, optimization pressure
+  accumulates at the routing interface (agents optimize self-descriptions, tasks exploit routing proxies).
+  Abstracting the routing function into non-linguistic geometric representations creates friction but
+  does not eliminate the underlying incentive: the routing decision remains a high-value target, and any
+  regularized representation (geometric or otherwise) becomes a new proxy surface under sustained optimization
+  pressure. The question is not whether opacity prevents capture, but whether it merely raises the cost
+  of capture while preserving the same structural vulnerability.'
+source: bibliography/shallow-reads/2026-09-02-linguistic-firewall-geometry-as-defense-in-multi-agent-syste.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-008
+- L-012
+status: open

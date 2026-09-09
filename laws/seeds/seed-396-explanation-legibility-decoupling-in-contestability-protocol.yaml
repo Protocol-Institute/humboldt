@@ -1,0 +1,16 @@
+id: seed-396
+title: Explanation-Legibility Decoupling in Contestability Protocols
+text: 'When counterfactual or explanatory overlays are formalized as contestability mechanisms in automated
+  decision systems, does the explanation itself become an optimization target for actors seeking to evade
+  legitimate challenge? That is: can the legibility of an explanation be gamed independently of whether
+  the underlying decision proxy has been corrected? This suggests a deeper regularity — that secondary
+  intervention layers designed to restore agency in captured protocols may themselves become subject to
+  metric capture, displacing contestability pressure rather than resolving it.'
+source: bibliography/shallow-reads/2026-09-02-counterfactual-explanations-and-the-scope-of-contestability.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-004
+- L-012
+status: open

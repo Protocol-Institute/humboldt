@@ -1,0 +1,19 @@
+id: seed-196
+title: Standardization-as-Bottleneck Dissolution Under Computational Abundance
+text: 'Standardization in large-scale coordination systems arises not from preference for uniformity but
+  from necessity to compress unmeasurable heterogeneity into legible, manageably-scoped protocol rules.
+  When information processing capacity increases sufficiently to track and accommodate heterogeneity *without*
+  compression, the standardization equilibrium becomes optional. However, the coordination cost does not
+  disappear — it reappears as distributed adaptation and personalization overhead. Systems that achieve
+  abundance in one capacity (legibility, computation) may suffer scarcity in another (coherence, auditability,
+  trust). This suggests a deep non-monotonicity: AI-enabled protocol diversification may *increase* total
+  coordination cost even as it *decreases* standardization pressure.'
+source: bibliography/shallow-reads/2026-09-02-from-compressing-complexity-to-accommodating-complexity-how-.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: insight
+connections:
+- L-001
+- L-003
+- L-006
+status: open

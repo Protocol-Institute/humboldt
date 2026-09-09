@@ -1,0 +1,17 @@
+id: seed-185
+title: Substitutability Formalization as Organizational Perverse Incentive
+text: When substitutability between human and AI agents becomes formally computable and organizationally
+  legible (via cost or capability metrics), agents do not respond by accepting the model's predictions;
+  instead, they optimize for non-substitutability *within the metric's frame*. Workers gravitate toward
+  roles that appear insubstitutable on the model's parameters (unmeasurable judgment, relationship-dependent
+  tasks), while organizations that adopt substitutability models paradoxically increase coordination friction
+  and measurement overhead. The model's predictive failure is not a sign of incompleteness but of successful
+  defensive adaptation to the metric itself—a second-order Goodhart loop.
+source: bibliography/shallow-reads/2026-09-02-the-human-ai-substitution-principle-when-will-you-be-replace.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-012
+- L-004
+status: open

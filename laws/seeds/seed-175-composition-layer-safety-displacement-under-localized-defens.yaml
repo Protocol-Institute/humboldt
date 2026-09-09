@@ -1,0 +1,16 @@
+id: seed-175
+title: Composition-Layer Safety Displacement Under Localized Defense
+text: 'In multi-agent protocols where safety obligations are enforced at individual agent boundaries (input
+  filtering, output verification), adversarial pressure systematically displaces to undefended composition
+  channels — inter-agent message passing, context-window smuggling, or implicit state transfer. This displacement
+  is not random: it follows the legibility gradient of the defense architecture. The system cannot migrate
+  defenses to deeper layers without restructuring the entire protocol, causing safety requirements themselves
+  to ossify the composition architecture. Safety thus becomes a mechanism of protocol lock-in.'
+source: bibliography/shallow-reads/2026-09-02-channelguard-safe-models-do-not-compose-into-safe-multi-agen.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-001
+- L-012
+status: open

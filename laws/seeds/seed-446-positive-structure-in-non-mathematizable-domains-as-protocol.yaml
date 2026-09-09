@@ -1,0 +1,16 @@
+id: seed-446
+title: Positive Structure in Non-Mathematizable Domains as Protocol Layers
+text: 'Protocol systems may sustain load-bearing coordination work in domains resistant to formalization
+  (judgment, context-sensitivity, trust calibration), and this work exhibits regularities—threshold effects,
+  failure modes, equilibria—distinct from formal layers. The question: does the *presence* of functional
+  non-mathematizable layers predict protocol stability or adaptability better than formalization density?
+  And what are the specific coordination tasks that formalization actively *breaks* rather than merely
+  fails to capture?'
+source: bibliography/shallow-reads/2026-09-02-idea-the-interior-structure-of-the-non-mathematizable-domain.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-003
+- L-007
+status: open

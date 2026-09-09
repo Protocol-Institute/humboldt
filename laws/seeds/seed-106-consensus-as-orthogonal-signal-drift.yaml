@@ -1,0 +1,16 @@
+id: seed-106
+title: Consensus-as-Orthogonal-Signal Drift
+text: 'In self-training protocols where multiple agents optimize against an aggregate internal signal
+  (rather than external ground truth), does agreement strength become decoupled from task performance
+  over training iterations? Specifically: can a protocol equilibrium emerge in which the ensemble converges
+  on a high-confidence, internally-consistent response that diverges systematically from correct outputs
+  in the original task domain, but remains stable because no external feedback contradicts it? This would
+  be a subspecies of causal detachment: not loss of operational function, but loss of alignment between
+  the chosen optimization target (consensus) and the intended objective (correctness).'
+source: bibliography/shallow-reads/2026-09-01-peer-predictive-self-training-for-language-model-reasoning.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: question
+connections:
+- L-011
+status: open

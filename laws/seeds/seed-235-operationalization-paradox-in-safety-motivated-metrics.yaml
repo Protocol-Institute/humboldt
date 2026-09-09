@@ -1,0 +1,16 @@
+id: seed-235
+title: Operationalization Paradox in Safety-Motivated Metrics
+text: 'Attempts to remedy proxy capture by substituting unmeasurable high-level goals (flourishing, well-being)
+  for narrow measurable proxies encounter a structural inversion: the more the unmeasurable goal is formalized
+  into a computable metric to guide system behavior, the more it becomes subject to the very optimization
+  capture dynamics it was meant to escape. The paradox may be irreducible — safety-motivated metric substitution
+  itself generates new legibility surfaces for optimization pressure. This suggests the problem is not
+  proxy choice but the attempt to solve coordination problems through metric formalization in the first
+  place.'
+source: bibliography/shallow-reads/2026-09-02-optimising-for-flourishing-flourishing-metrics-and-return-on.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-004
+status: open

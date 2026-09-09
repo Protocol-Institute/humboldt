@@ -1,0 +1,18 @@
+id: seed-266
+title: Coherence Collapse Under Weak Attractor Multiplicity
+text: 'In coordination systems with spatial or social community structure, modest increases in inter-group
+  signal strength can fragment rather than unify global coordination, because local coordination attractors
+  harden through repeated reinforcement before cross-group signals reach sufficient amplitude to override
+  them. The collapse point occurs not at adoption threshold but at the conflict-zone between competing
+  stable equilibria. This generalizes beyond language: any protocol system where agents partition into
+  communities with independent norm-locking will exhibit nonmonotonic global coherence as inter-partition
+  communication increases, with maximum fragmentation occurring in the mid-range of cross-partition signal
+  strength—below which communities ignore external signals, above which one attractor dominates globally.'
+source: bibliography/shallow-reads/2026-09-02-spatial-community-structure-impedes-language-amalgamation-in.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-003
+- L-010
+status: open

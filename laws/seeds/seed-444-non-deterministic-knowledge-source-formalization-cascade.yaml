@@ -1,0 +1,18 @@
+id: seed-444
+title: Non-Deterministic Knowledge Source Formalization Cascade
+text: 'When a protocol system depends on a knowledge source that produces materially different but valid
+  outputs for identical queries (due to stochasticity, versioning, or configuration), the system cannot
+  remain neutral on which output to use; it must escalate to a formalizable selection rule (model ranking,
+  prompt strategy, output validation metric). This formalization itself becomes a protocol boundary —
+  organizations optimize toward the legible selection criterion rather than toward the underlying goal.
+  The non-determinism does not disappear; it migrates from "which answer" to "which selection rule" and
+  "why was this rule chosen." This may generalize beyond AI: any protocol that depends on a non-deterministic
+  information source must formalize downstream to remain operationally coordinated, and that formalization
+  becomes a new site of capture and path-locking.'
+source: bibliography/shallow-reads/2026-09-02-idea-ai-language-models-produce-materially-different-outputs.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-006
+status: open

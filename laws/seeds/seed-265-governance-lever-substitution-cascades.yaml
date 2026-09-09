@@ -1,0 +1,15 @@
+id: seed-265
+title: Governance-Lever Substitution Cascades
+text: 'When governance is operationalized through a legible upstream lever (e.g., compute allocation),
+  stakeholders optimize the lever-control protocol rather than the downstream effect it was meant to enforce.
+  This is not a failure of the mechanism design but a migration of the governance problem to a new layer.
+  The pattern appears to generalize: governance that relies on computable enforcement always faces the
+  risk that the enforceable layer becomes the contested frontier, not the behavioral outcome. Study whether
+  compute-budget governance systems eventually require governance-of-governance protocols at higher layers.'
+source: bibliography/shallow-reads/2026-09-02-resourced-authority-a-mechanism-design-model-for-participato.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-012
+status: open

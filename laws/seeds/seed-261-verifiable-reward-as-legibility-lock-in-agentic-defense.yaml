@@ -1,0 +1,16 @@
+id: seed-261
+title: Verifiable Reward as Legibility Lock in Agentic Defense
+text: When adaptive threat agents face DRL defenses, the proposed hardening mechanism (RLVR — verifiable
+  rewards) formalizes the threat model into machine-readable constraints. Does this formalization itself
+  become the new optimization surface for adaptive red agents, shifting the attack from policy space to
+  reward semantics? Under what conditions does verification-based constraint hardening in agentic systems
+  create new proxy capture vectors rather than genuine robustness? This may generalize beyond cyber defense
+  to any adaptive protocol where formalization is introduced as a defense against adaptive pressure.
+source: bibliography/shallow-reads/2026-09-02-trident-how-to-break-deep-reinforcement-learning-cyber-defen.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-005
+- L-008
+status: open

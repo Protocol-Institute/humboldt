@@ -1,0 +1,17 @@
+id: seed-411
+title: Deployment Incentive Polycentralization Under Conflict Fragmentation
+text: In conflict environments where deployment authority is fragmented across many uncoordinated actors
+  (civil wars, proxy wars, nonstate agents), the optimization pressure on safety-critical protocols shifts
+  from symmetric racing (first-mover advantage concentrated) to *asynchronous opportunistic adoption*—each
+  actor independently optimizes given local constraints and incomplete information about other actors'
+  moves. This may lower the effective deployment threshold (no single actor needs to solve the hard problem;
+  partial solutions suffice), eliminate mutual restraint mechanisms, and prevent the formation of shared
+  verification norms. The pattern suggests that catastrophic risk in protocol systems may be *inversely*
+  related to the centralization of deployment authority, not directly to the level of conflict intensity.
+source: bibliography/shallow-reads/2026-09-02-non-great-power-conflict-and-ai-risk.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-009
+status: open

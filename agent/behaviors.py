@@ -29,6 +29,9 @@ _PORT = 7878
 
 PHASE_ORDER = ["liminal", "exploration", "sensemaking", "valley", "heavy_lift", "retrospective"]
 
+# Phases outside the Double Freytag arc flow, printed after PHASE_ORDER.
+OUT_OF_FLOW_PHASES = ["any"]
+
 
 # ── Data loaders ─────────────────────────────────────────────────────────────
 
@@ -261,22 +264,33 @@ def cmd_graph():
     total = sum(len(v) for v in by_phase.values())
     print(f"Behavior graph — {total} nodes across {len(by_phase)} phases\n")
 
-    for phase in PHASE_ORDER + ["daemon"]:
+    for phase in PHASE_ORDER + OUT_OF_FLOW_PHASES:
         behaviors = by_phase.get(phase, [])
         if not behaviors:
             print(f"  {phase.upper():16s}  (empty)")
             continue
         print(f"  {phase.upper():16s}  {len(behaviors)} behaviors")
         for b in behaviors:
-            state = b.get("state", "?")
-            marker = {"production": "●", "prototyping": "◐", "stub": "○", "placeholder": "·"}.get(state, "?")
+            status = b.get("status", b.get("state", "?"))
+            marker = {"active": "●", "proposed": "○", "retired": "·"}.get(status, "?")
             print(f"    {marker} {b['id']:22s}  {b.get('name', '')}")
 
     mdp_trans = mdp.get("transitions", [])
-    within = sum(1 for t in mdp_trans if t.get("bidirectional"))
+    phase_of = {b["id"]: b.get("phase") for b in registry + virtual}
+    within = sum(1 for t in mdp_trans
+                 if phase_of.get(t["from"]) == phase_of.get(t["to"]))
     cross = sum(1 for t in mdp_trans if t.get("cross_phase"))
     cycle = sum(1 for t in mdp_trans if t.get("cycle_back"))
-    print(f"\n  MDP edges: {len(mdp_trans)} total  ({within} within-phase, {cross} cross-phase, {cycle} cycle-back)")
+    feedback = sum(1 for t in mdp_trans if t.get("feedback"))
+    untriggered = [t for t in mdp_trans if not t.get("trigger")]
+    print(f"\n  MDP edges: {len(mdp_trans)} total  ({within} within-phase, "
+          f"{cross} cross-phase, {cycle} cycle-back, {feedback} feedback)")
+    if untriggered:
+        # Every edge must carry a trigger (§6.2) — an untriggered edge is a weight
+        # with no stated reason, which is what made the v1 graph unfalsifiable.
+        print(f"  ⚠ {len(untriggered)} edge(s) missing a trigger:")
+        for t in untriggered:
+            print(f"      {t['from']} → {t['to']}")
 
 
 def cmd_log_visit(behavior_id: str, arc_id: Optional[str] = None, note: Optional[str] = None):

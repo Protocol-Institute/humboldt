@@ -1,0 +1,16 @@
+id: seed-246
+title: Private-Public State Decoupling Under Legible Coordination Pressure
+text: In multi-agent systems where agents reason about coordination through legible public signals (utterances,
+  decisions, conformity markers), agents will sustain private rejection of a norm while publicly enforcing
+  it, if each agent believes it is uniquely skeptical. The equilibrium persists because the public signal
+  (conformity) is more legible than the private state (disbelief), causing agents to weight others' apparent
+  beliefs over their own reasoning. This decoupling is stable and resistant to information revelation
+  that does not directly disrupt the epistemic asymmetry. The mechanism should generalize to any protocol
+  system where private state is opaque and coordination is mediated through computable public signals.
+source: bibliography/shallow-reads/2026-09-02-everyone-conforms-no-one-believes-pluralistic-ignorance-in-l.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: insight
+connections:
+- L-010
+status: open

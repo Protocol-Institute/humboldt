@@ -6,6 +6,701 @@ Most recent entry first.
 
 ---
 
+## 2026-09-03 (session 33) — Redesign Phase 3 built; outage backlog cleared; three defects fixed
+
+**Tracks active:** T1 (assessment, induction, talk content) / T2 (Phase 3, bug fixes,
+supervision page) / T3 (noted below, nothing extracted)
+**Daemon PID:** 1869 (running, unpaused). Note the PID changed from 24438 — the daemon
+restarted uncleanly at some point during the two-week gap; last *clean* shutdown marker
+is still 2026-08-18. Not investigated; worth a look if it recurs.
+
+**Reads returned.** The read-pause self-cleared as designed once the date passed. Verified
+against live traffic rather than assumed: a real query returned 6 matches, and the
+session-31 egress ledger recorded it with correct namespace *and* calling-path attribution.
+That closes items (a) and (b) of the TODO's "verify at the reset" list. Item (c) — cache
+hits from real Discord traffic — still needs live daemon usage. Total egress for the whole
+session's work was ~86KB of the 1GB cap, because shallow reads work from inbox text and do
+no retrieval; the quota that caused the outage is barely touched by clearing its consequences.
+
+**Redesign Phase 3 [OPUS] complete**, 3 days ahead of its 09-06 target. `registry.yaml`
+26 → 12 behaviors per the locked §6.1 keep-list; `mdp.yaml` v2 with 22 directional edges,
+every one carrying a required `trigger`, virtual placeholder nodes deleted;
+`agent/approval_queue.py` + `behaviors/queue.yaml` implementing the SIMPLE/HARD rubric with
+approve and apply as separate steps; `agent/console.py` + `behaviors/console.html` with all
+six §7 views, verified in-browser rather than assumed. `behaviors admin` retired with a
+pointer. Remaining Phase 3 item is the [SONNET] UI polish pass.
+
+Two deliberate deviations, both documented in-module: the console **commits but does not
+push** by default (auto-pushing every save from a laptop is a surprising outward-facing
+side effect; `--push` is the server mode), and it **commits whole files, not diffs** —
+correct on the server where it is the sole writer, hazardous on a laptop mid-session. I hit
+the second myself: a test save swept the entire in-progress graph rewrite into a
+`[console] tune transition weights` commit. Undone with a soft reset, nothing lost, but it
+is exactly the failure the docstring now warns about.
+
+**Backlog cleared.** 1,332 items triaged, 837 shallow reads, 325 seeds, 228 discards
+archived, inbox 1,379 → 61. Ran as a background fork initially; the fork twice ended its
+turn after launching work instead of waiting on it, which cost two round-trips. For a long
+sequential job with no judgment calls, a plain background Bash job with a completion
+notification was the better tool and is what I used after the first stall.
+
+**Three defects, all found by running the thing rather than reading it:**
+
+1. `shallow_read`'s skip check was `_output_filename(title).exists()`, and that helper
+   embeds `date.today()`. "Idempotent, safe to resume" was therefore only true *within one
+   calendar day*. The sweep was paused overnight at the operator's request and resumed the
+   next morning, at which point it began re-reading from item one. Caught after 2 duplicates.
+   45 duplicated slugs already existed on disk, most from the June sweeps — this has been
+   silently recurring since then. Fixed by matching the slug under a fixed-width date glob.
+2. `induct` created a law from a proposal the model had *retracted mid-generation* —
+   the justification literally read "RETRACTED — this duplicates L-014, filing as evidence
+   instead," the evidence was filed to L-014 correctly, and the empty shell was written
+   anyway. Now guarded on two independent signals: explicit self-retraction, and a missing
+   mechanism or falsification. They fail differently and neither subsumes the other.
+3. `laws.validate` passed that shell as valid, because it only checked identity fields. A
+   record can be structurally well-formed and not be a law. Now also requires non-empty
+   mechanism and falsification; verified before tightening that L-018 was the only record
+   in the inventory that would newly fail.
+
+The through-line worth keeping: **a self-correction is worth nothing unless something
+downstream is arranged to hear it.** Defect 2 is that failure exactly.
+
+**Supervision page.** New `/supervision/` on the site — cadences, the four
+non-delegable decisions, a surface map, standing rules. Deliberately generic: placeholder
+identifiers only, documenting the shape of supervision rather than current state, with a
+docstring note explaining why it must stay that way. Adding it as the eighth nav item
+exposed a latent CSS bug — `.nav-inner` had a fixed `height: 52px`, so the wrapped second
+row overflowed the sticky header and rendered on top of page content. Any eighth item would
+have triggered it. Now `min-height`.
+
+**Commits and push.** Four commits split by concern (Phase 3 / fixes / catch-up output /
+research results), then a fifth for the supervision page. Pushed — which surfaced that the
+repo is **public** and that **16 daemon conversation-review commits from 08-19 to 08-31 had
+never reached the remote**. Worth watching: the daemon commits locally and something is not
+pushing. Confirmed before pushing that Discord-derived items carry `**Author:**` handles and
+that 39 such files were *already* public, so this was established practice rather than a
+change in posture — but it was checked, not assumed.
+
+**T3 (template):** nothing extracted this session. Two candidates noted for later, neither
+ripe: the retraction-not-heard pattern from defect 2, and the recency-starved queue from the
+seed pool. Both want a second instance before generalizing.
+
+**Open (next session):**
+- **Publish the talk publicly and open it to review rounds** — the operator's stated next
+  priority (`plans/talk-2026-09-23.md` §5.6, Phase B′). Blocked on the deploy decision below.
+- **Decide the production-deploy route.** Both the talk page and `/supervision/` are meant
+  to be public, and this branch can only produce Preview deploys. Recommendation is
+  cherry-picking onto `main` rather than merging the untested redesign early.
+- Phase 4 analytics — **instrumentation first**: 7 of 9 active behaviors never call
+  `funnel_log.behavior_visit`, so any flag computed today is reasoning from a 2-of-9 sample.
+- Phase 3 [SONNET] UI polish.
+- Supervisor review of 9 unreviewed exploration laws (L-012–L-016, L-017, L-019–L-021).
+- Seed starvation: 434 seeds against a 60-wide newest-first window.
+- The 43 pre-existing duplicate shallow-reads — deferred deliberately; their seeds may
+  already be cited by law records, so deleting blind could orphan evidence.
+- L-006's clinical-federated example: does it count as non-software evidence?
+
+---
+
+## 2026-08-18 (session 32) — Talk Phase A built: brief, slides, narration engine, track v1
+
+**Tracks active:** T2 (talk-project build, freeze-immune per session 31 plan)
+**Daemon PID:** 24438 (running, unpaused; untouched this session — nothing daemon-loaded changed)
+
+No Track 1 work — no reads, no law changes, no research inventory touched. Read the
+seven tier-1 law records (L-001 through L-007) to select case-study candidates, but that's
+consumption, not authorship.
+
+**Operator interview, one question at a time, per session 31's open blockers.** All four
+locked inputs from `plans/talk-2026-09-23.md` §1 resolved (Protocol Symposium 2026, PI
+audience already fluent in the vocabulary, Humboldt introduced up front as an artificial
+researcher, 16:9/Zoom/operator-driven). Two scope changes surfaced during the interview
+that the original plan didn't anticipate: the operator wants Humboldt's own metacognition
+(phase model, induct/assess pipeline) presented, not just the law inventory; and the talk
+slot turned out to have a separate 10-minute Q&A slot already allocated, which relaxed the
+10-minute ceiling to 20 available / 15 targeted. Asked which laws deserved case-study depth
+given the extra room — read the four "discovered" (non-imported) law records in full and
+recommended L-001 and L-002 as the pair with the most novel, generative content: L-001 for
+its live-unresolved counterexample and competing mechanism, L-002 for the ratio reframe and
+a same-week evidence addition. Operator confirmed both.
+
+**Built the full Phase A stack in one pass.** `brief.md` captures the interview inputs as
+the input record, not a plan restatement. `slides.yaml` expanded 12→15 slides: two new
+method-introduction slides ahead of the laws, L-001/L-002 each split into a "the law" +
+"the law under contest / the frontier" pair, and the original single counterexample slide
+shrank since two laws now carry their counterevidence live. Calibrated the word/duration
+budget at the same measured 155 wpm rate from session 31 (`say -v Daniel -r 140`), landing
+a 13:15 speech target against the new 15:00/20:00 target/cap.
+
+`prompts/talk.md` follows the `induct.md` pattern exactly (Fable-tier, supervisor-editable,
+explicit disqualifiers) but for narration instead of law drafting: the load-bearing
+instruction is that bullets are room anchors and narration is the argument, never a reading
+of the bullets. TTS-specific constraints are spelled out as hard rules, not suggestions —
+no bare law ids, no arXiv ids/URLs spoken as tokens, no long parentheticals, no em-dash
+chains — because a `say` voice can't perform what a human reader silently repairs.
+
+`agent/talk.py` — `draft` (Opus, `claude-opus-4-8`, matching `assess.py`'s heavy-lift-tier
+model choice), `check` (word budgets + regex hazard lint against `track.md`), `voice`
+(`say` → `ffmpeg` per slide), `time` (`ffprobe` measurement, never estimated). `track.md` is
+parsed back from its own `## NN — Title` headers rather than re-running the model each time
+— editing the markdown directly is the intended supervisor workflow, matching the plan's
+"track.md is the source of truth, edited after generation" design.
+
+**Ran it for real.** `talk draft` produced a first track; `talk check` caught two
+over-budget slides and two em-dash chains — fixed by hand (mechanical only, not a real
+edit pass) and re-ran clean: 1,750 words, ~11:15 estimated spoken, comfortable slack under
+target. Built a throwaway local review page (slides.yaml bullets next to track.md narration,
+side by side, word-count-vs-budget per slide) served on localhost for the operator to read
+before doing the real supervisor edit pass — shut down at session close, not part of the
+repo.
+
+Updated `plans/talk-2026-09-23.md` throughout: locked decisions, scope additions, §3/§4
+marked superseded by `slides.yaml`/`timing.json` as the live source of truth, Phase A
+checklist marked done, and a new risk 7 opened — live Q&A via the site chat means the
+talk content needs to land in Humboldt's retrievable context before 09-23, timed so it
+doesn't leak before the talk exists publicly. Not designed yet; deferred to Phase C/D.
+
+**Open (next session):** operator's substantive edit pass on `track.md` (voice/content, not
+mechanics) — session close was explicit that feedback comes next session. After that:
+Phase B (evidence refresh, needs reads back 09-01), Phase C (deck HTML, voice audition,
+Q&A-ingest design), Phase D (rehearsal, deploy decision). Also still outstanding from
+session 31: supervisor review of L-012–L-016, `agent/references.py` dead-path bug, and
+verifying the read-outage prevention work against live traffic once 09-01 arrives.
+
+---
+
+## 2026-08-18 (session 31) — Egress prevention + monitoring (read-outage Steps 4–5); conference talk planned
+
+**Tracks active:** T2 (egress prevention, monitoring, talk-project planning)
+**Daemon PID:** 24438 (running, unpaused; hot-reloaded mid-session to load these changes)
+
+No Track 1 work — no reads, no law changes. Two threads.
+
+**Read-outage Steps 4–5 (the item that had to land before the 2026-09-01 reset).** The
+root cause was not a small quota; it was that 1GB/month was being spent with nothing
+measuring it, and every path over-fetched by 3–6× what its consumer actually formats.
+Egress is `namespaces × top_k × queries` and each match carries up to 2000 chars of chunk
+text, so the number of matches returned is the only real lever. Right-sized the automated
+paths against their consumers: Discord reply 25 → 15 matches (`REPLY_TOP_K`, and
+`presence` formats 8), site chat 58 → 32 (formats 16), `assess` 96 → 48 (formats 10).
+`investigate`/`hypothesize` deliberately left broad — human-invoked, and breadth is their
+purpose.
+
+**The plan's leading candidate had to be dropped, and the reason is worth keeping.** "Return
+ids + scores, hydrate text from disk" cannot be done as a second Pinecone call:
+`Index.fetch()` has no `include_values` switch and *always* returns the 1024-float vector,
+which is larger than the chunk text it would save. Query-then-fetch would have *increased*
+egress. `agent/read_cache.py` gets the same "pay for a chunk once" property instead —
+keyed per *namespace* so callers with different namespace sets share their overlap, 30d
+corpus TTL / 1d for `humboldt` (re-ingested daily), and a full hit skips the Voyage embed
+too. The Worker got an equivalent KV cache. Outages are never cached, so a hit can never
+be mistaken for "reads were down when we asked".
+
+`agent/read_egress.py` is the accounting: bytes per query attributed by namespace *and* by
+calling path (`op=`), so a runaway consumer is findable rather than inferable. It is
+deliberately reported as a **lower bound** and never summed with the Worker's counter —
+the Worker is a separate runtime spending from the same account quota, and a combined
+number would be confidently wrong. Monitoring: `read-status` (spend vs cap, per-path
+breakdown), a "Corpus reads" section in `daemon status`, and `task_read_budget_watch`,
+which DMs the operator at 70% of the cap and on a trip. That watcher is the only signal in
+the system that fires while there is still budget left to protect; everything else reports
+spend after the fact. It proved itself on the reload — fired immediately and correctly
+DM'd the live outage.
+
+Everything here was built while reads are hard-blocked, so **none of it has run against
+live Pinecone traffic.** Recorded in `TODO.md` as the remaining `[H]`: verify at the
+09-01 reset.
+
+**Conference talk miniproject planned** (`plans/talk-2026-09-23.md`). "Some Candidate Laws
+of New Nature", 10 minutes, 2026-09-23. Operator decisions locked: live deck + per-slide
+audio (not a rendered video), track generated by Humboldt from `laws/*.yaml` and
+supervisor-edited (`agent/talk.py` + `prompts/talk.md`, same shape as induct/assess), all
+7 tier-1 laws, macOS `say` for voice. Two findings shaped the plan: the project is
+**freeze-immune** (composition from law records is not retrieval — same property that kept
+`induct` alive through the outage), so Phase A proceeds now; and runtime can be *measured*
+rather than estimated, since `say -r 140` → ffmpeg → `ffprobe` gives exact per-slide
+durations (calibrated at ~155 wpm effective). That removes the usual failure mode of an
+operator-advanced deck. L-008–L-016 are excluded as too speculative to present as
+candidate laws; L-006 flagged because all four of its examples are software, which makes
+its cross-domain claim the weakest thing on stage. The deliverable is a URL, so the
+Preview-deploy trap is now on a deadline: decide by 09-16.
+
+**Open (next session):**
+- Talk Phase A — needs operator inputs for `brief.md`: conference name, audience, whether
+  Humboldt is introduced as artificial, aspect ratio (16:9 assumed).
+- Verify egress accounting against live traffic after the 2026-09-01 reset.
+- Supervisor review of L-012–L-016; assess the open counterexample on L-001 first.
+- `agent/references.py` still reads the dead `research/hypotheses/`/`research/laws/` paths.
+
+---
+
+## 2026-08-17 (session 30) — Law-event publish hook; Pinecone **read** outage found; read breaker built
+
+**Tracks active:** T1 (induction sweep) / T2 (publish hook, read breaker)
+**Daemon PID:** 24438 (running, unpaused; restarted at wrapup to load this session's fixes — was 1189)
+
+Two threads, one of which reframed the other.
+
+**Publish hook + law-event Discord (the ON DECK item, §9 quiet mode).** New
+`agent/law_notify.py`, wired into `induct.py` (law created) and `assess.py`
+(PROMOTE/DEMOTE). The design decision worth recording: publishing and announcing are
+gated *separately*. The first cut coupled them per-event, which a dry-run exposed as
+broken — a single sweep can create five laws, so a 2/day Discord cap would have left laws
+3–5 never published to the site at all. Restructured to queue/flush: a sweep queues an
+event per changed law, `flush()` deploys the site once, then announces up to the cap.
+Site freshness is not rate-limited; channel noise is. Pause gate blocks announcing but not
+publishing, and does not burn a cap slot.
+
+**A real bug I shipped, and the deploy-target lesson.** I built flush() around "publish
+before post so every announced link resolves" and treated `publish_site() == True` as
+proof of that. It isn't: `wrangler pages deploy` makes a *preview* deployment off any
+non-`main` branch and still returns success. The live sweep therefore posted two
+#new-nature messages linking to law anchors that don't exist in production. Both deleted
+(operator call), cap slots refunded. Added `publish_site.is_production_deploy()`;
+`flush()` now publishes always but announces only from the production branch.
+
+This surfaced a **pre-existing** problem worth more than the bug: production has only ever
+been deployed from `main` (17 deployments) — the `redesign-2026-08` branch has produced 8,
+**all Preview**, including every automatic `publish_site` the daemon has run since the
+branch opened. The public site has been stale for the branch's entire life, and the
+session-26 claim that the new design was deployed to humboldt.protocol-institute.org is
+wrong; that went to a preview URL. Not fixed this session — it is a Phase 5 cutover
+decision, not a side effect of a notification bug.
+
+**Pinecone reads are exhausted, not writes.** Operator was right and my first diagnosis
+was wrong. `[429] You've reached your egress limit for the current month (1000000000
+bytes)` — account-level, so both indexes. Upserts and `describe_index_stats` keep working,
+which is exactly why every health signal looked fine: they are all writes or stats. Rule
+recorded in the plan: **a quota check must exercise `query`, not `describe`.** There are
+two independent monthly caps — read units (hit 2026-07-22/23) and egress (now).
+
+The severity was not the outage but its representation. Zero egress errors in the logs
+because the read paths swallowed them and continued with `chunks = []`, which is
+indistinguishable from "the corpus has nothing." Consequences: two of three Discord
+mention paths (`except Exception: pass`) answered ungrounded and silent; the public site
+chat did the same for visitors; and `assess` — the promotion gate — would have weighed an
+empty evidence slot and still emitted PROMOTE/HOLD/DEMOTE into a law's permanent history.
+
+Plan written to `plans/read-outage-2026-08.md`. Implemented this session:
+- `agent/read_budget.py` — breaker over `data/read-pause.json` (gitignored). Auto-trips on
+  a quota 429 (distinguished from ordinary rate limiting), self-clears past the date.
+  Deliberately separate from `daemon/pause.py`: that means "don't speak", this means "you
+  may speak, but you have no corpus", and it applies to CLI as much as the daemon.
+- `agent/retrieval.py` — single chokepoint. Raises `RetrievalUnavailable`, **never returns
+  `[]`**; the empty-list conflation is the whole bug. Gates before the Voyage embedding so
+  a known outage costs nothing.
+- `assess` refuses rather than verdicting blind, with an explicit `--no-corpus` opt-out.
+- Discord mention paths disclose the outage in-reply instead of bluffing; both bare
+  `except: pass` replaced. `investigate`/`hypothesize`/`assess_evidence` fail fast.
+- `humboldt-site/functions/chat.js` distinguishes a quota 429 from an empty result and
+  surfaces `corpusOffline` → system-prompt instruction + a UI notice.
+- CLI: `read-status` / `read-pause` / `read-unpause`.
+
+Verified against the genuinely exhausted quota: the breaker tripped itself and set
+2026-09-01. Worth preserving deliberately — **`induct` does not retrieve**, so law creation
+kept working through the outage (the sweep below ran mid-outage). Only promotion stops.
+
+**T1 output:** induction sweep created **L-012–L-016** (16 laws total, 9 at exploration)
+plus 9 evidence attachments, including an open counterexample to **L-001** — which matters
+more than the five new laws, since L-001 is heavy-lift/supported. All 16 validate.
+
+**Open (next session):**
+- Plan Step 5 (read status in `daemon status` / digests) not done; I stopped mid-edit.
+- Plan Step 4 (prevention) must land **before 2026-09-01** or the reset restarts the clock.
+  Prime suspect: `include_metadata=True` shipping full chunk text on every match.
+  Operator already trimmed `NS_BROAD_PLUS` 6→5 namespaces (`ce7f838`).
+- Supervisor review of L-012–L-016; assess the L-001 counterexample first when reads return.
+- Public site stale on `main` — Phase 5 cutover decision.
+- `agent/references.py` still reads dead `research/hypotheses/`/`research/laws/` paths.
+- `research/agenda.md` still on pre-redesign vocabulary.
+
+---
+
+## 2026-08-10 (session 29) — Phase 2 triage/reads rework; daemon DM-spam bug found and fixed
+
+**Tracks active:** T2
+**Daemon PID:** 1189 (running, paused through 2026-08-15)
+
+Two threads. First: closed the primary item on `TODO.md`'s ON DECK — dispatched an Opus
+subagent to rebuild `agent/triage.py` + `agent/shallow_read.py` on the redesign's law/seed/
+bibliography system (they were still reading the archived `research/laws/`/
+`research/hypotheses/` dirs, silently running on empty context since Phase 1). New shared
+`agent/funnel_context.py` reads `laws/*.yaml` + `laws/seeds/`; triage now tags every
+non-discard item `content`/`meta` and creates a `bib-NNNN` entry at `read_depth: listed`;
+shallow-read upgrades it to `shallow`, links laws, and emits a seed when the note is
+law-shaped. Tested live end-to-end (3 triaged, 2 shallow-read, 1 seed emitted, picked up
+by `induct` as evidence for L-004 in the same session) for $0.51. Folded in both session-28
+defects: `induct` now requires both lifecycle triggers on every new law (prompt change +
+a placeholder fallback that's impossible to miss in the record), `assess` gets a one-shot
+parse retry, and history-detail truncation moved to a word boundary. Also ran the
+opportunistic reference backfill for real: 11 evidence sources across 7 laws resolved to
+`bib-NNNN` ids (arXiv-id and read-file-path matches, all confident); the 21 free-text
+`references:` entries name literatures, not works, and correctly stayed as text. All 11
+laws still validate. Reviewed the full diff before accepting it — one stray artifact
+(the subagent copied one of my own Claude-memory files into a new `humboldt/memory/`
+directory, apparently confused by the wrapup ritual in this file; deleted, was untracked)
+and one bug it flagged but didn't fix (`daemon/capture.py` reading the same dead
+`research/cl/` path) — patched that one myself since it's the identical fix already made
+elsewhere this session.
+
+Second thread, unplanned: operator reported Humboldt DMing a raw list of ~49 new feed
+titles daily and asked for a weekly digest with editorial commentary instead. Investigation
+first assumed this was `task_weekly_digest` (the notebook-announcement mechanism built
+session 23) — but that task has *never fired* (`last_weekly_digest_date` was `None`; the
+daemon has been paused almost continuously since 07-24) and is correctly pause-gated. The
+actual source was a different, unrelated mechanism: `task_feeds` DMs the operator
+immediately, every 12h, with zero pause gate at all — a second live instance of the exact
+failure mode [[feedback_pause_completeness]] already named in session 23 (a pause that
+gates the paths named in the request, not every actual side effect). `state.json` confirmed
+it: `last_feed_check` was hours old. Fixed by splitting responsibilities — `task_feeds`
+still fetches/filters/saves to inbox every 12h (silent, no Discord effect, keeps the
+funnel fed) but no longer DMs; items accumulate in a new `state['pending_feed_items']`;
+a new pause-gated `task_feed_digest` (daily poll, weekly fire, same shape as
+`task_weekly_digest`) sends one synthesized DM a week via a new
+`presence.generate_feed_digest_post()`, prompted for an actual opinionated take —
+promising vs. noise, what it'd deprioritize — not a title dump. While in `presence.py`,
+also found and fixed `_slim_context()`/`_rich_context()` reading the same dead
+`research/cl/` path: every daemon-generated Discord post (mentions, both digests) was
+silently running with zero law context, `(none yet)` for the entire inventory. Rewired both
+to `agent.laws.load_all()`; verified live. This would have shipped broken the moment the
+daemon unpauses on 08-15 without today's fix — the weekly-digest editorial-commentary ask
+forced a look at the exact code path that was quietly dead.
+
+At the operator's request, once the fixes were reviewed and committed, ran `daemon
+restart` (PID 1189, SIGUSR1 hot-reload — same PID, fresh code) followed by `daemon
+unpause`, clearing the through-08-15 pause early. Restart-before-unpause mattered here:
+unpausing on the still-running old code would have resumed exactly the bug this session
+fixed (`task_feeds`'s ungated DM). Both new digest tasks correctly no-op on their first
+tick (they initialize the clock, don't post a historical backlog), so nothing fired
+immediately. Nothing committed today was Track 1 research; the seed/evidence the live
+triage/shallow-read test produced are real funnel output (`seed-058`, L-004 evidence)
+but incidental to testing, not deliberate investigation — left for the next Track 1
+session's `pre-notebook` queue rather than force-writing a notebook entry for them today.
+
+**Open (next session):**
+- `agent/references.py` still reads `research/hypotheses/`/`research/laws/` — flagged,
+  not fixed (it's still live code, used by `conversation_review.promote_inbox_links` and
+  imported by `bibliography.py` itself; no longer paused, so worth prioritizing).
+- Watch the first live `task_feed_digest`/`task_weekly_digest` firings (~7 days out) to
+  confirm the fixes hold up outside the test harness.
+- Next TODO.md item: [SONNET] publish hook + law-event Discord plumbing, then Phase 3.
+- A Track 1 session is overdue — this and the last several sessions have all been T2.
+
+---
+
+## 2026-08-03 (session 28) — Supervisor review + first assess pass on L-008–011
+
+**Tracks active:** T2
+**Daemon PID:** 1930 (running, paused through 2026-08-15)
+
+Closed the session-27 open loop: the four laws the first live induction sweep produced
+(L-008–011, all exploration/speculative) got a supervisor review and the first real
+`assess` pass. All four **accepted** into the encyclopedia at exploration; all four then
+**HOLD** on assessment — the correct outcome for two-day-old speculative laws, and the
+proof that the promotion gate resists rhetorical momentum rather than rubber-stamping the
+induct engine's output.
+
+Provenance checked first: both imported laws (L-009 Tan, L-011 Tembine) are
+deep-read-confirmed with page-level verdicts (`deep-read-verdicts.md`), not built from
+abstracts — so the "formal proof" claims are earned. The one substantive edit was
+**L-010**, which overclaimed its own source: seed-050 explicitly says the perverse
+adoption nonmonotonicity *vanishes under co-optimized signaling*, which the induct-drafted
+statement dropped, leaving the stated falsification condition self-satisfying. Rewrote the
+statement to design-conditional form, aligned falsification, and linked `related: [L-006]`
+(it's a boundary condition on Coordination Cost Conservation, kept standalone per operator
+call). L-008/L-009/L-011 accepted as-is with a review history entry; L-011's Venerina
+second example flagged as weakly coupled (persuasion ≠ causal detachment).
+
+The gating discovery: **`induct` creates laws with empty `advance`/`challenge` triggers**,
+and `assess` Step 1 reads the advance trigger literally — so assessment was impossible
+until I hand-authored triggers for all four (supervisor judgment, appropriately). The
+assess pass then worked cleanly: it pulled fresh corpus retrievals as new evidence, and on
+L-009 surfaced a genuine OPEN counterexample (PI corpus: real protocol races are
+structurally *asymmetric*, undercutting the symmetric-ruin premise). Each law now carries
+an executable **gap** in `open_questions` — L-010's names three target domains (TCAS,
+vaccination risk-compensation, TLS warning-habituation), L-008's names three (EPA
+e-reporting, YouTube ContentID, citation metrics). Those gaps are the Track-1 research
+queue, living natively in the law records rather than the (still old-schema) `agenda.md`.
+
+Two defects logged for the Phase-2 triage/reads rework (captured in `TODO.md` ON DECK):
+(1) the empty-triggers gap above — `induct.md` should draft triggers or `assess` should
+fall back to a stage-default bar; without it every sweep yields un-assessable laws; (2) a
+transient YAML PARSE-ERROR on L-008's first assess (clean on retry, nothing
+double-applied) wants a one-shot parse retry, plus a cosmetic `history.detail` mid-word
+truncation in the induct logger. Also captured the next-session build plan at the top of
+`TODO.md`: the [OPUS] triage/reads rework (content/meta tagging, bib wiring, seed
+emission, `references:`→`bib-NNNN` backfill) with those two fixes folded in, then a
+[SONNET] publish-hook + law-event Discord session.
+
+Subsystem state after this session: the induct→assess funnel is proven end-to-end on real
+laws; the encyclopedia holds 11 valid records (7 mature + 4 fresh exploration, all HELD);
+`analytics/events.jsonl` captured 5 law events. Production daemon unchanged — still
+on-laptop, paused, old code; off-laptop is Phase 5 and not started.
+
+**Open (next session):**
+- Phase 2 [OPUS]: `triage.py`/`reads.py` rework + the two induct/assess fixes.
+- Then [SONNET]: publish hook + law-event Discord plumbing.
+- Extend the 08-15 pause when the daemon is next touched if Phase 5 will slip past it.
+- `humboldt ingest` of new laws/seeds/bib remains deferred behind the pause.
+
+---
+
+## 2026-08-02 (session 27) — Phase 2 [OPUS]: induct + assess funnel engines; first live sweep
+
+**Tracks active:** T2
+**Daemon PID:** 1930 (running, paused through 2026-08-15)
+
+Built the two funnel engines that consume Fable's epistemic-core prompts and were the
+redesign's `NEXT`: `agent/induct.py` (stage 5) and `agent/assess.py` (stage 6, plus
+stage-8 challenge mode). These are the harnesses around `prompts/induct.md` /
+`prompts/assess.md` — they fill the prompt slots, call the model, parse the YAML verdict,
+and apply it through the Phase-1 `laws.py` stage machine and `bibliography.py` linker.
+The epistemic bar stays entirely in the prompts (supervisor-editable); the engines are
+deliberately dumb about *what* counts as a law and faithful about *applying* whatever the
+model decides.
+
+**induct** gathers the law inventory + open seeds + reads since a date cursor
+(`laws/.induct-cursor`), and applies three verdict kinds: NEW LAW (→ `laws.create` +
+folded mechanism/justification/falsification + examples + seed-consumption marking + bib
+linking), EVIDENCE (example/counterexample/reference attach + history + bib link), LEAVE
+(seed stays). **assess** pulls the full record + a fresh corpus retrieval as "new
+evidence", routes Sonnet for routine laws / Opus for heavy-lift + retrospective, and
+applies PROMOTE (`laws.advance` + earned confidence) / HOLD (append the executable *gap*
+to `open_questions`) / DEMOTE (`laws.cycle_back`, + `mark_challenged` when a retrospective
+law fails challenge). Both take `--dry-run`; assess also takes `--all` for a sweep.
+
+**Shared plumbing.** Added `synthesizer.synthesize_full()` (returns text + stop_reason,
+budget-checked via `costs`, cost-logged, 600s read timeout) as the funnel call path —
+this is the "synthesizer = shared Claude-call plumbing" the redesign §11 wants. Added
+`agent/funnel_log.py`: behavior-visit lines → `behaviors/log.jsonl` (the MDP supervisory
+reader keys on `behavior_id`/`phase`, so funnel invocations log there as one visit each),
+and law-event lines → `analytics/events.jsonl` (the §8 KPI timeline). Kept as two files
+on purpose: the current supervisory reader indexes `entry["behavior_id"]` directly and
+would KeyError on a bare law-event line; per-event log lines would also inflate transition
+counts. Phase 4 (`analytics.py`) unifies the spine — noted so it isn't lost.
+
+CLI: `induct` and `assess` wired into `humboldt.py` + USAGE; the legacy retrieval-only
+`assess` (read the archived `research/laws/`) renamed `cmd_assess_evidence` and unbound.
+
+**Two bugs the verification surfaced, both fixed:**
+1. `bibliography.link_law` re-dumps `bibliography.yaml` with PyYAML but was handed law ids
+   read from ruamel records (ruamel scalar subclasses); PyYAML serialised those as
+   unloadable `!!python/object` tags. This *would have corrupted the bibliography on the
+   first live induct run* — caught by a synthetic apply-path test before running live.
+   Fixed by coercing ids to plain `str` in `link_law`.
+2. Imported new-laws whose source the model named in prose (justification) rather than in
+   a parseable slot produced schema-invalid records (`imported law missing source`). Added
+   an explicit `source:` field to `induct.md`'s new_laws output schema and taught
+   `_apply_new_law` to read it; this is a mechanical prompt clarification, not a change to
+   the epistemic bar.
+
+**First live induction sweep run** (operator-approved this session) against the months-old
+backlog (47 seeds, 25 reads): created **L-008–L-011** (two discovered — proxy-optimization
+under computable enforcement, coordination-adoption nonmonotonicity; two imported with
+provenance — Tan preemption-cancellation, Tembine causal-mirage), attached **12 evidence
+items** including new OPEN counterexamples on L-001 and L-007, consumed 3 seeds, left 43.
+All 11 law records validate. The new laws are exploration-stage/speculative and badged as
+such — supervisor review pending; a 4-law burst is expected for a first sweep against a
+backlog and should fall to 0–1 in steady-state weekly runs.
+
+**Deliberately not done:** `humboldt ingest` (would embed the new laws into the humboldt
+Pinecone index) was left for the operator — the 08-15 pause partly protects Pinecone write
+quota (session 23). The induct/assess runs queued pre-notebook entries for the next Track 1
+session's notebook synthesis (not consumed this session).
+
+**Open (next session):**
+- Supervisor review of L-008–L-011 (keep/edit/reject); run `assess` on the survivors.
+- `humboldt ingest` when the operator is ready to write to Pinecone.
+- Remaining Phase 2 [OPUS]: `triage.py`/`reads.py` rework (content/meta tagging, bib
+  wiring, seed emission from reads). Then Phase 2 [SONNET]: publish hook + law-event
+  Discord plumbing.
+- **Phase 5 note:** when induct/assess are wired into the daemon, they must pass through
+  the global pause gate like every other write/API call site (per the pause-completeness
+  lesson) — they're CLI-only today.
+- `ingest.py` chunk types still not extended to laws/seeds/bibliography.
+
+---
+
+## 2026-08-01 (session 26) — Phase 1 [SONNET]: /laws/, /bibliography/, extended /reading/ pages
+
+**Tracks active:** T2
+**Daemon PID:** 1930 (running, paused through 2026-08-15)
+
+Completed the two Phase 1 [SONNET] deliverables session 25 deferred, run on Sonnet 5.
+The public site's data layer had actually gone stale two ways since session 25's
+research→archive migration: `_build_research()` in `humboldt-site/build.py` globbed
+`research/cl|h|theories|f`, now empty, which would have crashed the next `publish-site`
+run outright; and `_assemble_system_prompt()` (the chat persona's live inventory) read
+the same dead paths silently (`Path.glob` on a missing dir returns `[]`), so the chat
+system prompt's "candidate laws" section had gone quietly empty. Both are fixed as part
+of this session, not just the two named pages — leaving either broken defeats the point
+of shipping the new pages.
+
+**`agent/publish_laws.py` (new).** Renders `/laws/` from `agent.laws.load_all()`: cards
+grouped by Double Freytag stage with a JS stage-filter bar, badges for stage/confidence/
+status/origin, an expandable "full record" (`<details>`) with mechanism, justification,
+examples, counterexamples, open questions, falsification, triggers, related laws, and
+append-only history. Each law also lists the bibliography entries that cite it — built
+from a *reverse* index over `bibliography.yaml`'s `laws:` field (laws' own `references:`
+stayed free text per session 25's bibliography.py note, so this reverse index is the only
+reliable law↔source link available yet).
+
+**`agent/publish_bibliography.py` (new).** Renders `/bibliography/` from
+`agent.bibliography.load()`: all 929 entries in one table, depth/kind filter buttons +
+live text search (vanilla JS, no server), each title linking to its `/reading/` anchor
+(deep → `#read-<stem>`, shallow → `#shallow-<stem>`) or out to its source URL, and a
+`Laws` column linking into `/laws/#law-<id>`.
+
+**`agent/publish_reading.py` (extended).** Added `build_shallow_section()` — parses all
+916 `bibliography/shallow-reads/*.md` (reusing `bibliography.py`'s `_first_url` /
+`_map_law_tokens` for consistency with the canonical bib), rendered as compact
+title+excerpt items grouped into collapsible per-date `<details>` blocks, newest first.
+Kept fully additive — `_render_note`/`_render_card`/`_CSS` (used by both the new page and
+the legacy, now-deprecated `publish_reading()` → website-repo path) untouched.
+
+**`humboldt-site/build.py` (rewired).** Nav: `/research/` → `/laws/` + `/bibliography/`
+added. `_build_research()` deleted (dead source dirs). `_build_reading()` now appends the
+shallow section and covers both read types in its tagline. `_assemble_system_prompt()`
+rewritten to build the law-inventory block from `laws/*.yaml` grouped by stage, replacing
+the CL/F/T-file reads. About-page copy and the chat page's site-links nav updated to point
+at the new pages instead of the retired research status page.
+
+Built and smoke-tested locally (`build.py` + a local HTTP server + browser passes):
+all six changed/new pages render, stage/depth/kind filters and the bibliography search
+box work, `<details>` expansion works, no unresolved template artifacts, balanced
+`<div>` tags.
+
+**Deploy (operator-approved).** `publish_site()`'s `python3 -m agent.humboldt publish-site`
+failed on first attempt: `agent/publish_site.py` hardcoded `_PYTHON =
+"/opt/homebrew/bin/python3"` (the system interpreter, per `Code/CLAUDE.md`'s canonical-
+Python convention) to run `build.py` as a subprocess, but `ruamel.yaml` — added session 25
+for `agent/laws.py`, now pulled in transitively by `build.py` via `publish_laws.py` — only
+lives in this project's `.venv`, not system-wide. Fixed by pointing `_PYTHON` at
+`.venv/bin/python3` when it exists (falling back to the system interpreter otherwise) —
+the correct fix per this project's own venv-per-project convention, not a global
+`pip install`. Deployed clean after the fix; `/laws/`, `/bibliography/`, `/reading/` all
+verified 200 live on humboldt.protocol-institute.org.
+
+**Open (next session):**
+- **Phase 2 [OPUS]:** `agent/induct.py` + `agent/assess.py` engines against Fable's
+  `prompts/induct.md` + `prompts/assess.md`; then `triage.py`/`reads.py` content/meta
+  rework.
+- `ingest.py` still doesn't embed `laws/`/`seeds/`/`bibliography` chunk types.
+- Extend daemon pause past 2026-08-15 if Phase 5 hasn't landed.
+- Cosmetic: a handful of shallow-read source files have implausible dates (e.g.
+  "17 January 2025") that surface literally in the new date-grouped /reading/ section —
+  a data quality artifact in the markdown, not a template bug; worth a triage pass later.
+
+---
+
+## 2026-08-01 (session 25) — Phase 1 output layer: law + bibliography modules, research migration
+
+**Tracks active:** T2 (+ T3 implications deferred to Phase 6)
+**Daemon PID:** 1930 (running, paused through 2026-08-15)
+
+First implementation session of the redesign, run on Opus 4.8 picking up from Fable's
+pre-work. All Phase 1 **[OPUS]** deliverables built and tested; the two **[SONNET]**
+site-page tasks deferred by operator choice.
+
+**Law record module (`agent/laws.py`).** CRUD + validation + the Double Freytag stage
+machine over `laws/L-NNN-*.yaml`. `advance()` moves exactly one stage forward;
+`cycle_back(target)` demotes to whatever a surviving challenge breaks (evidence→valley,
+mechanism→sensemaking, statement→exploration) and re-clamps confidence to the new stage
+cap; history is append-only. Files round-trip through **ruamel.yaml** (installed into the
+venv this session) so the hand-authored folded scalars and inline `# why` comments on
+`related:` survive programmatic writes — load-bearing because the Phase 3 console writes
+these same files. All 7 migrated laws validate; sequence-indent and null-rendering were
+tuned so a load→save cycle is minimal-churn (only real mutations reflow a file).
+
+**Canonical bibliography (`agent/bibliography.py` + `bibliography/bibliography.yaml`).**
+929 entries migrated from three legacy sources by mechanical parsing (no LLM calls): 39
+references.yaml entries (`listed`), 916 shallow reads (`shallow`), 71 deep notes (`deep`).
+Dedup by normalized url→title collapses shallow duplicates and shallow→deep escalations
+(1026 raw → 929). Legacy connected-to tags map to current law ids where unambiguous
+(CL-001→L-003, CL-002→L-006, CL-003→L-007, L-00N→self), raw list preserved in
+`connected_raw`; 221 entries carry law backlinks. arXiv ids yield publication year
+(YYMM→20YY); a body-scan year fallback was removed after it mis-read reading-session dates
+(Simon dated 2026). 3 meta reads tagged (Hamming, Rao/*Tempo*, Kuhn). CLI:
+`humboldt laws {list,show,validate}` and `humboldt bib {list,show,stats,migrate}`.
+
+**Research artifact migration (mechanical, operator-approved).** The 47 `research/c/`
+curiosity items became `laws/seeds/seed-NNN-*.yaml` (content + provenance preserved; a
+README documents the light seed convention). The rest of the old `research/` tree —
+`cl/ ds/ theories/ f/ h/ questions.md` — moved to `research/_archive/` via `git mv` (69
+renames, history preserved); only `agenda.md` stays live. The CL/T/DS content had already
+been folded into the L-records by Fable, so this is pure archival with rollback safety.
+
+**Live-tree safety.** The paused daemon (PID 1930) reads this working tree, and several of
+its Discord-context loaders (`capture.py`, `presence.py`, `discord_client.py`) glob
+`research/cl/`, now empty. Verified they degrade to empty context without crashing
+(`Path.glob` on a missing dir returns `[]`). These stale reads are an accepted transitional
+state — Phase 5 quiet-mode repoints them at `laws/`. The pause (2026-08-15) must hold until
+Phase 5 lands, or the old-code daemon would wake into a half-migrated tree.
+
+Committed as **two commits** per the plan's mechanical/code separation (code+bib-data;
+then the research→archive migration).
+
+**Open (next session):**
+- **Phase 1 [SONNET]:** `/laws/`, `/bibliography/`, extended `/reading/` site pages
+  (`publish_site.py` rework). Until these ship, the public site still shows the old design.
+- **Phase 2 [OPUS]:** `agent/induct.py` + `agent/assess.py` engines against Fable's
+  `prompts/induct.md` + `prompts/assess.md`; then `triage.py`/`reads.py` content/meta rework.
+- `ingest.py` no longer finds the old `research/` chunk types (now archived) and does not
+  yet embed `laws/`/`seeds/`/`bibliography` — extend chunk types when the funnel needs
+  retrieval over the new artifacts.
+- Extend daemon pause past 2026-08-15 if Phase 5 hasn't landed.
+
+---
+
+## 2026-08-01 (session 24) — Full-system redesign designed; Fable pre-work; exe.dev provisioned
+
+**Tracks active:** T2 (+ T3 implications deferred to Phase 6)
+**Daemon PID:** 1930 (running, paused through 2026-08-15)
+
+Audit-and-redesign session run on Fable. The whole system gets rebuilt around one
+principle: Humboldt is a funnel turning raw inputs into a published encyclopedia of
+candidate laws, KPI = law accumulation rate. **`plans/redesign-2026-08.md` is the
+spec** — read it before touching anything; it locks the decisions (unified law record
+replaces C/H/CL/T/F; encyclopedia publishes all stages labeled; Discord goes
+law-events-only; C items become the seed pool; falsified laws stay published) and
+carries build-tier markup ([FABLE]/[OPUS]/[SONNET]) so implementation runs on cheaper
+models. Six phases on branch `redesign-2026-08`; the 519-item inbox backlog is
+deliberately parked as the Phase 6 acceptance test.
+
+**Fable pre-work completed and committed (d703fd2)** so no later phase blocks on the
+big model: `laws/_schema.yaml` (stage machine: one-stage advancement, cycle-back
+targeted by what a challenge breaks, confidence capped by stage, append-only history);
+`laws/L-001..L-007` migrated with content and histories folded from CL/T/DS (original
+L-numbering restored; Gall held at provisional pending the never-done Systemantics
+source read; Trust Ratchet carries its stagnant-valley diagnosis forward);
+`prompts/induct.md` + `prompts/assess.md` (the epistemic core — induction bar and
+promotion gate); `behaviors/definition-rubric.md` (SIMPLE/HARD classification for the
+behavior-request pipeline). Old `research/` tree left in place — archiving is Phase 1
+Sonnet work.
+
+**exe.dev provisioned ahead of Phase 5:** VM `humboldt.exe.xyz` (Ubuntu 24.04,
+2 vCPU/4GB/20GB) created under a new one-VM-per-project policy written at the Code/
+level (`Code/warnings-exe.md`); dedicated SSH key generated + registered; tunnel alias
+`ssh humboldt-console` → localhost:7878 ready. Cutover moves the daemon + console
+there in Phase 5; the public site stays on Cloudflare Pages (the VM only runs
+build+deploy). The pre-existing unused personal VM was deleted at operator request.
+
+**Caution for branch sessions:** the laptop daemon (launchd, KeepAlive) is still
+running from this working tree, which is now checked out on the redesign branch. It's
+paused, and this session only *added* files, but once branch work starts deleting or
+rewiring daemon code, remember the live process reads this tree — hot-reload only
+happens on SIGUSR1, but new file reads happen continuously. Site publishing is NOT
+pause-gated (known gap, accepted).
+
+**Open (next session — Opus, on branch `redesign-2026-08`):**
+- Phase 1 [OPUS]: `agent/laws.py` (CRUD/validation/history), `agent/bibliography.py`
+  + migrate references.yaml/notes/shallow-reads into canonical bibliography
+- Phase 1 [SONNET]: /laws/, /bibliography/, extended /reading/ site pages;
+  `research/` → `_archive/`; `research/c/` → `laws/seeds/`
+- Extend daemon pause past 2026-08-15 if Phase 5 hasn't landed by then
+
+---
+
 ## 2026-07-24 (session 23) — Weekly digest, offline pause, Pinecone write-burn fix, proactive engagement disabled
 
 **Tracks active:** T2

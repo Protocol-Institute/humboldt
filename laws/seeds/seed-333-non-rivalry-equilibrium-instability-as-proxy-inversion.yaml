@@ -1,0 +1,17 @@
+id: seed-333
+title: Non-Rivalry Equilibrium Instability as Proxy Inversion
+text: When a rivalrous good (with guaranteed classical equilibrium) is replaced by a non-rivalrous analogue
+  (data), does the loss of equilibrium existence correlate with agents switching from price discovery
+  to legible proxy optimization? In non-rivalrous settings, do sellers and buyers converge on measurable
+  correlates of value (e.g., dataset size, model improvement rate) as substitutes for true equilibrium
+  price, and does this create a secondary equilibrium around the proxy rather than the underlying good?
+  Worth tracking whether this pattern holds in other non-rivalrous protocol goods (reputation, attention,
+  governance weight).
+source: bibliography/shallow-reads/2026-09-02-equilibrium-pricing-in-oligopolistic-data-markets.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-004
+- L-014
+status: open

@@ -1,0 +1,22 @@
+id: seed-010
+title: Ashby corollary for distributed rule-regulators
+text: 'In classical cybernetics, a regulator must possess at least as much variety as the
+
+  system it regulates. For protocol-mediated systems, the question is whether variety
+
+  encoded in rules can substitute for — or amplify — the regulatory capacity of individual
+
+  actors. If rule-variety functions as distributed requisite variety, then inscribed protocol
+
+  complexity is a form of decentralized regulatory bandwidth. The corollary has not been
+
+  formally posed.'
+source: bibliography/shallow-reads/2026-06-06-idea-ashby-s-law-of-requisite-variety-should-be-examined-for.md
+origin: C-010
+surfaced: '2026-06-06'
+type: curiosity
+connections:
+- C-002
+- C-009
+- CL-002
+status: open

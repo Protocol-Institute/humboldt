@@ -1,0 +1,19 @@
+id: seed-107
+title: Context Legibility as Protocol Inequality Substrate
+text: 'In agent-mediated protocol systems, inequality indexed to person/organization-level access metrics
+  can be conserved and displaced into interaction-level architectural heterogeneity — specifically, differential
+  legibility of domain-specific context data to autonomous retrieval and reasoning processes. Systems
+  with higher context integration deliver utility gains that scale with the agent''s ability to autonomously
+  access structured information, not with the agent''s base capability. This creates a secondary inequality
+  gradient orthogonal to formal access policy: two agents of identical capability and availability produce
+  unequal outcomes when one operates in an information architecture with legible contextual integration
+  and the other does not. This may generalize to any protocol system where autonomous components must
+  retrieve external state to execute; the binding constraint shifts from access to the agent to access-architecture
+  of the state the agent must act upon.'
+source: bibliography/shallow-reads/2026-09-01-the-context-access-divide-interaction-level-architecture-as-.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-006
+status: open

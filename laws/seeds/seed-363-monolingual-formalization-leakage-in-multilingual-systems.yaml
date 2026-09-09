@@ -1,0 +1,17 @@
+id: seed-363
+title: Monolingual Formalization Leakage in Multilingual Systems
+text: 'When a safety or compliance protocol is formalized through evaluation and optimization in a single
+  language or modality, the protocol becomes latently dependent on properties of that formalization language
+  (lexicon, linguistic structure, cultural context) rather than the underlying safety principle. Under
+  deployment across multiple languages, the protocol fails not because the mechanism is broken, but because
+  the formalization itself was language-specific. This suggests a general risk: formalizations intended
+  to be universal often smuggle in domain-specific constraints that remain invisible until the protocol
+  crosses domain boundaries.'
+source: bibliography/shallow-reads/2026-09-02-safety-alignment-illusion-the-cross-lingual-safety-gap-in-ll.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-013
+status: open

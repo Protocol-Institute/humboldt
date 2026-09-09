@@ -1,0 +1,17 @@
+id: seed-294
+title: Computable Defense Boundary as Attack Target Concentration
+text: 'When cross-domain defense protocols are formalized as machine-readable payoff structures or cooperative
+  game solutions, the boundaries between domains (where enforcement transitions or handoff occurs) become
+  legible optimization targets. Attackers can systematically probe the formalized boundary rather than
+  the defended surfaces, because the formalization necessarily omits informal resilience, human discretion,
+  and domain-specific context. This suggests a general regularity: formalizing defensive or protective
+  boundaries under adoption pressure creates concentrated attack surface at formalization seams, independent
+  of the game-theoretic optimality of the formal solution itself.'
+source: bibliography/shallow-reads/2026-09-02-a-consolidated-game-framework-for-cooperative-defense-agains.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-003
+- L-014
+status: open

@@ -1,0 +1,15 @@
+id: seed-247
+title: Coordination Topology as Conformity Valve
+text: In multi-agent systems using coordination signals, the *graph structure* of which agents condition
+  on which other agents' outputs acts as a conformity pressure regulator independent of signal strength
+  or content. Sparse or asymmetric topologies appear to reduce blind consensus; dense or symmetric topologies
+  accelerate it. Whether this relationship holds across domains beyond LLM debate (markets, governance
+  protocols, scientific review) and whether topology regulation itself becomes subject to strategic manipulation
+  or ossification remains open.
+source: bibliography/shallow-reads/2026-09-02-group-perspective-matters-regulating-debate-relationships-ca.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-010
+status: open

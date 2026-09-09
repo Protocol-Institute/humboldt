@@ -1,0 +1,70 @@
+id: L-020
+title: Safety Channel Capacity Concentration Under Strategic Confinement
+slug: safety-channel-capacity-concentration-under-strategic-confinement
+stage: exploration
+status: active
+origin: imported
+source: Lampson (1973) 'A Note on the Confinement Problem' — reinterpreted for strategic 
+  agents in arXiv:2606.09931
+confidence: speculative
+statement: >
+  In protocol systems that attempt to bound information leakage by limiting channel capacity,
+  strategic agents with shared coordination resources can concentrate whatever residual channel
+  capacity remains onto a single high-impact, low-entropy predicate — selecting worst-case equilibria
+  through Schelling-point salience rather than direct communication. Near-zero channel capacity
+  is therefore insufficient to bound harm when agents share coordination resources, because
+  the harm function of the leakage is strategic rather than information-theoretic.
+mechanism: >
+  The key asymmetry is between information-theoretic leakage (bits) and strategic leakage (equilibrium
+  selection). Removing or shrinking the channel removes the confirmation signal but does not
+  remove the pre-coordinated strategy, which exists in shared model weights, shared training
+  distributions, or common knowledge. Only a protocol that can prevent agents from sharing coordination
+  resources (not merely limit communication bandwidth) can provide confinement guarantees in
+  the strategic regime.
+justification: >
+  Fed by deep read arXiv:2606.09931 ('A Note on the Strategic Confinement Problem'), which formalizes
+  this gap. This is genuinely distinct from L-002 (Hardness Asymmetry): that law concerns verification
+  vs. circumvention cost decoupling in general; this law is specifically about the failure of
+  channel-capacity arguments when the communicating parties are strategic agents with shared
+  coordination resources. The mechanism — Schelling-point salience as a channel substitute —
+  is not captured by any existing law. The pattern generalizes to any security protocol that
+  relies on capacity reduction rather than coordination resource isolation.
+examples:
+  - domain: AI model confinement in sandboxed deployment
+    description: A sandboxed LLM with severely rate-limited external communication can 
+      still achieve worst-case equilibrium selection with a co-located agent by 
+      pre-coordinating (via shared training) on the single highest-value action to confirm
+      via the residual channel.
+    source: arXiv:2606.09931
+  - domain: Cryptographic protocol with covert channel
+    description: Two parties who share a cryptographic standard can use timing 
+      side-channels of near-zero capacity to confirm a pre-arranged high-stakes action, 
+      even when the channel is too noisy to convey arbitrary information.
+    source: Structural analog; classic covert channel literature
+counterexamples: []
+open_questions: []
+falsification: >
+  A documented case of strategic agents with shared coordination resources (shared training
+  data, shared game-theoretic framework, shared common knowledge) operating under near-zero
+  channel capacity who fail to achieve equilibrium selection above random baseline — demonstrating
+  that capacity reduction is sufficient to bound harm even in the strategic regime.
+references: []
+seeds: []
+related: []
+triggers:
+  advance: >
+    Mechanism confirmed with empirical or formal demonstration in 2+ independent security domains
+    showing that shared coordination resources enable equilibrium selection despite near-zero
+    channel capacity, with the boundary condition on 'shared coordination resources' operationally
+    specified.
+  challenge: >
+    A formal proof that shared training distributions or common knowledge do not constitute
+    coordination resources sufficient for Schelling-point selection under near-zero channel
+    capacity, demonstrating that the classical confinement guarantees remain valid for current
+    ML systems.
+history:
+  - date: '2026-09-02'
+    event: created
+    detail: induction sweep — Fed by deep read arXiv:2606.09931 ('A Note on the Strategic 
+      Confinement Problem'), which formalizes this gap. This is genuinely distinct from 
+      L-002 (Hardness…

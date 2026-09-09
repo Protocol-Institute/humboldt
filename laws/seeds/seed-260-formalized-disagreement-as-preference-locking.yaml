@@ -1,0 +1,18 @@
+id: seed-260
+title: Formalized Disagreement as Preference Locking
+text: When irreducible disagreement (e.g., perspectival variance in value judgments) is operationalized
+  as a formal partition (clustering, multi-head outputs, or legible choice sets), the act of formalization
+  can freeze the boundaries of acceptable disagreement, converting a fluid interpretive space into a discrete
+  architectural choice. The framework then becomes resistant to reinterpretation because the disagreement
+  is now *legible and named*. Downstream users may treat cluster membership as a proxy for legitimacy
+  rather than as evidence that the underlying concept remains unmeasurable. This differs from L-004 because
+  the target of optimization pressure is not the metric itself, but the *scope* of disagreement the system
+  is permitted to express.
+source: bibliography/shallow-reads/2026-09-02-learning-sexism-detection-using-multi-agent-perspectivist-pr.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-004
+- L-015
+status: open

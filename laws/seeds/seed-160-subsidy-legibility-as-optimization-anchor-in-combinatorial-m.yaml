@@ -1,0 +1,17 @@
+id: seed-160
+title: Subsidy Legibility as Optimization Anchor in Combinatorial Markets
+text: 'When a market maker''s loss bound is rendered formally computable (e.g., O(M²) parlay subsidies),
+  does the bound itself become an optimization target for strategic agents seeking to maximize aggregate
+  loss while still extracting profit? In combinatorial markets where the subsidy is distributed across
+  a high-dimensional contract space, does the formalization of the bound cause agents to shift behavior
+  toward contracts where individual subsidy per-trade is highest or most predictable? The regularity would
+  be: precise loss bounds in thin markets attract optimization pressure that can increase realized loss
+  above the bound by creating artificial concentration in the highest-subsidy contracts.'
+source: bibliography/shallow-reads/2026-09-02-apmm-automated-parlay-market-maker.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-004
+- L-008
+status: open

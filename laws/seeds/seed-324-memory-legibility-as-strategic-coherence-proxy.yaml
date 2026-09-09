@@ -1,0 +1,15 @@
+id: seed-324
+title: Memory Legibility as Strategic Coherence Proxy
+text: In autoregressive agents operating under attention constraints, externalized memory structures can
+  restore measurable step-consistency without resolving the underlying incoherence between local decisions
+  and distal objectives. The memory module becomes a legible coordination substrate that is itself subject
+  to optimization pressure, creating a new locus for proxy collapse. This suggests that coherence problems
+  in bounded-rational agentic systems may not be solvable by adding legible state layers — they may instead
+  migrate the coherence failure to the representation layer itself.
+source: bibliography/shallow-reads/2026-09-02-llms-are-not-good-strategists-yet-memory-enhanced-agency-boo.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-011
+status: open

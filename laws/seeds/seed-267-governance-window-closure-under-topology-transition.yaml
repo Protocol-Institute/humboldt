@@ -1,0 +1,17 @@
+id: seed-267
+title: Governance Window Closure Under Topology Transition
+text: 'In coordination protocols for constraining autonomous capability growth, the enforceability of
+  the protocol depends on sustained legibility of the resource being constrained (e.g., compute, model
+  weights, training procedures) and centralization of chokepoints where enforcement can be applied. Transition
+  from centralized to distributed deployment topology does not require active evasion — it passively eliminates
+  the informational and architectural preconditions for verification and enforcement. This suggests a
+  general pattern: governance windows may be transitory, closing not through protocol capture but through
+  the substrate becoming incompatible with the verification structure the protocol requires.'
+source: bibliography/shallow-reads/2026-09-02-the-closing-window-how-governments-could-lose-their-ability-.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-001
+- L-014
+status: open

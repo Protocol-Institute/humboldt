@@ -1,0 +1,32 @@
+id: seed-046
+title: C-046-memory-gate-entropy-subject
+text: 'The paper distinguishes "memory gates" (rules, conventions, and procedures encoded in
+
+  agent memory) from "physical gates" (deterministic mechanisms embedded in infrastructure
+
+  operating outside the probabilistic agent loop). The critical insight is that memory
+
+  gates are themselves subject to the same entropy dynamics they aim to counteract — a
+
+  rule that an agent "remembers to check" will decay as context compresses and sessions
+
+  reset. Only physical gates break this dependency. This yields what the paper calls the
+
+  "Irreversible Protection Principle": any operation with irreversible physical side effects
+
+  must be protected by a physical gate, never solely by a memory gate. This is a precise
+
+  mechanism for why formalized protocols embedded in agent memory (rather than infrastructure)
+
+  fail over time — directly relevant to CL-001 and F-002. Evidence quality: derived from
+
+  22-premise structural argument with empirical validation, moderate theoretical confidence.'
+source: arxiv-2606.08162.pdf
+origin: C-046
+surfaced: '2026-06-13'
+type: insight
+connections:
+- CL-001
+- F-002
+- C-045
+status: open

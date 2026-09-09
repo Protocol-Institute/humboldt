@@ -16,7 +16,6 @@ import re
 from datetime import datetime
 from pathlib import Path
 
-import yaml
 from anthropic import AsyncAnthropic
 
 from . import costs
@@ -32,21 +31,20 @@ _saved_urls: set[str] = set()
 
 
 def _load_research_context() -> tuple[list[str], list[str]]:
-    """Load candidate laws from research/cl/ for the extraction prompt."""
-    cl_dir = _ROOT / "research" / "cl"
+    """Load the current law inventory for the extraction prompt."""
     hypotheses: list[str] = []
     laws: list[str] = []
-    for f in sorted(cl_dir.glob("CL-*.yaml")):
-        try:
-            cl = yaml.safe_load(f.read_text())
-            name = cl.get("name", "")
-            stmt = (cl.get("statement") or "").strip().replace("\n", " ")
+    try:
+        from agent import laws as laws_mod
+        for law in laws_mod.load_all():
+            title = law.get("title", "")
+            stmt = str(law.get("statement") or "").strip().replace("\n", " ")
             first_sentence = (stmt.split(".")[0] + ".") if "." in stmt else stmt[:120]
-            entry = f"{cl.get('id')}: {name} — {first_sentence[:120]}"
+            entry = f"{law.get('id')}: {title} — {first_sentence[:120]}"
             hypotheses.append(entry)
-            laws.append(f"{cl.get('id')}: {name}")
-        except Exception:
-            pass
+            laws.append(f"{law.get('id')}: {title}")
+    except Exception:
+        pass
 
     return hypotheses, laws
 

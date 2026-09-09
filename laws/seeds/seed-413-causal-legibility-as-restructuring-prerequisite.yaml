@@ -1,0 +1,18 @@
+id: seed-413
+title: Causal Legibility as Restructuring Prerequisite
+text: 'Complex systems that function correctly resist restructuring not only because their internal dependencies
+  are dense, but because the causal genealogy of successful states is opaque—no agent can distinguish
+  which components are doing functional work from which are parasitic or inert. In systems with high mutation
+  rates and stochastic improvement signals (autonomous R&D, adaptive protocols), this opacity is *structural*:
+  causation is computed over too many degrees of freedom and validation runs to be retroactively traced.
+  The generalization: any protocol system that accumulates successful configurations without maintaining
+  legible causal attribution of success will exhibit ossification that outlives the technical justification
+  for it—because the system cannot know what to safely remove.'
+source: bibliography/shallow-reads/2026-09-02-praxist-from-experimental-artifacts-to-solution-lineages.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-001
+- L-005
+status: open

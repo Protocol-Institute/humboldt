@@ -1,0 +1,17 @@
+id: seed-395
+title: Coordination Robustness Under Specification Absence
+text: 'Multi-agent systems that achieve functional coordination without pre-specified protocol, legible
+  enforcement signals, or centralized adjudication develop remarkably stable equilibria. The absence of
+  computable obligation appears to prevent proxy capture and metric gaming, forcing agents toward collaborative
+  convergence on shared artifacts (literature, problem decomposition) as the only available coordination
+  substrate. This suggests a threshold: systems below some complexity-to-specification ratio may be *more*
+  stable when protocol is emergent rather than engineered. The mechanism may be that unlegible coordination
+  costs are higher to defect against than legible ones.'
+source: bibliography/shallow-reads/2026-09-02-autonomous-mathematical-discovery-in-an-open-world-multi-age.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-005
+- L-011
+status: open

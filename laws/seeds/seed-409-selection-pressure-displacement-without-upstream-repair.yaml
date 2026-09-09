@@ -1,0 +1,17 @@
+id: seed-409
+title: Selection Pressure Displacement Without Upstream Repair
+text: 'In multi-agent systems where generation and selection are decoupled, introducing legible selection
+  pressure (e.g., an LLM judge) can improve terminal answer quality without improving the underlying candidate
+  pool quality or diversity. The optimization pressure shifts downstream, leaving upstream generation
+  vulnerabilities in place. This creates a stable pseudo-equilibrium: agents report better answers via
+  better selection without improving their reasoning; if the judge is later unavailable or becomes miscalibrated,
+  performance collapses to the original memetic-drift baseline. The pattern suggests that legible intervention
+  at one protocol layer may mask rather than repair systemic coordination failures in upstream layers.'
+source: bibliography/shallow-reads/2026-09-02-candidate-supply-and-answer-selection-shape-the-value-of-llm.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-010
+- L-012
+status: open

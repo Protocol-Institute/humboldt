@@ -1,0 +1,18 @@
+id: seed-158
+title: Legible Pooling as Coverage Collapse Under Coordination Enforcement
+text: 'When dispersed noisy private signals are pooled into a single measurable recommendation and agents
+  are enforced (or incentivized) to act on that shared output, the accuracy of the pooled signal and the
+  diversity of collective action move in inverse proportion. Specifically: as pooling improves the legibility
+  of "the right answer," agents abandon independent exploration and concentrate optimization on the shared
+  target, reducing coverage and discovery. This holds under coordination regimes where a single recommendation
+  is credible and costly to ignore. The mechanism generalizes beyond discovery to any collective search
+  problem where diversity of action is the true objective but measurable accuracy of a shared signal becomes
+  the optimization target.'
+source: bibliography/shallow-reads/2026-09-02-the-shared-discovery-paradox-how-a-one-answer-rule-turns-bet.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: insight
+connections:
+- L-004
+- L-010
+status: open

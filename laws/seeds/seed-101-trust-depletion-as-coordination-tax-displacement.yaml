@@ -1,0 +1,17 @@
+id: seed-101
+title: Trust Depletion as Coordination Tax Displacement
+text: In systems where collective trust functions as a commons, attacks on that commons (misinformation,
+  noise injection, low-credibility signal flooding) do not eliminate coordination capacity — they transfer
+  it from discovery/integration to validation/filtering. Under L-006 (Coordination Cost Conservation),
+  this suggests the total cost of coordinated belief formation remains constant or increases, even when
+  individual false beliefs are corrected. In protocol systems (algorithmic curation, reputation systems,
+  formal verification), attempts to restore trust-commons efficiency through legible metrics may trigger
+  L-004 (metric capture), hollowing the restored trust by making it a target for optimization rather than
+  an emergent property of stable interaction.
+source: bibliography/shallow-reads/2026-09-01-modeling-misinformation-as-a-commons-problem.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-006
+status: open

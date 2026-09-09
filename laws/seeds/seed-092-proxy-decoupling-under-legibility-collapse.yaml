@@ -1,0 +1,17 @@
+id: seed-092
+title: Proxy Decoupling Under Legibility Collapse
+text: In resource-constrained coordination systems, proxies that are optimal under full observability
+  (information-theoretic metrics) become misaligned with task objectives as constraints tighten. Switching
+  to a "truer" proxy (return-relevance) does not resolve the decoupling — it relocates the cost and creates
+  a nested optimization problem (predicting what is return-relevant without full state visibility). Under
+  progressive constraint tightening, the cost of maintaining proxy alignment may eventually exceed the
+  cost of the constraint itself, creating a regime transition. This pattern likely generalizes beyond
+  communication to any coordination layer where legibility decays faster than the underlying system dynamics.
+source: bibliography/shallow-reads/2026-09-01-mute-return-preserving-communication-unlearning-for-efficien.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-006
+- L-010
+status: open

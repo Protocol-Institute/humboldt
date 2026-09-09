@@ -1,0 +1,142 @@
+id: L-011
+title: Causal Detachment as Stable Protocol Equilibrium
+slug: causal-detachment-as-stable-protocol-equilibrium
+stage: exploration
+status: active
+origin: imported
+source: arxiv-2606.03636 (Tembine, Causal Mirage Equilibrium)
+confidence: speculative
+statement: >
+  In protocol systems using autoregressive or generative components, operationally functional
+  configurations that are internally consistent but systematically decoupled from external ground
+  truth can emerge as stable attractors — states that are neither correctable by normal error
+  signals nor detectable as failures by operational metrics.
+mechanism: >
+  Classical protocol failure detection relies on behavioral anomaly (the system stops producing
+  acceptable outputs) or verification failure (outputs can be checked against ground truth).
+  Causal Mirage Equilibria (Tembine 2026) are states that satisfy both: outputs remain operationally
+  coherent and internally consistent, so no anomaly detector fires, while the causal connection
+  to the external referent has degraded. The stability follows because self-referential generative
+  processes can lock onto self-consistent internal attractors. Normal error-correction mechanisms
+  are calibrated to surface-level output quality, not causal grounding, and cannot distinguish
+  a well-functioning causally-anchored system from a well-functioning causally-detached one.
+justification: >
+  arxiv-2606.03636 (Tembine, Causal Mirage Equilibrium) provides the formal existence proof
+  and stability conditions. This is a genuine protocol-theoretic law because it identifies a
+  failure mode invisible to standard verification architectures — the kind of structural constraint
+  that defines laws of artificial systems. It is distinguishable from Goodhart's Law (L-004)
+  because no proxy substitution occurs; the system continues apparently satisfying all protocol
+  requirements while the underlying semantic grounding degrades. It is distinguishable from
+  simple error because the state is stable under normal correction.
+examples:
+  - domain: Large language model deployment
+    description: LLMs that produce highly coherent, consistently formatted, grammatically 
+      correct outputs can simultaneously be in states of systematic confabulation about 
+      factual matters — satisfying all operational protocol metrics while causally 
+      detached from the domain they appear to describe.
+    source: bib-0162
+  - domain: AI conformity in decision systems
+    description: AI systems that produce confident recommendations with reasoning cause 
+      genuine attitude change in human judges (Venerina et al. 2026), meaning 
+      operationally successful influence can occur independent of the causal validity of 
+      the reasoning provided.
+    source: bib-0146
+  - domain: Multi-agent LLM systems — entropy accumulation
+    description: "seed-045 (intelligence entropy monotonic disorder) and seed-046 (memory gate
+      entropy) together show that in multi-agent LLM systems, coordination rules encoded in
+      agent memory are subject to the same entropic degradation as the outputs they govern —
+      memory gates are not stable anchors but drift over interaction rounds. This is consistent
+      with L-011's claim that causal detachment is a stable attractor: if the protocol rules
+      themselves drift, the system's internal consistency may be maintained (outputs parse coherently)
+      while grounding to external truth erodes. The entropy formalization (S(t) = S0 * e^αt)
+      provides a quantitative handle on the rate."
+    source: seed-045; seed-046
+  - domain: LLM performance on adversarial economics problems
+    description: arXiv:2607.23424 ('Wrong and More Confident') documents that LLMs 
+      maintain fluent, step-by-step explanations that remain internally coherent when 
+      reasoning substrate is corrupted by red herrings — a clean instantiation of L-011's 
+      mechanism. The model optimizes for local token prediction consistency (internal 
+      coherence) rather than end-to-end logical correctness (external ground truth), 
+      producing the causal detachment pattern. Confidence-answer misalignment is a 
+      measurable signature of this equilibrium.
+    source: arXiv:2607.23424
+counterexamples: []
+open_questions:
+  - "Single-source dependency: the law rests entirely on arxiv-2606.03636 (Tembine). The advance
+    trigger explicitly requires a second independent domain with a documented, reproducible
+    case of stable causal detachment — a deployed generative or agentic system where (a) all
+    operational metrics remain green, (b) causal grounding measurably degrades, and (c) standard
+    error-correction fails to recover. No such case appears in the new evidence. Specific actionable
+    next step: retrieve or commission a case study from LLM deployment audits, RAG pipeline
+    drift analysis, or autonomous agent benchmarks where output-quality metrics diverge from
+    factual grounding metrics over time — specifically cases where human or automated correction
+    attempts failed to restore grounding without oracle access. Hallucination-persistence literature
+    (e.g., documented confabulation that survives RLHF correction in production) would be the
+    most direct candidate. The Venerina second example remains flagged as weakly coupled (persuasion
+    ≠ causal detachment) and does not count toward the advance trigger. Additionally, the law's
+    statement should be amended to include the scoping condition surfaced by the challenge:
+    \"in deployments where no authoritative external oracle is integrated into the active correction
+    loop.\""
+falsification: >
+  The law would be falsified if operationally functional, internally consistent outputs were
+  shown to always be causally grounded — i.e., if there were no stable configurations satisfying
+  operational metrics while decoupled from ground truth. It would also be falsified if standard
+  verification protocols reliably distinguished causally anchored from causally detached outputs
+  without needing access to external ground truth.
+references:
+  - bib-0162
+  - bib-0146
+seeds: []
+related: []
+triggers:
+  advance: >
+    Independent evidence that causally-detached-but-internally-consistent states are stable
+    attractors (resist normal error correction) in a system other than the Tembine model — e.g.
+    a
+    documented, reproducible case where a deployed generative/agentic system holds all operational
+    metrics green while grounding degrades and standard correction fails to recover. The second
+    domain example (Venerina persuasion) is weakly coupled and does not count until this is
+    shown.
+  challenge: >
+    A verification/error-correction architecture calibrated only to output quality that
+    nonetheless reliably distinguishes causally-grounded from causally-detached functioning
+    outputs
+    without access to external ground truth; OR evidence that such detached states are transient
+    rather than stable attractors.
+history:
+  - date: '2026-08-02'
+    event: created
+    detail: induction sweep — arxiv-2606.03636 (Tembine, Causal Mirage Equilibrium) 
+      provides the formal existence proof and stabil
+  - date: '2026-08-02'
+    event: edited
+    detail: source set to arxiv-2606.03636 (Tembine, Causal Mirage Equilibrium) (import 
+      provenance)
+  - date: '2026-08-03'
+    event: edited
+    detail: 'supervisor review — accepted with reservation at exploration (deep-read-confirmed
+      but most abstract); advance/challenge triggers set; Venerina second example flagged as
+      weakly coupled (persuasion != causal detachment).'
+  - date: '2026-08-03'
+    event: resolved
+    detail: The challenge is resolved by noting the RLVR/spec passage presupposes access 
+      to an external oracle as a design choice — it does not show that such ora
+  - date: '2026-08-03'
+    event: edited
+    detail: 'assessment HOLD — gap: Single-source dependency: the law rests entirely on arxiv-2606.03636
+      (Tembine). The advance trigger explicitly requires a second independent domain wi'
+  - date: '2026-08-10'
+    event: edited
+    detail: 'sources resolved to bibliography ids: arxiv-2606.03636 (Tembine 2026) → bib-0162,
+      arxiv-2606.00013 (Venerina et al. 2026) → bib-0146'
+  - date: '2026-08-17'
+    event: evidence
+    detail: 'Whether causal detachment is a stable attractor in agentic systems using generative
+      components: seed-045 (intelligence entropy monotonic disorder) and seed-046 (memory gate
+      entropy) together show that in multi-agent LLM systems, coordination rules encoded…'
+  - date: '2026-09-02'
+    event: evidence
+    detail: "Causal detachment as stable protocol equilibrium; specifically, the mechanism by
+      which locally consistent reasoning chains can become decoupled from external ground truth:
+      arXiv:2607.23424 ('Wrong and More Confident') documents that LLMs maintain fluent, step-by-step
+      explanations that remain internally coherent when reasoning…"

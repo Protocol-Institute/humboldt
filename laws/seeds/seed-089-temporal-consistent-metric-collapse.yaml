@@ -1,0 +1,16 @@
+id: seed-089
+title: Temporal-Consistent Metric Collapse
+text: 'When a goal is made optimizable in real time by an agent with non-exponential time discounting,
+  the agent''s own metric of success (discounted future payoff) becomes temporally unstable: earlier selves
+  and later selves optimize for different objectives, even with no external goal shift. Protocol-level
+  interventions (checkpoints, commitment devices, intermediate rewards) can restore consistency, but this
+  reconstruction suggests that *consistency itself* is not intrinsic to optimization—it must be engineered
+  as a protocol property. This may generalize: in any multi-stage optimization with non-uniform time preferences
+  or information asymmetries, consistency is a protocol design problem, not an agent property.'
+source: bibliography/shallow-reads/2026-09-01-a-tractable-continuous-time-model-for-designing-intervention.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-004
+status: open

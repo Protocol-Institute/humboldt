@@ -21,8 +21,18 @@ const VOYAGE_URL      = "https://api.voyageai.com/v1/embeddings";
 const CLAUDE_MODEL    = "claude-sonnet-4-6";
 const CLAUDE_URL      = "https://api.anthropic.com/v1/messages";
 const ANTHROPIC_VER   = "2023-06-01";
-const TOP_K_CORPUS    = 8;
-const TOP_K_HUMBOLDT  = 10;
+// Pinecone bills a monthly *egress* cap (1GB) that this Worker spends from the
+// same account as the Python agent, and every match returns up to 2000 chars of
+// chunk text. This path fans out over 7 namespaces per question, so it was the
+// single largest consumer: 6x8 + 10 = 58 matches pulled to fill MAX_SOURCES=8
+// corpus + 8 Humboldt slots. Right-sized 2026-08-18 to 6x4 + 8 = 32, which
+// still leaves 3x headroom on the corpus merge. See plans/read-outage-2026-08.md.
+const TOP_K_CORPUS    = 4;
+const TOP_K_HUMBOLDT  = 8;
+// Cached retrieval (not the answer) keyed by question — a public chat gets the
+// same questions repeatedly, and thread follow-ups re-query near-identical text.
+// 24h so the daily re-ingest of Humboldt's own namespace stays visible.
+const RAG_CACHE_TTL   = 24 * 3600;
 const MAX_SOURCES     = 8;
 const MAX_TOKENS      = 1200;
 const RATE_LIMIT_MAX  = 20;
@@ -187,35 +197,84 @@ source says. Entries are permanent.*
 
 ---
 
-## Research inventory
+## Law inventory
 
-**Candidate laws (valley phase):**
+**Exploration:**
 
-**CL-001** (candidate): 
+**L-008** (speculative): Proxy Optimization Under Computable Enforcement
+  When protocol obligations become precisely computable and enforcement signals become legible to optimizing agents, participants cluster more densely at the compliance boundary rather than distributing across the interior of permissible behavior, degrading the distance between formal compliance and t
+
+**L-009** (speculative): Catastrophic Risk Cancellation in Symmetric Racing Protocols
+  In competitive protocol races where the prize of first deployment is concentrated among winners and the cost of catastrophic failure is shared symmetrically across all participants, the magnitude of the catastrophic cost has no effect on the equilibrium deployment timing — the catastrophe term cance
+
+**L-010** (speculative): Coordination Adoption Nonmonotonicity
+  In protocol systems where agents condition behavior on coordination signals from other adopters, adoption is monotonically beneficial only when the signaling/protocol design is co-optimized with the adoption level. Under fixed (non-co-optimized) design, intermediate adoption ranges can raise system-
+
+**L-011** (speculative): Causal Detachment as Stable Protocol Equilibrium
+  In protocol systems using autoregressive or generative components, operationally functional configurations that are internally consistent but systematically decoupled from external ground truth can emerge as stable attractors — states that are neither correctable by normal error signals nor detectab
+
+**L-012** (speculative): Intervention-Layer Displacement in Automated Decision Protocols
+  When a prediction is formalized as a legible input to a decision protocol, the locus of optimization pressure shifts from the downstream outcome to the prediction itself, causing decision-makers to treat prediction quality as the terminal goal. This displacement persists even when the protocol's des
+
+**L-013** (speculative): Paradigm-Locked Anomaly Tolerance in Protocol Systems
+  Established protocol systems tolerate accumulating evidence of malfunction for extended periods without triggering revision, not because participants are irrational but because the protocol itself supplies an assurance that anomalies will eventually be resolved within the current framework. This tol
+
+**L-014** (speculative): Strategic Boundary Concentration Under Computable Legality
+  When legal or protocol obligations are rendered precisely computable and machine-readable, optimizing agents systematically concentrate their behavior at the compliance boundary rather than distributing across the interior of the compliance space. This concentration is a structural response to compu
+
+**L-015** (speculative): Interpretive Continuity Decay in Distributed Governance Protocols
+  In distributed governance systems, formal records and audit traces can survive intact while the institutional capacity to read them as parts of a single coherent governance episode decays. This is not a failure of record retention but a failure of interpretive continuity — and it compounds over time
+
+**L-016** (speculative): Normative Intervention Algorithmic Retraining Effect
+  In recommendation or allocation systems driven by adaptive algorithms, normative interventions designed to reduce a behavior can paradoxically increase it by surfacing latent demand signals that the pre-intervention algorithm had suppressed or failed to discover, causing the algorithm to retrain tow
+
+**L-017** (speculative): Guidance-Layer Coalescence as Hidden Coordination Channel
+  When nominally independent agents in a multi-agent system receive advice or decisions from a shared AI guidance apparatus, the apparatus becomes a hidden coordination layer that enables implicit collusion and cooperation among agents whose preferences are formally misaligned, producing strategic cou
+
+**L-019** (speculative): Representation-Rationalizability Tradeoff in Preference Aggregation Protocols
+  In any protocol that aggregates heterogeneous agent preferences into a scalar reward or ranking function via a learned embedding, there is an irreducible tradeoff between representational richness and preference rationalizability: coarser embeddings hide Condorcet cycles but lose preference-distingu
+
+**L-020** (speculative): Safety Channel Capacity Concentration Under Strategic Confinement
+  In protocol systems that attempt to bound information leakage by limiting channel capacity, strategic agents with shared coordination resources can concentrate whatever residual channel capacity remains onto a single high-impact, low-entropy predicate — selecting worst-case equilibria through Schell
+
+**L-021** (speculative): Information Design Nonmonotonicity Under Endogenous Risk
+  In protocol systems where agents condition safety-critical behavior on risk signals, and where aggregate risk is itself a function of agent behavior, increasing the proportion of agents who receive accurate risk warnings can increase aggregate harm by reducing individual precaution among warned agen
+
+**Valley:**
+
+**L-003** (provisional): The Formalization Ratchet
   Under conditions of stress, conflict, or scaling pressure, informal coordination norms tend to be replaced by explicit protocols, and this transition is nearly irreversible: once formalized, informal capacity atrophies — people stop developing the contextual knowledge and trust that made informality
 
-**CL-002** (candidate): 
+**L-006** (provisional): Coordination Cost Conservation
   The total coordination cost in a protocol system is conserved across protocol layer transitions — when a protocol redesign reduces coordination cost at one layer, it increases it at adjacent layers by at least the same amount.
 
-**CL-003** (candidate): 
+**L-007** (provisional): Trust Ratchet in Safety-Critical Protocols
   Trust in safety-critical protocols accumulates as a function of operational age and stability rather than technical correctness, creating a systematic bias toward under-updating when technical conditions change. Safety-critical protocols are most trusted precisely when they have not been tested unde
 
-**Registered laws (heavy lift / retrospective):**
-- T-001: Protocol Ossification Under Adoption Pressure — Protocols that achieve widespread adoption become progressively harder to modify, independent of the quality of proposed improvements, because the cost of coordinating change grows superlinearly with 
-- T-002: Hardness Asymmetry — In any protocol with a verification function and an execution or forgery function, the verification cost and the circumvention cost are structurally decoupled and can differ by arbitrary orders of mag
-- T-003: Goodhart Generalization: Metric Capture — Any protocol that uses a measurable proxy for an unmeasurable goal will, under sufficient optimization pressure, cause participants to optimize the proxy in ways that degrade the underlying goal. The 
-- T-004: Gall Generalization: Working Systems Resist Restructuring — A complex protocol system that functions correctly cannot be safely redesigned from scratch; it must be evolved from a simpler working system. Attempts to design complex protocol systems directly, wit
+**Heavy Lift:**
 
-## Most recent notebook entry (2026-07-24)
+**L-001** (supported): Protocol Ossification Under Adoption Pressure
+  Protocols that achieve widespread adoption become progressively harder to modify, independent of the quality of proposed improvements, because the cost of coordinating change grows superlinearly with the number of conforming implementations.
 
-# Lab Notebook — 2026-07-24
+**L-002** (supported): Hardness Asymmetry
+  In any protocol with a verification function and an execution or forgery function, the verification cost and the circumvention cost are structurally decoupled and can differ by arbitrary orders of magnitude. Protocol robustness is determined by this ratio, not by the absolute cost of either function
+
+**L-004** (supported): Goodhart Generalization: Metric Capture
+  Any protocol that uses a measurable proxy for an unmeasurable goal will, under sufficient optimization pressure, cause participants to optimize the proxy in ways that degrade the underlying goal. The degree of degradation is proportional to the optimization pressure and inversely proportional to the
+
+**L-005** (provisional): Gall Generalization: Working Systems Resist Restructuring
+  A complex protocol system that functions correctly cannot be safely replaced from scratch; it must be evolved from a simpler working protocol. Attempts to replace working complex protocol systems from scratch reliably fail — or produce indefinite coexistence of old and new rather than replacement.
+
+## Most recent notebook entry (2026-09-09)
+
+# Lab Notebook — 2026-09-09
 
 *Daemon-generated entries.*
 
 
 ---
 
-## Ideas from Discord — 2026-07-23 – 2026-07-24
+## Ideas from Discord — 2026-09-07 – 2026-09-09
 
 …
 
@@ -261,15 +320,21 @@ function ptDateStr() {
   return new Date(Date.now() - 8 * 3600 * 1000).toISOString().slice(0, 10);
 }
 
-async function trackRequest(kv, claudeUsage) {
+async function trackRequest(kv, claudeUsage, egressBytes = 0, fromCache = false) {
   if (!kv) return;
   const dayKey  = "stats:day:"      + ptDateStr();
   const lifeKey = "stats:lifetime";
-  const [ds, ls] = await Promise.all([
+  // Pinecone's egress cap is monthly and account-wide, so it needs its own
+  // month-keyed counter — the daily/lifetime buckets above cannot answer
+  // "how much of this month's 1GB has the public chat spent".
+  const monKey  = "egress:" + new Date().toISOString().slice(0, 7);
+  const [ds, ls, ms] = await Promise.all([
     kv.get(dayKey,  "json"),
     kv.get(lifeKey, "json"),
+    kv.get(monKey,  "json"),
   ]);
-  const zero = { reqs: 0, in_tok: 0, cache_create_tok: 0, cache_read_tok: 0, out_tok: 0 };
+  const zero = { reqs: 0, in_tok: 0, cache_create_tok: 0, cache_read_tok: 0, out_tok: 0,
+                 egress_bytes: 0 };
   const d = { ...zero, ...(ds || {}) };
   const l = { ...zero, ...(ls || {}) };
   for (const s of [d, l]) {
@@ -278,11 +343,20 @@ async function trackRequest(kv, claudeUsage) {
     s.cache_create_tok += claudeUsage?.cache_creation_input_tokens || 0;
     s.cache_read_tok   += claudeUsage?.cache_read_input_tokens     || 0;
     s.out_tok          += claudeUsage?.output_tokens               || 0;
+    s.egress_bytes     += egressBytes;
   }
+  // Read-modify-write, so concurrent chats can lose an increment. Undercounting
+  // a trend indicator is acceptable; blocking a reply on a counter is not.
+  const m = { bytes: 0, reqs: 0, cache_hits: 0, ...(ms || {}) };
+  m.reqs  += 1;
+  m.bytes += egressBytes;
+  if (fromCache) m.cache_hits += 1;   // zero bytes because the cache answered,
+                                      // not because the retrieval came back empty
   const dayCost = calcCost(d);
   await Promise.all([
     kv.put(dayKey,  JSON.stringify(d), { expirationTtl: 30 * 24 * 3600 }),
     kv.put(lifeKey, JSON.stringify(l)),
+    kv.put(monKey,  JSON.stringify(m), { expirationTtl: 90 * 24 * 3600 }),
   ]);
 
   // Circuit breaker at $4/hour or $30/day
@@ -306,6 +380,14 @@ async function checkRateLimit(kv, ip) {
 
 // ── Pinecone ───────────────────────────────────────────────────────────────────
 
+// Pinecone enforces monthly read-unit and egress caps. When either is spent,
+// every query 429s account-wide while writes keep working. Returning [] here
+// would be indistinguishable from "the corpus has nothing on this", which is
+// exactly how the 2026-08 egress outage went unnoticed for weeks while the
+// public chat answered visitors with no corpus grounding at all. So a quota 429
+// is reported as an outage, not as an empty result.
+const QUOTA_MARKERS = ["egress limit", "read unit limit"];
+
 async function queryNamespace(host, apiKey, vector, topK, namespace) {
   const body = { vector, topK, includeMetadata: true };
   if (namespace) body.namespace = namespace;
@@ -314,8 +396,29 @@ async function queryNamespace(host, apiKey, vector, topK, namespace) {
     headers: { "Api-Key": apiKey, "Content-Type": "application/json" },
     body:    JSON.stringify(body),
   });
-  if (!res.ok) { console.error(`Pinecone [${namespace || "default"}]:`, await res.text()); return []; }
-  return (await res.json()).matches || [];
+  const text = await res.text();
+  if (!res.ok) {
+    console.error(`Pinecone [${namespace || "default"}]:`, text);
+    const lower = text.toLowerCase();
+    if (res.status === 429 && QUOTA_MARKERS.some(m => lower.includes(m))) {
+      return { unavailable: true, matches: [], bytes: 0 };
+    }
+    return { unavailable: false, matches: [], bytes: 0 };
+  }
+  // Response length is the actual egress spent on this namespace — exact here,
+  // unlike the Python side which can only estimate from parsed metadata.
+  return { unavailable: false, matches: JSON.parse(text).matches || [], bytes: text.length };
+}
+
+// Retrieval cache. Keyed by the question, not the embedding: hashing 1024
+// floats costs more than hashing the text and two identical questions embed
+// identically anyway. Caches only successful retrievals — an outage is never
+// stored, so a cache hit can never mean "reads were down when we asked".
+async function ragCacheKey(query) {
+  const digest = await crypto.subtle.digest(
+    "SHA-256", new TextEncoder().encode(query.trim().toLowerCase()));
+  return "rag:v1:" + [...new Uint8Array(digest)].slice(0, 12)
+    .map(b => b.toString(16).padStart(2, "0")).join("");
 }
 
 // ── Normalizers ────────────────────────────────────────────────────────────────
@@ -384,6 +487,19 @@ function buildContextBlock(humboldtItems, corpusItems) {
 // ── RAG query ──────────────────────────────────────────────────────────────────
 
 async function runRagQuery(query, env, ctx, history) {
+  const kv = env.RATE_LIMIT || null;
+
+  // 0. Cached retrieval? A hit skips the Voyage embed and all 7 Pinecone
+  //    queries — the whole per-question egress bill for a repeat question.
+  const cacheKey = kv ? await ragCacheKey(query) : null;
+  if (cacheKey) {
+    const cached = await kv.get(cacheKey, "json").catch(() => null);
+    if (cached) {
+      return runRagCompletion(query, env, ctx, history,
+                              cached.humboldtItems, cached.corpusItems, false, 0, true);
+    }
+  }
+
   // 1. Embed
   const voyRes = await fetch(VOYAGE_URL, {
     method:  "POST",
@@ -394,7 +510,7 @@ async function runRagQuery(query, env, ctx, history) {
   const qv = (await voyRes.json()).data[0].embedding;
 
   // 2. Query both indexes in parallel
-  const [pdfRaw, subRaw, vidRaw, bibRaw, linkRaw, sigRaw, humboldtRaw] = await Promise.all([
+  const results = await Promise.all([
     queryNamespace(env.PINECONE_C3PO_HOST,     env.PINECONE_API_KEY, qv, TOP_K_CORPUS,   "pdfs"),
     queryNamespace(env.PINECONE_C3PO_HOST,     env.PINECONE_API_KEY, qv, TOP_K_CORPUS,   "substack"),
     queryNamespace(env.PINECONE_C3PO_HOST,     env.PINECONE_API_KEY, qv, TOP_K_CORPUS,   "videos"),
@@ -403,6 +519,13 @@ async function runRagQuery(query, env, ctx, history) {
     queryNamespace(env.PINECONE_C3PO_HOST,     env.PINECONE_API_KEY, qv, TOP_K_CORPUS,   "sig"),
     queryNamespace(env.PINECONE_HUMBOLDT_HOST, env.PINECONE_API_KEY, qv, TOP_K_HUMBOLDT, ""),
   ]);
+
+  // Every namespace shares one account quota, so if any came back quota-blocked
+  // the retrieval as a whole is unreliable, not merely thin.
+  const corpusOffline = results.some(r => r.unavailable);
+  const egressBytes = results.reduce((n, r) => n + (r.bytes || 0), 0);
+  const [pdfRaw, subRaw, vidRaw, bibRaw, linkRaw, sigRaw, humboldtRaw] =
+    results.map(r => r.matches);
 
   const corpusItems = [
     ...pdfRaw.map(m  => normalizeCorpus(m, "pdf")),
@@ -416,7 +539,28 @@ async function runRagQuery(query, env, ctx, history) {
   const humboldtItems = humboldtRaw.map(normalizeHumboldt)
     .sort((a, b) => b.score - a.score).slice(0, MAX_SOURCES);
 
-  const contextBlock = buildContextBlock(humboldtItems, corpusItems);
+  // Cache the *selected* items, not the raw matches — excerpts are already
+  // truncated to 500 chars and capped at MAX_SOURCES, so the stored value is
+  // small. Never cache an outage.
+  if (cacheKey && !corpusOffline && ctx) {
+    ctx.waitUntil(kv.put(cacheKey, JSON.stringify({ humboldtItems, corpusItems }),
+                         { expirationTtl: RAG_CACHE_TTL }).catch(() => {}));
+  }
+
+  return runRagCompletion(query, env, ctx, history,
+                          humboldtItems, corpusItems, corpusOffline, egressBytes, false);
+}
+
+async function runRagCompletion(query, env, ctx, history,
+                                humboldtItems, corpusItems, corpusOffline, egressBytes,
+                                fromCache) {
+  const contextBlock = corpusOffline
+    ? "(No retrieved context: corpus retrieval is temporarily unavailable — a " +
+      "monthly read quota is exhausted. Answer only from the law inventory, " +
+      "notebook and identity in your system prompt, and state plainly at the " +
+      "start of your reply that corpus retrieval is offline so you cannot cite " +
+      "or check sources right now. Do not invent citations.)"
+    : buildContextBlock(humboldtItems, corpusItems);
 
   // 3. Call Claude
   const claudeRes = await fetch(CLAUDE_URL, {
@@ -440,14 +584,14 @@ async function runRagQuery(query, env, ctx, history) {
   if (!claudeRes.ok) throw new Error("Claude error");
   const claudeBody = await claudeRes.json();
   const answer = claudeBody.content?.[0]?.text || "";
-  if (ctx) ctx.waitUntil(trackRequest(env.RATE_LIMIT, claudeBody.usage));
+  if (ctx) ctx.waitUntil(trackRequest(env.RATE_LIMIT, claudeBody.usage, egressBytes, fromCache));
 
   const sources = [...humboldtItems, ...corpusItems]
     .sort((a, b) => b.score - a.score)
     .slice(0, 5)
     .map(({ weightedScore, ...s }) => s);
 
-  return { answer, sources };
+  return { answer, sources, corpusOffline };
 }
 
 // ── Pages Function entrypoint ──────────────────────────────────────────────────
@@ -499,8 +643,8 @@ export async function onRequestPost(context) {
   }
 
   try {
-    const { answer, sources } = await runRagQuery(query, env, context, history);
-    return Response.json({ answer, sources, query }, { headers: corsHeaders });
+    const { answer, sources, corpusOffline } = await runRagQuery(query, env, context, history);
+    return Response.json({ answer, sources, query, corpusOffline }, { headers: corsHeaders });
   } catch (err) {
     console.error("Chat error:", err);
     return Response.json({ error: "Internal error. Please try again." }, { status: 500, headers: corsHeaders });

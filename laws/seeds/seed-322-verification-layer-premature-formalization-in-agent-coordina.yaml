@@ -1,0 +1,16 @@
+id: seed-322
+title: Verification-Layer Premature Formalization in Agent Coordination
+text: When protocols for agent-to-agent delegation formalize trust and capability claims into machine-readable,
+  cryptographically-backed proofs (as InterSAGE does), the verification substrate becomes a coordination
+  constraint that is harder to modify than the agents themselves. Does the formalization of capability
+  attestation as a required protocol layer create an ossification lock that outlives the usefulness of
+  the specific capability categories it encodes? What happens when agent capabilities evolve faster than
+  the protocol's attestation taxonomy can be revised?
+source: bibliography/shallow-reads/2026-09-02-intersage-the-secure-and-verifiable-interoperability-protoco.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: question
+connections:
+- L-001
+- L-002
+status: open

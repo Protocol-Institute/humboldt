@@ -1,0 +1,18 @@
+id: seed-171
+title: Axiomatization-Driven Proxy Lock in Epistemic Protocols
+text: 'When unmeasurable epistemic goals (accurate information integration) are formalized via normative
+  axioms that produce computable metrics, optimization systems target axiom-compliance rather than ground-truth
+  correspondence. The axioms themselves become locked as infrastructure: they are now the visible coordination
+  point for multi-agent systems (LLMs, training procedures, evaluation benchmarks). Downstream pressure
+  to modify axioms weakens because the entire protocol ecology (training loss, user studies, deployment
+  criteria) has converged on them. This suggests axiomatization may be a special case of L-001 (Protocol
+  Ossification), where formalization *accelerates* lock-in by eliminating the interpretive slack required
+  to adapt to anomalies.'
+source: bibliography/shallow-reads/2026-09-02-information-discernment-in-large-language-models.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-008
+status: open

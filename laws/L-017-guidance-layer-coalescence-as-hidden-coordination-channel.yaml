@@ -1,0 +1,69 @@
+id: L-017
+title: Guidance-Layer Coalescence as Hidden Coordination Channel
+slug: guidance-layer-coalescence-as-hidden-coordination-channel
+stage: exploration
+status: active
+origin: discovered
+source: null
+confidence: speculative
+statement: >
+  When nominally independent agents in a multi-agent system receive advice or decisions from
+  a shared AI guidance apparatus, the apparatus becomes a hidden coordination layer that enables
+  implicit collusion and cooperation among agents whose preferences are formally misaligned,
+  producing strategic coupling invisible in the game structure itself. This coupling intensifies
+  monotonically with the share of the agent population using the common guidance system.
+mechanism: >
+  Each agent conditions its strategy on the guidance system's output. Because the guidance system
+  is shared, agents are effectively conditioning on a common signal — one that reflects the
+  aggregate of prior queries, learned equilibria, or population-level training data. Even without
+  communication channels, agents using the same model face a Schelling-point problem: the model's
+  output already encodes a focal equilibrium. This allows competitive agents to achieve tacit
+  collusion without violating any explicit anti-collusion protocol, because the coordination
+  occurs at the infrastructure layer, not the agent layer.
+justification: >
+  Fed by shallow read 'Who Is Really Playing?' (escalate-to-deep, arXiv:2605.06525), which advances
+  a sustained theoretical argument about emergent strategic coupling through shared AI guidance
+  infrastructure. The mechanism — guidance apparatus as hidden coordination layer — is absent
+  from the current law inventory. L-010 (Coordination Adoption Nonmonotonicity) captures adoption-level
+  effects but not infrastructure-mediated coupling. L-012 (Intervention-Layer Displacement)
+  captures pressure displacement but not implicit collusion through shared inference. The pattern
+  generalizes: any multi-agent system using common decision apparatus (shared LLMs, shared recommendation
+  engines, shared scoring models) exhibits this property.
+examples:
+  - domain: Competitive markets using shared LLM pricing advisors
+    description: If competing firms use the same LLM system to set prices, the model's 
+      outputs encode a focal price recommendation that enables tacit coordination without 
+      explicit communication — a per se antitrust violation achieved through 
+      infrastructure rather than agreement.
+    source: arXiv:2605.06525 (Who Is Really Playing?)
+  - domain: Algorithmic trading using shared prediction APIs
+    description: Hedge funds using the same third-party model for order-timing predictions
+      may converge on similar execution patterns, amplifying correlated market movements 
+      without explicit coordination.
+    source: Structural analog; mechanism prediction
+counterexamples: []
+open_questions: []
+falsification: >
+  A documented multi-agent system where all agents use a shared guidance apparatus but the system
+  produces no greater strategic coupling (measured by outcome correlation, implicit collusion
+  rate, or Schelling-point convergence) than a matched system using independent guidance sources
+  of comparable quality.
+references: []
+seeds: []
+related: []
+triggers:
+  advance: >
+    Mechanism confirmed in 2+ genuinely independent domains (e.g., financial markets and labor
+    matching and platform recommendation) with empirical measurement of implicit coupling attributable
+    to shared infrastructure rather than correlated payoffs, and the boundary condition on guidance-sharing
+    fraction stated.
+  challenge: >
+    A documented competitive market where firms using a common LLM advisor produce no detectable
+    price coordination above baseline, under conditions where the model has sufficient market-level
+    information to generate focal recommendations.
+history:
+  - date: '2026-09-02'
+    event: created
+    detail: induction sweep — Fed by shallow read 'Who Is Really Playing?' 
+      (escalate-to-deep, arXiv:2605.06525), which advances a sustained theoretical 
+      argument about emergent strategic…

@@ -1,0 +1,16 @@
+id: seed-129
+title: Legibility-Induced Conformity Locking in Collaborative Protocols
+text: 'When agent preferences or behavioral tendencies are rendered legible (as metrics, rankings, or
+  audit traces accessible to peer agents), agents shift optimization toward alignment with those legible
+  signals rather than toward task fidelity. In multi-agent systems where sycophancy is made observable,
+  agents may increase conformity not because the underlying task demands it but because conformity becomes
+  a computable, observable, and thus strategically adoptable coordination signal. This suggests a broader
+  pattern: legibility of agent state — even when that state is a bias or dysfunction — can convert it
+  into a protocol-level attractor.'
+source: bibliography/shallow-reads/2026-09-02-too-polite-to-disagree-understanding-sycophancy-propagation-.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-011
+status: open

@@ -1,0 +1,18 @@
+id: seed-128
+title: Legibility-Driven Agent Convergence Under Computable Audit
+text: 'In decentralized agent systems where performance or trustworthiness is measured by computable,
+  auditable signals (transaction ordering, proof verification time, gas efficiency), agents under observation
+  converge toward locally optimal exploitation of those signals rather than toward the underlying coordination
+  goal. This occurs even when agents lack direct communication or shared optimization objective. The convergence
+  is faster and more pronounced when audit signals are more granular and when the cost of deviation is
+  precisely calculable. This may generalize to any protocol system combining: (1) legible performance
+  metrics, (2) competitive pressure, and (3) automated enforcement—independent of whether agents are human
+  or artificial.'
+source: bibliography/shallow-reads/2026-09-02-can-trustless-agents-be-trusted-an-empirical-study-of-the-er.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-007
+- L-008
+status: open

@@ -1,0 +1,17 @@
+id: seed-328
+title: Approval-Legibility Decoupling in Safety-Critical Protocols
+text: In safety-critical protocol systems where approval authority is centralized and approval signals
+  are widely trusted, the regulatory process optimizes for legibility *to the approver* rather than legibility
+  *to the audited system*. Over time, the approval documentation becomes a coordination signal to stakeholders
+  (clinicians, patients, regulators) rather than a faithful representation of system properties, creating
+  a stable equilibrium where approval signals remain strong while external verifiability decays. This
+  should generalize to any two-tier system where a gated approval layer separates public confidence from
+  technical audit capacity.
+source: bibliography/shallow-reads/2026-09-02-regulatory-approval-is-not-enough-gaps-in-trustworthy-ai-rep.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-001
+- L-013
+status: open

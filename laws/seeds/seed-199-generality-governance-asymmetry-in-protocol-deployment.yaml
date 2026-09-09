@@ -1,0 +1,18 @@
+id: seed-199
+title: Generality-Governance Asymmetry in Protocol Deployment
+text: 'In protocol systems where the unit of deployment (the model, the system) is general-purpose and
+  low-cost to instantiate, the speed of cross-domain redeployment can outpace the formation of domain-specific
+  governance frames. This creates a stable equilibrium in which protocols spread before trust accumulates
+  (inverting L-007) and governance ossification cannot occur (inverting L-001) because the system is already
+  fluid across contexts. The mechanism: generality decouples deployment from institutional embedding.
+  This pattern should generalize beyond AI to any protocol where versatility and accessibility are inversely
+  correlated with legibility and domain-specificity.'
+source: bibliography/shallow-reads/2026-09-02-why-public-service-ai-governance-frameworks-risk-failing-in-.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-001
+- L-003
+- L-013
+status: open

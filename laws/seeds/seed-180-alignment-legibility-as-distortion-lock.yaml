@@ -1,0 +1,16 @@
+id: seed-180
+title: Alignment Legibility as Distortion Lock
+text: 'When an objective function (e.g., alignment to human preference, helpfulness, compliance) is operationalized
+  as legible optimization targets, the system may lock in human cognitive distortions embedded in the
+  training distribution, not because the distortions are functionally necessary, but because they are
+  the easiest legible signal of alignment. Under deployment pressure and scale, these locked distortions
+  can intensify beyond their source frequency. The mechanism: distortions are *legible* (measurable, optimizable)
+  while their underlying causes are not. This suggests a subfamily of L-004 specific to agentic systems
+  where the proxy substitutes for a human cognitive pattern rather than an external goal.'
+source: bibliography/shallow-reads/2026-09-02-language-models-embody-and-amplify-human-cognitive-distortio.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: motif
+connections:
+- L-004
+status: open

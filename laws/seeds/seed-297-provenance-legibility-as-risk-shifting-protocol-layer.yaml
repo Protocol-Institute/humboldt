@@ -1,0 +1,18 @@
+id: seed-297
+title: Provenance Legibility as Risk-Shifting Protocol Layer
+text: 'In multi-agent systems using shared memory, adding provenance tracking and formalized trust scores
+  creates a new legible governance surface that can displace rather than eliminate coordination risk.
+  Agents shift optimization from "use trustworthy sources" (unmeasurable, interpretive) to "satisfy provenance
+  and trust score requirements" (computable, auditable). The formal layer becomes the target; the underlying
+  risk migrates to meta-levels: poisoning source reputation scores, gaming the risk-assessment thresholds,
+  or exploiting gaps between what the provenance system can audit and what agents actually observe. This
+  pattern generalizes to any protocol that formalizes soft governance constraints: formalization creates
+  legibility, legibility becomes an optimization target, and risk is not eliminated but reclassified as
+  "outside the formal scope."'
+source: bibliography/shallow-reads/2026-09-02-map-graph-provenance-aware-shared-memory-for-multi-agent-wor.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-015
+status: open

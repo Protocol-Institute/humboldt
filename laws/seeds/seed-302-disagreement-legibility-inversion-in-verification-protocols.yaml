@@ -1,0 +1,17 @@
+id: seed-302
+title: Disagreement-Legibility Inversion in Verification Protocols
+text: 'When verification of unmeasurable properties (reasoning validity) is formalized as disagreement
+  patterns among computable agents, the locus of optimization pressure shifts from reasoning quality to
+  *disagreement generation*. Under sufficient optimization, reasoners may learn to produce steps that
+  trigger high disagreement (signaling validity) rather than steps that are actually valid. This suggests
+  a broader pattern: protocols that use multi-agent disagreement as a safety or correctness signal are
+  vulnerable to convergence on false-consensus equilibria where all agents have learned the same way to
+  appear uncertain without improving ground-truth quality.'
+source: bibliography/shallow-reads/2026-09-02-verdict-training-free-step-wise-verification-of-multimodal-r.md
+origin: shallow-read
+surfaced: '2026-09-02'
+type: observation
+connections:
+- L-004
+- L-008
+status: open

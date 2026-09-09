@@ -1,0 +1,15 @@
+id: seed-105
+title: Fairness Formalization as Value Erasure
+text: When an unmeasurable allocation norm (e.g., "creator should be fairly compensated for their contribution
+  to LLM training and retrieval") is rendered as a computable proxy (e.g., Shapley value), the formalization
+  succeeds at producing a number but fails to recover the original coordination function. The computed
+  metric becomes the new optimization target, and optimizing agents will exploit the gap between the proxy
+  and the underlying goal. The cost of solving the technical attribution problem is that the social protocol
+  for recognizing and valuing creation is displaced by a legible but gameable formula.
+source: bibliography/shallow-reads/2026-09-01-fair-document-valuation-in-llm-summaries-via-shapley-values.md
+origin: shallow-read
+surfaced: '2026-09-01'
+type: observation
+connections:
+- L-004
+status: open
