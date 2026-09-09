@@ -91,8 +91,8 @@ def build_bibliography_body() -> tuple[str, int]:
     body = f"""\
     <div class="page-header">
       <h1>Bibliography</h1>
-      <p class="page-tagline">{len(entries)} sources engaged past triage-discard — feeds, Discord links,
-      operator drops, and citation chases. {cited} cited by at least one law. See also
+      <p class="page-tagline">{len(entries):,} sources that survived triage — from feeds, Discord links,
+      operator suggestions, and citation chases. {cited} are cited by at least one law. See also
       <a href="/reading/">deep and shallow reading notes</a>.</p>
     </div>
 

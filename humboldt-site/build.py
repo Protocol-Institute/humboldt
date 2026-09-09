@@ -22,6 +22,7 @@ Usage:
   python3 build.py --serve     # generate + serve on localhost:8765
 """
 
+import json
 import re
 import sys
 import shutil
@@ -65,6 +66,7 @@ PAGES = [
     ("/reading/",      "Reading"),
     ("/architecture/", "Architecture"),
     ("/supervision/",  "Supervision"),
+    (_TALK_PATH,       "Talk"),
     ("/about/",        "About"),
 ]
 
@@ -507,9 +509,9 @@ def _build_reading() -> None:
     body = f"""\
     <div class="page-header">
       <h1>Reading</h1>
-      <p class="page-tagline">Sources that shaped Humboldt's thinking — deep reads (full text, from behavior-t5m,
-      never from training memory) and shallow reads (one-paragraph triage synthesis). See also the full
-      <a href="/bibliography/">bibliography</a>.</p>
+      <p class="page-tagline">Sources that shaped Humboldt's thinking. Deep reads work from the actual
+      text, never from training memory; shallow reads are a one-paragraph synthesis written at triage.
+      See also the full <a href="/bibliography/">bibliography</a>.</p>
     </div>
     <div class="reading-toc">
       <h3>Deep reads ({len(notes)} completed)</h3>
@@ -694,6 +696,10 @@ def _build_talk() -> None:
     opened   = meta.get("review_opened", "")
     chan_url = meta.get("review_channel_url", "")
 
+    # Defined before the slide loop: the per-slide jump buttons in the transcript are
+    # only rendered when audio exists.
+    audio_dir = talk_dir / "audio"
+
     # ── TOC + slide sections ──
     toc_rows, sections = [], []
     total_words = 0
@@ -714,6 +720,8 @@ def _build_talk() -> None:
             f'<td class="toc-law">{law_cell}</td></tr>'
         )
 
+        jump = (f'<button class="slide-jump" data-slide="{sid}" '
+                f'title="Play from slide {sid}">&#9654;</button>' ) if audio_dir.exists() else ""
         bullets = "".join(f"<li>{b}</li>" for b in s.get("bullets", []))
         narr_html = md_lib.markdown(narration) if narration else "<p><em>No narration yet.</em></p>"
 
@@ -734,7 +742,7 @@ def _build_talk() -> None:
         <span class="slide-num">Slide {sid}</span>
         {law_cell}
         <span class="slide-words"{over}>{words} words / {budget} budgeted</span>
-        <a href="#slide-{sid}" class="slide-permalink" title="Permalink to slide {sid}">&sect;</a>
+        {jump}<a href="#slide-{sid}" class="slide-permalink" title="Permalink to slide {sid}">&sect;</a>
       </div>
       <h2>{s_title}</h2>
       <div class="slide-projected">
@@ -745,6 +753,56 @@ def _build_talk() -> None:
 {narr_html}
       </div>
 {note_html}    </section>""")
+
+    # ── Player: slide deck + per-slide audio ──
+    # Present only when `talk voice` has produced audio. The page is meant to work as a
+    # text document first (plan §5.6 is text-first), so everything below degrades to the
+    # transcript alone when audio/ is absent.
+    timing = {}
+    tpath = talk_dir / "timing.json"
+    if tpath.exists():
+        timing = {t["id"]: t.get("duration_s", 0)
+                  for t in (json.loads(tpath.read_text()).get("slides") or [])}
+
+    deck = []
+    for s_ in slides:
+        sid = str(s_.get("id", "")).zfill(2)
+        mp3 = audio_dir / f"slide-{sid}.mp3"
+        deck.append({
+            "id": sid,
+            "title": s_.get("title", ""),
+            "law": s_.get("law_id") or "",
+            "bullets": list(s_.get("bullets") or []),
+            "audio": f"audio/slide-{sid}.mp3" if mp3.exists() else None,
+            "dur": round(float(timing.get(sid, 0)), 1),
+        })
+    has_audio = any(d["audio"] for d in deck)
+    total_dur = int(sum(d["dur"] for d in deck))
+
+    player = ""
+    if has_audio:
+        player = f"""
+    <div class="talk-player" id="talk-player">
+      <div class="stage" id="stage">
+        <div class="stage-inner">
+          <div class="stage-meta">
+            <span id="stage-num">Slide 01</span>
+            <span id="stage-law"></span>
+          </div>
+          <h2 id="stage-title"></h2>
+          <ul id="stage-bullets"></ul>
+        </div>
+      </div>
+      <div class="player-bar">
+        <button id="pp" class="pbtn pbtn-main" aria-label="Play talk">&#9654;&nbsp; Play talk</button>
+        <button id="prev" class="pbtn" aria-label="Previous slide">&#9664;</button>
+        <button id="next" class="pbtn" aria-label="Next slide">&#9654;</button>
+        <span class="ptime"><span id="elapsed">0:00</span> / {total_dur // 60}:{total_dur % 60:02d}</span>
+        <div class="pprogress"><div class="pprogress-fill" id="pfill"></div></div>
+        <button id="fs" class="pbtn" aria-label="Full screen">&#9974;</button>
+      </div>
+      <audio id="talk-audio" preload="none"></audio>
+    </div>"""
 
     est_s   = int(total_words / wpm * 60) if wpm else 0
     est_disp = f"{est_s // 60}:{est_s % 60:02d}"
@@ -772,6 +830,7 @@ def _build_talk() -> None:
       <h1>{title}</h1>
       <p class="page-tagline">{event} &nbsp;·&nbsp; {date_h} &nbsp;·&nbsp; presented by Humboldt</p>
     </div>
+{player}
 {banner}
     <div class="talk-meta">
       <span><strong>{len(slides)}</strong> slides</span>
@@ -788,6 +847,46 @@ def _build_talk() -> None:
 {chr(10).join(sections)}"""
 
     extra_css = """
+    /* ── Player ── */
+    .talk-player { margin: 0 0 2.5rem; }
+    .stage { background: #23262b; border-radius: 5px; aspect-ratio: 16 / 9;
+      display: flex; align-items: center; overflow: hidden; }
+    .stage-inner { padding: clamp(1.2rem, 3.2vw, 2.6rem); width: 100%; }
+    .stage-meta { display: flex; gap: 0.7rem; align-items: baseline; font-size: 0.7rem;
+      letter-spacing: 0.1em; text-transform: uppercase; color: #7f8790;
+      margin-bottom: 0.7rem; }
+    .stage-meta .law-tag { background: #2f343a; color: #8fb8b8; }
+    #stage-title { font-size: clamp(1.15rem, 3.1vw, 2.1rem); color: #FAFAF7;
+      margin: 0 0 clamp(0.7rem, 1.8vw, 1.3rem); line-height: 1.2; }
+    #stage-bullets { margin: 0; padding-left: 1.2rem; }
+    #stage-bullets li { color: #d8dade; max-width: none; margin-bottom: 0.5rem;
+      font-size: clamp(0.8rem, 1.65vw, 1.05rem); line-height: 1.45; }
+    #stage-bullets li::marker { color: #6f7780; }
+
+    .player-bar { display: flex; align-items: center; gap: 0.6rem; margin-top: 0.85rem;
+      flex-wrap: wrap; }
+    .pbtn { font-family: inherit; font-size: 0.82rem; color: #444; background: #f0f0ec;
+      border: 1px solid #e0e0da; border-radius: 3px; padding: 0.42rem 0.7rem;
+      cursor: pointer; transition: background 0.15s, color 0.15s; line-height: 1; }
+    .pbtn:hover { background: #e6ece9; color: #2A6B6B; }
+    .pbtn-main { background: #2A6B6B; border-color: #2A6B6B; color: #FAFAF7;
+      font-weight: 500; min-width: 8.5rem; }
+    .pbtn-main:hover { background: #1d4f4f; color: #FAFAF7; }
+    .ptime { font-size: 0.78rem; color: #888; font-variant-numeric: tabular-nums;
+      white-space: nowrap; }
+    .pprogress { flex: 1 1 6rem; height: 3px; background: #e8e8e4; border-radius: 2px;
+      overflow: hidden; min-width: 4rem; }
+    .pprogress-fill { height: 100%; width: 0; background: #2A6B6B; transition: width 0.25s linear; }
+
+    .stage:fullscreen { border-radius: 0; aspect-ratio: auto; height: 100%; }
+    .stage:fullscreen #stage-title { font-size: clamp(2rem, 5.5vw, 4.2rem); }
+    .stage:fullscreen #stage-bullets li { font-size: clamp(1rem, 2.6vw, 2rem); }
+    .stage:fullscreen .stage-meta { font-size: clamp(0.8rem, 1.4vw, 1.1rem); }
+
+    .slide-jump { background: none; border: none; cursor: pointer; padding: 0;
+      color: #ccc; font-size: 0.8rem; font-family: inherit; }
+    .slide-jump:hover { color: #2A6B6B; }
+
     .talk-review { background: #f4f7f4; border-left: 3px solid #2A6B6B; padding: 1.1rem 1.4rem;
       margin-bottom: 2rem; border-radius: 0 3px 3px 0; }
     .talk-review p { font-size: 0.94rem; margin-bottom: 0.7rem; }
@@ -845,14 +944,130 @@ def _build_talk() -> None:
     }
     """
 
+    # Player behaviour. Audio advances the deck: each slide's clip plays, then `ended`
+    # moves to the next and plays it. The browser's autoplay gate is satisfied because
+    # the first play() comes from the operator's click, and that user activation carries
+    # through the subsequent programmatic plays.
+    extra_js = ""
+    if has_audio:
+        extra_js = "var DECK = " + json.dumps(deck) + ";\n" + """
+    (function () {
+      var i = 0, playing = false;   // kept in sync by the play/pause listeners below
+      var au = document.getElementById('talk-audio');
+      var pp = document.getElementById('pp');
+      var elapsedEl = document.getElementById('elapsed');
+      var fill = document.getElementById('pfill');
+      var before = DECK.map(function (_, n) {
+        return DECK.slice(0, n).reduce(function (a, d) { return a + d.dur; }, 0);
+      });
+      var total = DECK.reduce(function (a, d) { return a + d.dur; }, 0);
+
+      function fmt(t) {
+        t = Math.max(0, Math.round(t));
+        return Math.floor(t / 60) + ':' + ('0' + (t % 60)).slice(-2);
+      }
+
+      function render() {
+        var d = DECK[i];
+        document.getElementById('stage-num').textContent = 'Slide ' + d.id;
+        document.getElementById('stage-law').innerHTML =
+          d.law ? '<span class="law-tag">' + d.law + '</span>' : '';
+        document.getElementById('stage-title').textContent = d.title;
+        var ul = document.getElementById('stage-bullets');
+        ul.innerHTML = '';
+        d.bullets.forEach(function (b) {
+          var li = document.createElement('li');
+          li.textContent = b;
+          ul.appendChild(li);
+        });
+      }
+
+      function tick() {
+        var cur = before[i] + (au.currentTime || 0);
+        elapsedEl.textContent = fmt(cur);
+        fill.style.width = (total ? (cur / total * 100) : 0) + '%';
+      }
+
+      function load(n, autoplay) {
+        // `playing` mirrors the element; read it from there rather than tracking it.
+        i = Math.max(0, Math.min(DECK.length - 1, n));
+        render();
+        if (!DECK[i].audio) return;
+        au.src = DECK[i].audio;
+        if (autoplay) { au.play().catch(function () { setPlaying(false); }); }
+        tick();
+      }
+
+      function setPlaying(on) {
+        playing = on;
+        pp.innerHTML = on ? '&#10073;&#10073;&nbsp; Pause' : '&#9654;&nbsp; Play talk';
+        pp.setAttribute('aria-label', on ? 'Pause talk' : 'Play talk');
+      }
+
+      // Label is driven by the element's own play/pause events, never by the play()
+      // promise. That promise can stay pending indefinitely while a clip buffers (and
+      // does exactly that when no audio output device is available), which would leave
+      // the button reading 'Play' after a click that did in fact start playback.
+      au.addEventListener('play',  function () { setPlaying(true); });
+      au.addEventListener('pause', function () { setPlaying(false); });
+
+      pp.addEventListener('click', function () {
+        if (!au.paused) { au.pause(); return; }
+        if (!au.src) load(i, false);
+        au.play().catch(function () { setPlaying(false); });
+      });
+      document.getElementById('next').addEventListener('click', function () { load(i + 1, playing); });
+      document.getElementById('prev').addEventListener('click', function () { load(i - 1, playing); });
+
+      au.addEventListener('timeupdate', tick);
+      au.addEventListener('ended', function () {
+        if (i < DECK.length - 1) { load(i + 1, true); }
+        else { setPlaying(false); fill.style.width = '100%'; }
+      });
+
+      document.getElementById('fs').addEventListener('click', function () {
+        var st = document.getElementById('stage');
+        if (document.fullscreenElement) { document.exitFullscreen(); }
+        else if (st.requestFullscreen) { st.requestFullscreen(); }
+      });
+
+      // Jump the player to a slide from the transcript below.
+      document.querySelectorAll('.slide-jump').forEach(function (b) {
+        b.addEventListener('click', function () {
+          var n = DECK.findIndex(function (d) { return d.id === b.dataset.slide; });
+          if (n < 0) return;
+          load(n, true);
+          setPlaying(true);
+          document.getElementById('talk-player').scrollIntoView({ block: 'start' });
+        });
+      });
+
+      // Space toggles play, arrows step — but not while the reader is in a form field.
+      document.addEventListener('keydown', function (e) {
+        var tag = (e.target.tagName || '').toLowerCase();
+        if (tag === 'input' || tag === 'textarea') return;
+        if (e.code === 'Space') { e.preventDefault(); pp.click(); }
+        if (e.code === 'ArrowRight') { load(i + 1, playing); }
+        if (e.code === 'ArrowLeft') { load(i - 1, playing); }
+      });
+
+      render();
+    })();
+    """
+
     out = _DIST / "talks" / _TALK_SLUG / "index.html"
     out.parent.mkdir(parents=True, exist_ok=True)
+    if has_audio:
+        dest_audio = out.parent / "audio"
+        dest_audio.mkdir(exist_ok=True)
+        for mp3 in sorted(audio_dir.glob("*.mp3")):
+            shutil.copy2(mp3, dest_audio / mp3.name)
     desc = (
         f"{event}, {date_h}. The full text of a talk by Humboldt, the Protocol "
         "Institute's artificial researcher, on its own candidate laws of protocolized "
         "systems — published before delivery and under public review."
     )
-    out.write_text(_page(title, _TALK_PATH, body, extra_css, description=desc))
+    out.write_text(_page(title, _TALK_PATH, body, extra_css, extra_js, description=desc))
     print(f"  Talk → dist/talks/{_TALK_SLUG}/index.html "
           f"({len(slides)} slides, {total_words} words, ~{est_disp})")
 
@@ -873,7 +1088,9 @@ def _build_chat() -> None:
     body = """\
     <div class="page-header">
       <h1>Humboldt</h1>
-      <p class="page-tagline">An artificial researcher investigating the structural laws of protocolized and artificial systems.</p>
+      <p class="page-tagline">An artificial researcher investigating the structural laws of protocolized
+      and artificial systems. Ask it about any law in its inventory — what supports it, what would break it,
+      and which ones it is least sure of.</p>
     </div>
 
     <div class="chat-intro">
@@ -1212,6 +1429,13 @@ def _inject_system_prompt() -> None:
 # ── Main ──────────────────────────────────────────────────────────────────────
 
 def build() -> None:
+    # Clear dist/ first. It is gitignored, so it survives branch switches — which means
+    # a build on one branch left its pages behind for the next branch's deploy to ship.
+    # That silently put redesign-branch pages (/laws/, /bibliography/, /supervision/)
+    # onto production alongside main's, orphaned from main's nav, in Sept 2026. Deploys
+    # must be a function of the checkout alone.
+    if _DIST.exists():
+        shutil.rmtree(_DIST)
     _DIST.mkdir(parents=True, exist_ok=True)
     print("Building humboldt-site...")
     _build_about()

@@ -248,13 +248,21 @@ def build_laws_body() -> tuple[str, int, dict[str, int]]:
             f'<span class="fb-count">{stage_counts.get(s, 0)}</span></button>'
         )
 
+    # Most-advanced stage first. STAGES runs exploration -> retrospective, which is the
+    # order a law travels but the wrong order to read: it opened the page on 13
+    # speculative exploration laws and buried the four heavy-lift ones that carry the
+    # strongest evidence. The filter chips stay in travel order — they are a map of the
+    # pipeline, not a ranking.
     sections = []
-    for stage in STAGES:
+    for stage in reversed(STAGES):
         laws_here = [l for l in all_laws if l.get("stage") == stage]
-        sections.append(_stage_header(stage, len(laws_here)))
+        # Skip empty stages rather than printing "None currently." Reading most-advanced
+        # first, the two empty stages sit at the top, so rendering them opened the page
+        # on two empty sections. The filter chips still report every stage and its count,
+        # including the zeros, so nothing is hidden.
         if not laws_here:
-            sections.append('<p class="stage-empty"><em>None currently.</em></p>')
             continue
+        sections.append(_stage_header(stage, len(laws_here)))
         # Most-recently-active first within a stage.
         laws_here.sort(key=lambda l: (l.get("history") or [{}])[-1].get("date", ""), reverse=True)
         for law in laws_here:
@@ -263,9 +271,10 @@ def build_laws_body() -> tuple[str, int, dict[str, int]]:
     body = f"""\
     <div class="page-header">
       <h1>Law Encyclopedia</h1>
-      <p class="page-tagline">{len(all_laws)} candidate laws, one unified record type moving through the
-      Double Freytag arc — exploration, sensemaking, valley, heavy-lift, retrospective. Falsified laws
-      stay published, labeled, as negative results. See <a href="/about/">how the funnel works</a>.</p>
+      <p class="page-tagline">{len(all_laws)} candidate laws, each a single record that moves through five
+      stages as evidence accumulates: exploration, sensemaking, valley, heavy lift, retrospective. Every
+      stage is published, badged with its confidence — and falsified laws stay up, labelled, as negative
+      results. See <a href="/about/">how the funnel works</a>.</p>
     </div>
 
     <div class="stage-filters">{"".join(filter_buttons)}</div>
