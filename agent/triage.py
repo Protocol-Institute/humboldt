@@ -334,6 +334,13 @@ def _run(
     if dry_run:
         return
 
+    from agent import funnel_log
+    funnel_log.behavior_visit(
+        "triage", "exploration",
+        note=f"{kind_label}: {n_shallow} shallow, {n_discard} discard",
+        outputs={"bib-entry": n_bib, "triage-report": 1},
+    )
+
     try:
         from agent.pre_notebook import append as pn_append
         pn_append(

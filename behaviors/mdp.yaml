@@ -269,3 +269,11 @@ transitions:
     weight: 0.50
     cross_phase: true
     trigger: "A Discord conversation surfaced a link, argument, or idea worth capturing as an inbox item"
+
+  - from: review
+    to: orient
+    weight: 0.30
+    cross_phase: true
+    trigger: "The daily synthesis wrote a notebook section — the next session's Track 1
+      startup ritual reads the two most recent notebook entries and picks up the live
+      thread from it"

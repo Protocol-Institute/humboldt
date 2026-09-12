@@ -201,7 +201,8 @@ def _parse_confidence_target(raw: str | None) -> str | None:
 
 # ── Verdict application ───────────────────────────────────────────────────────
 
-def _apply_counterexamples(law, added: list) -> None:
+def _apply_counterexamples(law, added: list, run_id: str | None = None) -> int:
+    n = 0
     for ce in added or []:
         if not isinstance(ce, dict):
             continue
@@ -211,10 +212,13 @@ def _apply_counterexamples(law, added: list) -> None:
         law.setdefault("counterexamples", []).append(item)
         laws_mod.add_history(law, "counterexample",
                              str(item["description"])[:120] or "counterexample added")
-        funnel_log.law_event("counterexample", law["id"], detail=str(item["description"])[:100])
+        funnel_log.law_event("counterexample", law["id"], detail=str(item["description"])[:100],
+                             run_id=run_id)
+        n += 1
+    return n
 
 
-def _apply_verdict(law, v: dict) -> str:
+def _apply_verdict(law, v: dict, run_id: str | None = None) -> str:
     verdict = str(v.get("verdict", "HOLD")).strip().upper()
     challenge = v.get("strongest_challenge") or {}
     resolution = str(challenge.get("resolution", "")).strip()
@@ -233,7 +237,7 @@ def _apply_verdict(law, v: dict) -> str:
             except ValueError as e:
                 print(f"    ! confidence change skipped: {e}")
         funnel_log.law_event("promoted", law["id"], detail=f"{pre} -> {law['stage']}",
-                             stage=law["stage"], confidence=law.get("confidence"))
+                             stage=law["stage"], confidence=law.get("confidence"), run_id=run_id)
         return f"PROMOTE {pre} → {law['stage']}"
 
     if verdict == "DEMOTE":
@@ -248,7 +252,7 @@ def _apply_verdict(law, v: dict) -> str:
         if pre == "retrospective":
             laws_mod.mark_challenged(law, "challenge survived retrospective assessment")
         funnel_log.law_event("demoted", law["id"], detail=f"{pre} -> {law['stage']}",
-                             stage=law["stage"])
+                             stage=law["stage"], run_id=run_id)
         return f"DEMOTE {pre} → {law['stage']}"
 
     # HOLD (default)
@@ -258,13 +262,15 @@ def _apply_verdict(law, v: dict) -> str:
         if gap not in [str(q) for q in oq]:
             oq.append(gap)
     laws_mod.add_history(law, "edited", f"assessment HOLD — gap: {gap[:150]}")
-    funnel_log.law_event("assessed-hold", law["id"], detail=gap[:120])
+    funnel_log.law_event("assessed-hold", law["id"], detail=gap[:120], run_id=run_id)
     return f"HOLD — gap: {gap[:80]}"
 
 
 # ── Entry points ──────────────────────────────────────────────────────────────
 
-def _assess_one(law, dry_run: bool) -> str:
+def _assess_one(law, dry_run: bool, run_id: str | None = None) -> tuple[str, int]:
+    """Returns (outcome, counterexamples_added) — the count is not recoverable
+    from the outcome string, which only reflects the verdict."""
     from agent import synthesizer as synth
 
     model = _model_for(law)
@@ -297,7 +303,7 @@ def _assess_one(law, dry_run: bool) -> str:
                 print(f"  ! could not parse assessment ({e}) — retrying once.")
                 continue
             print(f"  ! could not parse assessment on retry: {e}\n{text[:1200]}")
-            return "PARSE-ERROR"
+            return "PARSE-ERROR", 0
 
     verdict = str(v.get("verdict", "HOLD")).upper()
     ch = v.get("strongest_challenge") or {}
@@ -310,10 +316,10 @@ def _assess_one(law, dry_run: bool) -> str:
 
     if dry_run:
         print("  (dry-run — not applied)")
-        return f"{verdict} (dry-run)"
+        return f"{verdict} (dry-run)", 0
 
-    _apply_counterexamples(law, v.get("counterexamples_added"))
-    outcome = _apply_verdict(law, v)
+    n_ce = _apply_counterexamples(law, v.get("counterexamples_added"), run_id=run_id)
+    outcome = _apply_verdict(law, v, run_id=run_id)
     laws_mod.save(law)
 
     if outcome.startswith("PROMOTE"):
@@ -326,7 +332,7 @@ def _assess_one(law, dry_run: bool) -> str:
         print("  ! post-assessment validation warnings:")
         for p in problems:
             print(f"      {p}")
-    return outcome
+    return outcome, n_ce
 
 
 def _corpus_gate(no_corpus: bool) -> bool:
@@ -362,11 +368,20 @@ def assess(law_id: str, dry_run: bool = False, no_corpus: bool = False) -> None:
         print(f"No law record for {law_id!r}. See `humboldt laws list`.")
         return
 
-    outcome = _assess_one(law, dry_run)
+    run_id = funnel_log.new_run_id()
+    outcome, n_ce = _assess_one(law, dry_run, run_id=run_id)
 
     if not dry_run:
         law_notify.flush()
-        funnel_log.behavior_visit("assess", "valley", note=f"{law_id}: {outcome}")
+        outputs = {"counterexample": n_ce}
+        if outcome.startswith("PROMOTE"):
+            outputs["promoted"] = 1
+        elif outcome.startswith("DEMOTE"):
+            outputs["demoted"] = 1
+        elif outcome.startswith("HOLD"):
+            outputs["assessed-hold"] = 1
+        funnel_log.behavior_visit("assess", "valley", note=f"{law_id}: {outcome}",
+                                  run_id=run_id, outputs=outputs)
         from agent.pre_notebook import append as pn_append
         pn_append(process="assess", summary=f"Assessed {law_id}: {outcome}",
                   detail={"law": law_id, "outcome": outcome})
@@ -385,9 +400,13 @@ def assess_all(dry_run: bool = False, no_corpus: bool = False) -> None:
         return
 
     print(f"Assessment sweep — {len(laws)} law(s){' (dry-run)' if dry_run else ''}")
+    run_id = funnel_log.new_run_id()
     outcomes = {}
+    ce_total = 0
     for law in laws:
-        outcomes[law["id"]] = _assess_one(law, dry_run)
+        outcome, n_ce = _assess_one(law, dry_run, run_id=run_id)
+        outcomes[law["id"]] = outcome
+        ce_total += n_ce
 
     print("\n── Sweep summary ──")
     for lid, out in outcomes.items():
@@ -397,10 +416,15 @@ def assess_all(dry_run: bool = False, no_corpus: bool = False) -> None:
         law_notify.flush()
         promoted = [l for l, o in outcomes.items() if o.startswith("PROMOTE")]
         demoted = [l for l, o in outcomes.items() if o.startswith("DEMOTE")]
+        held = [l for l, o in outcomes.items() if o.startswith("HOLD")]
         summary = (f"Assessment sweep of {len(laws)} laws: "
                    f"{len(promoted)} promoted, {len(demoted)} demoted, "
                    f"{len(laws) - len(promoted) - len(demoted)} held.")
-        funnel_log.behavior_visit("assess", "valley", note=summary)
+        funnel_log.behavior_visit(
+            "assess", "valley", note=summary, run_id=run_id,
+            outputs={"promoted": len(promoted), "demoted": len(demoted),
+                     "assessed-hold": len(held), "counterexample": ce_total},
+        )
         from agent.pre_notebook import append as pn_append
         pn_append(process="assess", summary=summary,
                   detail={"promoted": promoted, "demoted": demoted, "outcomes": outcomes})

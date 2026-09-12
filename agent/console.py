@@ -380,14 +380,17 @@ def _api_analytics() -> dict:
     flags = []
     unlogged = [r["id"] for r in rows if r["status"] == "active" and r["visits"] == 0]
     if unlogged:
-        # One flag, not one per behavior: the shared cause is that only induct and
-        # assess call funnel_log.behavior_visit today, so utilization is blind for
-        # everything else. Per-behavior flags would read as seven separate faults.
+        # As of 2026-09-12 all 13 active/registry behaviors call funnel_log.behavior_visit
+        # (session 35 instrumentation), so a nonempty list here means genuinely zero
+        # invocations logged yet — either the behavior has not run since instrumentation,
+        # or (for deep-read/supervisory, which make no model calls by construction) it
+        # ran via a path that predates the CLI-level behavior_visit call. See
+        # analytics/op-behavior-map.yaml behaviors_without_ops before treating this as
+        # disuse.
         flags.append({
             "level": "warn", "behavior": ", ".join(unlogged),
-            "message": f"{len(unlogged)} active behaviors have never logged a visit — "
-                       "they do not call funnel_log.behavior_visit, so utilization "
-                       "cannot see them. Instrument them in Phase 4."})
+            "message": f"{len(unlogged)} active behavior(s) have never logged a visit — "
+                       "check whether they've actually run since instrumentation."})
     for d in _queue_depths():
         if d.get("backlog") and d["depth"] > d.get("threshold", 500):
             flags.append({"level": "warn", "behavior": d["consumer"],

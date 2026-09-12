@@ -176,29 +176,31 @@ def promote_inbox_links(since_date: str | None = None, verbose: bool = False) ->
 # ── Sorting ───────────────────────────────────────────────────────────────────
 
 def _research_context() -> str:
-    """Load active hypotheses and laws for the sort prompt."""
-    hyp_dir = _ROOT / "research" / "hypotheses"
-    hyp_lines = []
-    for f in sorted(hyp_dir.glob("*.yaml")):
-        try:
-            h = yaml.safe_load(f.read_text())
-            if h.get("status") == "active":
-                hyp_lines.append(f"  {h.get('id')}: {h.get('question', '')[:120]}")
-        except Exception:
-            pass
+    """Load active hypotheses and laws for the sort prompt.
 
-    laws_dir = _ROOT / "research" / "laws"
-    law_lines = []
-    for f in sorted(laws_dir.glob("*.yaml")):
-        try:
-            law = yaml.safe_load(f.read_text())
-            law_lines.append(f"  {law.get('id')}: {law.get('name')}")
-        except Exception:
-            pass
+    Pre-redesign this read research/hypotheses/ and research/laws/ — both
+    archived to research/_archive/ by the 2026-08 redesign, so the globs
+    silently matched nothing rather than crashing. Fixed 2026-09-12 (same bug
+    class the session-21 changelog claimed was fixed everywhere) to read the
+    live laws/L-*.yaml records via agent/laws.py, same source funnel_context.py
+    uses. There is no separate "hypothesis" artifact post-redesign — the
+    nearest equivalent is a law still at exploration/sensemaking stage
+    (agent/funnel_context.py OPEN_STAGES).
+    """
+    from agent import laws as laws_mod
+    from agent.funnel_context import OPEN_STAGES
+
+    all_laws = laws_mod.load_all()
+    hyp_lines = [f"  {law.get('id')}: {law.get('title', '')[:120]}"
+                 for law in all_laws if law.get("stage") in OPEN_STAGES]
+    law_lines = [f"  {law.get('id')} [{law.get('stage')}]: {law.get('title', '')}"
+                 for law in all_laws if law.get("stage") not in OPEN_STAGES]
 
     return (
-        "Active hypotheses:\n" + ("\n".join(hyp_lines) if hyp_lines else "  (none)") +
-        "\n\nCurrent law inventory:\n" + ("\n".join(law_lines) if law_lines else "  (none)")
+        "Open lines of inquiry (exploration/sensemaking-stage laws):\n"
+        + ("\n".join(hyp_lines) if hyp_lines else "  (none)")
+        + "\n\nCurrent law inventory (valley and beyond):\n"
+        + ("\n".join(law_lines) if law_lines else "  (none)")
     )
 
 

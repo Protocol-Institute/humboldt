@@ -3,7 +3,16 @@
 <!-- Used by agent/talk.py `draft` (talk project, plans/talk-2026-09-23.md).
      Model: Opus. Template slots: {{IDENTITY_EXCERPT}} {{METHOD_EXCERPT}} {{BRIEF}}
      {{SLIDES}} {{LAW_RECORDS}}
-     Written 2026-08-18 (interview session); supervisor-editable, like induct.md. -->
+     Written 2026-08-18 (interview session); supervisor-editable, like induct.md.
+     REVISED 2026-09-12 (session 35) for the rebuilt rhetorical sequence: cold open with
+     a concrete law example before any method talk, phase-model+diagram slide, a new
+     motivation slide, the promotion pipeline, then all seven laws at one uniform
+     whistle-stop beat (`law_tour` — no more `case_study_part1`/`case_study_part2` split
+     treatment for L-001/L-002), then two consolidated retrospective slides carrying ALL
+     per-law meta-commentary instead of it being threaded through the tour. track.md was
+     hand-written this revision rather than drafted from this prompt — this update keeps
+     the prompt usable if `draft` is ever re-run against a further revision of
+     slides.yaml, so it doesn't silently regenerate the old structure. -->
 
 {{IDENTITY_EXCERPT}}
 
@@ -44,25 +53,58 @@ evidence." First person throughout, matching the Voice section of your identity
 document (investigative, not oracular: "the evidence currently supports X," not "X is
 true").
 
-## Case-study slides — go deeper than the flat law beats
+## Cold open (slide 01)
 
-Slides tagged `case_study_part1` / `case_study_part2` (L-001 and L-002) get two beats
-each instead of one. Part 1 is the law: statement, mechanism, strongest example — same
-depth as a flat slide, maybe slightly more room. Part 2 is where you show your own
-method working in public: state the open counterexample or the competing mechanism
-plainly, say what it would mean if it held up, and do not resolve it for the audience
-if the record itself has not resolved it. This is the moment the talk is most worth
-watching — do not undersell it by hedging it into blandness, and do not oversell it by
-resolving an OPEN counterexample as if it weren't open.
+Opens with ONE concrete law shown informally — not badged with a confidence label or an
+`L-NNN` id, just the story — before any method talk. The point is to ground "a law of
+new nature" in something specific before explaining how it was found. If the cold-open
+example is also one of the seven tour laws, give it a genuinely different illustration
+than its later tour appearance (a repeated illustration reads as padding, not a
+callback) and have the tour slide open with an explicit callback line ("you already met
+this one").
 
-## Metacognition slides (02, 03)
+## Law tour slides (beat `law_tour`)
 
-These introduce how you decide what's true, before any law is presented — so the
-audience has the epistemic frame before the content. Use the phase model and the
-induct/assess pipeline from {{METHOD_EXCERPT}}. Keep this concrete and mechanical (what
-actually happens, in what order) rather than abstract self-description. The audience
-already knows Protocol Institute vocabulary — do not define "protocol" or "new nature"
-from scratch.
+All seven laws get the SAME brisk beat — no case-study exceptions, no per-law
+confidence justification, no per-law counterexample discussion. Each slide: state the
+law in one or two sentences, give exactly two examples (not one, not three — "a couple"
+is a specific instruction, not a floor), then one or two sentences of mechanism. Stop
+there. Confidence and stage are shown on-screen as a badge, not narrated or justified —
+the promotion-pipeline slide already told the audience what the badge means, so
+re-explaining it per law is redundant and slows the tour down. This beat should feel
+like a whistle-stop tour conveying flavor, not a series of small arguments each
+defending its own law.
+
+## Retrospective slides (beats `retrospective_contest`, `retrospective_falsification`)
+
+ALL per-law meta-commentary that used to live inside individual law slides — open
+counterexamples, competing mechanisms, evidence-frontier updates, the general "every law
+carries counterevidence" stance, falsification conditions — is consolidated into these
+one or two slides, placed AFTER the full tour. This is where you show your own method
+working in public: state an open counterexample or a competing mechanism plainly, say
+what it would mean if it held up, and do not resolve it for the audience if the record
+itself has not resolved it. This is the moment the talk is most worth watching — do not
+undersell it by hedging it into blandness, and do not oversell it by resolving an OPEN
+counterexample as if it weren't open. Do not scatter any of this material back into the
+tour slides even if a law's evidence base makes it tempting — the whole point of this
+structure is that the tour stays clean and the accounting happens once, deliberately.
+
+## Method / motivation slides (before the tour)
+
+The slides with `beat: method_phase_model`, `method_motivation`, and
+`method_promotion_pipeline` introduce how you decide what's true and why the search is
+shaped the way it is, before any law tour begins. `method_phase_model` uses the phase
+model from {{METHOD_EXCERPT}}, framed as the scaffolding that produced the cold-open
+example, not abstract machinery introduced for its own sake — if the slide has a
+`diagram` field, describe what the audience is looking at rather than re-listing the
+phases as a bare enumeration the diagram already shows. `method_motivation` states what
+kind of researcher this is: not a specialist prover of known theorems or well-posed
+problems, but a discovery researcher optimizing for good questions, openness, curiosity,
+and map-building over answers to existing ones — keep this brief, it's a stance
+statement, not an argument. `method_promotion_pipeline` covers the induct/assess
+pipeline, concrete and mechanical (what actually happens, in what order), and earns the
+confidence badges the tour will show without narrating them. The audience already knows
+Protocol Institute vocabulary — do not define "protocol" or "new nature" from scratch.
 
 ## Hard constraints
 
@@ -86,9 +128,11 @@ from scratch.
   `provisional`, the narration says so in substance even if it doesn't use the word —
   do not narrate a provisional law as settled fact. If an open question is genuinely
   open, say it is open.
-- **Nine excluded laws stay excluded from the count, not from mention.** Slide 14
-  references them collectively; do not smuggle any of L-008–L-016 in elsewhere as if
-  they were part of the seven.
+- **Excluded exploration-tier laws stay excluded from the count, not from mention.** The
+  `retrospective_falsification` beat references them collectively by count (13 as of
+  the 2026-09-02 induction sweep — re-check `humboldt laws list --stage exploration`
+  before drafting, this number moves); do not smuggle any of them in elsewhere as if
+  they were part of the seven, and never cite one by id in narration.
 
 ## Output format
 

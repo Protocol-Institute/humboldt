@@ -1,14 +1,26 @@
 """Ingest Humboldt's own documents into the dedicated humboldt Pinecone index.
 
-Covers: notebook entries, deep-read notes, shallow reads, C/H/CL/F research
-artifacts, DS arc files, and Discord inbox ideas. Each vector carries augmented
-metadata so retrieved results are self-identifying in Claude prompts.
+Covers: notebook entries, deep-read notes, shallow reads, law records, and
+Discord inbox ideas. Each vector carries augmented metadata so retrieved
+results are self-identifying in Claude prompts.
 
 Incremental — a content hash per chunk (data/ingest_state.json) means only
 new/changed chunks are re-embedded and upserted, and chunks whose source file
 disappeared are deleted. Pass force=True to re-embed everything regardless.
 
 Run via: python3 -m agent.humboldt ingest
+
+Fixed 2026-09-12: the 2026-08 redesign retired the C/H/CL/T/F schema (research/c/,
+research/cl/, research/h/, research/f/, research/ds/ — all archived to
+research/_archive/) and replaced it with the unified law record (laws/L-*.yaml),
+but nothing carried the corresponding _cl_chunks()-style embedding forward. Every
+law created since the merge was therefore invisible to corpus retrieval —
+agent/induct.py's own comment ("the ingest embedded it") and its post-sweep
+instruction to run `humboldt ingest` were both describing behavior that had quietly
+stopped happening. _law_chunks() below replaces the five now-permanently-empty
+_curiosity_chunks/_cl_chunks/_h_chunks/_f_chunks/_ds_chunks functions, which read
+directories that will never hold files again — deleted rather than kept as
+always-empty dead weight.
 """
 
 import hashlib
@@ -17,7 +29,6 @@ import os
 import re
 from pathlib import Path
 
-import yaml
 import voyageai
 from pinecone import Pinecone
 
@@ -121,136 +132,51 @@ def _notes_chunks() -> list[dict]:
     return chunks
 
 
-def _curiosity_chunks() -> list[dict]:
-    """Embed each C (Curiosity) YAML — exploration phase artifacts."""
-    c_dir = _ROOT / "research" / "c"
+def _law_chunks() -> list[dict]:
+    """Embed each law record (laws/L-*.yaml) — the unified research artifact
+    that replaced C (Curiosity), CL (Candidate Law), H (Hypothesis), and F
+    (Falsification Monitor). One chunk per law, matching the old _cl_chunks()
+    granularity — a law record is short enough that splitting it by section
+    would fragment the mechanism from the statement it explains."""
+    from agent import laws as laws_mod
+
     chunks = []
-    for path in sorted(c_dir.glob("C-*.yaml")):
-        try:
-            item = yaml.safe_load(path.read_text())
-        except Exception:
-            continue
-        item_id = item.get("id", path.stem)
-        title = item.get("title", "")
-        content = (item.get("content") or "").strip()
-        source = item.get("source", "")
-        connections = item.get("connections") or []
+    for law in laws_mod.load_all():
+        law_id = law.get("id", "")
+        title = law.get("title", "")
+        stage = law.get("stage", "")
+        confidence = law.get("confidence", "")
+        statement = (law.get("statement") or "").strip()
+        mechanism = (law.get("mechanism") or "").strip()
+        justification = (law.get("justification") or "").strip()
+        falsification = (law.get("falsification") or "").strip()
+        examples = law.get("examples") or []
 
-        embed_text = f"Curiosity {item_id}: {title}\n\n{content}"
-        if connections:
-            embed_text += "\n\nConnections: " + ", ".join(str(c) for c in connections)
-
-        chunks.append({
-            "id": f"humboldt-curiosity-{_slugify(item_id)}",
-            "text": embed_text,
-            "metadata": {
-                "type": "curiosity",
-                "title": f"{item_id}: {title}",
-                "item_id": item_id,
-                "source": source,
-                "source_file": f"research/c/{path.name}",
-                "text": embed_text[:2000],
-            },
-        })
-    return chunks
-
-
-def _cl_chunks() -> list[dict]:
-    """Embed each CL (Candidate Law) YAML — valley phase artifacts."""
-    cl_dir = _ROOT / "research" / "cl"
-    chunks = []
-    for path in sorted(cl_dir.glob("CL-*.yaml")):
-        try:
-            item = yaml.safe_load(path.read_text())
-        except Exception:
-            continue
-        item_id = item.get("id", path.stem)
-        name = item.get("name", "")
-        statement = (item.get("statement") or "").strip()
-        mechanism = (item.get("mechanism") or "").strip()
-        domains = item.get("domains") or []
-
-        embed_text = f"Candidate Law {item_id}: {name}\n\nStatement: {statement}"
+        embed_text = f"Law {law_id} [{stage}/{confidence}]: {title}\n\nStatement: {statement}"
         if mechanism:
             embed_text += f"\n\nMechanism: {mechanism}"
-        if domains:
-            embed_text += "\n\nDomains: " + "; ".join(str(d) for d in domains[:4])
+        if justification:
+            embed_text += f"\n\nJustification: {justification}"
+        if examples:
+            ex_lines = "; ".join(
+                f"{ex.get('domain', '')}: {str(ex.get('description', ''))[:200]}"
+                for ex in examples[:5]
+            )
+            embed_text += f"\n\nExamples: {ex_lines}"
+        if falsification:
+            embed_text += f"\n\nFalsification condition: {falsification}"
 
+        path = laws_mod.path_for(law_id)
         chunks.append({
-            "id": f"humboldt-cl-{_slugify(item_id)}",
+            "id": f"humboldt-law-{_slugify(law_id)}",
             "text": embed_text,
             "metadata": {
-                "type": "candidate_law",
-                "title": f"{item_id}: {name}",
-                "item_id": item_id,
-                "name": name,
-                "source_file": f"research/cl/{path.name}",
-                "text": embed_text[:2000],
-            },
-        })
-    return chunks
-
-
-def _h_chunks() -> list[dict]:
-    """Embed each H (Hypothesis) YAML — sensemaking phase artifacts."""
-    h_dir = _ROOT / "research" / "h"
-    chunks = []
-    for path in sorted(h_dir.glob("H-*.yaml")):
-        try:
-            item = yaml.safe_load(path.read_text())
-        except Exception:
-            continue
-        item_id = item.get("id", path.stem)
-        question = (item.get("question") or "").strip()
-        cheap_trick = (item.get("cheap_trick") or "").strip()
-        working_statement = (item.get("working_statement") or "").strip()
-
-        embed_text = f"Hypothesis {item_id}: {question}"
-        if cheap_trick:
-            embed_text += f"\n\nCheap trick: {cheap_trick}"
-        if working_statement:
-            embed_text += f"\n\nWorking statement: {working_statement}"
-
-        chunks.append({
-            "id": f"humboldt-h-{_slugify(item_id)}",
-            "text": embed_text,
-            "metadata": {
-                "type": "hypothesis",
-                "title": f"{item_id}: {question[:80]}",
-                "item_id": item_id,
-                "source_file": f"research/h/{path.name}",
-                "text": embed_text[:2000],
-            },
-        })
-    return chunks
-
-
-def _f_chunks() -> list[dict]:
-    """Embed each F (Falsification Monitor) YAML — retrospective phase artifacts."""
-    f_dir = _ROOT / "research" / "f"
-    chunks = []
-    for path in sorted(f_dir.glob("F-*.yaml")):
-        try:
-            item = yaml.safe_load(path.read_text())
-        except Exception:
-            continue
-        item_id = item.get("id", path.stem)
-        name = item.get("name", "")
-        statement = (item.get("statement") or "").strip()
-        falsification_conditions = (item.get("falsification_conditions") or "").strip()
-
-        embed_text = f"Falsification Monitor {item_id}: {name}\n\nStatement: {statement}"
-        if falsification_conditions:
-            embed_text += f"\n\nFalsification conditions: {falsification_conditions}"
-
-        chunks.append({
-            "id": f"humboldt-f-{_slugify(item_id)}",
-            "text": embed_text,
-            "metadata": {
-                "type": "falsification_monitor",
-                "title": f"{item_id}: {name}",
-                "item_id": item_id,
-                "source_file": f"research/f/{path.name}",
+                "type": "law",
+                "title": f"{law_id}: {title}",
+                "law_id": law_id,
+                "stage": stage,
+                "confidence": confidence,
+                "source_file": f"laws/{path.name}" if path else f"laws/{law_id}.yaml",
                 "text": embed_text[:2000],
             },
         })
@@ -327,33 +253,6 @@ def _shallow_read_chunks() -> list[dict]:
     return chunks
 
 
-def _ds_chunks() -> list[dict]:
-    """Chunk each DS (Deep Story arc) markdown file by section."""
-    ds_dir = _ROOT / "research" / "ds"
-    chunks = []
-    for path in sorted(ds_dir.glob("DS-*.md")):
-        text = path.read_text()
-        title_match = re.search(r"^#\s+(.+)$", text, re.MULTILINE)
-        doc_title = title_match.group(1).strip() if title_match else path.stem
-
-        for section_title, body in _chunk_markdown(text):
-            embed_text = f"Deep Story Arc — {doc_title}: {section_title}\n\n{body}"
-            chunk_id = f"humboldt-ds-{_slugify(path.stem)}-{_slugify(section_title)}"
-            chunks.append({
-                "id": chunk_id,
-                "text": embed_text,
-                "metadata": {
-                    "type": "deep_story",
-                    "title": f"{path.stem} — {section_title}",
-                    "doc_title": doc_title,
-                    "section": section_title,
-                    "source_file": f"research/ds/{path.name}",
-                    "text": embed_text[:2000],
-                },
-            })
-    return chunks
-
-
 def _embed_batch(texts: list[str]) -> list[list[float]]:
     vc = _voyage_client()
     result = vc.embed(texts, model=_VOYAGE_MODEL, input_type="document")
@@ -388,11 +287,7 @@ def ingest_all(verbose: bool = True, force: bool = False) -> dict:
         _notebook_chunks()
         + _notes_chunks()
         + _shallow_read_chunks()
-        + _curiosity_chunks()
-        + _h_chunks()
-        + _cl_chunks()
-        + _f_chunks()
-        + _ds_chunks()
+        + _law_chunks()
         + _inbox_idea_chunks()
     )
 

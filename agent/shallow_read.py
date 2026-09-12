@@ -490,6 +490,7 @@ def shallow_read(triage_path: str, dry_run: bool = False,
     escalations: list[dict] = []
     seeds_emitted: list[str] = []
     bib_updated: list[str] = []
+    person_notebook_written = 0
 
     for i, item in enumerate(items, 1):
         inbox = _read_inbox_item(item["file"])
@@ -563,6 +564,7 @@ def shallow_read(triage_path: str, dry_run: bool = False,
                 out = generate_person_notebook_entry(handle)
                 if out:
                     print(f"    → written: {out}")
+                    person_notebook_written += 1
 
         # Delete source inbox file — content is safely in the shallow-read note
         src = _ROOT / "inbox" / item["file"]
@@ -617,6 +619,20 @@ def shallow_read(triage_path: str, dry_run: bool = False,
             "triage_source": Path(triage_path).name,
         },
     )
+
+    from agent import funnel_log
+    funnel_log.behavior_visit(
+        "shallow-read", "exploration", note=summary,
+        outputs={"shallow-note": written, "bib-entry": len(bib_updated),
+                 "seed": len(seeds_emitted)},
+    )
+    if person_notebook_written:
+        funnel_log.behavior_visit(
+            "review", "any",
+            note=f"{person_notebook_written} person-notebook entr"
+                 f"{'y' if person_notebook_written == 1 else 'ies'} from shallow-read contributions",
+            outputs={"person-notebook-entry": person_notebook_written},
+        )
 
     # Re-ingest so shallow-read notes are immediately searchable. Pinecone writes
     # are a paused side-effect like any other (session 23) — skip while paused and

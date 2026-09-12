@@ -287,7 +287,7 @@ def _split_origin(raw: str) -> tuple[str, str | None]:
     return "discovered", None
 
 
-def _apply_new_law(nl: dict) -> str:
+def _apply_new_law(nl: dict, run_id: str | None = None) -> str:
     origin, parenthetical = _split_origin(nl.get("origin", "discovered"))
     # Imports must name a source; accept it from an explicit `source` field, else
     # from a parenthetical in the origin string (`imported (Goodhart)`).
@@ -326,12 +326,12 @@ def _apply_new_law(nl: dict) -> str:
         _mark_seed_consumed(seed_id, law["id"])
 
     funnel_log.law_event("law-created", law["id"], detail=law["title"],
-                         stage="exploration", origin=origin)
+                         stage="exploration", origin=origin, run_id=run_id)
     law_notify.queue("created", law)
     return law["id"]
 
 
-def _apply_evidence(ev: dict) -> str | None:
+def _apply_evidence(ev: dict, run_id: str | None = None) -> str | None:
     law_id = str(ev.get("law", "")).strip()
     try:
         law = laws_mod.load(law_id)
@@ -349,16 +349,16 @@ def _apply_evidence(ev: dict) -> str | None:
         law.setdefault("counterexamples", []).append(item)
         laws_mod.add_history(law, "counterexample",
                              f"{bears}: {_clip(item['description'])}")
-        funnel_log.law_event("counterexample", law["id"], detail=bears)
+        funnel_log.law_event("counterexample", law["id"], detail=bears, run_id=run_id)
     elif kind == "reference":
         if src.startswith("bib-") and src not in (law.get("references") or []):
             law.setdefault("references", []).append(src)
         laws_mod.add_history(law, "evidence", f"reference {src}: {_clip(bears, 140)}")
-        funnel_log.law_event("evidence", law["id"], detail=f"reference {src}")
+        funnel_log.law_event("evidence", law["id"], detail=f"reference {src}", run_id=run_id)
     else:  # example (default)
         law.setdefault("examples", []).append(item)
         laws_mod.add_history(law, "evidence", f"{bears}: {_clip(item['description'])}")
-        funnel_log.law_event("evidence", law["id"], detail=bears)
+        funnel_log.law_event("evidence", law["id"], detail=bears, run_id=run_id)
 
     laws_mod.save(law)
     if src.startswith("bib-"):
@@ -373,6 +373,7 @@ def induct(dry_run: bool = False, since: str | None = None) -> None:
     from agent import synthesizer as synth
 
     load_dotenv(_ROOT / ".env")
+    run_id = funnel_log.new_run_id()
 
     laws = laws_mod.load_all()
     seeds = _load_open_seeds()
@@ -440,11 +441,11 @@ def induct(dry_run: bool = False, since: str | None = None) -> None:
     created, attached = [], []
     for nl in new_laws:
         try:
-            created.append(_apply_new_law(nl))
+            created.append(_apply_new_law(nl, run_id=run_id))
         except Exception as e:  # noqa: BLE001
             print(f"    ! failed to create law {nl.get('title','?')!r}: {e}")
     for ev in evidence:
-        lid = _apply_evidence(ev)
+        lid = _apply_evidence(ev, run_id=run_id)
         if lid:
             attached.append(lid)
 
@@ -454,7 +455,13 @@ def induct(dry_run: bool = False, since: str | None = None) -> None:
 
     summary = (f"Induction sweep: created {len(created)} law(s) "
                f"({', '.join(created) or 'none'}), attached {len(attached)} evidence item(s).")
-    funnel_log.behavior_visit("induct", "sensemaking", note=summary)
+    n_counterexample = sum(1 for ev in evidence
+                           if str(ev.get("kind", "example")).strip().lower() == "counterexample")
+    funnel_log.behavior_visit(
+        "induct", "sensemaking", note=summary, run_id=run_id,
+        outputs={"law-created": len(created), "evidence": len(attached) - n_counterexample,
+                 "counterexample": n_counterexample},
+    )
     from agent.pre_notebook import append as pn_append
     pn_append(process="induct", summary=summary,
               detail={"created": created, "evidence": attached, "left": len(left),

@@ -83,7 +83,14 @@ PI corpus namespaces (as of 2026-06-07):
 - Host: `PINECONE_HUMBOLDT_HOST` from env
 - Dimensions: 1024 (voyage-3) · Metric: cosine · Cloud: aws us-east-1
 - Default namespace (no namespace name)
-- 5,105 vectors (2026-06-24) — notebook, notes, shallow reads, C/H/CL research YAMLs, DS arc files, inbox ideas
+- 11,248 vectors (2026-09-12) — notebook, notes, shallow reads, law records (`laws/L-*.yaml`,
+  via `_law_chunks()`), inbox ideas. The C/H/CL/DS chunk types are gone: those source
+  directories were archived by the 2026-08 redesign, and `agent/ingest.py` had kept
+  reading them anyway (always producing 0 chunks) until session 35 fixed it — see
+  `agent/ingest.py`'s module docstring. `data/ingest_state.json` (gitignored) tracks
+  10,924 of these; the ~324-vector gap is orphaned pre-redesign vectors with no current
+  source file, invisible to the incremental delete (TODO.md, session 35) — not yet
+  cleaned up.
 
 Humboldt's own work goes here via `humboldt ingest`. Do not write to c3po namespaces.
 

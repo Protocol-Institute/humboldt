@@ -343,3 +343,15 @@ def cmd_supervisory():
             print(f"  {s['message']}")
     else:
         print("\nNo weight adjustments needed — graph looks well-calibrated.")
+
+    from agent import funnel_log
+    # No analytics-report file or queue-entry yet — this is still the CLI-only
+    # transition-weight analysis, not the widened §8 sweep. outputs={} is honest:
+    # it will start reporting real counts once cmd_supervisory writes
+    # analytics/weekly-YYYY-MM-DD.yaml and files queue entries.
+    funnel_log.behavior_visit(
+        "supervisory", "retrospective",
+        note=f"{result['log_entries']} log entries, "
+             f"{len(result.get('suggestions') or [])} suggestion(s)",
+        outputs={},
+    )

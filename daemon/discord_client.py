@@ -78,16 +78,21 @@ def _load_config() -> dict:
 
 
 def _active_hypotheses() -> list[str]:
-    cl_dir = _ROOT / "research" / "cl"
-    result = []
-    for f in sorted(cl_dir.glob("CL-*.yaml")):
-        try:
-            cl = yaml.safe_load(f.read_text())
-            if cl.get("research_status") != "archived":
-                result.append(f"{cl.get('id')} — {cl.get('name')}")
-        except Exception:
-            pass
-    return result
+    """Open lines of inquiry, for feed-relevance scoring (task_feeds).
+
+    Pre-redesign this read research/cl/ (Candidate Law records) — archived to
+    research/_archive/cl/ by the 2026-08 redesign along with the whole C/H/CL/T/F
+    schema, so the glob silently returned []. Feed relevance scoring (the single
+    largest line in the cost ledger — see analytics/op-behavior-map.yaml
+    feed_triage) has been running with an empty hypotheses list ever since,
+    unnoticed because [] looks like "no open questions right now" rather than a
+    bug. Fixed 2026-09-12 (same class as the other research/ path fixes this
+    session) to read exploration/sensemaking-stage laws via agent/laws.py.
+    """
+    from agent import laws as laws_mod
+    from agent.funnel_context import OPEN_STAGES
+    return [f"{law.get('id')} — {law.get('title', '')}"
+            for law in laws_mod.load_all() if law.get("stage") in OPEN_STAGES]
 
 
 class HumboldtBot(discord.Client):
@@ -260,6 +265,10 @@ class HumboldtBot(discord.Client):
                 )
                 prefix = "" if brief_restart else "*(catching up from while I was offline)*\n"
                 await msg.reply(f"{prefix}{response}")
+                from agent import funnel_log
+                funnel_log.behavior_visit("respond", "any",
+                                          note=f"catch-up @{msg.author.name}",
+                                          outputs={"discord-post": 1})
                 # Secondary guard: record in state so fast-path skips the Discord check next time.
                 fresh = st.load()
                 st.record_responded_mention(fresh, str(msg.id))
@@ -371,6 +380,10 @@ class HumboldtBot(discord.Client):
                         body = _resolve_mentions(body, name_to_id)
                         await msg.reply(f"*(catching up from while I was offline)*\n{body}")
                         logger.info(f"Catchup: replied to @mention from {msg.author.name} in #{ch.name}: {content[:60]}")
+                        from agent import funnel_log
+                        funnel_log.behavior_visit("respond", "any",
+                                                  note=f"catch-up @{msg.author.name} in #{ch.name}",
+                                                  outputs={"discord-post": 1})
                         fresh = st.load()
                         st.record_responded_mention(fresh, str(msg.id))
                         st.save(fresh)
@@ -507,6 +520,11 @@ class HumboldtBot(discord.Client):
         else:
             await message.reply(body)
 
+        from agent import funnel_log
+        funnel_log.behavior_visit("respond", "any",
+                                  note=f"@{message.author.name}",
+                                  outputs={"discord-post": 1})
+
         # Advance the message cursor and mark this mention as responded to.
         # This prevents _scan_missed_mentions from re-processing it on restart.
         cursor_state = st.load()
@@ -557,6 +575,11 @@ class HumboldtBot(discord.Client):
                 )
                 if out:
                     logger.info(f"Person notebook entry written: {out}")
+                    from agent import funnel_log
+                    funnel_log.behavior_visit(
+                        "review", "any", note=f"person-notebook threshold crossed: @{username}",
+                        outputs={"person-notebook-entry": 1},
+                    )
             except Exception as e:
                 logger.error(f"Person notebook entry failed for @{username}: {e}")
 
@@ -952,6 +975,14 @@ class HumboldtBot(discord.Client):
                 f"notebook={'yes' if result['notebook_written'] else 'no'}, "
                 f"refs_added={result['references_added']}"
             )
+            from agent import funnel_log
+            funnel_log.behavior_visit(
+                "review", "any",
+                note=f"daily pass: notebook={'yes' if result['notebook_written'] else 'no'}, "
+                     f"refs_added={result['references_added']}",
+                outputs={"notebook-entry": 1 if result["notebook_written"] else 0,
+                         "reference": result["references_added"]},
+            )
         except Exception as e:
             logger.error(f"Conversation review failed: {e}")
             return
@@ -1019,6 +1050,10 @@ class HumboldtBot(discord.Client):
         if saved_items:
             fresh.setdefault("pending_feed_items", []).extend(saved_items)
         st.save(fresh)
+
+        from agent import funnel_log
+        funnel_log.behavior_visit("intake", "exploration",
+                                  outputs={"inbox-item": len(saved_items)})
 
     @task_feeds.before_loop
     async def before_task_feeds(self):

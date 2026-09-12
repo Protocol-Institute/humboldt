@@ -33,13 +33,20 @@ NOTES_DIR = Path(__file__).parent.parent / "bibliography" / "notes"
 
 
 def _load_inventory() -> str:
-    """Load all law YAML files as a single string."""
-    files = sorted(LAWS_DIR.glob("*.yaml"))
-    if not files:
+    """Load all law records as a single string.
+
+    Pre-redesign this globbed research/laws/ — archived to research/_archive/
+    by the 2026-08 redesign, so it silently returned "(no laws in inventory
+    yet)" regardless of how many laws actually existed (same bug class fixed
+    2026-09-12 in daemon/conversation_review.py, agent/references.py, and
+    agent/person_notebook.py). Reads the live laws/L-*.yaml records via
+    agent/laws.py now.
+    """
+    from agent import laws as laws_mod
+    all_laws = laws_mod.load_all()
+    if not all_laws:
         return "(no laws in inventory yet)"
-    parts = []
-    for f in files:
-        parts.append(f"--- {f.name} ---\n" + f.read_text())
+    parts = [f"--- {law.get('id')} ---\n" + laws_mod.dumps(law) for law in all_laws]
     return "\n\n".join(parts)
 
 
@@ -110,7 +117,9 @@ def cmd_investigate(topic: str, namespaces: list[str] = ret.NS_BROAD):
         f"## Synthesis output\n\n{output}\n"
     )
     print(f"\nSession log saved: {log_path}")
-    print("Next: review output, create law YAML files in research/laws/")
+    print("Next: review output; capture law-shaped material as a seed in laws/seeds/ "
+          "for the next `induct` sweep, or write a law record directly under laws/ "
+          "(see `humboldt laws validate`).")
 
 
 def cmd_hypothesize(topic: str):
@@ -323,7 +332,13 @@ def cmd_deepread(doc_name: str, page_range: str = None, stream: bool = True):
         )
         print(f"\nNotes written to: {notes_file}")
 
-    print("Next: review notes, promote candidate laws to research/hypotheses/")
+    from agent import funnel_log
+    funnel_log.behavior_visit("deep-read", "exploration",
+                              note=f"{doc_stem} — {range_label}",
+                              outputs={"deep-note": 1})
+
+    print("Next: review notes; capture law-shaped material as a seed in laws/seeds/ "
+          "for the next `induct` sweep.")
 
 
 def cmd_batch_deepread(pattern: str = "arxiv-*.pdf"):
@@ -437,30 +452,19 @@ def cmd_theorize():
 
 
 def cmd_inventory():
-    """Display current law inventory."""
-    files = sorted(LAWS_DIR.glob("*.yaml"))
-    if not files:
-        print("Law inventory is empty.")
-        return
+    """Display current law inventory.
 
-    import yaml
-    print(f"\n=== HUMBOLDT Law Inventory — {len(files)} laws ===\n")
-    by_confidence = {}
-    for f in files:
-        law = yaml.safe_load(f.read_text())
-        conf = law.get("confidence", "speculative")
-        by_confidence.setdefault(conf, []).append(law)
-
-    for conf in ["established", "candidate", "contested", "speculative"]:
-        laws = by_confidence.get(conf, [])
-        if laws:
-            print(f"[{conf.upper()}]")
-            for l in laws:
-                print(f"  {l.get('id')} — {l.get('name')}")
-                domains = l.get("domains", [])
-                if domains:
-                    print(f"          domains: {', '.join(str(d) for d in domains[:3])}")
-            print()
+    Pre-redesign this globbed research/laws/ directly, grouped by a
+    ``confidence`` axis (established/candidate/contested/speculative) that no
+    longer matches the law schema. Archived to research/_archive/ by the
+    2026-08 redesign, so it silently printed "Law inventory is empty."
+    regardless of how many laws actually existed (same bug class fixed
+    2026-09-12 elsewhere — see agent/person_notebook.py). `humboldt laws list`
+    is the maintained replacement (agent/laws.py:cmd_list); this now delegates
+    to it rather than re-deriving a stale grouping.
+    """
+    from agent import laws as laws_mod
+    laws_mod.cmd_list()
 
 
 def cmd_ingest():

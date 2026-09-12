@@ -100,6 +100,8 @@ def flush() -> None:
     if not events:
         return
 
+    from agent import funnel_log
+
     from agent.publish_site import current_branch, is_production_deploy, publish_site
     try:
         published = publish_site(verbose=False)
@@ -109,6 +111,9 @@ def flush() -> None:
     if not published:
         # Announcing now would link to a page that does not yet show the law.
         print(f"  ! law-notify: site not published — holding {len(events)} announcement(s).")
+        funnel_log.behavior_visit("publish", "heavy_lift",
+                                  note="publish-site failed",
+                                  outputs={"site-deploy": 0, "discord-post": 0})
         return
     print(f"  law-notify: site published for {len(events)} law event(s)")
 
@@ -119,11 +124,16 @@ def flush() -> None:
         print(f"  (law-notify: deployed to a preview off branch "
               f"{current_branch()!r} — not announcing {len(events)} law event(s); "
               f"the public site is unchanged)")
+        funnel_log.behavior_visit("publish", "heavy_lift",
+                                  note=f"preview deploy off {current_branch()!r}",
+                                  outputs={"site-deploy": 1, "discord-post": 0})
         return
 
     from daemon.pause import is_paused
     if is_paused():
         print(f"  (law-notify: daemon paused — not announcing {len(events)} law event(s))")
+        funnel_log.behavior_visit("publish", "heavy_lift", note="daemon paused",
+                                  outputs={"site-deploy": 1, "discord-post": 0})
         return
 
     granted = _take_slots(len(events))
@@ -131,11 +141,17 @@ def flush() -> None:
         print(f"  (law-notify: daily cap {DAILY_CAP} — announcing {granted} "
               f"of {len(events)} law event(s))")
 
+    n_posted = 0
     for event, law_id, title, stage in events[:granted]:
         url = f"{_SITE_LAWS_URL}#law-{law_id}"
         text = f"**{_VERB[event]}** — {law_id} · {title} ({stage})\n{url}"
         try:
             _post_discord(text)
             print(f"  law-notify: announced {event} for {law_id}")
+            n_posted += 1
         except Exception as e:  # noqa: BLE001
             print(f"  ! law-notify: Discord post failed for {law_id}: {e}")
+
+    funnel_log.behavior_visit("publish", "heavy_lift",
+                              note=f"{len(events)} law event(s), {n_posted} announced",
+                              outputs={"site-deploy": 1, "discord-post": n_posted})

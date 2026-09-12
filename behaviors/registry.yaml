@@ -232,6 +232,30 @@ behaviors:
       ungrounded. The §9 relevance-gate rework is Phase 5 work; proactive self-initiated
       posting stays disabled (_PROACTIVE_ENGAGEMENT_ENABLED = False) until then.
 
+  - id: review
+    name: Reflective Review
+    phase: any
+    status: active
+    defined_by: supervisor
+    trigger: "Daily conversation-review pass over #new-nature (notebook synthesis + reference
+      promotion); or when a contributor's interaction/contribution count crosses the
+      person-notebook threshold"
+    action:
+      entrypoint: daemon/conversation_review.py:run_review
+      model: claude-sonnet-4-6
+      prompt:
+    produces: [notebook-entry, reference, person-notebook-entry]
+    utilization: auto
+    notes: >
+      13th behavior, added 2026-09-12 (Phase 4 instrumentation, redesign §8 decision 4).
+      daemon/conversation_review.py has run daily since session 9 with no registry entry;
+      agent/person_notebook.py (invoked from `respond`'s mention handler on threshold
+      crossing, and from `shallow-read`'s per-author contribution count) has the same
+      gap and folds in here as a second trigger, rather than being split across the
+      behaviors that happen to invoke it — splitting would double-count invocations and
+      imply MDP transitions nothing schedules, the same reasoning decision 4 gives for
+      not folding conversation_review into publish.
+
   - id: graph-evolve
     name: Graph Evolution
     phase: retrospective

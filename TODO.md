@@ -6,19 +6,27 @@ Priority: **[H]** urgent, **[M]** soon, **[L]** when convenient.
 
 ---
 
-## ⏸ RESUME HERE — session 34 paused 2026-09-09
+## ⏸ RESUME HERE — session 35 paused 2026-09-12
 
 **1. [H] Talk voice.** Blocked on one operator action: download macOS Premium/Enhanced
 voices (System Settings → Accessibility → Spoken Content → System Voice → Manage Voices).
-Full detail and the next-session steps in `plans/talk-2026-09-23.md` §5.8. Pacing is
-already fixed; only timbre is open. **14 days to the talk as of the pause.**
+Full detail in `plans/talk-2026-09-23.md` §5.8. **Content changed since that note was
+written** — the talk was rebuilt and deployed session 35 (§5.9): 15 slides → 14, old
+audio deleted as mismatched. This is now a full re-voice of the new track from scratch,
+not a resume of the old 12:12 render. **11 days to the talk as of this pause.**
 
-**2. [H] Phase 4 — instrumentation.** All five schema decisions are locked
-(`plans/redesign-2026-08.md` §8 "Decisions locked 2026-09-09"). The remaining work, in
-order: wire `behavior_visit` into the seven uninstrumented entrypoints (registry names
-every one), add `run_id` correlation, then the flag heuristics. **One number still to
-choose:** the collapse threshold for the self-relative prune test — now calibratable
-against real data via `humboldt analytics utilization`, so pick it empirically.
+**2. [H] Phase 4 — instrumentation. DONE (session 35, 2026-09-12).** All 13 registry
+behaviors now call `funnel_log.behavior_visit` (the 7 previously-uninstrumented active
+behaviors, plus a new 13th, `review`, for `daemon/conversation_review.py` +
+`agent/person_notebook.py` — decision 4); `outputs` dict + `run_id` added per decisions
+2–3; `mdp.yaml` edge `review → orient`; `analytics/op-behavior-map.yaml` remapped off
+`behavior: null`. Verified live via `humboldt analytics utilization`. Drive-by finding,
+not fixed: `daemon/presence.py:generate_person_notebook_entry` appears to be dead code
+(no caller found) — left unmapped rather than silently deleted.
+**Still open:** the flag heuristics (prune/split/stall) — the [OPUS] half of Phase 4 —
+and the one number they need: the collapse threshold for the self-relative prune test.
+Now calibratable against real data via `humboldt analytics utilization` once a few weeks
+of `visits` accumulate under the new instrumentation; don't guess it before then.
 
 **3. [M] Phase 5.** `plans/phase5-vm-cutover.md` is the runbook. §4.2 corrected
 2026-09-09: deploy keys are **disabled org-wide** on Protocol-Institute, so it specifies a
@@ -31,6 +39,37 @@ cite either id, so which id survives is a supervisor call.
 
 **5. [L] Site.** The 49 `read_depth: listed` sources are a real backlog signal — registered
 but never read — now visible on `/reading/`.
+
+---
+
+## ⚠ Found + fixed (session 35, 2026-09-12): law records were invisible to corpus retrieval
+
+While fixing the `research/laws/`/`research/hypotheses/` stale-path bugs above, found that
+`agent/ingest.py` never got a `_law_chunks()` equivalent when the 2026-08 redesign retired
+the old `_cl_chunks()`/`_h_chunks()`/`_f_chunks()` (and `_curiosity_chunks()`,
+`_ds_chunks()`) — their source directories are archived, so they'd been silently
+contributing zero chunks. **Every law created since the redesign merge (all 20) has been
+absent from the `humboldt` Pinecone namespace** — `agent/induct.py`'s own comment
+("the ingest embedded it") and its post-sweep "run `humboldt ingest`" instruction were
+describing behavior that had quietly stopped. This means `respond`'s and `assess`'s
+retrieval against the `humboldt` namespace has been searching notebook/notes/shallow-reads
+only, never the law statements/mechanisms/examples themselves, since the merge.
+
+**Fixed:** `_law_chunks()` added (one chunk per law, via `agent/laws.py`), wired into
+`ingest_all()`; the five dead functions deleted rather than kept as always-empty dead
+weight. Ran `humboldt ingest` — 43 upserted (20 new law chunks + 23 changed notebook/notes),
+0 deleted. **Verified live**: a `multi_retrieve` query for "protocol ossification adoption
+pressure" now returns an `L-001` law-type hit alongside the pre-existing notebook/shallow-
+read hits.
+
+**Not chased further:** the same query also returned a `deep_story` (`DS-001-ossification`)
+hit — a vector embedded before the redesign, whose id isn't in `data/ingest_state.json`
+(so the incremental cleanup can't see it to delete it). There may be other pre-redesign
+orphan vectors (old `curiosity`/`candidate_law`/`hypothesis`/`falsification_monitor`/
+`deep_story` types) sitting in the live `humboldt` index with no corresponding source file.
+Not harmful — just redundant — but cleaning it up means enumerating the index directly
+(`index.list()`) and deleting by id, which is a production-data operation worth doing
+deliberately rather than as a side effect of a bug fix.
 
 ---
 
@@ -145,11 +184,37 @@ Phase 5 call, not a bug fix.
 counterexample on L-001** first when reads return — it is heavy-lift/supported, so it
 outranks the five new exploration laws.
 
-**Also found this session, not yet fixed:** `agent/references.py` still reads the dead
+**FIXED (session 35, 2026-09-12):** `agent/references.py` read the dead
 `research/hypotheses/`/`research/laws/` path — same bug class as the triage/shallow-read
-and daemon-presence fixes, but the module is still live (`conversation_review
-.promote_inbox_links`, and `bibliography.py` itself imports it). Now that the daemon is
-unpaused this runs daily again — worth prioritizing over "not urgent."
+and daemon-presence fixes. While fixing that, found and fixed three more live instances
+of the same bug, all silently degrading to empty context rather than crashing:
+`daemon/conversation_review.py:_load_slim_context()` (feeds the daily notebook-synthesis
+prompt), `agent/person_notebook.py:generate_person_notebook_entry()` (feeds the
+person-notebook prompt — the exact path Phase 4 just instrumented under `review`), and
+`agent/humboldt.py:_load_inventory()`/`cmd_inventory()` (the `humboldt inventory` CLI
+command, which had been silently printing "Law inventory is empty." regardless of the 20
+real laws on file — `cmd_inventory` now delegates to `agent/laws.py:cmd_list`, the
+already-correct replacement). All four now read live `laws/L-*.yaml` records via
+`agent/laws.py`, matching `agent/funnel_context.py`'s pattern. Also corrected two stale
+`research/laws/`/`research/hypotheses/` mentions in `cmd_investigate`/`cmd_deepread`'s
+"next step" print statements. `agent/humboldt.py:cmd_assess_evidence` still references
+the dead path but is explicitly marked LEGACY/unbound/not wired into the CLI dispatcher —
+left alone. Not touched: the same stale paths in `README.md`, `ROADMAP.md`, `SOUL.md`,
+`methods/M-*.md`, `_template/METHOD-template.md` — these are docs the redesign plan §10
+already schedules for archival/rewrite, not a quick grep-fix.
+
+**A fifth live instance, found after the above:** `daemon/discord_client.py:_active_hypotheses()`
+read the dead `research/cl/` (Candidate Law) path and fed the result straight into
+`task_feeds`'s relevance scoring — the single largest line in the cost ledger (`feed_triage`,
+5,614 calls). Feed-relevance scoring has been running with an empty hypotheses list since
+the redesign merged, silently, for the same reason as the rest of this bug class. Fixed
+the same way: reads exploration/sensemaking-stage laws via `agent/laws.py` now.
+
+**And the big one, same session:** `agent/ingest.py` had the identical bug at index-write
+time, not just at prompt-read time — see the dedicated section below ("law records were
+invisible to corpus retrieval"). All fixes in this bug class are now believed exhaustive
+for `.py` files (confirmed via repo-wide grep for `research/(laws|hypotheses|cl|c|h|f|ds)`
+outside `research/_archive/`); the remaining hits are documentation files, listed above.
 
 **After Phase 2:** Phase 3 (graph + console) → Phase 4 (analytics) → **Phase 5 (server
 cutover + quiet-mode Discord = off-laptop)**.

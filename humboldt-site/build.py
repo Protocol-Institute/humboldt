@@ -703,6 +703,84 @@ def _build_architecture() -> None:
 
 _TRACK_SECTION_RE = re.compile(r"^## (\d{2}) — (.*)$", re.M)
 
+# Phase name/color pairs, hardcoded rather than read from behaviors/mdp.yaml — keeps
+# this module self-contained per the note above, and phase identity/color changes rarely
+# enough that a copy here is fine. Order and colors as of mdp.yaml `phases:` (session
+# 35, 2026-09-12); "any" (out-of-flow, order -1) excluded — it isn't part of the arc.
+_FREYTAG_PHASES = [
+    ("Liminal Passage", "#8b949e"),
+    ("Exploration",      "#58a6ff"),
+    ("Sensemaking",       "#bc8cff"),
+    ("Valley",            "#3fb950"),
+    ("Heavy Lift",        "#f78166"),
+    ("Retrospective",     "#f1e05a"),
+]
+
+
+def _freytag_diagram_svg() -> str:
+    """Inline SVG of the Double Freytag phase-flow: six phases in sequence, a
+    cycle-back arc from Retrospective to Liminal Passage. Built for the talk deck
+    (session 35, 2026-09-12) — no diagram existed anywhere in the codebase for this
+    before; the console's graph view (behaviors/console.html) draws a similar flow
+    client-side from mdp.yaml but nothing static and embeddable existed."""
+    box_w, box_h, gap = 140, 64, 20
+    n = len(_FREYTAG_PHASES)
+    total_w = n * box_w + (n - 1) * gap
+    start_x = (1000 - total_w) / 2
+    y = 76
+    mid_y = y + box_h / 2
+
+    boxes, arrows, labels = [], [], []
+    centers = []
+    for i, (name, color) in enumerate(_FREYTAG_PHASES):
+        x = start_x + i * (box_w + gap)
+        centers.append(x + box_w / 2)
+        boxes.append(
+            f'<rect x="{x:.1f}" y="{y}" width="{box_w}" height="{box_h}" rx="8" '
+            f'fill="{color}" fill-opacity="0.16" stroke="{color}" stroke-width="1.5"/>'
+        )
+        labels.append(
+            f'<text x="{x + box_w / 2:.1f}" y="{mid_y:.1f}" text-anchor="middle" '
+            f'dominant-baseline="middle" fill="#e6e6e6" font-size="15" '
+            f'font-family="inherit">{name}</text>'
+        )
+        if i > 0:
+            x_prev_end = start_x + (i - 1) * (box_w + gap) + box_w
+            arrows.append(
+                f'<line x1="{x_prev_end:.1f}" y1="{mid_y:.1f}" x2="{x - 4:.1f}" '
+                f'y2="{mid_y:.1f}" stroke="#7f8790" stroke-width="1.5" '
+                f'marker-end="url(#freytag-arrow)"/>'
+            )
+
+    cb_x1, cb_x2 = centers[-1], centers[0]
+    cb_y_top = y + box_h + 8
+    cb_y_bottom = cb_y_top + 56
+    cycle_back = (
+        f'<path d="M {cb_x1:.1f} {cb_y_top} '
+        f'C {cb_x1:.1f} {cb_y_bottom}, {cb_x2:.1f} {cb_y_bottom}, {cb_x2:.1f} {cb_y_top + 6}" '
+        f'fill="none" stroke="#7f8790" stroke-width="1.5" stroke-dasharray="5,4" '
+        f'marker-end="url(#freytag-arrow)"/>'
+        f'<text x="{(cb_x1 + cb_x2) / 2:.1f}" y="{cb_y_bottom + 20}" text-anchor="middle" '
+        f'fill="#7f8790" font-size="12" font-family="inherit">cycle back — a retrospective '
+        f'challenge can reopen the arc</text>'
+    )
+
+    return f'''<svg viewBox="0 0 1000 240" style="width:100%;height:auto" role="img"
+     aria-label="Double Freytag phase model: Liminal Passage, Exploration, Sensemaking,
+     Valley, Heavy Lift, Retrospective, in sequence, with a cycle-back arc from
+     Retrospective to Liminal Passage.">
+  <defs>
+    <marker id="freytag-arrow" viewBox="0 0 10 10" refX="8" refY="5"
+            markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#7f8790"/>
+    </marker>
+  </defs>
+  {"".join(boxes)}
+  {"".join(arrows)}
+  {"".join(labels)}
+  {cycle_back}
+</svg>'''
+
 
 def _read_talk_track(path: Path) -> dict[str, str]:
     """Parse track.md into {slide_id: narration}. Mirrors agent.talk._read_track."""
@@ -767,6 +845,9 @@ def _build_talk() -> None:
         jump = (f'<button class="slide-jump" data-slide="{sid}" '
                 f'title="Play from slide {sid}">&#9654;</button>' ) if audio_dir.exists() else ""
         bullets = "".join(f"<li>{b}</li>" for b in s.get("bullets", []))
+        diagram_html = ""
+        if s.get("diagram") == "freytag":
+            diagram_html = f'<div class="slide-diagram">{_freytag_diagram_svg()}</div>'
         narr_html = md_lib.markdown(narration) if narration else "<p><em>No narration yet.</em></p>"
 
         note = (s.get("notes") or "").strip()
@@ -791,6 +872,7 @@ def _build_talk() -> None:
       <h2>{s_title}</h2>
       <div class="slide-projected">
         <span class="projected-label">On screen</span>
+        {diagram_html}
         <ul>{bullets}</ul>
       </div>
       <div class="slide-narration">
@@ -817,6 +899,7 @@ def _build_talk() -> None:
             "title": s_.get("title", ""),
             "law": s_.get("law_id") or "",
             "bullets": list(s_.get("bullets") or []),
+            "diagram": _freytag_diagram_svg() if s_.get("diagram") == "freytag" else None,
             "audio": f"audio/slide-{sid}.mp3" if mp3.exists() else None,
             "dur": round(float(timing.get(sid, 0)), 1),
         })
@@ -834,6 +917,7 @@ def _build_talk() -> None:
             <span id="stage-law"></span>
           </div>
           <h2 id="stage-title"></h2>
+          <div id="stage-diagram" class="stage-diagram" hidden></div>
           <ul id="stage-bullets"></ul>
         </div>
       </div>
@@ -906,6 +990,9 @@ def _build_talk() -> None:
     #stage-bullets li { color: #d8dade; max-width: none; margin-bottom: 0.5rem;
       font-size: clamp(0.8rem, 1.65vw, 1.05rem); line-height: 1.45; }
     #stage-bullets li::marker { color: #6f7780; }
+    .stage-diagram { margin: 0 0 clamp(0.6rem, 1.6vw, 1.1rem); }
+    .stage-diagram svg, .slide-diagram svg { display: block; width: 100%; height: auto; }
+    .slide-diagram { margin-bottom: 0.9rem; }
 
     .player-bar { display: flex; align-items: center; gap: 0.6rem; margin-top: 0.85rem;
       flex-wrap: wrap; }
@@ -1017,6 +1104,14 @@ def _build_talk() -> None:
         document.getElementById('stage-law').innerHTML =
           d.law ? '<span class="law-tag">' + d.law + '</span>' : '';
         document.getElementById('stage-title').textContent = d.title;
+        var dia = document.getElementById('stage-diagram');
+        if (d.diagram) {
+          dia.innerHTML = d.diagram;
+          dia.hidden = false;
+        } else {
+          dia.innerHTML = '';
+          dia.hidden = true;
+        }
         var ul = document.getElementById('stage-bullets');
         ul.innerHTML = '';
         d.bullets.forEach(function (b) {

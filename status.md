@@ -4,6 +4,39 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-09-12 (session 35) — Phase 4 instrumentation wired; ingest.py law-embedding gap fixed; talk rebuilt and deployed
+
+**Daemon PID:** 1869 (running, unpaused). Untouched this session.
+
+- **Phase 4 instrumentation done:** all 13 registry behaviors now call
+  `funnel_log.behavior_visit` (7 wired this session + a new 13th, `review`); `outputs`
+  dict + `run_id` added per decisions 2–3. Flag heuristics still deliberately unbuilt —
+  need real `visits` data first.
+- **Found and fixed a stale-path bug class:** the 2026-08 redesign archived
+  `research/{laws,hypotheses,c,cl,h,f,ds}/`, and five modules kept reading the dead
+  paths, degrading silently (empty context, not a crash). Worst instance:
+  `agent/ingest.py` never got a law-record replacement for the retired chunk types, so
+  **all 20 laws have been invisible to corpus retrieval since the redesign merged.**
+  Fixed with `_law_chunks()`; ran `humboldt ingest`; verified a law-type hit comes back
+  live. Humboldt index 5,105 (stale count) → 11,248 vectors. Also fixed:
+  `daemon/discord_client.py:_active_hypotheses()` (feeds `task_feeds`, the ledger's
+  largest line), `daemon/conversation_review.py`, `agent/references.py`,
+  `agent/person_notebook.py`, `humboldt inventory`.
+- **Talk rebuilt on operator direction and deployed to production** (review round 2):
+  cold-open example before method, a new phase-model diagram (didn't exist before),
+  a new "not a specialist prover" motivation slide, all seven laws collapsed to one
+  uniform whistle-stop beat, all per-law meta-commentary consolidated into two
+  retrospective slides after the tour. 15 slides → 14, ~12:12 → ~9:14 estimated. Old
+  audio (content-mismatched with the new structure) deleted rather than left stale.
+
+**Open:** talk voice still blocked on the operator's premium-voice download (now a full
+re-voice, not a resume); Phase 4 flag-heuristic threshold needs weeks of real data;
+~324 orphan vectors in the humboldt Pinecone index need a deliberate cleanup pass;
+`daemon/presence.py:generate_person_notebook_entry` likely dead code; duplicate
+bibliography records and Phase 5 VM cutover unchanged, still need the operator.
+
+---
+
 ## 2026-09-09 (session 34) — Redesign merged to production; talk playable; Phase 4 decisions locked
 
 **Daemon PID:** 1869 (running, unpaused). Untouched this session.

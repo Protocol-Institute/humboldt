@@ -1,18 +1,23 @@
 """
 analytics.py — per-behavior utilization from the ledgers that already exist (redesign §8).
 
-Phase 4's premise was that utilization is blind because only induct and assess call
-funnel_log.behavior_visit. That is true of *invocations*. It is not true of API traffic:
-daemon/costs.jsonl has recorded every model call with an `op` label since May, 8,089 of
-them, and analytics/op-behavior-map.yaml joins those labels to registry behavior ids.
-That gives months of retrospective utilization now, which is what the flag thresholds
-need in order to be calibrated rather than guessed.
+Phase 4's premise was that utilization is blind because only induct and assess called
+funnel_log.behavior_visit. That was true of *invocations* until 2026-09-12 (session 35),
+when the remaining seven active behaviors — plus a 13th, `review` (decision 4) — were
+instrumented; it was never true of API traffic: daemon/costs.jsonl has recorded every
+model call with an `op` label since May, 8,089 of them, and analytics/op-behavior-map.yaml
+joins those labels to registry behavior ids. That gave months of retrospective utilization
+before the invocation ledger held anything, which is what the flag thresholds need in
+order to be calibrated rather than guessed — still true now that visits accumulate too,
+since a few weeks of `visits` data is not yet the months of history `calls` already has.
 
 Three sources, three different units — kept separate on purpose, because collapsing them
 produces a number that looks authoritative and means nothing:
 
   calls    daemon/costs.jsonl      one model API call. A sweep makes several.
-  visits   behaviors/log.jsonl     one behavior invocation. Only induct/assess emit these.
+  visits   behaviors/log.jsonl     one behavior invocation. All 13 registry behaviors
+                                    emit these now; rows before 2026-09-12 came only from
+                                    induct/assess and carry no `outputs`/`run_id`.
   events   analytics/events.jsonl  one law lifecycle event. The §8 KPI series.
 
 `calls` is a proxy for how busy a behavior is, never for how often it ran, and for

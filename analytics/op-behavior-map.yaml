@@ -8,8 +8,8 @@
 #
 # A call is NOT an invocation. One `induct` sweep makes several API calls, so these
 # counts measure API traffic and spend, not how often a behavior ran. Invocation counts
-# come from behavior_visit once the seven uninstrumented entrypoints are wired. Both are
-# needed; neither substitutes for the other.
+# come from behavior_visit — all 13 registry behaviors call it as of 2026-09-12 (Phase 4
+# instrumentation, session 35). Both are needed; neither substitutes for the other.
 #
 # `behavior: null` means deliberately unmapped, not unclassified — the reason is on the
 # record. Keep those entries: an op that vanishes from this file becomes invisible rather
@@ -19,7 +19,7 @@
 # nothing enforces it.
 
 version: 1
-updated: "2026-09-09"
+updated: "2026-09-12"
 
 ops:
 
@@ -86,26 +86,32 @@ ops:
     behavior: publish
     emitted_by: daemon/presence.py:generate_feed_digest_post
 
-  # ── deliberately unmapped ──
+  # ── review (13th behavior, added 2026-09-12 — decision 4) ──
   conversation_review:
-    behavior: null
+    behavior: review
     emitted_by: daemon/conversation_review.py:generate_notebook_synthesis
     note: >
       The autonomous-daemon Layer 1 loop: reads Discord, writes a notebook entry, promotes
-      references. It spans intake and publish and matches neither cleanly. The §6.1 prune
-      kept 12 behaviors and this loop was not among them, so it currently runs daily
-      without a behavior to account for it. Needs a supervisor decision: fold into
-      publish, split across intake/publish, or admit a 13th behavior.
+      references. Was unmapped (behavior: null) because the §6.1 prune kept 12 behaviors
+      and this loop was not among them; decision 4 admitted `review` as a 13th behavior
+      rather than folding it into publish or splitting it across intake/publish.
 
   person_notebook:
-    behavior: null
+    behavior: review
     emitted_by: agent/person_notebook.py:generate_person_notebook_entry
-    note: Same gap as conversation_review — a real recurring process with no registry entry.
+    note: Same gap as conversation_review, same resolution — folds into `review`.
   person_notebook_entry:
     behavior: null
     emitted_by: daemon/presence.py:generate_person_notebook_entry
-    note: Duplicate label for the same work as person_notebook, from the daemon path.
+    note: >
+      Duplicate label for the same work as person_notebook, from the daemon path — but
+      grep at 2026-09-12 found no caller of daemon/presence.py:generate_person_notebook_entry
+      anywhere in agent/ or daemon/. Left unmapped (behavior: null) rather than pointed at
+      `review`: mapping a dead call site to a live behavior would make the ledger claim
+      invocations that cannot happen. Confirm dead and delete, or find the caller, before
+      the next time this file is touched.
 
+  # ── deliberately unmapped ──
   talk-draft:
     behavior: null
     emitted_by: agent/talk.py:draft (operation="talk-draft")

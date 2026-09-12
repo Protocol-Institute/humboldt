@@ -6,6 +6,88 @@ Most recent entry first.
 
 ---
 
+## 2026-09-12 (session 35) — Phase 4 instrumentation wired; a whole bug class found and fixed; talk rebuilt and deployed
+
+**Tracks active:** T2 (instrumentation, bug fixes, talk content/infra) / T3 (nothing extracted)
+**Daemon PID:** 1869 (running, unpaused, untouched this session)
+
+**Phase 4 instrumentation wiring is done.** All 7 previously-uninstrumented active
+behaviors (intake, triage, shallow-read, deep-read, publish, respond, supervisory) now
+call `funnel_log.behavior_visit`. `behavior_visit` gained an `outputs` dict keyed by
+registry `produces:` types and `induct`/`assess` mint a `run_id` per sweep carried onto
+that sweep's `law_event` rows (decisions 2–3, locked session 34). A 13th behavior,
+`review`, was admitted for `daemon/conversation_review.py` and `agent/person_notebook.py`
+(decision 4) — verified live: `analytics utilization` went from showing this work as
+`behavior: null` (real cost, no accounting) to 116 calls / $1.27 correctly attributed.
+Flag heuristics (prune/split/stall) are still deliberately unbuilt — they need weeks of
+real `visits` data to calibrate the one open number (the self-relative collapse
+threshold), which only exists now that instrumentation is live.
+
+**Found and fixed a whole bug class while wiring it: the 2026-08 redesign archived
+`research/{laws,hypotheses,c,cl,h,f,ds}/`, and several modules kept reading the dead
+paths anyway.** `Path.glob()` on a missing directory returns empty rather than erroring,
+so every one of these degraded silently instead of crashing:
+- `daemon/discord_client.py:_active_hypotheses()` — feeds `task_feeds`, the single
+  largest line in the cost ledger (5,614 calls). Feed-relevance scoring has been running
+  with an empty hypotheses list since the merge, invisible because `[]` reads as
+  "nothing open" rather than "broken."
+- `daemon/conversation_review.py`, `agent/references.py`, `agent/person_notebook.py` —
+  three prompt-context builders, all missing their law/hypothesis context.
+- `agent/humboldt.py:cmd_inventory` — `humboldt inventory` printed "Law inventory is
+  empty." regardless of the 20 real laws on file; now delegates to `laws.py:cmd_list`.
+- **The big one: `agent/ingest.py` never got a replacement for `_cl_chunks()` /
+  `_h_chunks()` / `_f_chunks()` when the schema retired, so all 20 law records have
+  been invisible to corpus retrieval since the redesign merged.** `agent/induct.py`'s
+  own comment ("the ingest embedded it") was describing behavior that had quietly
+  stopped. Wrote `_law_chunks()`, deleted the five now-permanently-dead functions
+  (their source directories will never hold files again), ran `humboldt ingest` (43
+  upserted), and verified live: a retrieval query for "protocol ossification" now
+  returns an `L-001` law-type hit. Humboldt index: 5,105 (stale, 2026-06-24) →
+  11,248 vectors. Found in passing, not chased: ~324 of those are orphan pre-redesign
+  vectors with no current source file, invisible to the incremental delete because
+  `data/ingest_state.json` never tracked them — cleanup needs enumerating the live
+  index directly, deliberately, not as a side effect of a bug fix.
+
+**Talk content rebuilt on operator direction and deployed.** The rhetorical sequence
+had two problems: it opened with method before showing what a "law" even looks like,
+and it scattered confidence/counterexample commentary across nine of fifteen slides
+instead of letting the law tour read as a tour. Rebuilt: cold open with one concrete law
+(ossification, told as a story) before any method talk; the phase model presented as
+the scaffolding that found it, alongside a new diagram — `_freytag_diagram_svg()`,
+`humboldt-site/build.py`, no diagram existed anywhere in the codebase for this before;
+a new slide naming what kind of researcher this is (a discovery researcher hunting
+questions, not a specialist prover of known theorems); then all seven laws at one
+uniform whistle-stop beat — state, two examples, brief mechanism, no hedging; then two
+retrospective slides absorbing every piece of per-law meta-commentary the old deck had
+threaded through the tour (L-001's live counterexample and rival mechanism, L-002's
+evidence frontier, the general counterevidence stance). 15 slides → 14; 1,750 words →
+1,433; ~12:12 measured → ~9:14 estimated. `track.md` hand-written rather than drafted —
+the change was large enough that redrafting from the old `talk draft` prompt against the
+new structure would have fought it rather than produced it — but `prompts/talk.md` was
+updated to describe the new beats anyway, so a future `draft` run doesn't regenerate the
+old shape. The 15 old `audio/*.mp3` files were `say`-rendered for the OLD track and would
+have played mismatched narration under the new slide numbers by filename coincidence;
+deleted along with `timing.json` rather than left stale — voice work still waits on the
+operator's premium-voice download either way (unchanged from session 34). Verified the
+diagram visually in a browser before shipping, not just structurally. Deployed to
+production (`review_round` 2) — confirmed live via direct fetch, not just a successful
+`wrangler` exit code.
+
+**Open (next session):**
+- Talk voice: still blocked on the operator downloading macOS Premium/Enhanced voices;
+  the render this unblocks is now a full re-voice of the 14-slide track from scratch,
+  not a resume.
+- Phase 4 flag heuristics (prune/split/stall) — needs a few weeks of real `visits` data
+  before the collapse threshold can be chosen on evidence rather than guessed.
+- Pinecone `humboldt` index orphan-vector cleanup (~324 vectors) — needs a direct
+  `index.list()` enumeration, done deliberately.
+- `daemon/presence.py:generate_person_notebook_entry` — likely dead code (no caller
+  found); confirm and delete, or find the caller.
+- Duplicate bibliography records (6 slugs), Phase 5 VM cutover — unchanged, still need
+  the operator.
+
+---
+
 ## 2026-09-09 (session 34) — Talk published + played; redesign merged to production; Phase 4 decisions locked
 
 **Tracks active:** T2 (site, merge, analytics groundwork, security) / T3 (nothing extracted)

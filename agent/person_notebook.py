@@ -73,7 +73,6 @@ def generate_person_notebook_entry(handle: str) -> str | None:
     Generate and write a person notebook entry for `handle`.
     Returns the output path, or None if generation failed.
     """
-    import yaml
     from dotenv import load_dotenv
     import anthropic
     from daemon import people as ppl
@@ -87,15 +86,17 @@ def generate_person_notebook_entry(handle: str) -> str | None:
         print(f"  person_notebook: no model for '{handle}'")
         return None
 
-    # Build brief laws context
-    laws_dir = _ROOT / "research" / "laws"
-    law_lines = []
-    for f in sorted(laws_dir.glob("*.yaml")):
-        try:
-            law = yaml.safe_load(f.read_text())
-            law_lines.append(f"  {law.get('id')}: {law.get('name')} — {str(law.get('statement', ''))[:100]}")
-        except Exception:
-            pass
+    # Build brief laws context. Pre-redesign this read research/laws/ — archived
+    # to research/_archive/ by the 2026-08 redesign, so the glob silently matched
+    # nothing rather than crashing (same bug class fixed 2026-09-12 in
+    # daemon/conversation_review.py and agent/references.py). Reads the live
+    # laws/L-*.yaml records via agent/laws.py now.
+    from agent import laws as laws_mod
+    law_lines = [
+        f"  {law.get('id')} [{law.get('stage')}]: {law.get('title', '')} — "
+        f"{str(law.get('statement', ''))[:100]}"
+        for law in laws_mod.load_all()
+    ]
     laws_context = "\n".join(law_lines) if law_lines else "(no laws yet)"
 
     client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
