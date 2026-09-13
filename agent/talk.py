@@ -47,7 +47,14 @@ _OODA = _ROOT / "methods" / "M-000-ooda.md"
 TALK_MODEL = "claude-opus-4-8"   # brief.md / plan: draft is a heavy-lift composition pass
 TALK_MAX_TOKENS = 8000
 
-DEFAULT_VOICE = "Daniel"
+# Oliver (Enhanced) chosen 2026-09-13 over compact Daniel and Daniel (Enhanced) in a
+# side-by-side on slide 01. Two reasons, only one of them timbre:
+#   1. Operator preference, blind-ish A/B on the same text ("much better than Daniel basic").
+#   2. It restores rate control, which compact Daniel never had — see the prosody note.
+# NOTE the name must be passed with its suffix: `say -v "Oliver (Enhanced)"`. It is a
+# separate downloaded asset (System Settings > Accessibility > Spoken Content > Manage
+# Voices), NOT a modifier on "Oliver", and it is not present on a stock macOS install.
+DEFAULT_VOICE = "Oliver (Enhanced)"
 DEFAULT_RATE = 140
 
 # TTS-hazard patterns (prompts/talk.md hard constraints) — flagged, not auto-fixed;
@@ -309,11 +316,33 @@ def check() -> bool:
 # the clips with ffmpeg. That keeps rate control, and makes pause length exact rather
 # than whatever the synthesiser feels like.
 #
+# 2026-09-13 — the `-r` failure is WIDER than the embedded-command case above. Measured
+# with bare `say` on slide 01, no embedded commands anywhere:
+#
+#     rate        110     125     140     155     180     220
+#     Daniel     68.8s     —    68.8s     —       —     50.6s   <- identical 110 vs 140
+#     Oliver(E)  65.3s   62.5s   59.9s   58.4s   58.0s   47.8s
+#
+# Compact Daniel IGNORES `-r` across the whole usable band and only responds past ~180.
+# So every render before this date — including the audio deployed to the public site on
+# 2026-09-12 — ran at Daniel's default rate, and DEFAULT_RATE was decorative. Any wpm
+# calibration derived from those renders (e.g. the "~155 wpm effective" figure in
+# talks/*/slides.yaml) was fitted to a number that had no effect; re-measure, don't trust.
+# Enhanced voices do respond, but saturate: treat 110-155 as the usable band for Oliver
+# and expect nothing from 155-180.
+#
+# Because rate is a weak lever, PAUSE LENGTH is the real control for perceived pace.
+# Operator A/B 2026-09-13: r125 vs r140 was ~indistinguishable (4% duration), while the
+# same seconds moved into wider gaps was clearly audible. Silence as a share of the clip
+# is the number to tune — 7.9% at 850/450, 11.1% at 1200/650, 14.0% at 1600/850. The
+# 1200/650 default below was chosen over 1600/850 on runtime budget, not on preference:
+# the operator liked both, so the cheaper one won.
+#
 # Values are longer than they look right on the page; a pause that reads as excessive in
 # text is roughly correct aloud, especially before a sentence that changes direction.
 
-PAUSE_PARAGRAPH = 850    # a new beat within the slide — the speaker resets
-PAUSE_SENTENCE  = 450    # full stop, question mark
+PAUSE_PARAGRAPH = 1200   # a new beat within the slide — the speaker resets
+PAUSE_SENTENCE  = 650    # full stop, question mark
 PAUSE_COMMA     = 0      # left to the synthesiser; splicing every comma sounds robotic
 
 _ABBREV = re.compile(r"\b(?:e\.g|i\.e|cf|vs|etc|Dr|Mr|Ms|St|approx)\.$", re.I)

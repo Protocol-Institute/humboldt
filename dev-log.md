@@ -6,6 +6,109 @@ Most recent entry first.
 
 ---
 
+## 2026-09-13 (session 36) — Talk voice upgraded (Oliver Enhanced), `-r` found to be a no-op, Freytag diagram replaced with the real arc
+
+**Tracks active:** T2 (voice pipeline, talk content, site build) / T3 (nothing extracted)
+**Daemon PID:** 1869 (running, unpaused, untouched this session)
+
+Started as "get a better voice", ended up touching the render pipeline, the talk's
+rhetorical spine, and a cache bug that had been silently misleading the operator.
+
+**Voice.** The machine had no Enhanced/Premium voices installed at all; `say -v '?'`
+returned only the stock compact set. Operator downloaded Daniel (Enhanced), Oliver
+(Enhanced) and Serena (Premium) — note Apple ships **no Premium tier for Daniel or
+Oliver**, so "Oliver Premium" does not exist. Side-by-side on slide 01 picked Oliver
+(Enhanced). `DEFAULT_VOICE` is now `"Oliver (Enhanced)"`, which must be passed with the
+suffix (`say -v "Oliver (Enhanced)"`) — it is a separate downloaded asset, absent on a
+stock macOS install, so a fresh clone cannot voice the talk without that download.
+
+**The `-r` finding, which invalidates a calibration.** talk.py already documented that
+embedded `[[slnc]]` markers make `-r` unreliable. Measured with bare `say`, no embedded
+commands, the failure is much wider: compact Daniel returns *identical* durations at
+rate 110 and 140 and only responds past ~180. So every render before this session —
+including the audio deployed to the public site on 2026-09-12 — ran at Daniel's default
+rate, and `DEFAULT_RATE = 140` was decorative. The `wpm_effective: 155` figure in
+slides.yaml, and the per-slide `word_budget`s derived from it, were fitted to a
+parameter that did nothing. They are soft numbers now; `talk check` still enforces them
+but they want re-fitting against Oliver once the content settles. Oliver *does* respond
+(65.3s → 58.4s across 110–155) but saturates above ~155. Full table is in the prosody
+comment block in talk.py.
+
+**Pauses, not rate, are the pace lever.** r125 vs r140 was perceptually
+indistinguishable to the operator (4% duration). The same seconds moved into wider gaps
+was clearly audible. `PAUSE_PARAGRAPH`/`PAUSE_SENTENCE` are now 1200/650 (was 850/450),
+taking deliberate silence from 7.9% to 11.1% of each clip. 1600/850 was also liked; 1200
+won on runtime budget. Worth recording that the budget argument I used for that choice
+was computed off a stale estimate and was weaker than stated — 1600/850 would in fact
+have fit.
+
+**The Double Freytag diagram was wrong and is now the real one.** Session 35 drew a
+six-box phase *flow*. That was never the Double Freytag: the model is a two-peak entropy
+curve where the peaks are the two gating events (Cheap Trick, Separation Event), the
+Separation peak is taller because entropy rises again through the heavy lift, and the
+Valley is the shared basin of two nested arcs. I started rebuilding it from the Tempo
+reading notes, then the operator pointed out `agent/law_arc.py` already draws exactly
+that for the laws page — so the hand-built replacement was discarded and
+`_freytag_diagram_svg()` now delegates to `law_arc.arc_svg()`. The talk shows the same
+picture the site shows, with all 20 law records plotted on it, instead of a second and
+worse parallel drawing. `arc_svg` gained `interactive=False` for this: the talk page
+embeds each diagram twice (static list + player JS data), so its hardcoded `#ft-tip` id
+would be duplicated in one document, and there are no `#law-NNN` anchors to jump to.
+Its CSS is authored for the light laws page, so the talk carries a dark re-skin scoped
+to `.stage`/`.slide-diagram`.
+
+**New slide 03, and a renumber.** Behavior-graph screenshot from the live `/brain/`
+page, 13 behaviors / 23 edges. slides.yaml gained `image:`/`image_alt:` support, rendered
+into the same slot as a diagram in both the static sections and the player, with
+`images/` copied to dist alongside `audio/`. Inserting it shifted old slides 03–14 to
+04–15 in both slides.yaml and track.md. All audio was deleted and re-rendered rather
+than left to drift from the numbering — the exact failure mode session 35 hit.
+Attempted a vector export of the graph instead of a raster; the Chrome extension blocked
+the JS three times (its filter reads the `edge-a||b` element ids as query-string data),
+so the slide carries a 1400x712 crop. Soft if projected very large. A "download SVG"
+affordance on /brain/ would fix it properly.
+
+**Narration.** Slide 02 now credits the model — "the Double Freytag model of
+decision-making, from my supervisor Venkatesh Rao's book, Tempo" — and walks the arc at
+*behavior* level rather than as abstract phases (triage the inbox, choose shallow vs deep
+read, write notes, log curiosities), per operator direction. Slide 03 names the machine.
+15 slides, 1,634 words, **10:22 measured**, every slide under its individual target,
+`talk check` clean.
+
+**A cache bug that cost real confusion.** Audio filenames are stable across re-voices and
+Cloudflare serves them `max-age=14400`. After the first Oliver deploy the operator
+reported the new voice "not deployed" — it was live and byte-verified; their browser
+simply never asked. Worse, once the renumber landed, stale HTML plus renumbered audio
+under unchanged filenames produced a systematic one-slide offset (this is what surfaced
+as "the Gall track is repeated"). Audio URLs now carry an 8-char content hash
+(`_file_tag()`), so a re-voice is always a new URL and can never be masked. **This
+pattern applies to any stable-filename asset the site redeploys.**
+
+**Investigated and ruled out:** stereo desync (every file is mono, 1 channel), duplicated
+audio in the deployed set (all 15 live files byte-match local; wpm sits in a tight
+137–172 band; zero duplicate fragments from the splicer), and player overlap (single
+`<audio>` element, `.src` assigned before `.play()`). Offered the operator an A/B of
+spliced vs single-pass render; no slurring audible in either, and the spliced version's
+pauses were preferred. Set aside as non-critical.
+
+**Committed alongside:** `agent/law_arc.py` (untracked from a prior session) and its
+`publish_laws.py` wiring, plus `behaviors/admin.html` and the `/brain/` nav restoration
+in build.py — all pre-existing working-tree changes. `law_arc.py` in particular *had* to
+land: build.py now imports it, so the site would not build for anyone else without it.
+
+**Open (next session):**
+- Operator has more talk content edits queued — that was the stated next step.
+- Re-fit `wpm_effective` and the per-slide `word_budget`s against Oliver; the current
+  numbers derive from a rate parameter that did nothing. Do it after content settles.
+- `humboldt-site/build.py` still describes the talk as "fifteen slides" in the chat-page
+  blurb — correct again by coincidence after the renumber, but it is a hardcoded literal
+  that will go stale on the next insert. Make it read from slides.yaml.
+- Vector export for /brain/ so the talk slide can stop using a raster.
+- Apple Premium-vs-Enhanced headroom is still unresolved: the Serena test was confounded
+  by gender, so it did not answer whether Premium beats Enhanced.
+
+---
+
 ## 2026-09-12 (session 35) — Phase 4 instrumentation wired; a whole bug class found and fixed; talk rebuilt and deployed
 
 **Tracks active:** T2 (instrumentation, bug fixes, talk content/infra) / T3 (nothing extracted)

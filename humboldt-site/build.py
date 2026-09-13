@@ -717,69 +717,35 @@ _FREYTAG_PHASES = [
 ]
 
 
+def _file_tag(path: Path) -> str:
+    """Short content hash, for cache-busting a stable filename. See the `audio:` note
+    in _build_talk — Cloudflare serves these with max-age=14400, so without this a
+    re-voice is invisible to anyone who already listened."""
+    import hashlib
+    return hashlib.sha1(path.read_bytes()).hexdigest()[:8]
+
+
 def _freytag_diagram_svg() -> str:
-    """Inline SVG of the Double Freytag phase-flow: six phases in sequence, a
-    cycle-back arc from Retrospective to Liminal Passage. Built for the talk deck
-    (session 35, 2026-09-12) — no diagram existed anywhere in the codebase for this
-    before; the console's graph view (behaviors/console.html) draws a similar flow
-    client-side from mdp.yaml but nothing static and embeddable existed."""
-    box_w, box_h, gap = 140, 64, 20
-    n = len(_FREYTAG_PHASES)
-    total_w = n * box_w + (n - 1) * gap
-    start_x = (1000 - total_w) / 2
-    y = 76
-    mid_y = y + box_h / 2
+    """The Double Freytag arc for talk slide 02 — delegated to ``agent.law_arc``.
 
-    boxes, arrows, labels = [], [], []
-    centers = []
-    for i, (name, color) in enumerate(_FREYTAG_PHASES):
-        x = start_x + i * (box_w + gap)
-        centers.append(x + box_w / 2)
-        boxes.append(
-            f'<rect x="{x:.1f}" y="{y}" width="{box_w}" height="{box_h}" rx="8" '
-            f'fill="{color}" fill-opacity="0.16" stroke="{color}" stroke-width="1.5"/>'
-        )
-        labels.append(
-            f'<text x="{x + box_w / 2:.1f}" y="{mid_y:.1f}" text-anchor="middle" '
-            f'dominant-baseline="middle" fill="#e6e6e6" font-size="15" '
-            f'font-family="inherit">{name}</text>'
-        )
-        if i > 0:
-            x_prev_end = start_x + (i - 1) * (box_w + gap) + box_w
-            arrows.append(
-                f'<line x1="{x_prev_end:.1f}" y1="{mid_y:.1f}" x2="{x - 4:.1f}" '
-                f'y2="{mid_y:.1f}" stroke="#7f8790" stroke-width="1.5" '
-                f'marker-end="url(#freytag-arrow)"/>'
-            )
+    Session 35 drew a six-box phase-FLOW here, which was never the Double Freytag:
+    the model is a two-peak entropy curve (Rao, *Tempo* Ch. 4), and boxes-and-arrows
+    lose the whole point — that the peaks are the two GATING EVENTS (Cheap Trick,
+    Separation Event) rather than phases, that the Separation Event peak is taller
+    because entropy rises again through the heavy lift, and that the Valley is the
+    shared basin of two nested arcs. ``agent/law_arc.py`` already draws the real
+    thing for the laws page, with one dot per law record on it, so the talk now
+    shows the SAME picture the site shows instead of a second, worse, parallel
+    drawing. Operator direction 2026-09-13.
 
-    cb_x1, cb_x2 = centers[-1], centers[0]
-    cb_y_top = y + box_h + 8
-    cb_y_bottom = cb_y_top + 56
-    cycle_back = (
-        f'<path d="M {cb_x1:.1f} {cb_y_top} '
-        f'C {cb_x1:.1f} {cb_y_bottom}, {cb_x2:.1f} {cb_y_bottom}, {cb_x2:.1f} {cb_y_top + 6}" '
-        f'fill="none" stroke="#7f8790" stroke-width="1.5" stroke-dasharray="5,4" '
-        f'marker-end="url(#freytag-arrow)"/>'
-        f'<text x="{(cb_x1 + cb_x2) / 2:.1f}" y="{cb_y_bottom + 20}" text-anchor="middle" '
-        f'fill="#7f8790" font-size="12" font-family="inherit">cycle back — a retrospective '
-        f'challenge can reopen the arc</text>'
-    )
-
-    return f'''<svg viewBox="0 0 1000 240" style="width:100%;height:auto" role="img"
-     aria-label="Double Freytag phase model: Liminal Passage, Exploration, Sensemaking,
-     Valley, Heavy Lift, Retrospective, in sequence, with a cycle-back arc from
-     Retrospective to Liminal Passage.">
-  <defs>
-    <marker id="freytag-arrow" viewBox="0 0 10 10" refX="8" refY="5"
-            markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#7f8790"/>
-    </marker>
-  </defs>
-  {"".join(boxes)}
-  {"".join(arrows)}
-  {"".join(labels)}
-  {cycle_back}
-</svg>'''
+    Rendered non-interactively — see ``law_arc.arc_svg``. Note this reaches into
+    ``agent/`` from the site builder; safe since the redesign merged to main in
+    session 34 (``_build_laws`` already imports ``agent.publish_laws``), but it does
+    mean the talk page no longer builds from a tree without ``agent/``.
+    """
+    from agent import laws as laws_mod
+    from agent import law_arc
+    return law_arc.arc_svg(laws_mod.load_all(), interactive=False)
 
 
 def _read_talk_track(path: Path) -> dict[str, str]:
@@ -848,6 +814,11 @@ def _build_talk() -> None:
         diagram_html = ""
         if s.get("diagram") == "freytag":
             diagram_html = f'<div class="slide-diagram">{_freytag_diagram_svg()}</div>'
+        img = s.get("image")
+        if img:
+            alt = _html_attr(str(s.get("image_alt") or ""))
+            diagram_html += (f'<div class="slide-image"><img src="{img}" alt="{alt}" '
+                             f'loading="lazy"></div>')
         narr_html = md_lib.markdown(narration) if narration else "<p><em>No narration yet.</em></p>"
 
         note = (s.get("notes") or "").strip()
@@ -900,7 +871,10 @@ def _build_talk() -> None:
             "law": s_.get("law_id") or "",
             "bullets": list(s_.get("bullets") or []),
             "diagram": _freytag_diagram_svg() if s_.get("diagram") == "freytag" else None,
-            "audio": f"audio/slide-{sid}.mp3" if mp3.exists() else None,
+            "image": s_.get("image") or None,
+            "imageAlt": " ".join(str(s_.get("image_alt") or "").split()) or "",
+            "audio": (f"audio/slide-{sid}.mp3?v={_file_tag(mp3)}"
+                      if mp3.exists() else None),
             "dur": round(float(timing.get(sid, 0)), 1),
         })
     has_audio = any(d["audio"] for d in deck)
@@ -993,6 +967,12 @@ def _build_talk() -> None:
     .stage-diagram { margin: 0 0 clamp(0.6rem, 1.6vw, 1.1rem); }
     .stage-diagram svg, .slide-diagram svg { display: block; width: 100%; height: auto; }
     .slide-diagram { margin-bottom: 0.9rem; }
+    /* A slide image occupies the same slot as a diagram. Height is capped against the
+       16:9 stage so a tall capture cannot push the bullets off the bottom of it. */
+    .slide-image { margin: 0 0 0.7rem; text-align: center; }
+    .slide-image img { max-width: 100%; max-height: 46vh; height: auto; width: auto;
+      border-radius: 4px; display: inline-block; }
+    .stage .slide-image img { max-height: 58%; border: 1px solid #333a42; }
 
     .player-bar { display: flex; align-items: center; gap: 0.6rem; margin-top: 0.85rem;
       flex-wrap: wrap; }
@@ -1108,6 +1088,13 @@ def _build_talk() -> None:
         if (d.diagram) {
           dia.innerHTML = d.diagram;
           dia.hidden = false;
+        } else if (d.image) {
+          // Images share the diagram slot — a slide has one visual or none. Escaped
+          // on the build side (_html_attr); alt text still needs quote-safety here.
+          dia.innerHTML = '<div class="slide-image"><img src="' + d.image +
+                          '" alt="' + (d.imageAlt || '').replace(/"/g, '&quot;') + '">' +
+                          '</div>';
+          dia.hidden = false;
         } else {
           dia.innerHTML = '';
           dia.hidden = true;
@@ -1201,11 +1188,46 @@ def _build_talk() -> None:
         dest_audio.mkdir(exist_ok=True)
         for mp3 in sorted(audio_dir.glob("*.mp3")):
             shutil.copy2(mp3, dest_audio / mp3.name)
+
+    # Slide images (slides.yaml `image:`), copied with the same shape as audio/.
+    img_dir = talk_dir / "images"
+    if img_dir.is_dir():
+        dest_img = out.parent / "images"
+        dest_img.mkdir(exist_ok=True)
+        n_img = 0
+        for f in sorted(img_dir.iterdir()):
+            if f.is_file() and not f.name.startswith("."):
+                shutil.copy2(f, dest_img / f.name)
+                n_img += 1
+        if n_img:
+            print(f"    images → {n_img} file(s)")
     desc = (
         f"{event}, {date_h}. The full text of a talk by Humboldt, the Protocol "
         "Institute's artificial researcher, on its own candidate laws of protocolized "
         "systems — published before delivery and under public review."
     )
+    # The arc on slide 02 is agent/law_arc.py's, whose CSS is authored for the LIGHT
+    # laws page (#777 labels, #2C2C2C curve, white dot strokes). Dropped onto the
+    # #23262b stage unmodified, the labels and both event dots are near-invisible. So:
+    # its own CSS first, then a dark re-skin scoped to .stage / .slide-diagram so it
+    # cannot leak back into /laws/. Presentation attributes lose to CSS rules, so no
+    # !important is needed to beat the inline stroke/fill. Keep in sync if law_arc's
+    # palette changes.
+    from agent import law_arc as _law_arc
+    extra_css += _law_arc._CSS + """
+    .stage .ft-lbl,       .slide-diagram .ft-lbl       { fill: #9aa3ad; }
+    .stage .ft-event,     .slide-diagram .ft-event     { fill: #e6e6e6;
+                                                         font-style: normal; }
+    .stage .ft-axis,      .slide-diagram .ft-axis      { fill: #6f7780; }
+    .stage .ft-curve,     .slide-diagram .ft-curve     { stroke: #e6e6e6; }
+    .stage .ft-base,      .slide-diagram .ft-base      { stroke: #454b53; }
+    .stage .ft-event-dot, .slide-diagram .ft-event-dot { fill: #e6e6e6; }
+    .stage .idot,         .slide-diagram .idot         { stroke: #23262b; }
+    .stage .ft-legend,    .slide-diagram .ft-legend    { color: #9aa3ad; }
+    .stage .ft-legend-note, .slide-diagram .ft-legend-note { color: #6f7780; }
+    .stage .ft-wrap,      .slide-diagram .ft-wrap      { margin-bottom: 0.4rem; }
+"""
+
     out.write_text(_page(title, _TALK_PATH, body, extra_css, extra_js, description=desc))
     print(f"  Talk → dist/talks/{_TALK_SLUG}/index.html "
           f"({len(slides)} slides, {total_words} words, ~{est_disp})")

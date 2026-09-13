@@ -21,6 +21,7 @@ from pathlib import Path
 
 from agent import laws as laws_mod
 from agent import bibliography as bib_mod
+from agent import law_arc
 
 _ROOT = Path(__file__).parent.parent
 
@@ -277,6 +278,8 @@ def build_laws_body() -> tuple[str, int, dict[str, int]]:
       results. See <a href="/about/">how the funnel works</a>.</p>
     </div>
 
+{law_arc.arc_svg(all_laws)}
+
     <div class="stage-filters">{"".join(filter_buttons)}</div>
 
     <div class="law-list">
@@ -357,6 +360,8 @@ _CSS = """
     }
 """
 
+_CSS = _CSS + law_arc._CSS
+
 _JS = """
 (function() {
   var buttons = document.querySelectorAll('.stage-filter');
@@ -382,3 +387,5 @@ _JS = """
   });
 })();
 """
+
+_JS = _JS + law_arc._JS

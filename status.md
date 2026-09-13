@@ -4,6 +4,41 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-09-13 (session 36) — Talk voice: Oliver (Enhanced); real Freytag arc on slide 02; behavior-graph slide added
+
+**Daemon PID:** 1869 (running, unpaused). Untouched this session.
+
+Talk is **15 slides, 1,634 words, 10:22 measured**, deployed and verified live at
+humboldt.protocol-institute.org/talks/2026-09-23-new-nature/ (10 days out).
+
+**Done:**
+- Voice switched compact Daniel → **Oliver (Enhanced)** after an operator A/B. Pause
+  defaults widened 850/450 → 1200/650 ms; pauses, not `-r`, are the real pace lever.
+- Found that `say -r` is a **no-op on compact voices** in the 110–155 band — all prior
+  renders ran at the default rate, so `wpm_effective: 155` and the per-slide word
+  budgets derived from it are unfounded. Flagged for re-fitting, not yet redone.
+- Slide 02's six-box "phase flow" replaced with the actual Double Freytag entropy arc by
+  delegating to `agent/law_arc.py` (operator caught that it already existed on /laws/).
+  All 20 law records plot on it. `arc_svg` gained `interactive=False`.
+- New slide 03: behavior-graph capture from the live /brain/ page. slides.yaml now
+  supports `image:` / `image_alt:`; `images/` copies to dist alongside `audio/`.
+- Old slides 03–14 renumbered to 04–15; all audio deleted and re-rendered.
+- Narration: Tempo/Rao citation added; the process walk-through is now behavior-level.
+- **Audio URLs now content-hash cache-busted** — stable filenames plus a 4-hour CDN
+  cache had been serving stale narration and, after the renumber, a one-slide offset.
+- Committed `agent/law_arc.py` (was untracked; build.py now depends on it) and the
+  /brain/ nav restoration.
+
+**Open:**
+- More talk content edits requested by the operator — next session's starting point.
+- Re-fit `wpm_effective` + word budgets against Oliver, after content settles.
+- Vector (SVG) export for /brain/ so the talk slide isn't a raster.
+- Premium-vs-Enhanced headroom unresolved (the Serena test was gender-confounded).
+- Pre-notebook queue has 1 pending entry (2026-09-12 ingest) — no T1 this session, so
+  it was not consumed.
+
+---
+
 ## 2026-09-12 (session 35) — Phase 4 instrumentation wired; ingest.py law-embedding gap fixed; talk rebuilt and deployed
 
 **Daemon PID:** 1869 (running, unpaused). Untouched this session.

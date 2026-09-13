@@ -66,11 +66,13 @@ slides:
     title: "The map that finds them"
     law_id: null
     beat: "method_phase_model"
-    duration_target_s: 50
-    word_budget: 130
+    duration_target_s: 84
+    word_budget: 210
     diagram: "freytag"
     bullets:
-      - "The Double Freytag phase model"
+      - "The Double Freytag model — Rao, Tempo (2011)"
+      - "Entropy, not progress, on the vertical axis"
+      - "Two peaks: the cheap trick, then the separation event"
     notes: >
       Double Freytag phase model + diagram (new visual, agent/humboldt-site/build.py
       `_freytag_diagram_svg()`, added session 35 — no prior diagram existed anywhere in
@@ -79,6 +81,31 @@ slides:
       to a single label — the diagram carries the visual weight this slide.
 
   - id: "03"
+    title: "The machine that runs the map"
+    law_id: null
+    beat: "method_behavior_graph"
+    duration_target_s: 48
+    word_budget: 125
+    image: "images/behavior-graph.png"
+    image_alt: >
+      Humboldt's behavior graph: thirteen behaviors placed in the six Double Freytag
+      phase bands, connected by twenty-three weighted transitions, with dashed
+      cycle-back edges returning from later phases to earlier ones.
+    bullets:
+      - "13 behaviors · 23 weighted transitions"
+      - "Live at humboldt.protocol-institute.org/brain/"
+    notes: >
+      NEW slide, 2026-09-13, operator-requested — pairs with the arc on slide 02:
+      that slide is the MAP (where a law sits in its arc), this one is the MACHINE
+      (what actually runs at each point on it). A screenshot of the live /brain/
+      page rather than a redrawn diagram, deliberately — part of the point is that
+      this is a real inspectable page on the site, not a talk illustration. Capture
+      is images/behavior-graph.png (cropped browser capture, 1400x712; soft if
+      projected very large — a vector export would be better if /brain/ ever grows
+      an SVG download). Regenerate it if registry.yaml or mdp.yaml change, and
+      re-check the node/edge counts in the bullet.
+
+  - id: "04"
     title: "Not that kind of researcher"
     law_id: null
     beat: "method_motivation"
@@ -96,7 +123,7 @@ slides:
       over answers to existing ones. Placed right after the phase-model/diagram slide,
       per operator sequencing ("make this point early on").
 
-  - id: "04"
+  - id: "05"
     title: "How a law gets promoted"
     law_id: null
     beat: "method_promotion_pipeline"
@@ -111,7 +138,7 @@ slides:
       into the closing scaffolding beat before the tour. Earns the confidence badges
       shown (not narrated) on every tour slide that follows.
 
-  - id: "05"
+  - id: "06"
     title: "Goodhart Generalization: Metric Capture"
     law_id: "L-004"
     beat: "law_tour"
@@ -125,7 +152,7 @@ slides:
       confidence/counterexample commentary (moved to slide 12). The on-ramp: audience
       already half-knows this one.
 
-  - id: "06"
+  - id: "07"
     title: "Gall Generalization: Working Systems Resist Restructuring"
     law_id: "L-005"
     beat: "law_tour"
@@ -136,7 +163,7 @@ slides:
       - "IPv4/IPv6 coexistence, the Netscape rewrite"
     notes: "Second familiar name, same brisk beat. Sets up imported-vs-discovered before the tour turns to Humboldt's own laws."
 
-  - id: "07"
+  - id: "08"
     title: "Protocol Ossification Under Adoption Pressure"
     law_id: "L-001"
     beat: "law_tour"
@@ -155,7 +182,7 @@ slides:
       mechanism — moves to slide 12, where it does real work as an illustration of the
       method's self-scrutiny rather than sitting inside the tour as a hedge.
 
-  - id: "08"
+  - id: "09"
     title: "Hardness Asymmetry"
     law_id: "L-002"
     beat: "law_tour"
@@ -169,7 +196,7 @@ slides:
       one flat tour slide. The frontier evidence (strategic-agent confinement bounds,
       the reasoning-adversary verification collapse) moves to slide 12.
 
-  - id: "09"
+  - id: "10"
     title: "The Formalization Ratchet"
     law_id: "L-003"
     beat: "law_tour"
@@ -180,7 +207,7 @@ slides:
       - "Startups turning corporate, customary law hardening into treaty"
     notes: "Atrophy account, not path dependence — the informal alternative doesn't just lose, it stops existing."
 
-  - id: "10"
+  - id: "11"
     title: "Trust Ratchet in Safety-Critical Protocols"
     law_id: "L-007"
     beat: "law_tour"
@@ -191,7 +218,7 @@ slides:
       - "Aviation near-misses, Semmelweis and handwashing"
     notes: "Best physical-world grounding of the seven. The corollary (need a trusted update meta-protocol) survives the trim to whistle-stop length."
 
-  - id: "11"
+  - id: "12"
     title: "Coordination Cost Conservation"
     law_id: "L-006"
     beat: "law_tour"
@@ -202,7 +229,7 @@ slides:
       - "TCP/IP vs. OSI, OAuth's shifted complexity"
     notes: "Closes the tour. Software-scoped stated on-screen as data, not narrated as a hedge — that distinction is what slide 13 is for, generally, not per-law."
 
-  - id: "12"
+  - id: "13"
     title: "Held to account"
     law_id: null
     beat: "retrospective_contest"
@@ -223,7 +250,7 @@ slides:
       slide; and the general "every law carries counterevidence" stance that used to be
       its own slide. This is the slide that does the justifying — the tour doesn't have to.
 
-  - id: "13"
+  - id: "14"
     title: "What would falsify this"
     law_id: null
     beat: "retrospective_falsification"
@@ -239,7 +266,7 @@ slides:
       ossification counterexample's two named tests (from the 2026-09-01 HOLD
       assessment) closes the loop opened in slide 12.
 
-  - id: "14"
+  - id: "15"
     title: "Where this lives"
     law_id: null
     beat: "close"

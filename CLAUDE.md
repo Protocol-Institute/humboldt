@@ -337,6 +337,34 @@ python3 -m agent.humboldt publish-site --dry-run    # build only, no deploy
 python3 -m agent.humboldt talk draft [--dry-run]        # laws + brief → track.md (Opus)
 python3 -m agent.humboldt talk check                    # word budgets + TTS hazard lint
 python3 -m agent.humboldt talk voice [--voice N] [--rate R]  # track.md → audio/*.mp3 (say → ffmpeg)
+#
+# ⚠ VOICE (session 36): DEFAULT_VOICE is "Oliver (Enhanced)" — a SEPARATE DOWNLOADED
+#   ASSET, absent from a stock macOS install. Get it via System Settings →
+#   Accessibility → Spoken Content → System Voice → Manage Voices. Pass the name with
+#   its suffix, quoted: `--voice "Oliver (Enhanced)"`. Apple ships no Premium tier for
+#   Daniel or Oliver, so "Oliver Premium" does not exist. Without the download,
+#   `talk voice` fails.
+# ⚠ `-r` IS A NO-OP ON COMPACT VOICES. Measured 2026-09-13 with bare `say`, no embedded
+#   commands: compact Daniel returns IDENTICAL durations at rate 110 and 140 and only
+#   responds past ~180. Every render before session 36 therefore ran at the default
+#   rate, and `wpm_effective: 155` in slides.yaml — plus every per-slide `word_budget`
+#   derived from it — was fitted to a parameter that did nothing. Treat those as soft
+#   until re-fitted against Oliver. Enhanced voices DO respond but saturate above ~155;
+#   usable band is 110–155. Full table in the prosody comment in agent/talk.py.
+# ⚠ PAUSES, NOT RATE, are the pace lever: r125 vs r140 is perceptually indistinguishable
+#   (4% duration), while moving the same seconds into wider gaps is clearly audible.
+#   PAUSE_PARAGRAPH/PAUSE_SENTENCE = 1200/650 ms (11.1% of each clip is silence).
+# ⚠ Slide 02's diagram is NOT drawn here — it delegates to agent/law_arc.py, the same
+#   arc the /laws/ page draws, with all 20 law records plotted on it. Rendered with
+#   interactive=False (the talk page embeds each diagram twice, so law_arc's hardcoded
+#   #ft-tip id would collide). humboldt-site/build.py therefore IMPORTS agent/ — the
+#   talk page no longer builds from a tree without it.
+# ⚠ Slide images: slides.yaml `image:` / `image_alt:`; files live in the talk's
+#   images/ and are copied to dist alongside audio/.
+# ⚠ Audio URLs are content-hash cache-busted (`?v=` via build._file_tag). Filenames are
+#   stable across re-voices and Cloudflare serves them max-age=14400, so without this a
+#   re-voice is invisible to anyone who already listened — and a slide RENUMBER plus
+#   cached HTML produces a systematic one-slide audio offset. Both happened in s36.
 python3 -m agent.humboldt talk time                     # ffprobe-measured runtime vs. targets
 ```
 

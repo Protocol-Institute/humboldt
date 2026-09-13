@@ -94,7 +94,22 @@ header .subtitle { font-size: 11px; color: #888; white-space: nowrap; }
 #graph-container {
   flex: 1;
   min-width: 0;
-  overflow: auto;
+  /* The canvas is full-bleed to its own edges (phase bands are strata and run the
+     whole width), so the breathing room has to come from the viewport rather than
+     from padding inside it — padding would be counted by clientWidth and push the
+     canvas back into overflow. Margin + a thin border instead. */
+  margin: 14px;
+  border: 1px solid #e0e0da;
+  border-radius: 6px;
+  /* overflow-y is `scroll`, not `auto`, on purpose. The canvas width is measured
+     from this element's clientWidth; with `auto` the vertical scrollbar appears
+     only *after* the tall SVG is inserted, which shrinks clientWidth by the 8px
+     the scrollbar rule below reserves and leaves the canvas 8px too wide — a
+     spurious horizontal scrollbar, caused by the vertical one. Always reserving
+     the gutter makes clientWidth stable from the first paint. The graph is
+     ~1360px tall, so the vertical scrollbar is present in practice regardless. */
+  overflow-x: auto;
+  overflow-y: scroll;
   background: #FAFAF7;
   position: relative;
 }
@@ -337,11 +352,10 @@ const BAND_H      = 220;
 const NODE_R      = 30;
 const NODE_SPACING = 130;
 const MAIN_W      = 730;
-const DAEMON_X    = 870;
 const DAEMON_Y_START = 40;
 const DAEMON_SPACING = 100;
 const LEFT_PAD    = 40;
-const LABEL_X     = 8;
+const LABEL_X     = 14;   // clears the viewport border without crowding it
 
 const STATE_FILL = {
   production: '#e8f5e9', prototyping: '#fff8e1',
@@ -373,7 +387,7 @@ function edgeKey(from, to) { return `${from}||${to}`; }
 function shortId(id) { return id.startsWith('behavior-') ? id.slice(9) : id; }
 
 // ── Layout ───────────────────────────────────────────────────────────────────
-function computePositions(behaviors, mdp) {
+function computePositions(behaviors, mdp, layout) {
   const pos = {};
   const byPhase = {};
   [...behaviors, ...(mdp.virtual_nodes || [])].forEach(b => {
@@ -386,33 +400,60 @@ function computePositions(behaviors, mdp) {
     const bandCY = phIdx * BAND_H + BAND_H / 2;
     const n = nodes.length;
     nodes.forEach((b, i) => {
-      const x = LEFT_PAD + MAIN_W / 2 + (i - (n - 1) / 2) * NODE_SPACING;
+      // Centre on the actual main area rather than a fixed LEFT_PAD + MAIN_W/2.
+      // The canvas now grows to fill its container, so a hardcoded centre pinned
+      // the whole cluster to the left edge and left the growth as dead space.
+      const x = layout.centerX + (i - (n - 1) / 2) * NODE_SPACING;
       pos[b.id] = { x, y: bandCY, phase: phId };
     });
   });
   (byPhase['daemon'] || []).forEach((b, i) => {
-    pos[b.id] = { x: DAEMON_X, y: DAEMON_Y_START + i * DAEMON_SPACING, phase: 'daemon' };
+    pos[b.id] = { x: layout.daemonX, y: DAEMON_Y_START + i * DAEMON_SPACING, phase: 'daemon' };
   });
   return pos;
 }
 
+// Canvas sizing. Three things went wrong here and they compounded:
+//
+//   1. The daemon column was reserved unconditionally (`DAEMON_X + NODE_R + 20`),
+//      but no behaviour has had `phase: daemon` since the Phase 3 cull took the
+//      registry from 26 to 12. That is ~140px of permanently blank canvas.
+//   2. Phase bands were drawn at a fixed `MAIN_W + LEFT_PAD + 10`, so they stopped
+//      short even of that width — the bands ended mid-canvas.
+//   3. The canvas never grew to its container, so the whole diagram sat flush
+//      against the left edge with the remainder as empty space on the right.
+//
+// Bands are horizontal strata and should span the full canvas, so the native width
+// grows to fill the container. It is divided by the zoom level because the rendered
+// width is `native * zoom` — without that, zooming out reintroduces the gap.
 function computeSvgDimensions(behaviors, mdp) {
   const daemonCount = behaviors.filter(b => b.phase === 'daemon').length;
   const mainH = PHASE_ORDER.length * BAND_H + 40;
   const daemonH = DAEMON_Y_START + daemonCount * DAEMON_SPACING + 40;
   const totalH = Math.max(mainH, daemonH);
-  const totalW = DAEMON_X + NODE_R + 20; // right edge = daemon col + margin
-  return { w: totalW, h: totalH };
+
+  const daemonColW = daemonCount ? (NODE_R * 2 + 60) : 0;
+  const contentW   = LEFT_PAD * 2 + MAIN_W + daemonColW;
+
+  const el    = document.getElementById('graph-container');
+  const avail = el && el.clientWidth ? el.clientWidth / currentZoom : 0;
+  const totalW = Math.max(contentW, Math.floor(avail));
+
+  // Daemon nodes hang off the right edge; the main cluster centres in what is left.
+  const daemonX = totalW - NODE_R - 24;
+  const centerX = (totalW - daemonColW) / 2;
+  return { w: totalW, h: totalH, centerX, daemonX, daemonColW };
 }
 
 // ── Zoom ─────────────────────────────────────────────────────────────────────
 function applyZoom(level) {
   currentZoom = Math.max(0.25, Math.min(2.5, level));
-  d3.select('#graph-svg')
-    .attr('width',  Math.round(svgNativeW * currentZoom))
-    .attr('height', Math.round(svgNativeH * currentZoom));
   document.getElementById('zoom-slider').value = currentZoom;
   document.getElementById('zoom-label').textContent = Math.round(currentZoom * 100) + '%';
+  // Full re-render rather than just rescaling the width/height attributes: the
+  // native width is a function of the zoom level (see computeSvgDimensions), so
+  // rescaling alone would leave the phase bands short of the container.
+  if (svgNativeW) render();
 }
 
 document.getElementById('zoom-slider').addEventListener('input', function() {
@@ -473,11 +514,13 @@ function crossPhasePath(sp, tp) {
 function render() {
   const transitions = mdpData.transitions || [];
   const allNodes    = [...allBehaviors, ...(mdpData.virtual_nodes || [])];
-  positions = computePositions(allBehaviors, mdpData);
-
   const dims = computeSvgDimensions(allBehaviors, mdpData);
   svgNativeW = dims.w;
   svgNativeH = dims.h;
+
+  // Order matters: positions are derived from the canvas width, so dimensions
+  // have to be resolved first.
+  positions = computePositions(allBehaviors, mdpData, dims);
 
   const svgEl = d3.select('#graph-svg')
     .attr('width',   Math.round(svgNativeW * currentZoom))
@@ -509,11 +552,11 @@ function render() {
     const color = PHASE_COLORS[phId] || '#6b7280';
     svgEl.append('rect')
       .attr('x', 0).attr('y', y)
-      .attr('width', MAIN_W + LEFT_PAD + 10).attr('height', BAND_H)
+      .attr('width', svgNativeW).attr('height', BAND_H)
       .attr('fill', color).attr('opacity', 0.04);
     svgEl.append('line')
       .attr('x1', 0).attr('y1', y)
-      .attr('x2', MAIN_W + LEFT_PAD + 10).attr('y2', y)
+      .attr('x2', svgNativeW).attr('y2', y)
       .attr('stroke', color).attr('stroke-width', 1).attr('opacity', 0.25);
     svgEl.append('text').attr('class', 'phase-label')
       .attr('x', LABEL_X).attr('y', y + 16)
@@ -527,12 +570,12 @@ function render() {
     const dY = DAEMON_Y_START - 22;
     const dH = daemonBs.length * DAEMON_SPACING + 44;
     svgEl.append('rect')
-      .attr('x', DAEMON_X - NODE_R - 16).attr('y', dY)
+      .attr('x', dims.daemonX - NODE_R - 16).attr('y', dY)
       .attr('width', NODE_R * 2 + 32).attr('height', dH)
       .attr('rx', 8).attr('fill', '#fff')
       .attr('stroke', '#2a8a3c').attr('stroke-width', 1).attr('opacity', 0.7);
     svgEl.append('text')
-      .attr('x', DAEMON_X).attr('y', dY + 14)
+      .attr('x', dims.daemonX).attr('y', dY + 14)
       .attr('text-anchor', 'middle')
       .attr('font-size', 9).attr('fill', '#2a8a3c').attr('opacity', 0.85)
       .attr('font-family', "'DM Sans', system-ui").attr('font-weight', '600')
@@ -622,6 +665,17 @@ function render() {
      .on('mouseout',  hideTooltip)
      .on('click', function(e) { e.stopPropagation(); selectNode(b, this); });
   });
+
+  // render() rebuilds the SVG from scratch, and zoom + window resize now both go
+  // through it. Re-mark whatever was selected, or inspecting a node and then
+  // zooming would silently clear the highlight while the side panel still showed it.
+  if (selectedNode) {
+    const el = document.getElementById(`node-${selectedNode.id}`);
+    if (el) d3.select(el).classed('selected', true);
+  } else if (selectedEdge) {
+    const el = document.getElementById(`edge-${edgeKey(selectedEdge.from, selectedEdge.to)}`);
+    if (el) d3.select(el).classed('selected', true);
+  }
 
   svgEl.on('click', () => {
     selectedEdge = selectedNode = null;
@@ -850,6 +904,14 @@ async function init() {
 }
 
 init();
+
+// The canvas is sized from the container, so it has to be recomputed when the
+// container changes. Debounced — a drag-resize fires this continuously.
+let _resizeTimer = null;
+window.addEventListener('resize', () => {
+  clearTimeout(_resizeTimer);
+  _resizeTimer = setTimeout(() => { if (svgNativeW) render(); }, 150);
+});
 </script>
 </body>
 </html>
