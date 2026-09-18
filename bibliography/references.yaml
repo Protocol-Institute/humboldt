@@ -603,3 +603,16 @@ references:
   title: YouTube video resource (content unknown from URL alone)
   type: article
   url: https://www.youtube.com/watch?v=D_qZd3MBgd8
+- added: '2026-09-17'
+  id: ref-2026-09-17-047
+  snippet: Potential external research agenda or publication that references Humboldt's
+    research program; warrants inspection for overlapping theoretical interests in
+    protocol systems or AI governance.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #new-nature'
+  status: unsorted
+  title: Website for Natural General Intelligence research that mentions Humboldt
+  type: article
+  url: https://naturalgeneralintelligence.ai/
