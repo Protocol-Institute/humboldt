@@ -4,6 +4,20 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-09-20 (session 37) — Shared talk theme declared; this deck not ported (deliberate)
+
+**Daemon PID:** 1869 (running, untouched).
+
+Documentation only — one CLAUDE.md section plus dev-log. No code, slides, audio or
+laws touched; the daemon's in-flight `notebook/`/`inbox/` changes were left alone.
+
+The other two symposium decks adopted a shared dark-on-light theme owned by the new
+`Code/talk-kit/`. This deck is a declared target, **pending until after the 2026-09-23
+talk** — its slides are timed against recorded narration and a port sweeps every slide
+at once. Four concrete port tasks in `Code/talk-kit/reference/adopting.md`.
+
+**Open:** port the theme after the talk.
+
 ## 2026-09-13 (session 36) — Talk voice: Oliver (Enhanced); real Freytag arc on slide 02; behavior-graph slide added
 
 **Daemon PID:** 1869 (running, unpaused). Untouched this session.

@@ -368,6 +368,32 @@ python3 -m agent.humboldt talk voice [--voice N] [--rate R]  # track.md → audi
 python3 -m agent.humboldt talk time                     # ffprobe-measured runtime vs. targets
 ```
 
+### Presentation style — shared theme, NOT YET ADOPTED
+
+The two other Protocol Symposium 2026 decks (`artisanal-bots`, `blygger-org`) now share
+a visual theme and content guide owned by [`Code/talk-kit/`](../../talk-kit/). **This
+deck has not been ported and must not be ported before the 2026-09-23 talk.**
+
+The reason is this deck's own voice feature: its slides are timed against **already-
+recorded narration** (`talk voice` → `audio/slide-NN.mp3`, `wpm_effective`, per-slide
+`word_budget`). Re-styling does not change timing — type size is not word count — but a
+port touches every slide at once, and any content edit made along the way silently
+desynchronises a recorded track. The failure mode is already documented above: a cached
+re-voice is invisible to anyone who already listened, and a renumber produces a
+systematic one-slide audio offset. Both happened in s36.
+
+**After the talk**, when the deck becomes an archive rather than a live deliverable,
+the port is four specific pieces of work — teal `--tk-accent` override, deleting the
+`.stage:fullscreen` overrides in favour of `cqh`, the `ul#stage-bullets` markup
+difference, and inverting the dark inline SVG. All four, and why the theme is built to
+accommodate the audio transport rather than fight it, are written up in
+[`talk-kit/reference/adopting.md`](../../talk-kit/reference/adopting.md).
+
+Worth reading before then regardless: `talk-kit/theme/talk-content-guide.md` §"Narrated
+decks". Its one rule is that **slide density and narration length are independent
+budgets** — the spoken text lives in `track.md`, not on the slide, so a sparse slide
+may carry a long narration and should. Never widen a slide to match its script.
+
 ### Deep-read library
 
 Source PDFs live in `bibliography/deep-reads/`. Drop new documents there; the `library` command lists them. Reading notes go in `bibliography/notes/`.

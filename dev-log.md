@@ -6,6 +6,49 @@ Most recent entry first.
 
 ---
 
+## 2026-09-20 (session 37) — Shared talk theme declared; this deck deliberately not ported
+
+**Tracks active:** T2 (documentation only) / T3 (nothing extracted)
+**Daemon PID:** 1869 (running, untouched this session)
+
+Documentation only. No code, no slides, no audio, no laws touched. The work happened
+in `Code/talk-kit/` and `Code/artisanal-bots/`; this repo received one CLAUDE.md
+section and this entry.
+
+The other two Protocol Symposium 2026 decks (artisanal-bots, blygger-org) adopted a
+shared dark-on-light presentation theme, now owned by a new `Code/talk-kit/` project
+whose rule is that style lives there and slides live in each talk project. This deck
+is a declared target and is **not** ported.
+
+The reason is this project's voice pipeline, and it is worth being precise because the
+temptation next session will be to "just apply the theme": the port is a styling change
+that touches every slide at once, and while restyling does not itself change timing —
+type size is not word count — the failure modes already recorded for s36 (a cached
+re-voice being invisible to prior listeners, and a renumber producing a systematic
+one-slide audio offset) are exactly what a broad sweep over a deck timed against
+recorded audio risks tripping. The talk is 2026-09-23. **Port after it**, when the deck
+is an archive rather than a live deliverable.
+
+Four concrete pieces of work when that happens, written up in
+`Code/talk-kit/reference/adopting.md`: a teal `--tk-accent` override (the shared theme
+is rust; the tokens exist for exactly this), deleting the `.stage:fullscreen` font-size
+overrides in favour of `cqh` sizing rather than translating them (leaving both would
+double-apply), the `ul#stage-bullets` markup difference — already accommodated by the
+shared selectors — and inverting the dark inline SVG in `.stage-diagram`.
+
+One idea from that project is worth importing regardless of the port, because it names
+something this deck already does right: **slide density and narration length are
+independent budgets.** The spoken text lives in `track.md`, not on the slide, so a
+sparse slide may carry a long narration. The shared content guide states it as a rule;
+worth not losing it if `word_budget` is ever retuned.
+
+**Open (next session):**
+- Port the theme — but only after the 2026-09-23 talk.
+- Nothing else from this session; the daemon's in-flight `notebook/` and `inbox/`
+  changes were left uncommitted and untouched.
+
+---
+
 ## 2026-09-13 (session 36) — Talk voice upgraded (Oliver Enhanced), `-r` found to be a no-op, Freytag diagram replaced with the real arc
 
 **Tracks active:** T2 (voice pipeline, talk content, site build) / T3 (nothing extracted)
