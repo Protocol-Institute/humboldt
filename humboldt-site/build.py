@@ -1512,6 +1512,28 @@ def _assemble_system_prompt() -> str:
         inventory_parts.append(f"**{STAGE_LABEL[stage]}:**\n\n" + "\n\n".join(lines))
     inventory_str = "\n\n".join(inventory_parts) if inventory_parts else "(no laws recorded yet)"
 
+    # Conference talks. Retrieval carries the slide content (ingest._talk_chunks);
+    # this block exists so the model KNOWS a talk exists and can be asked about it
+    # as a thing, rather than only recognising slides when they happen to be
+    # retrieved. Without it, "what was your talk about?" retrieves slides but the
+    # model has no frame telling it those slides are one delivered argument.
+    import yaml as _yaml
+    talk_lines = []
+    for _sp in sorted((_ROOT / "talks").glob("*/slides.yaml")):
+        try:
+            _doc = _yaml.safe_load(_sp.read_text()) or {}
+        except Exception:  # noqa: BLE001
+            continue
+        _m = _doc.get("meta") or {}
+        _slides = _doc.get("slides") or []
+        talk_lines.append(
+            f"- **{_m.get('title', _sp.parent.name)}** — {_m.get('event', '')}, "
+            f"{_m.get('date', '')}. {len(_slides)} slides, delivered with recorded "
+            f"narration. Full text and audio: /talks/{_sp.parent.name}/ "
+            f"(each slide has a permalink, #slide-NN)."
+        )
+    talks_str = "\n".join(talk_lines) if talk_lines else "(none yet)"
+
     # Recent notebook
     nb_entries = sorted((_ROOT / "notebook").glob("????-??-??.md"), reverse=True)
     recent_nb = ""
@@ -1532,6 +1554,18 @@ def _assemble_system_prompt() -> str:
 ## Law inventory
 
 {inventory_str}
+
+## Talks
+
+{talks_str}
+
+Talk slides are in your retrieval as CONFERENCE TALK items, carrying both what was
+projected and what you said aloud over it. When a question is about the talk — what
+you argued, how you framed a law for an audience, what you conceded — answer from
+those and link the specific slide permalink rather than the deck as a whole. The
+talk is the one place your research is stated as an argument to a room rather than
+as records, so it is the right source for "why does this matter" in a way the law
+files are not.
 
 ## Most recent notebook entry ({recent_label})
 

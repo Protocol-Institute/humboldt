@@ -1,7 +1,8 @@
 """Ingest Humboldt's own documents into the dedicated humboldt Pinecone index.
 
-Covers: notebook entries, deep-read notes, shallow reads, law records, and
-Discord inbox ideas. Each vector carries augmented metadata so retrieved
+Covers: notebook entries, deep-read notes, shallow reads, law records, Discord
+inbox ideas, and conference-talk slides (slides.yaml + track.md, one chunk per
+slide — added 2026-09-23 so the site chat can answer questions about the talk). Each vector carries augmented metadata so retrieved
 results are self-identifying in Claude prompts.
 
 Incremental — a content hash per chunk (data/ingest_state.json) means only
@@ -183,6 +184,107 @@ def _law_chunks() -> list[dict]:
     return chunks
 
 
+def _talk_chunks() -> list[dict]:
+    """Embed each slide of each conference talk — one chunk per slide.
+
+    A talk is the only place where Humboldt's research is stated as an ARGUMENT
+    addressed to an audience, rather than as records. The law files say what each
+    law claims; the talk says why the set of them matters, in what order, and with
+    what hedging. Neither substitutes for the other, so the deck is worth its own
+    chunks rather than being left implicit in the laws it draws on.
+
+    One chunk per slide, joining what is PROJECTED (slides.yaml title + bullets)
+    to what is SAID over it (the matching `## NN — ` section of track.md). They are
+    split across two files for good reasons — see the narrated-decks note in
+    talk-content-guide.md — but a reader asking "what did the talk say about
+    ossification" wants them together, and a bullet on its own embeds poorly
+    because it is deliberately terse.
+
+    Deliberately EXCLUDES slides.yaml `notes:`. Those are deck-construction
+    commentary ("REVISED session 35", "operator-requested", why a slide was
+    renumbered) — real provenance, but about the making of the deck rather than
+    its argument, and mixing them in dilutes the embedding for content questions.
+
+    Globs talks/*/ rather than hardcoding the 2026-09-23 slug the way agent/talk.py
+    does, so a second talk is picked up without touching this file.
+    """
+    import yaml as _yaml
+
+    section_re = re.compile(r"^## (\d{2}) — (.*)$", re.M)
+    chunks = []
+    for slides_path in sorted((_ROOT / "talks").glob("*/slides.yaml")):
+        talk_dir = slides_path.parent
+        slug = talk_dir.name
+        try:
+            doc = _yaml.safe_load(slides_path.read_text()) or {}
+        except Exception:  # noqa: BLE001 — a malformed deck must not block the ingest
+            continue
+        meta = doc.get("meta") or {}
+        talk_title = meta.get("title", slug)
+        event = meta.get("event", "")
+        date = str(meta.get("date", ""))
+
+        narration: dict[str, str] = {}
+        track_path = talk_dir / "track.md"
+        if track_path.exists():
+            text = track_path.read_text()
+            marks = list(section_re.finditer(text))
+            for i, m in enumerate(marks):
+                end = marks[i + 1].start() if i + 1 < len(marks) else len(text)
+                narration[m.group(1)] = text[m.end():end].strip()
+
+        for s in doc.get("slides") or []:
+            sid = str(s.get("id", "")).zfill(2)
+            title = s.get("title", "")
+            bullets = [str(b) for b in (s.get("bullets") or [])]
+            spoken = narration.get(sid, "").strip()
+            law_id = s.get("law_id") or ""
+
+            header = f'Conference talk "{talk_title}"'
+            if event:
+                header += f" ({event}"
+                header += f", {date})" if date else ")"
+            embed_text = f"{header} — slide {sid}: {title}"
+            if law_id:
+                embed_text += f"\n\nLaw discussed: {law_id}"
+            if bullets:
+                embed_text += "\n\nOn screen: " + " · ".join(bullets)
+            if spoken:
+                embed_text += f"\n\nSaid aloud: {spoken}"
+
+            # The title slide's own title IS the talk title, so the combined form
+            # would read "X — slide 01: X". The chat cites this string verbatim.
+            display = (f"{talk_title} — slide {sid}"
+                       if title.strip().lower() == talk_title.strip().lower()
+                       else f"{talk_title} — slide {sid}: {title}")
+            chunks.append({
+                "id": f"humboldt-talk-{_slugify(slug)}-{sid}",
+                "text": embed_text,
+                "metadata": {
+                    "type": "talk",
+                    # `title` is the citation string; `talk` is the bare talk title,
+                    # kept separate so a consumer can group or filter by talk without
+                    # parsing the em-dash out of the display string.
+                    "title": display,
+                    "talk": talk_title,
+                    "talk_slug": slug,
+                    "slide": sid,
+                    "law_id": law_id,
+                    "date": date,
+                    # Deep link to the slide's permalink, so the site chat can point
+                    # a reader at the exact slide rather than the deck. FULLY
+                    # QUALIFIED on purpose: with a site-absolute "/talks/…" the chat
+                    # model reproduced it as a RELATIVE "talks/…" in markdown, which
+                    # resolves against /chat/ and 404s. An absolute URL has no such
+                    # failure mode.
+                    "url": f"https://humboldt.protocol-institute.org/talks/{slug}/#slide-{sid}",
+                    "source_file": f"talks/{slug}/slides.yaml",
+                    "text": embed_text[:2000],
+                },
+            })
+    return chunks
+
+
 def _inbox_idea_chunks() -> list[dict]:
     """One chunk per discord-idea file — community research inputs with hypothesis tags."""
     inbox_dir = _ROOT / "inbox"
@@ -289,6 +391,7 @@ def ingest_all(verbose: bool = True, force: bool = False) -> dict:
         + _shallow_read_chunks()
         + _law_chunks()
         + _inbox_idea_chunks()
+        + _talk_chunks()
     )
 
     if not all_chunks:

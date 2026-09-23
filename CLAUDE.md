@@ -88,9 +88,9 @@ PI corpus namespaces (as of 2026-06-07):
   gone: those source directories were archived by the 2026-08 redesign, and
   `agent/ingest.py` had kept reading them anyway (always producing 0 chunks) until
   session 35 fixed it — see `agent/ingest.py`'s module docstring.
-  `data/ingest_state.json` (gitignored) tracks **11,949** of these (258 notebook,
-  823 notes, 10,825 shallow_read, 24 law, 19 inbox_idea — session 38 added ~1,000
-  shallow reads from the feed backlog and 4 law records); the ~324-vector gap is
+  `data/ingest_state.json` (gitignored) tracks **11,959** of these (261 notebook,
+  823 notes, 10,825 shallow_read, 24 law, 10 inbox_idea, 16 talk — session 39 added
+  the talk slides); the ~324-vector gap is
   orphaned pre-redesign vectors with no current source file, invisible to the
   incremental delete (TODO.md, session 35) — not yet cleaned up.
 
@@ -234,8 +234,21 @@ python3 -m agent.humboldt pre-notebook              # show pending entries
 python3 -m agent.humboldt pre-notebook mark-consumed # advance cursor after writing notebook
 
 # Ingest Humboldt's own documents → humboldt Pinecone namespace
-# Covers: notebook, reading notes, shallow reads, C/H/CL/F/DS artifacts, inbox discord-ideas
-# Run after each session that adds any of the above
+# Covers: notebook, reading notes, shallow reads, law records, inbox discord-ideas,
+# and CONFERENCE TALK SLIDES (added 2026-09-23). Run after each session that adds any.
+# ⚠ Talk chunks (_talk_chunks) are one per slide and join what was PROJECTED
+#   (slides.yaml title + bullets) to what was SAID over it (the matching `## NN — `
+#   section of track.md) — a bullet alone embeds poorly, being deliberately terse.
+#   slides.yaml `notes:` is EXCLUDED: it is deck-construction commentary, not the
+#   argument, and mixing it in dilutes retrieval for content questions.
+#   Metadata carries `talk` (bare title), `title` (citation string), `talk_slug`,
+#   `slide`, `law_id`, `date`, and a FULLY QUALIFIED `url` slide permalink — absolute
+#   because the chat model reproduced a site-absolute "/talks/…" as a relative
+#   "talks/…", which resolves against /chat/ and 404s.
+#   Globs talks/*/ so a second talk needs no code change.
+# ⚠ After ingesting, the site chat can still serve STALE results for up to 24h — the
+#   Cloudflare Worker keeps its own KV query cache (chat.js). Not a bug; just don't
+#   conclude the ingest failed because the bot has not noticed yet.
 python3 -m agent.humboldt ingest
 
 # ── Funnel stages 2–3 (reworked 2026-08-10 for the redesign) ──

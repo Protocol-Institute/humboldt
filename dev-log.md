@@ -62,6 +62,44 @@ Content-guideline check: 4 titles over the ~37-char target (07, 08, 09, 12) and 
 budget those slides have spare, and shortening would make the slide diverge from the law
 record it names. Left as they are.
 
+**Addendum — the talk deck is now in retrieval.** `ingest._talk_chunks()` embeds one
+chunk per slide, joining what was PROJECTED (slides.yaml title + bullets) to what was
+SAID over it (the matching `## NN — ` section of track.md). They live in two files for
+good reasons — they are independent budgets, per the content guide — but someone asking
+"what did the talk say about ossification" wants them together, and a bullet alone
+embeds badly because it is deliberately terse. slides.yaml `notes:` is excluded: real
+provenance, but about the making of the deck rather than its argument. Globs `talks/*/`
+rather than hardcoding the slug the way `agent/talk.py` does, so a second talk needs no
+code change. 16 chunks; index now 11,959 tracked.
+
+Metadata carries `talk` (bare title) separately from `title` (the citation string the
+chat prints), so a consumer can group by talk without parsing an em-dash out of a display
+string, plus `talk_slug`, `slide`, `law_id`, `date` and a slide permalink.
+
+Three supporting fixes in `functions/chat.js`, which is hand-maintained (build.py only
+injects the system prompt into it):
+- `labelMap` had **no `law` entry at all** — every one of the 24 law records has been
+  labelled generic "HUMBOLDT" in the chat context since laws were first ingested. Added,
+  along with `talk` and `inbox_idea`. The five pre-redesign types are kept but marked
+  "(retired schema)": nothing produces them, but the index still holds orphan vectors of
+  those types (TODO.md, session 35) and they do surface.
+- `normalizeHumboldt` hardcoded `url: null`, so a slide permalink could not reach the
+  model. Now passes `m.url` through; still null for types that have no public URL.
+- `buildContextBlock` appends the URL to the citation label.
+
+The system prompt gained a Talks section. Retrieval alone was not enough: without a frame
+saying these slides are one delivered argument, "what was your talk about?" retrieves
+slides the model has no reason to treat as a whole.
+
+Verified against production, not assumed: "which slide covers coordination cost
+conservation" → correctly slide 13 with the narration quoted; "what counterexample did
+you admit to the ossification law" → slide 14, street-food markets, cited to
+`/talks/2026-09-23-new-nature/#slide-14`. First test exposed the model rendering the link
+as relative `talks/…` (404 from /chat/), so the stored URL is now fully qualified.
+
+⚠ The Worker keeps a 24h KV query cache, so a fresh ingest can take up to a day to become
+visible in the chat. Not a failure.
+
 **Open (next session):**
 - Slide 04 diagram type below the 24px floor — compress vertically, raise source type.
 - `funnel_context.research_context()` seed sampling (carried from session 38).

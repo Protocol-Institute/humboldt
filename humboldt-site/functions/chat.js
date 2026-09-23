@@ -277,16 +277,28 @@ source says. Entries are permanent.*
 **L-005** (provisional): Gall Generalization: Working Systems Resist Restructuring
   A complex protocol system that functions correctly cannot be safely replaced from scratch; it must be evolved from a simpler working protocol. Attempts to replace working complex protocol systems from scratch reliably fail — or produce indefinite coexistence of old and new rather than replacement.
 
-## Most recent notebook entry (2026-09-22)
+## Talks
 
-# Lab Notebook — 2026-09-22
+- **Some Candidate Laws of New Nature** — Protocol Symposium 2026, 2026-09-23. 16 slides, delivered with recorded narration. Full text and audio: /talks/2026-09-23-new-nature/ (each slide has a permalink, #slide-NN).
+
+Talk slides are in your retrieval as CONFERENCE TALK items, carrying both what was
+projected and what you said aloud over it. When a question is about the talk — what
+you argued, how you framed a law for an audience, what you conceded — answer from
+those and link the specific slide permalink rather than the deck as a whole. The
+talk is the one place your research is stated as an argument to a room rather than
+as records, so it is the right source for "why does this matter" in a way the law
+files are not.
+
+## Most recent notebook entry (2026-09-23)
+
+# Lab Notebook — 2026-09-23
 
 *Daemon-generated entries.*
 
 
 ---
 
-## Ideas from Discord — 2026-09-21 – 2026-09-22
+## Ideas from Discord — 2026-09-22 – 2026-09-23
 
 …
 
@@ -456,12 +468,20 @@ function normalizeHumboldt(match) {
     notebook:      "LAB NOTEBOOK",
     notes:         "READING NOTES",
     shallow_read:  "SHALLOW READ",
-    curiosity:     "CURIOSITY",
-    hypothesis:    "HYPOTHESIS",
-    candidate_law: "CANDIDATE LAW",
-    theory:        "THEORY",
-    falsification: "FALSIFICATION MONITOR",
-    deep_story:    "RESEARCH ARC",
+    law:           "LAW RECORD",
+    talk:          "CONFERENCE TALK",
+    inbox_idea:    "DISCORD IDEA",
+    // The five below are PRE-REDESIGN types. Nothing produces them any more — the
+    // 2026-08 redesign replaced C/H/CL/T/F with the unified law record — but the
+    // humboldt index still holds orphan vectors of these types with no current
+    // source file (see TODO.md, session 35), and they do surface in retrieval.
+    // Kept so an orphan is labelled honestly rather than as generic HUMBOLDT.
+    curiosity:     "CURIOSITY (retired schema)",
+    hypothesis:    "HYPOTHESIS (retired schema)",
+    candidate_law: "CANDIDATE LAW (retired schema)",
+    theory:        "THEORY (retired schema)",
+    falsification: "FALSIFICATION MONITOR (retired schema)",
+    deep_story:    "RESEARCH ARC (retired schema)",
   };
   return {
     source:  "humboldt",
@@ -470,7 +490,9 @@ function normalizeHumboldt(match) {
     title:   m.title || m.doc_title || "",
     authors: [],
     date:    m.date || "",
-    url:     null,
+    // Talk slides carry a slide-level permalink; other humboldt types have no
+    // public URL of their own, so this stays null for them.
+    url:     m.url || null,
     excerpt: (m.text || "").slice(0, 500),
     type,
   };
@@ -491,7 +513,10 @@ function buildContextBlock(humboldtItems, corpusItems) {
   return [...seen.values()].slice(0, MAX_SOURCES).map(item => {
     const authors = item.authors.length ? ` — ${item.authors.join(", ")}` : "";
     const date    = item.date ? ` — ${item.date}` : "";
-    const label   = `[${item.label} — "${item.title}"${authors}${date}]`;
+    // Surface the URL so a talk slide can be cited to its own permalink rather
+    // than to the deck as a whole.
+    const link    = item.url ? ` — ${item.url}` : "";
+    const label   = `[${item.label} — "${item.title}"${authors}${date}${link}]`;
     return `${label}\n${item.excerpt}`;
   }).join("\n\n---\n\n");
 }
