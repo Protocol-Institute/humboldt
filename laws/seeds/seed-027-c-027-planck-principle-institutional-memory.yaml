@@ -1,6 +1,7 @@
 id: seed-027
 title: C-027-planck-principle-institutional-memory
-text: 'Kuhn quotes Planck: "a new scientific truth does not triumph by convincing its
+text: 'Kuhn quotes Planck: "a new scientific truth does not triumph by convincing
+  its
 
   opponents and making them see the light, but rather because its opponents eventually
 
@@ -12,7 +13,8 @@ text: 'Kuhn quotes Planck: "a new scientific truth does not triumph by convincin
 
   turnover — but institutional protocols often outlive multiple generations of
 
-  practitioners, and the protocol itself functions as a memory device that allows the
+  practitioners, and the protocol itself functions as a memory device that allows
+  the
 
   original paradigm to persist beyond the original cohort. This is a mechanism by
 
@@ -29,3 +31,5 @@ connections:
 - F-001
 - CL-001
 status: open
+last_swept: '2026-09-22'
+swept_count: 1

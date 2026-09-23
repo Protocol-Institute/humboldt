@@ -1,0 +1,20 @@
+id: seed-477
+title: Proxy Adequacy Collapse Under Behavioral Optimization in Incommensurable Domains
+text: Metrics constructed via aggregation of human judgment on culturally-embedded
+  tasks may exhibit high correlation with held-out human judgment *without* maintaining
+  validity once the model is optimized against the metric itself. When the domain
+  involves irreducibly heterogeneous contexts (regional cultural variation), optimizing
+  toward a unified proxy may converge to low-variance outputs that satisfy the metric
+  while reducing expressivity across the plurality of contexts. Does metric-driven
+  optimization in culturally-embedded or context-heterogeneous domains produce apparent
+  alignment followed by hidden distribution shift — where models degrade in regions
+  underrepresented in the aggregated judgment pool?
+source: bibliography/shallow-reads/2026-09-22-beyond-cultural-knowledge-evaluating-arabic-cultural-appropr.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: question
+connections:
+- L-004
+status: open
+last_swept: '2026-09-22'
+swept_count: 1

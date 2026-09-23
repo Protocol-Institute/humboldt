@@ -1,0 +1,19 @@
+id: seed-520
+title: Measurement-Layer Confinement in Value Proxy Steering
+text: 'When a formalized proxy for an intangible property (moral alignment, value coherence) becomes the
+  explicit steering target, optimizing agents will move the proxy without necessarily moving the underlying
+  property. In LLM moral steering via psychometric instruments, interventions successfully shift questionnaire
+  responses while leaving unknown the correlation with downstream behavioral changes. This suggests a
+  general pattern: formalization of intangible values as measurable proxies creates a legible optimization
+  surface that can decouple from the original intent. The generalization: in any protocol using a psychometric,
+  behavioral, or learned proxy as a steering signal, success at moving the proxy may signal only local
+  capture, not systemic alignment—and the gap widens as the proxy becomes more precisely specified and
+  easier to optimize.'
+source: bibliography/shallow-reads/2026-09-22-steering-llms-responses-towards-moral-foundations-on-the-nor.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-004
+- L-016
+status: open

@@ -1,0 +1,17 @@
+id: seed-505
+title: Message Capacity as Consensus Stability Phase Transition
+text: In multi-agent systems where agents have bounded capacity to observe peer utterances, consensus
+  stability exhibits a sharp phase transition as a function of message capacity alone. Below a critical
+  threshold, correct-majority collectives flip to false consensus; above it, truth emerges. This suggests
+  that information bottleneck geometry (not agent reasoning quality) governs collective epistemic stability.
+  The mechanism generalizes beyond LLM networks to any protocol where individual agents condition behavior
+  on a bounded, randomly sampled subset of peer actions—making it a candidate law for coordination under
+  scarcity.
+source: bibliography/shallow-reads/2026-09-22-message-capacity-and-claim-wording-set-the-transition-points.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-010
+- L-008
+status: open

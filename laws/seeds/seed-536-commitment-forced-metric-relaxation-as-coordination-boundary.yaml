@@ -1,0 +1,16 @@
+id: seed-536
+title: Commitment-Forced Metric Relaxation as Coordination Boundary Hardening
+text: 'When protocol obligations require irrevocable commitment before full information is available,
+  fairness or optimality metrics shift from deterministic to probabilistic formulations. This is not a
+  failure of the protocol but a structural consequence of binding agents to decisions under uncertainty.
+  The relaxation itself may act as a coordination boundary: agents who cannot accept probabilistic fairness
+  guarantees exit entirely, while those who remain are locked into a narrower compatibility set. This
+  hardening may explain why some protocols with high ex-ante adoption signal show low ex-post participation
+  when irrevocable commitment is enforced.'
+source: bibliography/shallow-reads/2026-09-22-randomized-online-fair-division-high-probability-and-expecte.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-010
+status: open

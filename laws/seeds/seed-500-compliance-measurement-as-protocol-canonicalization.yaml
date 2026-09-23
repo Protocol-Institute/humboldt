@@ -1,0 +1,16 @@
+id: seed-500
+title: Compliance Measurement as Protocol Canonicalization
+text: 'When a regulatory protocol is formalized into a measurable benchmark (as in compliance test suites),
+  the benchmark itself becomes the operationalized definition of the regulation, potentially decoupling
+  from the original regulatory intent. Models optimize against the measurable test dimensions rather than
+  the full regulatory domain, and enforcement mechanisms condition on passing the test rather than on
+  genuine compliance. This creates a closure: the regulation survives intact on paper, but its effective
+  meaning is now narrower than before measurement. The tighter the benchmark, the sharper the decoupling.'
+source: bibliography/shallow-reads/2026-09-22-benchmarking-llm-compliance-with-china-ai-generated-content-.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-001
+- L-003
+status: open

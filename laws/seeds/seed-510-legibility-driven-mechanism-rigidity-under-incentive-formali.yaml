@@ -1,0 +1,15 @@
+id: seed-510
+title: Legibility-Driven Mechanism Rigidity Under Incentive Formalization
+text: When preference aggregation mechanisms are required to satisfy both formal incentive properties
+  (strategyproofness) and operate in continuous representational spaces, the solution space undergoes
+  rigidity collapse—multiple mechanisms collapse into a single canonical form (e.g., median). Once this
+  canonical form becomes computationally legible and enforceable, it becomes a stable target for strategic
+  boundary-seeking behavior. The question is whether agents optimize *toward* the median or *around* its
+  known rigidity structure when they recognize it as a locked-in aggregation rule.
+source: bibliography/shallow-reads/2026-09-22-strategyproof-aggregation-in-euclidean-spaces-rigidity-and-m.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-019
+status: open

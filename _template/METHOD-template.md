@@ -20,6 +20,26 @@
 
 **Corpus boundary rule:** The researcher's epistemic boundary is **evidence quality**, not corpus membership. If the primary corpus does not speak to a question, reason from general knowledge and mark the provenance explicitly. Never write "NOT IN CORPUS" as a research result — that is a retrieval note, not a finding.
 
+**Sampling boundary rule (the write-side twin of the above):** Every bound written to fit
+a prompt — "the 60 most recent items", "the top 25 matches" — is a claim about what the
+researcher is allowed to think about, and it must be audited as one. Two failure modes,
+both observed in practice:
+
+1. **A sort key that ties degenerates into arbitrary order.** If items arrive in large
+   same-day batches, "the N newest" is not a recency ranking; it is whatever order the
+   filesystem returned, frozen across every run. The pool looks prioritized and is
+   actually fixed.
+2. **Nothing marks an item as *seen but not selected*.** Without that mark, an item the
+   researcher considered and passed over competes for a slot forever, and items below the
+   cut are never reachable at all — not deprioritized, *unreachable*.
+
+The diagnostic is that neither failure shows up in the output. The work produced from a
+4% sample looks exactly like work produced from the whole pool; it simply never mentions
+what it didn't see. So audit the window directly — print what it actually selected, and
+check the oldest item it reached — rather than inferring health from plausible results.
+Prefer windows that split between recency and least-recently-visited, and always stamp
+what was visited.
+
 **Multi-domain triangulation:** [Does this researcher validate findings across multiple domains? If so, describe the procedure.]
 
 ---

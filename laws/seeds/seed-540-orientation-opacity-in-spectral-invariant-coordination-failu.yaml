@@ -1,0 +1,20 @@
+id: seed-540
+title: Orientation Opacity in Spectral-Invariant Coordination Failures
+text: 'In distributed decision systems where agents condition adoption of communication on legible aggregate
+  measures (spectral properties, network structure, information content), systems can become coordination
+  traps where communication adoption is rational but outcome-degrading. The failure mode is orthogonal
+  to legible network properties: identical topologies and spectral descriptions can produce opposite-sign
+  coordination effects depending on message orientation — a dimension invisible to standard aggregate
+  descriptions. This suggests a generalization: *any protocol system that selects for adoption based on
+  a subset of invariant properties while remaining blind to orthogonal state variables can exhibit stable
+  nonmonotonicity where increased adoption worsens outcomes*. The mechanism may generalize beyond distributed
+  inference to any multi-agent protocol where the coordination signal is dimensionally richer than the
+  metric used to evaluate it.'
+source: bibliography/shallow-reads/2026-09-22-when-does-communication-help-beyond-spectral-descriptions-of.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-010
+- L-019
+status: open

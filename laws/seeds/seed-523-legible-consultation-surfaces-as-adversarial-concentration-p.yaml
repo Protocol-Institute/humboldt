@@ -1,0 +1,18 @@
+id: seed-523
+title: Legible Consultation Surfaces as Adversarial Concentration Points
+text: 'When safety-critical classification protocols are decomposed into legible multi-agent consultation
+  loops, the optimization pressure exerted by adversarial agents concentrates at the documented disagreement/agreement
+  surfaces rather than distributed across the content being classified. The system makes visible (and
+  thus targetable) the decision boundaries between agents. Strategic submitters can learn to craft documents
+  that create maximal inter-agent disagreement or systematic agent-pairing patterns, turning the consultation
+  protocol itself into a legible attack surface. This generalizes: any protocol that makes its internal
+  disagreement surfaces legible and documented will attract optimization pressure to those surfaces before
+  content-level optimization.'
+source: bibliography/shallow-reads/2026-09-22-a-channel-boosted-multi-agent-system-with-iterative-consulta.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-012
+- L-014
+status: open

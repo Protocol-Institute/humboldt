@@ -1,0 +1,22 @@
+id: seed-468
+title: Authority-Opacity Reliance Asymmetry in Subjective Domains
+text: 'Users show increasing willingness to delegate subjective personal judgment
+  to opaque AI oracles (LLMs) without proportional increase in verification or contestation
+  mechanisms. The reliance may persist not despite opacity but because opacity grants
+  the oracle an authority boundary immune to user second-guessing — formalization
+  of subjective judgment (via LLM output legibility) paradoxically increases reliance
+  by reducing the cognitive friction required to override the oracle''s frame. This
+  suggests a generalized pattern: in domains where human judgment is costly and ground
+  truth is inaccessible, delegation to a high-legibility, high-authority proxy can
+  be self-stabilizing independent of proxy accuracy. Investigate whether this holds
+  across other subjective decision contexts (medical, legal, social) and whether it
+  predicts resistance to transparency interventions.'
+source: bibliography/shallow-reads/2026-09-22-llms-as-oracles-reliance-on-llms-for-subjective-personal-que.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-012
+status: open
+last_swept: '2026-09-22'
+swept_count: 1

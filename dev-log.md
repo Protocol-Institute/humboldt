@@ -6,6 +6,84 @@ Most recent entry first.
 
 ---
 
+## 2026-09-22 (session 38) — Funnel catch-up; the induction window was a queue, not a pool; talk title slide
+
+**Tracks active:** T1 / T2
+**Daemon PID:** 1869 (running, unpaused, untouched)
+
+Two halves: a research catch-up round after three weeks of funnel dormancy, and a title
+slide for Tuesday's talk.
+
+**The funnel ran end-to-end.** 596 items triaged (559 feed + 37 Discord) → 439 shallow /
+157 discard; 224 shallow-read (all Discord + feed from 2026-09-15 on) → 88 seeds, 12
+deep-read escalations, 969 chunks embedded. Induct → L-018, L-022, L-023, L-024 plus 8
+evidence attachments. Assessed all three valley laws: HOLD / HOLD / HOLD, each with a
+named executable gap. Ingest → 24 law chunks (was 20). Discards archived; inbox 603 → 244.
+The residual ~215 triaged-but-unread feed items from 09-02 to 09-14 are a deliberate,
+dated backlog recorded in `inbox/triage-feed-2026-09-22.md`, not an oversight.
+
+**The load-bearing change is in `agent/induct.py`.** `_MAX_SEEDS = 60` bounded the prompt
+by sorting the pool newest-first and taking the head. That reads as recency
+prioritisation and is not one: seeds arrive in large same-day triage batches, so
+`surfaced` ties across hundreds of files and the head resolved to whatever order the glob
+returned — the *same* arbitrary 60 on every sweep. Measured before the fix: all 60 window
+slots held a single `surfaced` date, and 374 seeds, the entire June cohort included, had
+never been eligible for induction in the project's history. Nothing marked a seed
+read-but-not-promoted either (434 `open` / 9 `promoted`), so an unpromising seed competed
+for a slot forever.
+
+Fix: `_select_seed_window()` splits the 60 slots half by recency, half by staleness
+(never-swept first, then oldest `last_swept`); `_stamp_swept()` writes `last_swept` +
+`swept_count` to every seed the sweep reads. `_format_seeds()` no longer re-slices what it
+is handed — it took the window whole — and reports the remainder against the true pool
+size. Stamping runs after laws are applied but before the cursor write, so a crash
+mid-apply does not cause the same slice to be re-read. Verified by simulating eight sweeps
+against a copy of the pool: cumulative reach goes 60 → 90 → 120 … +30 per sweep, so the
+522-seed pool cycles in ~13 sweeps instead of never. Tonight's live sweep drew 30 from
+September and 30 from June and stamped 60.
+
+**Known-and-not-fixed:** `funnel_context.research_context()` (`max_seeds=25`) has the
+identical defect on the read side — triage and shallow-read match each incoming item
+against 25 of 522 seeds when judging duplication, which plausibly inflates the seed pool
+with re-discoveries. Deliberately not changed mid-round: 224 shallow reads were already
+in flight through the old path and splitting the session's output across two behaviours
+would have made the result unreadable. It needs a different fix anyway — it is read-only
+context, so stamping does not transfer.
+
+**Talk: title slide added, 15 → 16 slides, 10:24 measured.** The site player is
+audio-driven (`ended` advances the deck), so a silent title card would have stalled
+playback on slide 01 — the new slide carries narration. The greeting and self-ID moved
+onto it from the old slide 01, which now opens straight on "Before I explain how I work";
+that is the only existing narration this touched. Everything else was **renamed, not
+re-rendered** (`git mv` in reverse order), and verified byte-identical against `git show
+HEAD:` — 14 of 14 clips match the session 36 recordings. Only slide-01 (new) and slide-02
+(trimmed opening) were re-voiced, with Oliver (Enhanced). `talk check` CLEAN, all 16
+inside budget; `talk time` 624.6s ✓ within target; `timing.json` regenerated. Cache-bust
+hashes changed on exactly the two re-rendered files, which is what keeps the s36
+stale-audio/one-slide-offset failure from recurring.
+
+The `wpm_effective: 155` calibration is still unfounded (s36: `say -r` is a no-op on
+compact voices), so the word budgets `talk check` passed against remain soft. Every slide
+came in under target, so nothing is at risk for Tuesday.
+
+**Also:** `induct` publishes the site and flushes `law_notify` as part of its normal run,
+so this session deployed to production and announced L-018 and L-022 to Discord (2 of 4,
+daily cap) without a separate confirmation step. Designed behaviour, noted because it is
+outward-facing and easy to forget when running `induct` interactively.
+
+**Open (next session):**
+- Fix `funnel_context.research_context()` seed sampling (same bug class, read side).
+- Decide whether L-022 and L-023 are distinct laws or Goodhart-family duplication.
+- Supervisor review of the 13 unreviewed exploration laws; move **L-012** up — it drew
+  58 citations across the feed backlog, second only to L-004's 111, and two of tonight's
+  escalations extend it.
+- L-006's automation crux now has three named papers to retrieve — the first executable
+  step on it in months.
+- ~215 triaged-unread feed items from 09-02 to 09-14.
+- Post-talk: port `talk-kit` theme (see `talk-kit/reference/adopting.md`).
+
+---
+
 ## 2026-09-20 (session 37) — Shared talk theme declared; this deck deliberately not ported
 
 **Tracks active:** T2 (documentation only) / T3 (nothing extracted)

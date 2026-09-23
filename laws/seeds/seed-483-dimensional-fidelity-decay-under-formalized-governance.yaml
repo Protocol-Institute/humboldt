@@ -1,0 +1,19 @@
+id: seed-483
+title: Dimensional Fidelity Decay Under Formalized Governance
+text: When a measurement apparatus designed to preserve dimensional structure (e.g.,
+  Lorenz Zonoids) is formalized into a protocol for governance or allocation, does
+  dimensional fidelity degrade monotonically as a function of (a) adoption scale,
+  (b) need for real-time legibility, or (c) strategic optimization pressure? Or do
+  richer dimensional frameworks create new gaming surfaces rather than reducing capture
+  risk? This suggests a distinction between *measurement fidelity at design time*
+  and *protocol interpretability under adoption* — and implies that metric capture
+  may be unsolvable by dimensional multiplication alone.
+source: bibliography/shallow-reads/2026-09-22-measuring-ai-harms-with-multidimensional-lorenz-zonoids.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: question
+connections:
+- L-004
+status: open
+last_swept: '2026-09-22'
+swept_count: 1

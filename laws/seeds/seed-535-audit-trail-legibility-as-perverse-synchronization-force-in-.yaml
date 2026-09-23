@@ -1,0 +1,17 @@
+id: seed-535
+title: Audit Trail Legibility as Perverse Synchronization Force in Safety-Critical Governance
+text: In safety-critical protocols (criminal justice, medical licensing, environmental enforcement) where
+  agent behavior is audited via legible records (case outcomes, sentencing length, approval rates), agents
+  may synchronize on externally-driven signals (electoral cycles, media attention, regulatory fashion)
+  rather than protocol-internal goals, precisely *because* the audit trail makes deviation visible. Legibility
+  intended to enforce consistency instead creates a coordination surface for collineation with salient
+  external incentives. The protocol tolerates this because the anomaly is distributed (all prosecutors
+  shift together) and rationalized post-hoc as within-protocol variance.
+source: bibliography/shallow-reads/2026-09-22-prosecutor-politics-the-impact-of-election-cycles-on-crimina.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-004
+- L-013
+status: open

@@ -1,0 +1,69 @@
+id: L-023
+title: Informality as Novelty Sink Under Legible Optimization
+slug: informality-as-novelty-sink-under-legible-optimization
+stage: exploration
+status: active
+origin: discovered
+source: null
+confidence: speculative
+statement: >
+  In protocol systems subject to legible optimization pressure, output diversity and functional
+  novelty are maintained not by the formal protocol layer but by informal, non-formalizable
+  steering inputs that the optimization process cannot capture. When informal steering is removed
+  or professionalized, output distributions homogenize toward the high-density regions of the
+  optimization surface, even if the formal protocol is unchanged.
+mechanism: >
+  Legible optimization selects for outputs in high-probability regions of measurable feedback
+  signals. Informal steering introduces uncomputable perturbations that push agents toward lower-probability
+  regions, maintaining distributional spread. When informal steering atrophies, the system loses
+  this entropy source and converges toward the optimization surface's high-density regions.
+justification: >
+  seed-474 provides the core claim with sufficient specificity. The programming-student study
+  (2026-09-22-your-programming-students-cognition-with-chatgpt) provides a partial analog: when
+  high-legibility AI guidance replaces informal web-search exploration, student outputs become
+  more uniform and less self-authored. The Kuhn seeds (seed-033, seed-035) provide historical
+  grounding: aesthetic and extra-scientific steering is what maintained productive diversity
+  before paradigm lock-in. This is distinct from L-003 (Formalization Ratchet) which describes
+  the transition from informal to formal norms; this law describes what the informal layer *does*
+  that the formal layer cannot replicate.
+examples:
+  - domain: Generative AI creative output
+    description: In AI image and text generation systems, early outputs showed high 
+      diversity partly because human curators and prompters applied idiosyncratic informal
+      steering. As prompt engineering professionalized and optimization-against-engagement
+      metrics tightened, output distributions visibly homogenized toward viral archetypes,
+      even without changes to the underlying model.
+    source: seed-474
+  - domain: Scientific publishing under bibliometric pressure
+    description: Fields with tight bibliometric feedback loops (citation counts, impact 
+      factor rankings) show measurable reduction in methodological diversity and topic 
+      novelty compared to fields with looser formal evaluation, consistent with informal 
+      peer influence maintaining diversity where formal metrics do not dominate.
+    source: seed-474
+counterexamples: []
+open_questions: []
+falsification: >
+  A documented case where a formal protocol system under strong legible optimization pressure
+  maintained high output diversity after informal steering was removed or fully professionalized,
+  without introducing explicit diversity-forcing mechanisms, would refute the claim that informal
+  steering is the active driver of novelty preservation.
+references: []
+seeds:
+  - seed-474
+related: []
+triggers:
+  advance: >
+    Mechanism demonstrated in 2+ independent domains by showing (a) output diversity declines
+    measurably after formalization/professionalization of the steering layer, (b) the decline
+    is not explained by changes in the formal protocol itself, and (c) reintroduction of informal
+    steering partially restores diversity.
+  challenge: >
+    A documented protocol system where legible optimization pressure increased while informal
+    steering remained constant, yet output diversity increased—showing that formal optimization
+    and novelty are not structurally antagonistic under some conditions.
+history:
+  - date: '2026-09-22'
+    event: created
+    detail: induction sweep — seed-474 provides the core claim with sufficient 
+      specificity. The programming-student study 
+      (2026-09-22-your-programming-students-cognition-with-chatgpt)…

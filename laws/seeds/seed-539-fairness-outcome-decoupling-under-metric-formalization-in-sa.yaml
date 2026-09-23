@@ -1,0 +1,19 @@
+id: seed-539
+title: Fairness-Outcome Decoupling Under Metric Formalization in Safety-Critical Prediction
+text: 'When fairness metrics are formalized as constraints or objectives in safety-critical prediction
+  systems (e.g., clinical retention models), optimization pressure concentrates on achieving metric parity
+  rather than on the unmeasurable outcome (actual treatment retention and recovery). The formalization
+  creates a new optimization surface that is operationally decoupled from the original goal: a model can
+  satisfy fairness constraints while predicting poorly on the underlying outcome, or satisfy outcome accuracy
+  while violating fairness — this tradeoff persists because fairness is a property of the *prediction
+  distribution*, not the *causal effect of treatment*. The displacement is self-reinforcing: as fairness
+  becomes auditable and reportable, it becomes the legible success criterion, further decoupling from
+  outcome verification which is slow, long-term, and attributionally ambiguous.'
+source: bibliography/shallow-reads/2026-09-22-toward-fairness-in-machine-learning-models-for-predicting-tr.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-004
+- L-012
+status: open

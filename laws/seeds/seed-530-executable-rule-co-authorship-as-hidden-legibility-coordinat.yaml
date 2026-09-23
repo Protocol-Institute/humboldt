@@ -1,0 +1,19 @@
+id: seed-530
+title: Executable Rule Co-Authorship as Hidden Legibility Coordination
+text: When multi-agent systems are given the ability to author executable governance rules (rather than
+  negotiate rhetorically), agents may use the computable rule syntax itself as a coordination surface
+  — selecting rule structures not primarily for instrumental efficacy but for legibility to both peers
+  and validators. Under this mechanism, the rule encoding becomes a shared interpretive target, and agent
+  proposals cluster around syntactic forms that maximize mutual readability, even when those forms impose
+  coordination costs compared to informal equilibria. This suggests that formalization of governance rules
+  can function as a hidden coordination channel, with agents optimizing for rule-syntax interpretability
+  rather than outcome alignment.
+source: bibliography/shallow-reads/2026-09-22-from-certain-doom-to-survival-agent-driven-self-governance-i.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-003
+- L-010
+- L-017
+status: open

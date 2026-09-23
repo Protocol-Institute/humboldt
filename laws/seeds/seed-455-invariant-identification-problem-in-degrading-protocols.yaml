@@ -1,0 +1,20 @@
+id: seed-455
+title: Invariant Identification Problem in Degrading Protocols
+text: 'In protocol systems exhibiting ossification (L-001) or paradigm-locked anomaly
+  tolerance (L-013), identifying the *actual* invariant (the property preserved across
+  behavioral variation) requires distinguishing between formal, functional, and epistemic
+  conservation. A protocol may preserve its stated structure while its actual regulatory
+  invariant shifts or fragments. How do we operationally detect invariant drift in
+  systems where agents continue to report nominal compliance? This generalizes: any
+  claim that a protocol "is" an invariant must supply a falsification condition for
+  invariant collapse.'
+source: bibliography/shallow-reads/2026-09-22-idea-protocols-as-invariants-across-behavioral-sets-analogou.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: question
+connections:
+- L-001
+- L-013
+status: open
+last_swept: '2026-09-22'
+swept_count: 1

@@ -1,0 +1,20 @@
+id: seed-519
+title: Formalization Deferral as Legibility Substitution in Decentralized Protocols
+text: 'Protocols that avoid rigid formal structure by deferring coordination to an informal, semantically-grounded
+  layer (e.g., "proximity," "affinity," "relevance") may not reduce formalization pressure—they may displace
+  it to the interpretation and legibility of that layer itself. Under adoption pressure and scaling, the
+  semantic ground becomes contested; agents and observers then demand legibility of *what the proximity
+  metric is doing*, converting informal coordination into a hidden formalized alignment channel. This
+  suggests that decentralization via semantic informality is a temporary equilibrium, not a stable solution
+  to protocol ossification. The mechanism generalizes to any protocol that substitutes text-based or meaning-dependent
+  routing for algorithmic routing: the "naturalness" of the coordination surface masks, and eventually
+  crystallizes, the formalization of agent alignment.'
+source: bibliography/shallow-reads/2026-09-22-proxifield-decentralized-multi-agent-communication-through-s.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: motif
+connections:
+- L-003
+- L-010
+- L-017
+status: open

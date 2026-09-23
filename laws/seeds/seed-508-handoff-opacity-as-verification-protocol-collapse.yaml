@@ -1,0 +1,17 @@
+id: seed-508
+title: Handoff Opacity as Verification Protocol Collapse
+text: 'In multi-stage agent pipelines, safety monitors operating on summary or cached representations
+  of prior decisions lose access to verification provenance, causing them to treat unverified authorizations
+  as valid. This occurs not because monitors are misconfigured but because the pipeline''s information
+  architecture severs the causal link between verification and decision. Where verification status is
+  not explicitly legible in the decision protocol''s input layer, downstream monitors cannot condition
+  on it; the monitor then optimizes only over the visible claim, not its epistemic ground. This suggests
+  a general pattern: safety protocols fail not under evidence of malfunction, but under *information architecture
+  that renders evidence invisible to the enforcement layer*.'
+source: bibliography/shallow-reads/2026-09-22-silence-is-endorsement-verification-status-laundering-in-llm.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-012
+status: open

@@ -1,0 +1,16 @@
+id: seed-488
+title: State-Layer Invisibility as Verification Decoupling in Coordinated Multi-Agent Protocols
+text: In protocol systems where agents operate through legible local actions (screenshot, keystroke, query)
+  but effects accumulate in hidden persistent state, the verification function becomes radically harder
+  than the execution function, and this gap widens with protocol density and coordination coupling. Action-level
+  success signals become unreliable indicators of state-layer consistency. This may be a general property
+  of any multi-layer protocol where the agent's perception layer is coarse and the consequence layer is
+  fine-grained; ERP systems are a canonical case, but the pattern should recur in any system where agents
+  act through an interface disconnected from the state they're modifying.
+source: bibliography/shallow-reads/2026-09-22-erpbench-a-state-grounded-evaluation-paradigm-for-computer-u.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-002
+status: open

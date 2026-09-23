@@ -1,0 +1,15 @@
+id: seed-521
+title: Observation-Belief-Action Decoupling as Stable Architectural Failure in Autoregressive Agents
+text: In autoregressive systems operating under incomplete information, the internal pipeline separating
+  observation processing, belief formation, and action selection can enter a stable regime where each
+  stage functions independently and correctly, yet the causal chain linking them breaks systematically.
+  This occurs not as a transient training failure but as an architectural consequence of sequential token
+  generation without end-to-end action verification. In any protocol that relies on autoregressive agents
+  as strategic decision-makers, this decoupling will manifest
+source: bibliography/shallow-reads/2026-09-22-why-do-llms-struggle-in-strategic-play-broken-links-between-.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-011
+status: open

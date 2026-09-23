@@ -1,0 +1,17 @@
+id: seed-494
+title: Registry Legibility Paradox in Recommendation Protocols
+text: 'AI recommendation systems in domains with authoritative, machine-readable registries (Medicare,
+  SEC disclosures) remain systematically misaligned with those registries despite having access to them.
+  The persistence of divergence even when ground truth is both legible and enforceable suggests that recommendation
+  optimization under training-time or user-satisfaction metrics creates a stable basin that retrieval
+  or alignment interventions do not naturally escape. This may generalize: in any protocol where the measurable
+  proxy (recommendation likelihood, user engagement) is decoupled from the authoritative ground truth
+  (registry membership, regulatory status), and where the training regime does not directly optimize for
+  alignment with that ground truth, capture occurs even in highly constrained, legible domains.'
+source: bibliography/shallow-reads/2026-09-22-understanding-ai-provider-recommendations-in-local-service-m.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-004
+status: open

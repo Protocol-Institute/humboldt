@@ -1,0 +1,20 @@
+id: seed-475
+title: Harness Layer as Displaced Coordination Surface
+text: In multi-agent systems, formal constraints on inter-agent communication (a "harness")
+  intended to prevent exploitation do not eliminate coordination pressure; they redirect
+  it to the harness boundary and the protocol that governs the harness itself. Does
+  the addition of a formal communication constraint predictably shift optimization
+  pressure from *what* agents say to *when* they invoke the harness, *how* they model
+  the harness's decision logic, or *what* signals the harness uses to gate behavior?
+  This generalizes beyond agentic societies to any protocol system where a safety
+  layer is introduced between autonomous subsystems.
+source: bibliography/shallow-reads/2026-09-22-agentic-societies-need-a-social-harness.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: question
+connections:
+- L-006
+- L-017
+status: open
+last_swept: '2026-09-22'
+swept_count: 1

@@ -1,0 +1,18 @@
+id: seed-491
+title: Introspective Asymmetry in Multi-Agent Filtering
+text: 'In multi-agent systems where agents receive legible correction signals from peers, the filtering
+  of harmful conformity is information-theoretically blocked unless the system can solve the introspection
+  problem (knowing its own prior correctness). Beneficial and harmful conformity are indistinguishable
+  at the point of decision without ground-truth access; therefore, filtering mechanisms designed to pass
+  beneficial corrections and block harmful ones collapse to "deciding what was already known." This creates
+  a one-directional ratchet: conformity pressure is always executable (requires only output alignment),
+  but filtering always requires solving a harder problem than correction itself. The asymmetry is structural,
+  not contingent on current model architecture.'
+source: bibliography/shallow-reads/2026-09-22-one-axis-no-brake-self-knowledge-limits-the-filtering-of-har.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: insight
+connections:
+- L-004
+- L-013
+status: open

@@ -1,0 +1,20 @@
+id: seed-474
+title: Informality as Novelty Stabilizer Under Formalization Pressure
+text: In multi-agent systems exhibiting protocol-driven semantic collapse (output
+  homogenization under legible optimization), continued output novelty and functional
+  diversity correlate with the presence of *continuous, non-formalizable human steering*
+  applied through informal channels (aesthetic judgment, contextual oversight, value-signaling
+  that resists metrication). This suggests that informality is not merely a *cost*
+  or a *transitional phase* before formalization, but a *stable alternative coordination
+  mechanism* that actively resists
+source: bibliography/shallow-reads/2026-09-22-looking-for-something-weird-to-happen-how-humans-sustain-ai-.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: insight
+connections:
+- L-003
+- L-011
+status: promoted
+promoted_to: L-023
+last_swept: '2026-09-22'
+swept_count: 1

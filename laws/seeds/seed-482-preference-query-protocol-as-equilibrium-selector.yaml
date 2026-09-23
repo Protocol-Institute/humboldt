@@ -1,0 +1,20 @@
+id: seed-482
+title: Preference Query Protocol as Equilibrium Selector
+text: 'In systems that learn agent preferences through formal query protocols (pairwise
+  comparisons, rankings, scoring), the choice of query structure acts as a hidden
+  equilibrium selector: it makes certain preference orderings legible while rendering
+  others inexpressible or costly to communicate. The aggregation algorithm then operates
+  over a preference landscape that has already been filtered by the query protocol''s
+  representational capacity. In multi-agent settings where agents know they are being
+  queried, the query protocol itself becomes a coordination target—agents may align
+  their reported preferences not with their true objectives but with what the protocol
+  makes legible or what others are likely to report.'
+source: bibliography/shallow-reads/2026-09-22-learning-generalized-nash-equilibria-from-pairwise-preferenc.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-019
+status: open
+last_swept: '2026-09-22'
+swept_count: 1

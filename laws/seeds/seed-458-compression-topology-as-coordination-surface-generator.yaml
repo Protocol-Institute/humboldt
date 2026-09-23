@@ -1,0 +1,18 @@
+id: seed-458
+title: Compression Topology as Coordination Surface Generator
+text: 'Does the *shape* of information compression in a protocol system (e.g., N options
+  → M choices vs. N independent binary queries) determine which coordination surfaces
+  agents can exploit, independent of the semantic content of the choice? Under what
+  conditions does distributing binary decisions across agents fail to prevent re-coordination
+  at the aggregation layer, and when does it succeed? Hypothesis: coordination cost
+  is not conserved but *topologically displaced*—agents pay different costs to coordinate
+  around different compression regimes, creating regime-dependent equilibria.'
+source: bibliography/shallow-reads/2026-09-22-idea-platform-hosted-participants-accept-n-multiple-choice-c.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: question
+connections:
+- L-017
+status: open
+last_swept: '2026-09-22'
+swept_count: 1

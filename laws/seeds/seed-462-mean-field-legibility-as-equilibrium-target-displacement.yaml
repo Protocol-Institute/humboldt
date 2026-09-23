@@ -1,0 +1,19 @@
+id: seed-462
+title: Mean-Field Legibility as Equilibrium Target Displacement
+text: 'When agent-environment feedback is formalized as a computable mean-field function,
+  do agents optimizing within that model implicitly optimize for conformity to the
+  mean-field assumption itself — i.e., for behavior that makes the aggregate distribution
+  predictable and the closure valid? If so, formalization of coordination may not
+  reduce coordination costs but displace them: from explicit negotiation to implicit
+  pressure toward population-level statistical regularity. Does this generalize to
+  other domains where legible aggregate models are introduced as protocol layers?'
+source: bibliography/shallow-reads/2026-09-22-an-evolutionary-computation-framework-for-multi-agent-q-lear.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: question
+connections:
+- L-003
+- L-006
+status: open
+last_swept: '2026-09-22'
+swept_count: 1

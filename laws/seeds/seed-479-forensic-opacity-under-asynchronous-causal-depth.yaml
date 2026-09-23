@@ -1,0 +1,22 @@
+id: seed-479
+title: Forensic Opacity Under Asynchronous Causal Depth
+text: 'In multi-agent systems where agents condition behavior on historical interaction
+  traces, tool outputs, and other agents'' decisions, the forensic legibility of a
+  failure (the ability to attribute it to a specific agent decision or protocol violation)
+  degrades as a function of temporal depth and causal chain length. This creates a
+  regime in which failures can be observed and constrained operationally, but their
+  root cause cannot be legibly reconstructed — inverting the assumption that auditability
+  enables safety. The generalization: any protocol system that distributes causality
+  across multiple decision-makers or information sources will exhibit a tradeoff between
+  operational safety and forensic accountability.'
+source: bibliography/shallow-reads/2026-09-22-emergence-world-adversarial-stress-testing-of-long-horizon-m.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-001
+- L-009
+status: promoted
+promoted_to: L-024
+last_swept: '2026-09-22'
+swept_count: 1

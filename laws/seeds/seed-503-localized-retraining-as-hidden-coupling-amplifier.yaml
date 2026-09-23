@@ -1,0 +1,18 @@
+id: seed-503
+title: Localized Retraining as Hidden Coupling Amplifier
+text: In self-correcting protocols operating on structured data (SEC filings, audited systems, regulated
+  domains), post-deployment corrections are typically scoped to the failure class that triggered them—e.g.,
+  "fix period misidentification without breaking entity resolution." However, when the system architecture
+  couples multiple inference stages (retrieval → reasoning → calculation), localized constraint satisfaction
+  in one layer tends to shift optimization pressure downstream to layers treated as out-of-scope. This
+  may preserve narrow correctness metrics while inducing systematic bias in downstream outputs that remain
+  unaudited. The tighter the formalization of the correction scope, the more reliable the hidden coupling
+  becomes.
+source: bibliography/shallow-reads/2026-09-22-finskillops-a-self-evolving-multi-agent-system-for-sec-filin.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: motif
+connections:
+- L-016
+- L-013
+status: open

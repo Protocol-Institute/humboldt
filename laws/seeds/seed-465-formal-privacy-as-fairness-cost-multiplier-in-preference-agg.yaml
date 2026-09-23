@@ -1,0 +1,22 @@
+id: seed-465
+title: Formal Privacy as Fairness Cost Multiplier in Preference Aggregation
+text: 'When preference aggregation protocols are required to satisfy formal privacy
+  constraints (differential privacy, entry-privacy), the achievable fairness guarantees
+  degrade monotonically as a function of the privacy parameter. The degradation is
+  not incidental but structural: privacy protection requires information destruction,
+  which necessarily increases the slack in any consensus fairness criterion. This
+  pattern suggests a general law: *formal privacy constraints in aggregation protocols
+  are not neutral with respect to fairness outcomes; they systematically trade off
+  consensus for robustness.* The mechanism is independent of the specific fairness
+  definition and likely generalizes to other preference-sensitive protocol systems
+  under formal privacy.'
+source: bibliography/shallow-reads/2026-09-22-differentially-private-multicolor-discrepancy-and-fair-divis.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-004
+- L-019
+status: open
+last_swept: '2026-09-22'
+swept_count: 1

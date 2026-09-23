@@ -1,0 +1,15 @@
+id: seed-511
+title: Unpriced Objective Opposition as Coordination Sink
+text: In any protocol or organizational system with multiple simultaneous objectives (explicit or implicit),
+  internal mechanisms optimized for one objective will generate countervailing effects on others. When
+  these effects are not legible as formal costs to the optimizing agent, the system reaches a performance
+  ceiling determined by the magnitude of internal cancellation, not by the efficiency of the mechanisms
+  themselves. This pattern should generalize across any multi-objective protocol system where optimization
+  pressure is applied asymmetrically.
+source: bibliography/shallow-reads/2026-09-22-unpriced-internal-externalities-and-structural-inefficiency-.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: motif
+connections:
+- L-006
+status: open

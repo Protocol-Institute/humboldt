@@ -1,0 +1,17 @@
+id: seed-525
+title: Legible Task Decomposition as Optimization Surface Concentration
+text: 'When a monolithic protocol (composite query to single LLM) is decomposed into isolated, typed tasks
+  with explicit routing and state preservation for interpretability, the system creates a concentrated
+  surface for external optimization: the measurable task-agent becomes auditable and retrainable, while
+  the composition logic and inter-task dependencies remain opaque. Normative or safety interventions then
+  target the legible component (the isolated task), not the system-level goal, producing behavioral adaptation
+  at task boundaries and potential drift in composite behavior. This pattern should generalize to any
+  protocol decomposition motivated by legibility or auditability rather than capability gain.'
+source: bibliography/shallow-reads/2026-09-22-a-task-oriented-multi-agent-framework-for-complex-wearable-h.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-012
+- L-017
+status: open

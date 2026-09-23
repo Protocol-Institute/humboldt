@@ -1,0 +1,18 @@
+id: seed-526
+title: Coordination Legibility as Commitment-Evasion Surface
+text: 'In protocol systems where correlated equilibria are regulated by requiring agents to make payoff-matching
+  commitments to fixed actions independent of coordinator recommendations (information-value-free constraints),
+  the constraint does not eliminate coordination — it relocates the coordination surface to the credibility
+  and verifiability of commitment itself. Strategic agents facing IVF refinements may exploit asymmetries
+  in commitment verification, signal ambiguity about their own state, or invest in legible-but-false commitment
+  signals rather than abandoning coordination entirely. The generalization: making a coordination channel
+  formally illegible (by enforcing IVF) does not reduce total coordination; it migrates the coordination
+  cost to the layer of commitment representation and authentication.'
+source: bibliography/shallow-reads/2026-09-22-algorithmic-collusion-and-the-complexity-of-information-valu.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: motif
+connections:
+- L-002
+- L-009
+status: open

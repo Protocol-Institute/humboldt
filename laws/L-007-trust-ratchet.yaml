@@ -84,6 +84,14 @@ counterexamples:
       trust collapse, which would constrain L-007's scope."
     source: seed-031 (C-031-trust-collapse-rival-availability)
     resolution: OPEN
+  - domain: ''
+    description: "Safe New World passage: coal mine safety protocols improved \"alongside technological
+      development\" when \"environmental factors had to change\" — potentially suggesting anticipatory
+      updating without incident trigger, which would undercut the law's mining anchor example.\n"
+    source: ''
+    resolution: OPEN — passage is ambiguous; specific historical sourcing required to 
+      determine whether accidents or environmental precondition were the proximate 
+      trigger. Does not cleanly resolve either way.
 open_questions:
   - "Do near-miss reporting systems show faster trust revision? If yes, this is a design lever
     for trust updating without catastrophic failure — the primary untested crux."
@@ -92,6 +100,22 @@ open_questions:
   - "What structurally distinguishes safety-critical protocols — consequence severity, or something
     in the protocol design itself?"
 
+  - "Three specific executable gaps:\n(1) NEAR-MISS CRUX [primary]: Retrieve corpus or external
+    evidence on near-miss reporting systems (specifically: does incident reporting that surfaces
+    near-misses produce faster trust revision than incident-free histories? Target: FAA ASRS
+    data, UK RIDDOR, or any systematic near-miss reporting literature). This is the law's own
+    stated primary untested crux and the advance trigger condition (a).\n(2) RIVAL-DEPENDENCY
+    SCOPING [blocking counterexample]: The seed-031 open counterexample requires resolution.
+    Retrieve cases where a credible rival protocol existed and trust collapsed faster — or cases
+    where no rival existed and trust persisted despite known failure. If rival-dependency is
+    a necessary co-condition, the law's statement must be revised to include it, or the mechanism
+    section must explain why age-based trust accumulation is causal even when a rival is available.\n\
+    (3) COAL MINING SOURCE [evidence integrity]: The Safe New World passage says coal mine protocols
+    improved \"alongside technological development\" when \"environmental factors had to change\"\
+    \ — ambiguous on whether accidents triggered change. Retrieve the specific historical record
+    (e.g., UK Mines Act legislative history, MSHA regulatory history) to confirm or disconfirm
+    that accidents were the proximate trigger rather than anticipatory environmental assessment.
+    If anticipatory, this is a partial falsification of the law's mining anchor."
 falsification: >
   Safety-critical protocols with long incident-free histories that updated rapidly in
   response to technical evidence, without requiring an incident to trigger revision
@@ -144,3 +168,11 @@ history:
     event: evidence
     detail: 'reference seed-031; seed-027: The rival-dependency condition for trust collapse
       — refining the claim that trust decay is driven by technical obsolescence'
+  - date: '2026-09-22'
+    event: counterexample
+    detail: 'Safe New World passage: coal mine safety protocols improved "alongside technological
+      development" when "environmental fa'
+  - date: '2026-09-22'
+    event: edited
+    detail: "assessment HOLD — gap: Three specific executable gaps:\n(1) NEAR-MISS CRUX [primary]:
+      Retrieve corpus or external evidence on near-miss reporting systems (specifically: does "

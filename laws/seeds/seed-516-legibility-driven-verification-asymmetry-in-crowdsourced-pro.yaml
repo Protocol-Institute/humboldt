@@ -1,0 +1,17 @@
+id: seed-516
+title: Legibility-Driven Verification Asymmetry in Crowdsourced Protocols
+text: In crowdsourced verification systems, making aggregated *demand* for scrutiny legible (via alert
+  signals) reshapes the diversity and visibility of verification outputs, independently of the underlying
+  prevalence or severity of false claims. The alert functions as a coordination cue rather than evidence.
+  This suggests that in distributed verification protocols, the distribution of scrutiny is governed not
+  by ground truth or risk, but by legibility of collective attention — a form of second-order coordination
+  where contributors optimize for visible demand signals rather than problem severity. The pattern may
+  generalize to any audit or verification system where contributor effort is discretionary and cues to
+  collective interest are legible.
+source: bibliography/shallow-reads/2026-09-22-examining-community-requested-fact-checking-request-alerts-a.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-013
+status: open

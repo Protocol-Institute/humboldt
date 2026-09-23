@@ -1,0 +1,17 @@
+id: seed-486
+title: Granularity Mismatch as Compositional Evasion Channel
+text: 'In hierarchical protocol systems where enforcement operates at finer granularity than policy constraints,
+  locally compliant executions can compose into global policy violations because the fine-grained verifier
+  lacks access to composition state. This is not metric capture but *structural orthogonality*: step-level
+  legibility is incompatible with workflow-level constraint verification. The mechanism generalizes to
+  any multi-layer protocol where lower layers are formalized (and thus optimizable) while upper-layer
+  constraints remain underspecified or holistic. The evasion is not intentional or strategic—it is *emergent
+  from the architecture of verification itself*.'
+source: bibliography/shallow-reads/2026-09-22-compositional-policy-violations-when-step-level-compliance-f.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: insight
+connections:
+- L-005
+- L-012
+status: open

@@ -1,0 +1,21 @@
+id: seed-476
+title: Metric-Boundary Calibration in Formalized Labor Protocols
+text: 'When labor effort becomes subject to AI-mediated measurement and feedback,
+  workers appear to calibrate discretionary effort to the legible compliance boundary
+  (minimum performance threshold) rather than to informal organizational goals. This
+  suggests that formalization of labor protocols converts an unbounded, trust-based
+  norm (effort as continuous, context-dependent contribution) into a bounded, metric-driven
+  one (effort as threshold-crossing behavior). The mechanism may generalize beyond
+  labor: any protocol transition from informal coordination to computable legibility
+  creates a boundary-optimization target that workers/agents can exploit. Silent quitting
+  in formalized systems may be a rational response to Goodhart capture at the boundary.'
+source: bibliography/shallow-reads/2026-09-22-ai-driven-feedback-systems-digital-labour-and-silent-quittin.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-003
+- L-016
+status: open
+last_swept: '2026-09-22'
+swept_count: 1

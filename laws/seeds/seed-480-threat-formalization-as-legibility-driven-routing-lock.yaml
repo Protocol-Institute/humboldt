@@ -1,0 +1,23 @@
+id: seed-480
+title: Threat Formalization as Legibility-Driven Routing Lock
+text: 'When threat assessment in safety-critical protocols (evacuation, emergency
+  response, anomaly detection) transitions from informal perceptual cues to formally
+  computable models—especially models legible to autonomous routing or allocation
+  systems—agents optimize behavior against the threat signal rather than the underlying
+  risk. This creates a stability lock: the protocol becomes self-referential (agents
+  trust the threat model because it drives their survival-critical decisions), making
+  it difficult to detect when the threat model has become uncalibrated or adversarially
+  manipulated. The formalization reduces coordination heterogeneity (agents converge
+  on algorithm-recommended paths) while concentrating optimization pressure at the
+  boundary between threat perception and routing decision. This pattern likely generalizes
+  to any safety protocol that makes risk legible before allocating resources.'
+source: bibliography/shallow-reads/2026-09-22-gpevac-gnn-based-ppo-for-adaptive-evacuation-routing-during-.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-008
+- L-012
+status: open
+last_swept: '2026-09-22'
+swept_count: 1

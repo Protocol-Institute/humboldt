@@ -1,0 +1,15 @@
+id: seed-485
+title: Disjunctive Aggregation Collapse Under Heterogeneous Predicates
+text: 'When a protocol aggregates preferences or constraints via *disjunctive choice* (each agent satisfies
+  at least one of N incommensurable predicates), the global existence of solutions can fail even when
+  each predicate individually admits solutions or appears tractable. The mechanism is hidden coupling:
+  agent-wise optionality creates constraints on other agents'' predicates, collapsing the joint solution
+  space. This may generalize to any formalized multi-criterion protocol where agents must be satisfy-or-exit
+  across incomparable metrics.'
+source: bibliography/shallow-reads/2026-09-22-to-efx-or-to-mms-that-is-the-question.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-019
+status: open

@@ -60,6 +60,14 @@ examples:
       producing the causal detachment pattern. Confidence-answer misalignment is a 
       measurable signature of this equilibrium.
     source: arXiv:2607.23424
+  - domain: LLM strategic reasoning
+    description: 'The strategic play paper (arxiv-2605.00226) demonstrates empirically that
+      LLMs form beliefs independently of observations and act independently of beliefs in incomplete-information
+      games. Probing shows the internal states exist and are partially correct, but the causal
+      chain observations→beliefs→actions is broken. This is precisely the causal detachment
+      the law predicts: the system maintains internal consistency (beliefs are coherent) while
+      decoupling from external ground truth (actions do not follow from beliefs about the environment).'
+    source: 2026-09-22-why-do-llms-struggle-in-strategic-play-broken-links-between-.md
 counterexamples: []
 open_questions:
   - "Single-source dependency: the law rests entirely on arxiv-2606.03636 (Tembine). The advance
@@ -140,3 +148,9 @@ history:
       which locally consistent reasoning chains can become decoupled from external ground truth:
       arXiv:2607.23424 ('Wrong and More Confident') documents that LLMs maintain fluent, step-by-step
       explanations that remain internally coherent when reasoning…"
+  - date: '2026-09-22'
+    event: evidence
+    detail: 'The claim that operationally functional configurations systematically decoupled
+      from external ground truth emerge as stable attractors in autoregressive systems: The
+      strategic play paper (arxiv-2605.00226) demonstrates empirically that LLMs form beliefs
+      independently of observations and act independently of beliefs in…'

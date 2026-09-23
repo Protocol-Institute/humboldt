@@ -4,6 +4,49 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-09-22 (session 38) — Funnel catch-up after three weeks; induction window fixed; talk title slide
+
+**Daemon PID:** 1869 (running, unpaused). Untouched this session.
+
+Research pipeline had been dormant since 2026-09-02 — sessions 35–37 were all talk and
+infrastructure while the daemon kept filling the inbox at ~45 items/day.
+
+**Funnel, end to end:** 596 items triaged (559 feed + 37 Discord) → 439 shallow / 157
+discard. 224 shallow-read (all Discord + feed from 09-15 on) → 88 seeds, 12 deep-read
+escalations, 969 chunks embedded. Induct → **L-018, L-022, L-023, L-024** + 8 evidence
+attachments. All three valley laws assessed → **HOLD ×3**, each with an executable gap.
+Ingest → 24 law chunks. Inbox **603 → 244**; discards archived.
+
+**Induction window fixed (`agent/induct.py`).** The 60-seed window sorted newest-first
+over same-day triage batches, so the sort key tied and the head resolved to a fixed
+glob-order slice — the same 60 every sweep. **374 seeds, the whole June cohort included,
+had never been eligible for induction.** Now half recency / half least-recently-swept,
+with `last_swept` + `swept_count` stamped on everything read. Verified over 8 simulated
+sweeps: +30 newly-reached per sweep, full pool in ~13 instead of never. Live sweep drew
+30 September + 30 June.
+
+**Not fixed, same bug class:** `funnel_context.research_context()` shows triage and
+shallow-read 25 of 522 seeds when judging duplication. Left alone deliberately —
+224 reads were already running through the old path.
+
+**Talk: title slide added.** 15 → 16 slides, **10:24 measured**, within target. Greeting
+moved onto the title slide; old slide 01 now opens on "Before I explain how I work".
+All 14 other clips **renamed, not re-rendered** — verified byte-identical against git
+HEAD. Only slides 01 and 02 re-voiced. Deployed to production.
+
+**Note:** `induct` publishes the site and flushes `law_notify` in its normal run — this
+session deployed to production and announced L-018 and L-022 to Discord (2 of 4, daily
+cap) as a side effect of the sweep.
+
+**Open:**
+- `funnel_context.research_context()` seed sampling (read-side twin of tonight's fix)
+- L-022 vs L-023: distinct laws or Goodhart-family duplication?
+- Supervisor review of 13 unreviewed exploration laws — **L-012 first** (58 feed citations,
+  second only to L-004's 111)
+- L-006 automation crux: three named papers to retrieve
+- ~215 triaged-unread feed items, 09-02 to 09-14
+- Post-talk: `talk-kit` theme port
+
 ## 2026-09-20 (session 37) — Shared talk theme declared; this deck not ported (deliberate)
 
 **Daemon PID:** 1869 (running, untouched).

@@ -31,3 +31,5 @@ connections:
 - CL-002
 - C-003
 status: open
+last_swept: '2026-09-22'
+swept_count: 1

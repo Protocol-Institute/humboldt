@@ -57,6 +57,14 @@ examples:
       with an important boundary: the result holds when constraints are externally imposed and
       not themselves subject to optimization pressure."
     source: arxiv-2606.25532 (shallow read 2026-08-10)
+  - domain: LLM agent resource management
+    description: The token budget deep read (arxiv-2606.04056) documents that LLM agent 
+      budget overruns cluster structurally at the point where commitments are made (API 
+      call time) rather than where violations are detected (callback time), and that 
+      agents systematically underestimate consumption relative to budget limits. This is 
+      boundary clustering behavior driven by the legibility of the budget as a computable 
+      enforcement signal, consistent with L-008.
+    source: bibliography/deep-reads/arxiv-2606.04056.md
 counterexamples: []
 open_questions:
   - "Primary gap (unchanged from supervisor review): a measured boundary-clustering result —
@@ -130,3 +138,8 @@ history:
     detail: 'Whether computable enforcement reduces or displaces proxy capture: arxiv-2606.25532
       shows that embedding hard physical legibility constraints (thermal limits, fab rules,
       energy bounds) into agentic search reduces…'
+  - date: '2026-09-22'
+    event: evidence
+    detail: 'Boundary clustering under computable enforcement in agentic token-budget protocols:
+      The token budget deep read (arxiv-2606.04056) documents that LLM agent budget overruns
+      cluster structurally at the point where commitments are made (API call…'

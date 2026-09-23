@@ -1,0 +1,14 @@
+id: seed-487
+title: Verification Placement as Legibility Arbitrage Target
+text: In multi-agent systems where verification is formalized as a legible, spatially-localized operation
+  on a graph, do agents strategically position themselves relative to corrector nodes to minimize correction
+  delay for their own outputs while maximizing delay for competitors' claims? Under what adoption density
+  does this arbitrage become self-defeating (i.e., when does corrector placement itself become a coordination
+  problem that destabilizes the stability threshold the paper derives)?
+source: bibliography/shallow-reads/2026-09-22-delayed-verification-destabilizes-multi-agent-llm-belief-ins.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: question
+connections:
+- L-003
+status: open

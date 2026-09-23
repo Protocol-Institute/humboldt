@@ -1,6 +1,7 @@
 id: seed-026
 title: C-026-incommensurability-as-deformalization-cost
-text: 'Kuhn argues that the transition between incommensurable paradigms cannot be made
+text: 'Kuhn argues that the transition between incommensurable paradigms cannot be
+  made
 
   step-by-step, forced by logic — it requires a gestalt switch, a conversion that
 
@@ -27,3 +28,5 @@ connections:
 - F-002
 - CL-001
 status: open
+last_swept: '2026-09-22'
+swept_count: 1

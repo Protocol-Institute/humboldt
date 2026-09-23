@@ -1,0 +1,22 @@
+id: seed-454
+title: Substrate Flexibility as Interface Preservation Under Scarcity
+text: 'In protocol systems under resource constraint or adoption pressure, agents
+  may preserve functional interface commitments while reorganizing the internal substrate
+  that sustains them—a form of discontinuous restructuring that avoids both wholesale
+  replacement costs and incremental adjustment deadlock. This mode-switching behavior
+  is most likely to emerge when the cost of coordinating a new interface exceeds the
+  cost of substrate reorganization, and when the substrate retains sufficient flexibility
+  to support multiple operational modes. The mechanism suggests that protocol ossification
+  (L-001) and coordination cost conservation (L-006) may operate at different structural
+  levels: interface-level rigidity can coexist with substrate-level fluidity if the
+  switching layer remains legible to coordinating agents.'
+source: bibliography/shallow-reads/2026-09-22-idea-mode-switching-under-scarcity-exemplified-by-giant-isop.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: motif
+connections:
+- L-005
+- L-006
+status: open
+last_swept: '2026-09-22'
+swept_count: 1

@@ -1,0 +1,16 @@
+id: seed-512
+title: Verification Demand Decoupling from System State
+text: In protocol systems that provide verification or detection services, demand for verification correlates
+  weakly with actual system degradation or prevalence of the phenomenon being detected, but correlates
+  strongly with narrative legibility and crisis events that make suspicion collectively expressible. Users
+  employ verification protocols not primarily to obtain state information, but to externalize private
+  doubt into a socially sharable form. This suggests verification systems function as *legitimacy interfaces*
+  rather than information channels, and their effectiveness is governed by whether they align with the
+  current interpretive paradigm rather than by their technical accuracy relative to ground truth.
+source: bibliography/shallow-reads/2026-09-22-when-does-the-public-become-suspicious-of-bots-demand-side-e.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-013
+status: open

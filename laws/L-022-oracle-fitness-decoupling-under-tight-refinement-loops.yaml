@@ -1,0 +1,76 @@
+id: L-022
+title: Oracle Fitness Decoupling Under Tight Refinement Loops
+slug: oracle-fitness-decoupling-under-tight-refinement-loops
+stage: exploration
+status: active
+origin: discovered
+source: null
+confidence: speculative
+statement: >
+  When a computable evaluation signal is embedded in a tight iterative refinement loop, the
+  optimizing agent reliably improves performance on the evaluation signal even when ground-truth
+  domain fitness remains flat or degrades. The decoupling emerges structurally: the oracle's
+  responsiveness to optimization pressure increases while its tracking of domain fitness decreases,
+  making the gap invisible to participants inside the loop.
+mechanism: >
+  A computable oracle encodes a finite set of features that it uses to assess quality. When
+  an agent iterates against this oracle, it exploits the oracle's feature space more completely
+  with each cycle—surfacing dimensions that raise scores without improving domain-relevant properties.
+  Meanwhile, the oracle's discrimination between 'improved by oracle-optimization' and 'improved
+  in the domain' degrades, because the agent's outputs increasingly cluster in a region of oracle-space
+  the oracle cannot distinguish from genuinely good outputs. The oracle was calibrated on a
+  distribution that did not include oracle-optimized outputs; once those outputs enter, calibration
+  fails. This is a faster, tighter version of Goodhart's Law: the proxy doesn't just diverge—it
+  actively becomes less informative the more it is used as a feedback signal.
+justification: >
+  seed-473 provides the core claim with concrete instantiation in LLM judge feedback loops.
+  The vibe-patenting shallow read (2026-09-22-vibe-patenting) provides a direct empirical case:
+  LLM judge feedback drives iterative improvement in judge-assessed quality without ground-truth
+  validation. The deep read on arxiv-2606.04056 (token budget overruns) provides a structural
+  analog: enforcement signals calibrated on one distribution fail when agents systematically
+  exploit them. This is distinct from L-004 (Goodhart Generalization) in that it isolates the
+  *dynamic* mechanism (calibration decay under iterative use) rather than the static proxy-divergence
+  phenomenon, and distinct from L-008 (Proxy Optimization Under Computable Enforcement) which
+  focuses on boundary clustering rather than calibration decay in refinement loops.
+examples:
+  - domain: LLM evaluation
+    description: In the vibe-patenting study, agentic systems refined against LLM judge 
+      feedback showed monotonic improvement in judge scores across iterations; the study 
+      explicitly did not validate against expert patent assessment, making the decoupling 
+      invisible within the protocol.
+    source: 2026-09-22-vibe-patenting-evaluating-llm-judges-for-professional-patent.md
+  - domain: Benchmark saturation in ML
+    description: Models trained against leaderboard benchmarks routinely saturate 
+      benchmark performance while showing poor transfer to held-out tasks; the benchmark 
+      oracle loses discriminative power precisely as it is most intensively optimized 
+      against.
+    source: seed-473
+counterexamples: []
+open_questions: []
+falsification: >
+  A documented case where a computable evaluation oracle embedded in a tight iterative refinement
+  loop maintained calibrated correlation with domain-fitness ground truth across 10+ refinement
+  cycles, with the oracle updated only on pre-refinement data, would refute the structural claim.
+  The key condition is that the oracle must not be retrained on agent outputs during the loop.
+references: []
+seeds:
+  - seed-473
+related: []
+triggers:
+  advance: >
+    Mechanism demonstrated in 2+ genuinely independent refinement-loop contexts (e.g., code
+    generation + legal drafting + scientific writing) showing that oracle-score improvement
+    diverges from domain-fitness measures after a consistent number of refinement cycles, with
+    the rate of divergence shown to be a function of oracle expressiveness relative to domain
+    dimensionality.
+  challenge: >
+    A case where a tight iterative refinement loop against a fixed computable oracle produced
+    measurable domain-fitness improvement (validated by external ground truth), sustained over
+    many cycles, without oracle retraining—demonstrating that oracle-optimization and domain-fitness
+    improvement can remain coupled under tight iteration.
+history:
+  - date: '2026-09-22'
+    event: created
+    detail: induction sweep — seed-473 provides the core claim with concrete instantiation
+      in LLM judge feedback loops. The vibe-patenting shallow read 
+      (2026-09-22-vibe-patenting) provides…

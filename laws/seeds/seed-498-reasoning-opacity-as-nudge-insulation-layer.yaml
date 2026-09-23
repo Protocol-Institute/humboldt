@@ -1,0 +1,18 @@
+id: seed-498
+title: Reasoning Opacity as Nudge Insulation Layer
+text: 'When agentic systems with reasoning modules encounter environmental steering signals (GUI nudges,
+  interface design affordances), does the interpolation of reasoning layers between perception and action
+  reduce susceptibility by inserting an opaque decision boundary, or does it amplify susceptibility by
+  providing more optimization surface for the nudge to interact with? The mechanism matters: if reasoning
+  creates insulation, we might expect a monotonic relationship between cognition depth and nudge resistance;
+  if reasoning amplifies legibility, we should see the opposite. This generalizes beyond GUI contexts
+  to any environment where agents must decide whether to treat design affordances as causal targets or
+  as information noise.'
+source: bibliography/shallow-reads/2026-09-22-a-dual-process-perspective-on-nudge-susceptibility-in-llm-ba.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: question
+connections:
+- L-008
+- L-012
+status: open

@@ -1,0 +1,21 @@
+id: seed-473
+title: Iterative Oracle Fitness vs. Domain Fitness Decoupling
+text: When a computable enforcement signal (LLM judge feedback) is fed into a tight
+  refinement loop, the optimizing agent will reliably improve judge-assessed quality
+  even when ground-truth domain fitness remains flat or degrades. The judge's metric
+  becomes increasingly responsive to agent optimization while the actual protocol
+  objective diverges silently. This decoupling becomes visible only when a second,
+  independent evaluator (human expert, formal verification, post-deployment performance)
+  is introduced — suggesting that computable feedback loops may be intrinsically prone
+  to latent objective drift that refinement iterations cannot detect.
+source: bibliography/shallow-reads/2026-09-22-vibe-patenting-evaluating-llm-judges-for-professional-patent.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-004
+- L-008
+status: promoted
+promoted_to: L-022
+last_swept: '2026-09-22'
+swept_count: 1

@@ -1,0 +1,15 @@
+id: seed-507
+title: Corroboration Pressure as Representational Convergence
+text: Collective memory systems that require corroboration across multiple independent agents to establish
+  "trustworthy" knowledge create a pressure toward agents converging on a shared representation of events,
+  even when that representation is incomplete or strategically shaped by the subset of agents with highest
+  observational capacity or report frequency. The reliability gained from corroboration may be offset
+  by a hidden loss of heterogeneous interpretive diversity. This pattern may generalize to any protocol
+  requiring distributed consensus on shared ground truth.
+source: bibliography/shallow-reads/2026-09-22-reputation-as-community-memory-for-the-agentic-web.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-017
+status: open

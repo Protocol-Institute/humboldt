@@ -1,0 +1,16 @@
+id: seed-490
+title: Exact-State Binding as Coordination Externalization Under Distributed Authority
+text: 'When falsifiability requires stable reference frames for independent challenge but evidence, correction
+  history, and authorization refer to different temporal states, solutions that bind publication to exact-state
+  capabilities may relocate rather than eliminate coordination cost. Does formalizing publication authority
+  as a machine-readable, non-transferable capability require agents to converge on a new hidden coordination
+  layer (agreement on what constitutes the "exact state" being attested)? If so, does this reflect a deeper
+  pattern: that legible audit protocols displace coordination burden into interpretation of what the audit
+  *means* rather than what happened?'
+source: bibliography/shallow-reads/2026-09-22-making-ai-assisted-claims-independently-challengeable-public.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: question
+connections:
+- L-015
+status: open

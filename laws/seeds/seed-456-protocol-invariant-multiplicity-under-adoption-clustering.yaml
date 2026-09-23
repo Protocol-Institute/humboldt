@@ -1,0 +1,19 @@
+id: seed-456
+title: Protocol Invariant Multiplicity Under Adoption Clustering
+text: In protocol systems with symmetric adoption costs and multiple local optima
+  in the configuration space, adopting clusters may become trapped in distinct equilibria—each
+  stable under its own boundary conditions. Ossification then preserves *plurality*
+  rather than enforcing convergence, because the cost of migration between basins
+  exceeds the cost of maintaining separate implementations. Multiplicity becomes a
+  stable feature when agents within each cluster benefit from coordination with peers
+  in the same basin more than they lose from global incompatibility.
+source: bibliography/shallow-reads/2026-09-22-idea-protocol-invariants-are-potentially-plural-rather-than-.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: motif
+connections:
+- L-001
+- L-010
+status: open
+last_swept: '2026-09-22'
+swept_count: 1

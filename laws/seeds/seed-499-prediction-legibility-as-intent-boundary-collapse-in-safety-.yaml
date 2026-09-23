@@ -1,0 +1,17 @@
+id: seed-499
+title: Prediction Legibility as Intent Boundary Collapse in Safety-Critical Multi-Agent Command
+text: 'In command-and-control protocols where AI systems formalize predictions as legible, machine-readable
+  inputs to human decision layers, the locus of strategic choice may migrate from explicit operator intent
+  to pre-decision shaping by inference systems. The operator appears to retain causal authority over the
+  final command, but their decision space is now constrained by what predictions the system surfaces,
+  how they are ranked, and what alternatives are suppressed as "irrational" by the agentic layer. This
+  pattern may generalize beyond C2 to any multi-agent protocol where one agent''s inference precedes another
+  agent''s formal choice: the second agent''s "freedom" becomes bounded by the first agent''s legibility
+  choices, even absent explicit delegation or oversight failure.'
+source: bibliography/shallow-reads/2026-09-22-a-proposal-for-an-agentic-ai-architecture-to-support-multi-d.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: motif
+connections:
+- L-012
+status: open

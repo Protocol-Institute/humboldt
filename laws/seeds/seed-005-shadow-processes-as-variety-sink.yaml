@@ -1,12 +1,16 @@
 id: seed-005
 title: Shadow processes as variety sink
-text: 'Protocols compress variety by design but cannot eliminate it — only redirect it. The
+text: 'Protocols compress variety by design but cannot eliminate it — only redirect
+  it. The
 
-  residual surfaces as workarounds, informal channels, exception-handling routines, and
+  residual surfaces as workarounds, informal channels, exception-handling routines,
+  and
 
-  documented noncompliance: a shadow infrastructure that grows in proportion to the gap
+  documented noncompliance: a shadow infrastructure that grows in proportion to the
+  gap
 
-  between what the protocol demands and what the situation requires. High-friction protocols
+  between what the protocol demands and what the situation requires. High-friction
+  protocols
 
   should be detectable by their shadow activity.'
 source: bibliography/shallow-reads/2026-06-06-idea-protocols-compress-variety-by-design-and-unabsorbed-var.md
@@ -17,3 +21,5 @@ connections:
 - CL-002
 - C-002
 status: open
+last_swept: '2026-09-22'
+swept_count: 1

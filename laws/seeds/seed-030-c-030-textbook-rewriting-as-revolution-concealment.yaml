@@ -1,8 +1,10 @@
 id: seed-030
 title: C-030-textbook-rewriting-as-revolution-concealment
-text: 'Kuhn argues that textbooks systematically rewrite the history of science after each
+text: 'Kuhn argues that textbooks systematically rewrite the history of science after
+  each
 
-  revolution to make progress look cumulative — "truncating the scientist''s sense of
+  revolution to make progress look cumulative — "truncating the scientist''s sense
+  of
 
   his discipline''s history." This is not propaganda but a functional necessity: you
 
@@ -16,7 +18,8 @@ text: 'Kuhn argues that textbooks systematically rewrite the history of science 
 
   always the sensible way to proceed, and the institutional record of why the old
 
-  protocol was in place is lost. This is not just historical erasure; it actively makes
+  protocol was in place is lost. This is not just historical erasure; it actively
+  makes
 
   future revision harder by removing the reasoning that could illuminate what problems
 
@@ -30,3 +33,5 @@ connections:
 - CL-001
 - C-004
 status: open
+last_swept: '2026-09-22'
+swept_count: 1

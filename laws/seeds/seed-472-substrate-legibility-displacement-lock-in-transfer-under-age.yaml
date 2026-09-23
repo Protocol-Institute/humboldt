@@ -1,0 +1,22 @@
+id: seed-472
+title: Substrate Legibility Displacement—Lock-In Transfer Under Agentic Inversion
+text: 'When enterprise systems undergo substrate inversion to render data natively
+  legible to agentic reasoning, does this solve the repetition reliability and feedback
+  loop problem, or does it transfer ossification from the human-interface layer to
+  the data-integrity and verification layer? Specifically: does agent-optimized substrate
+  design create new coordination costs around audit trail interpretation, human-agent
+  accountability boundaries, and regulatory alignment, such that the total coordination
+  burden remains constant or increases? The hypothesis: legibility is not fungible
+  across layers—improving agent legibility may degrade human auditability or create
+  new formal governance requirements that recreate the original stalling dynamics
+  at a different level.'
+source: bibliography/shallow-reads/2026-09-22-the-agentic-company-os-substrate-inversion-for-sustained-ent.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: question
+connections:
+- L-005
+- L-001
+status: open
+last_swept: '2026-09-22'
+swept_count: 1

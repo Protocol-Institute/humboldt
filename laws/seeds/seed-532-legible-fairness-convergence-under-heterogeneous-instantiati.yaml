@@ -1,0 +1,19 @@
+id: seed-532
+title: Legible Fairness Convergence Under Heterogeneous Instantiation
+text: 'When fairness or safety constraints are formalized as legible optimization targets in otherwise
+  heterogeneous generative systems (e.g., different LLM architectures), independent instances converge
+  toward the same constraint-artifact boundary rather than toward the actual goal distribution. The convergence
+  occurs because the formalized metric becomes a shared optimization surface across all instances, even
+  when their underlying models differ. This suggests a deeper regularity: *legibility in safety constraints
+  produces coordination toward the constraint surface rather than coordination toward safety*, generalizing
+  beyond hiring and LLM systems to any protocol that externalizes a previously informal goal as a measurable
+  proxy.'
+source: bibliography/shallow-reads/2026-09-22-monocultural-biases-correlated-biases-in-large-language-mode.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-004
+- L-012
+- L-016
+status: open

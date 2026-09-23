@@ -1,0 +1,18 @@
+id: seed-514
+title: Advisory Legibility Threshold in Behavioral Resistance
+text: 'Explicit framing of an information source as advisory or decision-support may suppress behavioral
+  response to that source, even when information content is held constant. The mechanism may not be the
+  advice itself but the *opacity* of its origins and the plausible deniability of dependence on it. If
+  agents know they are receiving AI guidance and the context is framed as optional support, they may resist
+  or ignore it to preserve perceived autonomy. Coordination through guidance layers may require either
+  (1) the source to be semantically or institutionally invisible, or (2) the context to be framed as something
+  other than advice (e.g., environmental signal, norm signal, peer behavior). Worth testing: does behavioral
+  response to live AI vary as a function of how the agent attributes the source—e.g., advice vs. market
+  signal vs. observational norm?'
+source: bibliography/shallow-reads/2026-09-22-access-to-live-ai-advice-and-behavior-under-risk-an-incentiv.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: question
+connections:
+- L-017
+status: open

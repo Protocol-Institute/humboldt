@@ -1,0 +1,18 @@
+id: seed-497
+title: Formalization-Legibility Inversion in Safety-Critical Worker Protocols
+text: In safety-critical protocol systems where worker judgment is both essential and operationally illegible
+  (election work, medical triage, air traffic control), formalization driven by external auditing pressure
+  does not reduce worker burden or protocol error — it displaces error into the gap between what the formal
+  system claims to do and what workers must actually do to keep it functional. The formal system becomes
+  more legible to regulators and auditors, but *less* legible to workers, because the formalization does
+  not encode the conditions under which the rule applies. This creates a regime where protocol violations
+  accumulate in the informal layer, and failures in the informal layer appear in the formal audit as protocol
+  failures, not as evidence of formalization inadequacy.
+source: bibliography/shallow-reads/2026-09-22-bless-his-heart-he-thought-all-we-did-was-push-a-button-unde.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-003
+- L-015
+status: open

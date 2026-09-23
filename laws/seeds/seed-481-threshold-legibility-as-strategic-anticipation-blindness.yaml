@@ -1,0 +1,22 @@
+id: seed-481
+title: Threshold Legibility as Strategic Anticipation Blindness
+text: Linear threshold models become tractable for planner optimization precisely
+  because agents are modeled as stateless responders to threshold parameters—they
+  do not anticipate that thresholds are being strategically modified. In any protocolized
+  system where threshold-like coordination rules are legible and modifiable, agents
+  will condition their own threshold-setting (or misrepresentation of thresholds)
+  on the *fact of modification itself*, creating a second-order strategic loop. This
+  generates discontinuities and nonmonotonicity invisible to single-level game-theoretic
+  optimization. The model's tractability depends on the opacity assumption that agents
+  cannot observe or anticipate the planner's intervention — a condition that fails
+  precisely when intervention becomes a known, legible protocol feature.
+source: bibliography/shallow-reads/2026-09-22-intervention-problems-in-the-linear-threshold-model-a-genera.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-003
+- L-010
+status: open
+last_swept: '2026-09-22'
+swept_count: 1

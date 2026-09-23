@@ -1,0 +1,17 @@
+id: seed-513
+title: Normative Transparency as Bifurcation, Not Calibration
+text: In human-AI coordination protocols, explicit training in the agent's limitations and correct usage
+  strategy produces bimodal rather than unimodal response distributions—some agents increase reliance
+  (ignoring the warning), others over-correct to under-reliance (treating the warning as a legible reason
+  to distrust). The intervention does not calibrate reliance; it creates two stable equilibria. This suggests
+  that legibility of mechanism does not map to behavioral correction when the coordination target is *subjective*
+  (appropriate reliance) rather than *legible* (rule-following). The bifurcation may persist because the
+  formal knowledge becomes a boundary signal itself—"I was trained to be skeptical"—rather than actionable
+  constraint on reliance choice.
+source: bibliography/shallow-reads/2026-09-22-a-brief-ai-literacy-intervention-does-not-significantly-redu.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-016
+status: open

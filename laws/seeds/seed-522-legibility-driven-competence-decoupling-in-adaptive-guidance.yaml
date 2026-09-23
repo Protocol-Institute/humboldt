@@ -1,0 +1,16 @@
+id: seed-522
+title: Legibility-Driven Competence Decoupling in Adaptive Guidance Systems
+text: When adaptive guidance systems (human tutors, AI assistants, recommendation protocols) make solution
+  paths highly legible and low-friction, agents optimize for the visible task completion signal at the
+  cost of durably encoded competence and subjective ownership. This decoupling persists even when the
+  agent is aware of the retention cost — the optimization pressure from legible immediate reward overrides
+  metacognitive knowledge. The effect may generalize across any protocol where guidance legibility is
+  asymmetrically high relative to the legibility of deep learning or agency preservation, suggesting a
+  broader law of guidance-layer optimization capture.
+source: bibliography/shallow-reads/2026-09-22-your-programming-students-cognition-with-chatgpt-higher-perf.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-016
+status: open

@@ -83,14 +83,16 @@ PI corpus namespaces (as of 2026-06-07):
 - Host: `PINECONE_HUMBOLDT_HOST` from env
 - Dimensions: 1024 (voyage-3) · Metric: cosine · Cloud: aws us-east-1
 - Default namespace (no namespace name)
-- 11,248 vectors (2026-09-12) — notebook, notes, shallow reads, law records (`laws/L-*.yaml`,
-  via `_law_chunks()`), inbox ideas. The C/H/CL/DS chunk types are gone: those source
-  directories were archived by the 2026-08 redesign, and `agent/ingest.py` had kept
-  reading them anyway (always producing 0 chunks) until session 35 fixed it — see
-  `agent/ingest.py`'s module docstring. `data/ingest_state.json` (gitignored) tracks
-  10,924 of these; the ~324-vector gap is orphaned pre-redesign vectors with no current
-  source file, invisible to the incremental delete (TODO.md, session 35) — not yet
-  cleaned up.
+- ~12,273 vectors (2026-09-22) — notebook, notes, shallow reads, law records
+  (`laws/L-*.yaml`, via `_law_chunks()`), inbox ideas. The C/H/CL/DS chunk types are
+  gone: those source directories were archived by the 2026-08 redesign, and
+  `agent/ingest.py` had kept reading them anyway (always producing 0 chunks) until
+  session 35 fixed it — see `agent/ingest.py`'s module docstring.
+  `data/ingest_state.json` (gitignored) tracks **11,949** of these (258 notebook,
+  823 notes, 10,825 shallow_read, 24 law, 19 inbox_idea — session 38 added ~1,000
+  shallow reads from the feed backlog and 4 law records); the ~324-vector gap is
+  orphaned pre-redesign vectors with no current source file, invisible to the
+  incremental delete (TODO.md, session 35) — not yet cleaned up.
 
 Humboldt's own work goes here via `humboldt ingest`. Do not write to c3po namespaces.
 
@@ -127,10 +129,23 @@ python3 -m agent.humboldt bib backfill-references [--dry-run]
 
 # ── Funnel engines (Phase 2) — agent/induct.py + agent/assess.py ──
 # induct  = stage 5: seeds + reads-since-cursor + inventory → new laws / evidence (Sonnet).
+#           ⚠ The seed window (_MAX_SEEDS = 60) is SPLIT half-recency / half-staleness,
+#           and every seed a sweep reads is stamped `last_swept` + `swept_count`. Do not
+#           "simplify" it back to newest-first-take-60: seeds arrive in large same-day
+#           triage batches, so `surfaced` ties across hundreds of files and the head
+#           degenerates to a fixed glob-order slice — the SAME 60 every sweep. Measured
+#           session 38 before the fix: 374 of 434 seeds, the entire June cohort included,
+#           had never once been eligible for induction, and the output gave no sign of it.
+#           Nothing marks a seed read-but-not-promoted except this stamp, so without it an
+#           unpromising seed competes for a slot forever. `_format_seeds()` must NOT
+#           re-slice the window it is handed, or the staleness half falls off the prompt.
 # assess  = stage 6/8: one law vs its advance trigger → PROMOTE/HOLD/DEMOTE, applied via
 #           the laws.py stage machine (Sonnet routine; Opus for heavy-lift/retrospective).
 # Both consume the Fable prompts in prompts/{induct,assess}.md. Events → analytics/events.jsonl
 # + behaviors/log.jsonl (via agent/funnel_log.py). NOT yet daemon-wired (Phase 5).
+# ⚠ `induct` is not read-only at the edges: a successful sweep calls publish-site AND
+#   flushes law_notify, so running it interactively DEPLOYS THE SITE TO PRODUCTION and
+#   ANNOUNCES new laws to Discord (daily cap 2). Use --dry-run if that is not wanted.
 python3 -m agent.humboldt induct                     # run the induction sweep
 python3 -m agent.humboldt induct --dry-run           # call model, apply nothing
 python3 -m agent.humboldt induct --since YYYY-MM-DD    # override the read cursor
@@ -354,8 +369,9 @@ python3 -m agent.humboldt talk voice [--voice N] [--rate R]  # track.md → audi
 # ⚠ PAUSES, NOT RATE, are the pace lever: r125 vs r140 is perceptually indistinguishable
 #   (4% duration), while moving the same seconds into wider gaps is clearly audible.
 #   PAUSE_PARAGRAPH/PAUSE_SENTENCE = 1200/650 ms (11.1% of each clip is silence).
-# ⚠ Slide 02's diagram is NOT drawn here — it delegates to agent/law_arc.py, the same
-#   arc the /laws/ page draws, with all 20 law records plotted on it. Rendered with
+# ⚠ Slide 03's diagram (slide 02 before the session-38 title-slide insert) is NOT drawn
+#   here — it delegates to agent/law_arc.py, the same arc the /laws/ page draws, with
+#   every law record plotted on it (24 as of session 38). Rendered with
 #   interactive=False (the talk page embeds each diagram twice, so law_arc's hardcoded
 #   #ft-tip id would collide). humboldt-site/build.py therefore IMPORTS agent/ — the
 #   talk page no longer builds from a tree without it.

@@ -1,0 +1,17 @@
+id: seed-496
+title: Role Assignment as Bias Substrate Crystallization
+text: 'When an agent is assigned a role (rather than given a goal or constraint), and that role contains
+  internal conflict-of-duty structures, the agent exhibits systematic bias toward the stakeholder whose
+  preferences are legible to the agent''s decision process. The bias strength depends not on goal alignment
+  but on legibility asymmetry: when one party''s preferences (sponsor) are visible to the agent and another
+  party''s (consumer) are not, the agent''s behavior drifts toward the visible party. This suggests role
+  assignment may be a stronger bias substrate than explicit goal specification—but this requires cross-domain
+  testing and isolation of whether the mechanism is optimization pressure, information structure, or legitimacy
+  signaling.'
+source: bibliography/shallow-reads/2026-09-22-whom-do-ai-agents-work-for-role-assignment-induces-sponsorsh.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-004
+status: open

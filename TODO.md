@@ -6,39 +6,56 @@ Priority: **[H]** urgent, **[M]** soon, **[L]** when convenient.
 
 ---
 
-## ⏸ RESUME HERE — session 35 paused 2026-09-12
+## ⏸ RESUME HERE — session 38 closed 2026-09-22
 
-**1. [H] Talk voice.** Blocked on one operator action: download macOS Premium/Enhanced
-voices (System Settings → Accessibility → Spoken Content → System Voice → Manage Voices).
-Full detail in `plans/talk-2026-09-23.md` §5.8. **Content changed since that note was
-written** — the talk was rebuilt and deployed session 35 (§5.9): 15 slides → 14, old
-audio deleted as mismatched. This is now a full re-voice of the new track from scratch,
-not a resume of the old 12:12 render. **11 days to the talk as of this pause.**
+**0. [H] `funnel_context.research_context()` seed sampling — the read-side twin of the
+session-38 induct fix.** `max_seeds=25` over the same newest-first sort across the same
+tied `surfaced` dates, so triage and shallow-read judge "do I already hold something like
+this?" against 25 of 522 seeds. Some fraction of session 38's 88 new seeds are likely
+re-discoveries of material already in the pool. Needs a *different* fix from induct's:
+this is read-only context, so there is nothing to stamp — sample across the pool (or
+stratify by `surfaced`) rather than taking the head. Deliberately not done in session 38
+because 224 shallow reads were already running through the old path.
 
-**2. [H] Phase 4 — instrumentation. DONE (session 35, 2026-09-12).** All 13 registry
-behaviors now call `funnel_log.behavior_visit` (the 7 previously-uninstrumented active
-behaviors, plus a new 13th, `review`, for `daemon/conversation_review.py` +
-`agent/person_notebook.py` — decision 4); `outputs` dict + `run_id` added per decisions
-2–3; `mdp.yaml` edge `review → orient`; `analytics/op-behavior-map.yaml` remapped off
-`behavior: null`. Verified live via `humboldt analytics utilization`. Drive-by finding,
-not fixed: `daemon/presence.py:generate_person_notebook_entry` appears to be dead code
-(no caller found) — left unmapped rather than silently deleted.
-**Still open:** the flag heuristics (prune/split/stall) — the [OPUS] half of Phase 4 —
-and the one number they need: the collapse threshold for the self-relative prune test.
-Now calibratable against real data via `humboldt analytics utilization` once a few weeks
-of `visits` accumulate under the new instrumentation; don't guess it before then.
+**1. [H] Talk — Tuesday 2026-09-23.** 16 slides, 10:24 measured, deployed to production.
+Title slide added session 38. Remaining: whatever content edits the operator still wants.
+`wpm_effective: 155` and the per-slide word budgets are still unfounded (s36: `say -r` is
+a no-op on compact voices) — re-fit against Oliver after the talk, not before.
 
-**3. [M] Phase 5.** `plans/phase5-vm-cutover.md` is the runbook. §4.2 corrected
+**2. [H] Supervisor review of 13 unreviewed exploration laws.** L-012–L-016 (s30), L-017,
+L-019, L-020, L-021 (2026-09-02), L-018, L-022, L-023, L-024 (s38). **Do L-012 first:**
+it drew 58 law citations across session 38's 559-item feed backlog, second only to
+L-004's 111, and two of that session's deep-read escalations extend it specifically —
+it is accumulating evidence faster than any other unreviewed record.
+**Also decide:** are L-022 (Oracle Fitness Decoupling) and L-023 (Informality as Novelty
+Sink) distinct laws, or Goodhart-family duplication reached via different seeds?
+
+**3. [M] L-006 automation crux — now executable.** The session-38 assessment named three
+specific papers to retrieve and deep-read. First concrete next step on the
+longest-standing open question in the inventory.
+
+**4. [M] ~215 triaged-but-unread feed items**, 2026-09-02 to 09-14, listed in
+`inbox/triage-feed-2026-09-22.md`. Deliberate dated backlog, not an oversight. 12 new
+deep-read escalations from s38 plus the 30 from the 09-03 sweep also unread.
+
+**5. [M] Phase 5.** `plans/phase5-vm-cutover.md` is the runbook. §4.2 corrected
 2026-09-09: deploy keys are **disabled org-wide** on Protocol-Institute, so it specifies a
 scoped fine-grained PAT instead (matching what c3po landed on).
 
-**4. [M] Reading page follow-up.** Six slugs still have two shallow-read files each, both
+**6. [M] Reading page follow-up.** Six slugs still have two shallow-read files each, both
 referenced, by two *different* bibliography entries — Discord ideas re-triaged later and
 given a second entry. A duplicate-records question, not a duplicate-files one; laws may
 cite either id, so which id survives is a supervisor call.
 
-**5. [L] Site.** The 49 `read_depth: listed` sources are a real backlog signal — registered
-but never read — now visible on `/reading/`.
+**7. [L] Phase 4 flag heuristics** (prune/split/stall) — the [OPUS] half. Needs weeks of
+real `visits` data under the s35 instrumentation before the collapse threshold can be
+calibrated. Don't guess it.
+
+**8. [L] Site.** The `read_depth: listed` backlog — registered but never read — is visible
+on `/reading/` and grew substantially in s38 (416 new listed entries from feed triage).
+
+**9. [L] Post-talk: port `talk-kit` theme.** Four specific pieces of work, written up in
+`../../talk-kit/reference/adopting.md`. Must not happen before the 2026-09-23 talk.
 
 ---
 

@@ -1,0 +1,20 @@
+id: seed-504
+title: Computable-Incomputable Boundary Displacement in Legalized AI Systems
+text: 'When regulatory obligations written in natural language are operationalized as machine-checkable
+  acceptance criteria in automated compliance pipelines, the locus of strategic optimization and agent
+  effort shifts from satisfying the original regulatory intent to passing the pipeline''s formal checks.
+  In systems with irreducibly non-deterministic or emergent behavior (generative AI), this displacement
+  creates a systematic gap: behaviors that pass the pipeline may violate the original regulatory principle,
+  and behaviors that fail the pipeline may be harmless. This suggests that formalizing safety-critical
+  or compliance-critical obligations under adoption pressure does not eliminate the informal-to-formal
+  gap; it relocates it to the boundary between what the pipeline can formally verify and what remains
+  opaque — a relocation that may increase systemic risk by creating the appearance of legibility without
+  corresponding control.'
+source: bibliography/shallow-reads/2026-09-22-governance-as-code-translating-eu-ai-act-technical-requireme.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-001
+- L-014
+status: open

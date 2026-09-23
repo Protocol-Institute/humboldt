@@ -70,6 +70,19 @@ counterexamples:
     resolution: "OPEN — this is the standing falsification search."
     source: null
 
+  - domain: ''
+    description: "The compute-cost asymmetry case (@rafa_0x, 2026-04-25): if coordination cost
+      migrates to machine compute and machine cost is structurally cheaper (revenue to the compute
+      provider, negligible to the human party), then human-perceived coordination cost may genuinely
+      decrease without a compensating human-layer increase. This is a scoped version of the
+      automation crux as a candidate counterexample.\n"
+    source: ''
+    resolution: "OPEN. The @rafa_0x observation is informal and does not constitute a documented
+      case. It sharpens the automation crux but does not resolve it. If machine coordination
+      cost is cheap enough to be economically negligible, the conservation law may hold in information-theoretic
+      terms but fail in economically-relevant terms — which would require scoping the law to
+      \"human-borne coordination cost\" only, thereby excluding automation from the conservation
+      claim. This scoping has not been decided. Kept open.\n"
 open_questions:
   - "THE CRUX: if automation moves coordination cost to machines, does it count as eliminated
     or redistributed? If machine coordination cost counts, conservation holds; if only human
@@ -81,6 +94,25 @@ open_questions:
   - "Cross-domain breadth: all current evidence is software. Do organizational or legal layer-transitions
     show the same signature?"
 
+  - "Two specific executable gaps, in priority order:\n(1) AUTOMATION CRUX: Retrieve and deep-read
+    the three flagged papers (2402.08128, 2512.07526, 2602.22041) specifically to test whether
+    any provides a principled argument for or against counting machine-layer execution cost
+    as coordination cost. Look for: transaction cost frameworks that distinguish human vs. automated
+    coordination; empirical studies measuring total system cost before and after automation
+    of a protocol function; or theoretical arguments about whether computation is a coordination
+    resource. A resolution argument of the form \"machine coordination cost counts because [mechanism
+    X] and here is a case where removing machine cost restores human coordination cost\" would
+    close the crux. Target: one read note per paper with explicit crux-relevance verdict.\n\
+    (2) NON-SOFTWARE DOMAIN: Retrieve evidence on coordination cost redistribution in at least
+    one of: (a) organizational protocol redesign (e.g., a documented process reengineering where
+    simplification of one process layer is measured alongside cost emergence in adjacent layers
+    — supply chain, healthcare administration, financial clearing); (b) legal/regulatory layer
+    transitions (e.g., standardization reducing negotiation cost at one layer while increasing
+    compliance overhead at another); (c) infrastructure/built-environment cases beyond the truncated
+    bioswale fragment. The SIGFPT Coasean session suggests the Rosemont Preserve bioswale example
+    exists somewhere in the corpus — retrieve the full record. A documented, non-software case
+    where coordination cost is tracked before and after a protocol redesign across identifiable
+    layers would constitute independent domain evidence."
 falsification: >
   A protocol redesign that demonstrably reduced total system coordination cost — not
   just moved it — sustained over time after full adoption. The automation case is the
@@ -130,3 +162,11 @@ history:
       where privacy mechanisms relocate rather than reduce coordination cost: Seed 173 (Privacy
       Formalization as Coordination Cost Relocation) describes a direct instantiation of L-006:
       differential privacy noise introduced to reduce…'
+  - date: '2026-09-22'
+    event: counterexample
+    detail: 'The compute-cost asymmetry case (@rafa_0x, 2026-04-25): if coordination cost migrates
+      to machine compute and machine cos'
+  - date: '2026-09-22'
+    event: edited
+    detail: "assessment HOLD — gap: Two specific executable gaps, in priority order:\n(1) AUTOMATION
+      CRUX: Retrieve and deep-read the three flagged papers (2402.08128, 2512.07526, 2602.22"

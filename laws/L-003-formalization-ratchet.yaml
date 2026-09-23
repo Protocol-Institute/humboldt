@@ -105,6 +105,18 @@ counterexamples:
       formal structure) rather than reversion. OPEN — needs investigation."
     source: null
 
+  - domain: ''
+    description: "\"The Unreasonable Sufficiency of Protocols\" [corpus:pdfs] notes that protocols
+      can sustain \"meaning-making functions\" even when primary coordination functions are
+      superseded, and that they enable decentralized participation. This is weakly consistent
+      with informal capacity persisting alongside formal structure — a mild strengthening of
+      the OSS counterexample rather than a new case.\n"
+    source: ''
+    resolution: "OPEN. This does not constitute a new counterexample on its own, but it provides
+      theoretical grounding for why informal capacity might persist rather than atrophy: if
+      protocols sustain social meaning-making, the informal substrate co-evolves with rather
+      than being displaced by the formal structure. Adds weight to the OSS counterexample; does
+      not resolve it.\n"
 open_questions:
   - "What determines the rate of informal capacity atrophy — duration of formalization, or depth
     of protocol adoption?"
@@ -113,6 +125,18 @@ open_questions:
   - "Is there a threshold of formalization intensity below which informal capacity is preserved
     (the OSS parallel-maintenance pattern)?"
 
+  - "Two specific gaps, both executable: (1) OSS scoping condition: targeted retrieval on whether
+    OSS informal coordination capacity genuinely persists or whether it is a selection effect
+    (only projects with active cultivation survive; projects that let informal capacity lapse
+    are not visible). Specifically: are there OSS projects where formalization displaced rather
+    than co-existed with informal capacity? IETF RFC process history, Apache Foundation governance
+    transitions, or Python's PEP formalization arc would be concrete retrieval targets. Without
+    this, the OSS counterexample survives and the mechanism is underspecified. (2) Internally-developed
+    vs. externally-imposed distinction: the advance trigger names this explicitly, and it remains
+    untested. This is the primary scoping condition needed to close the post-crisis tight-knit-team
+    counterexample. Target retrieval: military unit de-escalation literature, emergency response
+    team post-incident informality, or organizational theory on protocol provenance and atrophy
+    rates. Without targeted retrieval, this is inference, not evidence."
 falsification: >
   Documented cases of organizations successfully reverting from formal protocol to
   informal coordination after the stressor passed, with personnel continuity (ruling
@@ -184,3 +208,11 @@ history:
     detail: "Formalization ratchet; specifically, the irreversibility of formalization and the
       atrophy of informal capacity: arXiv:2607.17067 ('Who Will Become the Next Senior?') documents
       an interesting negative case for L-003: instead of formalizing the informal apprenticeship…"
+  - date: '2026-09-22'
+    event: counterexample
+    detail: '"The Unreasonable Sufficiency of Protocols" [corpus:pdfs] notes that protocols
+      can sustain "meaning-making functions" ev'
+  - date: '2026-09-22'
+    event: edited
+    detail: 'assessment HOLD — gap: Two specific gaps, both executable: (1) OSS scoping condition:
+      targeted retrieval on whether OSS informal coordination capacity genuinely persists or '

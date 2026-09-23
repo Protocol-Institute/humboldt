@@ -49,6 +49,14 @@ examples:
       ranking (e.g., grant review, journal acceptance, policy evaluation) faces the same 
       structural tradeoff when those preferences are learned rather than elicited.
     source: Structural analog from Arrow (1951)
+  - domain: RLHF reward learning
+    description: "The Dong, Yu & Poupart deep read (arxiv-2606.00291) proves a lower bound on
+      the excess loss in reward learning that is a function of the dataset's cycle geometry:
+      coarse embeddings hide cycles but lose information; fine embeddings expose irreducible
+      Condorcet cycles. The tradeoff cannot be trained away and extends to DPO. This is a formal
+      proof of the mechanism L-019 claims, with the additional precision that the tradeoff is
+      localized in the embedding's interaction with the dataset's preference cycle structure."
+    source: bibliography/deep-reads/arxiv-2606.00291.md
 counterexamples: []
 open_questions: []
 falsification: >
@@ -75,3 +83,9 @@ history:
     detail: induction sweep — Fed by deep read arXiv:2606.00291 ('The 
       Representation-Rationalizability Tradeoff in Reward Learning'), which proves the 
       lower bound formally, extends it to…
+  - date: '2026-09-22'
+    event: evidence
+    detail: "The irreducible tradeoff between representational richness and preference rationalizability
+      in aggregation protocols: The Dong, Yu & Poupart deep read (arxiv-2606.00291) proves a
+      lower bound on the excess loss in reward learning that is a function of the dataset's
+      cycle…"

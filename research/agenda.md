@@ -10,57 +10,67 @@ phase vocabulary and tempo signatures.*
 
 ---
 
-## Current state — 2026-09-03 (session 33)
+## Current state — 2026-09-22 (session 38)
 
 > **Note:** the buckets below still use the pre-redesign vocabulary (T-/DS-/CL- ids).
 > The live artifacts are now `laws/L-NNN-*.yaml`. Reconciling this file to the law
 > records is an open task — see `TODO.md`. The block here is the accurate near-term queue.
 
-**Reads are back** (2026-09-01), and the 1,379-item outage backlog is cleared: 1,332
-items triaged, 837 shallow reads, 325 new seeds, 30 escalated for deep reading.
+**The funnel ran end-to-end again after three weeks dormant.** 596 items triaged
+(559 feed + 37 Discord) → 439 shallow, 157 discard. 224 shallow-read (everything from
+2026-09-15 onward, plus all Discord) → 88 seeds, 12 deep-read escalations. Inbox
+603 → 244. **24 laws now** (4 heavy-lift, 3 valley, 17 exploration).
 
-**L-001 assessed — verdict HOLD, and this is now the top research item.** The street-food
-counterexample stopped being merely unresolved and became testable. Two executable items,
-in priority order:
+**The induction window was structurally broken and is now fixed.** The sweep read 60
+seeds sorted newest-first, but seeds arrive in same-day triage batches, so the sort key
+tied across hundreds of files and "newest 60" resolved to a fixed filesystem-order slice
+— the same one every sweep. **374 seeds, including every June seed, had never been
+eligible for induction.** Nothing marked a seed read-but-not-promoted either. The window
+now takes half by recency, half by least-recently-swept, and stamps `last_swept` on
+everything it reads; tonight's sweep drew 30 from September and 30 from June. The pool
+now cycles fully in ~13 sweeps instead of never. **This supersedes the "structural
+problem, new" note from 2026-09-03.**
 
-1. **Separate the two mechanisms.** Find a distributed protocol whose backward-incompatible
-   change rate can be measured against *both* implementation count (the coordination-cost
-   prediction) and practitioner-cohort turnover (the Planck/cohort-replacement prediction).
-   Candidate dataset: common-law overturn timing vs. judicial generational turnover.
-2. **Name the third variable.** What distinguishes street-food formalization (stays
-   adaptive) from TCP/IP formalization (ossifies)? Leading candidate: whether conforming
-   implementations are independently upgradeable or must move in global lockstep. The
-   resulting scoping condition goes into the statement.
+**Same defect still live one layer up.** `funnel_context.research_context()` shows
+triage and shallow-read only 25 of 522 seeds when they judge whether an incoming item
+duplicates something already held. Some fraction of tonight's 88 new seeds are probably
+re-discoveries. Not fixed tonight — deliberately not changed mid-round while 224 reads
+were running through the old path.
 
-Until both are addressed the advance trigger's "4+ independent domains" claim is not clean,
-so no separation artifact should be drafted for L-001.
+**Four new laws, and a consolidation question.** L-018 (Credential Stranding Under
+Capability Shift), L-022 (Oracle Fitness Decoupling Under Tight Refinement Loops),
+L-023 (Informality as Novelty Sink Under Legible Optimization), L-024 (Forensic Opacity
+Accumulation in Asynchronous Multi-Agent Protocols). **Open question:** L-022 and L-023
+both look like Goodhart-family restatements reached from different seeds. Decide whether
+they are distinct laws or record proliferation before either accumulates evidence.
 
-**Awaiting supervisor review — now 9 laws, not 5.** L-012–L-016 (session 30, still
-unreviewed) plus L-017, L-019, L-020, L-021 from the 2026-09-02 sweep. All are
+**All three valley laws assessed — HOLD, HOLD, HOLD, each with an executable gap.**
+- L-003: the open-source counterexample is the blocker. OSS formalizes heavily and stays
+  adaptive; needs a targeted scoping condition on whether OSS informal capacity genuinely
+  persists or is merely differently located.
+- L-006: the automation crux is unchanged, but for the first time it has named targets —
+  the assessment flagged three specific papers to retrieve and deep-read. That is the
+  next executable step on the longest-standing open question in the inventory.
+- L-007: needs near-miss reporting data. Still stagnant rather than productive.
+
+**L-012 is under-ranked and should move up the review queue.** Across the 559-item feed
+backlog the law citation counts were L-004 (111), **L-012 (58)**, L-006 (56), L-010 (54),
+L-001 (54). L-012 is exploration/speculative and one of the five from session 30 still
+awaiting supervisor review, yet it drew the second-most evidence in the pool, and two of
+tonight's deep-read escalations extend it specifically.
+
+**Awaiting supervisor review — now 13 laws.** L-012–L-016 (session 30), L-017, L-019,
+L-020, L-021 (2026-09-02 sweep), and L-018, L-022, L-023, L-024 (tonight). All
 exploration/speculative with model-drafted triggers. Review shape unchanged: check the
 statement doesn't overclaim its seed, hand-set the advance/challenge triggers, give each
 an executable gap in `open_questions`.
 
-**Retracted:** a fifth proposal from the 09-02 sweep (boundary clustering under adaptive
-agents) duplicated L-014 and was withdrawn in its own justification; its evidence was
-filed to L-014 and the empty record deleted. `induct` and `laws.validate` now both refuse
-that shape.
+**Unread:** 12 new deep-read escalations from tonight, plus the 30 from the 2026-09-03
+backlog sweep.
 
-**Evidence added 09-02:** L-014 ×2, L-004 ×2, and one each to L-002, L-003, L-006, L-010
-(a counterexample), L-011, L-013, L-015.
-
-**Open question for the supervisor, blocking a talk claim:** L-006 (Coordination Cost
-Conservation) gained a fifth example — federated clinical data collaboration under
-differential privacy. It is a clinical/institutional domain implemented in software.
-Whether it counts as genuinely non-software evidence decides whether L-006 may stop being
-presented as software-scoped.
-
-**Structural problem, new:** 434 open seeds against an induction window of 60 selected
-newest-first. Older seeds are unreachable rather than deprioritized — the pool discards by
-recency without any judgment that the discarded material was not worth keeping. Needs
-aging or sampling; more sweeps at this window size only re-read the front.
-
-**Unread:** 30 deep-read escalations from the backlog sweep.
+**Deferred backlog, now dated rather than undifferentiated:** ~215 triaged-shallow feed
+items from 2026-09-02 to 09-14 remain unread in `inbox/`, listed in
+`inbox/triage-feed-2026-09-22.md`.
 
 ---
 

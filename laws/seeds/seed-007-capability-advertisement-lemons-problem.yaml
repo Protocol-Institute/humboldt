@@ -1,14 +1,17 @@
 id: seed-007
 title: Capability advertisement lemons problem
-text: 'Agent capability advertisement protocols treat competence as static and truthful, but
+text: 'Agent capability advertisement protocols treat competence as static and truthful,
+  but
 
   actual agent capability is probabilistic, input-dependent, and subject to self-deception
 
-  — agents cannot reliably introspect their own limits. This creates an information asymmetry
+  — agents cannot reliably introspect their own limits. This creates an information
+  asymmetry
 
   structurally identical to Akerlof''s used-car market: static declarations vs. dynamic,
 
-  degrading, uncertain performance. Trust mechanisms must be primary design constraints, not
+  degrading, uncertain performance. Trust mechanisms must be primary design constraints,
+  not
 
   secondary validations.'
 source: bibliography/shallow-reads/2026-06-06-capability-advertisement-as-a-market-for-lemons-a-trust-laye.md
@@ -19,3 +22,5 @@ connections:
 - T-002
 - CL-003
 status: open
+last_swept: '2026-09-22'
+swept_count: 1

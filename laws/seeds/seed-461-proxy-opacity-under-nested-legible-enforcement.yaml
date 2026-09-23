@@ -1,0 +1,21 @@
+id: seed-461
+title: Proxy Opacity Under Nested Legible Enforcement
+text: 'When a legible enforcement mechanism (algorithmic redaction) is deployed to
+  enforce an unmeasurable goal (racial fairness), successful implementation of the
+  mechanism creates institutional confidence in the goal, even when the mechanism
+  is decoupled from actual outcomes. Auditors can verify that redaction occurred;
+  they cannot verify that charging remained fair. This asymmetry in verifiability
+  creates a ratchet: once redaction is provably implemented, the institution becomes
+  resistant to evidence that the underlying goal was not achieved, because the audit
+  layer has already consumed the burden of proof. The mechanism becomes the de facto
+  definition of compliance.'
+source: bibliography/shallow-reads/2026-09-22-algorithm-validation-as-a-policy-audit-evidence-from-race-bl.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-004
+- L-014
+status: open
+last_swept: '2026-09-22'
+swept_count: 1

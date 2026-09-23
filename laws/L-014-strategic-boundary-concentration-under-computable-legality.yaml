@@ -60,6 +60,14 @@ examples:
       as uniform buffers but as precise optimization targets; seed 183 notes that barrier functions
       shift where risk can be discovered and optimized against, not whether it exists."
     source: seeds 152, 183
+  - domain: Regulatory compliance / Rules-as-Code
+    description: 'The He (2026) deep read (arxiv-2606.04617) provides an agent-based simulation
+      demonstrating boundary clustering as a structural dynamic when legal obligations are rendered
+      computable: firms learn the compliance boundary via RL, imitate profitable edge strategies,
+      and concentrate conduct at the boundary. The paper introduces the estimand distinction
+      (conduct boundary mass vs. signal boundary mass) which is a methodological contribution
+      to detecting the phenomenon L-014 predicts.'
+    source: bibliography/deep-reads/arxiv-2606.04617.md
 counterexamples: []
 open_questions: []
 falsification: >
@@ -98,3 +106,9 @@ history:
       in finding and exploiting boundaries: Seeds 152 (Relaxation-Parameter Legibility as Silent
       Drift Vector) and 183 (Formalized Safety as Optimization Boundary Legibility) both describe
       cases where…'
+  - date: '2026-09-22'
+    event: evidence
+    detail: 'The claim that machine-readable legal obligations cause optimizing agents to concentrate
+      behavior at the compliance boundary: The He (2026) deep read (arxiv-2606.04617) provides
+      an agent-based simulation demonstrating boundary clustering as a structural dynamic when
+      legal obligations…'

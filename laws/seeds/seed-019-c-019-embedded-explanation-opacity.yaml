@@ -1,8 +1,10 @@
 id: seed-019
 title: C-019-embedded-explanation-opacity
-text: 'Property 9 says the choice of explanation for a discrepancy is arbitrary in the logical
+text: 'Property 9 says the choice of explanation for a discrepancy is arbitrary in
+  the logical
 
-  sense — "attitudinal criteria guide the choice." Protocols encode one explanation (one
+  sense — "attitudinal criteria guide the choice." Protocols encode one explanation
+  (one
 
   causal story about what the problem is) and institutionalize it. But because the
 
@@ -10,7 +12,8 @@ text: 'Property 9 says the choice of explanation for a discrepancy is arbitrary 
 
   formulation — it is invisible inside the protocol. When the world changes and the
 
-  embedded explanation becomes wrong, the protocol cannot self-diagnose: there is no
+  embedded explanation becomes wrong, the protocol cannot self-diagnose: there is
+  no
 
   mechanism for the protocol body to signal that its founding causal story has been
 
@@ -24,3 +27,5 @@ connections:
 - F-001
 - C-004
 status: open
+last_swept: '2026-09-22'
+swept_count: 1

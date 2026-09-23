@@ -41,6 +41,16 @@ examples:
       side-channels of near-zero capacity to confirm a pre-arranged high-stakes action, 
       even when the channel is too noisy to convey arbitrary information.
     source: Structural analog; classic covert channel literature
+  - domain: AI security / confinement
+    description: 'The Schroeder de Witt deep read (arxiv-2606.09931) provides the formal mechanism:
+      classical confinement bounds information flow in bits, but for strategic agents with Schelling-point
+      salience, even a near-zero-capacity channel suffices to select a worst-case equilibrium
+      because agents concentrate residual capacity on a single high-impact, low-entropy predicate.
+      Both classical mitigations (channel removal and capacity reduction) lose force in this
+      regime. This is the mechanism L-020 describes, with the additional precision that the
+      concentration happens through common knowledge exploitation, not optimization over the
+      channel itself.'
+    source: bibliography/deep-reads/arxiv-2606.09931.md
 counterexamples: []
 open_questions: []
 falsification: >
@@ -68,3 +78,9 @@ history:
     detail: induction sweep — Fed by deep read arXiv:2606.09931 ('A Note on the Strategic 
       Confinement Problem'), which formalizes this gap. This is genuinely distinct from 
       L-002 (Hardness…
+  - date: '2026-09-22'
+    event: evidence
+    detail: 'The claim that strategic agents with shared coordination resources concentrate
+      residual channel capacity onto high-impact, low-entropy predicates: The Schroeder de Witt
+      deep read (arxiv-2606.09931) provides the formal mechanism: classical confinement bounds
+      information flow in bits, but for strategic…'

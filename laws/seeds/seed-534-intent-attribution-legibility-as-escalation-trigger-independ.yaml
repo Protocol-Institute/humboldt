@@ -1,0 +1,18 @@
+id: seed-534
+title: Intent Attribution Legibility as Escalation Trigger Independent of Strategy
+text: 'When opponent type is made legible through explicit labeling (human vs. machine) rather than revealed
+  behavior, agents adjust escalation independent of observable strategy compatibility. Specifically, labeling
+  triggers *presumed intent attribution* that overrides strategy-matching: "human" signals competitive
+  intent (escalate), "machine" signals specification-following (de-escalate). This suggests that in protocol
+  systems where agent type or rationality model is legible, the label itself becomes the coordination
+  surface, and agents may escalate or de-escalate against a *presumed* opponent intent rather than an
+  *observed* threat. The mechanism is distinct from computable proxy optimization; it operates at the
+  symbolic/cognitive layer and may generalize to any multi-agent protocol where agent classification is
+  visible and carries normative weight.'
+source: bibliography/shallow-reads/2026-09-22-people-escalate-against-a-competitor-labelled-human-and-hold.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-008
+status: open

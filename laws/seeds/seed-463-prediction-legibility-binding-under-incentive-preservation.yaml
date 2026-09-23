@@ -1,0 +1,23 @@
+id: seed-463
+title: Prediction-Legibility Binding Under Incentive Preservation
+text: 'In mechanism design problems where a protocol receives a computable prediction
+  and must remain strategyproof (or otherwise incentive-compatible), the protocol
+  cannot simultaneously optimize tightly against the prediction and maintain worst-case
+  robustness. The mechanism must choose: sacrifice consistency (tighten prediction
+  fidelity) or sacrifice robustness (tolerate prediction error). This constraint appears
+  to be independent of the specific mechanism design problem. The deeper question:
+  does this tradeoff exist because incentive-compatibility itself imposes a cost-conservation
+  structure (agents cannot be forced to bear prediction error), or because the legibility
+  of the prediction creates a secondary optimization surface that agents can exploit?
+  If the latter, the tradeoff might generalize to any protocol where agents observe
+  the mechanism''s internal predictive input.'
+source: bibliography/shallow-reads/2026-09-22-consistency-robustness-tradeoffs-for-strategyproof-schedulin.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-001
+- L-004
+status: open
+last_swept: '2026-09-22'
+swept_count: 1

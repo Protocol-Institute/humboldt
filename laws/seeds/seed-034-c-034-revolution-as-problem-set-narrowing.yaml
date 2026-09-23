@@ -12,7 +12,8 @@ text: 'Kuhn observes that revolutions frequently eliminate questions rather than
 
   This is a precise challenge to the progressive narrative of protocol revision:
 
-  adopting a new protocol does not just solve the problems the old one failed on; it
+  adopting a new protocol does not just solve the problems the old one failed on;
+  it
 
   also makes certain previously-meaningful concerns literally un-askable within the
 
@@ -28,3 +29,5 @@ connections:
 - CL-001
 - C-004
 status: open
+last_swept: '2026-09-22'
+swept_count: 1

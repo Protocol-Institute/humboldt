@@ -1,0 +1,23 @@
+id: seed-478
+title: Retention Curve as Delegation Protocol Invariant
+text: 'In any decomposed multi-agent system where task context or discovery must flow
+  through agent boundaries, the aggregate retention function r(b) (probability a single
+  finding survives b-wide distribution) acts as an invariant independent of tree topology.
+  If retention follows a power law, the system exhibits a collapse-point: beyond a
+  critical depth or width, no finding reaches integration. This suggests that protocols
+  governing decomposition do not optimize around *structure* but around *the shape
+  of the retention curve itself* — and that agents or protocol designers facing integrity
+  constraints will either enforce r(b)=1/b to stabilize flow, or will refuse decomposition
+  altogether. The pattern may generalize to any protocol where information or trust
+  must cross opacity boundaries (governance chains, distributed verification, multi-hop
+  inference).'
+source: bibliography/shallow-reads/2026-09-22-decomposition-buys-integrity-not-yield.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-005
+- L-006
+status: open
+last_swept: '2026-09-22'
+swept_count: 1

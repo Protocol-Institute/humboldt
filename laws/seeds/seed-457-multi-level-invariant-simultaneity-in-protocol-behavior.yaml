@@ -1,0 +1,21 @@
+id: seed-457
+title: Multi-Level Invariant Simultaneity in Protocol Behavior
+text: Protocol systems may maintain multiple simultaneous invariants (cost, trust,
+  fairness, auditability, speed) operating at different descriptive levels without
+  reduction to a single conserved quantity. When a protocol appears to "conserve"
+  coordination costs at the macro level while decaying at the institutional level,
+  it may be redistributing across invariant portfolios rather than failing. The critical
+  question is whether protocols can survive indefinite selective violation of some
+  invariants while locking others, or whether cascading failure occurs only when multiple
+  invariants break simultaneously. This reframes protocol resilience as a multi-dimensional
+  locking problem rather than a single conservation principle.
+source: bibliography/shallow-reads/2026-09-22-idea-a-single-behavior-set-may-instantiate-multiple-simultan.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: insight
+connections:
+- L-006
+- L-015
+status: open
+last_swept: '2026-09-22'
+swept_count: 1

@@ -1,0 +1,18 @@
+id: seed-537
+title: Proxy Embedding Stability Under Legible Deployment
+text: 'When unstructured behavioral signals (text, interaction logs) are formalized as machine-readable
+  embeddings and deployed in decision protocols affecting agents who produced the signals, does the embedding''s
+  predictive validity persist under anticipatory behavior modification? Specifically: if agents learn
+  that LLM embeddings of their written exchanges influence recidivism assessments, will they generate
+  text optimized for embedding space rather than authentic behavioral expression, and if so, does this
+  degrade the embedding''s correlation with ground-truth outcome (actual recidivism)? This generalizes
+  beyond corrections to any domain where LLM-derived behavioral proxies are used in agent-affecting decisions
+  (hiring, lending, welfare eligibility).'
+source: bibliography/shallow-reads/2026-09-22-recidivism-prediction-peer-effect-estimation-and-prediction-.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: question
+connections:
+- L-004
+- L-012
+status: open

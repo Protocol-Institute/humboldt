@@ -1,0 +1,18 @@
+id: seed-538
+title: Audit Cost as Proxy Rehabilitation Lever Under Computable Opacity
+text: 'In classification protocols where agent features are subject to strategic misrepresentation, audit
+  (verification) cost acts as a second-order control variable that permits a decision maker to retain
+  informationally useful but fakeable features instead of discarding them. Under audit cost legibility,
+  agents face a two-dimensional optimization problem: feature cost and audit risk. This creates a stable
+  equilibrium that pure classification cannot reach—and importantly, the equilibrium cost structure itself
+  becomes observable and susceptible to strategic gaming. The pattern should generalize across any protocol
+  where a measurable proxy is both imperfect and verifiable, including compliance monitoring, resource
+  allocation, and credentialing systems.'
+source: bibliography/shallow-reads/2026-09-22-strategic-classification-has-a-missing-lever-audit-risk.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: insight
+connections:
+- L-008
+- L-014
+status: open

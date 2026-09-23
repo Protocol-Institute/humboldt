@@ -1,6 +1,7 @@
 id: seed-033
 title: C-033-aesthetic-conversion-in-early-adoption
-text: 'Kuhn argues that early adopters of a new paradigm — those who commit to it before
+text: 'Kuhn argues that early adopters of a new paradigm — those who commit to it
+  before
 
   the hard technical arguments have been assembled — are often motivated by aesthetic
 
@@ -29,3 +30,5 @@ connections:
 - CL-001
 - CL-003
 status: open
+last_swept: '2026-09-22'
+swept_count: 1

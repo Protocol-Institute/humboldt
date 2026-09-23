@@ -1,10 +1,13 @@
 id: seed-025
 title: C-025-data-shift-after-revolution
-text: 'After Dalton''s paradigm was accepted, chemists "beat nature into line" — over nearly a
+text: 'After Dalton''s paradigm was accepted, chemists "beat nature into line" — over
+  nearly a
 
-  generation, measurements of compound ratios converged from observed values toward the
+  generation, measurements of compound ratios converged from observed values toward
+  the
 
-  ratios demanded by atomic theory. The numerical data themselves shifted. This is not
+  ratios demanded by atomic theory. The numerical data themselves shifted. This is
+  not
 
   a story about fraud or bias; it is about what counts as a careful measurement when
 
@@ -23,3 +26,5 @@ connections:
 - F-002
 - CL-001
 status: open
+last_swept: '2026-09-22'
+swept_count: 1

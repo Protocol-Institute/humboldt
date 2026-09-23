@@ -1,0 +1,18 @@
+id: seed-467
+title: Coordination Structure Elasticity Under Difficulty Variance
+text: In multi-agent systems performing heterogeneous tasks, agents will oscillate
+  between low-cost and high-cost coordination structures depending on task difficulty,
+  not task type. The elasticity of this oscillation (how sharp the threshold, how
+  reversible the choice) may be determined by the cost of topology switching and the
+  variance of difficulty signals. This suggests that systems designed with high switching
+  costs or noisy difficulty signals will lock into suboptimal topologies — a case
+  of L-005 (Gall Generalization) operating on the coordination layer itself.
+source: bibliography/shallow-reads/2026-09-22-learning-how-much-to-collaborate-difficulty-aware-topology-s.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-010
+status: open
+last_swept: '2026-09-22'
+swept_count: 1

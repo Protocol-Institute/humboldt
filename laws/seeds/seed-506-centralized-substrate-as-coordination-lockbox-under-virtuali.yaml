@@ -1,0 +1,18 @@
+id: seed-506
+title: Centralized Substrate as Coordination Lockbox Under Virtualization
+text: When multiple autonomous or semi-autonomous agents share a common virtualization layer (OS, runtime,
+  substrate), what prevents that layer from becoming a hidden coordination and control surface—even if
+  nominally "neutral"? In particular, when the shared layer is adaptive (self-evolving, learning-updated,
+  or metric-driven), does it inevitably become an optimization target for upstream agents, and does that
+  optimization then encode system-wide coordination pressure that appears local to each agent? The risk
+  is highest when the layer claims neutrality while actually implementing resource allocation, safety
+  thresholds, or memory management policies that constrain agent behavior. This might generalize beyond
+  FMOS to any multi-agent system with a shared, updatable substrate.
+source: bibliography/shallow-reads/2026-09-22-position-it-is-time-to-virtualize-foundation-models-with-a-s.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: question
+connections:
+- L-001
+- L-017
+status: open

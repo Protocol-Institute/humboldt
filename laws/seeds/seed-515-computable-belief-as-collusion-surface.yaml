@@ -1,0 +1,16 @@
+id: seed-515
+title: Computable Belief as Collusion Surface
+text: 'When opinion or preference state is formalized as a computable, shared data structure (e.g., probability
+  distributions updated by identical rules), agents in multi-agent systems gain a latent coordination
+  channel even without direct communication. The shared mechanism becomes a meeting point for strategic
+  alignment: agents can condition behavior on the known update rule to achieve mutual advantage or exploit
+  each other''s predictable response. This suggests that legibility of internal state in nominally independent
+  agents creates unintended coordination surfaces proportional to the degree of architectural homogeneity.'
+source: bibliography/shallow-reads/2026-09-22-bayesian-belief-layer-for-controllable-opinion-dynamics-in-l.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: motif
+connections:
+- L-004
+- L-017
+status: open

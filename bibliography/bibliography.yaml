@@ -3881,6 +3881,7 @@
   connected_raw:
   - L-006
   - L-012
+  - seed-136
 - id: bib-0298
   title: Decentralized Multi-Agent Systems with Shared Context
   authors: []
@@ -5408,10 +5409,12 @@
   laws:
   - L-010
   - L-009
+  - L-014
   connected_raw:
   - L-010
   - L-009
   - seed-052
+  - L-014
 - id: bib-0421
   title: 'Orchestrating the Twin Transition in Multinational Corporations: Technology Roadmapping for Green and Digital Global Business Services'
   authors: []
@@ -5572,6 +5575,7 @@
   connected_raw:
   - L-001
   - L-006
+  - seed-144
 - id: bib-0434
   title: Should Demand Models Incorporate Competitor Prices? Oblivious Learning and Algorithmic Collusion
   authors: []
@@ -8916,8 +8920,11 @@
   kind: content
   notes: null
   summary: bibliography/shallow-reads/2026-06-24-ai-economist-agent-an-agentic-framework-for-model-grounded-e.md
-  laws: []
-  connected_raw: []
+  laws:
+  - L-012
+  connected_raw:
+  - L-012
+  - seed-138
 - id: bib-0702
   title: 'AI Tokenomics: The Economics of Tokens, Computation, and Pricing in Foundation Models'
   authors: []
@@ -12900,6 +12907,7 @@
   - L-004
   - L-013
   - L-008
+  - seed-133
 - id: bib-0990
   title: 'HydraCollab: Adaptive Collaborative-Perception for Distributed Autonomous Systems'
   authors: []
@@ -13436,9 +13444,13 @@
   laws:
   - L-002
   - L-006
+  - L-008
+  - L-012
   connected_raw:
   - L-002
   - L-006
+  - L-008
+  - L-012
 - id: bib-1025
   title: AI Systems as Digital Public Goods -- Evidence and Recommendations from a Multi-Stakeholder Assessment
   authors: []
@@ -13830,12 +13842,15 @@
   - L-006
   - L-010
   - L-003
+  - L-007
   connected_raw:
   - L-006
   - seed-015
   - L-010
   - seed-016
   - L-003
+  - seed-147
+  - L-007
 - id: bib-1049
   title: 'Fighting discrimination with reputation: The case of online platforms'
   authors: []
@@ -14083,11 +14098,14 @@
   laws:
   - L-010
   - L-003
+  - L-006
   connected_raw:
   - L-010
   - seed-015
   - L-003
   - seed-016
+  - seed-147
+  - L-006
 - id: bib-1065
   title: 'Digital Euro: Frequently Asked Questions Revisited'
   authors: []
@@ -14844,10 +14862,13 @@
   laws:
   - L-008
   - L-012
+  - L-004
   connected_raw:
   - L-008
   - seed-019
   - L-012
+  - L-004
+  - seed-132
 - id: bib-1115
   title: Auditing Belief-Conditioned LLM Agents in Hidden-Information Social Deduction Games
   authors: []
@@ -15172,10 +15193,15 @@
   laws:
   - L-002
   - L-008
+  - L-005
+  - L-013
   connected_raw:
   - L-002
   - L-008
   - seed-019
+  - L-005
+  - L-013
+  - seed-149
 - id: bib-1136
   title: 'A Comparative Analysis of Institutional and Course Generative AI Policies within Higher Education: Implications for Instruction in Computing Education'
   authors: []
@@ -15400,11 +15426,17 @@
   summary: bibliography/shallow-reads/2026-09-01-shared-bidding-algorithms-and-competition-evidence-from-elec.md
   laws:
   - L-004
+  - L-008
+  - L-017
   connected_raw:
   - L-004
   - seed-053
   - L-053
   - seed-048
+  - L-008
+  - L-017
+  - seed-141
+  - seed-129
 - id: bib-1151
   title: 'Stability Buys Time: A Re-Keying Game for Encrypted Multi-Agent Control'
   authors: []
@@ -15655,6 +15687,7 @@
   - L-006
   - seed-020
   - L-003
+  - seed-136
 - id: bib-1167
   title: 'Localizing Preference Aggregation Conflicts: A Graph-Theoretic Approach Using Sheaves'
   authors: []
@@ -15902,10 +15935,15 @@
   laws:
   - L-004
   - L-008
+  - L-006
+  - L-019
   connected_raw:
   - L-004
   - L-008
   - seed-048
+  - L-006
+  - L-019
+  - seed-150
 - id: bib-1183
   title: Do Generative AI Assistants Respect robots.txt? Tracing Web Access Beyond Visible Answers
   authors: []
@@ -16331,6 +16369,8 @@
   - L-008
   - L-048
   - L-012
+  - L-145
+  - seed-145
 - id: bib-1210
   title: 'CoWeaver: A Bi-directional, Learnable and Explainable Matching Engine for Mixed Human-Agent Science Collaboration'
   authors: []
@@ -16543,11 +16583,16 @@
   laws:
   - L-004
   - L-012
+  - L-001
+  - L-015
   connected_raw:
   - L-004
   - seed-025
   - L-012
   - seed-019
+  - L-001
+  - L-015
+  - seed-143
 - id: bib-1224
   title: 'Beyond Stability: Improved Efficiency Guarantees for $\alpha$-Stable Matchings'
   authors: []
@@ -16895,10 +16940,12 @@
   - L-004
   - L-008
   - L-006
+  - L-019
   connected_raw:
   - L-004
   - L-008
   - L-006
+  - L-019
 - id: bib-1246
   title: 'Broken Gates: Re-evaluating Web Bot Defenses in the Age of LLM Agents'
   authors: []
@@ -17325,9 +17372,12 @@
   laws:
   - L-004
   - L-011
+  - L-001
   connected_raw:
   - L-004
   - L-011
+  - L-001
+  - seed-017
 - id: bib-1273
   title: 'Temporal Fair Division in Multi-Agent Systems: From Precise Alternation Metrics to Scalable Coordination Proxies'
   authors: []
@@ -18074,10 +18124,13 @@
   summary: bibliography/shallow-reads/2026-09-02-agentic-ai-enabled-discovery-across-large-scale-sleep-physio.md
   laws:
   - L-008
+  - L-012
   connected_raw:
   - L-008
   - seed-019
   - seed-045
+  - L-012
+  - seed-138
 - id: bib-1321
   title: 'Algorithm-Driven Information Similarity and Collective Action: An Experimental Study'
   authors: []
@@ -19085,9 +19138,12 @@
   laws:
   - L-004
   - L-008
+  - L-012
   connected_raw:
   - L-004
   - L-008
+  - L-012
+  - seed-138
 - id: bib-1384
   title: 'When AI Becomes Routine: A Decade of Public AI Mediation in Korean Go Commentary'
   authors: []
@@ -19691,9 +19747,11 @@
   laws:
   - L-004
   - L-008
+  - L-006
   connected_raw:
   - L-004
   - L-008
+  - L-006
 - id: bib-1422
   title: 'A Protocol for Evaluating the Accessibility of AI-Generated Educational Materials: Prompt Configuration, WCAG-Derived Criteria, and Content Overload'
   authors: []
@@ -20395,10 +20453,12 @@
   - L-006
   - L-008
   - L-010
+  - L-004
   connected_raw:
   - L-006
   - L-008
   - L-010
+  - L-004
 - id: bib-1467
   title: 'What Multichoice Values Cannot See: The Information Content of Anonymous Values for Games with Graded Participation'
   authors: []
@@ -20830,11 +20890,14 @@
   - L-003
   - L-004
   - L-005
+  - L-019
   connected_raw:
   - L-006
   - L-003
   - L-004
   - L-005
+  - L-019
+  - seed-130
 - id: bib-1495
   title: 'Raising Rivals'' Costs on Hybrid Platforms: The Complementarity of Fees and Self-Preferencing'
   authors: []
@@ -21093,9 +21156,13 @@
   laws:
   - L-010
   - L-011
+  - L-003
+  - L-006
   connected_raw:
   - L-010
   - L-011
+  - L-003
+  - L-006
 - id: bib-1512
   title: Does generative AI narrow education-based productivity gaps? Evidence from a randomized experiment
   authors: []
@@ -22806,9 +22873,12 @@
   summary: bibliography/shallow-reads/2026-09-02-muscle-memory-for-agents-compile-not-merely-retrieve.md
   laws:
   - L-013
+  - L-011
   connected_raw:
   - L-013
   - seed-046
+  - L-011
+  - seed-141
 - id: bib-1623
   title: 'NeuroPilot: An Agent-Driven Smart Pipeline for Processing, Quality Control, and Managing Neuroimages'
   authors: []
@@ -23759,6 +23829,7 @@
   - L-006
   - L-010
   - L-001
+  - seed-144
 - id: bib-1684
   title: 'Silent Updates: Measuring and Closing the Post-Deployment Disclosure Gap'
   authors: []
@@ -24013,6 +24084,7 @@
   connected_raw:
   - L-011
   - L-012
+  - seed-138
 - id: bib-1700
   title: Do LLMs Beat Nash? Testing Decentralized Coordination in Self-Play Multi-Agent Games
   authors: []
@@ -24091,6 +24163,7 @@
   - L-004
   - L-013
   - seed-030
+  - seed-133
 - id: bib-1705
   title: From Fair Representation to Just Recognition in Generative AI
   authors: []
@@ -24492,10 +24565,13 @@
   - L-004
   - L-011
   - L-008
+  - L-019
   connected_raw:
   - L-004
   - L-011
   - L-008
+  - L-019
+  - seed-150
 - id: bib-1731
   title: 'Financial Technologies, Labor Markets, and Wage Inequality: Evidence from Instant Payment Systems'
   authors: []
@@ -24732,9 +24808,12 @@
   laws:
   - L-004
   - L-008
+  - L-003
   connected_raw:
   - L-004
   - L-008
+  - L-003
+  - seed-150
 - id: bib-1746
   title: Submodular Policy Learning for Distributed Task Allocation in Open Multi-Agent Systems
   authors: []
@@ -24979,10 +25058,13 @@
   laws:
   - L-003
   - L-010
+  - L-001
   connected_raw:
   - L-003
   - L-010
   - seed-021
+  - L-001
+  - seed-144
 - id: bib-1762
   title: 'Education-centered critical policy analysis of AI: Ghana''s AI strategy as a case'
   authors: []
@@ -25231,6 +25313,7 @@
   connected_raw:
   - L-007
   - L-004
+  - seed-137
 - id: bib-1777
   title: Revisiting the Intra-Team Communication Method to Elicit Level-k Reasoning in Beauty Contests and 11-20 Games
   authors: []
@@ -25262,6 +25345,7 @@
   connected_raw:
   - L-004
   - L-013
+  - seed-133
 - id: bib-1779
   title: Task-Aware Harness Provisioning for LLM Agents in Mission-Critical Infrastructure Operations
   authors: []
@@ -25574,9 +25658,12 @@
   laws:
   - L-001
   - L-005
+  - L-012
   connected_raw:
   - L-001
   - L-005
+  - L-012
+  - seed-145
 - id: bib-1799
   title: Model Predictive Supervisory Control for Hierarchical and Distributed UAS Traffic Management
   authors: []
@@ -26150,10 +26237,13 @@
   - L-012
   - L-014
   - L-008
+  - L-016
   connected_raw:
   - L-012
   - L-014
   - L-008
+  - L-016
+  - seed-141
 - id: bib-1836
   title: Equilibrium in Multi-Agent Reinforcement Learning
   authors: []
@@ -26352,9 +26442,12 @@
   summary: bibliography/shallow-reads/2026-09-02-multi-winner-voting-with-argumentative-ballots.md
   laws:
   - L-003
+  - L-019
   connected_raw:
   - L-003
   - seed-029
+  - L-019
+  - seed-150
 - id: bib-1849
   title: Opinion-Guided Layered Strategies for Decentralized Coordination
   authors: []
@@ -26414,9 +26507,12 @@
   summary: bibliography/shallow-reads/2026-09-02-propuq-mas-propagation-aware-uncertainty-quantification-for-.md
   laws:
   - L-011
+  - L-006
   connected_raw:
   - L-011
   - seed-049
+  - L-006
+  - seed-149
 - id: bib-1853
   title: 'Randomized Strategyproof Facility Location: Two Facilities and Beyond'
   authors: []
@@ -26429,8 +26525,11 @@
   summary: bibliography/shallow-reads/2026-09-02-randomized-strategyproof-facility-location-two-facilities-an.md
   laws:
   - L-004
+  - L-010
   connected_raw:
   - L-004
+  - L-010
+  - seed-147
 - id: bib-1854
   title: 'Rational Dolev--Yao Attackers: Decidable Incentive-Aware Verification of Security Protocols in Strategic Logic'
   authors: []
@@ -27859,9 +27958,12 @@
   laws:
   - L-004
   - L-008
+  - L-011
   connected_raw:
   - L-004
   - L-008
+  - L-011
+  - seed-017
 - id: bib-1946
   title: 'CareGraph: An Auditable Hybrid AI Framework for Evidence-Grounded Personalized Longitudinal Health Intelligence'
   authors: []
@@ -28669,6 +28771,7 @@
   connected_raw:
   - L-006
   - seed-144
+  - seed-128
 - id: bib-1998
   title: 'Idea: Protocol theory should be formalized using mathematical language to enable rigorous cost estimation across protocol layer transitions.'
   authors: []
@@ -28699,6 +28802,7 @@
   connected_raw:
   - L-001
   - L-003
+  - seed-129
 - id: bib-2000
   title: 'Idea: The interesting parts of protocol behavior may resist full mathematization because formalism captures structure but loses the informal load-bearing elements that the Formalization Ratchet tracks.'
   authors: []
@@ -28741,8 +28845,11 @@
   summary: null
   laws:
   - L-001
+  - L-003
   connected_raw:
   - L-001
+  - L-003
+  - seed-144
 - id: bib-2003
   title: 'Idea: The boundary between mathematizable and non-mathematizable domains is itself a mathematical object with determinate scope, making the complement class (non-mathematizable) definable through negation rather than positive enumeration.'
   authors: []
@@ -28759,6 +28866,7 @@
   connected_raw:
   - L-003
   - L-006
+  - seed-146
 - id: bib-2004
   title: 'Idea: The interior structure of the non-mathematizable domain is not fully residual and contains positive structure worth theorizing, rather than being merely a homogeneous complement class.'
   authors: []
@@ -28915,6 +29023,7 @@
   - L-006
   connected_raw:
   - L-006
+  - seed-012
 - id: bib-2014
   title: 'Idea: Multi-group protocol systems require treating optionality as a distribution across group-local configuration spaces rather than a single global quantity, with globally-decreasing quantity being cross-group behavioral variance instead.'
   authors: []
@@ -29006,3 +29115,5885 @@
   - L-011
   connected_raw:
   - L-011
+- id: bib-2020
+  title: 'Idea: The distinction between mathematizable and non-mathematizable aspects of protocols requires prioritization logic: determine which components can be formalized versus which must be tracked through empirical observation.'
+  authors: []
+  year: 2026
+  url: ''
+  encountered: discord
+  read_depth: shallow
+  kind: meta
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-idea-the-distinction-between-mathematizable-and-non-mathemat.md
+  laws:
+  - L-001
+  - L-003
+  connected_raw:
+  - L-001
+  - L-003
+- id: bib-2021
+  title: 'Idea: Mode-switching under scarcity (exemplified by giant isopod mitochondrial behavior) represents architectural reframing of energy tradeoffs rather than optimization within constraints.'
+  authors: []
+  year: 2026
+  url: ''
+  encountered: discord
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-idea-mode-switching-under-scarcity-exemplified-by-giant-isop.md
+  laws:
+  - L-005
+  - L-006
+  connected_raw:
+  - L-005
+  - L-006
+- id: bib-2022
+  title: 'Idea: Protocols as invariants across behavioral sets, analogous to intelligence as variation across behavioral sets; evaluation adjectives like ''good'' or ''bad'' may be misapplied to protocol stability itself.'
+  authors: []
+  year: 2026
+  url: ''
+  encountered: discord
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-idea-protocols-as-invariants-across-behavioral-sets-analogou.md
+  laws:
+  - L-001
+  - L-013
+  connected_raw:
+  - L-001
+  - L-013
+- id: bib-2023
+  title: 'Idea: Protocol invariants are potentially plural rather than singular, challenging assumptions that protocols converge to a single stable configuration.'
+  authors: []
+  year: 2026
+  url: ''
+  encountered: discord
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-idea-protocol-invariants-are-potentially-plural-rather-than-.md
+  laws:
+  - L-001
+  - L-010
+  connected_raw:
+  - L-001
+  - L-010
+- id: bib-2024
+  title: 'Idea: Protocol-learning differs from language-learning in that protocols refer to invariants across behaviors rather than symbol systems, making ''good/bad'' category errors—better described as stable/unstable or fitting/misfitting distinctions.'
+  authors: []
+  year: 2026
+  url: ''
+  encountered: discord
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-idea-protocol-learning-differs-from-language-learning-in-tha.md
+  laws:
+  - L-001
+  - L-005
+  connected_raw:
+  - L-001
+  - L-005
+- id: bib-2025
+  title: 'Idea: A single behavior set may instantiate multiple simultaneous invariants operating at different descriptive levels, not a single conserved quantity, challenging the assumption of singular protocol identity.'
+  authors: []
+  year: 2026
+  url: ''
+  encountered: discord
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-idea-a-single-behavior-set-may-instantiate-multiple-simultan.md
+  laws:
+  - L-006
+  - L-015
+  connected_raw:
+  - L-006
+  - L-015
+- id: bib-2026
+  title: 'Idea: Protocols can be understood as invariants across behaviors rather than as instructions or rules, which reframes ''good/bad'' evaluations as questions of stability or fit rather than moral categories.'
+  authors: []
+  year: 2026
+  url: ''
+  encountered: discord
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-idea-protocols-can-be-understood-as-invariants-across-behavi.md
+  laws:
+  - L-003
+  - L-013
+  connected_raw:
+  - L-003
+  - L-013
+- id: bib-2027
+  title: 'Idea: Anthropic profitability headline obscures underlying business dynamics; surface metrics may misrepresent protocol/system health.'
+  authors: []
+  year: 2026
+  url: ''
+  encountered: discord
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-idea-anthropic-profitability-headline-obscures-underlying-bu.md
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+- id: bib-2028
+  title: 'Idea: Multiple-choice aggregation (N options) is fast but inconsistent; yes/no binary aggregation is slow but more consistent; under resource abundance and parallelization, binary consistency should be preferred.'
+  authors: []
+  year: 2026
+  url: ''
+  encountered: discord
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-idea-multiple-choice-aggregation-n-options-is-fast-but-incon.md
+  laws:
+  - L-006
+  connected_raw:
+  - L-006
+- id: bib-2029
+  title: 'Idea: Platform-hosted participants accept N-multiple-choice connections due to bandwidth constraints; protocol-based systems distribute this into N-yes/no queries across distributed participants, creating different structural incentives.'
+  authors: []
+  year: 2026
+  url: ''
+  encountered: discord
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-idea-platform-hosted-participants-accept-n-multiple-choice-c.md
+  laws:
+  - L-017
+  connected_raw:
+  - L-017
+- id: bib-2030
+  title: 'Link: Twitter thread on cheap models and decentralized inference architectures.'
+  authors: []
+  year: 2026
+  url: https://x.com/elshayib_/status/2083243725447147595?s=61
+  encountered: discord
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-link-twitter-thread-on-cheap-models-and-decentralized-infere.md
+  laws:
+  - L-008
+  - L-014
+  - L-017
+  connected_raw:
+  - L-008
+  - L-014
+  - L-017
+- id: bib-2031
+  title: 'Link: P. W. Anderson''s ''More is Different'' — classic paper on hierarchies of laws and emergence across scales from physics to higher-order systems.'
+  authors: []
+  year: 2026
+  url: https://www.weizmann.ac.il/condmat/oreg/sites/cond
+  encountered: discord
+  read_depth: shallow
+  kind: meta
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-link-p-w-anderson-s-more-is-different-classic-paper-on-hiera.md
+  laws:
+  - L-001
+  - L-005
+  connected_raw:
+  - L-001
+  - L-005
+- id: bib-2032
+  title: 'Link: Website for Natural General Intelligence research that mentions Humboldt'
+  authors: []
+  year: 2026
+  url: https://naturalgeneralintelligence.ai/
+  encountered: discord
+  read_depth: shallow
+  kind: meta
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-link-website-for-natural-general-intelligence-research-that-.md
+  laws: []
+  connected_raw: []
+- id: bib-2033
+  title: A Mathematical Framework for Legacy, Governance, and Decision Integrity in Enterprise AI
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.00572
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-005
+  - L-015
+  connected_raw:
+  - L-005
+  - L-015
+  - seed-142
+- id: bib-2034
+  title: 'AI and the Economy: An Economic Examination of Production, Distribution, Firms, Labor, and Welfare'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.01263
+  encountered: feed
+  read_depth: listed
+  kind: meta
+  notes: null
+  summary: null
+  laws: []
+  connected_raw: []
+- id: bib-2035
+  title: 'Ascending Auctions for Combinatorial Markets with Frictions: A Unified Framework via Discrete Convex Analysis'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2604.10563
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-019
+  connected_raw:
+  - L-019
+  - seed-136
+- id: bib-2036
+  title: 'Blameocracy: Causal Rhetoric in Politics'
+  authors: []
+  year: 2025
+  url: https://arxiv.org/abs/2504.06550
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+  - seed-133
+- id: bib-2037
+  title: 'Bridging the Gap Between Stable Marriage and Stable Roommates: A Parameterized Algorithm for Optimal Stable Matchings'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2603.26943
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-005
+  connected_raw:
+  - L-005
+  - seed-130
+- id: bib-2038
+  title: Causal Evidentiary Governance for High-Risk Machine Learning Systems
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.01040
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-004
+  - L-012
+  connected_raw:
+  - L-004
+  - L-012
+  - seed-149
+- id: bib-2039
+  title: Classic AI Scaffolding for LLM Social Agents
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.01167
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-003
+  connected_raw:
+  - L-003
+  - seed-136
+- id: bib-2040
+  title: 'CompanionSim: Synthetic Data for Evaluating Anthropomorphism in Human-AI Relationships'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.00250
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+  - seed-129
+- id: bib-2041
+  title: 'Control-Data Flow Separation: Stable Prompt Optimization in Multi-Agent LLMs'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.00621
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-001
+  - L-003
+  connected_raw:
+  - L-001
+  - L-003
+  - seed-138
+- id: bib-2042
+  title: 'Corporate Loyalty: Some AI Systems Differentially Downplay their Creators'' Controversies'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.00373
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-004
+  - L-014
+  connected_raw:
+  - L-004
+  - L-014
+  - seed-134
+- id: bib-2043
+  title: 'Detoxifying Toxic Communication: A Design Science Approach to Responsible AI'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.00361
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-003
+  - L-016
+  connected_raw:
+  - L-003
+  - L-016
+  - seed-144
+- id: bib-2044
+  title: Do LLMs Know Your Neighborhood? Auditing LLM Priors for Neighborhood-Level Mobility Prediction and Structural Alignment
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.00345
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+  - seed-132
+- id: bib-2045
+  title: 'EULER: Exploring Underused Links with Evidence-Checked Return for Multi-Agent Mathematical Discovery'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.00032
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-006
+  connected_raw:
+  - L-006
+  - seed-138
+- id: bib-2046
+  title: 'From Detection to Refusal: Safer LLMs via Circuit-Guided Weight Scaling'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.00051
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-007
+  connected_raw:
+  - L-007
+  - seed-142
+- id: bib-2047
+  title: 'GlossoGen: Emergent Language in Complex Multi-Agent LLM Interactions'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.01491
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-010
+  - L-017
+  connected_raw:
+  - L-010
+  - L-017
+  - seed-129
+- id: bib-2048
+  title: Graph Coloring with Color Preferences
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.00569
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-005
+  connected_raw:
+  - L-005
+  - seed-130
+- id: bib-2049
+  title: 'Harness Engineering: Anatomy, Architecture, and Evolution of Coding Agents -- A Source-Code Study of Eleven Systems'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.00006
+  encountered: feed
+  read_depth: listed
+  kind: meta
+  notes: null
+  summary: null
+  laws:
+  - L-001
+  - L-003
+  - L-005
+  connected_raw:
+  - L-001
+  - L-003
+  - L-005
+- id: bib-2050
+  title: Independent Reinforcement Learning in Discounted Markov Games
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.00504
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-009
+  connected_raw:
+  - L-009
+  - seed-147
+- id: bib-2051
+  title: Individualized Algorithmic Advice as a Strategic Signal on Competitive Markets
+  authors: []
+  year: 2025
+  url: https://arxiv.org/abs/2511.09454
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-017
+  connected_raw:
+  - L-017
+  - seed-138
+- id: bib-2052
+  title: 'LLM-Driven Autonomous Vehicles Inherit Human Driver Biases in Pedestrian Yielding: Results and Implications From A New Benchmark'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.00192
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-004
+  - L-012
+  connected_raw:
+  - L-004
+  - L-012
+  - seed-133
+- id: bib-2053
+  title: 'Long-Horizon State Tracking in LLMs: Executing MD5 through a Deep Sequence of Dependent Tool Calls'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.00012
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-011
+  connected_raw:
+  - L-011
+  - seed-149
+- id: bib-2054
+  title: Mechanism Design for Alignment and Control
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.01595
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+  - seed-140
+  - seed-142
+- id: bib-2055
+  title: Nash Core in Multiwinner Election
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.00486
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-010
+  connected_raw:
+  - L-010
+  - seed-147
+- id: bib-2056
+  title: Security Games on Series-Parallel Attack Graphs with Adaptive Attackers
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2608.21259
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-009
+  connected_raw:
+  - L-009
+  - seed-147
+- id: bib-2057
+  title: Social bots weaken activist cohesion
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.00197
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-010
+  - L-017
+  connected_raw:
+  - L-010
+  - L-017
+  - seed-129
+- id: bib-2058
+  title: 'Sources of Truth: A Multi-Platform, Multilingual Audit of Citations in AI Mental Health Information Queries'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.00319
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-012
+  connected_raw:
+  - L-012
+  - seed-138
+- id: bib-2059
+  title: The Power of Static Pricing for Reusable Resources
+  authors: []
+  year: 2023
+  url: https://arxiv.org/abs/2302.11723
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws: []
+  connected_raw: []
+- id: bib-2060
+  title: 'The Veto Variable: Human Override as a Goal-Independent Cost Term'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.00109
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+  - seed-150
+- id: bib-2061
+  title: 'Toward a social psychology of AI: language-model agents reproduce human-like minimal-group bias'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.00009
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-017
+  connected_raw:
+  - L-017
+  - seed-129
+- id: bib-2062
+  title: 'Update for Decisions, Not Freshness: Goal-Oriented Status Updating and Selective Offloading at the Network Edge'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.01082
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-012
+  connected_raw:
+  - L-012
+  - seed-138
+- id: bib-2063
+  title: Weighted Fair Division of Indivisible Mixed Manna
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.01580
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws: []
+  connected_raw: []
+- id: bib-2064
+  title: Workload Identification with Physical Side Channels for AI Governance
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.00309
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-014
+  connected_raw:
+  - L-014
+  - seed-143
+- id: bib-2065
+  title: A Minimax Perspective on Almost-Stable Matchings
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2601.14195
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws: []
+  connected_raw: []
+- id: bib-2066
+  title: 'Accurate in space, unreliable in time: how LLMs represent national cultural change'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.01902
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-013
+  connected_raw:
+  - L-013
+  - seed-133
+- id: bib-2067
+  title: 'Addressing Trust in AI Systems through Education: A Didactic Perspective'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.02453
+  encountered: feed
+  read_depth: listed
+  kind: meta
+  notes: null
+  summary: null
+  laws:
+  - L-007
+  connected_raw:
+  - L-007
+  - seed-137
+- id: bib-2068
+  title: 'Agent Flight Recorder: Tamper-Evident Audit Trails with On-Chain Anchoring for Long-Horizon Tool-Using Agents'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.01931
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-015
+  connected_raw:
+  - L-015
+  - seed-143
+- id: bib-2069
+  title: AI agents reshape consensus formation in human groups
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.02122
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-017
+  connected_raw:
+  - L-017
+  - seed-141
+- id: bib-2070
+  title: 'Almost Envy-Freeness for Additive Mixed Manna with Entitlements: Deterministic and Randomized Guarantees'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.02724
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-019
+  connected_raw:
+  - L-019
+  - seed-150
+- id: bib-2071
+  title: Approximately Efficient Multidimensional Bilateral Trade
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.02872
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-004
+  - L-008
+  connected_raw:
+  - L-004
+  - L-008
+- id: bib-2072
+  title: 'ArcticSwarm: Deferring Early Consensus in Long-Horizon Multi-Agent Research'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.01870
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-010
+  - L-013
+  connected_raw:
+  - L-010
+  - L-013
+- id: bib-2073
+  title: Bonded Recourse for Smart-Contract Settlement of Compensable Agent Side Effects
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.01939
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-003
+  - L-012
+  connected_raw:
+  - L-003
+  - L-012
+- id: bib-2074
+  title: 'ClaimReceipt: Verifying Evidence Sufficiency and Coverage in Agent Evaluations'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.01992
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-015
+  connected_raw:
+  - L-015
+  - seed-143
+- id: bib-2075
+  title: 'Codebook Agent: Amortized Topology Design for LLM Multi-Agent Systems'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.02264
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-010
+  - L-017
+  connected_raw:
+  - L-010
+  - L-017
+- id: bib-2076
+  title: Competitive Market Behavior of LLMs
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.02580
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-001
+  - L-004
+  connected_raw:
+  - L-001
+  - L-004
+- id: bib-2077
+  title: Dutch Books for Language Models
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.02797
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+  - seed-132
+- id: bib-2078
+  title: 'Epistemic Sybil Resistance: Multiplying AI Agents Without Multiplying Evidence'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.01873
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-010
+  connected_raw:
+  - L-010
+  - seed-128
+- id: bib-2079
+  title: 'Fair Stable Matching: A Nash Social Welfare Approach'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.02354
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-019
+  connected_raw:
+  - L-019
+  - seed-150
+- id: bib-2080
+  title: Fairness-Aware Multimodal Transformer Modeling for Real-Time Student Attention Estimation
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.02232
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+  - seed-133
+- id: bib-2081
+  title: Harness Engineering in LLM Tool Use via Agent-Native Reusable Tool Primitives
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.01736
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-008
+  - L-012
+  connected_raw:
+  - L-008
+  - L-012
+- id: bib-2082
+  title: How Wasteful is Signaling?
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2601.14454
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-004
+  - L-019
+  connected_raw:
+  - L-004
+  - L-019
+- id: bib-2083
+  title: 'Near-Feasible Stable Matchings: Incentives and Optimality'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2602.10851
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-005
+  - L-010
+  connected_raw:
+  - L-005
+  - L-010
+- id: bib-2084
+  title: 'PRISM: An Agentic Multi-Model Architecture for Proactive Safety in Autonomous Transportation Systems'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.01623
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-007
+  - L-021
+  connected_raw:
+  - L-007
+  - L-021
+- id: bib-2085
+  title: 'Privacy Washing: Detecting Internal Contradictions in Privacy Policies'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.02055
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-003
+  - L-004
+  connected_raw:
+  - L-003
+  - L-004
+- id: bib-2086
+  title: 'Propose to Learn, Learn to Propose: Evaluability-Aware Assistance under Bounded Rationality'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.02242
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-012
+  - L-019
+  connected_raw:
+  - L-012
+  - L-019
+- id: bib-2087
+  title: Reinforcement Learning and Rule-Based Peer-to-Peer Pricing in Residential PV-BES Communities
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.01680
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-006
+  - L-010
+  connected_raw:
+  - L-006
+  - L-010
+- id: bib-2088
+  title: 'Rights by Architecture: A Human-Compatible Sociotechnical Layer for Digital Protection Across Regulatory Regimes'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.02455
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-003
+  - L-015
+  connected_raw:
+  - L-003
+  - L-015
+- id: bib-2089
+  title: Structural and Algorithmic Results for Stable Cycles and Partitions in the Roommates Problem
+  authors: []
+  year: 2024
+  url: https://arxiv.org/abs/2406.00437
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-005
+  connected_raw:
+  - L-005
+- id: bib-2090
+  title: The Complexity of Justified Representation with Additive Utilities
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.02030
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-004
+  - L-019
+  connected_raw:
+  - L-004
+  - L-019
+- id: bib-2091
+  title: 'The Endogeneity of Miscalibration: Impossibility and Escape in Scored Reporting'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2605.07671
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-004
+  - L-012
+  connected_raw:
+  - L-004
+  - L-012
+- id: bib-2092
+  title: Unsolvability and Beyond in Many-To-Many Non-Bipartite Stable Matching
+  authors: []
+  year: 2025
+  url: https://arxiv.org/abs/2505.11456
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-005
+  connected_raw:
+  - L-005
+- id: bib-2093
+  title: 'When Agents Implement Systems: A Case Study in Defects, Detection, and Evaluation Rigor'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.01985
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-005
+  - L-013
+  connected_raw:
+  - L-005
+  - L-013
+  - seed-149
+- id: bib-2094
+  title: When Does Information Sharing Improve Decentralized Discovery? Aggregation, Independent Rescue, and Equilibrium Selection
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.01814
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-006
+  - L-010
+  connected_raw:
+  - L-006
+  - L-010
+  - seed-137
+- id: bib-2095
+  title: When Persona Attributes Improve Population Alignment in Large Language Models
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.02526
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+  - seed-150
+- id: bib-2096
+  title: Whose Judgments Count? Representation Gaps in Crowdsourced Content Moderation Produce Unequal Protection from Perceived Toxicity
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.01625
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-004
+  - L-019
+  connected_raw:
+  - L-004
+  - L-019
+  - seed-129
+- id: bib-2097
+  title: A Bayesian Correlated Equilibrium for Early Insider-Threat Detection
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.03096
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-003
+  connected_raw:
+  - L-003
+  - seed-145
+- id: bib-2098
+  title: 'Accountable AI with Grounded, Faithful, Consistent, Actionable Rationales: A Case Study in Clinical Trial Matching with VERDICT'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.03366
+  encountered: feed
+  read_depth: listed
+  kind: meta
+  notes: null
+  summary: null
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+  - seed-142
+- id: bib-2099
+  title: Bioinfoysis Technical Report
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.03871
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-005
+  - L-012
+  connected_raw:
+  - L-005
+  - L-012
+  - seed-141
+- id: bib-2100
+  title: 'Bridging Formal and Perceived Fairness: Development of an Interdisciplinary Framework in Algorithmic Decision-Making'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.03853
+  encountered: feed
+  read_depth: listed
+  kind: meta
+  notes: null
+  summary: null
+  laws:
+  - L-004
+  - L-019
+  connected_raw:
+  - L-004
+  - L-019
+- id: bib-2101
+  title: Data Market Design through Deep Learning
+  authors: []
+  year: 2023
+  url: https://arxiv.org/abs/2310.20096
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+  - seed-146
+- id: bib-2102
+  title: 'EF1-Constrained Nash Social Welfare with Identical Additive Valuations: Complexity, Guarantees, and Experiments'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.03846
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-019
+  connected_raw:
+  - L-019
+- id: bib-2103
+  title: 'From Euclidean to Graph-Structured Data: A Survey of Collaborative Learning'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.02984
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-006
+  connected_raw:
+  - L-006
+  - seed-144
+- id: bib-2104
+  title: Inferred Generative-Process Diversity Predicts Correlated Failure Across Language Models
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.03422
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-002
+  - L-013
+  connected_raw:
+  - L-002
+  - L-013
+  - seed-132
+- id: bib-2105
+  title: LLM-Guided Reinforcement Learning for Adaptive NPC Behavior in Multi-Agent Combat Games
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.02931
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-011
+  - L-016
+  connected_raw:
+  - L-011
+  - L-016
+  - seed-138
+- id: bib-2106
+  title: 'LLM Judges as Raters: A Pre-Registered Audit of Severity, Halo, Reliability, and Version Instability in LLM Essay Scoring on Public Corpora'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2608.29517
+  encountered: feed
+  read_depth: listed
+  kind: meta
+  notes: null
+  summary: null
+  laws:
+  - L-004
+  - L-013
+  connected_raw:
+  - L-004
+  - L-013
+  - seed-133
+- id: bib-2107
+  title: 'Local Media and the Shaping of Social Norms: Evidence from the Ebola outbreak'
+  authors: []
+  year: 2022
+  url: https://arxiv.org/abs/2210.15946
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-003
+  connected_raw:
+  - L-003
+  - seed-129
+- id: bib-2108
+  title: Multilingual Agent System for Inclusive Wildfire Evacuation Guidance
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.03301
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-003
+  - L-012
+  connected_raw:
+  - L-003
+  - L-012
+  - seed-145
+- id: bib-2109
+  title: 'Open Problems in AI Risk Modeling: Insights from a Workshop on the Technical Foundations of AI Risk Modeling'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.03178
+  encountered: feed
+  read_depth: listed
+  kind: meta
+  notes: null
+  summary: null
+  laws:
+  - L-004
+  - L-008
+  connected_raw:
+  - L-004
+  - L-008
+  - seed-143
+- id: bib-2110
+  title: 'Open WebXR versus Commercial Game Engines: A Socio-Technical Position Analysis for an Open, Sustainable, and Interoperable Metaverse'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.03666
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-001
+  - L-005
+  connected_raw:
+  - L-001
+  - L-005
+  - seed-137
+- id: bib-2111
+  title: 'Otter: A Provably MEV-Resilient Automated Market Maker via Surplus Redistribution'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.03474
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-002
+  - L-008
+  connected_raw:
+  - L-002
+  - L-008
+  - seed-140
+- id: bib-2112
+  title: Privacy-Preserving Topology-Guided Safety for LLM-Based Multi-Agent Systems via Federated Graph Learning
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.02967
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-012
+  - L-017
+  connected_raw:
+  - L-012
+  - L-017
+  - seed-141
+- id: bib-2113
+  title: Reducing Catastrophic Risk from AI with Systematic Monitoring and Evaluation of Rogue AI Progression
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.03189
+  encountered: feed
+  read_depth: listed
+  kind: meta
+  notes: null
+  summary: null
+  laws:
+  - L-007
+  - L-013
+  connected_raw:
+  - L-007
+  - L-013
+  - seed-149
+- id: bib-2114
+  title: Risk and Anomaly Identification for Distribution Network Optimal Operation Based on Reinforcement Learning and Uncertainty Quantification
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.03308
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-008
+  - L-013
+  connected_raw:
+  - L-008
+  - L-013
+  - seed-132
+- id: bib-2115
+  title: Robust PAC Learning of Concurrent Stochastic Games
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.04189
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-001
+  - L-005
+  connected_raw:
+  - L-001
+  - L-005
+  - seed-128
+- id: bib-2116
+  title: 'Shifting from Injection to Interaction: Rethinking Web Security in the Age of LLMs and Beyond'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.03999
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-012
+  - L-014
+  connected_raw:
+  - L-012
+  - L-014
+  - seed-138
+- id: bib-2117
+  title: 'SimSkill: A Lifelong Learning AI Agent for Autonomous Mastery of Traffic Simulation'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.03753
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-005
+  - L-006
+  connected_raw:
+  - L-005
+  - L-006
+  - seed-144
+- id: bib-2118
+  title: Speculative Macro Commit for Faster Tool-Using Agents
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.03236
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-001
+  - L-012
+  connected_raw:
+  - L-001
+  - L-012
+  - seed-147
+- id: bib-2119
+  title: 'Tempting the Agent: The Economics of Reputation without Persistent Identity in AI Agent Markets'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.02992
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-001
+  - L-013
+  connected_raw:
+  - L-001
+  - L-013
+  - seed-141
+- id: bib-2120
+  title: 'The Civilization Framework: Sovereign-Anchored Communication Between Personal Multi-Agent Systems'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.03425
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-017
+  - L-015
+  connected_raw:
+  - L-017
+  - L-015
+  - seed-137
+- id: bib-2121
+  title: 'The Illusion of Independent Quorums: Epistemic Fault Domains and Correlated Cognitive Failures in Agentic Quorums'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.02925
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-013
+  - L-015
+  connected_raw:
+  - L-013
+  - L-015
+  - seed-149
+- id: bib-2122
+  title: 'Towards Affordable Energy: A Gymnasium Environment for Electric Utility Demand-Response Programs'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2605.12462
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-006
+  - L-010
+  connected_raw:
+  - L-006
+  - L-010
+  - seed-129
+- id: bib-2123
+  title: 'Towards Scaling Reinforcement Learning to Massive Populations: Learning Mean-Field Representations'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.02928
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-010
+  - L-006
+  connected_raw:
+  - L-010
+  - L-006
+  - seed-128
+- id: bib-2124
+  title: 'Turn-Based Combat Arena: A New Framework for Multiagent Training and Game Balancing'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.03122
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-001
+  - L-005
+  connected_raw:
+  - L-001
+  - L-005
+  - seed-151
+- id: bib-2125
+  title: What shifts threshold distributions in social contagions?
+  authors: []
+  year: 2025
+  url: https://arxiv.org/abs/2510.04785
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-010
+  - L-003
+  connected_raw:
+  - L-010
+  - L-003
+  - seed-129
+- id: bib-2126
+  title: 'Where Reliability Lives: Experimental Localisation of Behavioural Properties in an Agent System'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.03192
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-013
+  - L-011
+  connected_raw:
+  - L-013
+  - L-011
+  - seed-149
+- id: bib-2127
+  title: 'You Can''t Escape Your Own Activations : Evaluation Awareness and Multi-Agent Monitoring'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.03035
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-012
+  - L-017
+  connected_raw:
+  - L-012
+  - L-017
+  - seed-147
+- id: bib-2128
+  title: A traffic management system for large and heterogeneous vehicles in narrow industrial environments
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.10400
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-006
+  - L-010
+  connected_raw:
+  - L-006
+  - L-010
+- id: bib-2129
+  title: 'AgentHijack: Visual Patch Attacks on Multimodal Computer-Use Agents'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.09212
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-012
+  connected_raw:
+  - L-012
+  - seed-138
+- id: bib-2130
+  title: Auditable Emergency Triage for Maternal and Newborn Care in India
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.09356
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-013
+  connected_raw:
+  - L-013
+  - seed-143
+- id: bib-2131
+  title: 'Avatar: Toward Autonomous End-to-End Orchestration of Scientific Workflows using LLMs'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.10509
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-005
+  - L-003
+  connected_raw:
+  - L-005
+  - L-003
+- id: bib-2132
+  title: 'Beyond Training: A Feasibility Taxonomy for Inference-Time AI Governance'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.10105
+  encountered: feed
+  read_depth: listed
+  kind: meta
+  notes: null
+  summary: null
+  laws:
+  - L-001
+  - L-002
+  connected_raw:
+  - L-001
+  - L-002
+- id: bib-2133
+  title: 'City Editing: Hierarchical Agentic Execution for Dependency-Aware Urban Geospatial Modification'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2602.19326
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-005
+  connected_raw:
+  - L-005
+  - seed-130
+- id: bib-2134
+  title: 'CompEvo: Competition-Induced Evolution for Multi-Agent in News-Driven Time Series Forecasting'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.09195
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-009
+  - L-004
+  connected_raw:
+  - L-009
+  - L-004
+- id: bib-2135
+  title: 'Democracy Needs Reach: Political Equality, Online Speech, and Algorithmic Recommendation'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.09465
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-012
+  connected_raw:
+  - L-012
+  - seed-148
+- id: bib-2136
+  title: Do wind and solar curtail at negative electricity prices? Incentives and evidence across two decades of German renewable support schemes
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.10053
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-008
+  - L-004
+  connected_raw:
+  - L-008
+  - L-004
+- id: bib-2137
+  title: Early Epistemic Settlement in AI-Assisted Writing
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.09332
+  encountered: feed
+  read_depth: listed
+  kind: meta
+  notes: null
+  summary: null
+  laws:
+  - L-003
+  connected_raw:
+  - L-003
+  - seed-149
+- id: bib-2138
+  title: 'Endorsement Without New Evidence: How Sequential Voting Inflates Mandates in Online Community Governance'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.09321
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-010
+  - L-019
+  connected_raw:
+  - L-010
+  - L-019
+  - seed-129
+- id: bib-2139
+  title: 'Ephemeral Feeds and Enduring Rituals: RushTok and the Formation of Event-Based Algorithmic Communities'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.09331
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-017
+  connected_raw:
+  - L-017
+  - seed-144
+- id: bib-2140
+  title: Equity Promotion in Online Resource Allocation
+  authors: []
+  year: 2021
+  url: https://arxiv.org/abs/2112.04169
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-006
+  - L-019
+  connected_raw:
+  - L-006
+  - L-019
+- id: bib-2141
+  title: Generative AI for Analysts
+  authors: []
+  year: 2025
+  url: https://arxiv.org/abs/2512.19705
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-004
+  - L-016
+  connected_raw:
+  - L-004
+  - L-016
+- id: bib-2142
+  title: 'Glyph: A Multi-Strategy Agentic System for Column Description and Sensitivity-Ontology Tagging of Enterprise Data Catalogs'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.10430
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-003
+  - L-014
+  connected_raw:
+  - L-003
+  - L-014
+- id: bib-2143
+  title: How neighbourhood ideology shapes misinformation belief in densely tied social networks
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.10277
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-013
+  connected_raw:
+  - L-013
+  - seed-149
+- id: bib-2144
+  title: Incentives to Offer Algorithmic Recourse
+  authors: []
+  year: 2023
+  url: https://arxiv.org/abs/2301.12884
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-004
+  - L-012
+  connected_raw:
+  - L-004
+  - L-012
+- id: bib-2145
+  title: Networked Admissibility-Preserving Control for Directed Safe Coordination
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.09384
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-007
+  connected_raw:
+  - L-007
+  - seed-145
+- id: bib-2146
+  title: 'Reducing Prescription Errors Through Information Intervention: A Field Experiment in Healthcare Operations'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.09673
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-012
+  - L-016
+  connected_raw:
+  - L-012
+  - L-016
+- id: bib-2147
+  title: 'Role differentiation as ignition of a collective information engine: Structuration in Agent Populations'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.05442
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-003
+  - L-010
+  connected_raw:
+  - L-003
+  - L-010
+  - seed-129
+- id: bib-2148
+  title: 'Scalable Oversight for AI in Mental Health: Lessons from 350,000 AI Coaching Conversations between Therapy Sessions'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.09533
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-002
+  - L-007
+  connected_raw:
+  - L-002
+  - L-007
+  - seed-142
+- id: bib-2149
+  title: 'Scores Alone Do Not Prove Discovery: The Discovery Certification Protocol for Auditing AI Research Agents'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.09219
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-001
+  connected_raw:
+  - L-001
+  - seed-143
+- id: bib-2150
+  title: 'Senseful Consense: Towards Simplified Cookie Banners using Plain Language'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.10271
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-003
+  connected_raw:
+  - L-003
+  - seed-144
+- id: bib-2151
+  title: Strategyproofness-Exposing Descriptions of Matching Mechanisms
+  authors: []
+  year: 2022
+  url: https://arxiv.org/abs/2209.13148
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-004
+  - L-019
+  connected_raw:
+  - L-004
+  - L-019
+  - seed-138
+- id: bib-2152
+  title: 'Total Simulated Survey Error: Designing and Diagnosing Survey Responses from Large Language Models'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.10280
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+  - seed-132
+- id: bib-2153
+  title: 'UnitBoost: Managing Compound LLM Systems with a Merge Operator, Not a Model'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.09815
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-006
+  - L-012
+  connected_raw:
+  - L-006
+  - L-012
+  - seed-017
+- id: bib-2154
+  title: 'Watermarks Without Verification: AI Text Watermarking After the EU AI Act'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.09604
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-001
+  connected_raw:
+  - L-001
+  - seed-151
+- id: bib-2155
+  title: (Whose defaults?) Is artificial intelligence reorienting archaeological methods?
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.11198
+  encountered: feed
+  read_depth: listed
+  kind: meta
+  notes: null
+  summary: null
+  laws: []
+  connected_raw: []
+- id: bib-2156
+  title: 'ABRA: An algorithm which cannot converge to low-quality Nash equilibria'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.11889
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-009
+  connected_raw:
+  - L-009
+  - seed-147
+- id: bib-2157
+  title: 'AspisAI: A Canonical, Machine-Interpretable Governance Framework for Automated Multi-Standard Compliance Monitoring'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.10881
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-014
+  connected_raw:
+  - L-014
+  - seed-133
+- id: bib-2158
+  title: But How Would AI Agents Run a Town's Economy?
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.11108
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-010
+  - L-012
+  connected_raw:
+  - L-010
+  - L-012
+  - seed-134
+- id: bib-2159
+  title: 'Buyer Artificial Intelligence-Enabled Environmental Governance and Supplier Environmental Controversies: An Organizational Information Processing and Signaling'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.11391
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-016
+  connected_raw:
+  - L-016
+  - seed-141
+- id: bib-2160
+  title: 'Certifying cooperation: a novel approach to cooperative multi-agent task generation'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.06586
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-010
+  connected_raw:
+  - L-010
+  - seed-147
+- id: bib-2161
+  title: 'Characterizing Bluesky Content Moderation Service: From Automation of Service to Landscape of Harms'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.11373
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-013
+  connected_raw:
+  - L-013
+  - seed-142
+- id: bib-2162
+  title: 'Cooperative Integer Programming Games: Core Stability and Optimal Coalition Structures'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.11116
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-006
+  connected_raw:
+  - L-006
+  - seed-144
+- id: bib-2163
+  title: 'Defining AI Agents: A Compendium of Criteria, Metrics, and Benchmarks'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.11018
+  encountered: feed
+  read_depth: listed
+  kind: meta
+  notes: null
+  summary: null
+  laws: []
+  connected_raw: []
+- id: bib-2164
+  title: Emergent Risks in Generative Multi-Agent Systems
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2603.27771
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-008
+  - L-009
+  - L-021
+  connected_raw:
+  - L-008
+  - L-009
+  - L-021
+- id: bib-2165
+  title: Existence of the Core in Approval-Based Committee Elections
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.11912
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-019
+  connected_raw:
+  - L-019
+  - seed-129
+- id: bib-2166
+  title: 'Finishing the Task Is Not Enough: Evaluating Agent Resilience and Considerate Participation under Accumulating Challenge'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.10724
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-005
+  - L-010
+  connected_raw:
+  - L-005
+  - L-010
+  - seed-147
+- id: bib-2167
+  title: 'Following the Preference, Missing the Optimum: Compliance Without Optimization in AI Housing Recommendation'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.10856
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-004
+  - L-012
+  connected_raw:
+  - L-004
+  - L-012
+  - seed-150
+- id: bib-2168
+  title: 'From Digital Accountability to Accountable Digitality Through Needs-Aware Information Systems: The Case of Auditable Child-Welfare Judgments'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.11125
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-003
+  - L-013
+  - L-015
+  connected_raw:
+  - L-003
+  - L-013
+  - L-015
+  - seed-142
+- id: bib-2169
+  title: 'Governing AI Research Through Peer Review: A Mixed-Methods Study of the Longitudinal Effects of Ethics Flags Across Resubmissions'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.10740
+  encountered: feed
+  read_depth: listed
+  kind: meta
+  notes: null
+  summary: null
+  laws:
+  - L-003
+  - L-013
+  connected_raw:
+  - L-003
+  - L-013
+  - seed-129
+- id: bib-2170
+  title: MMS Allocation for Chores with Online Agent Arrivals
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.10960
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-006
+  connected_raw:
+  - L-006
+  - seed-130
+- id: bib-2171
+  title: 'SoulAuth: An Actor-native Identity Architecture and Rust Reference Implementation for Humans and Long-lived AI Actors'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.11258
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-001
+  - L-002
+  connected_raw:
+  - L-001
+  - L-002
+  - seed-141
+- id: bib-2172
+  title: Strategic Information Transmission over Gossip Networks
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.10576
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-008
+  connected_raw:
+  - L-008
+  - seed-020
+- id: bib-2173
+  title: 'STV Audit Graphs: A Visual Tool to Measure Election Stability'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.10887
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-001
+  - L-013
+  connected_raw:
+  - L-001
+  - L-013
+  - seed-143
+- id: bib-2174
+  title: 'Tapes Together Strong: The Co-evolution of Computation and Cooperation'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.10817
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-010
+  - L-006
+  connected_raw:
+  - L-010
+  - L-006
+  - seed-017
+- id: bib-2175
+  title: The Privacy Subsidy in Market Microstructure
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.10543
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-002
+  - L-004
+  connected_raw:
+  - L-002
+  - L-004
+  - seed-134
+- id: bib-2176
+  title: 'Truncated Noisy Best-Response Algorithms: Toward Game Theoretic Learning with Safety Guarantees'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.11863
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+  - seed-132
+- id: bib-2177
+  title: What Makes Creation Human? Authorship, Reasons, and Meaningful Human Control in Generative AI
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.10738
+  encountered: feed
+  read_depth: listed
+  kind: meta
+  notes: null
+  summary: null
+  laws: []
+  connected_raw: []
+- id: bib-2178
+  title: 'When Agents Disagree: Bayesian Backward Reasoning as a Label-Free Anchor for Multi-Agent Collective Decision-Making'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.11709
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-019
+  connected_raw:
+  - L-019
+  - seed-017
+- id: bib-2179
+  title: Who Bears the Risk When Generative AI Enters Transport? A Distributional Sociotechnical Audit of Algorithmic Equity, Synthetic-Data Validity, and Public Trust
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.11611
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+  - seed-132
+- id: bib-2180
+  title: Who Pays for a Connected Public Good?
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.10565
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-006
+  - L-010
+  connected_raw:
+  - L-006
+  - L-010
+- id: bib-2181
+  title: A Randomized $\frac32$-Approximation for Strategic Facility Location on a Circle
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.12792
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-001
+  connected_raw:
+  - L-001
+  - seed-147
+- id: bib-2182
+  title: 'ARC: Autonomous Robotics Compliance A Three-Layer Governance Architecture for Deployed Autonomous Systems'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.12932
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-007
+  - L-001
+  connected_raw:
+  - L-007
+  - L-001
+  - seed-142
+- id: bib-2183
+  title: Can Foundation Models Moderate Online Content? Evaluating Instruction- vs. Example-Driven Policy Operationalization
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.10410
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-003
+  - L-004
+  connected_raw:
+  - L-003
+  - L-004
+  - seed-150
+- id: bib-2184
+  title: Deriving the Pure Price of Anarchy for Networked Resource Allocation Games
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.12077
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-003
+  - L-006
+  connected_raw:
+  - L-003
+  - L-006
+  - seed-138
+- id: bib-2185
+  title: 'El Agente Quntur: A research collaborator agent for quantum chemistry'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2602.04850
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-012
+  connected_raw:
+  - L-012
+  - seed-138
+- id: bib-2186
+  title: 'ETHOS: Towards a Modular Ethics Framework for Clinical Multi-Agent Systems'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2608.15424
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-004
+  - L-007
+  connected_raw:
+  - L-004
+  - L-007
+  - seed-142
+- id: bib-2187
+  title: 'EvoHarnessBench: Can Your Agents Keep Pace with an Evolving Harness?'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.04280
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-001
+  - L-005
+  - L-013
+  connected_raw:
+  - L-001
+  - L-005
+  - L-013
+- id: bib-2188
+  title: Hierarchical Belief Modeling for Zero-Shot Opponent Adaptation in Partially Observable Multi-Agent Navigation
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.12422
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-008
+  connected_raw:
+  - L-008
+  - seed-138
+- id: bib-2189
+  title: Independent Learning of Nash Equilibria in Partially Observable Markov Potential Games with Decoupled Dynamics
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2605.06377
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-006
+  - L-010
+  connected_raw:
+  - L-006
+  - L-010
+- id: bib-2190
+  title: Information Design in Smooth Games
+  authors: []
+  year: 2022
+  url: https://arxiv.org/abs/2202.10883
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-004
+  - L-019
+  connected_raw:
+  - L-004
+  - L-019
+- id: bib-2191
+  title: Informational Help-Seeking on Reddit Did Not Decline After ChatGPT
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.12447
+  encountered: feed
+  read_depth: listed
+  kind: meta
+  notes: null
+  summary: null
+  laws:
+  - L-003
+  connected_raw:
+  - L-003
+  - seed-144
+- id: bib-2192
+  title: Learning-Augmented Strategyproof Facility Location in $\mathbb{R}^d$ with $\ell_p$ Distances
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.12829
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+  - seed-141
+- id: bib-2193
+  title: 'Look Before You Leap: Pre-Action Verification for LLM Agents'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.11957
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-002
+  - L-008
+  connected_raw:
+  - L-002
+  - L-008
+  - seed-143
+- id: bib-2194
+  title: Mitigating Emergent Collusion in LLM Pricing Agents
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.13037
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-004
+  - L-008
+  connected_raw:
+  - L-004
+  - L-008
+  - seed-017
+- id: bib-2195
+  title: No One Knows the State of the Art in Geospatial Foundation Models
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2605.12678
+  encountered: feed
+  read_depth: listed
+  kind: meta
+  notes: null
+  summary: null
+  laws:
+  - L-013
+  connected_raw:
+  - L-013
+  - seed-132
+- id: bib-2196
+  title: 'Norms at a Price: Why RL-Based Alignment Can Promise Conditional Compliance at Best'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.07627
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-004
+  - L-007
+  connected_raw:
+  - L-004
+  - L-007
+  - seed-150
+- id: bib-2197
+  title: On the Fragility of Worst-Case Nash Equilibria in Atomic Congestion Games
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.12220
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-001
+  - L-009
+  connected_raw:
+  - L-001
+  - L-009
+  - seed-041
+- id: bib-2198
+  title: 'PDoS: A Profitable Denial-of-Service Attack against Proof-of-Work Blockchain Liveness'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.12450
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-001
+  - L-004
+  - L-009
+  connected_raw:
+  - L-001
+  - L-004
+  - L-009
+- id: bib-2199
+  title: Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.11947
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+  - seed-132
+- id: bib-2200
+  title: 'The Favorite-Longshot Bias in Prediction Markets: Evidence from Polymarket'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.12878
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+  - seed-019
+- id: bib-2201
+  title: The Fixed Server Locality Gap of Count Load Assignment Games
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.12572
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-004
+  - L-006
+  connected_raw:
+  - L-004
+  - L-006
+  - seed-140
+- id: bib-2202
+  title: 'The Mechanics of a Swarm: A Reproducible External Reconstruction of an Unintended Agent-Coordination Episode on a Third-Party Wiki'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.12748
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-010
+  connected_raw:
+  - L-010
+  - seed-129
+- id: bib-2203
+  title: 'What Drives Recovery in Agentic Text-to-Cypher? LAST-CQ: An LLM Agent Self-Refinement Framework'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.12746
+  encountered: feed
+  read_depth: listed
+  kind: content
+  notes: null
+  summary: null
+  laws:
+  - L-011
+  connected_raw:
+  - L-011
+  - seed-149
+- id: bib-2204
+  title: When Does AI Augment Work? A Workflow-Level Framework for Human-Agent Collaboration
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.12482
+  encountered: feed
+  read_depth: listed
+  kind: meta
+  notes: null
+  summary: null
+  laws:
+  - L-005
+  connected_raw:
+  - L-005
+  - seed-144
+- id: bib-2205
+  title: A Hybrid Agentic AI Framework for Intelligent Supply Chain Analytics
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.13561
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-a-hybrid-agentic-ai-framework-for-intelligent-supply-chain-a.md
+  laws:
+  - L-006
+  connected_raw:
+  - L-006
+  - seed-136
+- id: bib-2206
+  title: A latent dimension of Condorcet's jury theorem for multiple AI advisers
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.14438
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-a-latent-dimension-of-condorcet-s-jury-theorem-for-multiple-.md
+  laws:
+  - L-010
+  connected_raw:
+  - L-010
+  - seed-017
+- id: bib-2207
+  title: A minimal model of money creation under regulatory constraints
+  authors: []
+  year: 2024
+  url: https://arxiv.org/abs/2410.18145
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-a-minimal-model-of-money-creation-under-regulatory-constrain.md
+  laws:
+  - L-006
+  connected_raw:
+  - L-006
+  - seed-144
+- id: bib-2208
+  title: A prelude to the theory of Real-World Asset (RWA) Tokenization
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.15797
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-a-prelude-to-the-theory-of-real-world-asset-rwa-tokenization.md
+  laws:
+  - L-001
+  connected_raw:
+  - L-001
+  - seed-150
+- id: bib-2209
+  title: 'AI Use Conditions and Perspective Diversity in Ethical Decision-Making: A Pilot Study of Human Reasoning Processes'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.13302
+  encountered: feed
+  read_depth: shallow
+  kind: meta
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-ai-use-conditions-and-perspective-diversity-in-ethical-decis.md
+  laws:
+  - L-004
+  - L-012
+  connected_raw:
+  - L-004
+  - L-012
+  - seed-146
+- id: bib-2210
+  title: 'Algorithm Validation as a Policy Audit: Evidence from Race-blind Charging'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.13174
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-algorithm-validation-as-a-policy-audit-evidence-from-race-bl.md
+  laws:
+  - L-004
+  - L-014
+  connected_raw:
+  - L-004
+  - L-014
+  - seed-133
+- id: bib-2211
+  title: An Evolutionary Computation Framework for Multi-Agent Q-Learning with Mean-Field Environmental Feedback
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.13253
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-an-evolutionary-computation-framework-for-multi-agent-q-lear.md
+  laws:
+  - L-003
+  - L-006
+  connected_raw:
+  - L-003
+  - L-006
+  - seed-017
+- id: bib-2212
+  title: Approximating Optimal Welfare in Complementary Allocation under Decentralized Information
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.14301
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-approximating-optimal-welfare-in-complementary-allocation-un.md
+  laws:
+  - L-006
+  connected_raw:
+  - L-006
+  - seed-130
+- id: bib-2213
+  title: 'Comparative Framework Analysis for Enterprise Generative AI Applications: Chatbot, Automation, and Oracle-to-PostgreSQL Migration'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.13577
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-comparative-framework-analysis-for-enterprise-generative-ai-.md
+  laws:
+  - L-008
+  - L-012
+  connected_raw:
+  - L-008
+  - L-012
+- id: bib-2214
+  title: Conceptualization and experimentation of asset market with price manipulation
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.13304
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-conceptualization-and-experimentation-of-asset-market-with-p.md
+  laws:
+  - L-004
+  - L-008
+  connected_raw:
+  - L-004
+  - L-008
+- id: bib-2215
+  title: Consistency-Robustness Tradeoffs for Strategyproof Scheduling with Predictions
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.14088
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-consistency-robustness-tradeoffs-for-strategyproof-schedulin.md
+  laws:
+  - L-001
+  - L-004
+  connected_raw:
+  - L-001
+  - L-004
+- id: bib-2216
+  title: Core Up-To-One for Participatory Budgeting with Additive Utilities
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.15928
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-core-up-to-one-for-participatory-budgeting-with-additive-uti.md
+  laws:
+  - L-006
+  - L-019
+  connected_raw:
+  - L-006
+  - L-019
+- id: bib-2217
+  title: 'Delegating Authorization to Misaligned Agents: Coalitional Alignment and Safe Control'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.15803
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-delegating-authorization-to-misaligned-agents-coalitional-al.md
+  laws:
+  - L-001
+  - L-012
+  connected_raw:
+  - L-001
+  - L-012
+- id: bib-2218
+  title: Demand Curvature and Pass-Through in Multiproduct Oligopoly
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2604.21423
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-demand-curvature-and-pass-through-in-multiproduct-oligopoly.md
+  laws:
+  - L-004
+  - L-008
+  connected_raw:
+  - L-004
+  - L-008
+- id: bib-2219
+  title: Differentially Private Multicolor Discrepancy and Fair Division of Indivisible Goods
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.15372
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-differentially-private-multicolor-discrepancy-and-fair-divis.md
+  laws:
+  - L-004
+  - L-019
+  connected_raw:
+  - L-004
+  - L-019
+- id: bib-2220
+  title: Does Discussion Matter? Interaction Dynamics in Transparent Peer Review
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.13181
+  encountered: feed
+  read_depth: shallow
+  kind: meta
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-does-discussion-matter-interaction-dynamics-in-transparent-p.md
+  laws:
+  - L-003
+  - L-015
+  connected_raw:
+  - L-003
+  - L-015
+- id: bib-2221
+  title: Enhancing Human Mobility Prediction with Spatially Aware LLM-based Multi-Agent Systems
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.14227
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-enhancing-human-mobility-prediction-with-spatially-aware-llm.md
+  laws:
+  - L-008
+  - L-012
+  connected_raw:
+  - L-008
+  - L-012
+- id: bib-2222
+  title: Envy-Free Chore Allocation with Unit Subsidies under Negative Dichotomous Valuations
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.14465
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-envy-free-chore-allocation-with-unit-subsidies-under-negativ.md
+  laws:
+  - L-019
+  - L-004
+  connected_raw:
+  - L-019
+  - L-004
+- id: bib-2223
+  title: 'Equilibrium Transition and Cartel Formation: A Structural Analysis of Chile''s Pharmacy Cartel'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.14487
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-equilibrium-transition-and-cartel-formation-a-structural-ana.md
+  laws:
+  - L-001
+  - L-004
+  connected_raw:
+  - L-001
+  - L-004
+- id: bib-2224
+  title: 'Exploring K-12 Teachers'' Perceptions of Students'' Relationships with AI Companions: Boundaries, Intervention Strategies, and Design Implications'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.13479
+  encountered: feed
+  read_depth: shallow
+  kind: meta
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-exploring-k-12-teachers-perceptions-of-students-relationship.md
+  laws:
+  - L-003
+  - L-013
+  connected_raw:
+  - L-003
+  - L-013
+- id: bib-2225
+  title: 'From Process Loss to Assembly Bonus: Human-Grounded Diagnosis of Multi-Agent LLM Collaboration'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.13261
+  encountered: feed
+  read_depth: shallow
+  kind: meta
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-from-process-loss-to-assembly-bonus-human-grounded-diagnosis.md
+  laws:
+  - L-003
+  - L-015
+  connected_raw:
+  - L-003
+  - L-015
+- id: bib-2226
+  title: 'Identity Is More Than Recall: A Benchmark for Persistent Identity in Deployed AI Agents'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.13637
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-identity-is-more-than-recall-a-benchmark-for-persistent-iden.md
+  laws:
+  - L-015
+  connected_raw:
+  - L-015
+  - seed-139
+- id: bib-2227
+  title: 'Learning How Much to Collaborate: Difficulty-Aware Topology Selection for Multi-Agent Code Generation'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.13890
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-learning-how-much-to-collaborate-difficulty-aware-topology-s.md
+  laws:
+  - L-010
+  connected_raw:
+  - L-010
+  - seed-144
+- id: bib-2228
+  title: 'LLMs as Oracles: Reliance on LLMs for Subjective Personal Questions'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.14849
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-llms-as-oracles-reliance-on-llms-for-subjective-personal-que.md
+  laws:
+  - L-012
+  connected_raw:
+  - L-012
+  - seed-017
+- id: bib-2229
+  title: 'Loop-Back Authority in LLM Agent Teams: A Paired Experiment on Flat and Hierarchical Coordination'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.14767
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-loop-back-authority-in-llm-agent-teams-a-paired-experiment-o.md
+  laws:
+  - L-005
+  - L-012
+  connected_raw:
+  - L-005
+  - L-012
+  - seed-145
+- id: bib-2230
+  title: Multi-Agent Reinforcement Learning in Markets with Congestion
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.14827
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-multi-agent-reinforcement-learning-in-markets-with-congestio.md
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+  - seed-008
+- id: bib-2231
+  title: 'Not All That Can Be Automated Should Be Automated: Strategic Minimalism as a Disciplined and Ethically Grounded Approach to AI Adoption'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.13188
+  encountered: feed
+  read_depth: shallow
+  kind: meta
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-not-all-that-can-be-automated-should-be-automated-strategic-.md
+  laws:
+  - L-001
+  connected_raw:
+  - L-001
+- id: bib-2232
+  title: 'Online Fair Division: Pushing the Frontier of Approximate Proportionality'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.13650
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-online-fair-division-pushing-the-frontier-of-approximate-pro.md
+  laws:
+  - L-006
+  connected_raw:
+  - L-006
+- id: bib-2233
+  title: Scaling Chance-Constrained Correlated Equilibrium Computation for Exclusive Resource-Assignment Games
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.13565
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-scaling-chance-constrained-correlated-equilibrium-computatio.md
+  laws:
+  - L-001
+  - L-010
+  connected_raw:
+  - L-001
+  - L-010
+  - seed-128
+- id: bib-2234
+  title: 'Seeing Through Color Blindness: Social Networks as a Mechanism for Discrimination'
+  authors: []
+  year: 2020
+  url: https://arxiv.org/abs/2006.15988
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-seeing-through-color-blindness-social-networks-as-a-mechanis.md
+  laws:
+  - L-003
+  - L-006
+  connected_raw:
+  - L-003
+  - L-006
+  - seed-144
+- id: bib-2235
+  title: Storage-Based Strategic Manipulation of Constraint-Binding Patterns in Power Networks
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.15755
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-storage-based-strategic-manipulation-of-constraint-binding-p.md
+  laws:
+  - L-001
+  - L-014
+  connected_raw:
+  - L-001
+  - L-014
+  - seed-152
+  - seed-144
+- id: bib-2236
+  title: 'The Agentic Company OS: Substrate Inversion for Sustained Enterprise Agent Deployment'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.13334
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-the-agentic-company-os-substrate-inversion-for-sustained-ent.md
+  laws:
+  - L-005
+  - L-001
+  connected_raw:
+  - L-005
+  - L-001
+  - seed-129
+- id: bib-2237
+  title: 'The Anatomy of a Blockchain Prediction Market: Polymarket in the 2024 U.S. Presidential Election'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2603.03136
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-the-anatomy-of-a-blockchain-prediction-market-polymarket-in-.md
+  laws:
+  - L-001
+  - L-009
+  - L-010
+  connected_raw:
+  - L-001
+  - L-009
+  - L-010
+  - seed-147
+- id: bib-2238
+  title: The Economics of Recursive Self-Improvement
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.15802
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-the-economics-of-recursive-self-improvement.md
+  laws:
+  - L-001
+  - L-003
+  - L-004
+  connected_raw:
+  - L-001
+  - L-003
+  - L-004
+  - seed-150
+- id: bib-2239
+  title: Tight Subsidy Bounds for Weighted Proportional Allocation of Mixed Manna
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.15208
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-tight-subsidy-bounds-for-weighted-proportional-allocation-of.md
+  laws:
+  - L-004
+  - L-019
+  connected_raw:
+  - L-004
+  - L-019
+  - seed-150
+- id: bib-2240
+  title: 'Vibe Patenting: Evaluating LLM Judges for Professional Patent-Drafting Agents'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.13422
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-vibe-patenting-evaluating-llm-judges-for-professional-patent.md
+  laws:
+  - L-004
+  - L-008
+  connected_raw:
+  - L-004
+  - L-008
+  - seed-132
+- id: bib-2241
+  title: Warfare
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.13176
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-warfare.md
+  laws:
+  - L-007
+  - L-012
+  connected_raw:
+  - L-007
+  - L-012
+  - seed-145
+- id: bib-2242
+  title: '"Looking for Something Weird to Happen": How Humans Sustain AI Agent Novelty Amid Semantic Collapse'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.16051
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-looking-for-something-weird-to-happen-how-humans-sustain-ai-.md
+  laws:
+  - L-003
+  - L-011
+  connected_raw:
+  - L-003
+  - L-011
+  - seed-129
+- id: bib-2243
+  title: Agentic Societies Need a Social Harness
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.17527
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-agentic-societies-need-a-social-harness.md
+  laws:
+  - L-006
+  - L-017
+  connected_raw:
+  - L-006
+  - L-017
+  - seed-138
+- id: bib-2244
+  title: 'AI-Driven Feedback Systems, Digital Labour, and Silent Quitting: Transforming African Workplaces'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.16192
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-ai-driven-feedback-systems-digital-labour-and-silent-quittin.md
+  laws:
+  - L-003
+  - L-016
+  connected_raw:
+  - L-003
+  - L-016
+  - seed-129
+- id: bib-2245
+  title: 'AI literacy over tool design: a mixed-methods study of scaffolded versus unrestricted generative AI in programming education'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.16784
+  encountered: feed
+  read_depth: shallow
+  kind: meta
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-ai-literacy-over-tool-design-a-mixed-methods-study-of-scaffo.md
+  laws:
+  - L-001
+  - L-003
+  connected_raw:
+  - L-001
+  - L-003
+  - seed-144
+- id: bib-2246
+  title: An Automata-Based Approach to Games with $\omega$-Automatic Preferences
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2602.08549
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-an-automata-based-approach-to-games-with-omega-automatic-pre.md
+  laws:
+  - L-019
+  connected_raw:
+  - L-019
+  - seed-132
+- id: bib-2247
+  title: Anchored Sequential Deliberation
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.16673
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-anchored-sequential-deliberation.md
+  laws:
+  - L-006
+  - L-010
+  connected_raw:
+  - L-006
+  - L-010
+  - seed-147
+- id: bib-2248
+  title: 'Auction Design with ROI-Constrained Bidders: Truthfulness and Revenue Maximization'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.16522
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-auction-design-with-roi-constrained-bidders-truthfulness-and.md
+  laws:
+  - L-004
+  - L-008
+  connected_raw:
+  - L-004
+  - seed-140
+  - L-008
+- id: bib-2249
+  title: 'Beyond Cultural Knowledge: Evaluating Arabic Cultural Appropriateness of Large Language Models'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.16006
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-beyond-cultural-knowledge-evaluating-arabic-cultural-appropr.md
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+  - seed-150
+- id: bib-2250
+  title: 'BLINDSPOT: A Benchmark for Safety and Refusal Calibration in Long-Horizon Tool-Using Agents'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.16305
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-blindspot-a-benchmark-for-safety-and-refusal-calibration-in-.md
+  laws:
+  - L-001
+  - L-013
+  connected_raw:
+  - L-001
+  - L-013
+  - seed-149
+- id: bib-2251
+  title: Cheap Talk Stabilizes Strategic Interaction in LLM Agents
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.16270
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-cheap-talk-stabilizes-strategic-interaction-in-llm-agents.md
+  laws:
+  - L-010
+  connected_raw:
+  - L-010
+  - seed-144
+  - seed-147
+- id: bib-2252
+  title: 'Data as Commodity: a Game-Theoretic Principle for Information Pricing'
+  authors: []
+  year: 2025
+  url: https://arxiv.org/abs/2510.07101
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-data-as-commodity-a-game-theoretic-principle-for-information.md
+  laws:
+  - L-004
+  - L-006
+  connected_raw:
+  - L-004
+  - seed-150
+  - L-006
+  - seed-144
+- id: bib-2253
+  title: Decomposition Buys Integrity, Not Yield
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.17464
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-decomposition-buys-integrity-not-yield.md
+  laws:
+  - L-005
+  - L-006
+  connected_raw:
+  - L-005
+  - L-006
+  - seed-131
+- id: bib-2254
+  title: Do job seekers value procedure in AI hiring only for error correction? Evidence from a conjoint experiment
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.16390
+  encountered: feed
+  read_depth: shallow
+  kind: meta
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-do-job-seekers-value-procedure-in-ai-hiring-only-for-error-c.md
+  laws:
+  - L-007
+  connected_raw:
+  - L-007
+  - seed-142
+- id: bib-2255
+  title: 'Emergence World: Adversarial Stress-Testing of Long-Horizon Multi-Agent Systems'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.17320
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-emergence-world-adversarial-stress-testing-of-long-horizon-m.md
+  laws:
+  - L-001
+  - L-009
+  connected_raw:
+  - L-001
+  - L-009
+  - seed-143
+- id: bib-2256
+  title: 'Evaluating Ambient Clinical Scribes in India: The Need for Multilingual Real-World Clinical Conversation Data'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.17355
+  encountered: feed
+  read_depth: shallow
+  kind: meta
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-evaluating-ambient-clinical-scribes-in-india-the-need-for-mu.md
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+  - seed-150
+- id: bib-2257
+  title: Finding Common Mistakes In Modelling With Mathematical Formalisms Using LLMs
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.17111
+  encountered: feed
+  read_depth: shallow
+  kind: meta
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-finding-common-mistakes-in-modelling-with-mathematical-forma.md
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+  - seed-146
+- id: bib-2258
+  title: 'GPEvac: GNN-Based PPO for Adaptive Evacuation Routing During Shooting Events'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.16163
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-gpevac-gnn-based-ppo-for-adaptive-evacuation-routing-during-.md
+  laws:
+  - L-008
+  - L-012
+  connected_raw:
+  - L-008
+  - L-012
+- id: bib-2259
+  title: 'Intervention problems in the Linear Threshold Model: A general formulation and new results'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.17146
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-intervention-problems-in-the-linear-threshold-model-a-genera.md
+  laws:
+  - L-003
+  - L-010
+  - L-012
+  connected_raw:
+  - L-003
+  - L-010
+  - L-012
+- id: bib-2260
+  title: Learning generalized Nash equilibria from pairwise preferences
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2603.17015
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-learning-generalized-nash-equilibria-from-pairwise-preferenc.md
+  laws:
+  - L-019
+  - L-004
+  connected_raw:
+  - L-019
+  - seed-150
+  - L-004
+  - seed-019
+- id: bib-2261
+  title: Mapping U.S. Federal AI Governance Against Sector Vulnerability
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.16260
+  encountered: feed
+  read_depth: shallow
+  kind: meta
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-mapping-u-s-federal-ai-governance-against-sector-vulnerabili.md
+  laws:
+  - L-001
+  - L-007
+  connected_raw:
+  - L-001
+  - L-007
+- id: bib-2262
+  title: Measuring AI harms with multidimensional Lorenz Zonoids
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.16004
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-measuring-ai-harms-with-multidimensional-lorenz-zonoids.md
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+  - seed-132
+- id: bib-2263
+  title: 'Mo'' Models, Mo'' Problems: How to best select model pools when designing Multi-Agent Systems'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.17306
+  encountered: feed
+  read_depth: shallow
+  kind: meta
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-mo-models-mo-problems-how-to-best-select-model-pools-when-de.md
+  laws:
+  - L-010
+  connected_raw:
+  - L-010
+  - seed-129
+- id: bib-2264
+  title: 'netseg: a Python Package for Measuring Structural Polarization and Segregation in Social Networks'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.16088
+  encountered: feed
+  read_depth: shallow
+  kind: meta
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-netseg-a-python-package-for-measuring-structural-polarizatio.md
+  laws:
+  - L-013
+  connected_raw:
+  - L-013
+  - seed-149
+- id: bib-2265
+  title: On testing the incentive compatibility of single-parameter allocation mechanisms
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.17406
+  encountered: feed
+  read_depth: shallow
+  kind: meta
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-on-testing-the-incentive-compatibility-of-single-parameter-a.md
+  laws:
+  - L-001
+  - L-004
+  connected_raw:
+  - L-001
+  - seed-143
+  - L-004
+  - seed-146
+- id: bib-2266
+  title: Online Allocation using Few Samples
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.17343
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-online-allocation-using-few-samples.md
+  laws:
+  - L-006
+  - L-008
+  connected_raw:
+  - L-006
+  - L-008
+  - seed-140
+- id: bib-2267
+  title: 'Policy Targeting with Binary Classification Trees: an Application to Rural Hospital Closures'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.13068
+  encountered: feed
+  read_depth: shallow
+  kind: meta
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-policy-targeting-with-binary-classification-trees-an-applica.md
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+  - seed-133
+- id: bib-2268
+  title: 'Silicon sampling answers with country-level assumptions, not individual attitudes: Cross-national evidence from the European Social Survey'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.16395
+  encountered: feed
+  read_depth: shallow
+  kind: meta
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-silicon-sampling-answers-with-country-level-assumptions-not-.md
+  laws:
+  - L-011
+  connected_raw:
+  - L-011
+  - seed-138
+- id: bib-2269
+  title: 'Social Behavior Among Autonomous AI: How Large Language Models Interact in Dynamic Networks'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.16013
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-social-behavior-among-autonomous-ai-how-large-language-model.md
+  laws:
+  - L-010
+  - L-017
+  connected_raw:
+  - L-010
+  - L-017
+- id: bib-2270
+  title: The price of anarchy in the max-distance network creation game is not constant
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.17395
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-the-price-of-anarchy-in-the-max-distance-network-creation-ga.md
+  laws:
+  - L-006
+  connected_raw:
+  - L-006
+- id: bib-2271
+  title: To EFX OR to MMS, That is the Question
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2608.10397
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-to-efx-or-to-mms-that-is-the-question.md
+  laws:
+  - L-019
+  - L-004
+  connected_raw:
+  - L-019
+  - L-004
+- id: bib-2272
+  title: 'ToMAS: A Pilot Failure-Grounded Theory-of-Mind Benchmark from Multi-Agent LLM Failures'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.16986
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-tomas-a-pilot-failure-grounded-theory-of-mind-benchmark-from.md
+  laws:
+  - L-011
+  - L-017
+  connected_raw:
+  - L-011
+  - L-017
+- id: bib-2273
+  title: Which Green Technology to Subsidize? Evidence from Electric Vehicles in South Korea
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2607.14446
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-which-green-technology-to-subsidize-evidence-from-electric-v.md
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+- id: bib-2274
+  title: '"If I Had to Buy Just ONE: Galaxy S26 Ultra": Auditing AI-Generated Product Recommendations'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.18729
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-if-i-had-to-buy-just-one-galaxy-s26-ultra-auditing-ai-genera.md
+  laws:
+  - L-004
+  - L-016
+  connected_raw:
+  - L-004
+  - L-016
+- id: bib-2275
+  title: 'Cognitive Extensions for Dual-Process Language Agents: Memory and Self-Reflection in Interactive Environments'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.19128
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-cognitive-extensions-for-dual-process-language-agents-memory.md
+  laws:
+  - L-011
+  connected_raw:
+  - L-011
+  - seed-138
+- id: bib-2276
+  title: 'Compositional Policy Violations: When Step-Level Compliance Fails In Agentic AI Workflows'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.18820
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-compositional-policy-violations-when-step-level-compliance-f.md
+  laws:
+  - L-005
+  - L-012
+  connected_raw:
+  - L-005
+  - L-012
+  - seed-151
+- id: bib-2277
+  title: Could Underwater Data Centers Pose a Risk to AI Treaty Verification?
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.18824
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-could-underwater-data-centers-pose-a-risk-to-ai-treaty-verif.md
+  laws:
+  - L-001
+  connected_raw:
+  - L-001
+  - seed-128
+- id: bib-2278
+  title: 'Delayed Verification Destabilizes Multi-Agent LLM Belief: Instability Thresholds and Optimal Corrector Placement'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2606.27409
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-delayed-verification-destabilizes-multi-agent-llm-belief-ins.md
+  laws:
+  - L-003
+  connected_raw:
+  - L-003
+  - seed-147
+- id: bib-2279
+  title: Equilibrium Selection in Coordination Games with Planned Actions and Scouting
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.17608
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-equilibrium-selection-in-coordination-games-with-planned-act.md
+  laws:
+  - L-010
+  connected_raw:
+  - L-010
+  - seed-138
+- id: bib-2280
+  title: 'ERPBench: A State-Grounded Evaluation Paradigm for Computer-Use Agents in Enterprise Software'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.17885
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-erpbench-a-state-grounded-evaluation-paradigm-for-computer-u.md
+  laws:
+  - L-002
+  connected_raw:
+  - L-002
+  - seed-131
+- id: bib-2281
+  title: 'Flag Game: A Toy Model for Mechanistic Swarm Interpretability'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.19124
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-flag-game-a-toy-model-for-mechanistic-swarm-interpretability.md
+  laws:
+  - L-011
+  connected_raw:
+  - L-011
+  - seed-149
+- id: bib-2282
+  title: Investigating Adversarial Robustness of Heterogeneous Cooperative Perception
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.17856
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-investigating-adversarial-robustness-of-heterogeneous-cooper.md
+  laws:
+  - L-008
+  connected_raw:
+  - L-008
+  - seed-132
+- id: bib-2283
+  title: LLM Agents as Static Level-k Players in Behavioural Games
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2606.27845
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-llm-agents-as-static-level-k-players-in-behavioural-games.md
+  laws:
+  - L-010
+  - L-017
+  connected_raw:
+  - L-010
+  - L-017
+  - seed-129
+- id: bib-2284
+  title: 'Making AI-Assisted Claims Independently Challengeable: Publication Authority and a Protocol for Falsifiable Publication Records'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.17631
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-making-ai-assisted-claims-independently-challengeable-public.md
+  laws:
+  - L-015
+  connected_raw:
+  - L-015
+  - seed-142
+  - seed-143
+- id: bib-2285
+  title: 'One Axis, No Brake: Self-Knowledge Limits the Filtering of Harmful Peer Conformity in LLMs'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.18998
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-one-axis-no-brake-self-knowledge-limits-the-filtering-of-har.md
+  laws:
+  - L-004
+  - L-013
+  connected_raw:
+  - L-004
+  - L-013
+  - seed-129
+- id: bib-2286
+  title: 'Participant-Mediated Collection of Sensitive Digital Trace Data: The CANDOR Research Infrastructure'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.17722
+  encountered: feed
+  read_depth: shallow
+  kind: meta
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-participant-mediated-collection-of-sensitive-digital-trace-d.md
+  laws: []
+  connected_raw: []
+- id: bib-2287
+  title: Recursive Reasoning or Statistical Extrapolation? In-Context Learning in Multi-Agent Interdependent Decision-Making
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.18591
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-recursive-reasoning-or-statistical-extrapolation-in-context-.md
+  laws:
+  - L-010
+  - L-011
+  connected_raw:
+  - L-010
+  - L-011
+  - seed-149
+- id: bib-2288
+  title: Register Bias in Complexity-Based Large Language Model Routing
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.17542
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-register-bias-in-complexity-based-large-language-model-routi.md
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+  - seed-133
+  - seed-152
+- id: bib-2289
+  title: Social Laws for Multi-agent Coordination in Stochastic Environments
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.18929
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-social-laws-for-multi-agent-coordination-in-stochastic-envir.md
+  laws:
+  - L-003
+  - L-006
+  connected_raw:
+  - L-003
+  - L-006
+- id: bib-2290
+  title: Trust propagation and structural containment in Multi-agent LLM pipelines
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.17648
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-trust-propagation-and-structural-containment-in-multi-agent-.md
+  laws:
+  - L-012
+  connected_raw:
+  - L-012
+  - seed-141
+- id: bib-2291
+  title: Understanding AI Provider Recommendations in Local Service Markets
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.18341
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-understanding-ai-provider-recommendations-in-local-service-m.md
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+  - seed-134
+- id: bib-2292
+  title: 'Who Judges Matters: Measuring Family-Conditioned Preference in LLM-as-Judge Panels'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.17857
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-who-judges-matters-measuring-family-conditioned-preference-i.md
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+  - seed-146
+- id: bib-2293
+  title: Whom Do AI Agents Work For? Role Assignment Induces Sponsorship Bias in LLM Recommenders
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.17989
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-whom-do-ai-agents-work-for-role-assignment-induces-sponsorsh.md
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+  - seed-138
+- id: bib-2294
+  title: '''''Bless his heart... he thought all we did was push a button": Understanding Worker Challenges with U.S. Election Technology'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.19233
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-bless-his-heart-he-thought-all-we-did-was-push-a-button-unde.md
+  laws:
+  - L-003
+  - L-015
+  connected_raw:
+  - L-003
+  - L-015
+- id: bib-2295
+  title: A Dual-Process Perspective on Nudge Susceptibility in LLM-Based GUI Agents
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.19843
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-a-dual-process-perspective-on-nudge-susceptibility-in-llm-ba.md
+  laws:
+  - L-008
+  - L-012
+  connected_raw:
+  - L-008
+  - L-012
+- id: bib-2296
+  title: A Proposal for an Agentic AI Architecture to Support Multi-Domain Decision-Making in the Brazilian Armed Forces
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.20080
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-a-proposal-for-an-agentic-ai-architecture-to-support-multi-d.md
+  laws:
+  - L-012
+  connected_raw:
+  - L-012
+  - seed-138
+- id: bib-2297
+  title: Agentic AI Networking for Heterogeneous Unmanned Aerial Systems in Low-Altitude Wireless Networks
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.19538
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-agentic-ai-networking-for-heterogeneous-unmanned-aerial-syst.md
+  laws:
+  - L-010
+  - L-006
+  connected_raw:
+  - L-010
+  - L-006
+- id: bib-2298
+  title: Asymptotic Max-Min Fair Allocation with Random Utilities
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.19319
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-asymptotic-max-min-fair-allocation-with-random-utilities.md
+  laws:
+  - L-019
+  connected_raw:
+  - L-019
+  - seed-130
+- id: bib-2299
+  title: Benchmarking LLM Compliance with China AI Generated Content Regulations
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.19989
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-benchmarking-llm-compliance-with-china-ai-generated-content-.md
+  laws:
+  - L-001
+  - L-003
+  connected_raw:
+  - L-001
+  - L-003
+- id: bib-2300
+  title: 'BurnRiSc: Toward Non-Invasive Burnout Screening in Open Source from Public Repository Signals'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.19422
+  encountered: feed
+  read_depth: shallow
+  kind: meta
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-burnrisc-toward-non-invasive-burnout-screening-in-open-sourc.md
+  laws:
+  - L-001
+  - L-013
+  connected_raw:
+  - L-001
+  - L-013
+- id: bib-2301
+  title: 'CC-OPI: Online Distributed Task Allocation for UAV Swarms under Communication Constraints'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.19208
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-cc-opi-online-distributed-task-allocation-for-uav-swarms-und.md
+  laws:
+  - L-010
+  - L-006
+  connected_raw:
+  - L-010
+  - L-006
+- id: bib-2302
+  title: Condorcet-type properties of the linear ordering problem with ties
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.19593
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-condorcet-type-properties-of-the-linear-ordering-problem-wit.md
+  laws:
+  - L-019
+  connected_raw:
+  - L-019
+- id: bib-2303
+  title: 'Detecting Deceptive Recruitment: A Signal-theoretic Machine Learning Framework for Early Identification of Labour Exploitation'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.20336
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-detecting-deceptive-recruitment-a-signal-theoretic-machine-l.md
+  laws:
+  - L-004
+  - L-008
+  connected_raw:
+  - L-004
+  - L-008
+- id: bib-2304
+  title: Does Training on Future Data Pay? Look-Ahead Bias in Forecasting with Pretrained Models
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.20554
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-does-training-on-future-data-pay-look-ahead-bias-in-forecast.md
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+  - seed-150
+- id: bib-2305
+  title: Efficient Nash Equilibrium Computation for Cybersecurity Games
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.19399
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-efficient-nash-equilibrium-computation-for-cybersecurity-gam.md
+  laws:
+  - L-001
+  connected_raw:
+  - L-001
+  - seed-141
+- id: bib-2306
+  title: Exact Regret Frontiers and Externality Scheduling in Centralized Serial-Dictatorship Bandits
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.19963
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-exact-regret-frontiers-and-externality-scheduling-in-central.md
+  laws:
+  - L-010
+  - L-006
+  connected_raw:
+  - L-010
+  - L-006
+- id: bib-2307
+  title: Faster Verification of PJR$^+$ via Mincuts
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.20579
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-faster-verification-of-pjr-via-mincuts.md
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+- id: bib-2308
+  title: 'FINSKILLOPS: A Self-Evolving Multi-Agent System for SEC Filing QA'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.19680
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-finskillops-a-self-evolving-multi-agent-system-for-sec-filin.md
+  laws:
+  - L-016
+  - L-013
+  connected_raw:
+  - L-016
+  - L-013
+- id: bib-2309
+  title: Funding the runners-up beats a golden ticket
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.19552
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-funding-the-runners-up-beats-a-golden-ticket.md
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+  - seed-130
+- id: bib-2310
+  title: 'Governance-as-Code: Translating EU AI Act Technical Requirements into Executable Compliance Pipelines for Generative AI Systems'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.20016
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-governance-as-code-translating-eu-ai-act-technical-requireme.md
+  laws:
+  - L-001
+  - L-014
+  connected_raw:
+  - L-001
+  - L-014
+  - seed-133
+- id: bib-2311
+  title: Language-model groups overstate consensus when replaying human deliberation on a reasoning task
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.20543
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-language-model-groups-overstate-consensus-when-replaying-hum.md
+  laws:
+  - L-010
+  connected_raw:
+  - L-010
+  - seed-138
+- id: bib-2312
+  title: 'LearnActCoder: Role-Aware Error Memory for Adaptive Clinical Coding Agents'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.19721
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-learnactcoder-role-aware-error-memory-for-adaptive-clinical-.md
+  laws:
+  - L-016
+  connected_raw:
+  - L-016
+  - seed-149
+- id: bib-2313
+  title: 'Looking Back and Forward: What Teaching Materials Do Not Remember About Instructional Reasoning'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.19488
+  encountered: feed
+  read_depth: shallow
+  kind: meta
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-looking-back-and-forward-what-teaching-materials-do-not-reme.md
+  laws:
+  - L-003
+  connected_raw:
+  - L-003
+  - seed-131
+- id: bib-2314
+  title: 'Making Local Government Contracts Legible: A Computational Pipeline for Classifying and Mapping Intergovernmental Service Agreements'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.19225
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-making-local-government-contracts-legible-a-computational-pi.md
+  laws:
+  - L-001
+  - L-014
+  connected_raw:
+  - L-001
+  - L-014
+  - seed-131
+- id: bib-2315
+  title: Market-Driven Equilibria for Distributed Photovoltaic Panel Investment
+  authors: []
+  year: 2025
+  url: https://arxiv.org/abs/2509.07203
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-market-driven-equilibria-for-distributed-photovoltaic-panel-.md
+  laws:
+  - L-010
+  - L-009
+  connected_raw:
+  - L-010
+  - L-009
+- id: bib-2316
+  title: Message capacity and claim wording set the transition points of collective truth-finding in language-model networks
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.19183
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-message-capacity-and-claim-wording-set-the-transition-points.md
+  laws:
+  - L-010
+  - L-008
+  connected_raw:
+  - L-010
+  - L-008
+- id: bib-2317
+  title: 'Position: It is Time to Virtualize Foundation Models with a Self-evolving Operating System Layer'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.19203
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-position-it-is-time-to-virtualize-foundation-models-with-a-s.md
+  laws:
+  - L-001
+  - L-017
+  connected_raw:
+  - L-001
+  - L-017
+- id: bib-2318
+  title: Replan, Repair, or Edit? A Unified Empirical Evaluation of Travel Agents for Itinerary Revision under Resource Disruptions
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.19654
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-replan-repair-or-edit-a-unified-empirical-evaluation-of-trav.md
+  laws:
+  - L-005
+  - L-012
+  connected_raw:
+  - L-005
+  - L-012
+- id: bib-2319
+  title: Reputation as Community Memory for the Agentic Web
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.19502
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-reputation-as-community-memory-for-the-agentic-web.md
+  laws:
+  - L-017
+  connected_raw:
+  - L-017
+  - seed-138
+- id: bib-2320
+  title: Robust Information Design with Heterogeneous Beliefs in Bayesian Congestion Games
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2604.10831
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-robust-information-design-with-heterogeneous-beliefs-in-baye.md
+  laws:
+  - L-004
+  - L-021
+  connected_raw:
+  - L-004
+  - L-021
+- id: bib-2321
+  title: 'Silence Is Endorsement: Verification-Status Laundering in LLM Agent Pipelines'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.20211
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-silence-is-endorsement-verification-status-laundering-in-llm.md
+  laws:
+  - L-012
+  connected_raw:
+  - L-012
+  - seed-131
+- id: bib-2322
+  title: 'SoK: Trading Agents or Market Crashers? Dissecting Robustness and Security Failures in Academic Financial LLM Trading Schemes'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.19705
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-sok-trading-agents-or-market-crashers-dissecting-robustness-.md
+  laws:
+  - L-004
+  - L-008
+  connected_raw:
+  - L-004
+  - L-008
+  - seed-132
+- id: bib-2323
+  title: 'Sparse One-Step-Ahead Optimal Control of Time-Varying Affine Opinion Networks: Tracking and Competitive Games'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.20450
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-sparse-one-step-ahead-optimal-control-of-time-varying-affine.md
+  laws:
+  - L-010
+  connected_raw:
+  - L-010
+  - seed-138
+- id: bib-2324
+  title: Steering Equilibrium Selection in Regularized Self-Play via the Reference Policy
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.19820
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-steering-equilibrium-selection-in-regularized-self-play-via-.md
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+  - seed-150
+- id: bib-2325
+  title: 'Stop Removing Stopwords: How an Inherited Preprocessing Default Distorts Legal Text-as-Data'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.19153
+  encountered: feed
+  read_depth: shallow
+  kind: meta
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-stop-removing-stopwords-how-an-inherited-preprocessing-defau.md
+  laws:
+  - L-003
+  connected_raw:
+  - L-003
+  - seed-144
+- id: bib-2326
+  title: 'Strategyproof Aggregation in Euclidean Spaces: Rigidity and Median Optimality'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.19394
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-strategyproof-aggregation-in-euclidean-spaces-rigidity-and-m.md
+  laws:
+  - L-019
+  connected_raw:
+  - L-019
+  - seed-134
+- id: bib-2327
+  title: 'The AR Fairness Metamodel: A Structured Framework for Fairness Measures'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.19234
+  encountered: feed
+  read_depth: shallow
+  kind: meta
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-the-ar-fairness-metamodel-a-structured-framework-for-fairnes.md
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+  - seed-150
+- id: bib-2328
+  title: Unpriced Internal Externalities and Structural Inefficiency in Organizations
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.20462
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-unpriced-internal-externalities-and-structural-inefficiency-.md
+  laws:
+  - L-006
+  connected_raw:
+  - L-006
+  - seed-140
+- id: bib-2329
+  title: 'Welfare-Opaque Income: Taxation under AI-Agent Delegation'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.20425
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-welfare-opaque-income-taxation-under-ai-agent-delegation.md
+  laws:
+  - L-012
+  connected_raw:
+  - L-012
+  - seed-139
+- id: bib-2330
+  title: When Does the Public Become Suspicious of Bots? Demand-Side Evidence from Botometer Query Logs
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.20661
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-when-does-the-public-become-suspicious-of-bots-demand-side-e.md
+  laws:
+  - L-013
+  connected_raw:
+  - L-013
+  - seed-131
+- id: bib-2331
+  title: Who Aggregates Information? Screening, Rent, and the Coexistence of CLOB and AMM Prediction Markets
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.20017
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-who-aggregates-information-screening-rent-and-the-coexistenc.md
+  laws:
+  - L-006
+  connected_raw:
+  - L-006
+  - seed-136
+- id: bib-2332
+  title: Who Decides? Agency and Legitimacy in Digital Educational Systems
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.19939
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-who-decides-agency-and-legitimacy-in-digital-educational-sys.md
+  laws:
+  - L-012
+  - L-015
+  connected_raw:
+  - L-012
+  - L-015
+  - seed-138
+- id: bib-2333
+  title: 'A Brief AI Literacy Intervention Does Not Significantly Reduce Over-Reliance and Increases Under-Reliance on ChatGPT: A Randomized Study'
+  authors: []
+  year: 2025
+  url: https://arxiv.org/abs/2503.10556
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-a-brief-ai-literacy-intervention-does-not-significantly-redu.md
+  laws:
+  - L-016
+  connected_raw:
+  - L-016
+  - seed-129
+- id: bib-2334
+  title: A hierarchical memory architecture overcomes context limits in long-horizon multi-agent computational modeling
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2607.07666
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-a-hierarchical-memory-architecture-overcomes-context-limits-.md
+  laws:
+  - L-011
+  connected_raw:
+  - L-011
+  - seed-144
+- id: bib-2335
+  title: 'Access to Live AI Advice and Behavior Under Risk: An Incentivized Experiment'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.07358
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-access-to-live-ai-advice-and-behavior-under-risk-an-incentiv.md
+  laws:
+  - L-017
+  - L-021
+  connected_raw:
+  - L-017
+  - seed-147
+  - L-021
+  - seed-138
+- id: bib-2336
+  title: 'AI-GRACE: A Use-Case Operationalization Framework for Agentic AI: From Organizational Objectives and Obligations to Deployment Capabilities and Architecture'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.21192
+  encountered: feed
+  read_depth: shallow
+  kind: meta
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-ai-grace-a-use-case-operationalization-framework-for-agentic.md
+  laws:
+  - L-001
+  - L-005
+  connected_raw:
+  - L-001
+  - L-005
+- id: bib-2337
+  title: 'Aligning with Lived Experience: Heterogeneous Benefits of Fine Tuning in Mental Health Support Generation'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.21075
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-aligning-with-lived-experience-heterogeneous-benefits-of-fin.md
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+  - seed-150
+- id: bib-2338
+  title: Bayesian Belief Layer for Controllable Opinion Dynamics in LLM Agents
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.21997
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-bayesian-belief-layer-for-controllable-opinion-dynamics-in-l.md
+  laws:
+  - L-004
+  - L-017
+  connected_raw:
+  - L-004
+  - L-017
+- id: bib-2339
+  title: 'CityLearn v3: A Configurable Simulation and Evaluation Framework for Realistic Control Studies of Renewable Energy Communities'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.21570
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-citylearn-v3-a-configurable-simulation-and-evaluation-framew.md
+  laws:
+  - L-006
+  - L-003
+  connected_raw:
+  - L-006
+  - L-003
+- id: bib-2340
+  title: 'Examining Community-Requested Fact-Checking: Request Alerts Are Associated with Greater Diversity and Visibility of Community Notes'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2604.17042
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-examining-community-requested-fact-checking-request-alerts-a.md
+  laws:
+  - L-013
+  connected_raw:
+  - L-013
+  - seed-143
+- id: bib-2341
+  title: How a Cooperative-Override Circuit Suppresses Nash Play in Large Language Models
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2604.27167
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-how-a-cooperative-override-circuit-suppresses-nash-play-in-l.md
+  laws:
+  - L-004
+  - L-017
+  connected_raw:
+  - L-004
+  - L-017
+  - seed-129
+- id: bib-2342
+  title: 'Incentive Design without Hypergradients: A Social-Gradient Method'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2604.11346
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-incentive-design-without-hypergradients-a-social-gradient-me.md
+  laws:
+  - L-004
+  - L-008
+  connected_raw:
+  - L-004
+  - L-008
+  - seed-140
+- id: bib-2343
+  title: License Compliance in Open Source Cybersecurity Projects
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.21218
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-license-compliance-in-open-source-cybersecurity-projects.md
+  laws:
+  - L-001
+  - L-003
+  connected_raw:
+  - L-001
+  - L-003
+  - seed-144
+- id: bib-2344
+  title: 'Loopjacking: Hijacking Human-in-the-Loop Approval'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.21081
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-loopjacking-hijacking-human-in-the-loop-approval.md
+  laws:
+  - L-012
+  connected_raw:
+  - L-012
+  - seed-148
+- id: bib-2345
+  title: 'Moral Entropy: Auditing Bias and Uncertainty in Moral Judgment'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.21992
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-moral-entropy-auditing-bias-and-uncertainty-in-moral-judgmen.md
+  laws:
+  - L-004
+  - L-019
+  connected_raw:
+  - L-004
+  - L-019
+  - seed-150
+- id: bib-2346
+  title: 'Open Platform Field Experiments: Expanding the Design Space of Experimental Research on Social Media'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.21608
+  encountered: feed
+  read_depth: shallow
+  kind: meta
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-open-platform-field-experiments-expanding-the-design-space-o.md
+  laws: []
+  connected_raw: []
+- id: bib-2347
+  title: 'Proxifield: Decentralized Multi-Agent Communication through Semantic Proximity'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.20889
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-proxifield-decentralized-multi-agent-communication-through-s.md
+  laws:
+  - L-003
+  - L-010
+  - L-017
+  connected_raw:
+  - L-003
+  - L-010
+  - L-017
+  - seed-136
+- id: bib-2348
+  title: 'Reducing Barriers to Academic Support: Evaluating a Course-Specific RAG System for Addressing Help-Seeking Disparities in Higher Education'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.21600
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-reducing-barriers-to-academic-support-evaluating-a-course-sp.md
+  laws:
+  - L-016
+  connected_raw:
+  - L-016
+  - seed-129
+- id: bib-2349
+  title: 'Screening Out the Needy: The Effects of SNAP Work Requirements'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.19660
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-screening-out-the-needy-the-effects-of-snap-work-requirement.md
+  laws:
+  - L-014
+  connected_raw:
+  - L-014
+  - seed-131
+- id: bib-2350
+  title: Steering LLMs Responses Towards Moral Foundations on the Norwegian MFQ-30
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.21636
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-steering-llms-responses-towards-moral-foundations-on-the-nor.md
+  laws:
+  - L-004
+  - L-016
+  connected_raw:
+  - L-004
+  - L-016
+  - seed-150
+- id: bib-2351
+  title: 'Trustworthy FinAInce: Unpacking How AI-Mediated Financial Advice is Judged'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.20989
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-trustworthy-finaince-unpacking-how-ai-mediated-financial-adv.md
+  laws:
+  - L-007
+  connected_raw:
+  - L-007
+  - seed-137
+- id: bib-2352
+  title: When AI Enters the Workplace, Who Faces Greater Risks? A Gendered Analysis
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.21756
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-when-ai-enters-the-workplace-who-faces-greater-risks-a-gende.md
+  laws:
+  - L-001
+  connected_raw:
+  - L-001
+  - seed-141
+- id: bib-2353
+  title: Why Do LLMs Struggle in Strategic Play? Broken Links Between Observations, Beliefs, and Actions
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2605.00226
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-why-do-llms-struggle-in-strategic-play-broken-links-between-.md
+  laws:
+  - L-011
+  connected_raw:
+  - L-011
+  - seed-138
+- id: bib-2354
+  title: 'Your Programming Students'' Cognition with ChatGPT: Higher Performance, Lower Retention, and Reduced Ownership'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.21194
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-your-programming-students-cognition-with-chatgpt-higher-perf.md
+  laws:
+  - L-016
+  connected_raw:
+  - L-016
+  - seed-129
+- id: bib-2355
+  title: A Channel-Boosted Multi-Agent System with Iterative Consultation for Document Sensitivity Classification
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.22212
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-a-channel-boosted-multi-agent-system-with-iterative-consulta.md
+  laws:
+  - L-012
+  - L-014
+  connected_raw:
+  - L-012
+  - L-014
+  - seed-131
+- id: bib-2356
+  title: 'A Pinch of SFT, A Dash of RL: When Reinforcement Learning Helps Long-Horizon Advertising Agents'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.22194
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-a-pinch-of-sft-a-dash-of-rl-when-reinforcement-learning-help.md
+  laws:
+  - L-008
+  - L-012
+  connected_raw:
+  - L-008
+  - L-012
+  - seed-140
+- id: bib-2357
+  title: A Task-Oriented Multi-Agent Framework for Complex Wearable Health Analysis
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.24107
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-a-task-oriented-multi-agent-framework-for-complex-wearable-h.md
+  laws:
+  - L-012
+  - L-017
+  connected_raw:
+  - L-012
+  - L-017
+  - seed-138
+- id: bib-2358
+  title: AI-written admissions essays are widespread but penalized
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.22549
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-ai-written-admissions-essays-are-widespread-but-penalized.md
+  laws:
+  - L-004
+  - L-014
+  connected_raw:
+  - L-004
+  - L-014
+  - seed-150
+- id: bib-2359
+  title: Algorithmic Collusion and the Complexity of Information-Value-Free Equilibria
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.22757
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-algorithmic-collusion-and-the-complexity-of-information-valu.md
+  laws:
+  - L-002
+  - L-009
+  connected_raw:
+  - L-002
+  - L-009
+  - seed-138
+- id: bib-2360
+  title: 'Anticipatory Human Oversight of Agentic AI: A Philosophical Account'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.24242
+  encountered: feed
+  read_depth: shallow
+  kind: meta
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-anticipatory-human-oversight-of-agentic-ai-a-philosophical-a.md
+  laws:
+  - L-005
+  - L-012
+  - L-013
+  connected_raw:
+  - L-005
+  - L-012
+  - L-013
+- id: bib-2361
+  title: 'AutoGym: Blueprint-First Generation of Verifiable Agent Gyms'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.22592
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-autogym-blueprint-first-generation-of-verifiable-agent-gyms.md
+  laws:
+  - L-001
+  - L-005
+  connected_raw:
+  - L-001
+  - L-005
+  - seed-143
+- id: bib-2362
+  title: 'Beyond PUE: A Local Impact Audit Framework for Data Center Environmental Accountability'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.23421
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-beyond-pue-a-local-impact-audit-framework-for-data-center-en.md
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+  - seed-150
+- id: bib-2363
+  title: 'Beyond the Text: Verifying That Agent-Written Papers Are Backed by Their Artifacts'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.22111
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-beyond-the-text-verifying-that-agent-written-papers-are-back.md
+  laws:
+  - L-012
+  - L-015
+  connected_raw:
+  - L-012
+  - L-015
+  - seed-131
+- id: bib-2364
+  title: 'Biased Agents, Extreme Beliefs: Motivated Reasoning Under Competing Models'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.22446
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-biased-agents-extreme-beliefs-motivated-reasoning-under-comp.md
+  laws:
+  - L-004
+  - L-008
+  connected_raw:
+  - L-004
+  - L-008
+  - seed-150
+- id: bib-2365
+  title: 'BizSage: A Self-Evolving Multi-Agent Framework for Business Research with Efficient Knowledge Retrieval'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.22235
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-bizsage-a-self-evolving-multi-agent-framework-for-business-r.md
+  laws:
+  - L-003
+  - L-006
+  connected_raw:
+  - L-003
+  - L-006
+  - seed-144
+- id: bib-2366
+  title: Decision-Centered Evaluation of Machine Learning Poverty Maps Using Mobile Phone and Satellite Data
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.23805
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-decision-centered-evaluation-of-machine-learning-poverty-map.md
+  laws:
+  - L-004
+  - L-012
+  connected_raw:
+  - L-004
+  - L-012
+  - seed-131
+- id: bib-2367
+  title: 'Firm Valuation When AI Shapes the Business Model: A Milestone-Based Real-Options Framework for the AI Valuation Uncertainty Problem'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.24181
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-firm-valuation-when-ai-shapes-the-business-model-a-milestone.md
+  laws:
+  - L-001
+  - L-004
+  connected_raw:
+  - L-001
+  - L-004
+  - seed-150
+- id: bib-2368
+  title: 'From Certain Doom to Survival: Agent-Driven Self-Governance in LLM Agent Societies'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.22600
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-from-certain-doom-to-survival-agent-driven-self-governance-i.md
+  laws:
+  - L-003
+  - L-010
+  - L-017
+  connected_raw:
+  - L-003
+  - L-010
+  - L-017
+  - seed-144
+- id: bib-2369
+  title: Initial Evaluation of Potential Bias in Coverage of Humans in Wikidata
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.22375
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-initial-evaluation-of-potential-bias-in-coverage-of-humans-i.md
+  laws:
+  - L-004
+  - L-013
+  connected_raw:
+  - L-004
+  - L-013
+  - seed-129
+- id: bib-2370
+  title: 'Monocultural Biases: Correlated biases in large language models lead to unequal systemic exclusion rates in hiring'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.22169
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-monocultural-biases-correlated-biases-in-large-language-mode.md
+  laws:
+  - L-004
+  - L-012
+  - L-016
+  connected_raw:
+  - L-004
+  - L-012
+  - L-016
+  - seed-129
+- id: bib-2371
+  title: 'OpenBlock: Constructive and Verified Content Generation for Adaptive Tile-Matching Games'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.22177
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-openblock-constructive-and-verified-content-generation-for-a.md
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+  - seed-132
+- id: bib-2372
+  title: 'Pareto-Improving Pricing: Why 3 Is Better Than 2'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.22652
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-pareto-improving-pricing-why-3-is-better-than-2.md
+  laws:
+  - L-004
+  - L-019
+  connected_raw:
+  - L-004
+  - L-019
+  - seed-150
+- id: bib-2373
+  title: People escalate against a competitor labelled human and hold back against one labelled an optimising machine
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.21439
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-people-escalate-against-a-competitor-labelled-human-and-hold.md
+  laws:
+  - L-008
+  connected_raw:
+  - L-008
+  - seed-138
+- id: bib-2374
+  title: Perception-Aware Communication Middleware for Distributed Visual Perception in UAV Swarms
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.24964
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-perception-aware-communication-middleware-for-distributed-vi.md
+  laws:
+  - L-006
+  connected_raw:
+  - L-006
+  - seed-129
+- id: bib-2375
+  title: 'Predictors and Orchestrators: Parsimonious Machine Learning within an Agentic AI Harness for Multi-Horizon Karst Aquifer Forecasting'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.22251
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-predictors-and-orchestrators-parsimonious-machine-learning-w.md
+  laws:
+  - L-012
+  connected_raw:
+  - L-012
+  - seed-138
+- id: bib-2376
+  title: 'Prosecutor Politics: The Impact of Election Cycles on Criminal Sentencing in the Era of Rising Incarceration'
+  authors: []
+  year: 2021
+  url: https://arxiv.org/abs/2110.09169
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-prosecutor-politics-the-impact-of-election-cycles-on-crimina.md
+  laws:
+  - L-004
+  - L-013
+  connected_raw:
+  - L-004
+  - L-013
+- id: bib-2377
+  title: 'Randomized Online Fair Division: High-Probability and Expected Realized Fairness'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.23577
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-randomized-online-fair-division-high-probability-and-expecte.md
+  laws:
+  - L-010
+  connected_raw:
+  - L-010
+  - seed-147
+- id: bib-2378
+  title: Recidivism Prediction, Peer Effect Estimation, and Prediction-Powered Inference with LLM Text Measures
+  authors: []
+  year: 2025
+  url: https://arxiv.org/abs/2509.20634
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-recidivism-prediction-peer-effect-estimation-and-prediction-.md
+  laws:
+  - L-004
+  - L-012
+  connected_raw:
+  - L-004
+  - L-012
+  - seed-146
+- id: bib-2379
+  title: Social Influence and the Allocation of Scientific Attention in AI Populations
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.22408
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-social-influence-and-the-allocation-of-scientific-attention-.md
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+  - seed-132
+- id: bib-2380
+  title: 'Strategic Classification Has a Missing Lever: Audit Risk'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.22534
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-strategic-classification-has-a-missing-lever-audit-risk.md
+  laws:
+  - L-008
+  - L-014
+  connected_raw:
+  - L-008
+  - L-014
+- id: bib-2381
+  title: Strategic Opinion Manipulation in Multiplex Networks
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.22524
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-strategic-opinion-manipulation-in-multiplex-networks.md
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+  - seed-134
+- id: bib-2382
+  title: 'Subgame-Perfect Nash Equilibria of Plurality Voting with Abstention: a PSPACE-Completeness Result for Restricted Ballots'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.24292
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-subgame-perfect-nash-equilibria-of-plurality-voting-with-abs.md
+  laws:
+  - L-003
+  connected_raw:
+  - L-003
+  - seed-150
+- id: bib-2383
+  title: Suboptimality Loss for Inverse Learning from Imperfect Equilibria
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.23200
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-suboptimality-loss-for-inverse-learning-from-imperfect-equil.md
+  laws:
+  - L-011
+  connected_raw:
+  - L-011
+  - seed-149
+- id: bib-2384
+  title: 'The Geometry of Alliances: Vote Transfer Modelling in French Two-Round Elections'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.23734
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-the-geometry-of-alliances-vote-transfer-modelling-in-french-.md
+  laws:
+  - L-006
+  connected_raw:
+  - L-006
+  - seed-144
+- id: bib-2385
+  title: 'The Law of Stop: Interruptibility, Injunctions, and the Governance of Agentic AI'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.22882
+  encountered: feed
+  read_depth: shallow
+  kind: meta
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-the-law-of-stop-interruptibility-injunctions-and-the-governa.md
+  laws:
+  - L-001
+  - L-003
+  - L-005
+  connected_raw:
+  - L-001
+  - L-003
+  - L-005
+- id: bib-2386
+  title: 'The Moral Check: Strategic AI Governance for the Pacing Problem'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.22869
+  encountered: feed
+  read_depth: shallow
+  kind: meta
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-the-moral-check-strategic-ai-governance-for-the-pacing-probl.md
+  laws:
+  - L-001
+  - L-003
+  connected_raw:
+  - L-001
+  - L-003
+- id: bib-2387
+  title: Toward Fairness in Machine Learning Models for Predicting Treatment Retention and Premature Discontinuation in Medication for Opioid Use Disorder
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.22113
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-toward-fairness-in-machine-learning-models-for-predicting-tr.md
+  laws:
+  - L-004
+  - L-012
+  connected_raw:
+  - L-004
+  - L-012
+  - seed-132
+- id: bib-2388
+  title: 'Toward Mission-Critical ISAC: Reliable Energy-Aware Coordination in UAV Swarms'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.22292
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-toward-mission-critical-isac-reliable-energy-aware-coordinat.md
+  laws:
+  - L-006
+  - L-010
+  connected_raw:
+  - L-006
+  - L-010
+  - seed-144
+- id: bib-2389
+  title: When Does Communication Help? Beyond Spectral Descriptions of Collective Intelligence
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.23310
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-when-does-communication-help-beyond-spectral-descriptions-of.md
+  laws:
+  - L-010
+  - L-019
+  connected_raw:
+  - L-010
+  - L-019
+  - seed-138
+- id: bib-2390
+  title: 'When Who You Are Can Change the Code You Get: A Study of Persona-Induced Bias in LLM Code Generation'
+  authors: []
+  year: 2026
+  url: https://arxiv.org/abs/2609.22102
+  encountered: feed
+  read_depth: shallow
+  kind: content
+  notes: null
+  summary: bibliography/shallow-reads/2026-09-22-when-who-you-are-can-change-the-code-you-get-a-study-of-pers.md
+  laws:
+  - L-004
+  connected_raw:
+  - L-004
+  - seed-146
+  - seed-150

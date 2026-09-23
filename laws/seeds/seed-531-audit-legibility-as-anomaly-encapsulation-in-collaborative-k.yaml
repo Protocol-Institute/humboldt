@@ -1,0 +1,18 @@
+id: seed-531
+title: Audit Legibility as Anomaly Encapsulation in Collaborative Knowledge Protocols
+text: 'Formal auditing systems that render protocol violations (e.g., demographic bias) legible and measurable
+  can function as *encapsulation mechanisms* rather than correction triggers: visibility of the anomaly
+  becomes a substitute for structural remedy, and the audit itself becomes evidence that the problem is
+  "managed" and hence tolerable. In collaborative knowledge systems, this occurs when the audit layer
+  is institutionally decoupled from the governance layer — anomalies are documented but governance incentives
+  remain unchanged. The pattern may generalize to any protocol system in which detection cost has dropped
+  (through legibility) but correction cost remains high (requiring coordination norm shifts), and where
+  external audit can substitute for internal intervention pressure.'
+source: bibliography/shallow-reads/2026-09-22-initial-evaluation-of-potential-bias-in-coverage-of-humans-i.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-004
+- L-013
+status: open

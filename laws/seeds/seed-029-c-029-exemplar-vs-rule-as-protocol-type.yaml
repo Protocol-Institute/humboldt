@@ -1,10 +1,12 @@
 id: seed-029
 title: C-029-exemplar-vs-rule-as-protocol-type
-text: 'Kuhn''s Postscript distinguishes two ways a paradigm can be transmitted: as explicit
+text: 'Kuhn''s Postscript distinguishes two ways a paradigm can be transmitted: as
+  explicit
 
   rules (symbolic generalizations, values, models that can be stated) and as exemplars
 
-  (concrete problem-solutions that train tacit perception, not reducible to rules). He
+  (concrete problem-solutions that train tacit perception, not reducible to rules).
+  He
 
   argues the exemplar is the philosophically deeper form — it is what actually trains
 
@@ -18,7 +20,8 @@ text: 'Kuhn''s Postscript distinguishes two ways a paradigm can be transmitted: 
 
   actually do). Exemplar-based protocols may be far more resistant to deformalization
 
-  than rule-based protocols, because there is no text to revise — only a community of
+  than rule-based protocols, because there is no text to revise — only a community
+  of
 
   practice to convert.'
 source: kuhn-structure-of-scientific-revolutions.pdf
@@ -30,3 +33,5 @@ connections:
 - F-002
 - C-011
 status: open
+last_swept: '2026-09-22'
+swept_count: 1

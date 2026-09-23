@@ -97,6 +97,13 @@ examples:
       training loss. The paper proves this is structurally unavoidable given the cycle geometry
       of heterogeneous preference data.'
     source: arXiv:2606.00291
+  - domain: LLM-based evaluation / patent drafting
+    description: The vibe-patenting study shows LLM judge feedback drives monotonic 
+      judge-score improvement without validating against domain ground truth 
+      (patentability, examiner acceptance). The paper operates entirely within the 
+      oracle's metric space, making the proxy-goal gap invisible by design—exactly the 
+      conditions under which L-004 predicts maximum degradation of the underlying goal.
+    source: 2026-09-22-vibe-patenting-evaluating-llm-judges-for-professional-patent.md
 counterexamples:
   - description: "Well-designed metrics resist capture because achieving the metric requires
       achieving the goal."
@@ -185,3 +192,8 @@ history:
       as a site of Goodhart capture: arXiv:2606.00291 (Dong, Yu & Poupart) demonstrates that
       the embedding layer in reward learning is itself a site of Goodhart capture: when the
       embedding is…'
+  - date: '2026-09-22'
+    event: evidence
+    detail: 'Degree of degradation as a function of optimization pressure and proxy-goal gap:
+      The vibe-patenting study shows LLM judge feedback drives monotonic judge-score improvement
+      without validating against domain ground truth (patentability…'

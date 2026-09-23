@@ -1,0 +1,16 @@
+id: seed-489
+title: Heterogeneity as Attack Surface Proliferation Under Fusion Legibility
+text: 'In multi-agent protocols where heterogeneous agents produce incompatible outputs that are fused
+  via a learned translation layer, the translation layer itself becomes a computable attack surface that
+  can be more efficiently exploited than attack surfaces in homogeneous systems. Heterogeneity does not
+  reduce the attack surface; it relocates it from direct input tampering to learned fusion, where the
+  optimization landscape is continuous and differentiable. This suggests a general pattern: diversity
+  in upstream production can concentrate attack surface at unification boundaries where legibility is
+  highest.'
+source: bibliography/shallow-reads/2026-09-22-investigating-adversarial-robustness-of-heterogeneous-cooper.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-008
+status: open

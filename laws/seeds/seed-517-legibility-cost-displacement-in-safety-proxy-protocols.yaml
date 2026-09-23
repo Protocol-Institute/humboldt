@@ -1,0 +1,16 @@
+id: seed-517
+title: Legibility-Cost Displacement in Safety Proxy Protocols
+text: When a safety property (code provenance, absence of contamination) is difficult to verify directly,
+  protocol designers formalize a legible proxy (license declaration). Formalization lowers the cost of
+  *checking the proxy*, but does not reduce the cost of *ensuring the proxy reflects reality*. Under adoption
+  pressure, the verification load is displaced downstream to integrators, creating a false reduction in
+  coordination cost. The protocol hardens around the proxy rather than the property, generating a new
+  class of silent failures where the proxy is satisfied but the underlying safety property violated.
+source: bibliography/shallow-reads/2026-09-22-license-compliance-in-open-source-cybersecurity-projects.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-001
+- L-003
+status: open

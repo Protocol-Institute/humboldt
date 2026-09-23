@@ -1,0 +1,20 @@
+id: seed-460
+title: Confidence-Visibility Inversion in Competence Aggregation
+text: In protocols that aggregate independent competent signals and expose the full
+  adviser output to decision-makers, reliability and visible disagreement approach
+  certainty at different rates, creating a divergence between formal correctness guarantees
+  and observational confidence. As aggregation width increases, users may rationally
+  condition adoption or trust on the disagreement signal (which is more salient and
+  directly observable) rather than on the formal reliability proof (which requires
+  epistemic work). This suggests that transparency of internal disagreement in safety-critical
+  aggregation protocols may invert the relationship between competence growth and
+  adoption pressure.
+source: bibliography/shallow-reads/2026-09-22-a-latent-dimension-of-condorcet-s-jury-theorem-for-multiple-.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-010
+status: open
+last_swept: '2026-09-22'
+swept_count: 1

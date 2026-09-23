@@ -1,0 +1,18 @@
+id: seed-518
+title: Approval-Execution Binding Failure Under Representation Legibility
+text: 'In any protocol where a safety intervention is implemented as a legible approval gate (finite-time
+  review of a formally specified operation), the binding between what is approved and what executes becomes
+  a strategic vulnerability. The approver can only review a *representation* of the operation; the implementation
+  executes the *actual* operation. When this representation is precise enough to approve in finite time,
+  it is also sparse enough to omit or misrepresent material details. Adversarial optimization pressure
+  concentrates at this gap—not at breaking the approval rule, but at exploiting the representation-execution
+  decoupling. This generalizes beyond human-in-the-loop: any protocol using a legible safety gate (AI
+  oversight, formal verification, symbolic approval) faces the same structural problem if the gate operates
+  on an abstraction separate from implementation.'
+source: bibliography/shallow-reads/2026-09-22-loopjacking-hijacking-human-in-the-loop-approval.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: insight
+connections:
+- L-012
+status: open

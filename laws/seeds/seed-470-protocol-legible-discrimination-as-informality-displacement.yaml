@@ -1,0 +1,24 @@
+id: seed-470
+title: Protocol-Legible Discrimination as Informality Displacement
+text: 'In protocol systems where formal constraints render one coordination mechanism
+  (e.g., explicit racial preference) illegible or unenforceable, discriminatory outcomes
+  migrate to informal mechanisms (e.g., homophilic referrals) that remain outside
+  the scope of the formal protocol. The discrimination persists in expectation and
+  equilibrium, but now operates through channels the protocol cannot directly observe
+  or regulate. This suggests that formalization of equality does not eliminate discrimination—it
+  redistributes it to informal layers, often with the side effect of making it harder
+  to detect and measure. The condition is: the informal mechanism must be (a) causally
+  sufficient for the discriminatory outcome and (b) opaque to the formal auditing
+  layer. The pattern likely generalizes beyond labor markets to any protocol system
+  where formal legibility constraints exist but informal coordination channels remain
+  unmonitored.'
+source: bibliography/shallow-reads/2026-09-22-seeing-through-color-blindness-social-networks-as-a-mechanis.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: motif
+connections:
+- L-003
+- L-006
+status: open
+last_swept: '2026-09-22'
+swept_count: 1

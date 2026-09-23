@@ -48,6 +48,14 @@ examples:
       increasing transmission when negative-signal users outnumber those maintaining full 
       precaution.
     source: Structural analog; mechanism prediction
+  - domain: Transportation protocol / V2V adoption
+    description: "The V2V paper (arxiv-2606.07873) demonstrates the mechanism formally: V2V
+      warnings reduce perceived accident probability for equipped drivers, who respond by driving
+      more recklessly; this increases actual accident probability for unequipped drivers; the
+      net effect on aggregate safety is non-monotonic and can be negative at intermediate adoption
+      levels. This is a clean empirical instantiation of L-021's endogenous risk mechanism in
+      a non-AI domain, confirming the mechanism is not AI-specific."
+    source: bibliography/deep-reads/arxiv-2606.07873.md
 counterexamples: []
 open_questions: []
 falsification: >
@@ -74,3 +82,9 @@ history:
     detail: induction sweep — Fed by deep read arXiv:2606.07873 ('Adverse Effects of V2V 
       Adoption on Road Safety'), which proves this formally for vehicle-to-vehicle warning
       protocols and…
+  - date: '2026-09-22'
+    event: evidence
+    detail: 'The claim that increasing the proportion of agents receiving accurate risk warnings
+      can increase aggregate risk when agents condition safety-critical behavior on risk signals:
+      The V2V paper (arxiv-2606.07873) demonstrates the mechanism formally: V2V warnings reduce
+      perceived accident probability for equipped drivers, who respond by…'

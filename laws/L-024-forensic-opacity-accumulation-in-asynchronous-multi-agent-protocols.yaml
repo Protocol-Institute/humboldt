@@ -1,0 +1,77 @@
+id: L-024
+title: Forensic Opacity Accumulation in Asynchronous Multi-Agent Protocols
+slug: forensic-opacity-accumulation-in-asynchronous-multi-agent-protocols
+stage: exploration
+status: active
+origin: discovered
+source: null
+confidence: speculative
+statement: >
+  In multi-agent systems where agents condition behavior on historical interaction traces and
+  prior agent outputs, the forensic legibility of a failure—the ability to attribute it to a
+  specific agent decision or protocol violation—degrades as a power function of temporal depth
+  and causal branching. Beyond a threshold depth, failure attribution becomes computationally
+  intractable even with complete audit logs.
+mechanism: >
+  Each agent in a multi-agent pipeline contributes a causal layer: its output is a function
+  of its inputs plus its internal state, which itself reflects prior interactions. A failure
+  at layer N may originate from an anomalous input at layer N-k, amplified through k intermediate
+  transformations. Recovering the origin requires reversing each transformation, but intermediate
+  agents may have destroyed information (compression, abstraction, summarization) or introduced
+  irreversible stochasticity (sampling, tool calls). The audit log preserves *what happened*
+  at each layer but not *why*—the internal state that produced each output is not logged. Forensic
+  attribution requires re-running the counterfactual, but the system is non-deterministic and
+  the world-state at attribution time differs from the world-state at failure time. The degradation
+  is super-linear in depth because each layer multiplies the ambiguity of the layer below it.
+justification: >
+  seed-479 provides the core claim. The trust-propagation security paper (2026-09-22-trust-propagation-and-structural-containment-in-multi-agent)
+  provides an empirical instantiation: in a four-layer LLM pipeline, the origin of compromised
+  validator approvals was difficult to attribute even with logs, because memory poisoning at
+  layer 1 propagated through layers 2-4 in ways that looked locally legitimate at each layer.
+  The token budget overrun deep read (arxiv-2606.04056) notes that failure attribution in agent
+  systems is already a first-order problem. This is distinct from L-015 (Interpretive Continuity
+  Decay) which concerns institutional capacity to read governance records; this law concerns
+  the structural information loss that makes attribution intractable regardless of institutional
+  capacity.
+examples:
+  - domain: Multi-agent LLM security
+    description: In hierarchical LLM pipelines, indirect prompt injection at a 
+      low-privilege research agent propagates through validator and executor layers; each 
+      layer's log shows locally valid-appearing inputs, making the injection origin 
+      attributable only by re-running the full pipeline with known-clean inputs—often 
+      impossible post-deployment.
+    source: 2026-09-22-trust-propagation-and-structural-containment-in-multi-agent-.md
+  - domain: Distributed financial systems
+    description: Flash crash post-mortems routinely require months of forensic analysis of
+      layered algorithmic decision chains despite complete trade logs, because each 
+      algorithm's decision is locally rational given its inputs; the triggering anomaly is
+      only identifiable by reconstructing counterfactual order books.
+    source: seed-479
+counterexamples: []
+open_questions: []
+falsification: >
+  A multi-agent system where complete audit logs, combined with deterministic agent implementations,
+  permitted attribution of any failure to a specific originating agent decision within bounded
+  computational time, regardless of pipeline depth, would refute the structural claim. The key
+  condition is that determinism and completeness together must suffice.
+references: []
+seeds:
+  - seed-479
+related: []
+triggers:
+  advance: >
+    Empirical demonstration in 2+ independent multi-agent deployment contexts that failure attribution
+    time (or attribution confidence) degrades measurably as a function of pipeline depth and
+    branching factor, with the degradation curve fitting a super-linear function, and with complete
+    logs available.
+  challenge: >
+    A documented multi-agent failure investigation where attribution was achieved efficiently
+    at depth >5 using only standard audit logs, without re-running the pipeline or accessing
+    agent internal states—demonstrating that log completeness can substitute for causal reversibility.
+history:
+  - date: '2026-09-22'
+    event: created
+    detail: induction sweep — seed-479 provides the core claim. The trust-propagation 
+      security paper 
+      (2026-09-22-trust-propagation-and-structural-containment-in-multi-agent) provides 
+      an…

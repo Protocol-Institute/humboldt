@@ -1,0 +1,19 @@
+id: seed-524
+title: Calibration-Optimization Desynchronization in Delegated Tool-Use
+text: In multi-agent systems where a primary agent (language model) is first calibrated via imitation
+  to tool-use syntax (SFT), then optimized via reward signals over task outcomes (RL), the two training
+  phases operate under incommensurable loss functions. SFT calibrates *fidelity to teacher demonstration*;
+  RL optimizes *aggregate task reward*. When intermediate tool calls become legible as reward-input variables,
+  RL can discover trajectories that maximize aggregate reward while violating syntax assumptions, information-passing
+  conventions, or rate constraints that the downstream tool agents (APIs, other services) implicitly depend
+  on. The desynchronization is stable only if the reward function fully captures the true cost of coordination
+  breakdown — a condition that rarely holds in production systems where tool compatibility is informal
+  or versioned separately.
+source: bibliography/shallow-reads/2026-09-22-a-pinch-of-sft-a-dash-of-rl-when-reinforcement-learning-help.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-008
+- L-012
+status: open

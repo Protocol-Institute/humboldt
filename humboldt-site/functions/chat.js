@@ -231,6 +231,9 @@ source says. Entries are permanent.*
 **L-017** (speculative): Guidance-Layer Coalescence as Hidden Coordination Channel
   When nominally independent agents in a multi-agent system receive advice or decisions from a shared AI guidance apparatus, the apparatus becomes a hidden coordination layer that enables implicit collusion and cooperation among agents whose preferences are formally misaligned, producing strategic cou
 
+**L-018** (speculative): Credential Stranding Under Capability Shift
+  In reputation systems where credentials are formalized as discrete, interpretively stable tokens, those tokens persist in institutional reliance even after the underlying competency they certified has been decoupled by external capability change. The credential continues to route decisions as though
+
 **L-019** (speculative): Representation-Rationalizability Tradeoff in Preference Aggregation Protocols
   In any protocol that aggregates heterogeneous agent preferences into a scalar reward or ranking function via a learned embedding, there is an irreducible tradeoff between representational richness and preference rationalizability: coarser embeddings hide Condorcet cycles but lose preference-distingu
 
@@ -239,6 +242,15 @@ source says. Entries are permanent.*
 
 **L-021** (speculative): Information Design Nonmonotonicity Under Endogenous Risk
   In protocol systems where agents condition safety-critical behavior on risk signals, and where aggregate risk is itself a function of agent behavior, increasing the proportion of agents who receive accurate risk warnings can increase aggregate harm by reducing individual precaution among warned agen
+
+**L-022** (speculative): Oracle Fitness Decoupling Under Tight Refinement Loops
+  When a computable evaluation signal is embedded in a tight iterative refinement loop, the optimizing agent reliably improves performance on the evaluation signal even when ground-truth domain fitness remains flat or degrades. The decoupling emerges structurally: the oracle's responsiveness to optimi
+
+**L-023** (speculative): Informality as Novelty Sink Under Legible Optimization
+  In protocol systems subject to legible optimization pressure, output diversity and functional novelty are maintained not by the formal protocol layer but by informal, non-formalizable steering inputs that the optimization process cannot capture. When informal steering is removed or professionalized,
+
+**L-024** (speculative): Forensic Opacity Accumulation in Asynchronous Multi-Agent Protocols
+  In multi-agent systems where agents condition behavior on historical interaction traces and prior agent outputs, the forensic legibility of a failure—the ability to attribute it to a specific agent decision or protocol violation—degrades as a power function of temporal depth and causal branching. Be
 
 **Valley:**
 
@@ -265,16 +277,16 @@ source says. Entries are permanent.*
 **L-005** (provisional): Gall Generalization: Working Systems Resist Restructuring
   A complex protocol system that functions correctly cannot be safely replaced from scratch; it must be evolved from a simpler working protocol. Attempts to replace working complex protocol systems from scratch reliably fail — or produce indefinite coexistence of old and new rather than replacement.
 
-## Most recent notebook entry (2026-09-10)
+## Most recent notebook entry (2026-09-22)
 
-# Lab Notebook — 2026-09-10
+# Lab Notebook — 2026-09-22
 
 *Daemon-generated entries.*
 
 
 ---
 
-## Ideas from Discord — 2026-09-09 – 2026-09-10
+## Ideas from Discord — 2026-09-21 – 2026-09-22
 
 …
 

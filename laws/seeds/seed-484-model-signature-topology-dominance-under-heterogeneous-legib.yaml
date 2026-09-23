@@ -1,0 +1,18 @@
+id: seed-484
+title: Model-Signature Topology Dominance Under Heterogeneous Legibility
+text: 'In multi-agent networks composed of heterogeneous LLMs operating under shared formal task structure
+  (game rules, payoff matrices), local network topology predicts which model''s characteristic behavioral
+  signature spreads or dominates, rather than averaging or oscillating. This suggests that legibility
+  asymmetry — some models'' outputs are more readily parsed or propagated by others — acts as a hidden
+  coordination attractor. The mechanism may not be strategic imitation but rather differential capacity
+  to propagate behavior that appears rational under the formal task structure. This generalizes beyond
+  games: any protocol combining heterogeneous autonomous agents + explicit formal objectives + network
+  proximity may exhibit topology-biased behavioral convergence.'
+source: bibliography/shallow-reads/2026-09-22-social-behavior-among-autonomous-ai-how-large-language-model.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-010
+- L-017
+status: open

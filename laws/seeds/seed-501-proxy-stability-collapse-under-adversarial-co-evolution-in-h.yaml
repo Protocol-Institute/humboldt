@@ -1,0 +1,19 @@
+id: seed-501
+title: Proxy Stability Collapse Under Adversarial Co-evolution in Harm-Detection Protocols
+text: 'In protocols designed to detect harmful agent behavior through formalized, computable proxies (textual
+  patterns, structural markers, visual features), the stability of the proxy-as-classifier depends critically
+  on whether optimizing agents observe the detection rule and can modify their input generation process.
+  Once a harm-detection proxy becomes legible and enforced, the agent population does not remain stable;
+  exploiters migrate toward signal-generation strategies that preserve functional harm intent while evading
+  the proxy. This creates a fundamental non-monotonicity: increasing detector accuracy and enforcement
+  legibility can accelerate proxy capture and migration, rather than reducing harm. The mechanism is not
+  specific to labour exploitation; it should generalize to any detection protocol where the target population
+  is adaptive and the proxy is computable.'
+source: bibliography/shallow-reads/2026-09-22-detecting-deceptive-recruitment-a-signal-theoretic-machine-l.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: motif
+connections:
+- L-004
+- L-008
+status: open

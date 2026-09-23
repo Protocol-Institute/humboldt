@@ -49,6 +49,16 @@ INDUCT_MODEL = "claude-sonnet-4-6"   # §5 stage 5 tier; supervisor-editable
 # past the old ceiling.
 INDUCT_MAX_TOKENS = 16000
 _MAX_SEEDS = 60          # bound the prompt; the seed pool can grow unbounded
+# The window is split so the pool stays *reachable* rather than merely bounded.
+# Sorting the whole pool newest-first and taking the head looks like recency
+# prioritisation but is not: seeds arrive in large same-day triage batches, so the
+# `surfaced` key ties across hundreds of files and the head resolves to an arbitrary
+# glob-order slice — the SAME slice on every sweep. Measured 2026-09-22: all 60
+# window slots held one `surfaced` date and 374 seeds, including the entire June
+# cohort, had never been eligible for induction at all. Half the window now goes to
+# the least-recently-swept seeds, and every seed the sweep sees is stamped, so the
+# whole pool cycles through across successive sweeps.
+_SEED_WINDOW_RECENT = _MAX_SEEDS // 2
 _MAX_SHALLOW = 20
 _MAX_DEEP = 5
 
@@ -68,6 +78,52 @@ def _load_open_seeds() -> list[dict]:
             seeds.append(s)
     seeds.sort(key=lambda s: str(s.get("surfaced", "")), reverse=True)
     return seeds
+
+
+def _select_seed_window(seeds: list[dict], n: int = _MAX_SEEDS) -> list[dict]:
+    """Pick the `n` seeds this sweep will actually read.
+
+    Half by recency (newest `surfaced`), half by staleness (never swept first, then
+    oldest `last_swept`). A seed with no `last_swept` predates the stamping change
+    and is treated as maximally stale, so the historical backlog drains first.
+    """
+    if len(seeds) <= n:
+        return list(seeds)
+
+    recent = seeds[:_SEED_WINDOW_RECENT]          # `seeds` arrives newest-first
+    picked = {id(s) for s in recent}
+
+    # Never-swept sorts before any real date; ties break toward older material.
+    stale = sorted(
+        (s for s in seeds if id(s) not in picked),
+        key=lambda s: (str(s.get("last_swept", "")), str(s.get("surfaced", ""))),
+    )
+    window = recent + stale[: n - len(recent)]
+    return window[:n]
+
+
+def _stamp_swept(window: list[dict], when: str) -> int:
+    """Record that these seeds were read, so the next sweep can pass over them.
+
+    Without this the staleness half of the window is meaningless — nothing marks a
+    seed as seen-but-not-promoted, so an unpromising seed competes for a slot
+    forever. Written with the same plain `yaml.dump` round-trip as
+    `_mark_seed_consumed`; seeds carry no comments worth preserving.
+    """
+    stamped = 0
+    for s in window:
+        f = s.get("_file")
+        if not f:
+            continue
+        try:
+            raw = yaml.safe_load(f.read_text()) or {}
+        except Exception:  # noqa: BLE001 — a malformed seed must not break the sweep
+            continue
+        raw["last_swept"] = when
+        raw["swept_count"] = int(raw.get("swept_count", 0)) + 1
+        f.write_text(yaml.dump(raw, sort_keys=False, allow_unicode=True))
+        stamped += 1
+    return stamped
 
 
 def _cursor_date(override: str | None) -> str:
@@ -121,16 +177,19 @@ def _format_inventory(laws: list) -> str:
     return "\n".join(lines)
 
 
-def _format_seeds(seeds: list[dict]) -> str:
+def _format_seeds(seeds: list[dict], pool_size: int | None = None) -> str:
+    """Format the selected window. `seeds` is already the window — do not re-slice
+    it here, or the staleness half silently falls off the end of the prompt."""
     if not seeds:
         return "(seed pool empty)"
     out = []
-    for s in seeds[:_MAX_SEEDS]:
+    for s in seeds:
         text = str(s.get("text", "")).strip().replace("\n", " ")
         out.append(f"- {s.get('id')}: {s.get('title', '')}\n    {text[:300]}")
-    extra = len(seeds) - _MAX_SEEDS
+    extra = (pool_size or len(seeds)) - len(seeds)
     if extra > 0:
-        out.append(f"  (+{extra} more open seeds not shown)")
+        out.append(f"  (+{extra} more open seeds not shown this sweep; the window "
+                   "mixes newest with least-recently-swept, so they surface later)")
     return "\n".join(out)
 
 
@@ -149,12 +208,13 @@ def _identity_excerpt() -> str:
     return _IDENTITY.read_text().strip()[:2000]
 
 
-def _build_prompt(laws: list, seeds: list[dict], shallow: list[Path], deep: list[Path]) -> str:
+def _build_prompt(laws: list, seeds: list[dict], shallow: list[Path], deep: list[Path],
+                  pool_size: int | None = None) -> str:
     tmpl = _PROMPT.read_text()
     return (
         tmpl.replace("{{IDENTITY_EXCERPT}}", _identity_excerpt())
             .replace("{{LAW_INVENTORY}}", _format_inventory(laws))
-            .replace("{{SEEDS}}", _format_seeds(seeds))
+            .replace("{{SEEDS}}", _format_seeds(seeds, pool_size))
             .replace("{{RECENT_READS}}", _format_reads(shallow, deep))
     )
 
@@ -377,18 +437,21 @@ def induct(dry_run: bool = False, since: str | None = None) -> None:
 
     laws = laws_mod.load_all()
     seeds = _load_open_seeds()
+    window = _select_seed_window(seeds)
     cursor = _cursor_date(since)
     shallow = _recent_shallow(cursor)
     deep = _uncited_deep_notes()
 
-    print(f"Induction sweep — {len(laws)} laws, {len(seeds)} open seeds, "
+    never = sum(1 for s in window if not s.get("last_swept"))
+    print(f"Induction sweep — {len(laws)} laws, {len(seeds)} open seeds "
+          f"({len(window)} in this window, {never} never swept before), "
           f"{len(shallow)} recent shallow reads, {len(deep)} uncited deep notes"
           f"{f' (since {cursor})' if cursor else ' (first sweep)'}")
     if not seeds and not shallow and not deep:
         print("Nothing to induct from. Exiting.")
         return
 
-    prompt = _build_prompt(laws, seeds, shallow, deep)
+    prompt = _build_prompt(laws, window, shallow, deep, pool_size=len(seeds))
 
     text, stop_reason = synth.synthesize_full(
         system=prompt,
@@ -449,6 +512,11 @@ def induct(dry_run: bool = False, since: str | None = None) -> None:
         if lid:
             attached.append(lid)
 
+    stamped = _stamp_swept(window, date.today().isoformat())
+    if stamped:
+        print(f"  · stamped {stamped} seed(s) as swept "
+              f"({len(seeds) - stamped} still queued behind them)")
+
     _CURSOR.write_text(date.today().isoformat())
 
     law_notify.flush()
@@ -465,7 +533,8 @@ def induct(dry_run: bool = False, since: str | None = None) -> None:
     from agent.pre_notebook import append as pn_append
     pn_append(process="induct", summary=summary,
               detail={"created": created, "evidence": attached, "left": len(left),
-                      "seeds_seen": len(seeds), "reads_seen": len(shallow) + len(deep)})
+                      "seeds_seen": len(window), "seed_pool": len(seeds),
+                      "reads_seen": len(shallow) + len(deep)})
 
     print(f"\n{summary}")
     if created:

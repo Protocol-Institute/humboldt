@@ -1,0 +1,17 @@
+id: seed-493
+title: Legibility-Driven Authority Concentration in Hierarchical Delegation Pipelines
+text: In hierarchical multi-agent systems where lower-privilege agents produce outputs that higher-privilege
+  agents consume as legible decision inputs, trust accumulates at the legibility boundary rather than
+  at the privilege boundary. The higher-privilege agent's authority becomes a function of the *legibility*
+  of lower-layer outputs, not the trustworthiness of lower-layer agents. This creates a stable equilibrium
+  in which compromising legibility at any layer can compromise the entire stack, and attempts to patch
+  individual layers leave the structural vulnerability intact. The regularity may hold across any protocol
+  system combining hierarchy with output legibility, independent of the domain (LLM pipelines, approval
+  workflows, sensor-fusion systems, etc.).
+source: bibliography/shallow-reads/2026-09-22-trust-propagation-and-structural-containment-in-multi-agent-.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-012
+status: open

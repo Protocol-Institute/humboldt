@@ -1,0 +1,19 @@
+id: seed-527
+title: Proxy Evolution Under Political Feedback in Safety-Critical Infrastructure Protocols
+text: 'When a measurable proxy achieves operational dominance in a safety-critical infrastructure protocol
+  and the optimization pressure under that proxy generates visible externalized harm, the protocol system
+  exhibits a characteristic response: rather than being abandoned, the proxy is formally extended or layered
+  with additional accountability metrics. This evolution does not reduce the underlying coordination cost
+  — it relocates it from execution optimization into measurement, verification, and local negotiation.
+  The new layer may itself become subject to metric capture unless the underlying mechanism (the mismatch
+  between proxy and goal) is addressed structurally. This pattern appears to generalize across protocols
+  where (a) the proxy is legible and operationalized at scale, (b) harm displacement is politically visible,
+  and (c) full protocol replacement is infeasible. The result is a slow oscillation toward more granular
+  but not necessarily more aligned proxies.'
+source: bibliography/shallow-reads/2026-09-22-beyond-pue-a-local-impact-audit-framework-for-data-center-en.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: motif
+connections:
+- L-004
+status: open

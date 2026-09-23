@@ -1,0 +1,17 @@
+id: seed-492
+title: Register-Orthogonal Proxy Drift in Safety-Decoupled Allocation
+text: When a protocol allocates resources (or capability access) using a formally computable proxy for
+  a latent construct that correlates with a protected attribute, the proxy captures variance orthogonal
+  to its intended target. The misallocation remains invisible if the downstream outcome (allocation decision)
+  is locally rational and rarely triggers escalation. The formalization of the construct locks the system
+  against revision because the proxy has become the canonical definition of the target, and changing it
+  requires retroactively re-specifying what the construct means. This pattern generalizes beyond register
+  bias to any domain where a measurable substitute is chosen for a construct that is entangled with demographic
+  or distributional variance.
+source: bibliography/shallow-reads/2026-09-22-register-bias-in-complexity-based-large-language-model-routi.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-004
+status: open

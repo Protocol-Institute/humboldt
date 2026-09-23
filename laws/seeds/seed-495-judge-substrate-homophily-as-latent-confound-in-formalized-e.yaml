@@ -1,0 +1,17 @@
+id: seed-495
+title: Judge-Substrate Homophily as Latent Confound in Formalized Evaluation Protocols
+text: When evaluation tasks are formalized as legible, computable judgments (numeric scores, pairwise
+  preferences) delegated to learned agents (LLMs), the judge's training substrate (model family, pretraining
+  distribution) acts as a latent confound on the proxy metric, biasing evaluation toward candidates from
+  the same substrate. This effect is robust and deconfoundable after the fact but structurally invisible
+  to downstream systems that treat the judge's output as authoritative. The bias does not require active
+  optimization or gaming—it emerges from representation alignment between judge and candidate. This suggests
+  that any protocol substituting human judgment for automated legible proxies inherits hidden substrate
+  preferences that scale with the number of independent proxies deployed.
+source: bibliography/shallow-reads/2026-09-22-who-judges-matters-measuring-family-conditioned-preference-i.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-004
+status: open

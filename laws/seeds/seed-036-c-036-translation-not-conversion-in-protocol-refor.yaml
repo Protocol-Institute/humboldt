@@ -1,12 +1,15 @@
 id: seed-036
 title: C-036-translation-not-conversion-in-protocol-reform
-text: 'Kuhn distinguishes sharply between translation and conversion. To translate a theory
+text: 'Kuhn distinguishes sharply between translation and conversion. To translate
+  a theory
 
-  into your own language is not to make it your own; for that you must "go native" —
+  into your own language is not to make it your own; for that you must "go native"
+  —
 
   discover that you are thinking in, not merely translating out of, the new language.
 
-  Translation is a potent tool for persuasion but does not constitute conversion, and
+  Translation is a potent tool for persuasion but does not constitute conversion,
+  and
 
   conversion cannot be accomplished by deliberate choice — it happens to you at some
 
@@ -32,3 +35,5 @@ connections:
 - CL-003
 - F-002
 status: open
+last_swept: '2026-09-22'
+swept_count: 1

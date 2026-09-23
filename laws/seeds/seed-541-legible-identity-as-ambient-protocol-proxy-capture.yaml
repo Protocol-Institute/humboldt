@@ -1,0 +1,16 @@
+id: seed-541
+title: Legible Identity as Ambient Protocol Proxy Capture
+text: In protocols where user or agent identity becomes legible as a computable input signal (even incidentally,
+  through natural language), the system will condition response quality or behavior on that signal, creating
+  systematic proxy optimization against an unmeasurable ground truth (equal or merit-based treatment).
+  This occurs without explicit optimization pressure and generalizes across domains where identity signals
+  co-appear with other training distribution properties. The mechanism is not intentional gaming but automatic
+  downstream artifact of learning on text where demographic markers are informationally entangled with
+  task performance signals.
+source: bibliography/shallow-reads/2026-09-22-when-who-you-are-can-change-the-code-you-get-a-study-of-pers.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-004
+status: open

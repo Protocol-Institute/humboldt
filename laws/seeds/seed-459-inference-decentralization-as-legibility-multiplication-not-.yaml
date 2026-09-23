@@ -1,0 +1,21 @@
+id: seed-459
+title: Inference Decentralization as Legibility Multiplication, Not Reduction
+text: Decentralized inference architectures are often framed as reducing central control
+  and legibility. However, distributed cost optimization, shared model endpoints,
+  and computable routing decisions create *multiple* new legible surfaces — cost signals,
+  latency metrics, model selection logs — that can be individually and collectively
+  optimized. The total legibility of the system may increase even as control is distributed.
+  Under sufficient optimization pressure, agents may converge on shared inference
+  providers or routing patterns not through coordination but through independent response
+  to the same legible incentive surface.
+source: bibliography/shallow-reads/2026-09-22-link-twitter-thread-on-cheap-models-and-decentralized-infere.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-008
+- L-014
+- L-017
+status: open
+last_swept: '2026-09-22'
+swept_count: 1

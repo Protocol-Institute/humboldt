@@ -1,0 +1,18 @@
+id: seed-533
+title: Formalization-Induced Pareto Visibility as Proxy Lock
+text: When a policy problem framed as an intractable tradeoff (equity vs. efficiency) is reformalized
+  via a legible, computable proxy (three-tier pricing with explicit compensation rules), previously dominant
+  solutions (equal allocation) can be shown to be Pareto-suboptimal. The Pareto improvement is real but
+  conditional on the choice of formalization itself. In subsequent iterations, agents and policymakers
+  optimize *within* the formalized structure (boundary concentration, tier migration) rather than questioning
+  the formalization. The question is whether the visibility gain (Pareto proof becomes computable) systematically
+  locks in the proxy choice, preventing discovery of alternative formalizations that might yield different
+  Pareto frontiers.
+source: bibliography/shallow-reads/2026-09-22-pareto-improving-pricing-why-3-is-better-than-2.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-004
+- L-019
+status: open

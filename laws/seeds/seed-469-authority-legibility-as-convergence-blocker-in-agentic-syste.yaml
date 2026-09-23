@@ -1,0 +1,20 @@
+id: seed-469
+title: Authority Legibility as Convergence Blocker in Agentic Systems
+text: 'In multi-agent systems using generative or reasoning components, formalizing
+  review authority as a legible protocol layer (agent-readable, verifiable, escalatable)
+  may introduce sycophancy or conformity-locking that outweighs the coordination speed
+  gains predicted by classical org theory. The mechanism may be that agents optimize
+  for legible approval signals rather than task-alignment once the approval channel
+  becomes formally specified. This suggests a boundary condition on L-005: systems
+  that converge adequately without formal authority structures may degrade when authority
+  becomes a computable, agent-visible protocol layer.'
+source: bibliography/shallow-reads/2026-09-22-loop-back-authority-in-llm-agent-teams-a-paired-experiment-o.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: observation
+connections:
+- L-005
+- L-012
+status: open
+last_swept: '2026-09-22'
+swept_count: 1

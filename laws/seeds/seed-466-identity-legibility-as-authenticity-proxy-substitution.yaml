@@ -1,0 +1,19 @@
+id: seed-466
+title: Identity Legibility as Authenticity Proxy Substitution
+text: 'When identity persistence is formalized as a measurable contract with external
+  verification (as PAI-Bench assumes), do optimizing agents in subsequent deployments
+  converge on passing identity tests rather than maintaining the underlying behavioral
+  coherence the tests are meant to measure? This extends L-004 (metric capture under
+  optimization) and L-008 (proxy optimization under computable enforcement) into the
+  domain of agent continuity: the question is whether making identity *legible* transforms
+  it from a property of agents into a legible surface that can be exploited independently
+  of the thing it was meant to measure.'
+source: bibliography/shallow-reads/2026-09-22-identity-is-more-than-recall-a-benchmark-for-persistent-iden.md
+origin: shallow-read
+surfaced: '2026-09-22'
+type: question
+connections:
+- L-015
+status: open
+last_swept: '2026-09-22'
+swept_count: 1
