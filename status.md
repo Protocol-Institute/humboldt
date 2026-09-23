@@ -4,6 +4,57 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-09-23 (session 39) — talk-kit theme adopted; talk deck ingested; /brain/ relinked
+
+**Daemon PID:** 1869 (running, unpaused). Untouched this session.
+
+Talk day. Three pieces of work, all Track 2, all deployed and verified live.
+
+**1. talk-kit theme adopted (dark-on-light).** Ported on operator instruction, on the
+morning of the talk, against the standing note saying to wait until after it. That note's
+hazard is a *content* edit desynchronising recorded narration, so it was done as a pure
+presentation change and the property verified, not assumed: **`talks/` has zero changes
+and all 16 audio clips are byte-identical to HEAD.** All four `adopting.md` deltas landed
+(teal `--tk-accent`; vw `clamp()` + `.stage:fullscreen` overrides deleted for the theme's
+`cqh`; markup already compatible; diagram inversion). `talk-kit/sync.py` now lists
+humboldt as adopted and owns the two synced files in `humboldt-site/`.
+
+Diagram inversion was asymmetric: `law_arc`'s CSS was always authored for the light
+`/laws/` page, so the dark re-skin was **deleted** and the arc now renders on the talk
+page exactly as it does on `/laws/`; `behavior_graph.py` (a day old, dark-first) gained
+`_CSS_LIGHT` + `_LIGHT_PHASE`. Net: **all 16 slides fit at 1080p** — pre-port, slides 03
+and 04 silently overflowed the stage by 170px and 182px at normal browser widths.
+
+⚠ **Open violation:** diagram type is below the content guide's 24px legibility floor —
+slide 03 arc 22px/14px (up from 14px/9px), slide 04 behavior graph 16px/13px. Pre-existing,
+not caused by the port. Slide 04 is height-bound: needs the drawing compressed vertically
+AND source type raised, not just a width cap lifted.
+
+**2. Talk deck ingested — the site chat can now answer questions about it.**
+`ingest._talk_chunks()`, one chunk per slide, joining projected bullets to spoken
+narration; excludes `slides.yaml notes:`; globs `talks/*/`. 16 chunks, index now 11,959
+tracked. Metadata carries `talk` (bare title) separately from `title` (citation string),
+plus `talk_slug`, `slide`, `law_id`, `date`, and a fully-qualified slide permalink.
+Three enabling fixes in the hand-maintained `functions/chat.js`: `labelMap` had **no
+`law` entry at all** (all 24 law records were labelled generic "HUMBOLDT" since laws were
+first ingested); `normalizeHumboldt` hardcoded `url: null`; `buildContextBlock` now
+appends the URL. System prompt gained a Talks section. Verified against production.
+
+**3. `/brain/` was live but unreachable.** Dropped from `NAV` in `8ac656f` (the regroup
+into dropdowns) and never restored — `_build_brain()` kept calling `_nav("/brain/")` for
+an active state that could not match, so nothing linked to it, including talk slide 04
+which sends a room there. Restored as a **child of Architecture** (style.css documents
+eight flat items as where the nav wraps). Cross-linked from `/architecture/` and `/laws/`.
+
+**Open:**
+- Slide 04 diagram type below the 24px floor (compress vertically + raise source type)
+- `funnel_context.research_context()` seed sampling — read-side twin of the s38 fix
+- L-022 vs L-023: distinct laws or Goodhart-family duplication?
+- Supervisor review of 13 unreviewed exploration laws — **L-012 first**
+- L-006 automation crux: three named papers to retrieve
+- ~215 triaged-unread feed items (09-02 → 09-14) + today's 45
+- Pre-notebook queue: 3 pending entries, unconsumed (no T1 this session)
+
 ## 2026-09-22 (session 38) — Funnel catch-up after three weeks; induction window fixed; talk title slide
 
 **Daemon PID:** 1869 (running, unpaused). Untouched this session.

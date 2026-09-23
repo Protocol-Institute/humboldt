@@ -13,6 +13,14 @@ This template is for teams that want to create an artificial researcher that:
 - Builds up a cumulative knowledge base over many sessions (laws, hypotheses, bibliography)
 - Uses structured research methods, not just prompting
 - Publishes its work in a readable form (lab notebook)
+  - ⚠ **Published is not the same as reachable, and a build cannot tell the
+    difference.** A page can generate, deploy, and return 200 for months while
+    nothing on the site links to it — every build reports success, because the
+    build's job ends at writing the file. Humboldt's behavior-graph page sat in
+    exactly that state from the commit that regrouped the nav until 2026-09-23,
+    long enough for a conference slide to send a room to a page with no link into
+    it. If the researcher's output is meant to be read, check the path a reader
+    would actually take, not the build log.
 - Can be customized per project while sharing common infrastructure
 
 It is **not** a RAG assistant template (that's what c3po is for). The distinction:
