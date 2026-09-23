@@ -275,7 +275,8 @@ def build_laws_body() -> tuple[str, int, dict[str, int]]:
       <p class="page-tagline">{len(all_laws)} candidate laws, each a single record that moves through five
       stages as evidence accumulates: exploration, sensemaking, valley, heavy lift, retrospective. Every
       stage is published, badged with its confidence — and falsified laws stay up, labelled, as negative
-      results. See <a href="/about/">how the funnel works</a>.</p>
+      results. See <a href="/about/">how the funnel works</a>, or the
+      <a href="/brain/">behavior graph</a> — the machine that moves a law between these stages.</p>
     </div>
 
 {law_arc.arc_svg(all_laws)}

@@ -100,6 +100,25 @@ as relative `talks/…` (404 from /chat/), so the stored URL is now fully qualif
 ⚠ The Worker keeps a 24h KV query cache, so a fresh ingest can take up to a day to become
 visible in the chat. Not a failure.
 
+**Addendum — /brain/ was live but unreachable, now linked.** The behavior-graph page
+has been building and deploying fine, but `"/brain/"` was dropped from `NAV` in `8ac656f`
+(the regroup of nine flat items into dropdowns) and never restored. `_build_brain()` kept
+calling `_nav("/brain/")` for an active state that could not match any entry, so nothing
+on the site linked to it — including talk slide 04, which tells a room to visit
+`humboldt.protocol-institute.org/brain/`. Session 36's "nav restoration" note refers to
+restoring the nav bar ON that page, not a link INTO it; worth reading carefully before
+assuming this was already fixed.
+
+Restored as a CHILD of Architecture rather than a ninth flat item — `style.css` documents
+eight as the point where the nav row wraps, which is why the regroup happened at all, and
+the dropdown structure introduced there is exactly what makes a child free. Added
+crosslinks in both directions of the pairing the operator asked for: the Architecture page
+now says it is the written architecture and points at the graph as the same system drawn
+live, and the Laws page tagline points at the graph as "the machine that moves a law
+between these stages". Verified live: 2 `/brain/` links each on /laws/ and /architecture/
+(nav + body), 1 elsewhere (nav), and the parent/sub active state on /brain/ itself now
+resolves for the first time since 8ac656f.
+
 **Open (next session):**
 - Slide 04 diagram type below the 24px floor — compress vertically, raise source type.
 - `funnel_context.research_context()` seed sampling (carried from session 38).

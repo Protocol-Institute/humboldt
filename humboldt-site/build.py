@@ -70,7 +70,13 @@ NAV = [
                                         ("/notebook/",     "Notebook"),
                                         ("/supervision/",  "Supervision")]),
     ("/reading/",      "Reading",      []),
-    ("/architecture/", "Architecture", []),
+    # /brain/ is a CHILD here, not a ninth flat item: style.css documents eight as
+    # the point where the nav row wraps. It was dropped from NAV entirely in 8ac656f
+    # (the regroup into dropdowns) and stayed live-but-unreachable for months — the
+    # build kept calling _nav("/brain/") for an active state that could never match,
+    # and talk slide 04 told a room to visit a page with no link into it anywhere.
+    ("/architecture/", "Architecture", [("/architecture/", "Architecture"),
+                                        ("/brain/",        "Behavior graph")]),
     ("/about/",        "About",        []),
 ]
 
@@ -620,9 +626,15 @@ def _build_architecture() -> None:
     <div class="page-header">
       <h1>Architecture</h1>
       <p class="page-tagline">{tagline}</p>
+      <p class="page-crosslink">This page is the written architecture. The
+      <a href="/brain/">behavior graph</a> is the same system as a live diagram —
+      13 behaviors placed in the six phase bands, connected by 23 weighted
+      transitions, read straight from <code>registry.yaml</code> and <code>mdp.yaml</code>.</p>
     </div>{tabs}{panels}"""
 
     extra_css = """
+    .page-crosslink { font-size: 0.92rem; color: #555; margin-top: 0.6rem;
+      max-width: 42rem; }
     .arch-tabs { display: flex; gap: 0.4rem; flex-wrap: wrap; margin: -1.5rem 0 2.25rem;
       border-bottom: 1px solid #e8e8e4; }
     .arch-tab { font-family: inherit; font-size: 0.8rem; letter-spacing: 0.04em;
