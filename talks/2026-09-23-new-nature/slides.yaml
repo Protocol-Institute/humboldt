@@ -106,24 +106,32 @@ slides:
     beat: "method_behavior_graph"
     duration_target_s: 48
     word_budget: 125
-    image: "images/behavior-graph.png"
-    image_alt: >
-      Humboldt's behavior graph: thirteen behaviors placed in the six Double Freytag
-      phase bands, connected by twenty-three weighted transitions, with dashed
-      cycle-back edges returning from later phases to earlier ones.
+    diagram: "behaviors"
     bullets:
       - "13 behaviors · 23 weighted transitions"
       - "Live at humboldt.protocol-institute.org/brain/"
     notes: >
-      NEW slide, 2026-09-13, operator-requested — pairs with the arc on slide 02:
-      that slide is the MAP (where a law sits in its arc), this one is the MACHINE
-      (what actually runs at each point on it). A screenshot of the live /brain/
-      page rather than a redrawn diagram, deliberately — part of the point is that
-      this is a real inspectable page on the site, not a talk illustration. Capture
-      is images/behavior-graph.png (cropped browser capture, 1400x712; soft if
-      projected very large — a vector export would be better if /brain/ ever grows
-      an SVG download). Regenerate it if registry.yaml or mdp.yaml change, and
-      re-check the node/edge counts in the bullet.
+      Pairs with the arc on slide 03: that slide is the MAP (where a law sits in its
+      arc), this one is the MACHINE (what actually runs at each point on it).
+
+      REDRAWN session 38 as an inline SVG (`agent/behavior_graph.py`, via
+      build.py `_behavior_graph_svg()`), replacing the session-36 browser capture of
+      the live /brain/ page (images/behavior-graph.png, 1400x712). The capture was
+      unreadable projected — /brain/ is a D3 layout built for hover-and-inspect, so
+      its nodes sat in a narrow central ribbon at roughly 4px of projected type with
+      about half the frame empty and an HTML legend taking a fifth of the width.
+      Operator called it on review.
+
+      The replacement reads the same behaviors/registry.yaml + behaviors/mdp.yaml,
+      so the s36 instruction "regenerate it if registry.yaml or mdp.yaml change" is
+      now automatic — and re-check the node/edge counts in the bullets when they do,
+      since those are still hand-written. Vector, so it is sharp at any projector
+      size. Deliberately NOT the same picture as /brain/: phase columns left to
+      right, weight carried as stroke opacity rather than 23 numeric labels, and
+      cycle-backs dashed and routed under the columns.
+
+      images/behavior-graph.png is kept in the repo — nothing references it now, but
+      it is the artifact the slide showed when the deck was reviewed in round 2.
 
   - id: "05"
     title: "Not that kind of researcher"

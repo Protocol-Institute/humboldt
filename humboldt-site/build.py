@@ -725,6 +725,20 @@ def _file_tag(path: Path) -> str:
     return hashlib.sha1(path.read_bytes()).hexdigest()[:8]
 
 
+def _behavior_graph_svg() -> str:
+    """The behavior graph for the talk — delegated to ``agent.behavior_graph``.
+
+    Session 36 put a browser capture of the live /brain/ page here. /brain/ is a D3
+    layout built for hover-and-inspect; projected, its nodes land at roughly 4px of
+    type inside a mostly-empty frame, and the operator called it unreadable. The
+    module draws the same registry.yaml + mdp.yaml records in a layout built for
+    projection instead, as vector — so it is sharp at any size AND cannot drift from
+    the records the way a checked-in PNG did.
+    """
+    from agent import behavior_graph as _bg
+    return _bg.graph_svg()
+
+
 def _freytag_diagram_svg() -> str:
     """The Double Freytag arc for talk slide 02 — delegated to ``agent.law_arc``.
 
@@ -814,6 +828,8 @@ def _build_talk() -> None:
         diagram_html = ""
         if s.get("diagram") == "freytag":
             diagram_html = f'<div class="slide-diagram">{_freytag_diagram_svg()}</div>'
+        elif s.get("diagram") == "behaviors":
+            diagram_html = f'<div class="slide-diagram">{_behavior_graph_svg()}</div>'
         img = s.get("image")
         if img:
             alt = _html_attr(str(s.get("image_alt") or ""))
@@ -870,7 +886,9 @@ def _build_talk() -> None:
             "title": s_.get("title", ""),
             "law": s_.get("law_id") or "",
             "bullets": list(s_.get("bullets") or []),
-            "diagram": _freytag_diagram_svg() if s_.get("diagram") == "freytag" else None,
+            "diagram": (_freytag_diagram_svg()  if s_.get("diagram") == "freytag"
+                        else _behavior_graph_svg() if s_.get("diagram") == "behaviors"
+                        else None),
             "image": s_.get("image") or None,
             "imageAlt": " ".join(str(s_.get("image_alt") or "").split()) or "",
             "audio": (f"audio/slide-{sid}.mp3?v={_file_tag(mp3)}"
@@ -1213,6 +1231,8 @@ def _build_talk() -> None:
     # cannot leak back into /laws/. Presentation attributes lose to CSS rules, so no
     # !important is needed to beat the inline stroke/fill. Keep in sync if law_arc's
     # palette changes.
+    from agent import behavior_graph as _behavior_graph
+    extra_css += _behavior_graph._CSS
     from agent import law_arc as _law_arc
     extra_css += _law_arc._CSS + """
     .stage .ft-lbl,       .slide-diagram .ft-lbl       { fill: #9aa3ad; }

@@ -71,6 +71,32 @@ so this session deployed to production and announced L-018 and L-022 to Discord 
 daily cap) without a separate confirmation step. Designed behaviour, noted because it is
 outward-facing and easy to forget when running `induct` interactively.
 
+**Addendum — behavior-graph slide redrawn as vector.** The s36 browser capture of
+/brain/ (images/behavior-graph.png) was unreadable projected: /brain/ is a D3
+hover-and-inspect layout, so on a slide its nodes sat in a narrow central ribbon at ~4px
+of projected type, half the frame empty, HTML legend taking a fifth of the width.
+Replaced with `agent/behavior_graph.py` → `graph_svg()`, wired into build.py as
+`diagram: "behaviors"` alongside the existing `"freytag"` hook. It reads the same
+registry.yaml + mdp.yaml, so the s36 instruction "regenerate it if registry.yaml or
+mdp.yaml change" is now automatic; the node/edge counts in the slide bullets are still
+hand-written and still need checking when those files change.
+
+Deliberately a different drawing from /brain/, not a re-render of it: phase columns left
+to right so the arc reads before any node does, rects rather than circles (`shallow-read`
+does not fit in a circle at readable type), edge weight carried as stroke opacity rather
+than 23 numeric labels, and cycle-backs dashed and routed under the columns. Classifying
+cycle-backs geometrically rather than by phase order matters — the out-of-flow behaviors
+carry order -1, so by order alone `review → orient` counted as forward and got drawn
+looping all the way around to the far left. Dark-first palette: unlike law_arc, which is
+shared with the light /laws/ page and needs a scoped dark re-skin, this diagram's only
+consumers are the stage and `.slide-projected`, both #23262b.
+
+Measured on the live page rather than assumed: at a 670px stage the content overflows the
+16:9 box by 182px — but **slide 03's existing Freytag arc overflows by 170px**, so this is
+pre-existing clipping at narrow widths, not a regression (12px worse). At 1600px, the
+presentation case, there is 142px of headroom and nothing clips. Not fixed, since the fix
+is in shared stage CSS and affects every diagram slide.
+
 **Open (next session):**
 - Fix `funnel_context.research_context()` seed sampling (same bug class, read side).
 - Decide whether L-022 and L-023 are distinct laws or Goodhart-family duplication.
