@@ -24,12 +24,18 @@ Design consequences of "projected, once, from twenty feet":
   · Cycle-back edges (to an earlier phase) are dashed and routed below the columns, so
     they read as "returns" without crossing the forward flow.
 
-Dark-first palette: this diagram is only ever embedded by the talk page, on the #23262b
-stage and in its transcript, both of which already dark-skin the law_arc diagram. Unlike
-law_arc — which is shared with the light /laws/ page and therefore needs a scoped
-re-skin — this one has no light-background consumer, so it is coloured for the stage
-directly. If it ever lands on a light page, add a scoped override rather than repainting
-these values.
+Two palettes, one drawing. `_CSS` is the original dark-stage palette from session 38.
+`_CSS_LIGHT` is what the talk page uses now: the talk-kit theme (adopted 2026-09-23)
+made the stage a light panel, and this diagram — unlike law_arc, which is shared with
+the light /laws/ page and could simply drop its dark re-skin — had no light version to
+fall back to, because it was authored dark-first for the old stage.
+
+`_CSS_LIGHT` is the one to use on the theme. `_CSS` is kept rather than deleted because
+the geometry is palette-independent and nothing else in the repo pins this to one
+ground; if the diagram is ever wanted on a dark surface again, it is the two-line swap
+at the build site, not a repaint. Colours track talk-theme.css's documented diagram
+palette (--tk-stage ground, --tk-ink text, #8b93a0 connectors) so this reads as the
+same family as the hand-authored SVGs in the other two decks.
 """
 
 from __future__ import annotations
@@ -52,6 +58,24 @@ _NODE_W = 138
 _NODE_H = 42
 _FLOW_Y = 424          # the out-of-flow band
 
+# Phase colours live in behaviors/mdp.yaml and were picked for /brain/, a dark UI —
+# they are GitHub-dark accents. Three of them (#f1e05a yellow, #3fb950 green,
+# #58a6ff blue) fall below readable contrast on the theme's #faf8f2 panel, and the
+# phase name is the label the room reads FIRST. So the light rendering substitutes a
+# darkened equivalent per phase rather than dimming them all with opacity, which
+# would flatten the distinctions the colours are carrying. Keyed by phase id, so a
+# phase added to mdp.yaml without an entry here falls back to its own colour and is
+# merely too light — never missing.
+_LIGHT_PHASE = {
+    "liminal":       "#5e6573",
+    "exploration":   "#2563b0",
+    "sensemaking":   "#7c4dbd",
+    "valley":        "#2a7a2a",
+    "heavy_lift":    "#c2410c",
+    "retrospective": "#8a6a2b",
+    "any":           "#5e6573",
+}
+
 
 def _esc(s: str) -> str:
     return html.escape(str(s or ""), quote=True)
@@ -63,7 +87,7 @@ def _load() -> tuple[list[dict], dict]:
     return reg.get("behaviors", []), mdp
 
 
-def _layout(behaviors: list[dict], mdp: dict) -> tuple[dict, list[dict]]:
+def _layout(behaviors: list[dict], mdp: dict, light: bool = False) -> tuple[dict, list[dict]]:
     """Place every behavior. Returns {id: node} and the ordered phase columns."""
     phases = [p for p in (mdp.get("phases") or []) if p.get("id") != "any"]
     phases.sort(key=lambda p: p.get("order", 0))
@@ -75,6 +99,8 @@ def _layout(behaviors: list[dict], mdp: dict) -> tuple[dict, list[dict]]:
     step = (right - left) / max(n - 1, 1)
     for i, p in enumerate(phases):
         p["cx"] = left + i * step
+        if light:
+            p["color"] = _LIGHT_PHASE.get(p["id"], p.get("color", "#5e6573"))
 
     by_phase: dict[str, list[dict]] = {}
     for b in behaviors:
@@ -98,7 +124,7 @@ def _layout(behaviors: list[dict], mdp: dict) -> tuple[dict, list[dict]]:
         cx = SVG_W / 2 + (i - (len(loose) - 1) / 2) * (_NODE_W + 34)
         nodes[b["id"]] = {
             "id": b["id"], "cx": cx, "cy": _FLOW_Y, "phase": "any", "order": -1,
-            "color": "#6e7681", "proposed": b.get("status") != "active",
+            "color": _LIGHT_PHASE["any"] if light else "#6e7681", "proposed": b.get("status") != "active",
         }
     return nodes, phases
 
@@ -136,9 +162,11 @@ def _edge_path(a: dict, b: dict) -> tuple[str, bool]:
             f"{x2:.0f} {b['cy']:.0f}"), False
 
 
-def graph_svg() -> str:
+def graph_svg(light: bool = False) -> str:
+    """Render the diagram. `light=True` recolours the phase accents for the
+    talk-kit theme's light panel — see `_LIGHT_PHASE`. Geometry is identical."""
     behaviors, mdp = _load()
-    nodes, phases = _layout(behaviors, mdp)
+    nodes, phases = _layout(behaviors, mdp, light=light)
     transitions = mdp.get("transitions") or []
 
     parts: list[str] = []
@@ -185,7 +213,7 @@ def graph_svg() -> str:
         lx = min(n["cx"] for n in loose) - _NODE_W / 2
         parts.append(
             f'<text class="bg-phase bg-phase-loose" x="{lx:.0f}" '
-            f'y="{_FLOW_Y - _NODE_H/2 - 10:.0f}" fill="#6e7681">OUT OF FLOW</text>')
+            f'y="{_FLOW_Y - _NODE_H/2 - 10:.0f}" fill="{_LIGHT_PHASE["any"] if light else "#6e7681"}">OUT OF FLOW</text>')
 
     # ── legend ──────────────────────────────────────────────────────────────
     # Below the out-of-flow nodes, not beside them: at _FLOW_Y - 34 the legend's last
@@ -198,7 +226,7 @@ def graph_svg() -> str:
         f'<line class="bg-edge bg-edge-back" x1="126" y1="0" x2="160" y2="0" opacity="0.8" />'
         f'<text class="bg-key" x="168" y="4">cycle-back</text>'
         f'<rect class="bg-node bg-node-proposed" x="264" y="-8" width="22" height="16" '
-        f'rx="3" stroke="#8b949e" />'
+        f'rx="3" stroke="{_LIGHT_PHASE["liminal"] if light else "#8b949e"}" />'
         f'<text class="bg-key" x="294" y="4">proposed (not built)</text>'
         f'</g>')
 
@@ -222,5 +250,26 @@ _CSS = """
     .bg-edge  { fill: none; stroke: #c3cad2; stroke-width: 1.7; }
     .bg-edge-back { stroke-dasharray: 6 4; stroke: #b9ad7e; }
     .bg-key   { font-family: inherit; font-size: 12.5px; fill: #8d959e; }
+    .bg-phase-loose { font-size: 12px; letter-spacing: 0.08em; }
+"""
+
+
+# Light-stage palette — the talk-kit theme (dark-on-light). Same geometry, repainted
+# against talk-theme.css's documented diagram values. Node fill is white rather than
+# the stage ground so the boxes separate from the phase bands behind them, and the
+# band tint is raised from 0.055 to 0.09 because a light wash on a light ground needs
+# more of itself to register at projection distance than a dark one did.
+_CSS_LIGHT = """
+    .bg-svg { width: 100%; max-width: 1000px; height: auto; display: block; margin: 0 auto; }
+    .bg-band  { opacity: 0.09; }
+    .bg-phase { font-family: inherit; font-size: 14px; font-weight: 700;
+                letter-spacing: 0.1em; }
+    .bg-node  { fill: #ffffff; stroke-width: 1.8; }
+    .bg-node-proposed { fill: #f2efe6; stroke-dasharray: 5 3; opacity: 0.85; }
+    .bg-label { font-family: inherit; font-size: 15.5px; font-weight: 600; fill: #16181d; }
+    .bg-node-proposed + .bg-label { fill: #727a88; }
+    .bg-edge  { fill: none; stroke: #8b93a0; stroke-width: 1.7; }
+    .bg-edge-back { stroke-dasharray: 6 4; stroke: #b08a5a; }
+    .bg-key   { font-family: inherit; font-size: 12.5px; fill: #5e6573; }
     .bg-phase-loose { font-size: 12px; letter-spacing: 0.08em; }
 """

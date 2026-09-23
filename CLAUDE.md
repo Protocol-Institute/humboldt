@@ -384,31 +384,45 @@ python3 -m agent.humboldt talk voice [--voice N] [--rate R]  # track.md → audi
 python3 -m agent.humboldt talk time                     # ffprobe-measured runtime vs. targets
 ```
 
-### Presentation style — shared theme, NOT YET ADOPTED
+### Presentation style — shared talk-kit theme (ADOPTED 2026-09-23)
 
-The two other Protocol Symposium 2026 decks (`artisanal-bots`, `blygger-org`) now share
-a visual theme and content guide owned by [`Code/talk-kit/`](../../talk-kit/). **This
-deck has not been ported and must not be ported before the 2026-09-23 talk.**
+This deck uses the shared theme owned by [`Code/talk-kit/`](../../talk-kit/), same as
+`artisanal-bots` and `blygger-org`. Ported on the morning of the talk, on operator
+instruction — the previous note here said to wait until after, because a port touches
+every slide at once and a content edit made along the way silently desynchronises the
+recorded track. That hazard was closed by doing the port as a **pure presentation
+change**: `talks/` was not touched at all and all 16 audio clips verified byte-identical
+to HEAD. Keep that property on any future theme work.
 
-The reason is this deck's own voice feature: its slides are timed against **already-
-recorded narration** (`talk voice` → `audio/slide-NN.mp3`, `wpm_effective`, per-slide
-`word_budget`). Re-styling does not change timing — type size is not word count — but a
-port touches every slide at once, and any content edit made along the way silently
-desynchronises a recorded track. The failure mode is already documented above: a cached
-re-voice is invisible to anyone who already listened, and a renumber produces a
-systematic one-slide audio offset. Both happened in s36.
+**`talk-theme.css` and `talk-content-guide.md` in `humboldt-site/` are SYNCED COPIES.**
+`talk-kit/sync.py` is their only writer. Edit `Code/talk-kit/theme/` and re-run it;
+editing the copies here means the next sync reports drift and overwrites you. The CSS is
+read from disk by `build.py::_build_talk` and inlined, so fullscreen never waits on the
+network — if it goes missing the build exits rather than rendering unstyled.
 
-**After the talk**, when the deck becomes an archive rather than a live deliverable,
-the port is four specific pieces of work — teal `--tk-accent` override, deleting the
-`.stage:fullscreen` overrides in favour of `cqh`, the `ul#stage-bullets` markup
-difference, and inverting the dark inline SVG. All four, and why the theme is built to
-accommodate the audio transport rather than fight it, are written up in
-[`talk-kit/reference/adopting.md`](../../talk-kit/reference/adopting.md).
+The four adoption deltas live in `build.py`, in the override block after the theme:
+teal `--tk-accent`; the deleted `.stage:fullscreen` font-size overrides (the theme sizes
+in `cqh` — **anything added to the stage must be in `cqh` too**, and re-adding a vw
+clamp double-applies); the `#stage-diagram` flex contract; and diagram inversion.
 
-Worth reading before then regardless: `talk-kit/theme/talk-content-guide.md` §"Narrated
-decks". Its one rule is that **slide density and narration length are independent
-budgets** — the spoken text lives in `track.md`, not on the slide, so a sparse slide
-may carry a long narration and should. Never widen a slide to match its script.
+⚠ **Diagram inversion is asymmetric.** `law_arc`'s CSS was always authored for the light
+`/laws/` page, so the port DELETED the dark re-skin the old stage needed — the arc now
+renders on the talk page exactly as it does on `/laws/`. `behavior_graph.py` was authored
+dark-first (session 38) and carries its own `_CSS_LIGHT` plus `_LIGHT_PHASE`, because
+three `mdp.yaml` phase accents are unreadable on a light panel.
+
+⚠ **Diagram type is the deck's one open content-guideline violation.** Measured at
+1536×864 via the SVG's own CTM: slide 03's arc is 22px main / 14px smallest, slide 04's
+behavior graph 16px / 13px, against the guide's **24px legibility floor**. Pre-existing,
+not caused by the port (slide 03 was 14px/9px before it). Slide 04 is height-bound, so
+fixing it means compressing the drawing vertically and raising type in the source — see
+`talk-content-guide.md` §"Diagrams and images". Do not "fix" it by widening the slide.
+
+Read `talk-content-guide.md` §"Narrated decks" before editing slides: **slide density and
+narration length are independent budgets.** The spoken text lives in `track.md`, not on
+the slide, so a sparse slide may carry a long narration and should. Never widen a slide
+to match its script. The clipping script at the end of that guide is the only check that
+catches silent bottom-clipping; run it whenever slides change.
 
 ### Deep-read library
 

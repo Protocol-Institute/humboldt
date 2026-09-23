@@ -6,6 +6,69 @@ Most recent entry first.
 
 ---
 
+## 2026-09-23 (session 39) — talk-kit theme adopted; diagram legibility measured
+
+**Tracks active:** T2
+**Daemon PID:** 1869 (running, unpaused, untouched)
+
+Ported this deck to the shared `Code/talk-kit/` theme (dark-on-light) on operator
+instruction — on the morning of the talk, against the standing note in CLAUDE.md and
+`adopting.md` that said to wait until after it. That note's stated hazard is a *content*
+edit desynchronising recorded narration, so the port was done as a pure presentation
+change and the property verified rather than assumed: `talks/` has zero changes, and all
+16 audio clips are byte-identical to HEAD. Only `build.py` and `behavior_graph.py` moved.
+Both notes have been rewritten to record the real rule — a restyle is safe whenever it
+does not touch `slides.yaml` bullets or `track.md`, verified afterwards.
+
+All four `adopting.md` deltas: teal `--tk-accent` (+ `--tk-accent-soft`, or the review
+banner keeps the rust tint); the vw `clamp()` sizing and the entire `.stage:fullscreen`
+font-size block **deleted** in favour of the theme's `cqh` against a `container-type:
+size` stage; markup already compatible; diagram inversion. `talk-kit/sync.py` now lists
+humboldt as adopted and owns the two synced files in `humboldt-site/`.
+
+Diagram inversion turned out asymmetric and worth recording. `law_arc`'s CSS was always
+authored for the light `/laws/` page, so the old stage's dark re-skin became wrong and
+was deleted outright — the arc now renders on the talk page exactly as it does on
+`/laws/`, which is what slide 03 showing the real arc was for. `behavior_graph.py`, being
+a day old and authored dark-first, had nothing to fall back to and gained `_CSS_LIGHT`
+plus `_LIGHT_PHASE`: three `mdp.yaml` phase accents (`#f1e05a`, `#3fb950`, `#58a6ff`)
+are below readable contrast on a light panel, and the phase name is the first label the
+room reads. The dark `_CSS` is kept — the geometry is palette-independent, so a dark
+surface is a two-line swap at the build site rather than a repaint.
+
+**Measured, not assumed, and the one open violation.** Using the SVG's own CTM at
+1536×864 (element boxes lie — `preserveAspectRatio` letterboxes inside them):
+
+| | pre-port | after | floor |
+|---|---|---|---|
+| 03 arc, main / smallest | 14px / 9px | 22px / 14px | 24px |
+| 04 behavior graph | 16px / 13px | 16px / 13px | 24px |
+
+Diagram type is below the content guide's 24px legibility floor on both diagram slides,
+and was before this port. Two bugs found and fixed on the way: making `.stage-diagram` a
+flex container left `law_arc`'s `.ft-wrap` shrink-to-fit, so the arc rendered at the SVG
+default 300px inside a 1439px slot (a 20% regression against pre-port, now +57%); and
+both modules cap their own width for the prose pages they also serve, which on the stage
+is what holds the type down. The arc's legend is hidden on the stage only — its keys
+rendered at ~7px — and kept in the transcript. Slide 04 remains height-bound and needs
+its source type raised and the drawing compressed vertically; not done on talk day.
+
+Net win beyond the restyle: the guide's clipping script reports **all 16 slides fit** at
+1080p. Pre-port, slides 03 and 04 overflowed the 16:9 stage by 170px and 182px at normal
+browser widths — silently, which is the failure mode the guide warns about.
+
+Content-guideline check: 4 titles over the ~37-char target (07, 08, 09, 12) and one
+80-char bullet on 02. All four titles are canonical law names; a two-line title costs
+budget those slides have spare, and shortening would make the slide diverge from the law
+record it names. Left as they are.
+
+**Open (next session):**
+- Slide 04 diagram type below the 24px floor — compress vertically, raise source type.
+- `funnel_context.research_context()` seed sampling (carried from session 38).
+- L-022 vs L-023 duplication call; supervisor review of 13 exploration laws, L-012 first.
+
+---
+
 ## 2026-09-22 (session 38) — Funnel catch-up; the induction window was a queue, not a pool; talk title slide
 
 **Tracks active:** T1 / T2

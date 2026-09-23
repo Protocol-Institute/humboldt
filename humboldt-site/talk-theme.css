@@ -1,0 +1,342 @@
+/* talk-theme.css — shared presentation theme for the Protocol Symposium 2026 decks.
+   ─────────────────────────────────────────────────────────────────────────────
+   CANONICAL COPY: Code/talk-kit/theme/talk-theme.css. If you are reading this
+   inside a talk project, it is a SYNCED COPY — edit the canonical file and run
+   `talk-kit/sync.py`, which will otherwise report your edit as drift and overwrite
+   it. Style work happens in talk-kit; content work happens in the talk projects.
+
+   It is read from disk by build_talk.py and inlined into the page, so there is no
+   extra request and fullscreen presentation never waits on the network.
+
+   Direction: CLEAN DARK-ON-LIGHT. The stage is a lit warm-white panel with near
+   black text. Rationale: these talks are delivered over video to people reading on
+   their own screens in daylight, not projected in a blacked-out hall, and the three
+   decks sit inside light-background sites they should not fight.
+
+   Type: monospace for structural voice (slide titles, meta, labels, cover title),
+   serif for the said content (bullets, cues). That mirrors the host site.css, where
+   headings are mono and prose is serif, so the deck reads as part of the site rather
+   than an embedded foreign object.
+
+   Sizing: everything inside .stage is in `cqh` — 1% of the stage's own height. The
+   stage is a `container-type: size` container, so the embedded 16:9 preview and the
+   fullscreen presentation are ONE composition at two scales. Anything added to the
+   stage must be in cqh too; rem or vw here silently breaks one of the two scales.
+
+   Content limits that follow from these type sizes are measured and written down in
+   talk-content-guide.md, beside this file. Change a size here and re-measure there.
+*/
+
+/* ── adopting this in another deck ───────────────────────────────────────
+   Projects that share build_talk.py (artisanal-bots, blygger-org) take this file
+   verbatim — `talk-kit/sync.py` puts it beside build_talk.py and it is picked up.
+
+   Humboldt is NOT a drop-in; its deck predates this pipeline. The four pieces of
+   real work, and the reason none of them should be attempted in a hurry, are in
+   talk-kit/reference/adopting.md. Read that before touching it. */
+
+/* ── tokens ────────────────────────────────────────────────────────────────
+   Prefixed --tk- so they never collide with a host site's own custom properties.
+   A project that wants a different accent overrides --tk-accent alone. */
+:root {
+  --tk-stage:        #faf8f2;  /* the lit panel: warm off-white, not glaring white */
+  --tk-stage-edge:   #e4dfd2;
+  --tk-ink:          #16181d;  /* headline / strong: near-black, full contrast */
+  --tk-ink-body:     #33373f;  /* bullets: a step back from the headline */
+  --tk-ink-soft:     #5e6573;  /* sub-bullets, cues, secondary prose */
+  --tk-ink-faint:    #8d94a1;  /* meta labels, slide numbers, rules-as-text */
+  --tk-rule:         #e2ddd0;
+  --tk-rule-soft:    #efebe0;
+  --tk-accent:       #d95a1f;  /* carried from site.css --rss: the family mark */
+  --tk-accent-soft:  #f6ebe4;
+  --tk-code-bg:      #ede9dd;
+  --tk-warn:         #8a6a2b;  /* placeholder / "to write" */
+  --tk-warn-bg:      #fbf3e2;
+  --tk-warn-edge:    #e0cda0;
+  --tk-mono: ui-monospace, "IBM Plex Mono", "JetBrains Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --tk-serif: ui-serif, Charter, "Iowan Old Style", "Palatino Linotype", Georgia, "Times New Roman", serif;
+}
+
+/* ── diagram palette (for hand-authored SVG in talks/<slug>/images/) ──────
+   A diagram is referenced as <img src="…svg">, so it is a separate document and
+   CANNOT see the custom properties above — it has to carry its own copy. These
+   are the literal values to use, and the reason they are written down here rather
+   than only living in four SVG files: change a token above and the diagrams do not
+   follow, so this block is the checklist for what else has to move.
+
+     stage ground (the SVG's own background rect)  #faf8f2   (= --tk-stage)
+     heading text            .t                   #16181d   (= --tk-ink)
+     secondary text          .s                   #4a505c
+     label / caption text    .l  .h               #727a88
+     plain box               .bx  fill #ffffff  stroke #ddd7c7
+     accent box              .ac  .bn  fill #fdf0e7  stroke #d95a1f
+     connector + arrowhead   .ar                  #8b93a0
+     accent connector        .fb  and .n label    #d95a1f   (= --tk-accent)
+
+   Each SVG paints its own background rect so it also reads correctly opened on its
+   own or printed, rather than inheriting a transparent ground. Keep text inside the
+   viewBox — SVG does not wrap, and overflow is silently clipped. */
+
+/* ── page header for the talk ─────────────────────────────────────────── */
+
+.talk-header { margin-bottom: 1.6rem; }
+.talk-header h1 { margin-bottom: 0.3rem; }
+.talk-tagline { color: var(--tk-ink-soft); font-size: 0.95rem; margin: 0;
+  font-family: var(--tk-mono); }
+
+/* ── the stage ────────────────────────────────────────────────────────────
+   The deck breaks out of the prose column: a 16:9 stage inside a reading measure
+   is a postage stamp, and this page's primary job is the deck. */
+.talk-player { margin: 0 0 2.2rem; width: min(100%, 60rem); }
+@media (min-width: 1200px) { .talk-player { width: 52rem; } }
+
+/* The stage is a fixed 16:9 box and its contents must fit inside it, which rules
+   out letting anything size itself from its own content. It is therefore a flex
+   column: meta and title take what they need, bullets take what they need, and the
+   image gets whatever is left over and no more.
+
+   The `min-height: 0` below is load-bearing. A flex item's default `min-height:
+   auto` refuses to shrink below its content, so an image slide would push the
+   bullets out of the bottom of the stage. (A percentage `max-height` does not work
+   either: the parent has no definite height, so it resolves to `none`.) */
+.stage {
+  background: var(--tk-stage);
+  border: 1px solid var(--tk-stage-edge);
+  border-radius: 5px;
+  aspect-ratio: 16 / 9;
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+  container-type: size;
+}
+.stage-inner { padding: 5cqh 5.5cqh 4cqh; width: 100%;
+  display: flex; flex-direction: column; min-height: 0; }
+/* Both stage bodies set `display: flex` in a class rule, which outranks the UA's
+   [hidden] { display: none }. Without these the cover and the slide body would be
+   stacked on top of each other whichever one the player thinks is showing. */
+.stage-inner[hidden] { display: none !important; }
+
+.stage-meta { display: flex; gap: 1.8cqh; align-items: baseline; font-size: 2.5cqh;
+  font-family: var(--tk-mono); letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--tk-ink-faint); margin-bottom: 1.8cqh; flex: 0 0 auto; }
+#stage-num { color: var(--tk-accent); }
+
+/* `border: 0; padding: 0` are not tidiness. The host site.css styles the prose
+   column's headings with `.content h2 { border-top; padding-top: 1.5rem }`, and an
+   id selector only wins the properties it actually declares — the first pass drew
+   the site's section rule across every slide and pushed the title 1.5rem down the
+   stage, in rem, which is exactly the absolute unit the cqh discipline exists to
+   keep out. Reset anything the page might contribute, then state it in cqh. */
+#stage-title { font-family: var(--tk-mono); font-size: 6.8cqh; font-weight: 600;
+  letter-spacing: -0.015em; color: var(--tk-ink); border: 0; padding: 0;
+  margin: 0 0 2.8cqh; line-height: 1.16; flex: 0 0 auto; }
+
+/* Bullets are the slide's content and the image is support, so the bullets take
+   their natural height and the image gets the remainder. The reverse ordering
+   silently truncated four bullets to one, which is the worse failure: a squeezed
+   diagram is visibly squeezed, whereas a clipped list looks like a short list.
+   If the image ends up tiny, the slide has too many bullets — show it, don't hide it. */
+#stage-bullets { flex: 0 0 auto; font-family: var(--tk-serif); }
+#stage-bullets ul, ul#stage-bullets { margin: 0; padding-left: 3.5cqh; }
+#stage-bullets li, ul#stage-bullets > li {
+  color: var(--tk-ink-body); max-width: none; margin-bottom: 1.5cqh;
+  font-size: 4.1cqh; line-height: 1.34; }
+/* Sub-bullets: a step down in size and colour, so nesting reads as subordination
+   from the back of a room rather than as two lists at the same rank. */
+#stage-bullets ul ul { margin: 1cqh 0 0; padding-left: 3cqh; }
+#stage-bullets ul ul li { font-size: 3.4cqh; color: var(--tk-ink-soft);
+  margin-bottom: 0.9cqh; }
+#stage-bullets li::marker { color: var(--tk-accent); }
+#stage-bullets strong { color: var(--tk-ink); font-weight: 700; }
+#stage-bullets em { color: var(--tk-ink-soft); }
+#stage-bullets code { font-family: var(--tk-mono); font-size: 0.88em;
+  background: var(--tk-code-bg); color: var(--tk-ink);
+  padding: 0.1em 0.35em; border-radius: 3px; }
+/* A pull-quote under a bullet. The host site.css paints blockquotes with its own
+   green `--add`, which is the one colour on the stage belonging to neither the
+   deck palette nor the accent — it read as an unexplained third signal. */
+#stage-bullets blockquote { margin: 1cqh 0 0; padding-left: 2.5cqh;
+  border-left: 0.5cqh solid var(--tk-rule); color: var(--tk-ink-soft); }
+
+/* Takes the leftover room, never more; the image scales to fit what it is given. */
+.stage-visual { flex: 1 1 auto; min-height: 0; display: flex;
+  align-items: center; justify-content: center; margin: 0 0 2.5cqh; }
+/* `display: flex` above is a class rule and outranks the UA's [hidden] { display:
+   none }, so without this an image-less slide still reserved the flex space and the
+   bullets sat pinned to the bottom of the stage with a hole above them. */
+.stage-visual[hidden] { display: none !important; }
+.stage-visual img { max-width: 100%; max-height: 100%; width: auto; height: auto;
+  object-fit: contain; border-radius: 3px; border: 1px solid var(--tk-rule); }
+
+/* ── the cover slide ──────────────────────────────────────────────────────
+   Generated from frontmatter, not authored: title, speaker, event. It is slide 00,
+   so the deck's existing 01..NN numbering and every #slide-NN permalink are
+   unchanged by its arrival. Deliberately holds nothing else — no agenda, no logo,
+   no bullet. It is the thing on screen while the room settles and the host reads
+   the introduction, and anything more would be read instead of listened to. */
+/* Every rule here is scoped under #stage-cover. The host site.css styles the
+   prose column with `.content h2` and `.content p`, which are (0,1,1) selectors
+   and out-specify a bare class — the first pass rendered the cover title at the
+   site's 1.15rem heading size with a section rule drawn across it. An id prefix
+   puts these at (1,1,0) and the stage wins wherever it disagrees with the page. */
+#stage-cover { width: 100%; padding: 7cqh 7cqh 6cqh;
+  display: flex; flex-direction: column; justify-content: center; min-height: 0; }
+#stage-cover[hidden] { display: none !important; }
+#stage-cover .cover-event { font-family: var(--tk-mono); font-size: 2.9cqh;
+  font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--tk-accent); margin: 0 0 3.5cqh; line-height: 1.2; }
+#stage-cover .cover-title { font-family: var(--tk-mono); font-size: 9.2cqh;
+  font-weight: 600; letter-spacing: -0.02em; line-height: 1.12; color: var(--tk-ink);
+  margin: 0; padding: 0; border: 0; }
+#stage-cover .cover-rule { width: 11cqh; height: 0.6cqh; background: var(--tk-accent);
+  border: 0; margin: 5cqh 0 4cqh; border-radius: 1px; }
+#stage-cover .cover-speaker { font-family: var(--tk-serif); font-size: 4.8cqh;
+  color: var(--tk-ink-body); margin: 0; line-height: 1.2; }
+#stage-cover .cover-meta { font-family: var(--tk-mono); font-size: 2.7cqh;
+  letter-spacing: 0.05em; color: var(--tk-ink-faint); margin: 1.8cqh 0 0;
+  line-height: 1.2; }
+
+/* A placeholder slide should be unmistakable from the back of a room. */
+.stage.stage-stub { background: var(--tk-warn-bg);
+  outline: 2px dashed var(--tk-warn-edge); outline-offset: -8px; }
+
+/* Fullscreen only changes the container's size; cqh carries the rest. */
+.stage:fullscreen { border-radius: 0; border: 0; aspect-ratio: auto; height: 100%; }
+
+/* ── player controls ──────────────────────────────────────────────────── */
+
+.player-bar { display: flex; align-items: center; gap: 0.6rem; margin-top: 0.85rem;
+  flex-wrap: wrap; }
+.pbtn { font-family: var(--tk-mono); font-size: 0.78rem; color: var(--tk-ink-body);
+  background: #f1eee5; border: 1px solid var(--tk-rule); border-radius: 3px;
+  padding: 0.42rem 0.7rem; cursor: pointer; line-height: 1; }
+.pbtn:hover { background: var(--tk-accent-soft); color: var(--tk-accent);
+  border-color: #e8cdb9; }
+.ptime { font-family: var(--tk-mono); font-size: 0.76rem; color: var(--tk-ink-faint);
+  font-variant-numeric: tabular-nums; white-space: nowrap; }
+.pprogress { flex: 1 1 6rem; height: 3px; background: var(--tk-rule-soft);
+  border-radius: 2px; overflow: hidden; min-width: 4rem; }
+.pprogress-fill { height: 100%; width: 0; background: var(--tk-accent);
+  transition: width 0.2s linear; }
+.player-hint { font-family: var(--tk-mono); font-size: 0.72rem;
+  color: var(--tk-ink-faint); margin: 0.5rem 0 0; }
+
+/* ── review banner, deck stats, contents ──────────────────────────────── */
+
+.talk-review { background: var(--tk-accent-soft); border-left: 3px solid var(--tk-accent);
+  padding: 1rem 1.3rem; margin-bottom: 1.8rem; border-radius: 0 3px 3px 0; }
+.talk-review p { font-size: 0.92rem; margin-bottom: 0.6rem; }
+.talk-review p:last-child { margin-bottom: 0; }
+
+.talk-meta { display: flex; flex-wrap: wrap; gap: 1.6rem; font-family: var(--tk-mono);
+  font-size: 0.8rem; color: var(--tk-ink-soft); padding-bottom: 1.1rem;
+  border-bottom: 1px solid var(--tk-rule); margin-bottom: 1.4rem; }
+.talk-meta strong { font-weight: 600; color: var(--tk-ink); }
+
+.talk-toc { font-family: var(--tk-mono); font-size: 0.82rem; margin-bottom: 3rem;
+  width: 100%; border-collapse: collapse; }
+.talk-toc td { padding: 0.32rem 0.75rem 0.32rem 0;
+  border-bottom: 1px solid var(--tk-rule-soft); }
+.talk-toc .toc-num { width: 2.5rem; color: var(--tk-ink-faint);
+  font-variant-numeric: tabular-nums; }
+.talk-toc .toc-num a { color: var(--tk-ink-faint); text-decoration: none; }
+/* The contents is a 27-row index, and the host site.css gives every link the
+   accent colour and a permanent underline — which turned the whole table into a
+   wall of orange rules with no hierarchy left in it. Here the row is the link;
+   the accent is spent on hover and on the slide number instead. */
+.talk-toc td a { color: var(--tk-ink); text-decoration: none; }
+.talk-toc td a:hover { color: var(--tk-accent);
+  text-decoration: underline; text-underline-offset: 0.2em; }
+.talk-toc .toc-section { width: 11rem; color: var(--tk-ink-faint); font-size: 0.76rem; }
+.talk-toc .toc-stub { width: 6.5rem; text-align: right;
+  white-space: nowrap; }
+
+.stub-tag { font-size: 0.68rem; letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--tk-warn); background: var(--tk-warn-bg); padding: 0.1rem 0.4rem;
+  border-radius: 2px; }
+
+/* ── per-slide transcript below the deck ──────────────────────────────── */
+
+.talk-slide { margin-bottom: 3.2rem; scroll-margin-top: 2rem; }
+.talk-slide h2 { margin-top: 0.35rem; margin-bottom: 1rem; }
+.slide-head { display: flex; align-items: baseline; gap: 0.75rem;
+  font-family: var(--tk-mono); font-size: 0.72rem; letter-spacing: 0.05em;
+  text-transform: uppercase; color: var(--tk-ink-faint); }
+.slide-num { font-weight: 600; color: var(--tk-accent); }
+.slide-section { color: var(--tk-ink-faint); }
+.slide-words { margin-left: auto; text-transform: none; letter-spacing: 0;
+  font-variant-numeric: tabular-nums; }
+.slide-words.over { color: var(--tk-accent); }
+.slide-permalink { color: var(--tk-rule); text-decoration: none; }
+.slide-permalink:hover { color: var(--tk-accent); }
+
+/* The projected block is what the room sees. On a light page a light panel needs
+   an edge to read as a panel at all, so it gets a rule and an accent spine rather
+   than the tonal contrast the dark version relied on. */
+.slide-projected { background: var(--tk-stage); border: 1px solid var(--tk-stage-edge);
+  border-left: 3px solid var(--tk-accent); border-radius: 3px;
+  padding: 1.1rem 1.4rem 1.2rem; margin-bottom: 1.3rem; }
+.projected-label { display: block; font-family: var(--tk-mono); font-size: 0.66rem;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--tk-ink-faint);
+  margin-bottom: 0.6rem; }
+.slide-projected ul { margin: 0; padding-left: 1.1rem; }
+.slide-projected ul ul { margin: 0.35rem 0 0.5rem; }
+.slide-projected ul ul li { color: var(--tk-ink-soft); font-size: 0.88rem; }
+.slide-projected strong { color: var(--tk-ink); }
+.slide-projected code { font-family: var(--tk-mono); background: var(--tk-code-bg);
+  color: var(--tk-ink); padding: 0.1em 0.35em; border-radius: 3px; font-size: 0.9em; }
+.slide-projected ul:empty { display: none; }
+.slide-projected li { color: var(--tk-ink-body); font-size: 0.95rem; line-height: 1.5;
+  margin-bottom: 0.35rem; max-width: none; }
+.slide-projected li:last-child { margin-bottom: 0; }
+.slide-projected li::marker { color: var(--tk-accent); }
+.slide-projected blockquote { margin: 0.4rem 0 0.5rem; padding-left: 0.9rem;
+  border-left: 2px solid var(--tk-rule); color: var(--tk-ink-soft);
+  font-size: 0.92rem; }
+/* Tables on a slide: same rules as the page, restated so the deck does not depend
+   on whichever host site.css happens to be underneath it. */
+.slide-projected table { width: 100%; border-collapse: collapse; margin: 0;
+  font-size: 0.88rem; }
+.slide-projected th, .slide-projected td { text-align: left;
+  padding: 0.4rem 0.7rem 0.4rem 0; border-bottom: 1px solid var(--tk-rule);
+  vertical-align: top; color: var(--tk-ink-body); }
+.slide-projected th { font-family: var(--tk-mono); font-size: 0.68rem;
+  text-transform: uppercase; letter-spacing: 0.06em; color: var(--tk-ink-faint);
+  border-bottom: 1px solid var(--tk-ink-faint); }
+#stage-bullets table { width: 100%; border-collapse: collapse;
+  font-size: 3.4cqh; }
+#stage-bullets th, #stage-bullets td { text-align: left;
+  padding: 1cqh 1.6cqh 1cqh 0; border-bottom: 1px solid var(--tk-rule);
+  vertical-align: top; color: var(--tk-ink-body); }
+#stage-bullets th { font-family: var(--tk-mono); font-size: 2.4cqh;
+  text-transform: uppercase; letter-spacing: 0.06em; color: var(--tk-ink-faint);
+  border-bottom: 1px solid var(--tk-ink-faint); }
+.slide-image { margin: 0 0 0.8rem; text-align: center; }
+.slide-image img { max-width: 100%; height: auto; border-radius: 4px;
+  border: 1px solid var(--tk-rule); }
+
+.talk-slide.is-stub .slide-projected { background: var(--tk-warn-bg);
+  border-color: var(--tk-warn-edge); border-left-color: var(--tk-warn); }
+.stub-note { color: var(--tk-warn); }
+
+.slide-cues { border-left: 2px solid var(--tk-rule); padding-left: 1rem; }
+.cues-label { display: block; font-family: var(--tk-mono); font-size: 0.66rem;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--tk-ink-faint);
+  margin-bottom: 0.5rem; }
+.slide-cues ul { margin: 0; padding-left: 1.1rem; }
+.slide-cues li { font-size: 0.95rem; line-height: 1.6; margin-bottom: 0.35rem; }
+.slide-cues p { font-size: 0.95rem; line-height: 1.6; }
+.slide-note { margin-top: 1rem; font-size: 0.86rem; }
+.slide-note summary { cursor: pointer; font-family: var(--tk-mono);
+  color: var(--tk-ink-faint); font-size: 0.72rem; letter-spacing: 0.05em;
+  text-transform: uppercase; }
+.slide-note summary:hover { color: var(--tk-accent); }
+.slide-note p { margin-top: 0.6rem; color: var(--tk-ink-soft); padding-left: 0.9rem;
+  border-left: 2px solid var(--tk-rule-soft); }
+
+@media (max-width: 640px) {
+  .talk-meta { gap: 1rem; }
+  .slide-head { flex-wrap: wrap; gap: 0.5rem; }
+  .slide-words { margin-left: 0; }
+  .talk-toc .toc-section { display: none; }
+}

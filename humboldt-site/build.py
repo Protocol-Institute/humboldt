@@ -736,7 +736,9 @@ def _behavior_graph_svg() -> str:
     the records the way a checked-in PNG did.
     """
     from agent import behavior_graph as _bg
-    return _bg.graph_svg()
+    # light=True: the talk-kit theme's stage is a light panel, and the phase accents
+    # from mdp.yaml were picked for the dark /brain/ UI. See _LIGHT_PHASE there.
+    return _bg.graph_svg(light=True)
 
 
 def _freytag_diagram_svg() -> str:
@@ -966,111 +968,95 @@ def _build_talk() -> None:
 
 {chr(10).join(sections)}"""
 
-    extra_css = """
-    /* ── Player ── */
-    .talk-player { margin: 0 0 2.5rem; }
-    .stage { background: #23262b; border-radius: 5px; aspect-ratio: 16 / 9;
-      display: flex; align-items: center; overflow: hidden; }
-    .stage-inner { padding: clamp(1.2rem, 3.2vw, 2.6rem); width: 100%; }
-    .stage-meta { display: flex; gap: 0.7rem; align-items: baseline; font-size: 0.7rem;
-      letter-spacing: 0.1em; text-transform: uppercase; color: #7f8790;
-      margin-bottom: 0.7rem; }
-    .stage-meta .law-tag { background: #2f343a; color: #8fb8b8; }
-    #stage-title { font-size: clamp(1.15rem, 3.1vw, 2.1rem); color: #FAFAF7;
-      margin: 0 0 clamp(0.7rem, 1.8vw, 1.3rem); line-height: 1.2; }
-    #stage-bullets { margin: 0; padding-left: 1.2rem; }
-    #stage-bullets li { color: #d8dade; max-width: none; margin-bottom: 0.5rem;
-      font-size: clamp(0.8rem, 1.65vw, 1.05rem); line-height: 1.45; }
-    #stage-bullets li::marker { color: #6f7780; }
-    .stage-diagram { margin: 0 0 clamp(0.6rem, 1.6vw, 1.1rem); }
-    .stage-diagram svg, .slide-diagram svg { display: block; width: 100%; height: auto; }
+    # ── Presentation style: the shared talk-kit theme ───────────────────────
+    # Ported 2026-09-23 (the deck's own talk day, on operator instruction; the
+    # standing note said "after the talk"). `talk-theme.css` is written into this
+    # directory by talk-kit/sync.py, which is its ONLY writer — edit the canonical
+    # copy at Code/talk-kit/theme/ and re-run sync, or the next sync reports drift
+    # and overwrites. It is inlined rather than linked so fullscreen presentation
+    # never waits on the network.
+    #
+    # The theme is DARK-ON-LIGHT and sizes everything inside .stage in `cqh`. Three
+    # of the four deltas in talk-kit/reference/adopting.md are handled in the block
+    # below; the fourth (diagram inversion) is handled where the diagrams are built.
+    _theme = _SITE / "talk-theme.css"
+    if not _theme.exists():
+        raise SystemExit("talk-theme.css missing — run Code/talk-kit/sync.py")
+    extra_css = _theme.read_text() + """
+    /* ── humboldt overrides, applied AFTER the theme ──────────────────────
+       (1) ACCENT. Humboldt's mark is teal, not the family rust. This is the single
+       token the theme exposes for exactly this, so it is a one-line override rather
+       than a fork. --tk-accent-soft moves with it or the review banner and button
+       hovers keep the rust tint. */
+    :root { --tk-accent: #2A6B6B; --tk-accent-soft: #edf5f5; }
+
+    /* (2) SIZING. The pre-port stage sized in vw clamp() and restated every
+       font-size again under .stage:fullscreen. The theme sizes in cqh against a
+       `container-type: size` stage, so the embedded preview and the fullscreen
+       presentation are one composition at two scales and those overrides are not
+       translated — they are DELETED. Re-adding any of them double-applies, which
+       adopting.md names as the likely first bug of this port. The theme's own
+       `.stage:fullscreen` rule (border/radius/aspect-ratio only) is all that is
+       needed. Anything added to the stage from here on must be in cqh.
+
+       (3) MARKUP. `ul#stage-bullets` vs the other decks' div-wrapping-ul: the
+       theme's selectors already match both spellings. Nothing to do, but anything
+       added later must keep matching both.
+
+       (4) The diagram slot. This deck inlines <svg> into `#stage-diagram` where
+       the shared pipeline references an <img> in `.stage-visual`. Give it the same
+       flex contract the theme gives .stage-visual: bullets take their natural
+       height, the diagram takes the remainder and no more. `min-height: 0` is
+       load-bearing — a flex item's default `min-height: auto` refuses to shrink
+       below its content, which pushes bullets off the bottom of the stage. */
+    .stage-diagram { flex: 1 1 auto; min-height: 0; display: flex;
+      align-items: center; justify-content: center; margin: 0 0 2.5cqh; }
+    .stage-diagram[hidden] { display: none !important; }
+    /* The direct child needs an explicit width. law_arc wraps its svg in a
+       `.ft-wrap` div, and a block in a flex row is shrink-to-fit — so `width:100%`
+       on the svg inside resolved against a shrink-wrapped parent and the arc
+       rendered at the SVG default 300px inside a 1439px slot. Measured, not
+       guessed: it was 5x too small on the first pass of this port. */
+    .stage-diagram > * { width: 100%; max-width: 100%; margin: 0;
+      min-height: 0; display: flex; flex-direction: column; justify-content: center; }
+    .stage-diagram svg { display: block; width: 100%; height: auto;
+      max-height: 100%; flex: 0 1 auto; min-height: 0; }
+    /* Both diagram modules cap their own width for the prose pages they also serve
+       (law_arc 900px on /laws/, behavior_graph 1000px). On the stage that cap is
+       what keeps diagram type below the legibility floor, so lift it here only. */
+    .stage .ft-svg, .stage .bg-svg { max-width: 100%; }
+    /* law_arc's legend is an HTML block INSIDE .ft-wrap, so on the stage it competes
+       with the arc for the diagram slot's height and letterboxes it — measured at
+       0.80 drawn scale against 1.00 before this port, i.e. the port itself cost the
+       arc 20%. It is also the least readable thing on the slide: its keys render at
+       ~7px at 1080p, against a 24px legibility floor. Hidden on the STAGE only; the
+       transcript below keeps it, where it is read at reading distance and is legible.
+       This buys the arc its 20% back. It does not fix the underlying problem — see
+       the diagram-legibility note in dev-log 2026-09-23. */
+    .stage .ft-legend { display: none; }
     .slide-diagram { margin-bottom: 0.9rem; }
-    /* A slide image occupies the same slot as a diagram. Height is capped against the
-       16:9 stage so a tall capture cannot push the bullets off the bottom of it. */
-    .slide-image { margin: 0 0 0.7rem; text-align: center; }
-    .slide-image img { max-width: 100%; max-height: 46vh; height: auto; width: auto;
-      border-radius: 4px; display: inline-block; }
-    .stage .slide-image img { max-height: 58%; border: 1px solid #333a42; }
+    .slide-diagram svg { display: block; width: 100%; height: auto; }
 
-    .player-bar { display: flex; align-items: center; gap: 0.6rem; margin-top: 0.85rem;
-      flex-wrap: wrap; }
-    .pbtn { font-family: inherit; font-size: 0.82rem; color: #444; background: #f0f0ec;
-      border: 1px solid #e0e0da; border-radius: 3px; padding: 0.42rem 0.7rem;
-      cursor: pointer; transition: background 0.15s, color 0.15s; line-height: 1; }
-    .pbtn:hover { background: #e6ece9; color: #2A6B6B; }
-    .pbtn-main { background: #2A6B6B; border-color: #2A6B6B; color: #FAFAF7;
-      font-weight: 500; min-width: 8.5rem; }
-    .pbtn-main:hover { background: #1d4f4f; color: #FAFAF7; }
-    .ptime { font-size: 0.78rem; color: #888; font-variant-numeric: tabular-nums;
-      white-space: nowrap; }
-    .pprogress { flex: 1 1 6rem; height: 3px; background: #e8e8e4; border-radius: 2px;
-      overflow: hidden; min-width: 4rem; }
-    .pprogress-fill { height: 100%; width: 0; background: #2A6B6B; transition: width 0.25s linear; }
-
-    .stage:fullscreen { border-radius: 0; aspect-ratio: auto; height: 100%; }
-    .stage:fullscreen #stage-title { font-size: clamp(2rem, 5.5vw, 4.2rem); }
-    .stage:fullscreen #stage-bullets li { font-size: clamp(1rem, 2.6vw, 2rem); }
-    .stage:fullscreen .stage-meta { font-size: clamp(0.8rem, 1.4vw, 1.1rem); }
-
-    .slide-jump { background: none; border: none; cursor: pointer; padding: 0;
-      color: #ccc; font-size: 0.8rem; font-family: inherit; }
-    .slide-jump:hover { color: #2A6B6B; }
-
-    .talk-review { background: #f4f7f4; border-left: 3px solid #2A6B6B; padding: 1.1rem 1.4rem;
-      margin-bottom: 2rem; border-radius: 0 3px 3px 0; }
-    .talk-review p { font-size: 0.94rem; margin-bottom: 0.7rem; }
-    .talk-review p:last-child { margin-bottom: 0; }
-
-    .talk-meta { display: flex; flex-wrap: wrap; gap: 1.6rem; font-size: 0.85rem; color: #666;
-      padding-bottom: 1.2rem; border-bottom: 1px solid #e8e8e4; margin-bottom: 1.5rem; }
-    .talk-meta strong { font-weight: 500; color: #1A1A1A; }
-
-    .talk-toc { font-size: 0.88rem; margin-bottom: 3.5rem; }
-    .talk-toc td { padding: 0.3rem 0.75rem 0.3rem 0; border-bottom: 1px solid #f0f0ec; }
-    .talk-toc .toc-num { width: 2.5rem; color: #999; font-variant-numeric: tabular-nums; }
-    .talk-toc .toc-num a { color: #999; }
-    .talk-toc .toc-law { width: 4.5rem; text-align: right; }
-
-    .talk-slide { margin-bottom: 3.5rem; scroll-margin-top: 5rem; }
-    .talk-slide h2 { margin-top: 0.35rem; margin-bottom: 1rem; }
-
-    .slide-head { display: flex; align-items: baseline; gap: 0.75rem; font-size: 0.75rem;
-      letter-spacing: 0.05em; text-transform: uppercase; color: #999; }
-    .slide-num { font-weight: 500; }
-    .slide-words { margin-left: auto; text-transform: none; letter-spacing: 0;
-      font-variant-numeric: tabular-nums; }
-    .slide-words.over { color: #a4552f; }
-    .slide-permalink { color: #ccc; text-decoration: none; }
-    .slide-permalink:hover { color: #2A6B6B; text-decoration: none; }
-
-    .law-tag { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.72rem;
-      letter-spacing: 0.02em; color: #2A6B6B; background: #edf5f5;
+    /* Humboldt-only chrome the shared theme has no equivalent for: the law tag on
+       a law slide, the transcript's jump-to-slide button, and the narration block
+       (the other two decks carry cues, which the theme styles instead). */
+    .law-tag { font-family: var(--tk-mono); font-size: 0.72rem; letter-spacing: 0.02em;
+      color: var(--tk-accent); background: var(--tk-accent-soft);
       padding: 0.1rem 0.4rem; border-radius: 2px; }
-
-    .slide-projected { background: #23262b; border-radius: 4px; padding: 1.1rem 1.4rem 1.2rem;
-      margin-bottom: 1.4rem; }
-    .projected-label { display: block; font-size: 0.68rem; letter-spacing: 0.1em;
-      text-transform: uppercase; color: #7f8790; margin-bottom: 0.6rem; }
-    .slide-projected ul { margin: 0; padding-left: 1.1rem; }
-    .slide-projected li { color: #e8e8e4; font-size: 0.95rem; line-height: 1.5;
-      margin-bottom: 0.35rem; max-width: none; }
-    .slide-projected li:last-child { margin-bottom: 0; }
-    .slide-projected li::marker { color: #6f7780; }
-
+    .stage-meta .law-tag { background: var(--tk-accent-soft); color: var(--tk-accent);
+      font-size: 2.2cqh; padding: 0.2cqh 0.8cqh; }
+    .slide-jump { background: none; border: none; cursor: pointer; padding: 0;
+      color: var(--tk-rule); font-size: 0.8rem; font-family: inherit; }
+    .slide-jump:hover { color: var(--tk-accent); }
+    .talk-toc .toc-law { width: 4.5rem; text-align: right; }
     .slide-narration p { font-size: 1.02rem; line-height: 1.7; }
 
-    .slide-note { margin-top: 1.1rem; font-size: 0.86rem; }
-    .slide-note summary { cursor: pointer; color: #888; font-size: 0.75rem;
-      letter-spacing: 0.05em; text-transform: uppercase; }
-    .slide-note summary:hover { color: #2A6B6B; }
-    .slide-note p { margin-top: 0.6rem; color: #555; padding-left: 0.9rem;
-      border-left: 2px solid #e8e8e4; }
-
-    @media (max-width: 640px) {
-      .talk-meta { gap: 1rem; }
-      .slide-head { flex-wrap: wrap; gap: 0.5rem; }
-      .slide-words { margin-left: 0; }
-    }
+    /* The main play button is the audio transport, which only this deck has. The
+       theme styles .pbtn generically; this is the teal-filled primary. */
+    .pbtn-main { background: var(--tk-accent); border-color: var(--tk-accent);
+      color: #FAFAF7; font-weight: 500; min-width: 8.5rem; }
+    .pbtn-main:hover { background: #1d4f4f; color: #FAFAF7;
+      border-color: #1d4f4f; }
     """
 
     # Player behaviour. Audio advances the deck: each slide's clip plays, then `ended`
@@ -1224,29 +1210,23 @@ def _build_talk() -> None:
         "Institute's artificial researcher, on its own candidate laws of protocolized "
         "systems — published before delivery and under public review."
     )
-    # The arc on slide 02 is agent/law_arc.py's, whose CSS is authored for the LIGHT
-    # laws page (#777 labels, #2C2C2C curve, white dot strokes). Dropped onto the
-    # #23262b stage unmodified, the labels and both event dots are near-invisible. So:
-    # its own CSS first, then a dark re-skin scoped to .stage / .slide-diagram so it
-    # cannot leak back into /laws/. Presentation attributes lose to CSS rules, so no
-    # !important is needed to beat the inline stroke/fill. Keep in sync if law_arc's
-    # palette changes.
+    # (4) DIAGRAM INVERSION — the fourth adopting.md delta.
+    #
+    # law_arc's CSS was always authored for the LIGHT /laws/ page (#777 labels,
+    # #2C2C2C curve, white dot strokes). Before the talk-kit port the stage was
+    # #23262b, so the talk page carried a dark re-skin of it scoped to .stage /
+    # .slide-diagram. The theme's stage is now a light panel, which is the same
+    # ground law_arc was drawn for — so that whole re-skin is DELETED rather than
+    # re-tuned, and the arc renders here exactly as it does on /laws/. One picture,
+    # one palette, which is what slide 03 showing the real /laws/ arc was for.
+    #
+    # behavior_graph.py was authored dark-first in session 38 for the old stage and
+    # has no light consumer to inherit from, so it carries its own light palette
+    # (`_CSS_LIGHT`) instead. See its module docstring.
     from agent import behavior_graph as _behavior_graph
-    extra_css += _behavior_graph._CSS
+    extra_css += _behavior_graph._CSS_LIGHT
     from agent import law_arc as _law_arc
-    extra_css += _law_arc._CSS + """
-    .stage .ft-lbl,       .slide-diagram .ft-lbl       { fill: #9aa3ad; }
-    .stage .ft-event,     .slide-diagram .ft-event     { fill: #e6e6e6;
-                                                         font-style: normal; }
-    .stage .ft-axis,      .slide-diagram .ft-axis      { fill: #6f7780; }
-    .stage .ft-curve,     .slide-diagram .ft-curve     { stroke: #e6e6e6; }
-    .stage .ft-base,      .slide-diagram .ft-base      { stroke: #454b53; }
-    .stage .ft-event-dot, .slide-diagram .ft-event-dot { fill: #e6e6e6; }
-    .stage .idot,         .slide-diagram .idot         { stroke: #23262b; }
-    .stage .ft-legend,    .slide-diagram .ft-legend    { color: #9aa3ad; }
-    .stage .ft-legend-note, .slide-diagram .ft-legend-note { color: #6f7780; }
-    .stage .ft-wrap,      .slide-diagram .ft-wrap      { margin-bottom: 0.4rem; }
-"""
+    extra_css += _law_arc._CSS
 
     out.write_text(_page(title, _TALK_PATH, body, extra_css, extra_js, description=desc))
     print(f"  Talk → dist/talks/{_TALK_SLUG}/index.html "
