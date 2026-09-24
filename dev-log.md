@@ -6,6 +6,48 @@ Most recent entry first.
 
 ---
 
+## 2026-09-24 (session 40) — leaked wait-loops found and killed; gotcha documented at Code/ level
+
+**Tracks active:** T2
+**Daemon PID:** 1869 (running, unpaused, untouched)
+
+Short session, no code changed in this repo. The operator asked what background tasks were
+running, and the answer was two of mine that should not have been.
+
+Both were `while pgrep -f "agent.humboldt shallow-read" > /dev/null; do sleep N; done`
+watchers wrapped around session 38's shallow-read passes. They were still alive **~38 and
+~37 hours later**. `pgrep -f` matches full command lines, and the wrapping `zsh -c` carries
+the pattern string in its own argv — so each loop matched itself, the condition stayed true
+after the real work finished, and both would have spun until reboot. I wrote the pattern
+twice in one session and leaked both times; neither was noticed until asked about directly,
+because a sleeping process produces no output and the harness had already delivered the
+completion notifications I actually needed.
+
+Killed both (harness confirmed exit 144). Their orphaned `sleep` children were reparented
+to init and expired on their own; final sweep clean. The humboldt daemon (PID 1869, up 23
+days) is untouched and should stay running — it is the project's service, not a session
+artifact.
+
+Documented at the `Code/` level, per `Code/CLAUDE.md`'s rule that a new environment gotcha
+goes there rather than only in the affected project: a new `warnings.md` section, "Shell
+wait-loops: `pgrep -f` matches the loop's own wrapper", with the mechanism, the evidence,
+three fixes in preference order (prefer the harness's own background completion
+notification over writing a poll loop at all; else match the interpreter path or a pidfile;
+and do *not* attempt to self-exclude by pid, since the match is the parent wrapper rather
+than the `pgrep` process), and the generalisation to any script grepping the process table
+for a string present in its own argv. Logged in `Code/status.md`. `Code/` is not a git
+repo, so those are file edits with nothing to commit.
+
+Filed under warnings rather than `incidents/`: no data loss, no exposure, no outage — a
+recurring authoring trap that fails silently, which is what `warnings.md` is for.
+
+**Open (next session):** unchanged from session 39 — slide 04 diagram type below the 24px
+floor; `funnel_context.research_context()` seed sampling; L-022 vs L-023; supervisor review
+of 13 exploration laws, L-012 first; L-006's three named papers; ~260 triaged-unread feed
+items. Pre-notebook queue still holds 3 entries (no T1 since session 38).
+
+---
+
 ## 2026-09-23 (session 39) — talk-kit theme adopted; diagram legibility measured
 
 **Tracks active:** T2

@@ -4,6 +4,25 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-09-24 (session 40) — leaked wait-loops killed; `pgrep -f` gotcha documented
+
+**Daemon PID:** 1869 (running, unpaused). Untouched — it is the project's service, not a
+session artifact, and should stay up.
+
+No code changed in this repo. Operator asked what background tasks were running; two were
+mine and should not have been. Session 38's shallow-read watchers —
+`while pgrep -f "agent.humboldt shallow-read"; do sleep N; done` — were still alive **~38
+and ~37 hours later**: `pgrep -f` matches full command lines and the wrapping `zsh -c`
+carries the pattern in its own argv, so each loop matched itself and would have spun until
+reboot. Killed both; orphaned `sleep` children expired on their own; sweep clean.
+
+Documented at the `Code/` level (per `Code/CLAUDE.md`: environment gotchas go there, not
+only in the affected project) — new `warnings.md` section "Shell wait-loops: `pgrep -f`
+matches the loop's own wrapper", plus a `Code/status.md` Done entry. Filed as a warning
+rather than an incident: no data loss, exposure, or outage.
+
+**Open:** unchanged from session 39.
+
 ## 2026-09-23 (session 39) — talk-kit theme adopted; talk deck ingested; /brain/ relinked
 
 **Daemon PID:** 1869 (running, unpaused). Untouched this session.
