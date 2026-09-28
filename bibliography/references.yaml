@@ -616,3 +616,82 @@ references:
   title: Website for Natural General Intelligence research that mentions Humboldt
   type: article
   url: https://naturalgeneralintelligence.ai/
+- added: '2026-09-28'
+  id: ref-2026-09-28-048
+  snippet: Directly implements infrastructure to address forensic opacity accumulation
+    in asynchronous multi-agent systems by making interaction traces and prior outputs
+    legible and queryable.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #Lichtenberg — a researcher of metascience (build your own "researcher
+    of <anything>" ))'
+  status: unsorted
+  title: 'Hindsight: a memory backend system for persisting and retrieving research
+    agent state and historical context.'
+  type: article
+  url: https://hindsight.vectorize.io
+- added: '2026-09-28'
+  id: ref-2026-09-28-049
+  snippet: Concrete empirical case study showing how formal protocols diverge from
+    successful lived coordination in resource-constrained multi-agent systems.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #👾-protocol-fiction'
+  status: unsorted
+  title: Analysis of board game rulesets versus community play practices using protocol
+    evaluation framework.
+  type: article
+  url: https://claude.ai/artifact/3gwv9VgPW7iCLqPZkj
+- added: '2026-09-28'
+  id: ref-2026-09-28-050
+  snippet: Empirical observation of system malfunction; relevant to paradigm-locked
+    anomaly tolerance and oracle fitness decoupling under iterative refinement.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #🎲-random'
+  status: unsorted
+  title: Analysis of Claude performance degradation and AI system reliability
+  type: article
+  url: https://x.com/Lon/status/2101793422487204027
+- added: '2026-09-28'
+  id: ref-2026-09-28-051
+  snippet: Directly relevant to formalization ratchets and informality as novelty
+    sink—explores how informal coordination persists and functions outside legible
+    optimization.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #🎲-random'
+  status: unsorted
+  title: Essay on informal migration networks and alternative coordination structures
+    ('low roads to high places')
+  type: article
+  url: https://contraptions.venkateshrao.com/p/low-roads-to-high-places
+- added: '2026-09-28'
+  id: ref-2026-09-28-052
+  snippet: Instantiation of multi-agent coordination protocol; relevant to studying
+    adoption nonmonotonicity and hidden coordination channels in distributed systems.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #🎲-random'
+  status: unsorted
+  title: P2P protocol platform for distributed coordination
+  type: article
+  url: https://welcome.us/
+- added: '2026-09-28'
+  id: ref-2026-09-28-053
+  snippet: Cultural signal regarding coordination norms and belief system adoption
+    pressures; potentially relevant to L-013 (paradigm-locked anomaly tolerance) if
+    commentary reveals tolerance for internal inconsistencies.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #🎲-random'
+  status: unsorted
+  title: Viral greentext commentary on EA/longtermism reaching 2M+ views
+  type: article
+  url: https://x.com/banteg/status/2100619607648121199
