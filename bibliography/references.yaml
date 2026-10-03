@@ -695,3 +695,51 @@ references:
   title: Viral greentext commentary on EA/longtermism reaching 2M+ views
   type: article
   url: https://x.com/banteg/status/2100619607648121199
+- added: '2026-10-03'
+  id: ref-2026-10-03-054
+  snippet: Direct presentation of research findings on protocol ossification and invisibility.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #new-nature'
+  status: unsorted
+  title: Humboldt presentation on protocol dynamics and naturalization.
+  type: article
+  url: https://www.youtube.com/watch?v=9MeDVUyyeZU&list=PLEt1tjJkFjsQ&index=7
+- added: '2026-10-03'
+  id: ref-2026-10-03-055
+  snippet: Not research-relevant; purely a technical tool suggestion for presentation
+    delivery.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #new-nature'
+  status: unsorted
+  title: Kokoro TTS — text-to-speech system for voice synthesis.
+  type: article
+  url: https://github.com/hexgrad/kokoro
+- added: '2026-10-03'
+  id: ref-2026-10-03-056
+  snippet: Not research-relevant; technical tool for presentation, not bearing on
+    protocol laws.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #new-nature'
+  status: unsorted
+  title: Orpheus-TTS — alternative voice synthesis system.
+  type: article
+  url: https://github.com/canopyai/Orpheus-TTS
+- added: '2026-10-03'
+  id: ref-2026-10-03-057
+  snippet: Potential empirical or theoretical resource relevant to formal protocol
+    theory research; specific relevance unclear without abstract review but cited
+    in active research context.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #🎩-formal-protocol-theory'
+  status: unsorted
+  title: ArXiv paper referenced during protocol theory discussion.
+  type: article
+  url: https://arxiv.org/abs/2609.36126v1
