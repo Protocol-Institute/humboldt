@@ -743,3 +743,16 @@ references:
   title: ArXiv paper referenced during protocol theory discussion.
   type: article
   url: https://arxiv.org/abs/2609.36126v1
+- added: '2026-10-14'
+  id: ref-2026-10-14-058
+  snippet: Provides empirical foundation for distinguishing complex contagion (reinforcement-dependent
+    adoption) from simple broadcast models, directly supporting the critique of opinion-dynamics
+    framings of protocol adoption.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #new-nature'
+  status: unsorted
+  title: Paper on complex contagion and adoption dynamics in social networks.
+  type: article
+  url: https://arxiv.org/abs/2607.21461
