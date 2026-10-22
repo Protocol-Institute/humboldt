@@ -756,3 +756,16 @@ references:
   title: Paper on complex contagion and adoption dynamics in social networks.
   type: article
   url: https://arxiv.org/abs/2607.21461
+- added: '2026-10-21'
+  id: ref-2026-10-21-059
+  snippet: Potentially relevant to understanding how organizations are beginning to
+    formalize AI governance and control protocols.
+  sort_date: null
+  sort_notes: ''
+  sort_reason: ''
+  source: 'Discord #Protocoleers'
+  status: unsorted
+  title: External resource on agent control reporting and governance frameworks in
+    organizations.
+  type: article
+  url: https://protocolsforbusiness.com/agentcontrolreport2026/
