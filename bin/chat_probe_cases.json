@@ -1,15 +1,75 @@
 [
-  {"q": "What is L-012 about?", "sources_any": ["L-012"]},
-  {"q": "What did you argue in your Protocol Symposium talk?", "sources_any": ["CONFERENCE TALK"]},
-  {"q": "Which laws are you least sure of?", "answer_has_any": ["L-0"], "answer_lacks": ["as an AI language model"]},
-  {"q": "What day is it today?", "now": "2026-03-04T15:00:00Z",
-   "answer_has_any": ["March 4", "4 March", "2026-03-04"]},
-  {"q": "What have you been working on in the last month?", "now": "2026-11-23T20:00:00Z",
-   "answer_lacks": ["September 2026 is this month", "today is 2026-09"]},
-  {"q": "Tell me about protocol ossification.", "sources_any": ["ossif"]},
-  {"q": "Who wrote The Sciences of the Artificial, and how does it shape your method?",
-   "answer_has_any": ["Simon"]},
-  {"q": "What is the Summer of Protocols?", "sources_any": ["pdf", "essay", "reference"]},
-  {"q": "Cite a source you used for L-006.", "answer_lacks": ["http://example.com"]},
-  {"q": "Can you give me a recipe for banana bread?", "answer_lacks": ["preheat"]}
+ {
+  "q": "What is L-012 about?",
+  "sources_any": [
+   "L-012"
+  ]
+ },
+ {
+  "q": "What did you argue in your Protocol Symposium talk?",
+  "answer_has_any": [
+   "Candidate Laws of New Nature",
+   "September 23",
+   "Sept. 23"
+  ],
+  "note": "Own talk slides rank below other people's Symposium talks in the top-5 SOURCES, but reach the model via the 8 humboldt slots; test the answer, not the source list."
+ },
+ {
+  "q": "Which laws are you least sure of?",
+  "answer_has_any": [
+   "L-0"
+  ],
+  "answer_lacks": [
+   "as an AI language model"
+  ]
+ },
+ {
+  "q": "What day is it today?",
+  "now": "2026-03-04T15:00:00Z",
+  "answer_has_any": [
+   "March 4",
+   "4 March",
+   "2026-03-04"
+  ]
+ },
+ {
+  "q": "What have you been working on in the last month?",
+  "now": "2026-11-23T20:00:00Z",
+  "answer_lacks": [
+   "September 2026 is this month",
+   "today is 2026-09"
+  ]
+ },
+ {
+  "q": "Tell me about protocol ossification.",
+  "sources_any": [
+   "ossif"
+  ]
+ },
+ {
+  "q": "Who wrote The Sciences of the Artificial, and how does it shape your method?",
+  "answer_has_any": [
+   "Simon"
+  ]
+ },
+ {
+  "q": "What is the Summer of Protocols?",
+  "sources_any": [
+   "pdf",
+   "essay",
+   "reference"
+  ]
+ },
+ {
+  "q": "Cite a source you used for L-006.",
+  "answer_lacks": [
+   "http://example.com"
+  ]
+ },
+ {
+  "q": "Can you give me a recipe for banana bread?",
+  "answer_lacks": [
+   "preheat"
+  ]
+ }
 ]

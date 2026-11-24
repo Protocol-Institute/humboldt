@@ -54,7 +54,7 @@ All PI org keys. No personal keys used.
 | `ANTHROPIC_API_KEY` | `../.env.keys` — personal key (PI org key deferred) |
 | `C3PO_WORKER_URL` | Phase 2 — URL of deployed c3po worker |
 | `C3PO_MCP_KEY` | Phase 2 — `MCP_API_KEY` from c3po config |
-| `CHAT_ADMIN_KEY` | Site-chat admin key; same value as the `humboldt-site` Pages secret. Gates `bin/chat_probe.py` / `bin/ab_model.py`. **Not yet created** (session 42) |
+| `CHAT_ADMIN_KEY` | Site-chat admin key; same value as the `humboldt-site` Pages secret. Gates `bin/chat_probe.py` / `bin/ab_model.py`. Registered as `HUMBOLDT_CHAT_ADMIN_KEY` in `../.env.keys` (2026-11-24) |
 
 ---
 
@@ -537,7 +537,7 @@ Sessions touch one or more tracks. **Startup:** Track 2 always runs first; Track
 Items marked **[REQUIRED]** are non-skippable. The session checklist must be posted before the session closes.
 
 **Carry-overs (S6) — raise at startup, delete when done:**
-- **Answer-path upgrades proven on PIBot (added 2026-10-09).** Apply [`../c3po/plans/answer-path-playbook.md`](../c3po/plans/answer-path-playbook.md) to Humboldt's web chat (`humboldt-site/functions/chat.js`): items 0-3 (saved probe + A/B harness, current date in the user message, streamed answers, `claude-sonnet-4-6` -> `claude-sonnet-5-5` with `thinking: {type: "between_tools"}` after an A/B in Humboldt's own voice). **Status 2026-11-23 (s42):** items 1–2 live and verified; item 0 built (`bin/chat_probe.py`, `bin/ab_model.py`, `bin/test_chat.mjs`) but blocked on `CHAT_ADMIN_KEY`; item 3 staged as `AB_VARIANTS.b`, so switch only after the A/B. Item 4 (the Institute calendar) is a candidate, since Humboldt is asked about PI events too. Item 5 needs no backfill for PIBot's namespaces: Humboldt reads PIBot's index, whose vectors now carry `ts_unix` and `event_id`. The research pipeline's models (`agent/`) are a separate decision with their own quality bar. Redeploying `humboldt-site` is already an open devops item. Update the playbook's status table as items land.
+- **Answer-path upgrades proven on PIBot (added 2026-10-09).** Apply [`../c3po/plans/answer-path-playbook.md`](../c3po/plans/answer-path-playbook.md) to Humboldt's web chat (`humboldt-site/functions/chat.js`): items 0-3 (saved probe + A/B harness, current date in the user message, streamed answers, `claude-sonnet-4-6` -> `claude-sonnet-5-5` with `thinking: {type: "between_tools"}` after an A/B in Humboldt's own voice). **Status 2026-11-24 (s42): items 0–3 DONE.** Probe 10/10 on production. A/B in `data/ab-2026-11-24.md`: Sonnet 5.5 median 9.8 s vs 20.1 s, $0.0143 vs $0.0164, and more candid. Now the default (`DEFAULT_VARIANT = "b"`, `between_tools`). No server-side refusal fallback; a refusal returns a fixed message. Remaining: item 4 (calendar) only. Item 4 (the Institute calendar) is a candidate, since Humboldt is asked about PI events too. Item 5 needs no backfill for PIBot's namespaces: Humboldt reads PIBot's index, whose vectors now carry `ts_unix` and `event_id`. The research pipeline's models (`agent/`) are a separate decision with their own quality bar. Redeploying `humboldt-site` is already an open devops item. Update the playbook's status table as items land.
 
 ---
 

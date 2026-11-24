@@ -46,19 +46,19 @@ let r = await onRequestPost(mk({ query: "what is L-003?" }));
 let j = await r.json(); await Promise.all(waits);
 assert(j.answer === "Hello world", "joins text blocks, skips thinking");
 assert(j._model === undefined, "public request gets no admin fields");
-assert(lastClaudeBody.model === "claude-sonnet-4-6" && !lastClaudeBody.thinking, "default model unchanged");
+assert(lastClaudeBody.model === "claude-sonnet-5-5" && lastClaudeBody.thinking?.type === "between_tools", "default is Sonnet 5.5, thinking off");
 assert(/^Current date and time: \w+day, /.test(lastClaudeBody.messages.at(-1).content), "date line leads user message");
 assert(lastClaudeBody.system.length === 2 && lastClaudeBody.system[1].cache_control, "static time rule cached in system");
 let d = JSON.parse(kvStore.get("stats:day:" + day));
-const expect = 3.0 /* seeded: 1M in @ $3 */ + 0.06/1e6*80 + (1000*3 + 5000*0.3 + 100*15)/1e6 + 0.06/1e6*80;
+const expect = 3.0 /* seeded: 1M in @ $3 */ + 0.06/1e6*80 + (1000*2 + 5000*0.1 + 100*10)/1e6 + 0.06/1e6*80;
 assert(Math.abs(d.usd - expect) < 1e-9, "usd seeded from old tokens then priced at write time: " + d.usd.toFixed(6));
 
 r = await onRequestPost(mk({ query: "q2", variant: "b" }));
 await r.json(); await Promise.all(waits);
-assert(lastClaudeBody.model === "claude-sonnet-4-6", "variant ignored without admin key");
+assert(lastClaudeBody.model === "claude-sonnet-5-5", "variant ignored without admin key");
 r = await onRequestPost(mk({ query: "q3", variant: "b", now: "2026-01-05T12:00:00Z" }, { "X-Admin-Key": "wrong" }));
 await r.json(); await Promise.all(waits);
-assert(lastClaudeBody.model === "claude-sonnet-4-6", "variant ignored with wrong admin key");
+assert(lastClaudeBody.model === "claude-sonnet-5-5", "variant ignored with wrong admin key");
 
 r = await onRequestPost(mk({ query: "q4", variant: "b", now: "2026-01-05T12:00:00Z" }, { "X-Admin-Key": KEY }));
 j = await r.json(); await Promise.all(waits);
@@ -79,7 +79,7 @@ assert(events[0].ev === "meta" && events[0].data.sources.length, "meta first wit
 assert(events.filter(e => e.ev === "delta").map(e => e.data.text).join("") === "Hello", "deltas reassemble across chunk splits");
 assert(events.at(-1).ev === "done", "done last");
 const after = JSON.parse(kvStore.get("stats:day:" + day)).usd;
-assert(Math.abs((after - before) - ((1000*3 + 5000*0.3 + 100*15)/1e6 + 0.06/1e6*80)) < 1e-9, "stream usage merged and charged");
+assert(Math.abs((after - before) - ((1000*2 + 5000*0.1 + 100*10)/1e6 + 0.06/1e6*80)) < 1e-9, "stream usage merged and charged");
 
 // rate limit: public requests capped; admin bypasses
 for (let i = 0; i < 25; i++) kvStore.set("rl:unknown", "20");

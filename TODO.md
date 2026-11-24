@@ -13,7 +13,7 @@ Done in s42: seed-sampling fix (old item 0), talk (old 1, delivered), talk-kit p
 `daemon/costs.py` price table. Supervisor prep for old items 2–3 is in
 `plans/supervisor-review-2026-11-23.md`.
 
-**0. [H] Operator: create `CHAT_ADMIN_KEY`.** Generate it, show it, save it to `.env`,
+**0. ✅ DONE 2026-11-24: `CHAT_ADMIN_KEY` created, probe 10/10, A/B run, site chat on Sonnet 5.5.** Open follow-up: asked "what did you get wrong in your Symposium talk?", retrieval returned *no* talk chunks, so own-talk slides lose to other people's Symposium talks in ranking. Consider a talk-intent boost or a higher humboldt weight. Original item: Generate it, show it, save it to `.env`,
 `../.env.keys` and `../admin/keys.md`, *then* run `wrangler pages secret put
 CHAT_ADMIN_KEY --project-name humboldt` (security-policy Rule 1). Run `publish-site`
 after the put, since Pages secrets only reach new deployments. That unblocks:

@@ -29,7 +29,12 @@ const VOYAGE_MODEL    = "voyage-3";
 const VOYAGE_URL      = "https://api.voyageai.com/v1/embeddings";
 // Answer model. AB_VARIANTS lets an admin request pick another for an A/B
 // (bin/ab_model.py) without a deploy. See ../c3po/plans/answer-path-playbook.md §3.
-const CLAUDE_MODEL    = "claude-sonnet-4-6";
+// Switched 2026-11-24 after bin/ab_model.py (10 questions, data/ab-2026-11-24.md):
+// Sonnet 5.5 median 9.8s vs 20.1s, $0.0143 vs $0.0164 per answer, and more candid —
+// it declined to invent a self-critique the retrieval gave it nothing for, where
+// 4.6 confabulated one. Variant `a` kept for re-running the comparison.
+const CLAUDE_MODEL    = "claude-sonnet-5-5";
+const DEFAULT_VARIANT = "b";
 const AB_VARIANTS = {
   a: { model: "claude-sonnet-4-6" },
   // Sonnet 5.5: omitting `thinking` means ADAPTIVE thinking (slower, more
@@ -681,7 +686,7 @@ async function runRagCompletion(query, env, ctx, history,
       "or check sources right now. Do not invent citations.)"
     : buildContextBlock(humboldtItems, corpusItems);
 
-  const variant = (opts.variant && AB_VARIANTS[opts.variant]) || { model: CLAUDE_MODEL };
+  const variant = (opts.variant && AB_VARIANTS[opts.variant]) || AB_VARIANTS[DEFAULT_VARIANT];
   const params = {
     model:      variant.model,
     max_tokens: MAX_TOKENS,
@@ -725,7 +730,10 @@ async function runRagCompletion(query, env, ctx, history,
   }
 
   const claudeBody = await claudeRes.json();
-  const answer = answerText(claudeBody);
+  // Sonnet 5.5 safety classifiers can decline (HTTP 200, stop_reason "refusal").
+  const answer = claudeBody.stop_reason === "refusal" && !answerText(claudeBody)
+    ? "I can't help with that one. Ask me about my research, the candidate laws, or the Protocol Institute corpus."
+    : answerText(claudeBody);
   if (ctx) ctx.waitUntil(trackRequest(env.RATE_LIMIT, claudeBody.usage, egressBytes,
                                       fromCache, variant.model));
   const out = { answer, sources, corpusOffline };
