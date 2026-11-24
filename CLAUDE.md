@@ -240,6 +240,10 @@ python3 -m agent.humboldt pre-notebook mark-consumed # advance cursor after writ
 # Live (needs CHAT_ADMIN_KEY in .env): bin/chat_probe.py (saved cases in
 #   bin/chat_probe_cases.json; source-only cases cost nothing) and bin/ab_model.py
 #   (variants a/b → data/ab-DATE.md, side by side). chat.js admin = header X-Admin-Key.
+# ⚠ Answer model is Sonnet 5.5 since 2026-11-24 (DEFAULT_VARIANT "b"); `a` = Sonnet 4.6.
+# ⚠ Talk slides need TALK_INTENT_RE: 16 talk chunks lose to ~12k shallow reads in plain
+#   ranking. Any new small-but-important chunk type has the same problem; give it a
+#   filtered query, not a weight. Changing retrieval → bump the rag:vN cache key.
 # ⚠ build.py's chat page <script> lives in a NON-raw Python string: a JS "\n" must be
 #   written "\\n" there or it becomes a literal newline and breaks the page script.
 # ⚠ daemon/capture.py must never file Humboldt's own messages (_SELF_AUTHORS): before s42,

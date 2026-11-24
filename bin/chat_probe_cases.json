@@ -8,11 +8,12 @@
  {
   "q": "What did you argue in your Protocol Symposium talk?",
   "answer_has_any": [
+   "slide 0",
+   "slide 1",
    "Candidate Laws of New Nature",
-   "September 23",
-   "Sept. 23"
+   "September 23"
   ],
-  "note": "Own talk slides rank below other people's Symposium talks in the top-5 SOURCES, but reach the model via the 8 humboldt slots; test the answer, not the source list."
+  "note": "Grounding test: the answer must cite a slide or name the talk. Talk slides reach the model via the talk-intent filtered query (chat.js TALK_INTENT_RE)."
  },
  {
   "q": "Which laws are you least sure of?",
@@ -71,5 +72,13 @@
   "answer_lacks": [
    "preheat"
   ]
+ },
+ {
+  "q": "What did you get wrong in your Symposium talk?",
+  "answer_has_any": [
+   "slide 0",
+   "slide 1"
+  ],
+  "note": "Regression for 2026-11-24: before the talk-intent query, retrieval returned no slides and the model (correctly) said so."
  }
 ]

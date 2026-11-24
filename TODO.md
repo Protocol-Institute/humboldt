@@ -13,7 +13,7 @@ Done in s42: seed-sampling fix (old item 0), talk (old 1, delivered), talk-kit p
 `daemon/costs.py` price table. Supervisor prep for old items 2–3 is in
 `plans/supervisor-review-2026-11-23.md`.
 
-**0. ✅ DONE 2026-11-24: `CHAT_ADMIN_KEY` created, probe 10/10, A/B run, site chat on Sonnet 5.5.** Open follow-up: asked "what did you get wrong in your Symposium talk?", retrieval returned *no* talk chunks, so own-talk slides lose to other people's Symposium talks in ranking. Consider a talk-intent boost or a higher humboldt weight. Original item: Generate it, show it, save it to `.env`,
+**0. ✅ DONE 2026-11-24: `CHAT_ADMIN_KEY` created, probe 10/10, A/B run, site chat on Sonnet 5.5.** Talk-ranking follow-up FIXED 2026-11-24: chat.js `TALK_INTENT_RE` adds one type-filtered query and pins the slides first. Probe has a regression case. **Not done for Discord @mentions** (`agent/retrieval.py`), which has the same drowning problem. Original item: Generate it, show it, save it to `.env`,
 `../.env.keys` and `../admin/keys.md`, *then* run `wrangler pages secret put
 CHAT_ADMIN_KEY --project-name humboldt` (security-policy Rule 1). Run `publish-site`
 after the put, since Pages secrets only reach new deployments. That unblocks:
@@ -33,22 +33,28 @@ history. Then update the playbook status table in `../c3po/plans/answer-path-pla
 
 **2. [M] L-006 crux: the three named papers were already deep-read** and don't address it.
 Do a targeted re-read of 2402.08128 (cost of simulation), then choose sources that do.
-**Process bug:** `assess` gaps name sources without checking `bibliography.yaml`
-`read_depth`. Fix in `agent/assess.py`: annotate gap-named arXiv ids with their
-read_depth before the gap is written.
+`assess` read-depth bug FIXED 2026-11-24: `_annotate_read_status()` tags every arXiv
+id in a HOLD gap with its bibliography read_depth ("ALREADY DEEP-READ — re-read or pick
+another source").
 
 **3. [M] `induct` prompt never asks for `open_questions:` / `counterexamples:`**, so 13
 laws have both empty. `related:` is now filled mechanically (`laws.fill_related`).
 These two need a prompt change in `prompts/induct.md`.
 
-**4. [M] Funnel backlog + a triage discard rate that collapsed.** s42 feed triage marked
-**576 of 635 shallow (91%)**, against 70–77% on every earlier run, so the discard bar
-went slack. The s42 seed-sampling change, which shows triage a wider spread of seeds, may
-have contributed; nobody has measured it. Before re-triaging, sample ~20 of the shallow
-calls and judge them by hand. s42 shallow-read only the 43 Discord items and the 220
-Oct–Nov feed items (`inbox/triage-feed-2026-11-23-recent.md`). **356 Jul–Sep feed items
-are held** for a stricter re-triage. Induct still to run. ⚠ `induct` deploys and
-announces to Discord.
+**4. [M] Funnel backlog. The 91% triage rate is explained, and the held items are fine.**
+Analysed 2026-11-24:
+- **Selection:** 223 of the 635 items had already been marked shallow on 09-22. That run's
+  discards were archived, so the inbox remainder was pre-filtered.
+- **Seed context is not the cause:** the same 75 items with the old head-25 context, the
+  new sampled one, and no seeds at all scored 74% / 76% / 74%, with 3 disagreements.
+- **Triage is stable:** re-runs match the real run on the same items (77%).
+- **The rest is upstream:** intake relevance checks fell from ~1,300/month (Jun–Sep) to 590
+  (Oct) and 440 (Nov so far), while more of what arrives is relevant. Fewer feed items are
+  being fetched. **Check whether a feed source broke** (`daemon/config.yaml` feeds; the
+  `feed_triage` op in costs.jsonl).
+- **The 356 held Jul–Sep items need no re-triage:** 216 of the 223 previously triaged were
+  judged shallow twice. Shallow-read them as they are, then run induct.
+  ⚠ `induct` deploys and announces to Discord.
 
 **4b. [M] Contributor credit for Discord ideas.** The people model
 (`humboldt people`) counts only @mention interactions. Nothing credits a participant when

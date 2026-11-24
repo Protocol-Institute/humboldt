@@ -57,6 +57,12 @@ const TOP_K_HUMBOLDT  = 8;
 // 24h so the daily re-ingest of Humboldt's own namespace stays visible.
 const RAG_CACHE_TTL   = 24 * 3600;
 const MAX_SOURCES     = 8;
+// Questions about Humboldt's own talk. The 16 talk-slide chunks are drowned by
+// ~12k shallow reads in the humboldt index: for "what did you get wrong in your
+// Symposium talk?" the best slide scored 0.348 and the top 8 held none (measured
+// 2026-11-24). On talk intent, one extra type-filtered query reserves them slots.
+const TALK_INTENT_RE  = /\b(talk|symposium|slides?|presentation|keynote|lecture)\b/i;
+const TOP_K_TALK      = 3;
 const MAX_TOKENS      = 1200;
 const RATE_LIMIT_MAX  = 20;
 const RATE_LIMIT_TTL  = 3600;
@@ -478,9 +484,10 @@ async function checkRateLimit(kv, ip) {
 // is reported as an outage, not as an empty result.
 const QUOTA_MARKERS = ["egress limit", "read unit limit"];
 
-async function queryNamespace(host, apiKey, vector, topK, namespace) {
+async function queryNamespace(host, apiKey, vector, topK, namespace, filter) {
   const body = { vector, topK, includeMetadata: true };
   if (namespace) body.namespace = namespace;
+  if (filter) body.filter = filter;
   const res = await fetch(`${host}/query`, {
     method:  "POST",
     headers: { "Api-Key": apiKey, "Content-Type": "application/json" },
@@ -507,7 +514,8 @@ async function queryNamespace(host, apiKey, vector, topK, namespace) {
 async function ragCacheKey(query) {
   const digest = await crypto.subtle.digest(
     "SHA-256", new TextEncoder().encode(query.trim().toLowerCase()));
-  return "rag:v1:" + [...new Uint8Array(digest)].slice(0, 12)
+  return "rag:v2:" +  // v2 2026-11-24: talk-intent slots change what a talk question retrieves
+    [...new Uint8Array(digest)].slice(0, 12)
     .map(b => b.toString(16).padStart(2, "0")).join("");
 }
 
@@ -572,7 +580,9 @@ function buildContextBlock(humboldtItems, corpusItems) {
     ...corpusItems.map(m => ({ ...m, weightedScore: m.score * 1.0 })),
   ];
   const seen = new Map();
-  for (const m of all.sort((a, b) => b.weightedScore - a.weightedScore)) {
+  const ranked = all.sort((a, b) =>
+    (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0) || b.weightedScore - a.weightedScore);
+  for (const m of ranked) {
     const key = m.title || m.excerpt.slice(0, 40);
     if (!seen.has(key)) seen.set(key, m);
   }
@@ -621,13 +631,17 @@ async function runRagQuery(query, env, ctx, history, opts = {}) {
     queryNamespace(env.PINECONE_C3PO_HOST,     env.PINECONE_API_KEY, qv, TOP_K_CORPUS,   "discord_links"),
     queryNamespace(env.PINECONE_C3PO_HOST,     env.PINECONE_API_KEY, qv, TOP_K_CORPUS,   "sig"),
     queryNamespace(env.PINECONE_HUMBOLDT_HOST, env.PINECONE_API_KEY, qv, TOP_K_HUMBOLDT, ""),
+    TALK_INTENT_RE.test(query)
+      ? queryNamespace(env.PINECONE_HUMBOLDT_HOST, env.PINECONE_API_KEY, qv, TOP_K_TALK, "",
+                       { type: { $eq: "talk" } })
+      : Promise.resolve({ matches: [], bytes: 0 }),
   ]);
 
   // Every namespace shares one account quota, so if any came back quota-blocked
   // the retrieval as a whole is unreliable, not merely thin.
   const corpusOffline = results.some(r => r.unavailable);
   const egressBytes = results.reduce((n, r) => n + (r.bytes || 0), 0);
-  const [pdfRaw, subRaw, vidRaw, bibRaw, linkRaw, sigRaw, humboldtRaw] =
+  const [pdfRaw, subRaw, vidRaw, bibRaw, linkRaw, sigRaw, humboldtRaw, talkRaw] =
     results.map(r => r.matches);
 
   const corpusItems = [
@@ -639,8 +653,15 @@ async function runRagQuery(query, env, ctx, history, opts = {}) {
     ...sigRaw.map(m  => normalizeCorpus(m, "sig")),
   ].sort((a, b) => b.score - a.score).slice(0, MAX_SOURCES);
 
-  const humboldtItems = humboldtRaw.map(normalizeHumboldt)
-    .sort((a, b) => b.score - a.score).slice(0, MAX_SOURCES);
+  // Talk slides found by the filtered query go first and are exempt from the
+  // score sort, or the same ranking that hid them would cut them again.
+  const talkItems = talkRaw.map(normalizeHumboldt).map(t => ({ ...t, pinned: true }));
+  const talkIds = new Set(talkRaw.map(m => m.id));
+  const humboldtItems = [
+    ...talkItems,
+    ...humboldtRaw.filter(m => !talkIds.has(m.id)).map(normalizeHumboldt)
+      .sort((a, b) => b.score - a.score),
+  ].slice(0, MAX_SOURCES);
 
   // Cache the *selected* items, not the raw matches — excerpts are already
   // truncated to 500 chars and capped at MAX_SOURCES, so the stored value is
@@ -672,7 +693,7 @@ function topSources(humboldtItems, corpusItems) {
   return [...humboldtItems, ...corpusItems]
     .sort((a, b) => b.score - a.score)
     .slice(0, 5)
-    .map(({ weightedScore, ...s }) => s);
+    .map(({ weightedScore, pinned, ...s }) => s);
 }
 
 async function runRagCompletion(query, env, ctx, history,

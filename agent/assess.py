@@ -218,6 +218,40 @@ def _apply_counterexamples(law, added: list, run_id: str | None = None) -> int:
     return n
 
 
+_ARXIV_ID = re.compile(r"\b(\d{4}\.\d{4,5})(?:v\d+)?\b")
+
+
+def _annotate_read_status(gap: str) -> str:
+    """Tag every arXiv id a gap names with what the bibliography says about it.
+
+    The 2026-09-22 HOLD on L-006 told the next session to "retrieve and deep-read"
+    three papers that already had full deep-read notes on disk — the assessor
+    never sees ``read_depth``, so it cannot tell "unread" from "read, and it did
+    not settle the question". The second case calls for a targeted re-read or a
+    different source, not a fresh read, so the gap must say which it is.
+    """
+    ids = list(dict.fromkeys(_ARXIV_ID.findall(gap)))
+    if not ids:
+        return gap
+    from agent import bibliography as bib
+    entries = bib.load()
+    notes = []
+    for aid in ids:
+        hit = next((e for e in entries if aid in str(e.get("url", ""))
+                    or aid in str(e.get("notes", ""))), None)
+        depth = (hit or {}).get("read_depth")
+        if depth == "deep":
+            notes.append(f"{aid} ALREADY DEEP-READ ({hit.get('notes') or hit.get('id')}) — "
+                         "re-read for this question or pick another source")
+        elif depth == "shallow":
+            notes.append(f"{aid} shallow-read only ({hit.get('id')})")
+        elif depth == "listed":
+            notes.append(f"{aid} listed, unread ({hit.get('id')})")
+    if not notes:
+        return gap
+    return gap + "\n[read status: " + "; ".join(notes) + "]"
+
+
 def _apply_verdict(law, v: dict, run_id: str | None = None) -> str:
     verdict = str(v.get("verdict", "HOLD")).strip().upper()
     challenge = v.get("strongest_challenge") or {}
@@ -256,7 +290,7 @@ def _apply_verdict(law, v: dict, run_id: str | None = None) -> str:
         return f"DEMOTE {pre} → {law['stage']}"
 
     # HOLD (default)
-    gap = str(v.get("gap", "")).strip()
+    gap = _annotate_read_status(str(v.get("gap", "")).strip())
     if gap:
         oq = law.setdefault("open_questions", [])
         if gap not in [str(q) for q in oq]:

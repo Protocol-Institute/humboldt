@@ -4,6 +4,18 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-11-24 (session 42, continued) — site chat on Sonnet 5.5; triage rate explained
+
+**Daemon PID:** 40259 (running, unpaused).
+
+- `CHAT_ADMIN_KEY` created and registered. The A/B favoured Sonnet 5.5 (2× faster, cheaper,
+  more candid), and it is now the default. Probe 11 cases.
+- Fixed: talk slides were never retrieved (talk-intent filtered query in chat.js), and
+  `assess` gaps didn't know which papers were already read.
+- The 91% triage rate comes from pre-filtered input plus fewer feed items upstream. It is
+  not caused by the seed change. Feed intake volume halved since October, so check the
+  feeds.
+
 ## 2026-11-23 (session 42) — Discord self-capture fixed; site chat streaming; L-025–L-027
 
 **Daemon PID:** 40259 (running, unpaused; hot-reloaded 18:11 PST with the capture fix).

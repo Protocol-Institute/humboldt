@@ -11,10 +11,14 @@ const { onRequestPost } = await import(tmp);
 const kvStore = new Map();
 const kv = { get: async (k, t) => { const v = kvStore.get(k); return v == null ? null : (t === "json" ? JSON.parse(v) : v); },
              put: async (k, v) => { kvStore.set(k, v); } };
-let lastClaudeBody;
+let lastClaudeBody; const queryBodies = [];
 globalThis.fetch = async (url, init) => {
   if (url.includes("voyage")) return Response.json({ data: [{ embedding: [0.1] }] });
-  if (url.endsWith("/query")) return Response.json({ matches: [{ score: 0.8, metadata: { title: "T", text: "x", type: "law" } }] });
+  if (url.endsWith("/query")) {
+    const b = JSON.parse(init.body); queryBodies.push(b);
+    if (b.filter) return Response.json({ matches: [{ id: "talk-14", score: 0.35, metadata: { title: "Talk slide 14", text: "slide", type: "talk", url: "https://h/talks/x#s14" } }] });
+    return Response.json({ matches: [{ id: "m" + Math.random(), score: 0.8, metadata: { title: "T", text: "x", type: "law" } }] });
+  }
   if (url.includes("anthropic")) {
     lastClaudeBody = JSON.parse(init.body);
     if (!lastClaudeBody.stream) return Response.json({ content: [{ type: "thinking", thinking: "" }, { type: "text", text: "Hello " }, { type: "text", text: "world" }],
@@ -80,6 +84,17 @@ assert(events.filter(e => e.ev === "delta").map(e => e.data.text).join("") === "
 assert(events.at(-1).ev === "done", "done last");
 const after = JSON.parse(kvStore.get("stats:day:" + day)).usd;
 assert(Math.abs((after - before) - ((1000*2 + 5000*0.1 + 100*10)/1e6 + 0.06/1e6*80)) < 1e-9, "stream usage merged and charged");
+
+// talk intent: one extra type-filtered query, and the slide reaches the model first
+queryBodies.length = 0;
+r = await onRequestPost(mk({ query: "What did you argue in your Symposium talk?" }, { "X-Admin-Key": KEY }));
+await r.json(); await Promise.all(waits);
+assert(queryBodies.filter(b => b.filter?.type?.$eq === "talk").length === 1, "talk intent adds one filtered query");
+assert(/Talk slide 14/.test(lastClaudeBody.messages.at(-1).content.split("context:")[1].split("---")[0]), "talk slide is the first context item despite a low score");
+queryBodies.length = 0;
+r = await onRequestPost(mk({ query: "What is L-012?" }, { "X-Admin-Key": KEY }));
+await r.json(); await Promise.all(waits);
+assert(queryBodies.every(b => !b.filter), "no filtered query without talk intent");
 
 // rate limit: public requests capped; admin bypasses
 for (let i = 0; i < 25; i++) kvStore.set("rl:unknown", "20");

@@ -6,6 +6,45 @@ Most recent entry first.
 
 ---
 
+## 2026-11-24 (session 42, continued) — admin key, Sonnet 5.5 switch, triage diagnosis, two bug fixes
+
+**Tracks active:** T2
+**Daemon PID:** 40259 (running, unpaused)
+
+**Site chat on Sonnet 5.5.** `CHAT_ADMIN_KEY` was generated, shown (Rule 1), saved to `.env`,
+`../.env.keys` (`HUMBOLDT_CHAT_ADMIN_KEY`) and `../admin/keys.md`, then put as a Pages
+secret, and the site was redeployed. The A/B over 10 questions: median 9.8 s vs 20.1 s,
+$0.0143 vs $0.0164. 5.5 refused to invent a talk self-critique that retrieval gave it
+nothing for, where 4.6 confabulated one. Now `DEFAULT_VARIANT = "b"`, and a refusal
+stop_reason returns a fixed message. No server-side fallback, because its interaction
+with `between_tools` is unclear.
+
+**Talk slides were invisible to retrieval.** 16 talk chunks against ~12k shallow reads: the
+best slide scored 0.348 and never made the top 8. Visible because 5.5 *said* it had no
+slides. chat.js now adds one `type: talk` filtered query on talk intent
+(`TALK_INTENT_RE`) and pins the slides first in both the humboldt slots and the context
+block. Cache key bumped to `rag:v2`. Live answers now cite slides 02/07/14. The Discord
+@mention path (`agent/retrieval.py`) still has the bug. Probe: 11 cases, with a
+regression case. One run in ~5 shows one model-graded flake.
+
+**`assess` read-depth blindness fixed.** `_annotate_read_status()` appends each gap-named
+arXiv id's bibliography read_depth. The L-006 gap would now read "ALREADY DEEP-READ —
+re-read for this question or pick another source".
+
+**The 91% triage rate is explained.** Selection: 223 of the items were already shallow from
+09-22, with the discards archived. The seed context is ruled out (old/new/no seeds:
+74/76/74% on the same 75 items). Triage is reproducible (77% on re-run). The remainder is
+upstream: intake checks fell from ~1,300/month to 590 (Oct) and 440 (Nov), so a feed
+source may have broken. The held 356 Jul–Sep items need no re-triage.
+
+**Open (next session):**
+- Check the feed sources (intake volume halved since October)
+- Shallow-read the 356 held items, then induct (deploys and announces)
+- Talk-intent retrieval for the Discord @mention path
+- Supervisor decisions; TODO 4b–4d
+
+---
+
 ## 2026-11-23 (session 42) — Discord self-capture bug; chat streaming live; induction catch-up
 
 **Tracks active:** T1 / T2
