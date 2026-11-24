@@ -1,0 +1,18 @@
+id: seed-601
+title: Formalization as Compliance Architecture in Asymmetric Systems
+text: 'When a superior agent restructures a subordinate system''s decision environment via formalization
+  (rendering previously informal coordination legible and rule-bound), the subordinate system''s own internal
+  agents become compliance engines without direct intervention. This mechanism succeeds precisely when
+  formalization is robust enough to constrain local optimization but not so rigid that it triggers norm-evasion
+  or institutional workaround cascades. The generalizable pattern: *formalization transfers coordination
+  burden from inter-agent negotiation to intra-agent constraint satisfaction*—and the stability of this
+  transfer depends on whether the formalized rules remain interpretively stable as local agents probe
+  their boundaries. Worth tracking as a subclass of L-003 and as a potential mechanism explaining L-013
+  (paradigm-locked anomaly tolerance).'
+source: bibliography/shallow-reads/2026-11-23-indirect-geoeconomic-influence-a-switching-dynamical-systems.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: insight
+connections:
+- L-003
+status: open

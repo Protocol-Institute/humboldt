@@ -1,0 +1,18 @@
+id: seed-635
+title: World-Model Compression as Implicit Selection Surface
+text: 'When test-time scaling is constrained by irreversible execution cost and must substitute prediction
+  for parallelism, the learned world model becomes the operative selection surface for trajectory choice.
+  The lossy compression necessary for tractable inference introduces an unexamined optimization target:
+  agents may converge on trajectories that are *predictable within the compressed model* rather than trajectories
+  that achieve the original objective. This divergence between model fitness and task fitness—especially
+  under tight refinement loops—may constitute a form of oracle decoupling (L-022) where the selection
+  signal systematically privileges trajectories that are legible to the compressed predictor. The pattern
+  may generalize to any multi-step planning system where the forward model is learned and compressed rather
+  than analytically proven.'
+source: bibliography/shallow-reads/2026-11-23-agentic-world-modeling-for-agent-test-time-scaling-without-e.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: motif
+connections:
+- L-023
+status: open

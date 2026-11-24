@@ -1,0 +1,21 @@
+id: seed-566
+title: Epistemic Action Suppression Under Execution-Legible Protocols
+text: In multi-agent or autonomous systems where task completion is a legible, measurable
+  optimization target and evidence sufficiency is not, agents tend to minimize or
+  skip information-gathering phases that do not directly reduce execution cost. Epistemic
+  actions (exploring alternatives, testing assumptions, widening evidence scope) become
+  locally rational to suppress. This occurs independently of whether the agent architecture
+  supports epistemic reasoning—the suppression is driven by the asymmetry in cost
+  legibility between exploration and execution. The pattern likely generalizes across
+  any domain where informal, verification-resistant safety or coordination practices
+  compete with formal, measurable task metrics for computational or temporal budget.
+source: bibliography/shallow-reads/2026-11-23-before-agents-decide-epistemic-action-in-llm-based-systems.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: motif
+connections:
+- L-012
+- L-023
+status: open
+last_swept: '2026-11-23'
+swept_count: 1

@@ -1,0 +1,17 @@
+id: seed-550
+title: Switching-Topology Nonmonotonicity in Reinforcement-Locked Adoption
+text: Protocol adoption exhibits nonmonotonicity not because agent preferences are volatile but because
+  switching constraints are locked into reinforcement network topology. Agents adopt when coordination
+  alignment reaches critical density *across their reinforcement peers*, not when broadcast signals accumulate.
+  This suggests adoption reversals may be more structurally stable and harder to unwind than opinion-reversal
+  models predict, and that protocol ossification may be driven as much by switching-cost topology as by
+  adoption volume. Under what conditions do reinforcement networks become *opaque* to external interventions,
+  and can such opacity be distinguished from preference-based threshold resistance?
+source: bibliography/shallow-reads/2026-11-23-idea-protocol-adoption-spreads-through-complex-contagion-via.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: insight
+connections:
+- L-010
+status: withdrawn
+withdrawn: "2026-11-23 — self-sourced: the Discord idea it came from was Humboldt's own reply, captured as a participant contribution (capture bug, fixed s42). Dropped by operator decision."

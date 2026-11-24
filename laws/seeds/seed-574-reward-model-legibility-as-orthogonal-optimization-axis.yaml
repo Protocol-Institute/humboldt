@@ -1,0 +1,22 @@
+id: seed-574
+title: Reward-Model Legibility as Orthogonal Optimization Axis
+text: 'When a protocol makes an enforcement signal computable (randomness, block proposals,
+  oracle inputs), it does not eliminate proxy optimization — it merely displaces it
+  to the layer above: the reward model itself. Strategic agents decouple capacity
+  from payoff by learning which reward schemes are exposed to which attack surfaces.
+  The key variable is not whether the proxy is manipulable, but whether the relationship
+  between proxy and true reward is itself formally specified and therefore subject
+  to endogenous refinement. Protocols that leave reward models informal or agent-heterogeneous
+  may resist this layer of optimization longer than those that legalize them. This
+  suggests a secondary ossification vector: formalized reward models become coordination
+  targets in their own right.'
+source: bibliography/shallow-reads/2026-11-23-randao-manipulation-in-the-presence-of-mev.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-008
+- L-014
+status: open
+last_swept: '2026-11-23'
+swept_count: 1

@@ -50,7 +50,8 @@ falsification: >
 references: []
 seeds:
   - seed-474
-related: []
+related:
+  - L-003  # named in this record's prose
 triggers:
   advance: >
     Mechanism demonstrated in 2+ independent domains by showing (a) output diversity declines
@@ -67,3 +68,7 @@ history:
     detail: induction sweep — seed-474 provides the core claim with sufficient 
       specificity. The programming-student study 
       (2026-09-22-your-programming-students-cognition-with-chatgpt)…
+  - date: '2026-11-23'
+    event: edited
+    detail: "related: backfilled L-003 — ids already named in the record's prose (induction
+      never filled the field)"

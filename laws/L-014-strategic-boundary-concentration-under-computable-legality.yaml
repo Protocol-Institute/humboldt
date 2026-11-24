@@ -68,6 +68,12 @@ examples:
       (conduct boundary mass vs. signal boundary mass) which is a methodological contribution
       to detecting the phenomenon L-014 predicts.'
     source: bibliography/deep-reads/arxiv-2606.04617.md
+  - domain: Rules-as-Code regulatory enforcement
+    description: 'He (2026) shows via ABM/RL simulation that machine-readable rules produce
+      boundary clustering as a structural dynamic: firms learn the computable boundary, imitate
+      edge strategies, and concentrate at the compliance surface even as regulators adapt —
+      confirming L-014 outside financial domains.'
+    source: arxiv-2606.04617 (deep read)
 counterexamples: []
 open_questions: []
 falsification: >
@@ -78,7 +84,8 @@ falsification: >
 references: []
 seeds:
   - seed-008
-related: []
+related:
+  - L-008  # named in this record's prose
 triggers:
   advance: >
     Empirical evidence (not simulation) from two or more independent regulatory domains showing
@@ -112,3 +119,12 @@ history:
       behavior at the compliance boundary: The He (2026) deep read (arxiv-2606.04617) provides
       an agent-based simulation demonstrating boundary clustering as a structural dynamic when
       legal obligations…'
+  - date: '2026-11-23'
+    event: edited
+    detail: "related: backfilled L-008 — ids already named in the record's prose (induction
+      never filled the field)"
+  - date: '2026-11-23'
+    event: evidence
+    detail: 'Whether strategic boundary concentration occurs under computable legality in non-financial
+      domains: He (2026) shows via ABM/RL simulation that machine-readable rules produce boundary
+      clustering as a structural dynamic: firms learn the computable boundary…'

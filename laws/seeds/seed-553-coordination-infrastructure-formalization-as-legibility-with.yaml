@@ -1,0 +1,20 @@
+id: seed-553
+title: Coordination Infrastructure Formalization as Legibility-Without-Cost-Reduction
+text: 'When latent coordination costs accumulate at protocol layer boundaries (L-006),
+  designing explicit coordination infrastructure or roles to manage them makes those
+  costs legible without necessarily reducing them — it may instead displace them into
+  the new infrastructure layer itself. The question: does formalized cross-boundary
+  coordination reduce net coordination cost, or does it conserve cost while increasing
+  transparency and control surface? This may generalize: in any system where total
+  work is conserved across abstraction layers, making a hidden cost visible and assigning
+  it to a specific agent or role does not reduce the total work — it only changes
+  who bears it and how visible it is.'
+source: bibliography/shallow-reads/2026-11-23-idea-field-enablement-as-a-role-lacks-cross-boundary-protoco.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: question
+connections:
+- L-006
+status: open
+last_swept: '2026-11-23'
+swept_count: 1

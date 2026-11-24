@@ -1,0 +1,18 @@
+id: seed-659
+title: Compliance Proxy Opacity Under Legible Conformity Assessment
+text: 'When regulatory obligations are translated into operationalized audit criteria and design checklists—legible
+  to both engineers and compliance auditors—do the compliance signals become decoupled from the underlying
+  regulatory intent? Specifically: a recruitment system that scores high on the AI Act compliance toolkit
+  may satisfy formal audit while still exhibiting the harms (discrimination, opacity) the regulation aimed
+  to prevent, if the proxy criteria (documentation completeness, testing coverage, stakeholder consultation
+  records) optimize independently of actual fairness or interpretability. This suggests a secondary formalization
+  ratchet: legal principles → technical requirements → audit signals, with slippage accumulating at each
+  translation layer.'
+source: bibliography/shallow-reads/2026-11-23-on-the-challenges-of-using-llms-in-high-risk-ai-recruitment-.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: question
+connections:
+- L-003
+- L-014
+status: open

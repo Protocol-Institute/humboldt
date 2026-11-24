@@ -1,0 +1,18 @@
+id: seed-649
+title: Interpretability as Legitimacy Proxy in Moral Automation
+text: When moral or value-laden decisions are formalized and delegated to machine systems, the design
+  pressure shifts from optimizing the outcome being judged to optimizing for auditability and interpretability
+  of the process. Under this pressure, systems that are legible (can be explained to stakeholders) may
+  systematize injustice more effectively than opaque systems, because transparency becomes a legitimacy
+  signal that forecloses contestation. The AllotNet case suggests that plural representation *in model
+  structure* may serve as a legitimacy proxy—evidence of cultural incorporation—while the actual optimization
+  surface remains hidden in the aggregation function and training signal, producing a form of formalized
+  value capture that is harder to detect because it is wrapped in interpretability artifacts.
+source: bibliography/shallow-reads/2026-11-23-allotnet-an-interpretable-mixture-of-experts-choice-model-fo.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-004
+- L-019
+status: open

@@ -1,0 +1,18 @@
+id: seed-597
+title: Commitment Specification as Successor Constraint Lock
+text: Organizations that formally specify termination conditions (perpetuity clauses, sunset provisions,
+  discretionary exit rules) may thereby create a stable, low-cost coordination surface for successive
+  governing bodies to maintain the original commitment, even when state-contingent conditions would favor
+  reversal. The more legible and formally encoded the commitment structure, the higher the cost (social,
+  reputational, procedural) for a successor to deviate. This suggests that formalization of organizational
+  lifespan itself functions as an ossification mechanism parallel to protocol formalization—not through
+  adoption pressure, but through deliberate commitment design that shifts the burden of change onto future
+  decision-makers.
+source: bibliography/shallow-reads/2026-11-23-organizational-lifespan-as-commitment-the-case-of-foundation.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: motif
+connections:
+- L-001
+- L-005
+status: open

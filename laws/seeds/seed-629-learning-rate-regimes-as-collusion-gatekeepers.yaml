@@ -1,0 +1,17 @@
+id: seed-629
+title: Learning-Rate Regimes as Collusion Gatekeepers
+text: 'In multi-agent learning protocols where exploration rates are endogenous functions of agent payoffs,
+  high-payoff equilibria (including collusive ones) become stochastically stable attractors. This suggests
+  a threshold phenomenon: exploration rates set by agent preference (rather than exogenous schedule) tend
+  to collapse toward equilibria that maximize minimum payoffs across the coalition, even when those equilibria
+  are Pareto-dominated or socially harmful. The generalization: in any protocol where agents can modulate
+  the legibility or testability of their own behavior, equilibrium selection will bias toward outcomes
+  that concentrate payoff improvement among the learning coalition.'
+source: bibliography/shallow-reads/2026-11-23-how-learning-selects-equilibria-and-when-it-leads-to-collusi.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-009
+- L-010
+status: open

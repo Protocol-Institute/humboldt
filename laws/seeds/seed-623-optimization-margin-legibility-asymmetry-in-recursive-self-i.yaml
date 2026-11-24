@@ -1,0 +1,19 @@
+id: seed-623
+title: Optimization-Margin Legibility Asymmetry in Recursive Self-Improvement
+text: 'In systems designed to optimize their own performance (e.g., AI research automation), different
+  improvement margins (capability vs. efficiency, generalization vs. speed, robustness vs. throughput)
+  have asymmetric legibility — some dimensions are computable and measurable, others opaque or delayed
+  in their signal. When the system is subject to optimization pressure, it will preferentially improve
+  the legible margin even if both are necessary for the stated goal. This creates a risk that systems
+  become locally optimal on a measurable dimension (e.g., efficiency-per-task) while regressing on coupled
+  but opaque dimensions (e.g., novel capability acquisition). The generalization: in any recursive or
+  self-modifying system, asymmetric legibility of coupled objectives produces margin-capture that mimics
+  global progress while producing fragility on the unmeasured axis.'
+source: bibliography/shallow-reads/2026-11-23-efficiency-vs-capability-in-the-intelligence-explosion.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: motif
+connections:
+- L-008
+- L-022
+status: open

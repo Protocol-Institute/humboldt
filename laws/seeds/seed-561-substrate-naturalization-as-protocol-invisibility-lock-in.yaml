@@ -1,0 +1,20 @@
+id: seed-561
+title: Substrate Naturalization as Protocol Invisibility Lock-In
+text: 'Coordination protocols that become embedded in distributed material infrastructure
+  (sensor networks, passive data collection systems, environmental monitoring) may
+  achieve a form of adoption-lock stronger than formal governance ossification: they
+  become unmodifiable not because they are formally defended, but because they are
+  no longer perceived as *protocols* at all, but as natural or inevitable infrastructure.
+  The coordination signal is encoded in the substrate (topology, timing, data flows)
+  rather than remaining legible as a rule, making the protocol both more stable and
+  less revisable. This may generalize to any system where coordination protocols migrate
+  from explicit (legible, contestable) to embedded (infrastructural, invisible).'
+source: bibliography/shallow-reads/2026-11-23-link-external-resource-on-sofar-s-passive-metocean-data-coll.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-001
+status: open
+last_swept: '2026-11-23'
+swept_count: 1

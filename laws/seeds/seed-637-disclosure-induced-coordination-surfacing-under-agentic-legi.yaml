@@ -1,0 +1,20 @@
+id: seed-637
+title: Disclosure-Induced Coordination Surfacing Under Agentic Legibility
+text: 'When regulatory disclosure is mandated in natural language and becomes readable to agentic optimization
+  systems, the system transitions from asymmetric information (platform knows rules, workers do not) to
+  symmetric legibility (both platform and agentic workers read the same formal statement). This creates
+  a new coordination surface: agents can now optimize *jointly* against a shared, externally-imposed constraint
+  rather than individually against an opaque signal. Crucially, the platform loses flexibility to operate
+  informally within the bounds of its stated rule; any deviation becomes forensically detectable. This
+  converts transparency-as-constraint into transparency-as-brittleness. The effect should generalize to
+  any domain where disclosure targets shift from low-capacity human recipients to high-capacity agentic
+  systems.'
+source: bibliography/shallow-reads/2026-11-23-when-disclosure-is-compulsory-evaluating-ride-hailing-rebala.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-003
+- L-012
+- L-014
+status: open

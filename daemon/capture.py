@@ -26,6 +26,9 @@ _ROOT = Path(__file__).parent.parent
 _INBOX_DIR = _ROOT / "inbox"
 _FAST_MODEL = "claude-haiku-4-5-20251001"
 
+# Discord display names of the bot itself. Its messages are context, never captures.
+_SELF_AUTHORS = {"humboldt"}
+
 # Track URLs already saved this daemon session to avoid duplicates
 _saved_urls: set[str] = set()
 
@@ -167,6 +170,16 @@ def save_capture(item: dict, source_channel: str = "#new-nature") -> Path | None
     Returns the path written, or None if the item was skipped (duplicate URL).
     """
     global _saved_urls
+
+    # Humboldt's own replies are in the batch as context (a human idea is often
+    # a response to one), but they must never be filed as a Discord idea: that
+    # re-enters Humboldt's own speculation into triage → shallow read → seeds →
+    # induction as if a participant had contributed it. Found 2026-11-23: 302 of
+    # the 515 ideas captured since May (59%) were authored by Humboldt itself.
+    author = str(item.get("author") or "").strip().lstrip("@").lower()
+    if author in _SELF_AUTHORS:
+        logger.info(f"Capture skipped (own message): {str(item.get('summary', ''))[:60]}")
+        return None
 
     url = item.get("url") or None
     item_type = item.get("type", "idea")

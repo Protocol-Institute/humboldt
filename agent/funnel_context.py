@@ -16,6 +16,7 @@ open questions; ``valley`` and beyond are presented as the standing inventory.
 
 from __future__ import annotations
 
+import random
 import re
 from pathlib import Path
 
@@ -43,6 +44,34 @@ def load_open_seeds() -> list[dict]:
             seeds.append(s)
     seeds.sort(key=lambda s: str(s.get("surfaced", "")), reverse=True)
     return seeds
+
+
+def sample_seeds(seeds: list[dict], k: int, *, rng: random.Random | None = None) -> list[dict]:
+    """Choose ``k`` seeds to show as context: half the newest, half spread over the rest.
+
+    Taking the head of ``load_open_seeds()`` (the pre-2026-11 behaviour) showed the
+    same slice every run: seeds arrive in large same-day triage batches, so the
+    ``surfaced`` sort ties across hundreds of files and the head resolved to a fixed
+    glob-order slice. Triage and shallow-read then judged "do I already hold
+    something like this?" against 25 of 500+ seeds, and the older pool was never
+    seen at all. This is the read-side twin of ``induct``'s window fix (session 38).
+
+    It needs a different fix from induct's. This context is read-only, so there is
+    nothing to stamp. Instead the older half is a stride through the remaining pool
+    (still in ``surfaced`` order, so every era is represented) from a random
+    offset, so successive runs see different seeds and the whole pool is covered
+    in about ``len(rest) / (k // 2)`` runs. Pass ``rng`` for a reproducible sample.
+    """
+    if len(seeds) <= k:
+        return list(seeds)
+    rng = rng or random.Random()
+    n_recent = k - k // 2
+    recent, rest = seeds[:n_recent], seeds[n_recent:]
+    n_spread = k - n_recent
+    stride = len(rest) / n_spread
+    offset = rng.random() * stride
+    spread = [rest[int(offset + i * stride)] for i in range(n_spread)]
+    return recent + spread
 
 
 def next_seed_id() -> str:
@@ -90,8 +119,9 @@ def research_context(
         (open_laws if law.get("stage") in OPEN_STAGES else standing).append(line)
 
     seeds = load_open_seeds()
+    shown = sample_seeds(seeds, max_seeds)
     seed_lines = [f"  {s.get('id')}: {str(s.get('title', '')).strip()[:90]}"
-                  for s in seeds[:max_seeds]]
+                  for s in shown]
 
     parts = [
         "LAWS UNDER ACCUMULATION (valley and beyond — statements the funnel is "
@@ -103,7 +133,9 @@ def research_context(
         "\n".join(open_laws) or "  (none yet)",
         "",
         f"SEED POOL ({len(seeds)} open law-shaped fragments awaiting induction"
-        + (f"; {max_seeds} most recent shown" if len(seeds) > max_seeds else "")
+        + (f"; a sample of {len(shown)} shown — the newest plus a spread across "
+           f"the rest, so an absent seed is NOT evidence the pool lacks it"
+           if len(seeds) > max_seeds else "")
         + "):",
         "\n".join(seed_lines) or "  (empty)",
     ]

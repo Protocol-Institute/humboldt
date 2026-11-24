@@ -1,0 +1,16 @@
+id: seed-606
+title: Opinion Legibility Displacement in Gossip Formalization
+text: 'When informal opinion exchange (gossip) is formalized as a reputational signal feeding agent learning,
+  coordination cost migrates from verifying actions to verifying reports. Agents optimizing under formalized
+  gossip signals face a new surface for strategic misalignment: the report itself. This suggests that
+  decentralization of information does not reduce coordination surface area—it multiplies it by adding
+  a new legibility layer subject to independent optimization pressure. Generalizes to any protocol where
+  informal trust delegation is encoded into computable decision inputs.'
+source: bibliography/shallow-reads/2026-11-23-gossip-agents-reputation-through-opinion-dynamics-over-evolv.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-003
+- L-006
+status: open

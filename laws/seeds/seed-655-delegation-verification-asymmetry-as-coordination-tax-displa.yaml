@@ -1,0 +1,18 @@
+id: seed-655
+title: Delegation Verification Asymmetry as Coordination Tax Displacement
+text: 'In decentralized multi-agent systems with hop-by-hop task delegation, the cost of verifying subtask
+  correctness is paid by the delegating agent, while the benefit of incorrect execution accrues to the
+  delegated-to agent. When verification is computationally expensive (e.g., re-execution or cryptographic
+  proof checking), delegators rationally shift to cheaper proxies: reputation scores, prior relationship
+  history, or audit trails. This creates a secondary market in coordination signals—agents optimize for
+  favorable audit traces rather than actual task delivery. The tax does not vanish; it displaces from
+  verification into signal management. This pattern should generalize to any delegation or hierarchical
+  protocol where verification cost and execution incentive are structurally misaligned.'
+source: bibliography/shallow-reads/2026-11-23-attacks-and-defenses-in-decentralized-multi-agent-systems-wi.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-017
+- L-024
+status: open

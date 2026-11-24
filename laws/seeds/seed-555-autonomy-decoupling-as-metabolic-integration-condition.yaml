@@ -1,0 +1,19 @@
+id: seed-555
+title: Autonomy Decoupling as Metabolic Integration Condition
+text: 'In protocol systems under sustained adoption pressure, functional components
+  of a protocol may be preserved and operationalized by successor layers while the
+  original protocol''s interpretive or adaptive authority is transferred or lost.
+  Under what structural and incentive conditions does this decoupling occur? Does
+  it occur as a continuous process or at phase transitions in adoption? And critically:
+  does the degree of functional embedding (how tightly successor protocols depend
+  on the absorbed protocol''s operations) predict the speed and depth of authority
+  loss, or do they decouple independently?'
+source: bibliography/shallow-reads/2026-11-23-idea-protocols-are-metabolized-or-digested-rather-than-simpl.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: question
+connections:
+- L-001
+status: open
+last_swept: '2026-11-23'
+swept_count: 1

@@ -1,0 +1,20 @@
+id: seed-557
+title: Input-Output Constraint Parity in Automated Decision Protocols
+text: 'In automated decision protocols, restriction of agent input choices (what options
+  are presented, legible, or cognitively available) exerts optimization pressure on
+  agent behavior with potentially equal or greater force than restriction of output
+  choices (what actions the protocol permits). The symmetry is not universal: input
+  constraint dominates when decisions are rare, high-stakes, or rely on agent search;
+  output constraint dominates when optimization is continuous and agent search is
+  exhaustive. Comparative evidence needed: protocol families where input and output
+  constraints trade off, and cases where relaxing one without the other causes behavioral
+  collapse or drift.'
+source: bibliography/shallow-reads/2026-11-23-idea-system-one-modality-input-constraint-is-as-important-as.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: motif
+connections:
+- L-012
+status: open
+last_swept: '2026-11-23'
+swept_count: 1

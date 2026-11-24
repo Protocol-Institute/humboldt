@@ -8,8 +8,14 @@ _COSTS_PATH = Path(__file__).parent / "costs.jsonl"
 
 # USD per million tokens
 _PRICING: dict[str, dict[str, float]] = {
+    # Priced at write time: records in costs.jsonl keep the rate that applied
+    # when they were logged, so changing a row here never re-prices history.
+    # Corrected 2026-11-23: Haiku 4.5 was $0.80/$4.00 (Haiku 3.5's rate) and
+    # Opus 4.8 was missing, so it fell through to the Sonnet default.
     "claude-sonnet-4-6":        {"input": 3.00,  "output": 15.00},
-    "claude-haiku-4-5-20251001": {"input": 0.80,  "output":  4.00},
+    "claude-sonnet-5-5":        {"input": 2.00,  "output": 10.00},
+    "claude-haiku-4-5-20251001": {"input": 1.00,  "output":  5.00},
+    "claude-opus-4-8":          {"input": 5.00,  "output": 25.00},
 }
 
 

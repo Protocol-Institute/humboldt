@@ -1,0 +1,18 @@
+id: seed-596
+title: Alignment Transparency as Coordination Illegibility Displacement
+text: 'When multiple agents are explicitly aligned on a shared measurable outcome but remain in competitive
+  market positions, transparent declaration of that alignment does not reduce coordination cost—it displaces
+  it into the gap between aggregate and individual optimization. The agents become *more* strategically
+  differentiated, not less, because they can now claim coordination on the goal while optimizing local
+  metrics. This suggests that formal alignment statements in protocol systems may function as coordination
+  *obscuration* channels: they create plausible deniability for divergent local behavior. The pattern
+  should generalize to any multi-agent protocol where goal alignment is declared at the system level but
+  incentive alignment remains incomplete at the agent level.'
+source: bibliography/shallow-reads/2026-11-23-competition-with-a-common-purpose.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-006
+- L-010
+status: open

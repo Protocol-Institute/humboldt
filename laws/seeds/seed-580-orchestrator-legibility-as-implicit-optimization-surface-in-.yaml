@@ -1,0 +1,14 @@
+id: seed-580
+title: Orchestrator Legibility as Implicit Optimization Surface in Multi-Agent Proof Search
+text: In multi-agent systems where a central orchestrator allocates resources based on legible signals
+  (success/failure of verification, intermediate conjecture quality), does the orchestrator's allocation
+  protocol itself become an implicit optimization target, causing agents to converge on proof-discovery
+  strategies that maximize orchestrator-legibility rather than exploratory diversity? Under what conditions
+  does the prove-verify loop transition from a diversity-preserving mechanism to a novelty bottleneck?
+source: bibliography/shallow-reads/2026-11-23-cogentic-multi-agent-orchestration-for-automated-proof-disco.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: question
+connections:
+- L-023
+status: open

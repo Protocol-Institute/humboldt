@@ -65,6 +65,20 @@ examples:
       boundary clustering behavior driven by the legibility of the budget as a computable 
       enforcement signal, consistent with L-008.
     source: bibliography/deep-reads/arxiv-2606.04056.md
+  - domain: Algorithmic pricing (duopoly markets)
+    description: When sellers optimize price via Q-learning against stale competitive 
+      information, they remain insensitive to cost reductions in the competitor's 
+      production function until that cost reduction becomes legible in observed prices — 
+      agents cluster at observable price boundaries rather than tracking underlying cost 
+      structure.
+    source: arxiv-2610.31693 (shallow read 2026-11-23)
+  - domain: Regulatory compliance (Rules-as-Code simulation)
+    description: Agent-based RL simulation shows that when legal obligations become 
+      machine-readable, firms learn the compliance boundary systematically, imitate 
+      profitable edge strategies, and produce boundary clustering as a structural dynamic 
+      — with the estimand distinction between conduct boundary mass and signal boundary 
+      mass showing that cleaner measurement can be mistaken for behavioral change.
+    source: arxiv-2606.04617 (deep read)
 counterexamples: []
 open_questions:
   - "Primary gap (unchanged from supervisor review): a measured boundary-clustering result —
@@ -93,7 +107,8 @@ references:
 seeds:
   - seed-047
   - seed-003
-related: []
+related:
+  - L-004  # named in this record's prose
 triggers:
   advance: >
     Mechanism confirmed in 2+ genuinely independent domains with cited evidence —
@@ -143,3 +158,18 @@ history:
     detail: 'Boundary clustering under computable enforcement in agentic token-budget protocols:
       The token budget deep read (arxiv-2606.04056) documents that LLM agent budget overruns
       cluster structurally at the point where commitments are made (API call…'
+  - date: '2026-11-23'
+    event: edited
+    detail: "related: backfilled L-004 — ids already named in the record's prose (induction
+      never filled the field)"
+  - date: '2026-11-23'
+    event: evidence
+    detail: "Mechanism by which legible optimization targets redirect agent behavior to compliance
+      boundary rather than distributing across interior: When sellers optimize price via Q-learning
+      against stale competitive information, they remain insensitive to cost reductions in the
+      competitor's production…"
+  - date: '2026-11-23'
+    event: evidence
+    detail: 'Whether boundary concentration under computable legality is structural rather than
+      incidental: Agent-based RL simulation shows that when legal obligations become machine-readable,
+      firms learn the compliance boundary systematically, imitate profitable…'

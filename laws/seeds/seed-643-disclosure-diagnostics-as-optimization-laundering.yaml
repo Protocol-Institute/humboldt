@@ -1,0 +1,17 @@
+id: seed-643
+title: Disclosure Diagnostics as Optimization Laundering
+text: When a principal-agent opacity problem is addressed by disclosing a limited, legible diagnostic
+  (error profile, demographic distributional impact) rather than the full decision logic, the diagnostic
+  itself becomes a new optimization surface. The agent can satisfy the diagnostic while leaving the underlying
+  decision rule unaligned with principal interests. Disclosure of bounded legibility can thus create an
+  appearance of accountability while concentrating optimization pressure on gaming the disclosed metric
+  rather than on resolving the original misalignment. This pattern holds across domains where audit or
+  oversight relies on outcome summaries rather than process transparency.
+source: bibliography/shallow-reads/2026-11-23-algorithmic-opacity-as-a-principal-agent-problem.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-004
+- L-012
+status: open

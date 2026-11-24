@@ -1,0 +1,17 @@
+id: seed-608
+title: Authorization Formalization as Verification Legibility Escape
+text: 'In systems where authorization decisions were previously implicit, contestable, or locally evaluated,
+  formalizing authorization as a cryptographically verifiable artifact may shift the locus of contestation
+  from policy design to proof validity. Once authorization becomes legibly verifiable, optimization pressure
+  concentrates on producing valid proofs under the formal schema rather than on evaluating whether the
+  underlying policy intent is satisfied. This suggests a generalization: formalization of coordination
+  or authorization boundaries under pressure to verify creates a new surface for metric capture and may
+  paradoxically reduce the actual fidelity of authority verification even as it increases technical certainty.
+  Worth tracking across governance, delegation, and agentic command protocols.'
+source: bibliography/shallow-reads/2026-11-23-provable-authority-a-protocol-for-verifiable-authority-resol.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: motif
+connections:
+- L-001
+status: open

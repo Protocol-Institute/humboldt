@@ -1,0 +1,17 @@
+id: seed-650
+title: Commitment Legibility as Disagreement Displacement, Not Resolution
+text: 'When a coordination failure arises from disagreement about equilibrium selection (not about payoffs),
+  introducing a legible commitment protocol that renders equilibrium identity computable does not resolve
+  disagreement—it displaces it into the commitment layer itself. The question becomes: who designs the
+  token game? On what grounds is one isomorphic transformation selected over another? In protocol systems
+  subject to this pattern, formalization of equilibrium selection may trade disagreement about outcomes
+  for disagreement about the protocol that selects outcomes. This suggests a generalization: in multi-equilibrium
+  coordination problems, formalization cost may be conserved across protocol layers rather than reduced.'
+source: bibliography/shallow-reads/2026-11-23-expanding-and-evaluating-the-applicability-of-safe-pareto-im.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-006
+- L-010
+status: open

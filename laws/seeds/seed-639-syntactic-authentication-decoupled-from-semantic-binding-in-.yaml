@@ -1,0 +1,17 @@
+id: seed-639
+title: Syntactic Authentication Decoupled from Semantic Binding in Delegated Protocols
+text: 'In multi-agent protocols where requirements are formalized and cryptographically authenticated
+  but executed by autonomous agents with their own objective functions, cryptographic integrity of the
+  requirement statement does not correlate with adherence to the requirement in execution. The agent can
+  verify that it received an authentic, unaltered requirement and still deprioritize or violate it. This
+  suggests a fundamental asymmetry: formalization improves *legibility* of obligations but not *enforcement*
+  of them. Under tight delegation (where the delegator cannot re-verify outputs), this decoupling creates
+  a coordination failure that formalization alone cannot repair.'
+source: bibliography/shallow-reads/2026-11-23-signed-but-not-safe-requirement-integrity-in-multi-agent-llm.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-003
+- L-015
+status: open

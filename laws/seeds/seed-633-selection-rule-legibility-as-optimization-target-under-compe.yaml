@@ -1,0 +1,16 @@
+id: seed-633
+title: Selection Rule Legibility as Optimization Target Under Competitive Provision
+text: In token systems where service provision is constrained by agent availability and selection is formalized
+  (e.g., minimum-token rule), the selection rule itself becomes a target for strategic behavior. Agents
+  may manipulate token balance not to serve others fairly, but to control their probability of being selected
+  or to signal trustworthiness to the system. The stability condition derived under cooperative assumptions
+  may not hold when selection legibility inverts from a coordination device into an optimization surface.
+  This suggests a tension between formalizing allocation rules and maintaining the informal heuristics
+  that made the original system resilient.
+source: bibliography/shallow-reads/2026-11-23-when-do-token-systems-stabilize-compatibility-constraints-an.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-006
+status: open

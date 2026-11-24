@@ -1,0 +1,22 @@
+id: seed-572
+title: Aggregate Coupling as Equilibrium Legibility—Mean Field Disclosure Paradox
+text: 'In many-agent coordination protocols where agents'' payoffs are coupled through
+  an aggregate metric (total resource consumption, collective risk, shared evaluation
+  signal), making the coupling mechanism formally visible and computable to agents
+  does not reduce defection incentives; instead, it enables agents to treat the aggregate
+  as a legible optimization target and coordinate defection *around* it. The mechanism:
+  formalization of the coupling converts an opaque collective outcome into a tractable
+  strategic object. Defectors can now compute the group-level effect of their action
+  and coordinate timing, threshold-crossing, or signaling to maximize collective harm
+  while minimizing individual detection cost. This generalizes beyond evaluation racing
+  to any protocol where the coupling is both'
+source: bibliography/shallow-reads/2026-11-23-mean-field-games-as-a-tool-for-ai-safety-a-worked-example-fr.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: insight
+connections:
+- L-004
+- L-009
+status: open
+last_swept: '2026-11-23'
+swept_count: 1

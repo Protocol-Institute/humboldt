@@ -16,3 +16,155 @@
 {"timestamp": "2026-09-23T02:54:17.245482+00:00", "behavior_id": "assess", "phase": "valley", "arc_id": null, "note": "L-003: HOLD \u2014 gap: Two specific gaps, both executable: (1) OSS scoping condition: targeted retrieva", "outputs": {"counterexample": 1, "assessed-hold": 1}, "run_id": "43354c20eaee"}
 {"timestamp": "2026-09-23T02:55:53.080690+00:00", "behavior_id": "assess", "phase": "valley", "arc_id": null, "note": "L-006: HOLD \u2014 gap: Two specific executable gaps, in priority order:\n(1) AUTOMATION CRUX: Retrieve a", "outputs": {"counterexample": 1, "assessed-hold": 1}, "run_id": "01aa114eedec"}
 {"timestamp": "2026-09-23T02:56:32.909158+00:00", "behavior_id": "assess", "phase": "valley", "arc_id": null, "note": "L-007: HOLD \u2014 gap: Three specific executable gaps:\n(1) NEAR-MISS CRUX [primary]: Retrieve corpus or", "outputs": {"counterexample": 1, "assessed-hold": 1}, "run_id": "fa468e606104"}
+{"timestamp": "2026-10-07T22:19:04.750899+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-10-07T22:20:09.033192+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 15}, "run_id": null}
+{"timestamp": "2026-10-10T05:29:53.097336+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-10T05:29:54.202819+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-10T05:29:55.273087+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-10T05:29:56.341528+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-10T10:18:49.945575+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-10T18:51:23.634277+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-10-10T18:51:50.865714+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-10-10T22:19:04.855494+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-10-10T23:42:10.129448+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-11T01:23:11.135558+00:00", "behavior_id": "respond", "phase": "any", "arc_id": null, "note": "@4umd", "outputs": {"discord-post": 1}, "run_id": null}
+{"timestamp": "2026-10-13T00:46:20.709233+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 7}, "run_id": null}
+{"timestamp": "2026-10-13T00:46:22.129134+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-13T00:46:23.434759+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-13T00:46:24.665075+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-14T15:22:36.627967+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-14T15:22:37.681022+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-14T15:22:38.706318+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-14T17:51:14.229337+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=1", "outputs": {"notebook-entry": 1, "reference": 1}, "run_id": null}
+{"timestamp": "2026-10-14T17:51:41.763977+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-10-14T17:52:08.920461+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-10-15T20:14:27.544031+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-15T20:14:28.723548+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-15T22:18:50.140814+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-16T20:18:22.212153+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-16T22:18:49.749777+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-17T10:18:49.669402+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-17T22:09:00.139476+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-17T22:09:14.636769+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-10-18T06:17:01.415994+00:00", "behavior_id": "respond", "phase": "any", "arc_id": null, "note": "@4umd", "outputs": {"discord-post": 1}, "run_id": null}
+{"timestamp": "2026-10-20T01:54:08.180976+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 13}, "run_id": null}
+{"timestamp": "2026-10-20T01:54:09.541169+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-20T01:54:10.889646+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-20T01:54:12.324095+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-21T16:50:56.362165+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 11}, "run_id": null}
+{"timestamp": "2026-10-21T16:50:57.940589+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-21T16:50:59.452575+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-22T02:32:30.351517+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=1", "outputs": {"notebook-entry": 1, "reference": 1}, "run_id": null}
+{"timestamp": "2026-10-22T02:32:56.683876+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-10-22T02:33:23.040877+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-10-22T02:33:50.559384+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-10-22T13:26:37.914646+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 13}, "run_id": null}
+{"timestamp": "2026-10-22T13:26:39.566641+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-26T20:50:46.255684+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 6}, "run_id": null}
+{"timestamp": "2026-10-26T20:50:47.442748+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-26T20:50:48.495898+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-26T20:50:49.553699+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-26T20:50:50.658547+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-26T20:50:51.751561+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-26T20:50:52.834701+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-26T20:50:53.898481+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-26T22:08:59.016526+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-27T19:32:16.239716+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-10-27T19:32:40.330122+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-10-27T19:33:07.433350+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-10-27T19:33:34.751326+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-10-27T19:34:01.265003+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-10-27T22:09:11.320431+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-10-27T23:34:07.430622+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 15}, "run_id": null}
+{"timestamp": "2026-10-27T23:34:08.633662+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-28T10:10:03.467674+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 14}, "run_id": null}
+{"timestamp": "2026-10-28T22:09:13.099016+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-10-28T22:10:13.395856+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 12}, "run_id": null}
+{"timestamp": "2026-10-29T10:08:59.143351+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-29T23:53:07.944875+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-29T23:53:22.964114+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-10-30T10:08:59.152977+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-31T04:16:49.953489+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-31T04:17:03.917943+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-10-31T22:00:27.157510+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-10-31T22:08:58.624365+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-02T19:58:25.855349+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=1", "outputs": {"notebook-entry": 1, "reference": 1}, "run_id": null}
+{"timestamp": "2026-11-02T19:58:57.605456+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-11-02T21:32:52.822969+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 11}, "run_id": null}
+{"timestamp": "2026-11-02T21:32:54.823311+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-02T21:32:57.131355+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-02T22:09:00.192369+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-03T02:56:49.192948+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-11-04T21:57:37.960024+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-04T21:57:38.602268+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-04T21:57:39.290253+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-04T22:08:58.387367+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-06T21:35:47.485601+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-11-06T21:36:11.112040+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-11-06T21:36:36.579894+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-11-06T22:09:10.978380+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-11-06T23:41:26.441688+00:00", "behavior_id": "respond", "phase": "any", "arc_id": null, "note": "@boredgargoyle", "outputs": {"discord-post": 1}, "run_id": null}
+{"timestamp": "2026-11-07T01:09:27.174368+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 10}, "run_id": null}
+{"timestamp": "2026-11-07T01:09:28.808657+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-07T01:09:30.094293+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-07T01:09:31.472820+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-08T01:47:15.429226+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-08T01:47:16.694963+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-09T20:08:32.842037+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-09T20:08:33.054416+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-09T20:08:33.266661+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-10T17:23:48.506696+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-10T17:23:48.711329+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-11T15:13:20.195120+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-11-11T17:16:39.675231+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-11-11T17:17:04.999822+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-11-11T17:17:30.399282+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-11-12T20:55:21.647645+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-12T20:55:22.751765+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-12T20:55:23.952846+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-12T20:55:25.105724+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-12T22:08:59.002739+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-12T22:46:13.810690+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-11-12T22:46:38.403926+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-11-13T10:08:59.002106+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-13T22:09:55.091000+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-13T22:10:07.772064+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-11-15T03:03:55.364163+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-15T03:03:56.537997+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-15T10:08:59.130016+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-15T15:03:45.567590+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-11-15T22:32:18.761888+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-15T22:32:32.243963+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-11-16T10:34:35.281582+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 19}, "run_id": null}
+{"timestamp": "2026-11-16T22:09:58.858052+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 15}, "run_id": null}
+{"timestamp": "2026-11-16T22:33:49.740353+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-11-17T10:08:59.299033+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-17T22:40:45.964273+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-17T22:41:00.435335+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-11-19T18:02:21.224880+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 13}, "run_id": null}
+{"timestamp": "2026-11-19T18:02:22.406032+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-19T18:02:23.535754+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-19T22:09:55.287575+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-20T06:02:28.373276+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-11-20T06:02:52.799796+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-11-20T10:09:43.509016+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 10}, "run_id": null}
+{"timestamp": "2026-11-20T22:34:26.601273+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-11-20T22:35:04.830836+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 6}, "run_id": null}
+{"timestamp": "2026-11-21T19:44:02.887000+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-21T23:28:32.998011+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-22T07:32:50.149283+00:00", "behavior_id": "respond", "phase": "any", "arc_id": null, "note": "@4umd", "outputs": {"discord-post": 1}, "run_id": null}
+{"timestamp": "2026-11-22T09:03:48.910796+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-11-22T10:08:59.912733+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-22T22:19:58.093563+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-22T22:20:11.233455+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-11-23T11:55:09.599538+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 7}, "run_id": null}
+{"timestamp": "2026-11-23T23:26:41.790823+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 9}, "run_id": null}
+{"timestamp": "2026-11-24T01:11:06.640276+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-11-24T01:17:38.665576+00:00", "behavior_id": "triage", "phase": "exploration", "arc_id": null, "note": "Discord: 43 shallow, 15 discard", "outputs": {"bib-entry": 43, "triage-report": 1}, "run_id": null}
+{"timestamp": "2026-11-24T01:22:30.803262+00:00", "behavior_id": "triage", "phase": "exploration", "arc_id": null, "note": "Feed: 576 shallow, 55 discard", "outputs": {"bib-entry": 576, "triage-report": 1}, "run_id": null}
+{"timestamp": "2026-11-24T01:35:11.149971+00:00", "behavior_id": "shallow-read", "phase": "exploration", "arc_id": null, "note": "Shallow-read 36 items from triage-discord-2026-11-23.md: 3 escalation(s), 22 seed(s) emitted, 36 bibliography entries deepened. Escalated: Link: Essay on informal migration networks and alternative coordination structures ('low roads to high places'); Link: Paper on complex contagion and adoption dynamics in social networks.; Link: External resource on agent control reporting and governance frameworks in organizations..", "outputs": {"shallow-note": 36, "bib-entry": 36, "seed": 22}, "run_id": null}
+{"timestamp": "2026-11-24T02:11:41.813414+00:00", "behavior_id": "intake", "phase": "exploration", "arc_id": null, "note": null, "outputs": {"inbox-item": 0}, "run_id": null}
+{"timestamp": "2026-11-24T02:11:52.463179+00:00", "behavior_id": "review", "phase": "any", "arc_id": null, "note": "daily pass: notebook=yes, refs_added=0", "outputs": {"notebook-entry": 1, "reference": 0}, "run_id": null}
+{"timestamp": "2026-11-24T02:21:22.024001+00:00", "behavior_id": "shallow-read", "phase": "exploration", "arc_id": null, "note": "Shallow-read 210 items from triage-feed-2026-11-23-recent.md: 14 escalation(s), 96 seed(s) emitted, 210 bibliography entries deepened. Escalated: Convergence to collusion in algorithmic pricing; Mean field games as a tool for AI safety: a worked example from the July 2026 Hugging Face incident; Silent Dissent: LLM Agents That Yield to the Majority Still Represent Their Original Premise.", "outputs": {"shallow-note": 210, "bib-entry": 210, "seed": 96}, "run_id": null}
+{"timestamp": "2026-11-24T02:26:17.822668+00:00", "behavior_id": "publish", "phase": "heavy_lift", "arc_id": null, "note": "3 law event(s), 2 announced", "outputs": {"site-deploy": 1, "discord-post": 2}, "run_id": null}
+{"timestamp": "2026-11-24T02:26:17.824268+00:00", "behavior_id": "induct", "phase": "sensemaking", "arc_id": null, "note": "Induction sweep: created 3 law(s) (L-025, L-026, L-027), attached 9 evidence item(s).", "outputs": {"law-created": 3, "evidence": 9, "counterexample": 0}, "run_id": "c9da811cc45b"}

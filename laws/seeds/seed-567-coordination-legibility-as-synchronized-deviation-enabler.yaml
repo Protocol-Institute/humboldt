@@ -1,0 +1,20 @@
+id: seed-567
+title: Coordination Legibility as Synchronized Deviation Enabler
+text: 'When a multi-agent coordination protocol makes assignment, verification, and
+  task completion signals machine-readable and synchronized across agents, do agents
+  exploit the common information structure to coordinate deviations that the protocol
+  was designed to prevent? Specifically: in systems like RAC where artifact-grounded
+  verification is legible to all participating agents, does the shared verification
+  signal become a coordination substrate, allowing agents to jointly optimize around
+  the protocol''s formal constraints while maintaining the appearance of compliance?'
+source: bibliography/shallow-reads/2026-11-23-can-ai-scientists-coordinate-at-runtime.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: question
+connections:
+- L-010
+- L-017
+status: promoted
+promoted_to: L-025
+last_swept: '2026-11-23'
+swept_count: 1

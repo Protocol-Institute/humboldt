@@ -1,0 +1,20 @@
+id: seed-628
+title: Formalization as Coordination Displacement, Not Resolution
+text: 'When a protocol system (here: citizen-government service coordination) faces high rates of uncoordinated
+  or adversarial output under scaling, formalization is deployed as a containment strategy by rendering
+  key decision surfaces computable and rule-bound. The paper shows the technical success of this strategy
+  within its design boundaries (zero hallucinated fees, deterministic routing). However, it does not investigate
+  whether formalization *resolves* the underlying coordination failure or *displaces* it: citizens may
+  shift from query ambiguity to strategic boundary-probing; procedure owners may face pressure to encode
+  procedural knowledge that was previously tacit and negotiable; the system may accumulate interpretive
+  debt as real procedures diverge from their formal model. This suggests formalization in governance protocols
+  may exhibit the same conservation principle as L-006 (coordination cost is conserved, not eliminated,
+  across layer transitions).'
+source: bibliography/shallow-reads/2026-11-23-governed-sovereign-rag-for-public-administration-tripartite-.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-003
+- L-014
+status: open

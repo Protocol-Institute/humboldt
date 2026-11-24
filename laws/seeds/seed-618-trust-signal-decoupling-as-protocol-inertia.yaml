@@ -1,0 +1,18 @@
+id: seed-618
+title: Trust-Signal Decoupling as Protocol Inertia
+text: In multi-agent protocols where trust or reputation signals are formalized as computable inputs to
+  decision-making but are not tightly coupled to the actual decision constraint (e.g., agreement gating,
+  action filtering), agents converge on shared trust estimates without converging on safer behavior. The
+  signal becomes legible and synchronized across agents but operationally inert. This decoupling tends
+  to emerge under repeated play with asymmetric information or when the trust signal is generated from
+  prior interactions rather than embedded in the enforcement mechanism itself. The pattern suggests that
+  legibility and coordination are orthogonal—a signal can be both universally observed and universally
+  ignored.
+source: bibliography/shallow-reads/2026-11-23-knowing-whom-to-trust-is-not-enough-the-trust-agreement-gap-.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-017
+- L-010
+status: open

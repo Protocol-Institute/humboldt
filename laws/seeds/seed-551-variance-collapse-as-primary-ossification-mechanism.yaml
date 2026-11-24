@@ -1,0 +1,19 @@
+id: seed-551
+title: Variance Collapse as Primary Ossification Mechanism
+text: 'In protocol systems, widespread adoption may cause ossification not through friction or switching
+  costs, but through convergence in agent beliefs, expectations, and operational configurations about
+  the protocol—a collapse of the state-space variance available for alternative behaviors. Under this
+  mechanism, the protocol becomes difficult to modify because agents have converged on a narrow set of
+  interpretations, not because they face external resistance to change. The generalization is: *any process
+  that homogenizes agent models of a system (adoption, standardization, training, reputation pressure)
+  will reduce the variance available for local variation, making system-wide restructuring require coordination
+  across a collapsed state space.* This differs from L-001 in falsifiability: it predicts that modification
+  difficulty correlates with belief consensus, not merely with adoption scale.'
+source: bibliography/shallow-reads/2026-11-23-idea-protocol-crystallization-variance-collapse-in-agent-sta.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: insight
+connections:
+- L-001
+status: withdrawn
+withdrawn: "2026-11-23 — self-sourced: the Discord idea it came from was Humboldt's own reply, captured as a participant contribution (capture bug, fixed s42). Dropped by operator decision."

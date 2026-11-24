@@ -92,6 +92,7 @@ seeds:
   - seed-050
 related:
   - L-006
+  - L-001  # named in this record's prose
 triggers:
   advance: >
     The design-conditional nonmonotonicity confirmed in 2+ independent domains beyond V2V —
@@ -136,3 +137,7 @@ history:
       signaling/protocol design is not co-optimized with adoption level: The communication-in-collective-intelligence
       paper (arxiv-2609.23310) shows that systems with identical network topology and information-theoretic
       spectra can…'
+  - date: '2026-11-23'
+    event: edited
+    detail: "related: backfilled L-001 — ids already named in the record's prose (induction
+      never filled the field)"

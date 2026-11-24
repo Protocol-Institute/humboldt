@@ -1,0 +1,19 @@
+id: seed-595
+title: Measurement-Computation Decoupling as Non-Recoverable Verification Gap
+text: 'In any safety-critical protocol where verification relies on a physical observable to constrain
+  a computational process, there exists a fundamental decoupling: the adversary can perform computation
+  that is functionally identical to the target but causally detached from the measurement surface. The
+  gap is quantifiable (as a closed-form bound on hidden computation) and grows with adversary sophistication,
+  not audit fidelity. This suggests a general principle: verification asymmetry in protocols is not primarily
+  a function of cost (time, money, complexity) but of *observability structure*—the degree to which the
+  constrained quantity is causally coupled to the measurement used to verify it. This may generalize beyond
+  compute governance to any protocol system where the verification observable and the target quantity
+  are physically or informationally distinct.'
+source: bibliography/shallow-reads/2026-11-23-can-power-draw-constrain-covert-compute-limits-of-analogue-v.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-002
+- L-020
+status: open

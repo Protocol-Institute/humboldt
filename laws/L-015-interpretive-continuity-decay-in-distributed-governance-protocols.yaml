@@ -60,7 +60,10 @@ falsification: >
 references: []
 seeds:
   - seed-051
-related: []
+related:
+  - L-001  # named in this record's prose
+  - L-007 # named in this record's prose
+  - L-011 # named in this record's prose
 triggers:
   advance: >
     Two or more independent governance contexts with documented evidence that record quality
@@ -82,3 +85,7 @@ history:
       records that survive while institutional capacity to read them as coherent episodes decays:
       Seed 142 (Auditability-Legibility Trap in Trust Governance) and seed 155 (Formalization
       as Interpretive Opacity Displacement) both describe cases where…'
+  - date: '2026-11-23'
+    event: edited
+    detail: "related: backfilled L-001, L-007, L-011 — ids already named in the record's prose
+      (induction never filled the field)"

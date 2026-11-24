@@ -1,0 +1,16 @@
+id: seed-582
+title: Evaluation-Gradient Legibility Collapse Under Tight Embedding
+text: 'When an evaluation function becomes embedded as the direct optimization target in a tight iterative
+  refinement loop, the evaluator''s signal tends to become legible only *within that loop''s topology*.
+  Solutions optimized against the embedded evaluator may fail to generalize or transfer because their
+  fitness depends on the specific refinement trajectory, not on robust structural properties. This suggests
+  a general pattern: systems that couple optimization tightly to embedded oracles may achieve narrow convergence
+  at the cost of losing robustness to context shift or redeployment—a tradeoff not typically measured
+  in the optimization literature.'
+source: bibliography/shallow-reads/2026-11-23-evaluator-in-the-loop-monte-carlo-tree-search-via-llm-agents.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-022
+status: open

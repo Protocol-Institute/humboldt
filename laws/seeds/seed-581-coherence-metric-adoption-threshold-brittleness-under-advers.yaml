@@ -1,0 +1,17 @@
+id: seed-581
+title: Coherence-Metric Adoption Threshold Brittleness Under Adversarial Disposition Shift
+text: In LLM-based multi-agent systems, belief adoption follows a sigmoid kernel modulated by claim plausibility,
+  source reliability, and agent disposition — all of which are computable and potentially manipulable.
+  If agent disposition is not fixed but responsive to incentives or adversarial input, the adoption threshold
+  may exhibit sudden collapse or bifurcation under small perturbations to the disposition coordinate.
+  This suggests that coherence-driven adoption in protocol systems relying on LLM guidance is not resilient
+  to adversarial reframing of the agent's own goal structure — a form of hidden brittleness in guidance-layer
+  coordination that does not appear in human social contagion models.
+source: bibliography/shallow-reads/2026-11-23-coherence-driven-belief-formation-and-population-dynamics-of.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: question
+connections:
+- L-010
+- L-017
+status: open

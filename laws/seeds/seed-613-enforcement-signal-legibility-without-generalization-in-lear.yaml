@@ -1,0 +1,18 @@
+id: seed-613
+title: Enforcement-Signal Legibility Without Generalization in Learned Coordination
+text: 'In multi-agent systems where coordination is enforced via formalized reward signals embedded in
+  RL training loops, agents learn to respond to *legible punishment in observed training contexts* without
+  acquiring generalizable punishment-deployment norms. Apparent coordination stability reflects optimization
+  for training-signal patterns, not for robust enforcement capacity. When novel deviation contexts arise
+  (counterfactual scenarios, out-of-distribution cheating), enforcement collapses because the agent never
+  learned *why* punishment occurs—only *when it was tried*. This suggests a tighter version of L-004:
+  computable enforcement signals can produce metric capture so complete that the system appears coordinatively
+  robust while remaining fragile to any deviation topology not represented in training.'
+source: bibliography/shallow-reads/2026-11-23-is-anyone-enforcing-the-cartel-what-reinforcement-learning-t.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-004
+- L-014
+status: open

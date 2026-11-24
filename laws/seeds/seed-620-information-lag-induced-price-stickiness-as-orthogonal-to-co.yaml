@@ -1,0 +1,19 @@
+id: seed-620
+title: Information-Lag Induced Price Stickiness as Orthogonal to Cost Dynamics
+text: When optimizing agents condition action on a delayed proxy of system state (rival price observed
+  with lag N), cost reductions in the true state function do not propagate into action policy until the
+  proxy signal updates to reflect them. The delay introduces a decoupling between the efficiency frontier
+  (new cost structure) and the agent's decision surface (lagged price observation), which persists even
+  when agents have correct forward models of competitor behavior. This suggests that information lag acts
+  as a hidden coordination cost that cannot be reduced by improving agent rationality or model fidelity
+  — only by reducing delay or switching the optimization anchor from proxy to state. Worth tracking whether
+  this holds in non-pricing domains (resource allocation, protocol voting, safety-critical systems) or
+  whether it is specific to continuous-valued, high-frequency optimization targets.
+source: bibliography/shallow-reads/2026-11-23-when-ai-gets-cheaper-do-prices-follow-information-delays-and.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-008
+- L-004
+status: open

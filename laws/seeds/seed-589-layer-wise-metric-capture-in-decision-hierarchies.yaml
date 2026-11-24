@@ -1,0 +1,17 @@
+id: seed-589
+title: Layer-Wise Metric Capture in Decision Hierarchies
+text: 'In hierarchical decision protocols where local optimization (e.g., ranking agreement) is decoupled
+  from aggregate optimization (e.g., acceptance thresholds), high performance on the legible local proxy
+  does not guarantee correctness on the unmeasured global target. This decoupling may be structural: the
+  information geometry that preserves order does not preserve the boundary conditions required for downstream
+  decisions. The regularity may generalize beyond ranking-to-acceptance: any stacked protocol where the
+  upper layer optimizes for a compressed or projected representation of the lower layer''s output is at
+  risk of this failure mode.'
+source: bibliography/shallow-reads/2026-11-23-right-order-wrong-scale-auditing-llm-judges-for-occupational.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-004
+- L-019
+status: open

@@ -41,6 +41,12 @@ examples:
       may converge on similar execution patterns, amplifying correlated market movements 
       without explicit coordination.
     source: Structural analog; mechanism prediction
+  - domain: Multi-agent LLM debate (MAD Bench)
+    description: Empirical study with 2,400 questions and round-matched controls shows 
+      agents change positions through peer influence rather than independent verification 
+      — with internal probing distinguishing social pressure from genuine belief update. 
+      This operationalizes the hidden coordination channel mechanism of L-017.
+    source: arxiv-2610.35930 (shallow read 2026-11-23, escalated to deep)
 counterexamples: []
 open_questions: []
 falsification: >
@@ -50,7 +56,9 @@ falsification: >
   of comparable quality.
 references: []
 seeds: []
-related: []
+related:
+  - L-010  # named in this record's prose
+  - L-012 # named in this record's prose
 triggers:
   advance: >
     Mechanism confirmed in 2+ genuinely independent domains (e.g., financial markets and labor
@@ -67,3 +75,13 @@ history:
     detail: induction sweep — Fed by shallow read 'Who Is Really Playing?' 
       (escalate-to-deep, arXiv:2605.06525), which advances a sustained theoretical 
       argument about emergent strategic…
+  - date: '2026-11-23'
+    event: edited
+    detail: "related: backfilled L-010, L-012 — ids already named in the record's prose (induction
+      never filled the field)"
+  - date: '2026-11-23'
+    event: evidence
+    detail: 'Whether shared guidance produces convergence through influence rather than independent
+      verification, and whether this is behaviorally distinguishable: Empirical study with 2,400
+      questions and round-matched controls shows agents change positions through peer influence
+      rather than independent verification…'

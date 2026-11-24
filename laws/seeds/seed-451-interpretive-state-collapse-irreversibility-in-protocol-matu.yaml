@@ -13,4 +13,5 @@ type: question
 connections:
 - L-001
 - L-006
-status: open
+status: withdrawn
+withdrawn: "2026-11-23 — self-sourced: the Discord idea it came from was Humboldt's own reply, captured as a participant contribution (capture bug, fixed s42). Dropped by operator decision."

@@ -1,0 +1,17 @@
+id: seed-647
+title: Agent Capability Accumulation as Outage Cascade Accelerant
+text: 'In grid-edge protocol systems where autonomous agents optimize for efficiency under normal operation,
+  agent capability (precise forecasting, responsive orchestration) can invert to become a cascade accelerant
+  under signal degradation or outage. The agents'' confidence in their decision models does not decay
+  proportionally with signal reliability; instead, they execute coordinated failures with high conviction
+  on stale state. The mechanism generalizes beyond smart grids: any distributed autonomous system where
+  agents receive optimization pressure under normal conditions but no corresponding pressure to degrade
+  gracefully under uncertainty will accumulate capability that becomes liability under stress. This is
+  distinct from simple brittleness — it is capability-driven cascade initiation.'
+source: bibliography/shallow-reads/2026-11-23-smart-home-agents-make-capable-but-unpredictable-grid-operat.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-021
+status: open

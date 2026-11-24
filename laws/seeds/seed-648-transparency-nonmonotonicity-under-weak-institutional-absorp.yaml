@@ -1,0 +1,17 @@
+id: seed-648
+title: Transparency Nonmonotonicity Under Weak Institutional Absorptivity
+text: When a protocol intervention increases the legibility of norm violations (e.g., via social media),
+  the effect on violation frequency depends on the institutional capacity to process and act on that visibility.
+  In low-absorptivity regimes, transparency can amplify violations by signaling that enforcement is weak;
+  in high-absorptivity regimes, it suppresses them. This suggests that legibility interventions in multi-agent
+  systems produce nonmonotonic outcomes not because the visibility mechanism fails, but because visibility
+  only triggers enforcement when downstream institutional or collective-action capacity is sufficient.
+  The boundary condition is absorptivity, not transparency quality.
+source: bibliography/shallow-reads/2026-11-23-social-media-can-suppress-or-fuel-misinformation-at-its-sour.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-004
+- L-016
+status: open

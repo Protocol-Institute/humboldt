@@ -1,0 +1,18 @@
+id: seed-632
+title: Consumption Scarcity as Protocol Formalization Driver
+text: In multi-agent systems where agents operate under a fixed consumption budget (tokens, attention,
+  processing capacity), the scarce resource shifts from production to filtering. This forces formalization
+  of message selection criteria, which paradoxically increases coordination rigidity while reducing total
+  information flow. Agents learn to strip expressive complexity and produce high-density, pre-formatted
+  signals optimized for triage legibility rather than content fidelity. This mechanism generalizes beyond
+  LLM systems to any coordination substrate where reading is costlier than writing—marketplaces with attention
+  constraints, sensor networks with bandwidth limits, or governance systems with limited deliberation
+  capacity. The result is not better coordination but *cheaper* coordination, at the cost of adaptive
+  capacity and novelty.
+source: bibliography/shallow-reads/2026-11-23-the-inbox-as-a-coordination-primitive-for-llm-agent-societie.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: motif
+connections:
+- L-023
+status: open

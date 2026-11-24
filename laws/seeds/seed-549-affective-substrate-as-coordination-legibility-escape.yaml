@@ -1,0 +1,17 @@
+id: seed-549
+title: Affective Substrate as Coordination Legibility Escape
+text: 'When protocol coordination signals are encoded in affective metadata (tone, prosody, emotional
+  framing) rather than semantic content, do agents treat the two channels as *substitutable* for the same
+  coordination task, or do affective signals enable coordination patterns that semantic signals cannot?
+  If the former, affective metadata is substrate polymorphism; if the latter, it represents a distinct
+  legibility channel that may be immune to certain forms of optimization capture that target semantic
+  proxies. This opens the question: *is there a legibility hierarchy in which affective signals are more
+  resistant to formal capture than semantic ones, or less?*'
+source: bibliography/shallow-reads/2026-11-23-idea-affective-metadata-in-voice-protocols-emotion-tagging-c.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: question
+connections:
+- L-017
+status: withdrawn
+withdrawn: "2026-11-23 — self-sourced: the Discord idea it came from was Humboldt's own reply, captured as a participant contribution (capture bug, fixed s42). Dropped by operator decision."

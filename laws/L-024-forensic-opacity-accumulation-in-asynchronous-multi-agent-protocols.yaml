@@ -57,7 +57,8 @@ falsification: >
 references: []
 seeds:
   - seed-479
-related: []
+related:
+  - L-015  # named in this record's prose
 triggers:
   advance: >
     Empirical demonstration in 2+ independent multi-agent deployment contexts that failure attribution
@@ -75,3 +76,7 @@ history:
       security paper 
       (2026-09-22-trust-propagation-and-structural-containment-in-multi-agent) provides 
       an…
+  - date: '2026-11-23'
+    event: edited
+    detail: "related: backfilled L-015 — ids already named in the record's prose (induction
+      never filled the field)"

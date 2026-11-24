@@ -1,0 +1,21 @@
+id: seed-559
+title: Malfunction Legibility Without Institutional Response Trigger
+text: In AI systems subject to continuous optimization and public deployment, measurable
+  performance degradation can accumulate and become externally observable without
+  triggering institutional response or formal recalibration, particularly when (a)
+  the system remains operationally functional for most use cases, (b) the evaluation
+  metrics used internally remain uncorrelated with the external degradation signal,
+  and (c) institutional incentives favor continuation over diagnosis. This is a special
+  case of L-013 and may indicate that paradigm-locked anomaly tolerance operates not
+  only at the diagnostic level but at the *response* level — anomalies can be recognized
+  without triggering corrective protocol shifts.
+source: bibliography/shallow-reads/2026-11-23-link-analysis-of-claude-performance-degradation-and-ai-syste.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-013
+- L-022
+status: open
+last_swept: '2026-11-23'
+swept_count: 1

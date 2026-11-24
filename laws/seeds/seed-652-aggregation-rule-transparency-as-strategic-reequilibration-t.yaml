@@ -1,0 +1,18 @@
+id: seed-652
+title: Aggregation-Rule Transparency as Strategic Reequilibration Trigger
+text: In opinion aggregation protocols where the update rule (mean, median, ordinal threshold) is formally
+  specified and common knowledge, agents do not simply execute the rule as mathematically neutral. Once
+  aware of the aggregation *function*, agents may recalibrate report strategies, clustering, or information
+  concealment to optimize outcomes under the specific rule. Ordinal aggregation's mathematical robustness
+  to outliers may evaporate when strategic agents anticipate the median-selection mechanism and cluster
+  reports accordingly. Does protocol-layer transparency systematically unlock new equilibria that violate
+  the mathematical assumptions of the protocol itself? This warrants investigation across aggregation
+  families.
+source: bibliography/shallow-reads/2026-11-23-ordinal-hegselmann-krause-systems.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: question
+connections:
+- seed-157
+- seed-199
+status: open

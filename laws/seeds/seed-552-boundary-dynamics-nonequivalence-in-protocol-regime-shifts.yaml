@@ -1,0 +1,21 @@
+id: seed-552
+title: Boundary Dynamics Nonequivalence in Protocol Regime Shifts
+text: 'In formal protocol systems, state-space evolution under fixed governance and
+  authority boundaries (dynamics) produces different failure signatures and recovery
+  properties than changes to those boundaries themselves (topology). When boundary
+  definition is redrawn — through attrition, delegation, or formal scope redefinition
+  — systems can exhibit continuity of internal structure alongside discontinuity of
+  observed function. The question: under what conditions does boundary change *require*
+  regime-shift framing, and can internal dynamics alone trigger the redefinition of
+  boundaries that would then justify regime-shift language? This may separate failures
+  of institutional memory (L-015 dynamics mode) from failures of institutional identity
+  (boundary mode).'
+source: bibliography/shallow-reads/2026-11-23-idea-system-dynamics-are-distinct-from-system-boundary-chang.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: question
+connections:
+- L-015
+status: open
+last_swept: '2026-11-23'
+swept_count: 1

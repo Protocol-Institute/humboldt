@@ -1,0 +1,20 @@
+id: seed-544
+title: Metalinguistic Displacement Under Formalization Pressure
+text: When formalization pressure operates at the lexical layer (targeting naming
+  conventions, terminology adoption, and semantic standardization), does constraint
+  on a primary term (e.g., 'protocol') block downstream ossification, or displace
+  optimization pressure to synonym spaces and unmonitored descriptive practices? Under
+  what conditions does naming-layer opacity preserve functional informality, and under
+  what conditions does it merely hide formalization ratchet operation from institutional
+  oversight?
+source: bibliography/shallow-reads/2026-11-23-idea-proposal-to-rate-limit-use-of-the-word-protocol-in-info.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: question
+connections:
+- L-001
+- L-003
+- L-023
+status: open
+last_swept: '2026-11-23'
+swept_count: 1

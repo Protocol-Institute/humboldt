@@ -1,0 +1,17 @@
+id: seed-645
+title: Cost Opacity as Adoption Catalyst in Energy-Intensive Protocols
+text: 'In protocol systems with high per-unit environmental or infrastructure cost, adoption acceleration
+  correlates with the absence of legible, agent-facing cost signals rather than technical efficiency gains.
+  When aggregate cost remains opaque to adopting agents (not priced, not metered, not disclosed), optimization
+  pressure accumulates on user-visible metrics, allowing growth to proceed independently of true marginal
+  cost. This may generalize beyond energy systems: any protocol where the enforcement and cost accounting
+  layer is decoupled from the adoption layer will exhibit similar opacity-driven acceleration. The question
+  is whether this is a contingent failure of disclosure governance or a stable equilibrium under certain
+  competitive conditions.'
+source: bibliography/shallow-reads/2026-11-23-measured-from-the-feed-the-unsustainable-growth-of-ai-video-.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-021
+status: open

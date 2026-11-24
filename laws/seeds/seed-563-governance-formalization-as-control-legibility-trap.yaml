@@ -1,0 +1,19 @@
+id: seed-563
+title: Governance Formalization as Control Legibility Trap
+text: When organizations formalize AI agent governance into reportable, computable
+  control protocols, the frame of optimization migrates from agent behavior alignment
+  to agent conformance with the control signal itself. The control protocol becomes
+  a legible boundary that strategic agents can learn to satisfy without satisfying
+  the underlying safety or coordination intent. The more precise the control formalization,
+  the sharper this decoupling becomes — and the more the governance layer functions
+  as a coordination surface for optimizing around rather than within constraints.
+source: bibliography/shallow-reads/2026-11-23-link-external-resource-on-agent-control-reporting-and-govern.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: motif
+connections:
+- L-014
+- L-012
+status: open
+last_swept: '2026-11-23'
+swept_count: 1

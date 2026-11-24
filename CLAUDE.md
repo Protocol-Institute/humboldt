@@ -54,6 +54,7 @@ All PI org keys. No personal keys used.
 | `ANTHROPIC_API_KEY` | `../.env.keys` — personal key (PI org key deferred) |
 | `C3PO_WORKER_URL` | Phase 2 — URL of deployed c3po worker |
 | `C3PO_MCP_KEY` | Phase 2 — `MCP_API_KEY` from c3po config |
+| `CHAT_ADMIN_KEY` | Site-chat admin key; same value as the `humboldt-site` Pages secret. Gates `bin/chat_probe.py` / `bin/ab_model.py`. **Not yet created** (session 42) |
 
 ---
 
@@ -232,6 +233,17 @@ python3 -m agent.humboldt batch-deepread "arxiv-2606*"  # subset by glob
 # Pre-notebook activity queue — automated process log since last notebook entry
 python3 -m agent.humboldt pre-notebook              # show pending entries
 python3 -m agent.humboldt pre-notebook mark-consumed # advance cursor after writing notebook
+
+# ── Site chat harness (session 42) — bin/ ──
+# Offline (free): node bin/test_chat.mjs — mocks Voyage/Pinecone/Claude, 20 checks incl.
+#   streaming, admin gating, write-time usd. Run after ANY chat.js edit.
+# Live (needs CHAT_ADMIN_KEY in .env): bin/chat_probe.py (saved cases in
+#   bin/chat_probe_cases.json; source-only cases cost nothing) and bin/ab_model.py
+#   (variants a/b → data/ab-DATE.md, side by side). chat.js admin = header X-Admin-Key.
+# ⚠ build.py's chat page <script> lives in a NON-raw Python string: a JS "\n" must be
+#   written "\\n" there or it becomes a literal newline and breaks the page script.
+# ⚠ daemon/capture.py must never file Humboldt's own messages (_SELF_AUTHORS): before s42,
+#   59% of captured "Discord ideas" were its own replies laundered as participant input.
 
 # Ingest Humboldt's own documents → humboldt Pinecone namespace
 # Covers: notebook, reading notes, shallow reads, law records, inbox discord-ideas,
@@ -518,9 +530,14 @@ triggered by readiness assessment.
 
 ## Session Rituals
 
+> **Base ritual:** [`Code/devops/rituals.md`](../../devops/rituals.md) (v1.0) is canonical: startup S1–S7, wrap-up W0–W7. The steps below are this project's **local mods** — they run in addition to the base, and the stricter step wins. Check this section against the base when you next edit it; `Code/devops/rituals-survey.md` lists the common gaps (`date`, security sweep W3, cross-project items S4, a wrap-up report keyed to step IDs).
+
 Sessions touch one or more tracks. **Startup:** Track 2 always runs first; Track 1 runs when research work is planned; Track 3 has no startup. **Wrapup:** a single unified ritual (see below) always runs regardless of which tracks were active. Steps marked [T1] are skipped only when no Track 1 work occurred this session.
 
 Items marked **[REQUIRED]** are non-skippable. The session checklist must be posted before the session closes.
+
+**Carry-overs (S6) — raise at startup, delete when done:**
+- **Answer-path upgrades proven on PIBot (added 2026-10-09).** Apply [`../c3po/plans/answer-path-playbook.md`](../c3po/plans/answer-path-playbook.md) to Humboldt's web chat (`humboldt-site/functions/chat.js`): items 0-3 (saved probe + A/B harness, current date in the user message, streamed answers, `claude-sonnet-4-6` -> `claude-sonnet-5-5` with `thinking: {type: "between_tools"}` after an A/B in Humboldt's own voice). **Status 2026-11-23 (s42):** items 1–2 live and verified; item 0 built (`bin/chat_probe.py`, `bin/ab_model.py`, `bin/test_chat.mjs`) but blocked on `CHAT_ADMIN_KEY`; item 3 staged as `AB_VARIANTS.b`, so switch only after the A/B. Item 4 (the Institute calendar) is a candidate, since Humboldt is asked about PI events too. Item 5 needs no backfill for PIBot's namespaces: Humboldt reads PIBot's index, whose vectors now carry `ts_unix` and `event_id`. The research pipeline's models (`agent/`) are a separate decision with their own quality bar. Redeploying `humboldt-site` is already an open devops item. Update the playbook's status table as items land.
 
 ---
 
@@ -624,3 +641,9 @@ Daemon PID: [PID or "not running"]
 ### Keys/env (any track, if changed)
 
 New env vars: update `.env.template`; add to `../.env.keys`; add row to `../admin/keys.md`.
+
+## Anthropic API key (changed 2026-10-07)
+
+humboldt now has its own key: `ANTHROPIC_KEY_HUMBOLDT` in `protocol-institute/.env.keys` — service account `humboldt`, Developer role, scoped to the PI workspace. `humboldt/.env` already carries it as `ANTHROPIC_API_KEY`. The launchd daemon was restarted 2026-10-07 and now runs on it. The `humboldt-site` Pages secret was updated the same day, **but Pages secrets only reach new deployments — the live site keeps the old key until `humboldt-site` is redeployed.** `humboldt.exe.xyz` currently holds no code or key. Plan: `Code/anthropic-key-plan.md`. Do not copy the old shared key into new files.
+
+**Follow-ups: resolved 2026-11-23 (s42).** (1) The redeploy was already done: the daemon runs `publish-site` from THIS working tree after each notebook entry, so it had deployed to production a dozen times since 10-07. Uncommitted site edits go live on the daemon's next publish, so commit or deploy deliberately. (2) `daemon/costs.py` prices fixed. (3) Presence caching dropped: measured at ~$1/month for the whole daemon, with calls days apart, so the cache would only ever be written. Original text, for the record: (1) **redeploy `humboldt-site`** with the normal deploy flow (`wrangler pages deploy dist`) — Pages secrets only reach new deployments and direct-upload deployments cannot be retried, so the live site still uses the old shared key until then; (2) `daemon/costs.py` prices Haiku 4.5 at $0.80/$4.00 per MTok; the current rate is $1/$5 (c3po's table has it right), so logged spend is understated; (3) `agent/synthesizer.py` already supports `cache_system=True`; `daemon/presence.py` (7 call sites, ~3.5k input tokens, Sonnet 4.6) is the best uncached candidate — see `Code/anthropic-key-plan.md` §4.

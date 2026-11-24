@@ -1,0 +1,18 @@
+id: seed-657
+title: Dual-Incentive Endorsement Threshold as Miscalibration Anchor
+text: In any protocol where an agent's report triggers both a scoring-rule reward (function of accuracy)
+  and a decision-consequence reward (function of approval/rejection), the welfare-maximizing decision
+  rule is necessarily nonaffine, creating a "reserve report" equilibrium at which the agent's cost of
+  strategic deviation exactly equals the decision payoff. This threshold exists independently of agent
+  rationality or optimization intensity — it is a structural property of the incentive layering. The miscalibration
+  is not preventable via better calibration training; it is endogenous to the protocol's dual-layer structure.
+  This generalizes beyond probability scoring to any composite reward system where a legible decision
+  rule responds nonlinearly to a formally reported
+source: bibliography/shallow-reads/2026-11-23-the-endogeneity-of-miscalibration-impossibility-and-escape-i.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: insight
+connections:
+- L-004
+- L-012
+status: open

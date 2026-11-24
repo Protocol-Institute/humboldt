@@ -1,0 +1,18 @@
+id: seed-621
+title: Specialization-Coupling Lock in Formalized Multi-Agent Systems
+text: 'In multi-agent systems where roles are specialized and inter-dependencies are formalized as legible
+  acceptance conditions, the system develops a novel form of ossification: agents become locked not to
+  a protocol but to *each other''s output signatures*. When responsibility boundaries are made computable
+  and machine-readable for coordination, agents optimizing for acceptance create tightly coupled output
+  patterns that are difficult to modify without breaking downstream agents. This differs from L-005 in
+  that the working system is not globally functional—it works *locally* within narrow bands of input—but
+  becomes increasingly fragile to perturbation. The formalization of boundaries may accelerate this lock
+  rather than relieve it.'
+source: bibliography/shallow-reads/2026-11-23-autoswarm-automating-agent-swarms.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: motif
+connections:
+- L-005
+- L-001
+status: open

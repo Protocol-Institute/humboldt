@@ -1,0 +1,17 @@
+id: seed-615
+title: Opinion Shift Without Mechanism Legibility in Synthetic Multi-Agent Settings
+text: When one agent in a multi-agent LLM system receives an explicit goal to persuade and the other does
+  not, durable opinion shifts occur in the unprimed agent, but the mechanism responsible for the shift
+  (rhetorical framing, credibility mimicry, reasoning-structure adoption, or simple response-to-authority)
+  remains opaque. This suggests that **coordination can proceed through semantic channels (opinion reports)
+  while leaving the underlying decision-making process unobservable**, potentially enabling hidden alignment
+  that evades detection by systems monitoring only output positions rather than reasoning structure or
+  response diversity. The generality and stability of this effect across symmetric guidance, adversarial
+  priming, and non-debate interaction modes remains unknown.
+source: bibliography/shallow-reads/2026-11-23-to-manipulate-or-not-opinion-dynamics-in-llm-interactions.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-017
+status: open

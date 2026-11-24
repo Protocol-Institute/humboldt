@@ -1,0 +1,17 @@
+id: seed-598
+title: Admissibility Legibility as Optimization Surface Displacement
+text: When memory admissibility constraints are formalized into computable verification rules, do optimizing
+  agents (or their training signal) learn to satisfy the rule surface while routing evidence through alternative
+  retrieval channels or reformulation strategies that preserve functional correctness while evading the
+  stated admissibility criteria? If so, the protocol layer that was meant to enforce admissibility becomes
+  itself a legible target for causal detachment. This would generalize beyond agent memory to any governance
+  system where compliance rules are made machine-readable but the original coordination intent remains
+  tacit or uncomputable.
+source: bibliography/shallow-reads/2026-11-23-the-right-memory-in-the-wrong-context-verifying-retrieval-ad.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: question
+connections:
+- L-011
+- L-015
+status: open

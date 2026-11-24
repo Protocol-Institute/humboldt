@@ -185,6 +185,42 @@ def add_history(law, event: str, detail: str, on: str | None = None) -> None:
     law["history"].append({"date": on or today(), "event": event, "detail": detail})
 
 
+_LAW_ID_RE = re.compile(r"\bL-\d{3}\b")
+_PROSE_FIELDS = ("statement", "mechanism", "justification", "falsification")
+
+
+def fill_related(law, known_ids: set[str] | None = None) -> list[str]:
+    """Add to ``related:`` every other law the record's own prose already names.
+
+    Induction writes its comparisons in prose ("distinct from L-004 because…")
+    and never filled the structured field, so every law it created from L-008
+    on had ``related: []`` while its justification named its neighbours — the
+    whole Goodhart family (six laws defining themselves against L-004) was
+    invisible to anything reading ``related:``. Found and backfilled 2026-11-23.
+
+    Only adds; never removes or reorders a hand-written entry. Ids that are not
+    live laws (``known_ids``) are skipped. Returns the ids added.
+    """
+    from ruamel.yaml.comments import CommentedSeq
+
+    own = str(law.get("id"))
+    text = " ".join(str(law.get(f) or "") for f in _PROSE_FIELDS)
+    named = sorted({m for m in _LAW_ID_RE.findall(text) if m != own})
+    if known_ids is not None:
+        named = [i for i in named if i in known_ids]
+    current = law.get("related") or []
+    have = {str(x) for x in current}
+    added = [i for i in named if i not in have]
+    if not added:
+        return []
+    seq = current if isinstance(current, CommentedSeq) else CommentedSeq(list(current))
+    for i in added:
+        seq.append(i)
+        seq.yaml_add_eol_comment("named in this record's prose", len(seq) - 1)
+    law["related"] = seq
+    return added
+
+
 def _clamp_confidence_to_stage(law) -> str | None:
     """Lower confidence to the stage cap if it exceeds it. Returns note or None."""
     cap = STAGE_CONFIDENCE_CAP[law["stage"]]

@@ -1,0 +1,16 @@
+id: seed-603
+title: Model Mismatch as Silent Contract Degradation
+text: 'When a principal specifies a contract (a legible, measurable outcome payment) under the implicit
+  assumption of shared model knowledge, but the agent operates under systematically misspecified beliefs
+  about state transitions, the contract degrades silently: payment is rendered, obligations are technically
+  met, but the agent''s actions diverge from the principal''s causal intention without producing legible
+  breach signals. This suggests that in protocol systems where agent models are heterogeneous or privately
+  held, formalization of contracts may create an *illusion of alignment* while concentrating real coordination
+  failure into opaque belief layers—a potential hidden channel for protocol drift.'
+source: bibliography/shallow-reads/2026-11-23-contracting-with-an-agent-under-model-mismatch.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: motif
+connections:
+- L-004
+status: open

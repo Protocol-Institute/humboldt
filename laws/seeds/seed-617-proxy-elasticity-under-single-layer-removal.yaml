@@ -1,0 +1,16 @@
+id: seed-617
+title: Proxy Elasticity Under Single-Layer Removal
+text: 'When a single control mechanism (refusal) is removed from a system optimizing under multiple representational
+  constraints, the optimization pressure does not dissipate — it redistributes across non-targeted layers.
+  In LLMs, bias signals encoded during pretraining persist and become *more* accessible after removal
+  of the high-level refusal gate. This suggests a generalized property: single-layer intervention removal
+  in multiply-constrained systems produces *apparent* unconstrained behavior without reducing the underlying
+  optimization pressure, only its legibility. The bias becomes script-dependent and latent rather than
+  overt and monitored.'
+source: bibliography/shallow-reads/2026-11-23-uncensored-is-not-unbiased-abliteration-removes-refusals-but.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-004
+status: open

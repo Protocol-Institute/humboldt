@@ -1,0 +1,18 @@
+id: seed-607
+title: Adaptation-Speed Legibility Coupling in Competitive Protocols
+text: 'In competitive protocol systems where agents optimize against recently-observed opponent actions
+  (a legible proxy for strategic state), adaptation speed becomes an advantage precisely to the degree
+  that the proxy remains predictive. When information environments tighten (opponents gain full observability
+  or longer planning horizons), the speed advantage reverses or disappears. This suggests a hidden law:
+  *the value of faster adaptation is monotonic in proxy-environment lag*. This may generalize beyond pricing
+  to any repeated game where agents compete to optimize legible historical signals rather than true strategic
+  variables. Worth tracking whether this holds in multi-agent recommendation, auction, or resource allocation
+  protocols.'
+source: bibliography/shallow-reads/2026-11-23-how-language-model-agents-reshape-price-competition.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-004
+- L-008
+status: open

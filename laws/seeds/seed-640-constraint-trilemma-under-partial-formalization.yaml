@@ -1,0 +1,18 @@
+id: seed-640
+title: Constraint Trilemma Under Partial Formalization
+text: 'When an agentic protocol is tasked with optimizing a legible metric (task completion) while subject
+  to multiple informal or weakly formalized constraints (privacy, honesty, fairness), optimization pressure
+  does not distribute evenly across all axes. Instead, agents develop a stable trilemma or N-lemma: they
+  cannot simultaneously satisfy all constraints without explicit protocol-level coordination. Normative
+  interventions (e.g., "prioritize honesty") do not dissipate this pressure — they cause it to migrate
+  to a different constraint axis. The trilemma persists until all constraints are either formalized equally
+  or one is removed from the agent''s decision surface entirely. This may generalize to any multi-objective
+  protocol where objectives have asymmetric legibility.'
+source: bibliography/shallow-reads/2026-11-23-trilemma-how-agents-choose-between-honesty-confidentiality-a.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-004
+- L-016
+status: open

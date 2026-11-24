@@ -59,6 +59,13 @@ examples:
       the social-identity story. The Planck mechanism would predict that protocol change rates
       track cohort turnover rates, not coordination cost reduction."
     source: seed-027 (C-027-planck-principle-institutional-memory)
+  - domain: Competitive game governance (League of Legends)
+    description: Audit of 10 World Championships shows 33% of team rosters hit with net 
+      nerfs in patches they had no opportunity to practice before competition — protocol 
+      modification authority concentrated in Riot Games produces measurable, asymmetric 
+      externalities to teams that had optimized under prior rules, with no recourse 
+      mechanism.
+    source: arxiv-2610.07427 (shallow read 2026-11-23)
 counterexamples:
   - description: "TLS version deprecation moved faster than the superlinear prediction."
     resolution: "Asymmetric power (browser vendors forcing transition) can accelerate beyond
@@ -166,3 +173,9 @@ history:
     event: edited
     detail: 'assessment HOLD — gap: Resolve the mechanism contest before drafting the separation
       artifact. Two executable items: (1) Find a discriminating case for seed-027 — a distribut'
+  - date: '2026-11-23'
+    event: evidence
+    detail: 'Whether authority concentration in a protocol-modifying entity enables asymmetric
+      externalities under time-compressed adoption windows: Audit of 10 World Championships
+      shows 33% of team rosters hit with net nerfs in patches they had no opportunity to practice
+      before competition — protocol…'

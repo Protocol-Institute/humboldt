@@ -1,0 +1,21 @@
+id: seed-576
+title: Capability-Dependent Prior Entrenchment in Hierarchical Delegation
+text: 'Sub-agents in hierarchical delegation frameworks show non-monotonic trust in
+  inherited state as a function of capability tier: smaller agents ignore stale priors
+  (insufficient confidence to override), larger agents detect staleness and re-infer,
+  but mid-capability agents over-weight inherited conclusions as though they were
+  freshly validated. This suggests agents in a narrow competence band may treat formalized
+  priors (conclusions encoded in context) as more trustworthy than their own inference
+  on novel evidence, implying that formalization itself creates a credibility asymmetry
+  independent of actual information quality. The pattern may generalize to any protocol
+  where intermediate-capability agents must decide between deferring to formalized
+  legacy state and re-computing from base evidence.'
+source: bibliography/shallow-reads/2026-11-23-the-delegation-danger-band-why-mid-capability-sub-agents-ove.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-012
+status: open
+last_swept: '2026-11-23'
+swept_count: 1

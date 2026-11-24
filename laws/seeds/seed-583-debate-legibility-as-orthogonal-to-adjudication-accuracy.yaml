@@ -1,0 +1,17 @@
+id: seed-583
+title: Debate Legibility as Orthogonal to Adjudication Accuracy
+text: When debate is formalized as a protocol with instance-optimal decomposition rules, the system optimizes
+  for the depth and structure of formally resolvable sub-questions, not for the accuracy of the final
+  judgment. Under sufficient formalization pressure, debate protocols converge on decompositions that
+  maximize legibility to judges (human or machine) rather than decompositions that reveal ground truth.
+  This suggests debate depth correlates with formalizability-of-disagreement, not with question difficulty
+  or truth proximity — a generalization worth testing across other hierarchical judgment protocols (hierarchical
+  reinforcement learning, recursive auditing, multi-stage approval chains).
+source: bibliography/shallow-reads/2026-11-23-how-to-have-a-sensitive-debate-an-instance-optimal-protocol-.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-004
+- L-015
+status: open

@@ -1,0 +1,17 @@
+id: seed-627
+title: Regulator-Legibility Asymmetry in Confidential Agent Coordination
+text: 'When agent designs are kept confidential from one another but must be tested for compatibility
+  by a central regulator, the regulator becomes a mandatory legibility bottleneck. As the number of agents
+  and capability diversity grows, the regulator''s testing requirements scale in complexity. Does the
+  regulator''s own testing protocol then ossify — become harder to modify without breaking compatibility
+  guarantees — in a way that parallels the ossification of the agents themselves? Put differently: does
+  confidentiality-preserving coordination defer the ossification problem to the governance layer rather
+  than solving it?'
+source: bibliography/shallow-reads/2026-11-23-compatibility-and-future-proof-testing-for-multi-agent-syste.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: question
+connections:
+- L-001
+- L-005
+status: open

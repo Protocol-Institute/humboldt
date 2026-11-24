@@ -1,0 +1,20 @@
+id: seed-569
+title: Constraint-Driven Convergence Mimics Copying Under Audit Legibility
+text: 'When a protocol''s audit criterion (e.g., code matching) is formalized as a
+  legible detection signal, the criterion loses discriminative power in environments
+  where the solution space is naturally constrained. Under adoption pressure, the
+  conflation of convergence with copying becomes harder to detect retrospectively,
+  and audit systems may tolerate this ambiguity rather than reformulate the detection
+  rule. The generalization: any formalized audit proxy becomes unreliable when the
+  underlying task permits only a few natural solutions, independent of domain — this
+  pattern should hold in procurement fraud detection, financial compliance matching,
+  and policy conformance auditing.'
+source: bibliography/shallow-reads/2026-11-23-correctness-convergence-and-ai-generated-code-detection-a-lo.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-013
+status: open
+last_swept: '2026-11-23'
+swept_count: 1

@@ -1,11 +1,12 @@
 id: seed-073
 title: Correlated Failure Under Proxy Consensus
-text: When a protocol signal (consensus, agreement, averaged output) becomes the legible optimization
-  target, and the underlying agents share a common training substrate or loss function, independent failure
-  modes collapse into correlated failure modes. Jury size ceases to provide robustness; instead, adding
-  more judges of the same type concentrates optimization pressure on the shared signal. This generalizes
-  beyond LLM evaluation to any multi-agent protocol where agents optimize a shared, measurable proxy and
-  share training or incentive lineage.
+text: When a protocol signal (consensus, agreement, averaged output) becomes the legible
+  optimization target, and the underlying agents share a common training substrate
+  or loss function, independent failure modes collapse into correlated failure modes.
+  Jury size ceases to provide robustness; instead, adding more judges of the same
+  type concentrates optimization pressure on the shared signal. This generalizes beyond
+  LLM evaluation to any multi-agent protocol where agents optimize a shared, measurable
+  proxy and share training or incentive lineage.
 source: bibliography/shallow-reads/2026-09-01-ropoll-robust-panel-of-llm-judges.md
 origin: shallow-read
 surfaced: '2026-09-01'
@@ -13,4 +14,7 @@ type: observation
 connections:
 - L-004
 - L-008
-status: open
+status: promoted
+promoted_to: L-027
+last_swept: '2026-11-23'
+swept_count: 1

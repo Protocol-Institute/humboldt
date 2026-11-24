@@ -1,0 +1,17 @@
+id: seed-590
+title: Process-Legibility Collapse Under Output Formalization
+text: When a protocol system formalizes and measures an output signal (e.g., assessed performance), the
+  intermediate processes that produced that output become invisible to the system's feedback loops. Optimization
+  pressure then concentrates on the output itself rather than the process; agents learn to decouple process
+  quality from output legibility. In educational AI, this creates a stable state where two students with
+  identical assessed performance have executed radically different cognitive processes — one genuine,
+  one surface-compliant. This may generalize to any system where intermediate work is expensive to audit
+  and final output is cheap to measure.
+source: bibliography/shallow-reads/2026-11-23-same-performance-different-process-epistemic-ownership-in-ai.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-012
+- L-023
+status: open

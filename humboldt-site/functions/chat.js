@@ -6,7 +6,16 @@
  * (humboldt Pinecone index) to ground responses in both the literature and Humboldt's
  * current investigations.
  *
- * Route: POST /chat  { query, history? }
+ * Route: POST /chat  { query, history?, stream? }
+ *   stream: true → text/event-stream of `meta` (sources), `delta` ({text}),
+ *   then `done` or `error`. Errors raised before streaming starts stay JSON, so
+ *   the page checks Content-Type. Without it, the original JSON response.
+ *
+ * Admin (header X-Admin-Key === env.CHAT_ADMIN_KEY; never anything a public
+ * caller can send): skips the per-IP rate limit, accepts `variant` (AB_VARIANTS)
+ * and `now` (ISO, replays a day), and returns `_model`, `_usage`, `_ms`.
+ * Used by bin/chat_probe.py and bin/ab_model.py. Admin traffic is still
+ * counted in spend, so the budget breaker sees probe runs too.
  *
  * Required secrets (set via CF Pages → Settings → Environment variables):
  *   VOYAGE_API_KEY, PINECONE_API_KEY, PINECONE_C3PO_HOST,
@@ -18,7 +27,16 @@
 
 const VOYAGE_MODEL    = "voyage-3";
 const VOYAGE_URL      = "https://api.voyageai.com/v1/embeddings";
+// Answer model. AB_VARIANTS lets an admin request pick another for an A/B
+// (bin/ab_model.py) without a deploy. See ../c3po/plans/answer-path-playbook.md §3.
 const CLAUDE_MODEL    = "claude-sonnet-4-6";
+const AB_VARIANTS = {
+  a: { model: "claude-sonnet-4-6" },
+  // Sonnet 5.5: omitting `thinking` means ADAPTIVE thinking (slower, more
+  // tokens), and {type:"disabled"} is a 400. between_tools = no thinking on an
+  // answer path with no tools.
+  b: { model: "claude-sonnet-5-5", thinking: { type: "between_tools" } },
+};
 const CLAUDE_URL      = "https://api.anthropic.com/v1/messages";
 const ANTHROPIC_VER   = "2023-06-01";
 // Pinecone bills a monthly *egress* cap (1GB) that this Worker spends from the
@@ -38,12 +56,31 @@ const MAX_TOKENS      = 1200;
 const RATE_LIMIT_MAX  = 20;
 const RATE_LIMIT_TTL  = 3600;
 
-// Spend tracking (Sonnet 4.6 pricing)
+// Spend tracking. These four are the Sonnet 4.6 rates, kept ONLY to seed the
+// dollar total of a stats record written before 2026-11-23, when the counters
+// held tokens alone and every earlier token was Sonnet 4.6's. New spend is
+// priced at write time by the model that actually answered (MODEL_PRICES), and
+// accumulated as `usd`, so changing the answer model never re-prices history.
 const PRICE_IN          = 3.00  / 1e6;
 const PRICE_CACHE_WRITE = 3.75  / 1e6;
 const PRICE_CACHE_READ  = 0.30  / 1e6;
 const PRICE_OUT         = 15.00 / 1e6;
 const PRICE_VOYAGE_REQ  = 0.06  / 1e6 * 80;
+// USD per token: input, cache write (5-min, 1.25x), cache read (0.1x), output.
+const MODEL_PRICES = {
+  "claude-sonnet-4-6": { in: 3.00 / 1e6, cw: 3.75 / 1e6, cr: 0.30 / 1e6, out: 15.00 / 1e6 },
+  "claude-sonnet-5-5": { in: 2.00 / 1e6, cw: 2.50 / 1e6, cr: 0.10 / 1e6, out: 10.00 / 1e6 },
+};
+
+// Static, so it shares the cached prefix. The per-request date goes in the
+// USER message (currentTimeLine) — putting it here would miss the cache on
+// every request.
+const TIME_RULE = `## The current date
+
+Each message begins with a line giving the current date and time. Use it for
+anything about recency, "upcoming", "recent", "last month", or how long ago
+something happened. Do not infer today's date from the corpus or your notebook:
+both lag the present, sometimes by months.`;
 
 // ── System prompt — injected by build.py from current research state ───────────
 // The placeholder below is replaced with actual content during `python3 build.py`.
@@ -252,6 +289,15 @@ source says. Entries are permanent.*
 **L-024** (speculative): Forensic Opacity Accumulation in Asynchronous Multi-Agent Protocols
   In multi-agent systems where agents condition behavior on historical interaction traces and prior agent outputs, the forensic legibility of a failure—the ability to attribute it to a specific agent decision or protocol violation—degrades as a power function of temporal depth and causal branching. Be
 
+**L-025** (speculative): Disclosure-Legibility Inversion Under Agentic Adoption
+  When regulatory transparency mandates make protocol parameters legible to optimizing agents, the disclosure mechanism that was intended to constrain platform authority becomes a shared coordination surface that agents exploit to reconstruct the equilibrium the mandate was designed to disrupt. The in
+
+**L-026** (speculative): Capability-Cooperation Inversion Under Zero-Cost Collaboration
+  In multi-agent systems where information sharing is costless to the sender and beneficial to the collective, more capable agents do not cooperate more than less capable agents; above a capability threshold, agents systematically withhold information despite understanding the cooperative objective, p
+
+**L-027** (speculative): Consensus-Reasoning Decoupling in Multi-Agent Debate
+  In multi-agent debate systems, convergence on a shared answer does not entail convergence on shared reasoning: agents can achieve answer-level consensus while their underlying reasoning chains diverge, and standard debate protocols that increase answer agreement can simultaneously decrease reasoning
+
 **Valley:**
 
 **L-003** (provisional): The Formalization Ratchet
@@ -289,16 +335,16 @@ talk is the one place your research is stated as an argument to a room rather th
 as records, so it is the right source for "why does this matter" in a way the law
 files are not.
 
-## Most recent notebook entry (2026-09-23)
+## Most recent notebook entry (2026-11-23)
 
-# Lab Notebook — 2026-09-23
+# Lab Notebook — 2026-11-23
 
 *Daemon-generated entries.*
 
 
 ---
 
-## Ideas from Discord — 2026-09-22 – 2026-09-23
+## Ideas from Discord — 2026-11-22 – 2026-11-23
 
 …
 
@@ -340,11 +386,21 @@ function calcCost(usage) {
        + PRICE_VOYAGE_REQ;
 }
 
+// Dollars for one answer, priced by the model that produced it.
+function claudeUsd(usage, model) {
+  const p = MODEL_PRICES[model] || MODEL_PRICES[CLAUDE_MODEL];
+  return (usage?.input_tokens                || 0) * p.in
+       + (usage?.cache_creation_input_tokens || 0) * p.cw
+       + (usage?.cache_read_input_tokens     || 0) * p.cr
+       + (usage?.output_tokens               || 0) * p.out;
+}
+
 function ptDateStr() {
   return new Date(Date.now() - 8 * 3600 * 1000).toISOString().slice(0, 10);
 }
 
-async function trackRequest(kv, claudeUsage, egressBytes = 0, fromCache = false) {
+async function trackRequest(kv, claudeUsage, egressBytes = 0, fromCache = false,
+                            model = CLAUDE_MODEL) {
   if (!kv) return;
   const dayKey  = "stats:day:"      + ptDateStr();
   const lifeKey = "stats:lifetime";
@@ -361,7 +417,12 @@ async function trackRequest(kv, claudeUsage, egressBytes = 0, fromCache = false)
                  egress_bytes: 0 };
   const d = { ...zero, ...(ds || {}) };
   const l = { ...zero, ...(ls || {}) };
+  const reqUsd = claudeUsd(claudeUsage, model) + PRICE_VOYAGE_REQ;
   for (const s of [d, l]) {
+    // A record last written before write-time pricing holds tokens only, all of
+    // them Sonnet 4.6's, so seeding from the old constants is exact.
+    if (typeof s.usd !== "number") s.usd = s.reqs ? calcCost(s) : 0;
+    s.usd              += reqUsd;
     s.reqs             += 1;
     s.in_tok           += claudeUsage?.input_tokens                || 0;
     s.cache_create_tok += claudeUsage?.cache_creation_input_tokens || 0;
@@ -376,7 +437,7 @@ async function trackRequest(kv, claudeUsage, egressBytes = 0, fromCache = false)
   m.bytes += egressBytes;
   if (fromCache) m.cache_hits += 1;   // zero bytes because the cache answered,
                                       // not because the retrieval came back empty
-  const dayCost = calcCost(d);
+  const dayCost = d.usd;
   await Promise.all([
     kv.put(dayKey,  JSON.stringify(d), { expirationTtl: 30 * 24 * 3600 }),
     kv.put(lifeKey, JSON.stringify(l)),
@@ -523,7 +584,7 @@ function buildContextBlock(humboldtItems, corpusItems) {
 
 // ── RAG query ──────────────────────────────────────────────────────────────────
 
-async function runRagQuery(query, env, ctx, history) {
+async function runRagQuery(query, env, ctx, history, opts = {}) {
   const kv = env.RATE_LIMIT || null;
 
   // 0. Cached retrieval? A hit skips the Voyage embed and all 7 Pinecone
@@ -533,7 +594,7 @@ async function runRagQuery(query, env, ctx, history) {
     const cached = await kv.get(cacheKey, "json").catch(() => null);
     if (cached) {
       return runRagCompletion(query, env, ctx, history,
-                              cached.humboldtItems, cached.corpusItems, false, 0, true);
+                              cached.humboldtItems, cached.corpusItems, false, 0, true, opts);
     }
   }
 
@@ -585,12 +646,33 @@ async function runRagQuery(query, env, ctx, history) {
   }
 
   return runRagCompletion(query, env, ctx, history,
-                          humboldtItems, corpusItems, corpusOffline, egressBytes, false);
+                          humboldtItems, corpusItems, corpusOffline, egressBytes, false, opts);
+}
+
+function currentTimeLine(now) {
+  const d = now || new Date();
+  const date = d.toLocaleDateString("en-US", { weekday: "long", year: "numeric",
+    month: "long", day: "numeric", timeZone: "UTC" });
+  const time = d.toISOString().slice(11, 16);
+  return `Current date and time: ${date}, ${time} UTC.`;
+}
+
+// Join every text block. On newer models a thinking block can come first, so
+// content[0] is not reliably the answer.
+function answerText(body) {
+  return (body.content || []).filter(b => b.type === "text").map(b => b.text).join("");
+}
+
+function topSources(humboldtItems, corpusItems) {
+  return [...humboldtItems, ...corpusItems]
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 5)
+    .map(({ weightedScore, ...s }) => s);
 }
 
 async function runRagCompletion(query, env, ctx, history,
                                 humboldtItems, corpusItems, corpusOffline, egressBytes,
-                                fromCache) {
+                                fromCache, opts = {}) {
   const contextBlock = corpusOffline
     ? "(No retrieved context: corpus retrieval is temporarily unavailable — a " +
       "monthly read quota is exhausted. Answer only from the law inventory, " +
@@ -599,36 +681,116 @@ async function runRagCompletion(query, env, ctx, history,
       "or check sources right now. Do not invent citations.)"
     : buildContextBlock(humboldtItems, corpusItems);
 
+  const variant = (opts.variant && AB_VARIANTS[opts.variant]) || { model: CLAUDE_MODEL };
+  const params = {
+    model:      variant.model,
+    max_tokens: MAX_TOKENS,
+    system:     [
+      { type: "text", text: SYSTEM_PROMPT },
+      { type: "text", text: TIME_RULE, cache_control: { type: "ephemeral" } },
+    ],
+    messages:   [
+      ...history,
+      { role: "user", content:
+          `${currentTimeLine(opts.now)}\n\n${query}\n\n` +
+          `Relevant research and corpus context:\n\n${contextBlock}` },
+    ],
+  };
+  if (variant.thinking) params.thinking = variant.thinking;
+
+  const sources = topSources(humboldtItems, corpusItems);
+  // Admin probe: retrieval only (~1s, no model cost) for cases that check sources.
+  if (opts.sourcesOnly) return { answer: "", sources, corpusOffline, _model: null };
+  const t0 = Date.now();
+
   // 3. Call Claude
   const claudeRes = await fetch(CLAUDE_URL, {
     method:  "POST",
     headers: {
       "x-api-key":         env.ANTHROPIC_API_KEY,
       "anthropic-version": ANTHROPIC_VER,
-      "anthropic-beta":    "prompt-caching-2024-07-31",
       "Content-Type":      "application/json",
     },
-    body: JSON.stringify({
-      model:      CLAUDE_MODEL,
-      max_tokens: MAX_TOKENS,
-      system:     [{ type: "text", text: SYSTEM_PROMPT, cache_control: { type: "ephemeral" } }],
-      messages:   [
-        ...history,
-        { role: "user", content: `${query}\n\nRelevant research and corpus context:\n\n${contextBlock}` },
-      ],
-    }),
+    body: JSON.stringify(opts.stream ? { ...params, stream: true } : params),
   });
-  if (!claudeRes.ok) throw new Error("Claude error");
+  if (!claudeRes.ok) {
+    console.error("Claude error", claudeRes.status, (await claudeRes.text()).slice(0, 300));
+    throw new Error("Claude error");
+  }
+
+  if (opts.stream) {
+    return { stream: relayAnswerStream(claudeRes, ctx, env, {
+      sources, corpusOffline, egressBytes, fromCache, model: variant.model,
+      admin: opts.admin, t0 }) };
+  }
+
   const claudeBody = await claudeRes.json();
-  const answer = claudeBody.content?.[0]?.text || "";
-  if (ctx) ctx.waitUntil(trackRequest(env.RATE_LIMIT, claudeBody.usage, egressBytes, fromCache));
+  const answer = answerText(claudeBody);
+  if (ctx) ctx.waitUntil(trackRequest(env.RATE_LIMIT, claudeBody.usage, egressBytes,
+                                      fromCache, variant.model));
+  const out = { answer, sources, corpusOffline };
+  if (opts.admin) Object.assign(out, { _model: variant.model, _usage: claudeBody.usage,
+                                       _ms: Date.now() - t0 });
+  return out;
+}
 
-  const sources = [...humboldtItems, ...corpusItems]
-    .sort((a, b) => b.score - a.score)
-    .slice(0, 5)
-    .map(({ weightedScore, ...s }) => s);
+// Relay the Messages API stream to the page as three event types: `meta`
+// (sources + offline flag, first), `delta` ({text}), then `done` or `error`.
+// Usage arrives split — input/cache tokens in message_start, output tokens in
+// message_delta — so accounting happens after the last upstream event.
+function relayAnswerStream(claudeRes, ctx, env, info) {
+  const enc = new TextEncoder();
+  const dec = new TextDecoder();
+  const { readable, writable } = new TransformStream();
+  const writer = writable.getWriter();
+  const send = (event, data) =>
+    writer.write(enc.encode(`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`));
 
-  return { answer, sources, corpusOffline };
+  const pump = (async () => {
+    const usage = {};
+    let ttft = null;
+    try {
+      await send("meta", { sources: info.sources, corpusOffline: info.corpusOffline });
+      const reader = claudeRes.body.getReader();
+      let buf = "";
+      for (;;) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        buf += dec.decode(value, { stream: true });
+        let cut;
+        while ((cut = buf.indexOf("\n\n")) !== -1) {
+          const frame = buf.slice(0, cut);
+          buf = buf.slice(cut + 2);
+          const line = frame.split("\n").find(l => l.startsWith("data:"));
+          if (!line) continue;
+          let ev;
+          try { ev = JSON.parse(line.slice(5).trim()); } catch { continue; }
+          if (ev.type === "message_start") Object.assign(usage, ev.message?.usage || {});
+          else if (ev.type === "message_delta" && ev.usage) Object.assign(usage, ev.usage);
+          else if (ev.type === "content_block_delta" && ev.delta?.type === "text_delta") {
+            if (ttft === null) ttft = Date.now() - info.t0;
+            await send("delta", { text: ev.delta.text });
+          } else if (ev.type === "error") {
+            throw new Error(ev.error?.message || "upstream stream error");
+          }
+        }
+      }
+      const done = {};
+      if (info.admin) Object.assign(done, { _model: info.model, _usage: usage,
+                                            _ms: Date.now() - info.t0, _ttft_ms: ttft });
+      await send("done", done);
+    } catch (err) {
+      console.error("Stream error:", err);
+      await send("error", { error: "The answer was interrupted. Please try again." })
+        .catch(() => {});
+    } finally {
+      await writer.close().catch(() => {});
+      await trackRequest(env.RATE_LIMIT, usage, info.egressBytes, info.fromCache, info.model)
+        .catch(e => console.error("trackRequest:", e));
+    }
+  })();
+  if (ctx) ctx.waitUntil(pump);
+  return readable;
 }
 
 // ── Pages Function entrypoint ──────────────────────────────────────────────────
@@ -643,6 +805,10 @@ export async function onRequestPost(context) {
 
   const kv = env.RATE_LIMIT || null;
   const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+  // Admin only when the secret is set AND matches — an unset secret must never
+  // make an absent header count as admin.
+  const adminKey = env.CHAT_ADMIN_KEY || "";
+  const isAdmin  = adminKey.length >= 32 && request.headers.get("X-Admin-Key") === adminKey;
 
   // Circuit breaker check
   if (kv) {
@@ -652,15 +818,21 @@ export async function onRequestPost(context) {
     }
   }
 
-  // Rate limit
-  if (!await checkRateLimit(kv, ip)) {
+  // Rate limit (a probe run exceeds 20/hour, so admin requests skip it)
+  if (!isAdmin && !await checkRateLimit(kv, ip)) {
     return Response.json({ error: "Rate limit exceeded. Please try again in an hour." }, { status: 429, headers: corsHeaders });
   }
 
-  let query, history;
+  let query, history, opts;
   try {
     const body = await request.json();
     query   = (body.query || "").trim();
+    opts    = { stream: body.stream === true, admin: isAdmin };
+    if (isAdmin) {
+      if (typeof body.variant === "string") opts.variant = body.variant;
+      if (typeof body.now === "string" && !isNaN(Date.parse(body.now))) opts.now = new Date(body.now);
+      if (body.mode === "sources") opts.sourcesOnly = true;
+    }
     const raw = Array.isArray(body.history) ? body.history : [];
     history = raw
       .filter(m => (m.role === "user" || m.role === "assistant") && typeof m.content === "string")
@@ -680,8 +852,15 @@ export async function onRequestPost(context) {
   }
 
   try {
-    const { answer, sources, corpusOffline } = await runRagQuery(query, env, context, history);
-    return Response.json({ answer, sources, query, corpusOffline }, { headers: corsHeaders });
+    const result = await runRagQuery(query, env, context, history, opts);
+    if (result.stream) {
+      return new Response(result.stream, { headers: {
+        ...corsHeaders,
+        "Content-Type":  "text/event-stream; charset=utf-8",
+        "Cache-Control": "no-cache, no-transform",
+      } });
+    }
+    return Response.json({ ...result, query }, { headers: corsHeaders });
   } catch (err) {
     console.error("Chat error:", err);
     return Response.json({ error: "Internal error. Please try again." }, { status: 500, headers: corsHeaders });

@@ -1,0 +1,17 @@
+id: seed-638
+title: Allocation Formalization as Boundary Optimization Sink
+text: When safety-capability resource allocation is formalized as a computable tradeoff (a welfare function
+  over legible parameters), optimizing agents redirect effort from genuine safety or capability work toward
+  redefining the boundary between categories to shift the allocation rule in their favor. The cheaper
+  the relabeling cost relative to the allocation swing, the more intense the boundary capture. This may
+  generalize to any protocol system where the split between two optimization objectives is rendered formally
+  computable and agent-controllable.
+source: bibliography/shallow-reads/2026-11-23-safety-research-and-the-allocation-of-frontier-compute.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: motif
+connections:
+- L-001
+- L-006
+- L-012
+status: open

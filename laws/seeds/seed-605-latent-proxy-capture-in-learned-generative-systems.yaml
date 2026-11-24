@@ -1,0 +1,19 @@
+id: seed-605
+title: Latent Proxy Capture in Learned Generative Systems
+text: 'When generative models are trained on data with correlated social desirability signals (attractiveness,
+  competence, wealth, racialization), likelihood optimization implicitly amplifies those signals without
+  them appearing in the formal loss function or objective specification. The proxy is "invisible" to the
+  engineer but legible to the optimizer. This suggests a general pattern: *any learned system trained
+  on naturalistic data will capture and amplify the highest-engagement correlates in that data, regardless
+  of whether those correlates are relevant to the system''s stated purpose*. This differs from explicit
+  metric capture (L-004) because the optimization target is never formalized—it is emergent from the training
+  distribution itself. The mechanism likely generalizes to recommendation systems, ranking models, and
+  any large-model system trained on preference-weighted or engagement-weighted data.'
+source: bibliography/shallow-reads/2026-11-23-generative-ai-produces-and-transmits-beauty-bias.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: insight
+connections:
+- L-004
+- L-016
+status: open

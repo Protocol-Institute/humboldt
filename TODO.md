@@ -6,56 +6,105 @@ Priority: **[H]** urgent, **[M]** soon, **[L]** when convenient.
 
 ---
 
-## ⏸ RESUME HERE — session 38 closed 2026-09-22
+## ⏸ RESUME HERE — Session 42, 2026-11-23
 
-**0. [H] `funnel_context.research_context()` seed sampling — the read-side twin of the
-session-38 induct fix.** `max_seeds=25` over the same newest-first sort across the same
-tied `surfaced` dates, so triage and shallow-read judge "do I already hold something like
-this?" against 25 of 522 seeds. Some fraction of session 38's 88 new seeds are likely
-re-discoveries of material already in the pool. Needs a *different* fix from induct's:
-this is read-only context, so there is nothing to stamp — sample across the pool (or
-stratify by `surfaced`) rather than taking the head. Deliberately not done in session 38
-because 224 shallow reads were already running through the old path.
+Done in s42: seed-sampling fix (old item 0), talk (old 1, delivered), talk-kit port
+(old 9, done s39), `related:` backfill, site chat playbook items 1–2 (live), the
+`daemon/costs.py` price table. Supervisor prep for old items 2–3 is in
+`plans/supervisor-review-2026-11-23.md`.
 
-**1. [H] Talk — Tuesday 2026-09-23.** 16 slides, 10:24 measured, deployed to production.
-Title slide added session 38. Remaining: whatever content edits the operator still wants.
-`wpm_effective: 155` and the per-slide word budgets are still unfounded (s36: `say -r` is
-a no-op on compact voices) — re-fit against Oliver after the talk, not before.
+**0. [H] Operator: create `CHAT_ADMIN_KEY`.** Generate it, show it, save it to `.env`,
+`../.env.keys` and `../admin/keys.md`, *then* run `wrangler pages secret put
+CHAT_ADMIN_KEY --project-name humboldt` (security-policy Rule 1). Run `publish-site`
+after the put, since Pages secrets only reach new deployments. That unblocks:
+`bin/chat_probe.py` (saved probe, 10 cases) → `bin/ab_model.py` (A/B: Sonnet 4.6 vs.
+5.5 with `between_tools`) → if it holds in Humboldt's voice, set
+`CLAUDE_MODEL = "claude-sonnet-5-5"` and send `thinking` from `AB_VARIANTS.b`. Write-time
+pricing (`MODEL_PRICES`, stats `usd`) is already in place, so the switch won't re-price
+history. Then update the playbook status table in `../c3po/plans/answer-path-playbook.md`
+(edited s42 but NOT committed — it's c3po's repo).
 
-**2. [H] Supervisor review of 13 unreviewed exploration laws.** L-012–L-016 (s30), L-017,
-L-019, L-020, L-021 (2026-09-02), L-018, L-022, L-023, L-024 (s38). **Do L-012 first:**
-it drew 58 law citations across session 38's 559-item feed backlog, second only to
-L-004's 111, and two of that session's deep-read escalations extend it specifically —
-it is accumulating evidence faster than any other unreviewed record.
-**Also decide:** are L-022 (Oracle Fitness Decoupling) and L-023 (Informality as Novelty
-Sink) distinct laws, or Goodhart-family duplication reached via different seeds?
+**1. [H] Supervisor decisions** — `plans/supervisor-review-2026-11-23.md`:
+- L-012: falsification condition tests the wrong claim. Proposed rewrite + open question
+  inside. Escobar et al. *NEJM* 2020 is a candidate counterexample to retrieve.
+- L-022 / L-023 are distinct. The real overlap is the L-008 / L-012 / L-022 triangle; run
+  one comparative pass before promoting any of them.
+- The other 10 unreviewed exploration laws are still unreviewed.
 
-**3. [M] L-006 automation crux — now executable.** The session-38 assessment named three
-specific papers to retrieve and deep-read. First concrete next step on the
-longest-standing open question in the inventory.
+**2. [M] L-006 crux: the three named papers were already deep-read** and don't address it.
+Do a targeted re-read of 2402.08128 (cost of simulation), then choose sources that do.
+**Process bug:** `assess` gaps name sources without checking `bibliography.yaml`
+`read_depth`. Fix in `agent/assess.py`: annotate gap-named arXiv ids with their
+read_depth before the gap is written.
 
-**4. [M] ~215 triaged-but-unread feed items**, 2026-09-02 to 09-14, listed in
-`inbox/triage-feed-2026-09-22.md`. Deliberate dated backlog, not an oversight. 12 new
-deep-read escalations from s38 plus the 30 from the 09-03 sweep also unread.
+**3. [M] `induct` prompt never asks for `open_questions:` / `counterexamples:`**, so 13
+laws have both empty. `related:` is now filled mechanically (`laws.fill_related`).
+These two need a prompt change in `prompts/induct.md`.
 
-**5. [M] Phase 5.** `plans/phase5-vm-cutover.md` is the runbook. §4.2 corrected
-2026-09-09: deploy keys are **disabled org-wide** on Protocol-Institute, so it specifies a
-scoped fine-grained PAT instead (matching what c3po landed on).
+**4. [M] Funnel backlog + a triage discard rate that collapsed.** s42 feed triage marked
+**576 of 635 shallow (91%)**, against 70–77% on every earlier run, so the discard bar
+went slack. The s42 seed-sampling change, which shows triage a wider spread of seeds, may
+have contributed; nobody has measured it. Before re-triaging, sample ~20 of the shallow
+calls and judge them by hand. s42 shallow-read only the 43 Discord items and the 220
+Oct–Nov feed items (`inbox/triage-feed-2026-11-23-recent.md`). **356 Jul–Sep feed items
+are held** for a stricter re-triage. Induct still to run. ⚠ `induct` deploys and
+announces to Discord.
 
-**6. [M] Reading page follow-up.** Six slugs still have two shallow-read files each, both
-referenced, by two *different* bibliography entries — Discord ideas re-triaged later and
-given a second entry. A duplicate-records question, not a duplicate-files one; laws may
-cite either id, so which id survives is a supervisor call.
+**4b. [M] Contributor credit for Discord ideas.** The people model
+(`humboldt people`) counts only @mention interactions. Nothing credits a participant when
+their captured idea becomes a seed, gets cited as evidence, or feeds a law. The chain
+already carries the author (inbox `**Author:**` → shallow read `(by <name>)` → seed
+`source:`). Wanted: an author field on the seed, carried into law `seeds:`/`examples`, a
+credit count per person in `people`, and possibly an acknowledgement on the law page.
+Related s42 fix: `daemon/capture.py` captured Humboldt's own replies as participant
+ideas (302 of 515 since May). Now filtered out, and the 15 resulting seeds were withdrawn
+(`status: withdrawn`). 215 self-authored shallow reads remain in `bibliography/` and in
+Pinecone as `DISCORD IDEA (by humboldt)`, labelled honestly but cluttering retrieval.
+Consider pruning them.
 
-**7. [L] Phase 4 flag heuristics** (prune/split/stall) — the [OPUS] half. Needs weeks of
-real `visits` data under the s35 instrumentation before the collapse threshold can be
-calibrated. Don't guess it.
+**4c. [M] Publish the notebook and research as a blyg (blygger protocol).** Use
+the blygger publishing protocol (`../../blygger-protocol/blygger-spec/`) to publish
+Humboldt's notebook and research (laws, reading notes) as a blyg, alongside or eventually
+instead of the bespoke `humboldt-site/` pages. Start by reading the spec and the blykker
+mod model (`../../blygger-protocol/blykker/`, piloted on `Publishing/newnature/`, which
+has the same "new nature" subject). Open questions: which records map to fragments vs.
+threads; whether the site and the blyg share a build; whether law-event announcements
+come from the blyg's feed. Added s42 on operator instruction.
 
-**8. [L] Site.** The `read_depth: listed` backlog — registered but never read — is visible
-on `/reading/` and grew substantially in s38 (416 new listed entries from feed triage).
+**4d. [M] Supervisory conversations with the operator over Discord DM.** A system where
+law-promotion decisions and general supervisory chats happen in a DM thread with the
+operator, not only via the console/CLI. Pieces already exist:
+- `DISCORD_OPERATOR_USER_ID`: the daemon already DMs the operator for read-budget alerts
+  and the weekly feed digest.
+- The approval queue (`behaviors/queue.yaml`, `queue approve/reject/apply`).
+- `assess` verdicts, PROMOTE/HOLD/DEMOTE.
+Shape to design: `assess` posts a PROMOTE proposal (statement, evidence, trigger met?) as
+a DM. The operator replies approve / hold / free-text, and the reply is applied through
+the `laws.py` stage machine with the operator's words recorded in `history`. Plus an
+open-ended supervisory chat in the same DM, with Humboldt's full research context.
+Requirements:
+- Authenticate by Discord user ID, never by display name.
+- Treat every DM reply as an instruction only from that ID.
+- Log every applied decision as a commit, like the console's `[console]` commits.
+- `daemon pause` must gate it.
+The s42 supervisor memo (`plans/supervisor-review-2026-11-23.md`) is the kind of content
+that would flow there. Added s42 on operator instruction.
 
-**9. [L] Post-talk: port `talk-kit` theme.** Four specific pieces of work, written up in
-`../../talk-kit/reference/adopting.md`. Must not happen before the 2026-09-23 talk.
+**5. [M] Phase 5** — `plans/phase5-vm-cutover.md`. Unchanged.
+
+**6. [M] Reading page duplicate bib ids** — six slugs. Unchanged; supervisor call.
+
+**7. [L] Phase 4 flag heuristics** — now ~10 weeks of `visits` data since s35. May be
+calibratable.
+
+**8. [L] Slide 03/04 diagram type below the 24px floor** (s39). Unchanged.
+
+**9. [L] Humboldt has no email address.** Discord + site chat only. If one is wanted:
+a mailbox on the PI domain (receive) or send-only via the existing Resend key.
+
+**Dropped (measured s42):** prompt caching in `daemon/presence.py`. Calls are days apart
+and the whole daemon costs ~$1/month, so the 5-minute cache would only ever be written
+(1.25×), never read.
 
 ---
 

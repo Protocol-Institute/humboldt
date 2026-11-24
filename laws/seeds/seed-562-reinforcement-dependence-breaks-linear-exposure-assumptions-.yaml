@@ -1,0 +1,20 @@
+id: seed-562
+title: Reinforcement-Dependence Breaks Linear Exposure Assumptions in Protocol Adoption
+text: 'When protocol or institutional adoption is conditioned on agents observing
+  adoption by multiple peers (rather than independent exposure to information), adoption
+  dynamics exhibit nonmonotonic, threshold-dependent behavior with clustering and
+  potential reversals across network regions. This holds independently of agent rationality
+  or preference homogeneity — it emerges from the interaction topology of coordination-dependent
+  decisions. The implication: any analysis of protocol adoption that assumes linear
+  response to increased exposure or information will systematically mispredict in
+  systems where legitimacy or coordination logic, not information, drives the adoption
+  choice.'
+source: bibliography/shallow-reads/2026-11-23-link-paper-on-complex-contagion-and-adoption-dynamics-in-soc.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-010
+status: open
+last_swept: '2026-11-23'
+swept_count: 1

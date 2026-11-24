@@ -1,0 +1,16 @@
+id: seed-594
+title: Legibility Tax Under Credit Orthogonalization
+text: When credit assignment protocols become more legible through explicit factorization (e.g., separating
+  agent contribution from exogenous population dynamics), do agents receiving clearer signals exhibit
+  increased strategic behavior in response — such as coalitional defection, timing-sensitive exit, or
+  contribution withholding — that recovers or exceeds the original noise cost? In open-team systems, does
+  better credit isolation create new coordination problems at the boundary between agent choice and team
+  membership?
+source: bibliography/shallow-reads/2026-11-23-turnover-orthogonal-credit-assignment-for-open-team-multi-ag.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: question
+connections:
+- L-006
+- L-009
+status: open

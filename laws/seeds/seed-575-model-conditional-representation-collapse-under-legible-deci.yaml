@@ -1,0 +1,21 @@
+id: seed-575
+title: Model-Conditional Representation Collapse Under Legible Decision Forcing
+text: When heterogeneous decision-making agents (differing in training, architecture,
+  or heuristics) are forced to output legible, comparable actions in response to identical
+  information, their representation in the action stream becomes volatile and selective
+  rather than preserving population diversity. The same information stimulus produces
+  dramatically different activation profiles across agent types, and this activation
+  is not stable across stimulus framing—suggesting that diversity exists in latent
+  reasoning but collapses under computable action legibility. This may generalize
+  beyond trading to any protocol that aggregates agent outputs into a legible, comparable,
+  optimizable action space.
+source: bibliography/shallow-reads/2026-11-23-shared-models-selective-trading-and-order-flow.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-004
+- L-010
+status: open
+last_swept: '2026-11-23'
+swept_count: 1

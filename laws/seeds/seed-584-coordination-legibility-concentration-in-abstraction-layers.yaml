@@ -1,0 +1,19 @@
+id: seed-584
+title: Coordination Legibility Concentration in Abstraction Layers
+text: 'When coordination infrastructure is formalized as standardized, machine-readable APIs, the coordination
+  signal becomes simultaneously more legible to detection systems and more vulnerable to scaled exploitation
+  — the abstraction layer that enables efficient coordination also creates a single, forensically concentrated
+  locus of manipulation. This suggests a tension: formalization that improves coordination transparency
+  (and thus detection capability) also improves coordination scalability and precision, potentially lowering
+  the cost of inauthentic operations faster than detection capability grows. The generalization hypothesis:
+  in any multi-agent protocol system, there exists an abstraction layer depth where coordination cost
+  is minimized and legibility is maximized *to both legitimate monitors and adversarial operators*; the
+  security of the system depends on asymmetry at that depth, which protocols tend not to maintain under
+  adoption pressure.'
+source: bibliography/shallow-reads/2026-11-23-information-operations-exploit-apis-to-manipulate-social-med.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-017
+status: open

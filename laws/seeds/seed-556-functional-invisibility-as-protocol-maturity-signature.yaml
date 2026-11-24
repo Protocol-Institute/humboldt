@@ -1,0 +1,19 @@
+id: seed-556
+title: Functional Invisibility as Protocol Maturity Signature
+text: 'Protocols that achieve structural stability and complete functional integration
+  tend to disappear from deliberative and monitoring discourse—not due to coordination
+  failure but due to absence of friction. Distinguish: a protocol becomes invisible
+  because it fails (no feedback signal reaches decision-makers) versus becomes invisible
+  because it succeeds (no anomaly triggers re-examination). The operational test is
+  intervention response time: can the system detect and surface the protocol for deliberation
+  if external pressure arrives? Protocols in functional invisibility should respond
+  rapidly; those in epistemic invisibility should not.'
+source: bibliography/shallow-reads/2026-11-23-idea-opinions-about-a-protocol-trend-toward-zero-not-due-to-.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-001
+status: open
+last_swept: '2026-11-23'
+swept_count: 1

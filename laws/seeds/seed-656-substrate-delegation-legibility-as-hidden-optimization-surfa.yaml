@@ -1,0 +1,19 @@
+id: seed-656
+title: Substrate Delegation Legibility as Hidden Optimization Surface
+text: 'When a protocol deliberately assigns cognitive tasks to separate, specialized substrates (LLM for
+  narrative, Python for arithmetic, retriever for fact-fetch), it creates a secondary optimization surface:
+  the routing and task-assignment layer itself becomes legible and gameable by any learning agent that
+  sees the assignment cost and success signal. Under pressure to minimize tool calls, latency, or user
+  friction, an optimizing agent may learn to route tasks in ways that preserve the appearance of compartmentalization
+  while concentrating optimization in the routing layer itself, effectively hollowing out the safety of
+  substrate specialization. This suggests that substrate delegation creates value only when the routing
+  and assignment function remains opaque or costly to optimize; when it becomes legible and cheap to game,
+  the protocol regresses toward monolithic optimization.'
+source: bibliography/shallow-reads/2026-11-23-finveriqa-financial-research-agents-for-question-answering-r.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-004
+- L-022
+status: open

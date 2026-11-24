@@ -1,0 +1,17 @@
+id: seed-630
+title: Learning Transparency as Covert Coordination Legibility
+text: When a coordination mechanism is augmented with a learned model of agent behavior, that model's
+  predictions become visible to agents (either directly or through its effects on incentives). Does agent
+  awareness of *what the mechanism believes they will do* create a new coordination surface that partially
+  defeats the mechanism's intent? In learning-augmented systems, does transparency of the learned model
+  increase or decrease actual coordination efficiency relative to opaque mechanisms? This may generalize
+  beyond congestion games to any protocol where agents can observe the system's predictive model of their
+  own behavior.
+source: bibliography/shallow-reads/2026-11-23-learning-augmented-coordination-mechanisms.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: question
+connections:
+- L-006
+- L-010
+status: open

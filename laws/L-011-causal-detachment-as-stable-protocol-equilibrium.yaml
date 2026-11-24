@@ -95,7 +95,8 @@ references:
   - bib-0162
   - bib-0146
 seeds: []
-related: []
+related:
+  - L-004  # named in this record's prose
 triggers:
   advance: >
     Independent evidence that causally-detached-but-internally-consistent states are stable
@@ -154,3 +155,7 @@ history:
       from external ground truth emerge as stable attractors in autoregressive systems: The
       strategic play paper (arxiv-2605.00226) demonstrates empirically that LLMs form beliefs
       independently of observations and act independently of beliefs in…'
+  - date: '2026-11-23'
+    event: edited
+    detail: "related: backfilled L-004 — ids already named in the record's prose (induction
+      never filled the field)"

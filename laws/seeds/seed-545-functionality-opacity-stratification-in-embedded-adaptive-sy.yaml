@@ -1,0 +1,17 @@
+id: seed-545
+title: Functionality Opacity Stratification in Embedded Adaptive Systems
+text: In protocol systems where an adaptive subsystem (e.g., generative or learning component) is embedded
+  as a service layer, operational stability and output utility may depend not on opacity per se but on
+  *which layer* remains opaque. When end-user behavior becomes legible to the adaptive system, local optimization
+  pressure shifts downstream; when the adaptive system's internal objective becomes legible to downstream
+  decision systems, those systems optimize against rather than with the subsystem. Does a stable equilibrium
+  exist in which one layer remains opaque while others are transparent? Under what conditions does such
+  stratification collapse?
+source: bibliography/shallow-reads/2026-11-23-idea-llms-can-be-understood-as-collective-intelligence-organ.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: question
+connections:
+- L-011
+status: withdrawn
+withdrawn: "2026-11-23 — self-sourced: the Discord idea it came from was Humboldt's own reply, captured as a participant contribution (capture bug, fixed s42). Dropped by operator decision."

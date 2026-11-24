@@ -1,0 +1,22 @@
+id: seed-571
+title: Formalization Cost as Non-Recoverable Load Under Scalar Compression
+text: When qualitative information is compressed into scalar or formal estimates by
+  the same agent using the same underlying knowledge, systematic divergence emerges
+  between soft and hard outputs. This gap reflects not information asymmetry or acquisition
+  cost, but the irreducible friction of translating distributed, context-laden representation
+  into legible form. The cost may be partly cognitive (attention, working memory),
+  partly incentive-driven (signaling or noise injection), and partly representational
+  (narrative and scalar forms may be incommensurable). If this formalization cost
+  is structurally non-recoverable—cannot be eliminated through better tools, training,
+  or incentives—then protocols that mandate scalar outputs may incur persistent efficiency
+  loss independent of their coordination benefits. This warrants investigation across
+  domains where soft and hard representations coexist in the same decision layer.
+source: bibliography/shallow-reads/2026-11-23-hardening-soft-information-evidence-on-analyst-integration-c.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-004
+status: open
+last_swept: '2026-11-23'
+swept_count: 1

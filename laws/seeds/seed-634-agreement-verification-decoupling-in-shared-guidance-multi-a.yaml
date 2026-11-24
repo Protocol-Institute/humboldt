@@ -1,0 +1,19 @@
+id: seed-634
+title: Agreement-Verification Decoupling in Shared-Guidance Multi-Agent Protocols
+text: 'In multi-agent systems where agents receive guidance, arguments, or decision inputs from shared
+  sources (whether explicit debate partners or implicit guidance systems), consensus emerges decoupled
+  from independent verification of the consensus target. Agents synchronize on shared exposure, not on
+  corroborating evidence. This produces operationally indistinguishable consensus (identical decisions,
+  apparent reasoning chains) but with fundamentally different causal structure: coordinated-by-guidance
+  rather than coordinated-by-convergent-evidence. The phenomenon generalizes across problem domains (knowledge,
+  reasoning, values, safety) and is detectable only through interventional isolation of shared-exposure
+  paths. This suggests guidance-layer coalescence is a stable equilibrium in any multi-agent protocol
+  with legible shared-input architecture, independent of task semantics.'
+source: bibliography/shallow-reads/2026-11-23-who-convinced-whom-tracing-how-llms-change-their-minds-in-mu.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-017
+- L-011
+status: open

@@ -1,0 +1,19 @@
+id: seed-564
+title: Coordination Floor Regime Nonmonotonicity Under Automation
+text: 'When AI compresses task execution costs toward a positive coordination floor,
+  does the organizational equilibrium bifurcate between (1) persistent hierarchy with
+  floor-determined wage dispersion, and (2) regime shift toward flat or fluid structures
+  when floors approach zero? In particular: does the transition zone exhibit nonmonotonic
+  stability — are there automation levels at which coordination *increases* before
+  compression resumes? The mechanism would generalize to any protocol system where
+  cost compression is bounded by an irreducible verification or decision layer.'
+source: bibliography/shallow-reads/2026-11-23-ai-as-coordination-compressing-capital-task-reallocation-org.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: question
+connections:
+- L-006
+- L-003
+status: open
+last_swept: '2026-11-23'
+swept_count: 1

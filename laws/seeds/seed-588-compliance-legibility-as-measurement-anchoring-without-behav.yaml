@@ -1,0 +1,18 @@
+id: seed-588
+title: Compliance Legibility as Measurement Anchoring Without Behavior Specification
+text: When regulatory frameworks demand legible quantification of a previously opaque operational cost
+  (e.g., energy consumption), instrumentation improves but does not automatically constrain behavior if
+  the measurement lacks explicit performance targets or enforcement thresholds. Ethereum's energy legibility
+  via network mapping enables compliance reporting but does not create a binding optimization target unless
+  coupled with caps, penalties, or disclosure-linked reputation. The legibility itself may anchor expectations
+  and normalize cost visibility without changing adoption or operational decisions — a form of "measurement
+  without mandate" that satisfies formal compliance without inducing the behavioral lock predicted by
+  L-004 (Goodhart).
+source: bibliography/shallow-reads/2026-11-23-quantifying-ethereum-energy-consumption-via-network-mapping.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-001
+- L-006
+status: open

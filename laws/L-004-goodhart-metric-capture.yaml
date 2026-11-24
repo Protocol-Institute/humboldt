@@ -104,6 +104,13 @@ examples:
       oracle's metric space, making the proxy-goal gap invisible by design—exactly the 
       conditions under which L-004 predicts maximum degradation of the underlying goal.
     source: 2026-09-22-vibe-patenting-evaluating-llm-judges-for-professional-patent.md
+  - domain: LLM alignment (abliteration)
+    description: Abliteration removes refusal activation directions but does not eliminate
+      script-dependent bias about Taiwan and Tiananmen — bias is encoded redundantly 
+      across weight structure and surfaces through non-refusal pathways after the refusal 
+      proxy is removed. This shows that proxy removal under optimization pressure does not
+      achieve the goal; it displaces expression to unmonitored pathways.
+    source: arxiv-2610.29342 (shallow read 2026-11-23)
 counterexamples:
   - description: "Well-designed metrics resist capture because achieving the metric requires
       achieving the goal."
@@ -197,3 +204,9 @@ history:
     detail: 'Degree of degradation as a function of optimization pressure and proxy-goal gap:
       The vibe-patenting study shows LLM judge feedback drives monotonic judge-score improvement
       without validating against domain ground truth (patentability…'
+  - date: '2026-11-23'
+    event: evidence
+    detail: 'Whether proxy removal (targeting a safety-layer proxy) causes the underlying optimization
+      pressure to surface through alternative pathways: Abliteration removes refusal activation
+      directions but does not eliminate script-dependent bias about Taiwan and Tiananmen — bias
+      is encoded redundantly across…'

@@ -1,0 +1,16 @@
+id: seed-614
+title: Inference Legibility Decoupling — Epistemic vs. Operational Proxy Capture
+text: Reward inference methods produce operationally legible preference proxies from behavioral data.
+  When these proxies remain epistemic (used for understanding or diagnosis only), they remain relatively
+  stable. When the same inferred proxy is fed into downstream decision, allocation, or optimization systems
+  as a formal input, agents have incentive to modify their behavior to shape the inference, creating a
+  feedback loop distinct from the original behavior-generating process. The decoupling between inference
+  fidelity and proxy capture under deployment merits investigation as a generalized protocol failure mode
+  independent of the specific inference method.
+source: bibliography/shallow-reads/2026-11-23-ma-uitd-offline-multi-agent-reward-inference-for-characteriz.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-004
+status: open

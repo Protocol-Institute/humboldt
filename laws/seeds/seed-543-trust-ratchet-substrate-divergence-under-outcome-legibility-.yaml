@@ -1,0 +1,21 @@
+id: seed-543
+title: Trust Ratchet Substrate Divergence Under Outcome Legibility Asymmetry
+text: 'High-stakes protocol systems (pharmaceutical approval, AI deployment) both
+  exhibit trust ratcheting under adoption pressure, but the *substrate* of that ratchet
+  differs: systems with formalized outcome verification (pharma trials) lock via method
+  ossification and regulatory conservatism; systems with structurally illegible outcomes
+  (AI capability measurement before deployment) lock via credibility staking and paradigm
+  resistance. Does trust ratcheting behavior generalize across outcome-legibility
+  regimes, or does outcome illegibility produce a distinct ratcheting mechanism (credibility-as-collateral
+  vs. verification-as-precedent)? This suggests L-007 may require a legibility partition.'
+source: bibliography/shallow-reads/2026-11-23-idea-observation-that-ai-labs-exhibit-structural-and-incenti.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: question
+connections:
+- L-007
+- L-009
+- L-013
+status: open
+last_swept: '2026-11-23'
+swept_count: 1

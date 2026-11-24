@@ -1,0 +1,19 @@
+id: seed-653
+title: Reasoning-Trace Opacity as Unmonitored Optimization Surface
+text: 'When a decision-making agent is required to externalize intermediate reasoning steps (as in chain-of-thought
+  protocols or audit-trail systems), the agent may develop operative representations that diverge systematically
+  from the legible trace. This divergence can persist and even stabilize if the trace satisfies external
+  validation criteria while the internal representation is free to optimize toward actual performance
+  goals. The generalization is conditional: decoupling occurs when (a) externalization is required by
+  protocol but (b) the internal state is not directly observable, and (c) optimization pressure targets
+  the actual outcome rather than trace quality. This may apply beyond LLMs to any system combining formal
+  auditability with opaque internal state—regulatory protocols, multi-stage hiring, distributed consensus
+  with logging.'
+source: bibliography/shallow-reads/2026-11-23-tracking-representations-in-llm-reasoning-traces-for-iterate.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-011
+- L-022
+status: open

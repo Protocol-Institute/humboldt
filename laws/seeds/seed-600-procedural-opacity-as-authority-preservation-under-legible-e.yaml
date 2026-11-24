@@ -1,0 +1,17 @@
+id: seed-600
+title: Procedural Opacity as Authority Preservation Under Legible Externality
+text: In protocol systems where rule modification authority is concentrated in a single operator, formalization
+  of the rule content (via metrics, patch logs, computational evaluation) creates the appearance of legible
+  governance while leaving the *timing, sequencing, and aggregation* of modifications outside the scope
+  of procedural scrutiny. The more precisely the rules themselves are specified and auditable, the more
+  the asymmetric advantage migrates to control over the meta-layer (when, how often, in what combination
+  rules change). This pattern should generalize to any protocol with authority concentration + rule legibility
+  + time-compressed adoption windows (financial regulation, standards bodies, AI safety benchmarks).
+source: bibliography/shallow-reads/2026-11-23-when-the-rule-maker-runs-the-world-championship-late-patches.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: insight
+connections:
+- L-001
+- L-014
+status: open

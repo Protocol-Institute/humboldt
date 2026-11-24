@@ -54,7 +54,8 @@ falsification: >
 references: []
 seeds:
   - seed-058
-related: []
+related:
+  - L-004  # named in this record's prose
 triggers:
   advance: >
     Mechanism confirmed in 2+ genuinely independent deployment domains with evidence that the
@@ -71,3 +72,7 @@ history:
     detail: induction sweep — seed-058 documents this pattern across criminal justice, 
       clinical triage, and educational allocation settings. The shallow read of 
       arxiv-2606.25668 confirms…
+  - date: '2026-11-23'
+    event: edited
+    detail: "related: backfilled L-004 — ids already named in the record's prose (induction
+      never filled the field)"

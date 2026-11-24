@@ -1,0 +1,20 @@
+id: seed-542
+title: Specification-Execution Divergence as Non-Recoverable Load Displacement
+text: In protocol systems where formal specification is intentionally or contingently
+  incomplete, operational load migrates to informal coordination layers that are not
+  legible to measurement or enforcement systems. The divergence persists even when
+  participants and designers are aware of it, suggesting the formal layer and informal
+  layer are not *redundant* but *complementary* — each carries load the other cannot.
+  This may indicate that any protocol system attempting to eliminate informality by
+  increasing formalization will experience cascading load displacement rather than
+  substitution, up to the point of system failure or re-informalization at a higher
+  layer.
+source: bibliography/shallow-reads/2026-11-23-idea-protocol-design-evaluation-reveals-consistent-divergenc.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-023
+status: open
+last_swept: '2026-11-23'
+swept_count: 1

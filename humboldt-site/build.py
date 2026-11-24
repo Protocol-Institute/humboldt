@@ -1314,6 +1314,56 @@ def _build_chat() -> None:
         return body;
       }
 
+      function offlineNotice(target) {
+        // Corpus retrieval can be offline (monthly Pinecone read quota).
+        // Say so in the UI — an ungrounded answer must never look like a
+        // normally-sourced one.
+        const notice = document.createElement("div");
+        notice.className = "corpus-notice";
+        notice.textContent = "Corpus retrieval is temporarily offline — "
+          + "this answer draws only on Humboldt's own law records and notebook, "
+          + "without source lookup.";
+        target.appendChild(notice);
+      }
+
+      function commitTurn(query, answer) {
+        history.push({ role: "user",      content: query  });
+        history.push({ role: "assistant",  content: answer });
+        if (history.length > 16) history = history.slice(-16);
+      }
+
+      // Streamed answer: `meta` (sources, offline flag), `delta` ({text}), then
+      // `done` or `error`. Repaint at most once per animation frame.
+      async function readStream(res, body) {
+        const reader = res.body.getReader();
+        const dec = new TextDecoder();
+        let buf = "", text = "", offline = false, failed = null, painted = true;
+        const paint = () => { body.textContent = text; painted = true;
+                              messages.scrollTop = messages.scrollHeight; };
+        for (;;) {
+          const { value, done } = await reader.read();
+          if (done) break;
+          buf += dec.decode(value, { stream: true });
+          let cut;
+          while ((cut = buf.indexOf("\\n\\n")) !== -1) {
+            const frame = buf.slice(0, cut);
+            buf = buf.slice(cut + 2);
+            const evLine   = frame.split("\\n").find(l => l.startsWith("event:"));
+            const dataLine = frame.split("\\n").find(l => l.startsWith("data:"));
+            if (!evLine || !dataLine) continue;
+            const ev = evLine.slice(6).trim();
+            let data;
+            try { data = JSON.parse(dataLine.slice(5)); } catch (e) { continue; }
+            if (ev === "meta") offline = !!data.corpusOffline;
+            else if (ev === "delta") {
+              text += data.text;
+              if (painted) { painted = false; requestAnimationFrame(paint); }
+            } else if (ev === "error") failed = data.error;
+          }
+        }
+        return { text, offline, failed };
+      }
+
       async function send() {
         const query = input.value.trim();
         if (!query || busy) return;
@@ -1326,27 +1376,28 @@ def _build_chat() -> None:
           const res = await fetch(API, {
             method:  "POST",
             headers: { "Content-Type": "application/json" },
-            body:    JSON.stringify({ query, history }),
+            body:    JSON.stringify({ query, history, stream: true }),
           });
-          const data = await res.json();
-          if (data.error) {
-            thinking.textContent = "Error: " + data.error;
-          } else {
-            thinking.textContent = data.answer;
-            // Corpus retrieval can be offline (monthly Pinecone read quota).
-            // Say so in the UI — an ungrounded answer must never look like a
-            // normally-sourced one.
-            if (data.corpusOffline) {
-              const notice = document.createElement("div");
-              notice.className = "corpus-notice";
-              notice.textContent = "Corpus retrieval is temporarily offline — "
-                + "this answer draws only on Humboldt's own law records and notebook, "
-                + "without source lookup.";
-              thinking.appendChild(notice);
+          const ctype = res.headers.get("Content-Type") || "";
+          if (ctype.indexOf("text/event-stream") !== -1) {
+            const r = await readStream(res, thinking);
+            thinking.textContent = r.text || (r.failed ? "" : "…");
+            if (r.failed) {
+              thinking.textContent = (r.text ? r.text + "\\n\\n" : "") + "Error: " + r.failed;
+            } else {
+              if (r.offline) offlineNotice(thinking);
+              commitTurn(query, r.text);
             }
-            history.push({ role: "user",      content: query       });
-            history.push({ role: "assistant",  content: data.answer });
-            if (history.length > 16) history = history.slice(-16);
+          } else {
+            // Errors (rate limit, budget breaker, bad input) stay JSON.
+            const data = await res.json();
+            if (data.error) {
+              thinking.textContent = "Error: " + data.error;
+            } else {
+              thinking.textContent = data.answer;
+              if (data.corpusOffline) offlineNotice(thinking);
+              commitTurn(query, data.answer);
+            }
           }
         } catch (e) {
           thinking.textContent = "Network error. Please try again.";

@@ -1,0 +1,18 @@
+id: seed-587
+title: Default Legibility as One-Shot Coordination Externality
+text: When a decision default is embedded in a legible prompt interface and presented uniformly to multiple
+  agents in a symmetric game, does the agent's compliance with the default constitute coordination, and
+  if so, does it produce better or worse outcomes than emergent coordination without shared framing? Under
+  what conditions does uniform default framing become *strategic coordination* rather than passive anchoring
+  — i.e., when do agents begin reasoning about the coordination signal the default carries rather than
+  treating it as mere information? The question assumes that legibility of the default is a necessary
+  condition; it does not establish whether sufficiency requires multi-round play, reputation, or explicit
+  agent reasoning about other agents' responses to the same frame.
+source: bibliography/shallow-reads/2026-11-23-prompt-framing-governs-llm-default-following-in-collective-a.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: question
+connections:
+- L-012
+- L-017
+status: open

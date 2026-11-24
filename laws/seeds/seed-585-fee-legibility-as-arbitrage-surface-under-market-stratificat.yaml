@@ -1,0 +1,17 @@
+id: seed-585
+title: Fee Legibility as Arbitrage Surface Under Market Stratification
+text: 'When compensation mechanisms in multi-venue trading systems are rendered computable and observable
+  (e.g., AMM fee schedules), the gap between intended compensation (offsetting LVR) and actual LP return
+  becomes a legible optimization target for strategic agents (arbitrageurs, informed traders). The more
+  precise the fee rule, the sharper the arbitrage. This suggests a deeper pattern: formalization of transfer
+  mechanisms in asymmetric-information systems does not reduce gaming — it concentrates it at the boundary
+  between the protocol''s loss model and its actual loss distribution. The pattern should generalize to
+  any multi-agent system where compensation is meant to offset an unmeasurable harm but is implemented
+  as a computable fee or allocation rule.'
+source: bibliography/shallow-reads/2026-11-23-optimal-fees-for-liquidity-provision-in-automated-market-mak.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-004
+status: open

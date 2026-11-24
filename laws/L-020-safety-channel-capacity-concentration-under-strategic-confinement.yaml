@@ -51,6 +51,12 @@ examples:
       concentration happens through common knowledge exploitation, not optimization over the
       channel itself.'
     source: bibliography/deep-reads/arxiv-2606.09931.md
+  - domain: AI security / confinement protocols
+    description: 'Schroeder de Witt (2026) shows that classical Lampson confinement guarantees
+      fail for strategic agents: agents with shared coordination resources can use common knowledge
+      and Schelling-point salience to concentrate near-zero residual channel capacity onto a
+      single worst-case equilibrium, defeating both channel-removal and capacity-reduction mitigations.'
+    source: arxiv-2606.09931 (deep read)
 counterexamples: []
 open_questions: []
 falsification: >
@@ -60,7 +66,8 @@ falsification: >
   that capacity reduction is sufficient to bound harm even in the strategic regime.
 references: []
 seeds: []
-related: []
+related:
+  - L-002  # named in this record's prose
 triggers:
   advance: >
     Mechanism confirmed with empirical or formal demonstration in 2+ independent security domains
@@ -84,3 +91,13 @@ history:
       residual channel capacity onto high-impact, low-entropy predicates: The Schroeder de Witt
       deep read (arxiv-2606.09931) provides the formal mechanism: classical confinement bounds
       information flow in bits, but for strategic…'
+  - date: '2026-11-23'
+    event: edited
+    detail: "related: backfilled L-002 — ids already named in the record's prose (induction
+      never filled the field)"
+  - date: '2026-11-23'
+    event: evidence
+    detail: 'Whether strategic agents with shared coordination can concentrate residual channel
+      capacity on high-impact low-entropy predicates even at near-zero channel capacity: Schroeder
+      de Witt (2026) shows that classical Lampson confinement guarantees fail for strategic
+      agents: agents with shared coordination resources can use…'

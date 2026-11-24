@@ -1,0 +1,24 @@
+id: seed-548
+title: Transition-State Topology Illegibility as Ossification Vector
+text: Protocols that formalize their state space in discrete or atomic units systematically
+  foreclose intermediate configurations that would enable smooth, reversible, or partial
+  transitions between operational modes. This exclusion is often not a deliberate
+  design choice but an artifact of legible formalization—the protocol can represent
+  approve/reject but not "approve with contingent revision," can deploy globally but
+  not in staged regions. As adoption locks in around a single feasible mode, alternative
+  transition paths become unavailable retroactively. Ossification then follows not
+  from the high cost of change, but from the absence of any formalized path *to* change.
+  This should be testable by identifying cases where protocol modification becomes
+  possible only by abandoning formal legibility—a signal that rigidity was topological,
+  not economic.
+source: bibliography/shallow-reads/2026-11-23-idea-excluded-transition-states-as-a-generative-principle-th.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: insight
+connections:
+- L-001
+- L-003
+- L-005
+status: open
+last_swept: '2026-11-23'
+swept_count: 1

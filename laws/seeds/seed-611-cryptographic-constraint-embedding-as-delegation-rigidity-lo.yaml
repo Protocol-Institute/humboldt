@@ -1,0 +1,16 @@
+id: seed-611
+title: Cryptographic Constraint Embedding as Delegation Rigidity Lock
+text: 'When contractual obligations are embedded as cryptographic commitments in an AI agent''s execution
+  layer, restructuring becomes locally infeasible for the agent and deferrable only to the principal —
+  creating a form of downward-propagating protocol rigidity in delegation chains. This mechanism may operate
+  independently of adoption pressure (L-001) and may amplify the Gall principle (L-005): a system that
+  *cannot be modified by its own operator* resists not just reform but any reconfiguration except by external
+  replacement. The pattern likely generalizes to any multi-tier delegation system where lower-tier agents
+  are given formal, cryptographically-enforced constraints.'
+source: bibliography/shallow-reads/2026-11-23-proof-carrying-contracts-commitments-ai-agents-cannot-break.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: insight
+connections:
+- L-001
+status: open

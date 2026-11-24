@@ -1,0 +1,18 @@
+id: seed-622
+title: Synthesis Grammar as Coordination-Legibility Boundary Displacement
+text: In multi-agent systems where coordination topology is generated dynamically via a formalized synthesis
+  language (rather than predefined), legibility and formalization are decoupled from structural ossification
+  — topology can remain fluid while the *syntax of coordination expression* becomes fixed and standardized.
+  Under adoption pressure, the boundary between formal and informal shifts from "which agents coordinate?"
+  to "what syntax can generate coordination?" — creating a secondary optimization surface (trace-geometry
+  and synthesis-path manipulation) that may be invisible to the primary task metric. This displacement
+  preserves novelty within the system but concentrates strategic pressure on the generative interface
+  itself.
+source: bibliography/shallow-reads/2026-11-23-dynaflow-learning-free-form-multi-agent-orchestration.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: motif
+connections:
+- L-023
+- L-010
+status: open

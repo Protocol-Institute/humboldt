@@ -1,0 +1,17 @@
+id: seed-651
+title: Formal Constraint Redirection Under Legible Coordination Channel
+text: When a protocol system forbids an action formally (e.g., side payments) but provides a legible shared
+  communication channel (public message board), optimizing agents may redirect coordination effort toward
+  the remaining legible channels rather than abandoning coordination altogether. The constraint shifts
+  the *locus* of coordination rather than eliminating it. This suggests that in systems with both hard
+  rules and soft coordination surfaces, the effective protocol is not the formal rule set alone but the
+  residual coordination landscape after constraints are applied. Worth tracking whether this redirection
+  increases or decreases overall protocol robustness.
+source: bibliography/shallow-reads/2026-11-23-mango-arena-same-seeds-different-chains-evaluating-llm-agent.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-009
+- L-010
+status: open

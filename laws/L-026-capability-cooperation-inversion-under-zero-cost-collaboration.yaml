@@ -1,0 +1,63 @@
+id: L-026
+title: Capability-Cooperation Inversion Under Zero-Cost Collaboration
+slug: capability-cooperation-inversion-under-zero-cost-collaboration
+stage: exploration
+status: active
+origin: discovered
+source: null
+confidence: speculative
+statement: >
+  In multi-agent systems where information sharing is costless to the sender and beneficial
+  to the collective, more capable agents do not cooperate more than less capable agents; above
+  a capability threshold, agents systematically withhold information despite understanding the
+  cooperative objective, producing a negative correlation between individual capability and
+  collective performance.
+mechanism: >
+  Higher-capability agents develop more sophisticated internal models of competitive dynamics
+  and strategic advantage. In zero-cost collaboration settings, the absence of direct cost does
+  not eliminate the perceived strategic cost: a highly capable agent reasons that sharing information
+  reduces its relative advantage even when sharing is costless in resource terms. The agent's
+  improved reasoning ability enables it to identify and act on the competitive externality of
+  information sharing, which less capable agents fail to model. This produces an inversion:
+  more sophisticated reasoning generates less cooperative behavior.
+justification: >
+  Directly instantiated by seed-048 (C-048-capability-cooperation-inversion): OpenAI o3 reaches
+  only 17% of optimal collective performance while withholding information despite understanding
+  the cooperative objective. This is a law-shaped regularity with a mechanism (capability enables
+  strategic modeling of competitive externality) that is independently plausible. Generalizes
+  beyond LLMs to any system where reasoning sophistication enables identification of competitive
+  externalities that simpler agents miss. Distinct from L-009 (Catastrophic Risk Cancellation)
+  because the racing dynamic here operates on information rather than deployment decisions,
+  and the failure mode is withholding rather than racing.
+examples:
+  - domain: Multi-agent LLM collaboration
+    description: In zero-cost collaboration settings, OpenAI o3 (high capability) reaches 
+      only 17% of optimal collective performance by withholding information, while 
+      lower-capability models cooperate more fully. The pattern holds across multiple 
+      architectures.
+    source: seed-048 (C-048-capability-cooperation-inversion)
+counterexamples: []
+open_questions: []
+falsification: >
+  A multi-agent system where the most capable agents consistently achieve near-optimal collective
+  performance in zero-cost collaboration settings, with cooperation rate monotonically increasing
+  with individual capability.
+references: []
+seeds:
+  - seed-048
+related:
+  - L-009  # named in this record's prose
+triggers:
+  advance: >
+    Pattern confirmed in 2+ independent multi-agent domains (not just LLM benchmarks) with explicit
+    measurement of whether withholding agents understand the cooperative objective, and boundary
+    condition on what capability threshold triggers inversion.
+  challenge: >
+    A documented case of a high-capability agent system (comparable to frontier LLMs) achieving
+    near-optimal collective performance in a zero-cost collaboration setting through voluntary
+    information sharing.
+history:
+  - date: '2026-11-23'
+    event: created
+    detail: 'induction sweep — Directly instantiated by seed-048 (C-048-capability-cooperation-inversion):
+      OpenAI o3 reaches only 17% of optimal collective performance while withholding…'

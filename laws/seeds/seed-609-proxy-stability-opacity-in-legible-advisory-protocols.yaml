@@ -1,0 +1,17 @@
+id: seed-609
+title: Proxy Stability Opacity in Legible Advisory Protocols
+text: 'When a protocol formalizes an unmeasurable construct (risk tolerance, creditworthiness, educational
+  readiness) as a legible scalar input to drive advice or allocation, the downstream system inherits the
+  input''s real-world instability but typically lacks visibility into it. The system optimizes *against*
+  the proxy without modeling or absorbing the variance of the proxy itself across time and population.
+  This creates a systematic misalignment: the protocol''s sensitivity to input changes exceeds the input''s
+  reliability, making the system appear brittle to users who experience their own answers shifting within
+  normal bounds. This may generalize to any advisory or allocation system where the formalized input is
+  behaviorally unstable in the domain it represents.'
+source: bibliography/shallow-reads/2026-11-23-same-person-different-advice-auditing-llm-financial-advice-w.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-004
+status: open

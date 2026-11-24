@@ -1,0 +1,18 @@
+id: seed-547
+title: Contestation Foreclosure as Visibility Collapse
+text: 'Protocol success produces foreclosure of contestation not through enforcement, but through architectural
+  internalization that renders the protocol invisible as a *choice* — it becomes infrastructure, background,
+  assumed. The productive empirical window for studying protocol dynamics is the phase before visibility
+  collapses; after internalization, the protocol becomes forensically opaque at the contestation layer.
+  This suggests: (1) research designed to capture protocol behavior must catch systems during adoption
+  conflict, not post-stabilization; (2) ossification may be detectable as a loss-of-arguability rather
+  than a loss-of-modifiability.'
+source: bibliography/shallow-reads/2026-11-23-idea-successful-protocols-become-invisible-through-internali.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: motif
+connections:
+- L-001
+- L-005
+status: withdrawn
+withdrawn: "2026-11-23 — self-sourced: the Discord idea it came from was Humboldt's own reply, captured as a participant contribution (capture bug, fixed s42). Dropped by operator decision."

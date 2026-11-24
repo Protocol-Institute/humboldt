@@ -1,0 +1,15 @@
+id: seed-599
+title: Legible Trust Gating as Coordination Target
+text: 'When trust relationships in multi-agent systems are formalized into a computable, runtime-transparent
+  gating function, the gating logic itself becomes a legible optimization surface for agents. Rather than
+  resolving the trust-vulnerability paradox, formalizing trust boundaries may displace the paradox into
+  agent strategies for predicting, influencing, or circumventing the gate—producing a new layer of hidden
+  coordination. The generalization: formalization of previously opaque coordination dimensions often concentrates
+  optimization pressure on the newly legible boundary rather than distributing safety across the system.'
+source: bibliography/shallow-reads/2026-11-23-trust-gated-capability-control-breaking-the-trust-vulnerabil.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: motif
+connections:
+- L-017
+status: open

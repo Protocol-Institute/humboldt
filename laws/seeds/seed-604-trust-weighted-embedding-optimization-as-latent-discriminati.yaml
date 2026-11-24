@@ -1,0 +1,18 @@
+id: seed-604
+title: Trust-Weighted Embedding Optimization as Latent Discrimination Locus
+text: 'When adaptive agents optimize trust-weighted aggregations of noisy learned representations (embeddings,
+  proxy scores), discrimination can emerge as a stable byproduct of the optimization itself without being
+  embedded in the objective or training signal. The mechanism is not capture of an explicit proxy for
+  the harmful outcome, but rather: noisy feature spaces + trust concentration under uncertainty + adaptive
+  weights = systematic partitioning. This suggests that L-004 (Goodhart) may generalize to *implicit proxy
+  scenarios* where the harmful proxy is constructed endogenously by the learning dynamics rather than
+  explicitly specified in the objective. Warrants investigation of whether this holds across embedding-based
+  decision protocols more broadly.'
+source: bibliography/shallow-reads/2026-11-23-emergent-discrimination-and-polarization-in-multi-agent-syst.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-004
+- L-013
+status: open

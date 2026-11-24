@@ -1,0 +1,16 @@
+id: seed-658
+title: Observation Endogeneity as Generalization Ceiling
+text: 'When an agent''s actions determine which observations it receives, predictive models can achieve
+  high accuracy within the induced observation distribution while remaining maximally brittle to exogenous
+  changes in agent behavior. This ceiling is not a training artifact but a structural consequence of causal
+  closure: the agent optimizes for prediction under a distribution it actively maintains. This may generalize
+  to any protocol system where the feedback signal comes from agents whose behavior responds to the evaluating
+  agent''s own outputs—creating a closed loop that simulates stability without grounding generalization.'
+source: bibliography/shallow-reads/2026-11-23-epistemic-social-learning-latent-behavioral-structure-under-.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-011
+- L-022
+status: open

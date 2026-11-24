@@ -55,7 +55,9 @@ falsification: >
 references: []
 seeds:
   - seed-473
-related: []
+related:
+  - L-004  # named in this record's prose
+  - L-008 # named in this record's prose
 triggers:
   advance: >
     Mechanism demonstrated in 2+ genuinely independent refinement-loop contexts (e.g., code
@@ -74,3 +76,7 @@ history:
     detail: induction sweep — seed-473 provides the core claim with concrete instantiation
       in LLM judge feedback loops. The vibe-patenting shallow read 
       (2026-09-22-vibe-patenting) provides…
+  - date: '2026-11-23'
+    event: edited
+    detail: "related: backfilled L-004, L-008 — ids already named in the record's prose (induction
+      never filled the field)"

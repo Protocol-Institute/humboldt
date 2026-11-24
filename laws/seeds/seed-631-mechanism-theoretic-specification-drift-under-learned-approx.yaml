@@ -1,0 +1,18 @@
+id: seed-631
+title: Mechanism-Theoretic Specification Drift Under Learned Approximation
+text: 'When a mechanism design constraint (strategyproofness) is encoded as a formal optimization objective
+  applied to a learned allocation function, does the learned approximation preserve the constraint''s
+  behavioral force, or does the gap between specification and execution create a new surface for strategic
+  manipulation? Specifically: agents may learn to exploit differences between what the mechanism *proves*
+  and what the neural policy *actually does* — differences that formal analysis cannot detect because
+  they are located in the approximation error rather than the mechanism itself. This suggests a generalization
+  beyond mechanism design: any protocol that outsources enforcement to a learned system risks a hidden
+  layer of strategic opportunity that sits *between* formal guarantee and runtime behavior.'
+source: bibliography/shallow-reads/2026-11-23-strategyproof-deep-reinforcement-learning-for-online-resourc.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: question
+connections:
+- L-004
+- L-008
+status: open

@@ -375,6 +375,7 @@ def _apply_new_law(nl: dict, run_id: str | None = None) -> str:
          "source": ex.get("source", "")}
         for ex in examples
     ]
+    laws_mod.fill_related(law, {str(l.get("id")) for l in laws_mod.load_all()})
     if _apply_triggers(law, nl):
         print(f"    ! {law['id']}: induction omitted a trigger — placeholder written; "
               "supervisor should rewrite before the next assess pass.")

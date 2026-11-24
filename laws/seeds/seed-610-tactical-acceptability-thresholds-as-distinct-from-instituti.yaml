@@ -1,0 +1,17 @@
+id: seed-610
+title: Tactical Acceptability Thresholds as Distinct from Institutional Trust Ratchets
+text: 'In bounded, explicitly-evaluated game-theoretic settings, strategic agents can discover and incrementally
+  push acceptability thresholds through controlled policy variation without triggering rejection. This
+  *tactical threshold discovery* is mechanically different from institutional trust accumulation under
+  operational age: the former requires legible evaluation events (round-by-round judgment); the latter
+  depends on survival under opacity and interpretive continuity over time. The confusion between these
+  two regimes may explain why competition-based safety tests (narrow domains, explicit evaluation, rapid
+  feedback) often do not predict real-world deployment trust dynamics (interpretive drift, infrequent
+  crises, long memory windows).'
+source: bibliography/shallow-reads/2026-11-23-how-far-can-an-agent-push-trust-safety-margins-in-live-langu.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-007
+status: open

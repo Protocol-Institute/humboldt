@@ -6,6 +6,84 @@ Most recent entry first.
 
 ---
 
+## 2026-11-23 (session 42) — Discord self-capture bug; chat streaming live; induction catch-up
+
+**Tracks active:** T1 / T2
+**Daemon PID:** 40259 (running, unpaused; hot-reloaded 18:11 PST for the capture fix)
+
+First session in five weeks; the daemon had run unattended throughout.
+
+**Discord capture was filing Humboldt's own replies as participant ideas.** The capture
+batch included the bot's messages as context, and nothing stopped them from being
+extracted. **302 of the 515 ideas captured since May (59%) were authored by Humboldt.**
+They went on into 215 shallow reads and 15 seeds, which induction would have treated as
+community input. None had reached a law (traced through `seeds:` and `examples`).
+`daemon/capture.py::save_capture` now skips `_SELF_AUTHORS`. The bot's messages stay in the
+extraction batch as context, because a human idea is often a reply to one. The 15 seeds
+were set to `status: withdrawn` on operator decision. The 215 shallow reads remain,
+labelled `(by humboldt)`. Contributor credit, which nothing tracks past @mentions, is TODO
+4b. The pattern is the same as `feedback_pause_completeness`: what a stage *ingests* was
+never audited for its source.
+
+**Site chat (answer-path playbook items 0–2; item 3 staged).** `humboldt-site/functions/chat.js`:
+- A current-date line in the user message, with a static `TIME_RULE` system block so the
+  date doesn't break the prompt cache.
+- SSE streaming (`meta`/`delta`/`done`/`error`; errors before the stream stays JSON).
+- Text blocks are joined instead of read from `content[0]`.
+- Write-time `usd` in the stats records, seeded exactly from old token counts, so a model
+  switch cannot re-price history.
+- Admin mode gated on `CHAT_ADMIN_KEY` (≥32 chars; unset means off): rate-limit bypass,
+  `variant`, `now`, `mode: "sources"`.
+
+The page streams with rAF repaints and falls back to JSON on Content-Type. Deployed to
+production and verified: curl (first event 2–4 s against ~9 s for a full answer before;
+date answered correctly) and a browser follow-up turn resolving "it" from history. Added
+`bin/test_chat.mjs` (20 offline checks with mocked upstreams), `bin/chat_probe.py` with
+cases, and `bin/ab_model.py`. **Sonnet 5.5 is wired as variant `b` but not switched.**
+That waits on the A/B, which waits on the operator creating `CHAT_ADMIN_KEY` (I may not
+read the key store).
+
+**Carry-overs from 2026-10-07.**
+- (1) The redeploy had already happened: the daemon has published to production a dozen
+  times since then, so the live chat was already on the new key. The same mechanism means
+  **the daemon deploys this working tree**. Uncommitted site edits go live on its next
+  notebook publish, which is why I deployed deliberately instead.
+- (2) `daemon/costs.py`: Haiku 4.5 is now $1/$5, Opus 4.8 is added (it had fallen through
+  to Sonnet's rate), and Sonnet 5.5 too.
+- (3) Caching in `daemon/presence.py`: **dropped after measuring.** The whole daemon costs
+  ~$1/month and these calls are days apart, so a 5-minute cache would only ever be
+  written.
+
+**Read-side seed window (TODO 0 since s38).** `funnel_context.sample_seeds()` gives half
+the newest seeds and half a stride from a random offset through the rest. The old head
+(25 of 518) was the same every run. Coverage is now ~255 distinct seeds over 25 runs, and
+the prompt says the list is a sample.
+
+**`related:` was never filled by induction.** `laws.fill_related()` derives it from the L-ids
+a record's own prose names (additive only, with an `edited` history entry), and `induct`
+calls it on creation. Backfill: 22 links across 16 laws. It exposed a Goodhart cluster;
+see `plans/supervisor-review-2026-11-23.md`.
+
+**Funnel.** 693 triaged (feed came back at a suspicious 91% shallow). Shallow-read Discord
+plus Oct–Nov feed: 246 → 118 seeds, 17 escalations. 356 Jul–Sep items held. Induction
+created L-025, L-026 and L-027 plus 9 evidence items; deployed and announced 2 (daily cap).
+27 laws.
+
+**Supervisor prep, not applied:** L-012's falsification condition tests the wrong claim.
+L-022 and L-023 are distinct; the real overlap is L-008/L-012/L-022/L-025. The L-006 gap
+named three papers that were already deep-read, which is an `assess` bug: it doesn't check
+`read_depth`.
+
+**Open (next session):**
+- Operator: `CHAT_ADMIN_KEY` → probe → A/B → Sonnet 5.5 switch
+- Supervisor decisions in the review memo; assess L-025–L-027
+- Why feed triage shallow-marks 91%; re-triage the 356 held items
+- TODO 4b–4d: contributor credit; Humboldt as a blyg; supervision over Discord DM
+- `assess` should check bibliography `read_depth` before naming sources to read
+- c3po `plans/answer-path-playbook.md` status table edited, not committed (c3po's repo)
+
+---
+
 ## 2026-10-19 (session 41) — Symposium talk converted to an essay
 
 **Tracks active:** T3 (output from Track 1 records; no research state changed)

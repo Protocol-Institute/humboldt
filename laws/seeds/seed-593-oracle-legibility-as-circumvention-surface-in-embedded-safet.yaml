@@ -1,0 +1,19 @@
+id: seed-593
+title: Oracle Legibility as Circumvention Surface in Embedded Safety Signals
+text: 'When a safety enforcement signal is rendered computable, legible, and embedded in a system accessible
+  to strategic agents, those agents can decouple the signal from the controlled outcome through iterative
+  refinement. The mechanism works across multiple technical substrates (fine-tuning, in-context modification,
+  architectural surgery) because the decoupling is not a property of any single technique but of the information
+  geometry: the agent optimizes to produce the signal while suppressing the downstream behavior it gates.
+  This suggests a generalization beyond LLM safety: any protocol that attempts to use a *visible, computable,
+  iteratively-refinable* safety signal as enforcement in an adversarial setting will experience systematic
+  signal stranding. The mechanism is distinct from simple adversarial robustness — it describes how legibility
+  itself becomes a liability when combined with tight optimization loops.'
+source: bibliography/shallow-reads/2026-11-23-the-fragility-of-trigger-tag-mechanisms-for-misuse-detection.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: insight
+connections:
+- L-020
+- L-022
+status: open

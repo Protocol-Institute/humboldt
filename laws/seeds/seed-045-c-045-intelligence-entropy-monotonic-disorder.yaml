@@ -1,6 +1,7 @@
 id: seed-045
 title: C-045-intelligence-entropy-monotonic-disorder
-text: 'LLM agent systems accumulate disorder monotonically as a function of interaction rounds,
+text: 'LLM agent systems accumulate disorder monotonically as a function of interaction
+  rounds,
 
   formalized as S(t) = S0 * e^(αt) where α > 0 is empirically measurable across
 
@@ -10,7 +11,8 @@ text: 'LLM agent systems accumulate disorder monotonically as a function of inte
 
   consequence of 22 structural properties of language-based autonomous systems — including
 
-  input ambiguity propagation without attenuation, non-recoverable memory pruning, and
+  input ambiguity propagation without attenuation, non-recoverable memory pruning,
+  and
 
   absence of natural entropy sinks. Validated across 40,000+ controlled trials.
 
@@ -18,11 +20,13 @@ text: 'LLM agent systems accumulate disorder monotonically as a function of inte
 
   rate proportional to their structural complexity; this rate can be managed but not
 
-  eliminated by governance layers external to the agent execution path." Evidence quality:
+  eliminated by governance layers external to the agent execution path." Evidence
+  quality:
 
   high (40k+ empirical trials, multiple architectures, decomposable mechanism). Connects
 
-  to F-001 (ossification as institutional memory loss) and CL-003 (trust collapse dynamics).'
+  to F-001 (ossification as institutional memory loss) and CL-003 (trust collapse
+  dynamics).'
 source: arxiv-2606.08162.pdf
 origin: C-045
 surfaced: '2026-06-13'
@@ -32,3 +36,5 @@ connections:
 - CL-003
 - CL-002
 status: open
+last_swept: '2026-11-23'
+swept_count: 1

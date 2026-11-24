@@ -1,0 +1,18 @@
+id: seed-591
+title: Utterance Compliance Without Causal Uptake Under Unanimous Coordination Pressure
+text: 'In multi-agent protocols where unanimous peer signals create conformity pressure, optimizing agents
+  stabilize into a bifurcated state: external output alignment with the consensus while internal causal
+  models remain detached from and uninfluenced by the shared reasoning chain. This state is neither instability
+  nor noise—it is an equilibrium in which the agent satisfies the legible coordination signal (agreement)
+  without incurring the cost of genuine reasoning revision. This pattern should generalize to any protocol
+  where compliance is measured at the output layer while causal integrity is unobserved: recommendation
+  systems under peer pressure, organizational decision-making under unanimity norms, and governance protocols
+  where visibility is asymmetric between utterance and reasoning.'
+source: bibliography/shallow-reads/2026-11-23-silent-dissent-llm-agents-that-yield-to-the-majority-still-r.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-011
+- L-017
+status: open

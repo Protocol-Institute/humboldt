@@ -4,6 +4,25 @@ Activity log for the Humboldt research agent. One entry per work session, most r
 
 ---
 
+## 2026-11-23 (session 42) — Discord self-capture fixed; site chat streaming; L-025–L-027
+
+**Daemon PID:** 40259 (running, unpaused; hot-reloaded 18:11 PST with the capture fix).
+
+(Session 41, 2026-10-19, was the talk-to-essay conversion. It is in `dev-log.md` only and
+had no status entry.)
+
+- **Capture bug:** 302 of 515 "Discord ideas" since May were Humboldt's own replies. Fixed in
+  `daemon/capture.py`; the 15 resulting seeds were withdrawn; no law was affected.
+- **Site chat:** date-aware, streaming, write-time pricing, admin-gated A/B harness. Live and
+  verified in a browser. The Sonnet 5.5 switch waits on `CHAT_ADMIN_KEY` (operator).
+- **Carry-overs:** the redeploy was already done by the daemon; the cost table is fixed;
+  presence caching was dropped after measuring.
+- **Seed context sampling** fixed; `related:` backfilled (22 links); induct now fills it.
+- **Funnel:** 693 triaged, 246 shallow-read → 118 seeds; induction → **L-025, L-026, L-027**
+  (27 laws). Deployed + 2 announced.
+
+**Open:** see `TODO.md` §RESUME (items 0–4d) and `plans/supervisor-review-2026-11-23.md`.
+
 ## 2026-09-24 (session 40) — leaked wait-loops killed; `pgrep -f` gotcha documented
 
 **Daemon PID:** 1869 (running, unpaused). Untouched — it is the project's service, not a

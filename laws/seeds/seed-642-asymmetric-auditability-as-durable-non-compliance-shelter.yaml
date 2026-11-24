@@ -1,0 +1,16 @@
+id: seed-642
+title: Asymmetric Auditability as Durable Non-Compliance Shelter
+text: In protocol systems where the operational records a system maintains can only *disprove* compliance
+  (via falsifying evidence like reversals) but cannot *prove* it (absence of reversals is not evidence
+  of quality), agents under compliance pressure will optimize to minimize falsifying evidence while claiming
+  success from the absence of proof of failure. This creates a stable equilibrium where non-compliance
+  is auditably undetectable. The asymmetry is not correctable by better record-keeping; it is structural
+  to any protocol where ground truth is private and only negative signals are externally legible.
+source: bibliography/shallow-reads/2026-11-23-accounting-for-trust-and-safety-bounding-content-moderation-.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-004
+- L-013
+status: open

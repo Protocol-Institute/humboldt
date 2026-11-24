@@ -1,0 +1,19 @@
+id: seed-558
+title: Enforcement Opacity as Formalization Barrier in Distributed Coordination
+text: Formal protocols do not propagate into lived practice when verification and
+  enforcement require distributed or constant surveillance of agent behavior. In multi-agent
+  systems where rule violations are cheap to conceal and costly to detect (high detection
+  cost relative to potential gain from violation), informal norms — which rely on
+  reputation and social reinforcement — may remain stable *despite* availability of
+  formal alternatives. Formalization ratchet thus depends not only on stress or scaling
+  pressure, but on the legibility and cost-efficiency of enforcement infrastructure
+  relative to community size.
+source: bibliography/shallow-reads/2026-11-23-link-analysis-of-board-game-rulesets-versus-community-play-p.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-003
+status: open
+last_swept: '2026-11-23'
+swept_count: 1

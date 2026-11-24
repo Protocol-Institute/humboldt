@@ -1,0 +1,16 @@
+id: seed-586
+title: Latency Proxy Capture Under Tier-Locked Screening
+text: 'When a mechanism designer introduces a discrete-tier structure to solve multi-dimensional screening
+  (e.g., latency tiers to separate time preferences), agents with heterogeneous true costs can game tier-boundary
+  assignments by modifying externally visible signals that correlate with tier membership. Under sustained
+  optimization pressure, the tier structure itself becomes a captured proxy: agents optimize for tier
+  eligibility rather than the underlying preference it was meant to reveal. The separation theorem holds
+  in equilibrium, but the equilibrium is unstable under adaptive agent behavior targeting the boundary.'
+source: bibliography/shallow-reads/2026-11-23-pricing-time-not-just-tokens-latency-aware-mechanism-design-.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: motif
+connections:
+- L-004
+- L-008
+status: open

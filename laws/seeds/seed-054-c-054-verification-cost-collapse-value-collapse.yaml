@@ -1,6 +1,7 @@
 id: seed-054
 title: C-054-verification-cost-collapse-value-collapse
-text: 'When generative AI outputs become sufficiently similar in surface features to
+text: 'When generative AI outputs become sufficiently similar in surface features
+  to
 
   Human Temporal Learning (HTL)-intensive outputs, the economic justification for
 
@@ -44,3 +45,5 @@ connections:
 - F-003
 - F-001
 status: open
+last_swept: '2026-11-23'
+swept_count: 1

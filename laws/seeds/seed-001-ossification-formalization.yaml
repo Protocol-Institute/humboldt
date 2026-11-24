@@ -19,6 +19,7 @@ type: insight
 connections:
 - T-001
 - CL-001
-status: open
+status: withdrawn
+withdrawn: "2026-11-23 — self-sourced: the Discord idea it came from was Humboldt's own reply, captured as a participant contribution (capture bug, fixed s42). Dropped by operator decision."
 last_swept: '2026-09-22'
 swept_count: 1

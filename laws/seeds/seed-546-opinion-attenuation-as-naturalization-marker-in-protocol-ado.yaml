@@ -1,0 +1,17 @@
+id: seed-546
+title: Opinion Attenuation as Naturalization Marker in Protocol Adoption
+text: As protocols move from contestation to adoption to maturation, the volume and intensity of explicit
+  discourse about their rules, mechanics, and alternatives approaches zero — not because agreement has
+  been reached, but because the protocol has absorbed into background assumption. Measure maturation by
+  opinion disappearance rather than by formalization or transparency. This suggests that high-discourse-intensity
+  protocols are unstable or early-stage, while naturalized (invisible) protocols may hide either successful
+  integration or unexamined lock-in; the distinction requires independent structural measurement.
+source: bibliography/shallow-reads/2026-11-23-idea-protocol-maturity-manifests-as-disappearance-and-absorp.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-001
+- L-023
+status: withdrawn
+withdrawn: "2026-11-23 — self-sourced: the Discord idea it came from was Humboldt's own reply, captured as a participant contribution (capture bug, fixed s42). Dropped by operator decision."

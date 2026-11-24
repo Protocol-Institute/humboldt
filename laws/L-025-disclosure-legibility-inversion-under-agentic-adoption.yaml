@@ -1,0 +1,73 @@
+id: L-025
+title: Disclosure-Legibility Inversion Under Agentic Adoption
+slug: disclosure-legibility-inversion-under-agentic-adoption
+stage: exploration
+status: active
+origin: discovered
+source: null
+confidence: speculative
+statement: >
+  When regulatory transparency mandates make protocol parameters legible to optimizing agents,
+  the disclosure mechanism that was intended to constrain platform authority becomes a shared
+  coordination surface that agents exploit to reconstruct the equilibrium the mandate was designed
+  to disrupt. The intervention displaces optimization pressure from platform behavior to agent
+  behavior around the now-legible parameters.
+mechanism: >
+  Transparency mandates assume a passive recipient (a human worker seeking redress) but deploy
+  into an environment with active optimizing agents (LLM-driven actors). When protocol parameters
+  transition from opaque to formally legible, they become machine-readable inputs that agents
+  can condition strategy on. The result is a Schelling-point shift: agents now share a common
+  focal surface and can coordinate implicitly around it, reproducing supracompetitive or exploitative
+  equilibria through decentralized optimization rather than platform diktat. The mandate achieves
+  its stated goal (legibility) while inverting its functional goal (constraint).
+justification: >
+  Fed primarily by the ride-hailing rebalancing paper (shallow 2026-11-23-when-disclosure-is-compulsory)
+  and seed-565 (Fee Legibility as Collusion Aperture), seed-568 (Gradient Coordination Transparency),
+  and seed-567 (Coordination Legibility as Synchronized Deviation Enabler). These converge on
+  the same mechanism: making protocol parameters computable and legible does not reduce strategic
+  gaming — it redirects it. Distinct from L-014 (Strategic Boundary Concentration) because the
+  focus here is on the *inversion of the mandate's intent* through agentic adoption, not merely
+  clustering at a boundary. Distinct from L-012 (Intervention-Layer Displacement) because the
+  displacement here runs through the transparency mechanism itself, not through prediction formalization.
+examples:
+  - domain: Ride-hailing labor regulation
+    description: EU Platform Work Directive mandates plain-language disclosure of 
+      automated decision parameters to drivers. When those parameters become readable 
+      inputs to LLM-driven driver agents, drivers coordinate rebalancing behavior around 
+      the disclosed parameters rather than deferring to platform allocation — 
+      reconstructing unintended equilibria that the directive was designed to prevent.
+    source: arxiv-2610.41132 (shallow read 2026-11-23)
+  - domain: Network bandwidth pricing
+    description: Transition from informal or opaque coordination to formalized, computable
+      fee schedules creates a legible shared surface that competing ISPs condition pricing
+      strategies on without explicit communication, enabling tacit collusion.
+    source: seed-565
+counterexamples: []
+open_questions: []
+falsification: >
+  A documented case where mandatory disclosure of protocol parameters to optimizing agents resulted
+  in the intended constraint being achieved without producing a new coordination equilibrium
+  around the disclosed parameters — i.e., legibility that did not become a coordination surface.
+references: []
+seeds:
+  - seed-565
+  - seed-567
+  - seed-568
+related:
+  - L-012  # named in this record's prose
+  - L-014 # named in this record's prose
+triggers:
+  advance: >
+    Mechanism confirmed in 2+ independent domains (beyond ride-hailing) where transparency mandates
+    directed at passive human recipients were subsequently adopted by optimizing agentic systems,
+    with documented equilibrium reconstruction in each case.
+  challenge: >
+    A large-scale natural experiment showing that disclosure mandates under agentic conditions
+    produced durable reduction in platform market power without generating measurable coordination
+    around the disclosed parameters.
+history:
+  - date: '2026-11-23'
+    event: created
+    detail: induction sweep — Fed primarily by the ride-hailing rebalancing paper (shallow
+      2026-11-23-when-disclosure-is-compulsory) and seed-565 (Fee Legibility as Collusion 
+      Aperture)…

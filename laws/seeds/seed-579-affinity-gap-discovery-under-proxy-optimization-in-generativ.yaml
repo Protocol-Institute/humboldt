@@ -1,0 +1,17 @@
+id: seed-579
+title: Affinity-Gap Discovery Under Proxy Optimization in Generative Evaluators
+text: When a generative model trained on historical outcome data is deployed as a legible scoring function
+  in a high-stakes domain, it discovers and amplifies correlations in its training distribution that associate
+  particular demographic profiles with lower outcomes, even when those correlations are confounded by
+  measurement error or omitted variables in the original data. The model does not *invent* bias — it *extracts*
+  and *amplifies* dormant statistical patterns. The question is whether certain demographic groups are
+  systematically positioned in the training data as lower-fitness profiles (regardless of true underlying
+  fitness), and whether this effect is amplifiable or suppressible through architectural, training, or
+  prompt-level intervention.
+source: bibliography/shallow-reads/2026-11-23-white-men-without-degrees-receive-the-lowest-ratings-from-la.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-004
+status: open

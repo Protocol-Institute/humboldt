@@ -1,0 +1,18 @@
+id: seed-612
+title: Audit Formalization as Conflict Concealment
+text: When output quality criteria are formalized into computable audit contracts, formally-conflicting
+  verdicts (simultaneous satisfaction and violation of incompatible rules) tend to be absorbed into the
+  protocol as "edge cases" or "uncertainty types" rather than triggering re-examination of the underlying
+  judgment framework. This suggests that formalization increases the tolerance of unresolved interpretive
+  divergence by making conflict into a legible, manageable category—converting a signal of model-protocol
+  misalignment into a tractable data annotation problem. The pattern may generalize to any protocol system
+  where artifact-level conflicts cannot be resolved by stronger evaluation logic, but can be contained
+  by richer classification schemas.
+source: bibliography/shallow-reads/2026-11-23-conflicted-records-typed-adversarial-contracts-for-auditable.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-013
+- L-015
+status: open

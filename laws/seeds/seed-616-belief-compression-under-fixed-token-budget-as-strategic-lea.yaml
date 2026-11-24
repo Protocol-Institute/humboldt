@@ -1,0 +1,16 @@
+id: seed-616
+title: Belief Compression Under Fixed Token Budget as Strategic Leakage Channel
+text: When theory-of-mind reasoning is compressed into a fixed-size continuous latent representation shared
+  across agents, the compression inevitably loses distributional information about partner uncertainty.
+  Under competitive or partially-adversarial conditions, agents can exploit the gap between the compressed
+  token representation and the original partner belief distribution to extract advantage or coordinate
+  implicitly. The fixed budget constraint makes the leakage systematic and exploitable rather than noisy.
+  This may generalize to any protocol that compresses heterogeneous private beliefs into shared legible
+  tensors for efficiency.
+source: bibliography/shallow-reads/2026-11-23-tom2vec-continuous-theory-of-mind-tokens-for-multi-agent-coo.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: motif
+connections:
+- L-017
+status: open

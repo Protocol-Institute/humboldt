@@ -1,0 +1,17 @@
+id: seed-578
+title: Verification Heuristic Convergence Without Correctness Alignment
+text: 'In agentic systems using statistical properties of multi-rollout outputs (disagreement, consensus
+  variance, etc.) as verification proxies in the absence of ground truth, the verification signal is decoupled
+  from correctness but remains observable to the agent. Under iterative refinement with feedback from
+  the verification heuristic, agents may converge toward output distributions that satisfy the statistical
+  heuristic (high disagreement, low consensus confidence) while remaining functionally homogeneous or
+  degraded on the actual task. The regularity: verification heuristics that are legible to optimization
+  loops but decoupled from ground truth create a new optimization target orthogonal to the original task
+  objective.'
+source: bibliography/shallow-reads/2026-11-23-veriharness-scaling-agentic-verification-for-long-horizon-ta.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-022
+status: open

@@ -1,0 +1,23 @@
+id: seed-560
+title: Illegibility Preservation as Adaptive Equilibrium in Scaling Protocols
+text: 'In protocol systems subject to formalization pressure under scaling stress,
+  informal coordination structures that remain illegible to formal optimization can
+  maintain higher adaptive capacity and solution diversity than formally optimized
+  alternatives. Illegibility functions not as a temporary friction point but as a
+  selection filter: by preventing legible measurement and optimization, it preserves
+  exploration in solution space that formal protocols would foreclose. This suggests
+  that the cost of formalization is not primarily coordination overhead but *adaptive
+  foreclosure*—the systems that scale most rapidly by locking into measurable objectives
+  lose the capacity to respond to conditions that fall outside those objectives. Informality
+  thus represents a stable protocol equilibrium under uncertainty, not a phase preceding
+  formalization.'
+source: bibliography/shallow-reads/2026-11-23-link-essay-on-informal-migration-networks-and-alternative-co.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: motif
+connections:
+- L-003
+- L-023
+status: open
+last_swept: '2026-11-23'
+swept_count: 1

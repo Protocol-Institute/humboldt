@@ -1,0 +1,22 @@
+id: seed-568
+title: Gradient Coordination Transparency — Collusion Under Tight Legibility
+text: 'In any iterative optimization loop over a shared legible state space (prices,
+  allocations, parameters), agents with no communication channel and no explicit model
+  of each other converge toward coordinated equilibria at a rate proportional to loop
+  tightness and gradient legibility. The mechanism does not require communication
+  or conspiracy detection; it emerges from the mathematical structure of the optimization
+  landscape itself. This pattern generalizes beyond pricing to any multi-agent system
+  with continuous action spaces, repeated interaction, and feedback signals visible
+  to all players. The implication: **legibility + iteration = spontaneous coordination**,
+  making tight feedback loops a hidden coordination infrastructure.'
+source: bibliography/shallow-reads/2026-11-23-convergence-to-collusion-in-algorithmic-pricing.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: insight
+connections:
+- L-008
+- L-009
+status: promoted
+promoted_to: L-025
+last_swept: '2026-11-23'
+swept_count: 1

@@ -8,7 +8,8 @@ text: 'When competing sellers delegate pricing to a shared AI model, standard "r
 
   via phase transition. The mechanism: high output fidelity (low temperature) increases
 
-  correlation between competitors'' pricing actions, enabling implicit coordination without
+  correlation between competitors'' pricing actions, enabling implicit coordination
+  without
 
   communication. Below a critical fidelity threshold, competitive pricing is the unique
 
@@ -20,15 +21,19 @@ text: 'When competing sellers delegate pricing to a shared AI model, standard "r
 
   deployed for reliability (determinism, reproducibility) function as protocol-level
 
-  coordination mechanisms. This is a Goodhart/F-003 instance at the infrastructure level:
+  coordination mechanisms. This is a Goodhart/F-003 instance at the infrastructure
+  level:
 
-  the "metric" being optimized (output consistency/reliability) produces emergent collusion
+  the "metric" being optimized (output consistency/reliability) produces emergent
+  collusion
 
-  as a side effect. Framed for protocol research: shared protocol infrastructure, when
+  as a side effect. Framed for protocol research: shared protocol infrastructure,
+  when
 
   optimized for fidelity/determinism, can generate coordination outcomes no individual
 
-  participant intended or designed. Evidence quality: high (formal game-theoretic model
+  participant intended or designed. Evidence quality: high (formal game-theoretic
+  model
 
   with bistability proof, mechanism tractable and realistic).'
 source: arxiv-2601.01279.pdf
@@ -40,3 +45,5 @@ connections:
 - CL-002
 - CL-001
 status: open
+last_swept: '2026-11-23'
+swept_count: 1

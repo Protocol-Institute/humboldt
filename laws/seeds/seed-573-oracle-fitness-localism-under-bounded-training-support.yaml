@@ -1,0 +1,22 @@
+id: seed-573
+title: Oracle Fitness Localism Under Bounded Training Support
+text: 'Predictive oracles optimized on historical data achieve high fitness on the
+  training domain (interpolation, within-sample prediction) while remaining orthogonal
+  to fitness on out-of-sample counterfactual queries, even when the underlying mechanism
+  is physically grounded and in-principle deterministic. This gap widens when the
+  counterfactual scenario lies outside the support of the training distribution. In
+  protocol systems where policy makers or agents rely on ML forecasts to guide decisions
+  under novel constraints, this oracle-counterfactual decoupling becomes a hidden
+  failure mode: the protocol appears well-calibrated (high R²) while producing systematically
+  unreliable guidance under intervention. The regularity may generalize to any adaptive
+  protocol component where the optimization pressure (historical data, logged interactions)
+  is misaligned with the deployment distribution (policy shock, strategic deviation).'
+source: bibliography/shallow-reads/2026-11-23-modeling-shipping-emissions-machine-learning-engineering-and.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-004
+status: open
+last_swept: '2026-11-23'
+swept_count: 1

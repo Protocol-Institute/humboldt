@@ -46,7 +46,9 @@ falsification: >
 references: []
 seeds:
   - seed-055
-related: []
+related:
+  - L-004  # named in this record's prose
+  - L-010 # named in this record's prose
 triggers:
   advance: >
     Two or more independent documented cases from different platform types (search, content
@@ -62,3 +64,7 @@ history:
     event: created
     detail: 'induction sweep — seed-055 provides the core empirical observation: a sleep-reminder
       campaign increased late-night engagement by 14.75%, persisted weeks after the campaign…'
+  - date: '2026-11-23'
+    event: edited
+    detail: "related: backfilled L-004, L-010 — ids already named in the record's prose (induction
+      never filled the field)"

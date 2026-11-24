@@ -1,0 +1,18 @@
+id: seed-625
+title: Measurement Drift Invisibility Under Formal Update Cycles
+text: 'In protocol systems where the measurement instrument is itself an adaptive component subject to
+  routine versioning, discontinuities in what is measured are systematically invisible until comparison
+  with frozen baselines reveals non-monotonic reranking. The formal continuity of records (scores, decisions)
+  masks interpretive discontinuity in the standard itself. This drift remains undetected because version
+  transitions are treated as improvements to precision rather than potential changes to what is being
+  evaluated. The mechanism generalizes to any system coupling formal legibility with adaptive measurement:
+  recommendation systems, credit scoring under model updates, safety evaluation under capability shifts—anywhere
+  the standard is delegated to an updatable agent.'
+source: bibliography/shallow-reads/2026-11-23-llm-as-a-judge-version-shift-the-instrument-changed-not-the-.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-013
+- L-015
+status: open

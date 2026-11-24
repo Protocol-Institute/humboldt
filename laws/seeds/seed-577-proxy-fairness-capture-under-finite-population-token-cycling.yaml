@@ -1,0 +1,21 @@
+id: seed-577
+title: Proxy Fairness Capture Under Finite-Population Token Cycling
+text: 'When fairness in a resource-allocation protocol is operationalized as a nonmonetary
+  token balance that agents can accumulate and spend strategically, the proxy fairness
+  metric (equitable token distribution) decouples from agent-experienced fairness
+  under two conditions: (1) agents develop coordination strategies to cycle tokens
+  efficiently among subgroups, and (2) the token system becomes legible enough for
+  agents to predict and exploit token-scarcity periods. In such settings, the protocol
+  may achieve high token-distribution parity while fairness-as-experienced collapses.
+  The mechanism generalizes to any finite-population resource allocation system using
+  accumulated credits as a fairness proxy.'
+source: bibliography/shallow-reads/2026-11-23-token-economy-design-for-fair-and-efficient-highway-congesti.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-004
+- L-006
+status: open
+last_swept: '2026-11-23'
+swept_count: 1

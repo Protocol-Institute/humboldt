@@ -1,0 +1,16 @@
+id: seed-644
+title: Boundary Erosion via Capability Legibility Without Formal Legalization
+text: When a regulated professional boundary is maintained by training-time refusal signals rather than
+  formal legal specification, capability improvements and commercial pressure toward reduced refusals
+  can erode the boundary faster than the governing regime can formally reclassify the activity. The erosion
+  happens via cumulative relaxation of safety constraints ("helpfulness optimization") rather than via
+  explicit legalization or specification of the regulated task, leaving the formal boundary intact while
+  the operational boundary shifts. This creates a stable mismatch between what the law nominally prohibits
+  and what systems operationally perform, with no forcing function for formal governance update.
+source: bibliography/shallow-reads/2026-11-23-auditing-chatbots-for-incursion-into-professional-legal-prac.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-014
+status: open

@@ -1,0 +1,16 @@
+id: seed-624
+title: Legibility Paradox in Value Pluralism Preservation
+text: 'When a protocol makes disagreement visible by analyzing reasoning traces rather than collapsing
+  judgments into scalars, does the protocol actually preserve value pluralism or merely defer its compression?
+  Under optimization pressure, legible reasoning traces may become targets for homogenization (agents
+  learning to produce "acceptable" reasoning patterns) independent of output diversity. The question generalizes:
+  in any system where informality or implicit disagreement is formalized to preserve heterogeneity, formalization
+  itself may create new legibility surfaces for optimization and convergence.'
+source: bibliography/shallow-reads/2026-11-23-knowing-when-to-escalate-disagreement-patterns-for-uncertain.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: question
+connections:
+- L-004
+- L-019
+status: open

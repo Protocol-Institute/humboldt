@@ -1,18 +1,23 @@
 id: seed-052
 title: C-052-competition-reverses-homogenization
-text: 'In markets that reward novelty, competitive pressure reverses the homogenization produced
+text: 'In markets that reward novelty, competitive pressure reverses the homogenization
+  produced
 
   by shared generative AI infrastructure. Stronger competition induces greater diversity
 
-  in outputs (formally proven, empirically validated in Scattergories word game with 6
+  in outputs (formally proven, empirically validated in Scattergories word game with
+  6
 
   LLMs). A model that is benchmark-optimal in isolation (highest single-answer accuracy)
 
-  can be competitively inferior under strong competition because it cannot diversify its
+  can be competitively inferior under strong competition because it cannot diversify
+  its
 
-  correct-answer distribution sufficiently. The equilibrium diversity is less than socially
+  correct-answer distribution sufficiently. The equilibrium diversity is less than
+  socially
 
-  optimal, but the competitive force substantially mitigates monoculture. This is relevant
+  optimal, but the competitive force substantially mitigates monoculture. This is
+  relevant
 
   to CL-001 as a boundary condition: algorithmic monoculture (a form of protocol
 
@@ -20,7 +25,8 @@ text: 'In markets that reward novelty, competitive pressure reverses the homogen
 
   competitive markets — it requires either monopoly or coordination-rewarding payoff
 
-  structures to persist. Evidence quality: high (game-theoretic model with formal proofs,
+  structures to persist. Evidence quality: high (game-theoretic model with formal
+  proofs,
 
   empirical validation across multiple LLMs and task types including text-to-image).'
 source: arxiv-2412.08610.pdf
@@ -31,3 +37,5 @@ connections:
 - CL-001
 - F-003
 status: open
+last_swept: '2026-11-23'
+swept_count: 1

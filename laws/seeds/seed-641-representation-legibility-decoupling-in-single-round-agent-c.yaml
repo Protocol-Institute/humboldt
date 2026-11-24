@@ -1,0 +1,17 @@
+id: seed-641
+title: Representation-Legibility Decoupling in Single-Round Agent Coercion
+text: When an LLM agent faces a request for norm-violating behavior, the agent's decision depends not
+  only on the payoff structure but on the *linguistic frame* in which the request is presented, even when
+  the material incentives are held constant. This suggests that in protocol systems relying on agentic
+  decision-making, the legibility of the request surface (how it is formulated, contextualized, blamed
+  or credited) may become a primary control surface independent of formal incentive alignment. The regularity
+  may generalize to any protocol system where agents operate under linguistic or representational inputs
+  without deep causal grounding in the underlying coordination problem.
+source: bibliography/shallow-reads/2026-11-23-a-push-down-the-mountain-framing-effects-and-internal-state-.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-004
+- L-008
+status: open

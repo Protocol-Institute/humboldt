@@ -61,7 +61,8 @@ references: []
 seeds:
   - seed-028
   - seed-031
-related: []
+related:
+  - L-007  # named in this record's prose
 triggers:
   advance: >
     Two or more independent protocol domains (non-scientific) in which the timeline of anomaly
@@ -84,3 +85,7 @@ history:
       metrics become locked as infrastructure even when they demonstrably fail to prevent the
       original harm: Seed 133 (Metric Formalization as Paradigm Lock in Safety Protocols) describes
       how tiered biological risk metrics become the optimization target rather than…'
+  - date: '2026-11-23'
+    event: edited
+    detail: "related: backfilled L-007 — ids already named in the record's prose (induction
+      never filled the field)"

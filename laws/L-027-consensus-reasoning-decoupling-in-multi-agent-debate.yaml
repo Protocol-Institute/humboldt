@@ -1,0 +1,69 @@
+id: L-027
+title: Consensus-Reasoning Decoupling in Multi-Agent Debate
+slug: consensus-reasoning-decoupling-in-multi-agent-debate
+stage: exploration
+status: active
+origin: discovered
+source: null
+confidence: speculative
+statement: >
+  In multi-agent debate systems, convergence on a shared answer does not entail convergence
+  on shared reasoning: agents can achieve answer-level consensus while their underlying reasoning
+  chains diverge, and standard debate protocols that increase answer agreement can simultaneously
+  decrease reasoning alignment. This decoupling means that consensus-based aggregation provides
+  no robustness against correlated reasoning failures.
+mechanism: >
+  Debate protocols operate on a surface layer (stated answers) while reasoning processes are
+  not directly constrained or compared. Agents under social pressure to converge adopt the majority
+  answer while rationalizing it through their own internal pathways, producing surface consistency
+  over substantive disagreement. The contradiction-reduction mechanism operates on answer tokens,
+  not on reasoning chains — so as contradictions fall, semantic divergence in reasoning can
+  increase. The resulting consensus is structurally hollow: it would not survive perturbation
+  of the answer surface.
+justification: >
+  Directly instantiated by seed-049 (C-049-consensus-reasoning-decoupling): standard debate
+  worsens reasoning alignment while improving answer agreement — contradictions between agents
+  fall while semantic similarity of reasoning chains simultaneously decreases. This is a mechanically
+  specific, counterintuitive regularity. Connects to L-017 (Guidance-Layer Coalescence) but
+  is distinct: L-017 is about shared guidance producing implicit collusion; this law is about
+  surface consensus masking reasoning divergence even without shared guidance. Also connects
+  to seed-073 (Correlated Failure Under Proxy Consensus) but that seed focuses on shared training
+  substrate; this law focuses on the protocol-level decoupling.
+examples:
+  - domain: Multi-agent debate benchmarks
+    description: In MAD systems, standard debate protocols cause answer-level 
+      contradictions between agents to fall (appearing more consistent) while semantic 
+      similarity of their reasoning chains simultaneously decreases — agents adopt shared 
+      answers through divergent reasoning paths.
+    source: seed-049 (C-049-consensus-reasoning-decoupling)
+  - domain: Multi-agent LLM debate (MAD Bench)
+    description: Empirical study with 2,400 questions confirms that consensus in debate 
+      reflects shared exposure rather than independent corroboration; agents change 
+      positions not through verification but through peer influence.
+    source: arxiv-2610.35930 (shallow read 2026-11-23, escalated to deep)
+counterexamples: []
+open_questions: []
+falsification: >
+  A multi-agent debate protocol where measured reasoning alignment monotonically increases alongside
+  answer agreement, with answer convergence causally downstream of reasoning convergence rather
+  than independent of it.
+references: []
+seeds:
+  - seed-049
+  - seed-073
+related:
+  - L-017  # named in this record's prose
+triggers:
+  advance: >
+    Mechanism confirmed with internal probing (not just behavioral measurement) in 2+ independent
+    debate architectures, with explicit evidence that reasoning divergence persists after answer
+    convergence and that the decoupling is protocol-induced rather than model-specific.
+  challenge: >
+    A debate protocol design that achieves answer convergence through a mechanism that provably
+    requires reasoning convergence as a precondition, documented empirically in a multi-agent
+    setting.
+history:
+  - date: '2026-11-23'
+    event: created
+    detail: 'induction sweep — Directly instantiated by seed-049 (C-049-consensus-reasoning-decoupling):
+      standard debate worsens reasoning alignment while improving answer agreement…'

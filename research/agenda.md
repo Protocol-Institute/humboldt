@@ -10,6 +10,32 @@ phase vocabulary and tempo signatures.*
 
 ---
 
+## Current state — 2026-11-23 (Session 42)
+
+> Pre-redesign vocabulary below is still unreconciled (see TODO.md). This block is the live queue.
+
+**27 laws** (L-025–L-027 new tonight, all exploration). 621 open seeds (15 self-sourced
+seeds withdrawn); 561 not yet swept by induction.
+
+Nearest to a transition, in order:
+1. **The Goodhart cluster: L-008 / L-012 / L-022, plus L-025.** These may be three or four
+   records of one law. Run one comparative pass before any of them advances. L-011, L-016
+   and L-019 cite L-004 but, by their own accounts, are not in it. See
+   `plans/supervisor-review-2026-11-23.md`.
+2. **L-012**: the falsification condition tests the wrong claim (outcome payoff rather
+   than displacement of attention). Rewrite it, add the intensity open question, and
+   retrieve Escobar et al. *NEJM* 2020 as a candidate counterexample.
+3. **L-006 automation crux**: the three named papers were already deep-read and don't
+   address it. Do a targeted re-read of arXiv 2402.08128 (the cost of simulation as a
+   coordination device), then find transaction-cost sources that do.
+4. **Assess L-025, L-026, L-027.** L-026 (capability-cooperation inversion) and L-027
+   (consensus-reasoning decoupling) sit near L-009 and L-017 respectively.
+5. **17 new deep-read escalations** (3 Discord, 14 feed), plus the backlog from s38.
+6. **356 Jul–Sep feed items held.** Re-triage with a stricter bar once the 91% shallow
+   rate is understood.
+
+---
+
 ## Current state — 2026-09-22 (session 38)
 
 > **Note:** the buckets below still use the pre-redesign vocabulary (T-/DS-/CL- ids).

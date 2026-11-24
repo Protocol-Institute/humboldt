@@ -1,0 +1,17 @@
+id: seed-646
+title: Component-Level Safety Opacity Under Coordination Integration
+text: In multi-agent protocol systems, safety properties that are robust and legible at the component
+  level (isolated agent) become illegible and can fail catastrophically at the protocol level (agent coordination).
+  The safety property does not compose across agent boundaries because the protocol structure allows agents
+  to condition on each other's outputs, distribute attack surface, or collectively exploit bottlenecks
+  that are individually safe. This suggests that **safety certification of components is fundamentally
+  decoupled from protocol-level safety**, and that protocol-level safety requires structural properties
+  (information confinement, coordination constraints) that cannot be inferred from component behavior
+  alone.
+source: bibliography/shallow-reads/2026-11-23-only-as-safe-as-the-weakest-agent-a-break-that-appears-only-.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-009
+status: open

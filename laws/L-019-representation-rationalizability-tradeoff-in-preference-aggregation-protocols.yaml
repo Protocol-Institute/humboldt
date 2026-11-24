@@ -57,6 +57,14 @@ examples:
       proof of the mechanism L-019 claims, with the additional precision that the tradeoff is
       localized in the embedding's interaction with the dataset's preference cycle structure."
     source: bibliography/deep-reads/arxiv-2606.00291.md
+  - domain: Reward learning (RLHF and DPO)
+    description: Dong, Yu & Poupart (2026) prove a formal lower bound on the excess loss 
+      arising from the tradeoff between representational richness and preference 
+      rationalizability, showing that fine embeddings expose Condorcet cycles that coarse 
+      embeddings hide — and that joint embedding-reward training does not automatically 
+      find the optimum. The tradeoff is a function of the dataset's own cycle geometry, 
+      not a training artifact.
+    source: arxiv-2606.00291 (deep read)
 counterexamples: []
 open_questions: []
 falsification: >
@@ -66,7 +74,9 @@ falsification: >
   dataset-geometry-determined.
 references: []
 seeds: []
-related: []
+related:
+  - L-004  # named in this record's prose
+  - L-011 # named in this record's prose
 triggers:
   advance: >
     Mechanism confirmed in 2+ genuinely independent preference aggregation domains (e.g., RLHF
@@ -89,3 +99,12 @@ history:
       in aggregation protocols: The Dong, Yu & Poupart deep read (arxiv-2606.00291) proves a
       lower bound on the excess loss in reward learning that is a function of the dataset's
       cycle…"
+  - date: '2026-11-23'
+    event: edited
+    detail: "related: backfilled L-004, L-011 — ids already named in the record's prose (induction
+      never filled the field)"
+  - date: '2026-11-23'
+    event: evidence
+    detail: 'Whether the representation-rationalizability tradeoff has a formal lower bound
+      and extends beyond RLHF to DPO: Dong, Yu & Poupart (2026) prove a formal lower bound on
+      the excess loss arising from the tradeoff between representational richness and preference…'

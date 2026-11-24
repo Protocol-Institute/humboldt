@@ -56,6 +56,14 @@ examples:
       levels. This is a clean empirical instantiation of L-021's endogenous risk mechanism in
       a non-AI domain, confirming the mechanism is not AI-specific."
     source: bibliography/deep-reads/arxiv-2606.07873.md
+  - domain: Vehicle-to-vehicle hazard communication
+    description: 'Liu, Brown & Paarporn (2026) demonstrate that V2V warning adoption is nonmonotonic:
+      at intermediate adoption levels, drivers receiving hazard warnings rationally increase
+      reckless driving (since they expect warnings to arrive if conditions deteriorate), causing
+      accident probability to rise above the no-V2V baseline before falling at high adoption.
+      This directly instantiates the endogenous risk feedback mechanism of L-021 in a physical
+      transportation domain.'
+    source: arxiv-2606.07873 (deep read)
 counterexamples: []
 open_questions: []
 falsification: >
@@ -65,7 +73,8 @@ falsification: >
   cost structure is appropriate.
 references: []
 seeds: []
-related: []
+related:
+  - L-010  # named in this record's prose
 triggers:
   advance: >
     Mechanism confirmed in 2+ genuinely independent safety warning domains (e.g., traffic systems
@@ -88,3 +97,12 @@ history:
       can increase aggregate risk when agents condition safety-critical behavior on risk signals:
       The V2V paper (arxiv-2606.07873) demonstrates the mechanism formally: V2V warnings reduce
       perceived accident probability for equipped drivers, who respond by…'
+  - date: '2026-11-23'
+    event: edited
+    detail: "related: backfilled L-010 — ids already named in the record's prose (induction
+      never filled the field)"
+  - date: '2026-11-23'
+    event: evidence
+    detail: 'Whether accurate risk warnings to more agents can paradoxically increase aggregate
+      risk through behavioral feedback: Liu, Brown & Paarporn (2026) demonstrate that V2V warning
+      adoption is nonmonotonic: at intermediate adoption levels, drivers receiving hazard warnings…'

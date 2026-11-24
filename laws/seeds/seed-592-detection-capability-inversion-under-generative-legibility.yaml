@@ -1,0 +1,17 @@
+id: seed-592
+title: Detection-Capability Inversion Under Generative Legibility
+text: 'In security or authenticity protocols where the detection function is public or learnable (as in
+  social media bot detection), and where the generation capability can be rapidly retrained against observed
+  detection signals, the marginal cost of evasion becomes sub-linear in detection sophistication. The
+  asymmetry is sharpest when generation is learnable and automatable (e.g., via LLMs) while detection
+  requires labeled data, retraining cycles, and institutional deployment windows. This inverts the traditional
+  attacker-defender cost ratio and may be a special case of a broader law about legibility-driven cost
+  inversion in competitive protocol races. Worth tracking whether this appears in other domains: malware
+  detection, deepfake detection, misinformation flagging.'
+source: bibliography/shallow-reads/2026-11-23-social-bot-detection-in-the-age-of-chatgpt-challenges-and-op.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-013
+status: open

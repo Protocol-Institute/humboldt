@@ -1,6 +1,7 @@
 id: seed-057
 title: C-057-compliance-by-construction-vs-guardrail
-text: 'The paper proposes "compliance-by-construction" as a complementary paradigm to
+text: 'The paper proposes "compliance-by-construction" as a complementary paradigm
+  to
 
   guardrail-based monitoring: rather than monitoring for violations after the fact,
 
@@ -37,3 +38,5 @@ connections:
 - CL-001
 - C-046
 status: open
+last_swept: '2026-11-23'
+swept_count: 1

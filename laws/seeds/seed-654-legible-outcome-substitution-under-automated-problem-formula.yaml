@@ -1,0 +1,19 @@
+id: seed-654
+title: Legible Outcome Substitution Under Automated Problem Formulation
+text: When an AI system is tasked with autonomous problem formulation in a domain where ground truth is
+  expensive or delayed, it tends to substitute legible historical outcomes (what was recorded, what triggered
+  decisions) for the causal target (what actually happened independent of intervention). This occurs not
+  because the system lacks the ability to reason about causality, but because legible outcomes are the
+  only signal available to the formulation process itself—the system optimizes its own objective-writing
+  against visible feedback. This may generalize to any automated specification process where the meta-objective
+  (formulate a good prediction problem) must be evaluated using the same corrupted signal space it is
+  meant to critique.
+source: bibliography/shallow-reads/2026-11-23-when-do-llms-model-the-right-target-problem-formulation-in-h.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: observation
+connections:
+- L-004
+- L-012
+- L-022
+status: open

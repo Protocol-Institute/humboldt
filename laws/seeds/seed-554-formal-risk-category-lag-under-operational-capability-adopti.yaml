@@ -1,0 +1,22 @@
+id: seed-554
+title: Formal Risk Category Lag Under Operational Capability Adoption
+text: 'In institutional governance systems with formalized risk disclosure and control
+  hierarchies, adoption of a new operational capability (AI in safety-critical roles)
+  can proceed without corresponding update to the formal risk categories used in audit,
+  disclosure, and control frameworks. The gap persists even under legible evidence
+  (documented AI deployment, capability demonstrations) because risk categorization
+  is embedded in formal templates and interpretive precedent rather than responsive
+  to operational reality. This represents a failure mode distinct from L-013: not
+  anomaly *tolerance* within a paradigm, but *categorical blindness*—the new risk
+  category is not yet legible to the formal system. Track whether this resolves through
+  crisis (triggering sudden reclassification) or through gradual normalization (new
+  category eventually gets formalized).'
+source: bibliography/shallow-reads/2026-11-23-idea-organizations-outside-ai-labs-are-not-yet-treating-ai-a.md
+origin: shallow-read
+surfaced: '2026-11-23'
+type: motif
+connections:
+- L-013
+status: open
+last_swept: '2026-11-23'
+swept_count: 1
